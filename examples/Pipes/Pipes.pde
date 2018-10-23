@@ -1,5 +1,6 @@
 // import additional processing libraries
 import processing.sound.*;
+import eu.barkmin.processing.scratch.*;
 
 ScratchStage stage;
 ArrayList<Pen> pens = new ArrayList();
