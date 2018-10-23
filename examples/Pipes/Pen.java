@@ -1,3 +1,5 @@
+import eu.barkmin.processing.scratch.*;
+
 public class Pen extends ScratchSprite {  
   
   private boolean finished = false;
