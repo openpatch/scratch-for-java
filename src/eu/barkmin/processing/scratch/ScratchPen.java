@@ -63,7 +63,7 @@ public class ScratchPen {
     }
 
     public void changeColor(double c) {
-        this.changeColor((float) c);
+        this.color.changeColor((float) c);
     }
 
     /**
