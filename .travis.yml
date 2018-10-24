@@ -1,6 +1,11 @@
 language: java
 install: ant -f resources/build.xml
 
+before_install:
+  - wget http://central.maven.org/maven2/org/processing/core/3.3.7/core-3.3.7.jar
+  - sudo mkdir -p /opt/processing/core/library/
+  - sudo mv core-3.3.7.jar /opt/processing/core/library/core.jar
+
 deploy:
   provider: pages
   skip-cleanup: true
