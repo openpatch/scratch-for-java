@@ -52,6 +52,7 @@
 	<property name="project.reference" location="reference"/>
 	<property name="project.dist" location="distribution"/>
 	<property name="project.dist.version" location="distribution/${project.name}-${library.version}"/>
+	<property name="project.dist.latest" location="distribution/${project.name}-latest"/>
 	<property name="install.source" location="resources/README.md"/>
 	<property name="install.destination" location="${project.dist.version}/README.md"/>
 	<property name="libprops.source" location="resources/library.properties"/>
@@ -114,6 +115,7 @@ ${line}
 		<antcall target="generate.web" />
 	  	<antcall target="generate.zip" />	
 	  	<delete dir="${project.tmp}"/>
+      <antcall target="copy.web.latest" />
 	</target>
 	
 	
@@ -367,7 +369,9 @@ ${line}
           </if>
     </target>   
     
-	
+    <target name="copy.web.latest">
+      <copydir src="${project.dist.version}" dest="${project.dist.latest}" />
+    </target>
 	
 	<target name="clean" depends="library.run">
 		<delete dir="${project.bin}"/>
