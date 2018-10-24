@@ -53,6 +53,7 @@
 	<property name="project.dist" location="distribution"/>
 	<property name="project.dist.version" location="distribution/${project.name}-${library.version}"/>
 	<property name="project.dist.latest" location="distribution/${project.name}-latest"/>
+	<property name="project.travis" location="resources/travis.yml"/>
 	<property name="install.source" location="resources/README.md"/>
 	<property name="install.destination" location="${project.dist.version}/README.md"/>
 	<property name="libprops.source" location="resources/library.properties"/>
@@ -106,16 +107,17 @@ ${line}
 		<antcall target="generate.structure"><param name="folder" value="library"/></antcall>
 		<antcall target="generate.source" />
 		<antcall target="compile" />
-	  	<antcall target="generate.jar"><param name="folder" value="library"/></antcall>
-	  	<antcall target="generate.javadoc" />
+    <antcall target="generate.jar"><param name="folder" value="library"/></antcall>
+    <antcall target="generate.javadoc" />
 		<antcall target="generate.libprops" />
 		<antcall target="copyToSketchbook"><param name="folder" value="libraries"/></antcall>
 		<antcall target="generate.distribution" />
 		<antcall target="generate.install.library" />
 		<antcall target="generate.web" />
-	  	<antcall target="generate.zip" />	
-	  	<delete dir="${project.tmp}"/>
-      <antcall target="copy.web.latest" />
+    <antcall target="generate.zip" />	
+    <delete dir="${project.tmp}"/>
+    <antcall target="copy.web.latest" />
+    <antcall target="generate.travis" />
 	</target>
 	
 	
@@ -369,9 +371,16 @@ ${line}
           </if>
     </target>   
     
-    <target name="copy.web.latest">
-      <copydir src="${project.dist.version}" dest="${project.dist.latest}" />
-    </target>
+  <target name="copy.web.latest">
+    <copydir src="${project.dist.version}" dest="${project.dist.latest}" />
+  </target>
+
+  <target name="generate.travis">
+    <copy file="${project.travis}" tofile=".travis.yml"/>
+    <replaceregexp file=".travis.yml" match="##tested.processingVersion##" replace="${tested.processingVersion}" flags="g" />
+    <replaceregexp file=".travis.yml" match="##tested.soundVersion##" replace="${tested.soundVersion}" flags="g" />
+  </target>
+
 	
 	<target name="clean" depends="library.run">
 		<delete dir="${project.bin}"/>
