@@ -3,11 +3,11 @@ language: java
 script: ant -f resources/build.xml
 
 before_install:
-  - wget http://central.maven.org/maven2/org/processing/core/3.2.3/core-3.2.3.jar
+  - wget http://central.maven.org/maven2/org/processing/core/##tested.processingVersion##/core-##tested-processingVersion##.jar
   - sudo mkdir -p /opt/processing/core/library/
-  - sudo mv core-3.2.3.jar /opt/processing/core/library/core.jar
+  - sudo mv core-##tested.processingVersion##.jar /opt/processing/core/library/core.jar
   - mkdir -p /home/travis/sketchbook/libraries
-  - wget https://github.com/processing/processing-sound/releases/download/v2.0.2/sound.zip
+  - wget https://github.com/processing/processing-sound/releases/download/v##tested.soundVersion##/sound.zip
   - unzip sound.zip -d /home/travis/sketchbook/libraries/sound
 
 deploy:
