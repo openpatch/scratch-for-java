@@ -7,7 +7,7 @@ before_install:
   - sudo mv core-3.3.7.jar /opt/processing/core/library/core.jar
   - mkdir -p /home/travis/sketchbook/libraries
   - wget https://github.com/processing/processing-sound/releases/download/v2.0.2/sound.zip
-  - tar -xf sound.zip -C /home/travis/sketchbook/libraries/sound
+  - unzip sound.zip -d /home/travis/sketchbook/libraries/sound
 
 deploy:
   provider: pages
