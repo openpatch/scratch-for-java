@@ -247,7 +247,7 @@ An example with heavy use of the ScratchPen. It also plays an sound file in the 
 
 Source Code: https://github.com/mikebarkmin/processing-library-scratch/tree/master/examples/RainbowVine
 
-An example which makes use mouse events.
+An example which makes use of mouse events.
 
 ![rainbow vine example](web/assets/rainbow_vine.gif)
 
