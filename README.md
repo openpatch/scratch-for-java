@@ -1,100 +1,289 @@
-The following describes how to set up a Processing Library project in Eclipse and build it successfully, and to make your Library ready for distribution.
+# Processing Library Scratch
 
-## Import to Eclipse
+To ease the transition from the block-based programming environment
+[Scratch](scratch.mit.edu) to [Processing](https://processing.org/) this
+library was created. Therefore the core elements of Scratch are remodelled. 
 
-There are two options to import the template project into Eclipse: using a Git [fork](https://help.github.com/articles/fork-a-repo) or using a downloaded package. If you are not familiar with Git or GitHub, you should opt for the downloaded package.
+## Elements
 
-### Option A: GitHub
+### ScratchStage
 
-1. Fork the template repository to use as a starting point.
-  * Navigate to https://github.com/processing/processing-library-template in your browser.
-  * Click the "Fork" button in the top-right of the page.
-  * Once your fork is ready, open the new repository's "Settings" by clicking the link in the menu bar on the right.
-  * Change the repository name to the name of your Library and save your changes.
-  * NOTE: GitHub only allows you to fork a project once. If you need to create multiple forks, you can follow these [instructions](https://beeznest.wordpress.com/2013/12/26/creating-multiple-forks-using-upstream-branches/).
-1. Clone your new repository to your Eclipse workspace.
-  * Open Eclipse and select the File → Import... menu item.
-  * Select Git → Projects from Git, and click "Next >".
-  * Select "URI" and click "Next >". 
-  * Enter your repository's clone URL in the "URI" field. The remaining fields in the "Location" and "Connection" groups will get automatically filled in.
-  * Enter your GitHub credentials in the "Authentication" group, and click "Next >".
-  * Select the `master` branch on the next screen, and click "Next >".
-  * The default settings on the "Local Configuration" screen should work fine, click "Next >".
-  * Make sure "Import existing projects" is selected, and click "Next >".
-  * Eclipse should find and select the `processing-library-template` automatically, click "Finish".
-1. Rename your Eclipse project.
-  * In the Package Explorer, right-click (ctrl-click) on the folder icon of the `processing-library-template` project, and select Refactor → Rename... from the menu that pops up. 
-  * Give the project the name of your Library, and click "OK".
-  
-### Option B: Downloaded Package
+Usage: `import eu.barkmin.processing.scratch.ScratchStage`
 
-1. Download the latest Eclipse template from [here](https://github.com/processing/processing-library-template/releases). **Don't unzip the ZIP file yet.**
-1. Create a new Java project in Eclipse. 
-  * From the menubar choose File → New → Java Project. 
-  * Give the project the name of your Library. 
-  * Click "Finish".
-1. Import the template source files.
-  * Right-click (ctrl-click) onto the folder icon of your newly created project in the Package Explorer and select "Import..." from the menu that pops up. 
-  * Select General → Archive File, and click "Next >".
-  * Navigate to the ZIP file you downloaded earlier in step 1, and click "Finish".
+API: https://www.barkmin.eu/processing-library-scratch/reference/eu/barkmin/processing/scratch/ScratchStage.html
 
-## Set Up and Compile
+Source Code: https://github.com/mikebarkmin/processing-library-scratch/blob/master/src/eu/barkmin/processing/scratch/ScratchStage.java
 
-1. Add Processing to the project build path.
-  * Open your project's "Properties" window. 
-  * Under "Java Build Path", select the "Libraries" tab and then "Add External JARs...". 
-  * Locate and add Processing's `core.jar` to your build path. It is recommended that a copy of `core.jar` is located in your Eclipse workspace in a `libs` folder. If the `libs` folder does not exist yet, create it. Read the [section below](#AddingJARs) regarding where to find the `core.jar` file.
-  * Confirm the setup with "OK".
-1. Edit the Library properties.
-  * Open the `resources` folder inside of your Java project and double-click the `build.properties` file. You should see its contents in the Eclipse editor. 
-  * Edit the properties file, making changes to items 1-4 so that the values and paths are properly set for your project to compile. A path can be relative or absolute.
-  * Make changes to items under 5. These are metadata used in the automatically generated HTML, README, and properties documents.
-1. Compile your Library using Ant.
-  * From the menu bar, choose Window → Show View → Ant. A tab with the title "Ant" will pop up on the right side of your Eclipse editor. 
-  * Drag the `resources/build.xml` file in there, and a new item "ProcessingLibs" will appear. 
-  * Press the "Play" button inside the "Ant" tab.
-1. BUILD SUCCESSFUL. The Library template will start to compile, control messages will appear in the console window, warnings can be ignored. When finished it should say BUILD SUCCESSFUL. Congratulations, you are set and you can start writing your own Library by making changes to the source code in folder `src`.
-1. BUILD FAILED. In case the compile process fails, check the output in the console which will give you a closer idea of what went wrong. Errors may have been caused by
-  * Incorrect path settings in the `build.properties` file.
-  * Error "Javadoc failed". if you are on Windows, make sure you are using a JDK instead of a JRE in order to be able to create the Javadoc for your Library. JRE does not come with the Javadoc application, but it is required to create Libraries from this template.
+#### Initialization
 
-After having compiled and built your project successfully, you should be able to find your Library in Processing's sketchbook folder, examples will be listed in Processing's sketchbook menu. Files that have been created for the distribution of the Library are located in your Eclipse's `workspace/yourProject/distribution` folder. In there you will also find the `web` folder which contains the documentation, a ZIP file for downloading your Library, a folder with examples as well as the `index.html` and CSS file.
+Before you can use any of the class provided by this library be sure to
+initialize the ScratchStage. You only need to place this statement
+`ScratchStage.init(this)` in your setup function. A minimal example could look like this:
 
-To distribute your Library please refer to the [Library Guidelines](https://github.com/processing/processing/wiki/Library-Guidelines).
+```java
+import eu.barkmin.processing.scratch.*;
 
-## Source code
+void setup() {
+  ScratchStage.init(this);
+}
 
-If you want to share your Library's source code, we recommend using an online repository available for free at [GitHub](https://github.com/).
+void draw() {
+}
+```
 
-## <a name='AddingJARs'/>Adding core.jar and other .jar files to your classpath</a>
+#### Looks
 
-The `core.jar` file contains the core classes of Processing and has to be part of your classpath when building a Library. On Windows and Linux, this file is located in the Processing distribution folder inside a folder named `lib`. On Mac OS X, right-click the Processing.app and use "Show Package Contents" to see the guts. The `core.jar` file is inside Contents → Resources → Java. For further information about the classes in `core.jar`, you can see the source [here](http://code.google.com/p/processing/source/browse/trunk/processing#processing/core) and the developer documentation [here](http://processing.googlecode.com/svn/trunk/processing/build/javadoc/core/index.html).
+| Scratch | Processing |
+| :-: | :-: |
+| ![stage switch backdrop to](web/assets/stage_switch_backdrop_to.png) | `stage.switchBackdrop("backdrop1")` |
+| ![stage next backdrop](web/assets/stage_next_backdrop.png) | `stage.nextBackdrop()` |
+| ![stage set color](web/assets/stage_set_color.png) | `stage.setTint(0)` |
+| ![stage change color](web/assets/stage_change_color_by.png) | `stage.changeTint(25)` |
+| ![stage set ghost](web/assets/stage_set_ghost.png) | `stage.setTransparency(0)` |
+| ![stage change ghost](web/assets/stage_change_ghost_by.png) | `stage.changeTransparency(25)` |
+| ![stage backdrop name](web/assets/stage_backdrop_name.png) | `stage.getCurrentBackdropName()` |
+| ![stage backdrop index](web/assets/stage_backdrop_number.png) | `stage.getCurrentBackdropIndex()` |
 
-If you created a `libs` folder as described above, put the libraries you need to add to your classpath in there. In the "Properties" of your Java project, navigate to Java Build Path → Libraries, and click "Add External JARs...". Select the `.jar` files from the `libs` folder that are required for compiling your project. Adjust the `build.xml` file accordingly.
+To add a new backdrop call `stage.addBackdrop("newBackdrop",
+"path/to/newBackdrop.png");`. Afterwards you can swith to the backdrop by calling
+`stage.switchBackdrop("newBackdrop");`.
 
-The `libs` folder is recommended but not a requirement, nevertheless you need to specify where your `.jar` files are located in your system in order to add them to the classpath.
 
-In case a Library depends on system libraries, put these dependencies next to the `.jar` file. For example, Processing's `opengl.jar` Library depends on JOGL hence the DLLs (for Windows) or jnilibs (for OS X) have to be located next to the `opengl.jar` file.
+#### Sound
 
-## What is the difference between JDK and JRE?
+When you work with sound you need to install
+[processing-sound](https://processing.org/reference/libraries/sound/) and need
+to import the library in your main `.pde` file. `import processing.sound.*;`
 
-JDK stands for Java Development Kit whereas JRE stands for Java Runtime Environment. For developers it is recommended to work with a JDK instead of a JRE since more Java development related applications such as Javadoc are included. Javadoc is a requirement to properly compile and document a Processing Library as described on the guidelines page.
+| Scratch | Processing |
+| :-: | :-: |
+| ![sound play](web/assets/sound_play.png) | `stage.play("Meow");` |
+| ![sound stop all](web/assets/sound_stop_all.png) | `stage.stopAllSounds();` |
 
-You can have both a JDK and a JRE installed on your system. In Eclipse you need to specify which one you want to use.
+To add a new sound call `stage.addSound("newSound", "path/to/newSound.wav");`.
+Afterwards you can play the sound by calling `stage.playSound("newSound");`.
 
-## The JRE System Library
+Hint: On my notebook I was not able to playback mp3 files, therefore I
+converted them to wav files with [SoundConverter](http://soundconverter.org/).
 
-This primarily affects Windows and Linux users (because the full JDK is installed by default on Mac OS X). It is recommended that you use the JDK instead of a JRE. The JDK can be downloaded from [Oracle's download site](http://www.oracle.com/technetwork/java/javase/downloads/index.html). Also see the [Java Platform Installation page](http://www.oracle.com/technetwork/java/javase/index-137561.html), which contains useful information.
+### ScratchSprite
 
-To change the JRE used to compile your Java project:
+Usage: `import eu.barkmin.processing.scratch.ScratchSprite`
 
-1. Open the properties of your project from the menu Project → Properties. Select "Java Build Path" and in its submenu, click on the "Libraries" tab.
-1. A list of JARs and class folders in the build path will show up. In this list you can find the JRE System Library that is used to compile your code. Remove this JRE System library.
-1. Click "Add Library...". In the popup window, choose "JRE System Library" and press "Next".
-1. Select an alternate JRE from the pull-down menu or click and modify the "Installed JREs". Confirm with "Finish" and "OK". 
+API: https://www.barkmin.eu/processing-library-scratch/reference/eu/barkmin/processing/scratch/ScratchSprite.html
 
-## Compiling with Ant and javadoc
+Source Code: https://github.com/mikebarkmin/processing-library-scratch/blob/master/src/eu/barkmin/processing/scratch/ScratchSprite.java
 
-Ant is a Java-based build tool. For [more information](http://ant.apache.org/faq.html#what-is-ant) visit the [Ant web site](http://ant.apache.org/). Ant uses a file named `build.xml` to store build settings for a project.
+In Scratch sprites are the main actors. Every sprite has a custom set of
+costumes and sounds, which could be dynamicly changed. Most of the
+functionality which sprites in Scratch have were tried to reimplement in
+processing.
 
-Javadoc is an application that creates an HTML-based API documentation of Java code. You can check for its existence by typing `javadoc` on the command line. On Mac OS X, it is installed by default. On Windows and Linux, installing the JDK will also install the Javadoc tool. 
+#### Creation
+
+```java
+import eu.barkmin.processing.scratch.*;
+
+CatSprite myCat;
+
+void setup() {
+  size(800, 600);
+  ScratchStage.init(this);
+	myCat = new CatSprite();
+}
+
+void draw() {
+	myCat.draw();
+}
+
+// Define a class Cat 
+class CatSprite extends ScratchSprite {
+	CatSprite() {
+		super("cat", "sprites/cat.png");	
+		this.setOnEdgeBounce(true);
+	}
+	void draw() {
+    super.draw();
+		this.move(2);
+	}
+}
+```
+
+#### Motion
+
+| Scratch | Processing |
+| :-: | :-: |
+| ![sprite set x to](web/assets/sprite_set_x_to.png) | `sprite.setX(0);` |
+| ![sprite change x by](web/assets/sprite_change_x_by.png) | `sprite.changeX(10);` |
+| ![sprite set y to](web/assets/sprite_set_y_to.png) | `sprite.setY(0);` |
+| ![sprite change y by](web/assets/sprite_change_y_by.png) | `sprite.changeY(10);` |
+| ![sprite go to](web/assets/sprite_go_to.png) | `sprite.setPosition(0, 0);` |
+| ![sprite move](web/assets/sprite_move_steps.png) | `sprite.move(10);` |
+| ![sprite point in direction](web/assets/sprite_point_in_direction.png) | `sprite.setRotation(90);` |
+| ![sprite turn left](web/assets/sprite_turn_left.png) | `sprite.turnLeft(15);` |
+| ![sprite turn right](web/assets/sprite_turn_right.png) | `sprite.turnRight(15);` |
+| ![sprite direction](web/assets/sprite_direction.png) | `sprite.getRotation();` |
+| ![sprite on edge bounce](web/assets/sprite_if_on_edge_bounce.png) | `sprite.setOnEdgeBounce(true);` |
+| ![sprite x](web/assets/sprite_x_positon.png) | `sprite.getX();` |
+| ![sprite y](web/assets/sprite_y_position.png) | `sprite.getY();` |
+
+#### Looks
+
+| Scratch | Processing |
+| :-: | :-: |
+| ![sprite show](web/assets/sprite_show.png) | `sprite.show();` |
+| ![sprite hide](web/assets/sprite_hide.png) | `sprite.hide();` |
+| ![srpite switch costume](web/assets/sprite_switch_costume_to.png) | `sprite.switchCostume("costume1");` |
+| ![sprite next costume](web/assets/sprite_next_costume.png) | `sprite.nextCostume();` |
+| ![sprite set color](web/assets/sprite_set_color_to.png) | `sprite.setTint(0);` |
+| ![sprite change color by](web/assets/sprite_change_color_by.png) | `sprite.changeTint(25);` |
+| ![sprite set ghost](web/assets/sprite_set_ghost_to.png) | `sprite.setTransparency(0);` |
+| ![sprite change ghost by](web/assets/sprite_change_ghost.png) | `sprite.changeTransparency(25);` |
+| ![sprite set size](web/assets/sprite_set_size_to.png) | `sprite.setSize(100);` | 
+| ![sprite costume name](web/assets/sprite_costume_name.png) | `sprite.getCurrentCostumeName();` |
+| ![sprite costume number](web/assets/sprite_costume_number.png) | `sprite.getCurrentCostumeIndex();` |
+| ![sprite size](web/assets/sprite_size.png) | `sprite.getSize();` |
+
+To add a new costume call `sprite.addCostume("newCostume",
+"path/to/newCostume.png");`. Afterwards you can swith to the costume by calling
+`sprite.switchCostume("newCostume");`.
+
+#### Sound
+
+When you work with sound you need to install
+[processing-sound](https://processing.org/reference/libraries/sound/) and need
+to import the library in your main `.pde` file. `import processing.sound.*;`
+
+| Scratch | Processing |
+| :-: | :-: |
+| ![sound play](web/assets/sound_play.png) | `sprite.play("Meow");` |
+| ![sound stop all](web/assets/sound_stop_all.png) | `sprite.stopAllSounds();` |
+
+To add a new sound call `sprite.addSound("newSound", "path/to/newSound.wav");`.
+Afterwards you can play the sound by calling `sprite.playSound("newSound");`.
+
+Hint: On my notebook I was not able to playback mp3 files, therefore I
+converted them to wav files with [SoundConverter](http://soundconverter.org/).
+
+### ScratchPen
+
+Usage: `import eu.barkmin.processing.scratch.ScratchPen`
+
+API: https://www.barkmin.eu/processing-library-scratch/reference/eu/barkmin/processing/scratch/ScratchPen.html
+
+Source Code: https://github.com/mikebarkmin/processing-library-scratch/blob/master/src/eu/barkmin/processing/scratch/ScratchPen.java
+
+In Scratch every sprite can use a pen to draw lines, therefore every
+ScratchSprite object has an pen assoziated with it. Through a similiar api the
+pen can be modified.
+
+| Scratch | Processing |
+| :-:     | :-:        |
+| ![pen up](web/assets/pen_pen_up.png) | `sprite.getPen().up();` |
+| ![pen down](web/assets/pen_pen_down.png) | `sprite.getPen().down();` |
+| ![pen set color to](web/assets/pen_set_pen_color_to.png) | `sprite.getPen().setColor(50);` |
+| ![pen change color by](web/assets/pen_change_pen_color_by.png) | `sprite.getPen().changeColor(1);` |
+| ![pen set transparency to](web/assets/pen_set_pen_transparency_to.png) | `sprite.getPen().setTransparency(50);` |
+| ![pen change transparency by](web/assets/pen_change_pen_transparency_by.png) | `sprite.getPen().changeTransparency(1);` |
+| ![pen set size to](web/assets/pen_set_pen_size_to.png) | `sprite.getPen().setSize(50);` |
+| ![pen change size by](web/assets/pen_change_pen_size_by.png) | `sprite.getPen().changeSize(1);` |
+| ![pen erase all](web/assets/pen_erase_all.png) | `stage.eraseAll();` |
+
+### ScratchSound (internally)
+
+Usage: `import eu.barkmin.processing.scratch.ScratchSound`
+
+API: https://www.barkmin.eu/processing-library-scratch/reference/eu/barkmin/processing/scratch/ScratchSound.html
+
+Source Code: https://github.com/mikebarkmin/processing-library-scratch/blob/master/src/eu/barkmin/processing/scratch/ScratchSound.java
+
+### ScratchImage (internally)
+
+Usage: `import eu.barkmin.processing.scratch.ScratchImage`
+
+API: https://www.barkmin.eu/processing-library-scratch/reference/eu/barkmin/processing/scratch/ScratchImage.html
+
+Source Code: https://github.com/mikebarkmin/processing-library-scratch/blob/master/src/eu/barkmin/processing/scratch/ScratchImage.java
+
+### ScratchColor (internally)
+
+Usage: `import eu.barkmin.processing.scratch.ScratchColor`
+
+API: https://www.barkmin.eu/processing-library-scratch/reference/eu/barkmin/processing/scratch/ScratchColor.html
+
+Source Code: https://github.com/mikebarkmin/processing-library-scratch/blob/master/src/eu/barkmin/processing/scratch/ScratchColor.java
+
+Scratch makes it easy to work with colors on the
+[hsl](https://en.wikipedia.org/wiki/HSL_and_HSV) color spectrum. To achive a
+similar behaviour the class ScratchColor was created.
+
+## Examples
+
+### Cat
+
+Source Code: https://github.com/mikebarkmin/processing-library-scratch/tree/master/examples/Cat
+
+An example with a simple one file setup.
+
+![cat example](web/assets/cat.gif)
+
+### Robot
+
+Source Code: https://github.com/mikebarkmin/processing-library-scratch/tree/master/examples/Robot
+
+An example with a class in another file.
+
+![robot example](web/assets/robot.gif)
+
+### Pipes
+
+Source Code: https://github.com/mikebarkmin/processing-library-scratch/tree/master/examples/Pipes
+
+An example with heavy use of the ScratchPen. It also plays an sound file in the background.
+
+![pipes example](web/assets/pipes.gif)
+
+## Missing
+
+* blocks which are not listed above are currently missing
+* sprites can not sense something. E.g.: a color or another sprite
+* sprites can not speak or thing
+
+## How to install Scratch
+
+### Install with the Contribution Manager
+
+Add contributed Libraries by selecting the menu item _Sketch_ → _Import Library..._ → _Add Library..._ This will open the Contribution Manager, where you can browse for Scratch, or any other Library you want to install.
+
+Not all available Libraries have been converted to show up in this menu. If a Library isn't there, it will need to be installed manually by following the instructions below.
+
+### Manual Install
+
+Contributed Libraries may be downloaded separately and manually placed within the `libraries` folder of your Processing sketchbook. To find (and change) the Processing sketchbook location on your computer, open the Preferences window from the Processing application (PDE) and look for the "Sketchbook location" item at the top.
+
+By default the following locations are used for your sketchbook folder: 
+  * For Mac users, the sketchbook folder is located inside `~/Documents/Processing` 
+  * For Windows users, the sketchbook folder is located inside `My Documents/Processing`
+
+Download Scratch from https://github.com/mikebarkmin/processing-library-scratch
+
+Unzip and copy the contributed Library's folder into the `libraries` folder in the Processing sketchbook. You will need to create this `libraries` folder if it does not exist.
+
+The folder structure for Library Scratch should be as follows:
+
+```
+Processing
+  libraries
+    Scratch
+      examples
+      library
+        Scratch.jar
+      reference
+      src
+```
+             
+Some folders like `examples` or `src` might be missing. After Library Scratch has been successfully installed, restart the Processing application.
+
+### Troubleshooting
+
+If you're having trouble, have a look at the [Processing Wiki](https://github.com/processing/processing/wiki/How-to-Install-a-Contributed-Library) for more information, or contact the author [Mike Barkmin](http://barkmin.eu).
