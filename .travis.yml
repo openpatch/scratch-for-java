@@ -1,5 +1,6 @@
 language: java
-install: ant -f resources/build.xml
+
+script: ant -f resources/build.xml
 
 before_install:
   - wget http://central.maven.org/maven2/org/processing/core/3.3.7/core-3.3.7.jar
