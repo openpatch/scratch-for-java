@@ -2,7 +2,6 @@ import eu.barkmin.processing.scratch.*;
 
 ScratchStage stage;
 
-ArrayList<ScratchSprite> sprites = new ArrayList();
 VineSprite vine;
 
 void setup() {
@@ -10,30 +9,41 @@ void setup() {
   ScratchStage.init(this);
   stage = ScratchStage.getInstance();
   stage.setColor(0, 0, 0);
+  
   vine = new VineSprite();
-  sprites.add(vine);
 }
 
 void draw() {
-  for(int i = 0; i < sprites.size(); i++) {
-    sprites.get(i).draw();
-  }
-  sprites.add(new LeafSprite(vine));
+  vine.draw(); 
 }
 
 class VineSprite extends ScratchSprite {
+  
+  ArrayList<LeafSprite> leafs = new ArrayList();
+  int lastSpawnTime;
+  
   VineSprite() {
     super("vine", "sprites/vine.png");
+    this.lastSpawnTime = millis();
     this.getPen().down();
     this.getPen().setSize(3);
+    this.getPen().setColor(120);
     this.hide();
   }
   
   void draw() {
     super.draw();
     this.setPosition(ScratchStage.parent.mouseX, ScratchStage.parent.mouseY);
-    this.getPen().changeColor(10);
     this.turnRight(5);
+    
+    for(int i = 0; i < leafs.size(); i++) {
+      leafs.get(i).draw();
+    }
+    
+    if ((millis() - lastSpawnTime) > 20) {
+      leafs.add(new LeafSprite(vine));
+      lastSpawnTime = millis();
+    }
   }
 }
 
@@ -48,7 +58,10 @@ class LeafSprite extends ScratchSprite {
     this.startMillis = millis();
     this.vine = vine;
     this.setRotation(vine.getRotation());
+    // use current color from vine for pen
     this.getPen().setColor(vine.getPen().getColor());
+    // update vine color with every leaf spawn
+    vine.getPen().changeColor(2);
     this.setPosition((int) vine.getX(), (int) vine.getY());
     this.hide();
   }
@@ -57,9 +70,13 @@ class LeafSprite extends ScratchSprite {
     super.draw();
     this.turnRight(5);
     this.move(10);
+    
+    // slowly increase pen size
     this.getPen().changeSize(1);
-    if ((millis() - this.startMillis) / 1000.0 >= 0.2) {
-      sprites.remove(this);
+    
+    // remove leaf after 200ms
+    if ((millis() - this.startMillis) >= 200) {
+      this.vine.leafs.remove(this);
     }
   }
 }
