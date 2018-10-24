@@ -265,7 +265,7 @@ By default the following locations are used for your sketchbook folder:
   * For Mac users, the sketchbook folder is located inside `~/Documents/Processing` 
   * For Windows users, the sketchbook folder is located inside `My Documents/Processing`
 
-Download Scratch from https://github.com/mikebarkmin/processing-library-scratch
+Download Scratch from https://github.com/mikebarkmin/processing-library-scratch/releases/latest
 
 Unzip and copy the contributed Library's folder into the `libraries` folder in the Processing sketchbook. You will need to create this `libraries` folder if it does not exist.
 
