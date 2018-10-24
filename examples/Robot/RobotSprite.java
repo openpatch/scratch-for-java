@@ -4,6 +4,8 @@ public class RobotSprite extends ScratchSprite {
   public RobotSprite() {
     super("robot", "sprites/robot.png");
     this.setOnEdgeBounce(true);
+    this.setSize(20);
+    this.setRotation(65);
 
   }
   
