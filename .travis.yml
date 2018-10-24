@@ -5,6 +5,9 @@ before_install:
   - wget http://central.maven.org/maven2/org/processing/core/3.3.7/core-3.3.7.jar
   - sudo mkdir -p /opt/processing/core/library/
   - sudo mv core-3.3.7.jar /opt/processing/core/library/core.jar
+  - mkdir -p /home/travis/sketchbook/libraries
+  - wget https://github.com/processing/processing-sound/releases/download/v2.0.2/sound.zip
+  - tar -xf sound.zip /home/travis/sketchbook/libraries
 
 deploy:
   provider: pages
