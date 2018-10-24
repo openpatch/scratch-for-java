@@ -1,0 +1,11 @@
+language: java
+install: ant -f resources/build.xml
+
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN
+  keep-history: true
+  local-dir: distribution/scratch-latest/
+  on:
+    branch: master
