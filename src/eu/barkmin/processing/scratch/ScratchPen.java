@@ -27,6 +27,10 @@ public class ScratchPen {
         this.down = p.down;
     }
 
+    public float getColor() {
+        return this.color.getHSB();
+    }
+
     /**
      * Set color via hue value
      * @param h a hue value [0...255]
@@ -76,6 +80,13 @@ public class ScratchPen {
      */
     public float getSize() {
         return this.size;
+    }
+
+    /**
+     * Changes the size of the pen
+     */
+    public void changeSize(float size) {
+       this.size += size;
     }
 
     /**
