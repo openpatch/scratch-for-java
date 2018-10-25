@@ -257,13 +257,21 @@ An example with heavy use of the ScratchPen. It also plays an sound file in the 
 
 ![pipes example](web/assets/pipes.gif)
 
-### Rainbow Vine
+### RainbowVine
 
 Source Code: https://github.com/mikebarkmin/processing-library-scratch/tree/master/examples/RainbowVine
 
 An example which makes use of mouse events and timers.
 
 ![rainbow vine example](web/assets/rainbow_vine.gif)
+
+### RandomDot
+
+Source Code: https://github.com/mikebarkmin/processing-library-scratch/tree/master/examples/RandomDot
+
+An example which makes use of timers.
+
+![random dot](web/assets/random_dot.gif)
 
 ## Missing
 
