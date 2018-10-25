@@ -1,28 +1,33 @@
 package eu.barkmin.processing.scratch;
 
 public class Timer {
-    private int start;
-    private int lastTime;
+    private int nextFrame;
 
     public Timer () {
-       this.start = ScratchStage.parent.millis();
-       this.lastTime = this.start;
+        this.nextFrame = -1;
     }
 
     public int getMillis() {
-       return ScratchStage.parent.millis() - start;
+       return Math.round(ScratchStage.parent.frameCount / ScratchStage.parent.frameRate * 1000);
     }
 
     public boolean everyMillis(int millis) {
-        if (ScratchStage.parent.millis() - lastTime > millis) {
-            lastTime = ScratchStage.parent.millis();
+        int frameSkip = this.getFrameFromMillis(millis);
+        if (nextFrame < 0) {
+            nextFrame = ScratchStage.parent.frameCount + frameSkip;
+        }
+        if (ScratchStage.parent.frameCount >= nextFrame) {
+            nextFrame = ScratchStage.parent.frameCount + frameSkip;
             return true;
         }
         return false;
     }
 
+    private int getFrameFromMillis(int millis) {
+        return (int) Math.round(millis * ScratchStage.parent.frameRate / 1000.0);
+    }
+
     public void reset() {
-        this.start = ScratchStage.parent.millis();
-        this.lastTime = this.start;
+        this.nextFrame = -1;
     }
 }
