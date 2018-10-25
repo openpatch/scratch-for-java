@@ -277,7 +277,7 @@ An example which makes use of timers.
 
 * blocks which are not listed above are currently missing
 * sprites can not sense something. E.g.: a color or another sprite
-* sprites can not speak or thing
+* sprites can not speak or think
 
 ## How to install Scratch
 
