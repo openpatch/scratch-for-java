@@ -243,6 +243,14 @@ An example with heavy use of the ScratchPen. It also plays an sound file in the 
 
 ![pipes example](web/assets/pipes.gif)
 
+### Rainbow Vine
+
+Source Code: https://github.com/mikebarkmin/processing-library-scratch/tree/master/examples/RainbowVine
+
+An example which makes use of mouse events.
+
+![rainbow vine example](web/assets/rainbow_vine.gif)
+
 ## Missing
 
 * blocks which are not listed above are currently missing
