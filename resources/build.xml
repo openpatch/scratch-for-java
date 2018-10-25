@@ -362,7 +362,7 @@ ${line}
               <then>
                   <replaceregexp file="${project.dist.version}/web/index.html"
                       match="(##examples##)"
-                      replace="&lt;li&gt;&lt;a href=&quot;examples/${exampleDir}/${pde}.pde&quot;&gt;${exampleDir}&lt;/a&gt;&lt;/li&gt; \1"
+                      replace="&lt;li&gt;&lt;a href=&quot;https://github.com/mikebarkmin/processing-library-scratch#${pde}&quot;&gt;${exampleDir}&lt;/a&gt;&lt;/li&gt; \1"
                       flags="g" />
               </then>
               <else>
