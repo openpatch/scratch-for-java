@@ -15,6 +15,7 @@ public class ScratchSprite {
     private float x = 0;
     private float y = 0;
     private ScratchPen pen;
+    private Timer timer;
 
     public ScratchSprite(String name, String imagePath) {
         ScratchImage costume = new ScratchImage(name, imagePath);
@@ -22,6 +23,7 @@ public class ScratchSprite {
         this.pen = new ScratchPen();
         this.x = ScratchStage.parent.width / 2.0f;
         this.y = ScratchStage.parent.height / 2.0f;
+        this.timer = new Timer();
     }
 
     /**
@@ -45,6 +47,7 @@ public class ScratchSprite {
         this.rotation = s.rotation;
         this.x = s.x;
         this.y = s.y;
+        this.timer = new Timer();
         this.pen = new ScratchPen(s.pen);
     }
 
@@ -401,6 +404,14 @@ public class ScratchSprite {
      */
     public void changeY(float y) {
         this.y += y;
+    }
+
+    /**
+     * Return the timer
+     * @return the timer
+     */
+    public Timer getTimer() {
+        return this.timer;
     }
 
     private float calculateAngleOfReflection(float angleOfIncidence, boolean horizontalWall) {
