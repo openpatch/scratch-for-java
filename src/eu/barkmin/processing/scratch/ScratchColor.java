@@ -8,6 +8,10 @@ public class ScratchColor {
     private float g = 255;
     private float b = 255;
 
+    private float h = 255;
+    private float s = 255;
+    private float l = 255;
+
     public ScratchColor() {
     }
 
@@ -20,6 +24,10 @@ public class ScratchColor {
         this.r = c.r;
         this.g = c.g;
         this.b = c.b;
+
+        this.h = c.h;
+        this.s = c.s;
+        this.l = c.l;
     }
 
     /**
@@ -28,8 +36,7 @@ public class ScratchColor {
      * @return hue value [0...255]
      */
     public float getHSB() {
-        float[] hsb = ScratchColor.RGBtoHSB(this.r, this.b, this.g);
-        return hsb[0] * 255;
+        return this.h;
     }
 
     /**
@@ -38,11 +45,7 @@ public class ScratchColor {
      * @param h A hue value [0...255]
      */
     public void setHSB(float h) {
-        h = (h % 255) / 255.0f;
-        float[] rgb = ScratchColor.HSBtoRGB(h, 1.0f, 1.0f);
-        this.r = rgb[0];
-        this.g = rgb[1];
-        this.b = rgb[2];
+        this.setHSB(h, this.s, this.l);
     }
 
     /**
@@ -53,9 +56,24 @@ public class ScratchColor {
      * @param l A luminosity value [0...255]
      */
     public void setHSB(float h, float s, float l) {
-        h = (h % 255) / 255.0f;
-        s = (s % 255) / 255.0f;
-        l = (l % 255) / 255.0f;
+        while (h > 255) {
+            h -= 255;
+        }
+        while (s > 255) {
+            s-= 255;
+        }
+        while (l > 255) {
+            l -= 255;
+        }
+
+        this.h = h;
+        this.s = s;
+        this.l = l;
+
+        h = h / 255.0f;
+        s = s / 255.0f;
+        l = l / 255.0f;
+
         float[] rgb = ScratchColor.HSBtoRGB(h, s, l);
         this.r = rgb[0];
         this.g = rgb[1];
@@ -73,6 +91,12 @@ public class ScratchColor {
         this.r = r;
         this.g = g;
         this.b = b;
+
+        float[] hsb = ScratchColor.RGBtoHSB(r, g, b);
+
+        this.h = hsb[0] * 255;
+        this.s = hsb[1] * 255;
+        this.l = hsb[2] * 255;
     }
 
     /**
@@ -81,7 +105,7 @@ public class ScratchColor {
      * @param h A hue value. Could be any positive or negative number.
      */
     public void changeColor(float h) {
-        float newH = (this.getHSB() + h) % 255;
+        float newH = this.getHSB() + h;
         this.setHSB(newH);
     }
 
@@ -144,4 +168,15 @@ public class ScratchColor {
     }
 
 
+    public float getH() {
+        return h;
+    }
+
+    public float getS() {
+        return s;
+    }
+
+    public float getL() {
+        return l;
+    }
 }
