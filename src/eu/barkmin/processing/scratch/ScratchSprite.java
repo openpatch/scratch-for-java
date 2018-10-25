@@ -356,11 +356,11 @@ public class ScratchSprite {
         if(this.costumes.size() > 0) {
             currentCostume = this.costumes.get(this.currentCostume);
         }
-        float costumeWidht = currentCostume != null ? currentCostume.getImage().width : this.pen.getSize();
+        float costumeWidth = currentCostume != null ? currentCostume.getImage().width : this.pen.getSize();
         float costumeHeight = currentCostume != null ? currentCostume.getImage().height : this.pen.getSize();
 
         if (this.onEdgeBounce) {
-            float spriteWidth = this.show ? costumeWidht : this.pen.getSize();
+            float spriteWidth = this.show ? costumeWidth : this.pen.getSize();
             if (newX > parent.width - spriteWidth / 2 || newX < spriteWidth / 2) {
                 this.rotation = this.calculateAngleOfReflection(this.rotation, false);
             }

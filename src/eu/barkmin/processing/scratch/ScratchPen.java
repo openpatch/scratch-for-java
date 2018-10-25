@@ -3,13 +3,14 @@ package eu.barkmin.processing.scratch;
 import processing.core.PGraphics;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class ScratchPen {
 
     private ScratchColor color = new ScratchColor(120);
     private float opacity = 255;
     private float size = 1;
-    private ArrayList<ArrayList<Point>> pointsBuffer = new ArrayList<>();
+    private Stack<ArrayList<Point>> pointsBuffer = new Stack<>();
     private boolean down = false;
 
     public ScratchPen() {
@@ -23,7 +24,7 @@ public class ScratchPen {
         this.color = new ScratchColor(p.color);
         this.size = p.size;
         this.opacity = p.opacity;
-        this.pointsBuffer = new ArrayList<>();
+        this.pointsBuffer = new Stack<>();
         this.pointsBuffer.add(new ArrayList<>());
         this.down = p.down;
     }
@@ -134,7 +135,7 @@ public class ScratchPen {
         int pointsBufferSize = this.pointsBuffer.size();
         if (pointsBufferSize <= 0) return;
 
-        ArrayList<Point> points = this.pointsBuffer.get(pointsBufferSize - 1);
+        ArrayList<Point> points = this.pointsBuffer.peek();
         int pointsSize = points.size();
 
         buffer.beginDraw();
@@ -144,11 +145,19 @@ public class ScratchPen {
             buffer.stroke(point.color.getRed(), point.color.getGreen(), point.color.getBlue(), point.opacity);
             buffer.strokeWeight(point.size);
             buffer.line(previousPoint.x, previousPoint.y, point.x, point.y);
+            // remove rendered points
+            if (this.down == false) {
+                this.pointsBuffer.pop();
+            }
         } else if (pointsSize == 1) {
             Point point = points.get(pointsSize - 1);
             buffer.stroke(point.color.getRed(), point.color.getGreen(), point.color.getBlue(), point.opacity);
             buffer.strokeWeight(point.size);
             buffer.point(point.x, point.y);
+            // remove rendered points
+            if (this.down == false) {
+                this.pointsBuffer.pop();
+            }
         }
         buffer.endDraw();
     }

@@ -202,6 +202,27 @@ You can access the timer objects throught `stage.getTimer()` or
 | `boolean everyMillis(int)` | `stage.everyMillis(2000)` | Returns true **roughly** every 2000 Milliseconds |
 | `void reset()` | `dog.reset()` | Resets a timer back to 0 |
 
+If you want that a sprite should do something every 2000ms and every 1000ms,
+you need two timers. To add a timer you simply call
+`sprite.addTimer("timerForMe")`. The timer is than accessable with `sprite.getTimer("timerForMe")`.
+
+Unfortunatly the timer are not on point. Sometimes they are lacking behind.
+This happens when the frame rate drops.  This can lead to a unwanted rendering
+order. For example the pattern which was tried to achive in the example
+[TimedDot](#TimeDot) should look like this:
+
+Lila, Lila, Green, Lila, Lila, Green, Clear.
+
+Especially at the beginning of the sketch the frame rate increases slowly to
+the desired one. Therefore there are some missing frames in the beginning and
+the pattern is messed up. To achive a better result you should use a multiple
+of the frame rate for millis. (If not set the standard frame rate is 60). You
+can see the difference below.
+
+
+| Millis multipe of 100 | Millis multiple of 60 |
+| :-: | :-: |
+| ![timed dot normal](web/assets/timed_dot_100.gif) | ![timed dot 60](web/assets/timed_dot_60.gif) |
 
 ### ScratchSound (internally)
 
@@ -272,6 +293,15 @@ Source Code: https://github.com/mikebarkmin/processing-library-scratch/tree/mast
 An example which makes use of timers.
 
 ![random dot](web/assets/random_dot.gif)
+
+
+### TimedDot
+
+Source Code: https://github.com/mikebarkmin/processing-library-scratch/tree/master/examples/RandomDot
+
+An example which makes use of timers.
+
+![timed dot](web/assets/timed_dot_60.gif)
 
 ## Missing
 
