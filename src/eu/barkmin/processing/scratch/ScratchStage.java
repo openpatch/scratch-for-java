@@ -103,6 +103,7 @@ public class ScratchStage {
      */
     public void eraseAll() {
         this.penBuffer = parent.createGraphics(parent.width, parent.height);
+        this.pre();
     }
 
 
