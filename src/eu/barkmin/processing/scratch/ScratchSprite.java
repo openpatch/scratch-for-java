@@ -3,6 +3,7 @@ package eu.barkmin.processing.scratch;
 import processing.core.PApplet;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ScratchSprite {
     private ArrayList<ScratchImage> costumes = new ArrayList<>();
@@ -14,16 +15,21 @@ public class ScratchSprite {
     private float rotation = 0;
     private float x = 0;
     private float y = 0;
+    private HashMap<String, Timer> timer;
     private ScratchPen pen;
-    private Timer timer;
 
-    public ScratchSprite(String name, String imagePath) {
-        ScratchImage costume = new ScratchImage(name, imagePath);
-        this.costumes.add(costume);
+    public ScratchSprite() {
         this.pen = new ScratchPen();
         this.x = ScratchStage.parent.width / 2.0f;
         this.y = ScratchStage.parent.height / 2.0f;
-        this.timer = new Timer();
+        this.timer = new HashMap<>();
+        this.timer.put("default", new Timer());
+    }
+
+    public ScratchSprite(String name, String imagePath) {
+        this();
+        ScratchImage costume = new ScratchImage(name, imagePath);
+        this.costumes.add(costume);
     }
 
     /**
@@ -47,7 +53,8 @@ public class ScratchSprite {
         this.rotation = s.rotation;
         this.x = s.x;
         this.y = s.y;
-        this.timer = new Timer();
+        this.timer = new HashMap<>();
+        this.timer.put("default", new Timer());
         this.pen = new ScratchPen(s.pen);
     }
 
@@ -280,6 +287,14 @@ public class ScratchSprite {
         this.getPen().setPosition(x, y);
     }
 
+    public void setPosition(float x, float y) {
+        this.setPosition(Math.round(x), Math.round(y));
+    }
+
+    public void setPosition(double x, double y) {
+        this.setPosition((float) x, (float) y);
+    }
+
     /**
      * Rotates the sprite by a certain degrees to the left.
      *
@@ -337,15 +352,20 @@ public class ScratchSprite {
         float newX = steps * (float) Math.cos(this.rotation * Math.PI / 180) + this.x;
         float newY = steps * (float) Math.sin(this.rotation * Math.PI / 180) + this.y;
 
-        ScratchImage currentCostume = this.costumes.get(this.currentCostume);
+        ScratchImage currentCostume = null;
+        if(this.costumes.size() > 0) {
+            currentCostume = this.costumes.get(this.currentCostume);
+        }
+        float costumeWidht = currentCostume != null ? currentCostume.getImage().width : this.pen.getSize();
+        float costumeHeight = currentCostume != null ? currentCostume.getImage().height : this.pen.getSize();
 
         if (this.onEdgeBounce) {
-            float spriteWidth = this.show ? currentCostume.getImage().width : this.pen.getSize();
+            float spriteWidth = this.show ? costumeWidht : this.pen.getSize();
             if (newX > parent.width - spriteWidth / 2 || newX < spriteWidth / 2) {
                 this.rotation = this.calculateAngleOfReflection(this.rotation, false);
             }
 
-            float spriteHeight = this.show ? currentCostume.getImage().height : this.pen.getSize();
+            float spriteHeight = this.show ? costumeHeight : this.pen.getSize();
             if (newY > parent.height - spriteHeight / 2 || newY < spriteHeight / 2) {
                 this.rotation = this.calculateAngleOfReflection(this.rotation, true);
             }
@@ -408,11 +428,39 @@ public class ScratchSprite {
     }
 
     /**
-     * Return the timer
-     * @return the timer
+     * Return the default timer
+     * @return the default timer
      */
     public Timer getTimer() {
-        return this.timer;
+        return this.timer.get("default");
+    }
+
+    /**
+     * Return a timer by name
+     * @return a timer
+     */
+    public Timer getTimer(String name) {
+        return this.timer.get(name);
+    }
+
+    /**
+     * Add a new timer by name. Overwriting default is not permitted.
+     * @param name the name of the timer
+     */
+    public void addTimer(String name) {
+        if (name.equals("default")) return;
+
+        this.timer.put(name, new Timer());
+    }
+
+    /**
+     * Remove a timer by name. Removing of default is not permitted.
+     * @param name the name of the timer
+     */
+    public void removeTimer(String name) {
+        if (name.equals("default")) return;
+
+        this.timer.remove(name);
     }
 
     private float calculateAngleOfReflection(float angleOfIncidence, boolean horizontalWall) {

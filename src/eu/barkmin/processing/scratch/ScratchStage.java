@@ -5,6 +5,7 @@ import processing.core.PConstants;
 import processing.core.PGraphics;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Represents the scratch stage. Only one object of this class can be created.
@@ -18,13 +19,14 @@ public class ScratchStage {
     private int currentBackdrop = 0;
     private ArrayList<ScratchSound> sounds = new ArrayList<>();
     private PGraphics penBuffer;
-    private Timer timer;
+    private HashMap<String, Timer> timer;
 
     private ScratchStage(PApplet parent) {
         parent.imageMode(PConstants.CENTER);
         ScratchStage.parent = parent;
         this.penBuffer = parent.createGraphics(parent.width, parent.height);
-        this.timer = new Timer();
+        this.timer = new HashMap<>();
+        this.timer.put("default", new Timer());
     }
 
     /**
@@ -252,7 +254,36 @@ public class ScratchStage {
      * @return the timer
      */
     public Timer getTimer() {
-        return this.timer;
+        return this.timer.get("default");
+    }
+
+    /**
+     * Returns a timer by name
+     * @param name a name
+     * @return the timer
+     */
+    public Timer getTimer(String name) {
+        return this.timer.get(name);
+    }
+
+    /**
+     * Add a new timer by name. Overwriting default is not permitted.
+     * @param name the name of the timer
+     */
+    public void addTimer(String name) {
+        if (name.equals("default")) return;
+
+        this.timer.put(name, new Timer());
+    }
+
+    /**
+     * Remove a timer by name. Removing of default is not permitted.
+     * @param name the name of the timer
+     */
+    public void removeTimer(String name) {
+        if (name.equals("default")) return;
+
+        this.timer.remove(name);
     }
 
     /**

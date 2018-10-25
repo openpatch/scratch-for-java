@@ -6,10 +6,10 @@ import java.util.ArrayList;
 
 public class ScratchPen {
 
-    private ScratchColor color = new ScratchColor();
+    private ScratchColor color = new ScratchColor(120);
     private float opacity = 255;
-    private float size = 0;
-    private ArrayList<Point> points = new ArrayList<>();
+    private float size = 1;
+    private ArrayList<ArrayList<Point>> pointsBuffer = new ArrayList<>();
     private boolean down = false;
 
     public ScratchPen() {
@@ -23,7 +23,8 @@ public class ScratchPen {
         this.color = new ScratchColor(p.color);
         this.size = p.size;
         this.opacity = p.opacity;
-        this.points = new ArrayList<>();
+        this.pointsBuffer = new ArrayList<>();
+        this.pointsBuffer.add(new ArrayList<>());
         this.down = p.down;
     }
 
@@ -104,7 +105,7 @@ public class ScratchPen {
      */
     public void setPosition(float x, float y) {
         if (this.down) {
-            this.points.add(new Point(x, y, this.color, this.opacity, this.size));
+            this.pointsBuffer.get(this.pointsBuffer.size() - 1).add(new Point(x, y, this.color, this.opacity, this.size));
         }
     }
 
@@ -112,6 +113,9 @@ public class ScratchPen {
      * Set the pen down.
      */
     public void down() {
+        if (this.down != true) {
+           this.pointsBuffer.add(new ArrayList<>());
+        }
         this.down = true;
     }
 
@@ -126,16 +130,27 @@ public class ScratchPen {
      * Draw the line which the pen has drawn.
      */
     public void draw() {
-        if (this.points.size() > 1) {
-            PGraphics buffer = ScratchStage.getInstance().getPenBuffer();
-            Point point = this.points.get(this.points.size() - 1);
-            Point previousPoint = this.points.get(this.points.size() - 2);
-            buffer.beginDraw();
+        PGraphics buffer = ScratchStage.getInstance().getPenBuffer();
+        int pointsBufferSize = this.pointsBuffer.size();
+        if (pointsBufferSize <= 0) return;
+
+        ArrayList<Point> points = this.pointsBuffer.get(pointsBufferSize - 1);
+        int pointsSize = points.size();
+
+        buffer.beginDraw();
+        if (pointsSize > 1) {
+            Point point = points.get(pointsSize - 1);
+            Point previousPoint = points.get(pointsSize - 2);
             buffer.stroke(point.color.getRed(), point.color.getGreen(), point.color.getBlue(), point.opacity);
             buffer.strokeWeight(point.size);
             buffer.line(previousPoint.x, previousPoint.y, point.x, point.y);
-            buffer.endDraw();
+        } else if (pointsSize == 1) {
+            Point point = points.get(pointsSize - 1);
+            buffer.stroke(point.color.getRed(), point.color.getGreen(), point.color.getBlue(), point.opacity);
+            buffer.strokeWeight(point.size);
+            buffer.point(point.x, point.y);
         }
+        buffer.endDraw();
     }
 }
 

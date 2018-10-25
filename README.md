@@ -189,6 +189,20 @@ pen can be modified.
 | ![pen change size by](web/assets/pen_change_pen_size_by.png) | `sprite.getPen().changeSize(1);` |
 | ![pen erase all](web/assets/pen_erase_all.png) | `stage.eraseAll();` |
 
+### Timer
+
+Sometimes you want to tigger an event after a certain time or at a certain time
+interval. Therefore the stage and every sprite have one or more Timer objects.
+You can access the timer objects throught `stage.getTimer()` or
+`sprite.getTimer()`. The timer object has some useful methods:
+
+| API | Example | Description |
+| :-: | :-: | :-: |
+| `void getMillis()` | `cat.getMillis()` | Returns the milliseconds since the sprite was created |
+| `boolean everyMillis(int)` | `stage.everyMillis(2000)` | Returns true **roughly** every 2000 Milliseconds |
+| `void reset()` | `dog.reset()` | Resets a timer back to 0 |
+
+
 ### ScratchSound (internally)
 
 Usage: `import eu.barkmin.processing.scratch.ScratchSound`
@@ -247,7 +261,7 @@ An example with heavy use of the ScratchPen. It also plays an sound file in the 
 
 Source Code: https://github.com/mikebarkmin/processing-library-scratch/tree/master/examples/RainbowVine
 
-An example which makes use of mouse events.
+An example which makes use of mouse events and timers.
 
 ![rainbow vine example](web/assets/rainbow_vine.gif)
 

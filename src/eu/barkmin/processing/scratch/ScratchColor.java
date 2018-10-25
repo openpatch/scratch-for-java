@@ -15,6 +15,10 @@ public class ScratchColor {
     public ScratchColor() {
     }
 
+    public ScratchColor(float h) {
+        this.setHSB(h);
+    }
+
     /**
      * Copies the received ScratchColor object.
      *

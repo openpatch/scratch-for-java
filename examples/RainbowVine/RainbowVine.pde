@@ -20,11 +20,9 @@ void draw() {
 class VineSprite extends ScratchSprite {
   
   ArrayList<LeafSprite> leafs = new ArrayList();
-  int lastSpawnTime;
   
   VineSprite() {
     super("vine", "sprites/vine.png");
-    this.lastSpawnTime = millis();
     this.getPen().down();
     this.getPen().setSize(3);
     this.getPen().setColor(120);
@@ -40,22 +38,19 @@ class VineSprite extends ScratchSprite {
       leafs.get(i).draw();
     }
     
-    if ((millis() - lastSpawnTime) > 20) {
+    if (stage.getTimer().everyMillis(20)) {
       leafs.add(new LeafSprite(vine));
-      lastSpawnTime = millis();
     }
   }
 }
 
 class LeafSprite extends ScratchSprite {
-  int startMillis;
   VineSprite vine;
   
   LeafSprite(VineSprite vine) {
     super("leaf", "sprites/vine.png");
     this.getPen().down();
     this.getPen().setSize(2);
-    this.startMillis = millis();
     this.vine = vine;
     this.setRotation(vine.getRotation());
     // use current color from vine for pen
