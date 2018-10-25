@@ -18,11 +18,13 @@ public class ScratchStage {
     private int currentBackdrop = 0;
     private ArrayList<ScratchSound> sounds = new ArrayList<>();
     private PGraphics penBuffer;
+    private Timer timer;
 
     private ScratchStage(PApplet parent) {
         parent.imageMode(PConstants.CENTER);
         ScratchStage.parent = parent;
         this.penBuffer = parent.createGraphics(parent.width, parent.height);
+        this.timer = new Timer();
     }
 
     /**
@@ -243,6 +245,14 @@ public class ScratchStage {
         if (this.backdrops.size() == 0) return;
 
         this.backdrops.get(this.currentBackdrop).changeTransparency(step);
+    }
+
+    /**
+     * Returns the timer
+     * @return the timer
+     */
+    public Timer getTimer() {
+        return this.timer;
     }
 
     /**
