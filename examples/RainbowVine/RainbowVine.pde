@@ -75,7 +75,7 @@ class LeafSprite extends ScratchSprite {
     this.getPen().changeSize(1);
     
     // remove leaf after 200ms
-    if ((millis() - this.startMillis) >= 200) {
+    if (this.getTimer().everyMillis(200)) {
       this.vine.leafs.remove(this);
     }
   }
