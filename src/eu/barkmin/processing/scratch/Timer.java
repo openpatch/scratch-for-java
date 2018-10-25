@@ -2,6 +2,7 @@ package eu.barkmin.processing.scratch;
 
 public class Timer {
     private int start;
+    private int counter = 1;
 
     public Timer () {
        this.start = ScratchStage.parent.millis();
@@ -12,7 +13,15 @@ public class Timer {
     }
 
     public boolean everyMillis(int millis) {
-        return this.getMillis() % millis == 0;
+        if (this.getMillis() >= millis * counter) {
+            counter++;
+            return true;
+        }
+        return false;
+    }
+
+    public void start() {
+        this.start = ScratchStage.parent.millis();
     }
 
     public void reset() {
