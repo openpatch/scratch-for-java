@@ -199,8 +199,29 @@ You can access the timer objects throught `stage.getTimer()` or
 | API | Example | Description |
 | :-: | :-: | :-: |
 | `void getMillis()` | `cat.getMillis()` | Returns the milliseconds since the sprite was created |
-| `boolean everyMillis(int)` | `stage.everyMillis(2000)` | Returns true **roughly** every 2000 Milliseconds |
-| `void reset()` | `dog.reset()` | Resets a timer back to 0 |
+| `boolean everyMillis(int)` | `stage.everyMillis(600)` | Returns true every 600 Milliseconds |
+| `boolean forMillis(int)` | `dog.forMillis(600)` | Returns true for the first 600 Milliseconds |
+| `boolean afterMillis(int)` | `cat.afterMillis(600)` | Returns true after the first 600 Milliseconds |
+| `boolean intervalMillis(int)` | `cat.intervalMillis(600)` | Returns toggles between true and false every 600 Milliseconds starting with false |
+| `boolean intervalMillis(int, boolean)` | `cat.intervalMillis(600, true)` | Returns toggles between true and false every 600 Milliseconds starting with true |
+| `boolean intervalMillis(int, int)` | `cat.intervalMillis(600, 200)` | Returns toggles between true for 600 Milliseconds and false for 200 Milliseconds starting with false |
+| `boolean intervalMillis(int, int, boolean)` | `cat.intervalMillis(600, 200, true)` | Returns toggles between true for 600 Milliseconds and false for 200 Milliseconds starting with true |
+
+For a visual example of these methods see example [Timer](#Timer) or the gif
+below. A dot represents the return of true.
+
+![timer](web/assets/timer.gif)
+
+```
+everyMillis(600) -> orange (first line)
+forMillis(600) -> lime (second line)
+afterMillis(600) -> green (third line)
+intervalMillis(600) -> skyblue (fourth line)
+intervalMillis(600, true) -> blue (fifth line)
+intervalMillis(600, 300) -> pink (sixth line)
+intervalMillis(600, 300, true) -> red (seventh line)
+```
+
 
 If you want that a sprite should do something every 2000ms and every 1000ms,
 you need two timers. To add a timer you simply call
@@ -297,11 +318,20 @@ An example which makes use of timers.
 
 ### TimedDot
 
-Source Code: https://github.com/mikebarkmin/processing-library-scratch/tree/master/examples/RandomDot
+Source Code: https://github.com/mikebarkmin/processing-library-scratch/tree/master/examples/TimedDot
 
 An example which makes use of timers.
 
 ![timed dot](web/assets/timed_dot_60.gif)
+
+### Timer
+
+Source Code: https://github.com/mikebarkmin/processing-library-scratch/tree/master/examples/Timer
+
+An example which makes use of the many methods of the timer.
+
+![timer](web/assets/timer.gif)
+
 
 ## Missing
 

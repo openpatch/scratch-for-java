@@ -4,6 +4,7 @@ import processing.core.PGraphics;
 
 import java.util.ArrayList;
 import java.util.Stack;
+import java.util.Iterator;
 
 public class ScratchPen {
 
@@ -135,28 +136,28 @@ public class ScratchPen {
         int pointsBufferSize = this.pointsBuffer.size();
         if (pointsBufferSize <= 0) return;
 
-        ArrayList<Point> points = this.pointsBuffer.peek();
-        int pointsSize = points.size();
+        Iterator<ArrayList<Point>> pointsBufferIter = this.pointsBuffer.iterator();
 
         buffer.beginDraw();
-        if (pointsSize > 1) {
-            Point point = points.get(pointsSize - 1);
-            Point previousPoint = points.get(pointsSize - 2);
-            buffer.stroke(point.color.getRed(), point.color.getGreen(), point.color.getBlue(), point.opacity);
-            buffer.strokeWeight(point.size);
-            buffer.line(previousPoint.x, previousPoint.y, point.x, point.y);
-            // remove rendered points
-            if (this.down == false) {
-                this.pointsBuffer.pop();
+
+        while (pointsBufferIter.hasNext()){
+            ArrayList<Point> points = pointsBufferIter.next();
+            int pointsSize = points.size();
+
+            if (pointsSize > 1) {
+                Point point = points.get(pointsSize - 1);
+                Point previousPoint = points.get(pointsSize - 2);
+                buffer.stroke(point.color.getRed(), point.color.getGreen(), point.color.getBlue(), point.opacity);
+                buffer.strokeWeight(point.size);
+                buffer.line(previousPoint.x, previousPoint.y, point.x, point.y);
+            } else if (pointsSize == 1) {
+                Point point = points.get(pointsSize - 1);
+                buffer.stroke(point.color.getRed(), point.color.getGreen(), point.color.getBlue(), point.opacity);
+                buffer.strokeWeight(point.size);
+                buffer.point(point.x, point.y);
             }
-        } else if (pointsSize == 1) {
-            Point point = points.get(pointsSize - 1);
-            buffer.stroke(point.color.getRed(), point.color.getGreen(), point.color.getBlue(), point.opacity);
-            buffer.strokeWeight(point.size);
-            buffer.point(point.x, point.y);
-            // remove rendered points
-            if (this.down == false) {
-                this.pointsBuffer.pop();
+            if (!this.down || pointsBufferSize > 1) {
+                pointsBufferIter.remove();
             }
         }
         buffer.endDraw();
