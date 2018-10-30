@@ -19,6 +19,7 @@ public class ScratchPen {
 
     /**
      * Copies a ScratchPen object.
+     * 
      * @param p ScratchPen object to copy
      */
     public ScratchPen(ScratchPen p) {
@@ -36,6 +37,7 @@ public class ScratchPen {
 
     /**
      * Set color via hue value
+     * 
      * @param h a hue value [0...255]
      */
     public void setColor(float h) {
@@ -48,6 +50,7 @@ public class ScratchPen {
 
     /**
      * Set color via rgb values
+     * 
      * @param r a red value [0...255]
      * @param g a green value [0...255]
      * @param b a blue value [0...255]
@@ -56,9 +59,9 @@ public class ScratchPen {
         this.color.setRGB(r, g, b);
     }
 
-
     /**
      * Change color via a hue value, which is added to the current hue value
+     * 
      * @param c a hue value [0...255]
      */
     public void changeColor(float c) {
@@ -71,6 +74,7 @@ public class ScratchPen {
 
     /**
      * Set the size of the pen
+     * 
      * @param size
      */
     public void setSize(float size) {
@@ -79,6 +83,7 @@ public class ScratchPen {
 
     /**
      * Returns the size of the pen
+     * 
      * @return the size of the pen
      */
     public float getSize() {
@@ -89,11 +94,12 @@ public class ScratchPen {
      * Changes the size of the pen
      */
     public void changeSize(float size) {
-       this.size += size;
+        this.size += size;
     }
 
     /**
      * Set the opacity
+     * 
      * @param opacity
      */
     public void setOpacity(float opacity) {
@@ -102,12 +108,14 @@ public class ScratchPen {
 
     /**
      * Set the position if the pen is down.
+     * 
      * @param x x coordinate
      * @param y y coordinate
      */
     public void setPosition(float x, float y) {
         if (this.down) {
-            this.pointsBuffer.get(this.pointsBuffer.size() - 1).add(new Point(x, y, this.color, this.opacity, this.size));
+            this.pointsBuffer.get(this.pointsBuffer.size() - 1)
+                    .add(new Point(x, y, this.color, this.opacity, this.size));
         }
     }
 
@@ -115,8 +123,8 @@ public class ScratchPen {
      * Set the pen down.
      */
     public void down() {
-        if (this.down != true) {
-           this.pointsBuffer.add(new ArrayList<>());
+        if (!this.down) {
+            this.pointsBuffer.add(new ArrayList<>());
         }
         this.down = true;
     }
@@ -134,13 +142,14 @@ public class ScratchPen {
     public void draw() {
         PGraphics buffer = ScratchStage.getInstance().getPenBuffer();
         int pointsBufferSize = this.pointsBuffer.size();
-        if (pointsBufferSize <= 0) return;
+        if (pointsBufferSize <= 0)
+            return;
 
         Iterator<ArrayList<Point>> pointsBufferIter = this.pointsBuffer.iterator();
 
         buffer.beginDraw();
 
-        while (pointsBufferIter.hasNext()){
+        while (pointsBufferIter.hasNext()) {
             ArrayList<Point> points = pointsBufferIter.next();
             int pointsSize = points.size();
 
