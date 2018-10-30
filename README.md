@@ -198,14 +198,14 @@ You can access the timer objects throught `stage.getTimer()` or
 
 | API | Example | Description |
 | :-: | :-: | :-: |
-| `void getMillis()` | `cat.getMillis()` | Returns the milliseconds since the sprite was created |
-| `boolean everyMillis(int)` | `stage.everyMillis(600)` | Returns true every 600 Milliseconds |
-| `boolean forMillis(int)` | `dog.forMillis(600)` | Returns true for the first 600 Milliseconds |
-| `boolean afterMillis(int)` | `cat.afterMillis(600)` | Returns true after the first 600 Milliseconds |
-| `boolean intervalMillis(int)` | `cat.intervalMillis(600)` | Returns toggles between true and false every 600 Milliseconds starting with false |
-| `boolean intervalMillis(int, boolean)` | `cat.intervalMillis(600, true)` | Returns toggles between true and false every 600 Milliseconds starting with true |
-| `boolean intervalMillis(int, int)` | `cat.intervalMillis(600, 200)` | Returns toggles between true for 600 Milliseconds and false for 200 Milliseconds starting with false |
-| `boolean intervalMillis(int, int, boolean)` | `cat.intervalMillis(600, 200, true)` | Returns toggles between true for 600 Milliseconds and false for 200 Milliseconds starting with true |
+| `void getMillis()` | `cat.getTimer().getMillis()` | Returns the milliseconds since the sprite was created |
+| `boolean everyMillis(int)` | `stage.getTimer().everyMillis(600)` | Returns true every 600 Milliseconds |
+| `boolean forMillis(int)` | `dog.getTimer().forMillis(600)` | Returns true for the first 600 Milliseconds |
+| `boolean afterMillis(int)` | `cat.getTimer().afterMillis(600)` | Returns true after the first 600 Milliseconds |
+| `boolean intervalMillis(int)` | `cat.getTimer().intervalMillis(600)` | Returns toggles between true and false every 600 Milliseconds starting with false |
+| `boolean intervalMillis(int, boolean)` | `cat.getTimer().intervalMillis(600, true)` | Returns toggles between true and false every 600 Milliseconds starting with true |
+| `boolean intervalMillis(int, int)` | `cat.getTimer().intervalMillis(600, 200)` | Returns toggles between true for 600 Milliseconds and false for 200 Milliseconds starting with false |
+| `boolean intervalMillis(int, int, boolean)` | `cat.getTimer().intervalMillis(600, 200, true)` | Returns toggles between true for 600 Milliseconds and false for 200 Milliseconds starting with true |
 
 For a visual example of these methods see example [Timer](#Timer) or the gif
 below. A dot represents the return of true.
