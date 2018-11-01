@@ -171,58 +171,68 @@ public class ScratchSprite {
     }
 
     /**
-     * Sets the tint for the current costume with rgb.
+     * Sets the tint for the sprite with rgb.
      *
      * @see ScratchImage#setTint(float, float, float)
      */
     public void setTint(int r, int g, int b) {
         if (costumes.size() == 0) return;
 
-        this.costumes.get(this.currentCostume).setTint(r, g, b);
+        for (ScratchImage costume : this.costumes) {
+            costume.setTint(r,g,b);
+        }
     }
 
     /**
-     * Sets the tint for the current costume with a hue.
+     * Sets the tint for the sprite with a hue.
      *
      * @see ScratchImage#setTint(float)
      */
     public void setTint(float h) {
         if (costumes.size() == 0) return;
 
-        this.costumes.get(this.currentCostume).setTint(h);
+        for (ScratchImage costume : this.costumes) {
+            costume.setTint(h);
+        }
     }
 
     /**
-     * Changes the tint for the current costume.
+     * Changes the tint for the sprite.
      *
      * @see ScratchImage#changeTint(float)
      */
     public void changeTint(float step) {
         if (costumes.size() == 0) return;
 
-        this.costumes.get(this.currentCostume).changeTint(step);
+        for (ScratchImage costume : this.costumes) {
+            costume.changeTint(step);
+        }
     }
 
     /**
-     * Sets the transparency of the current costume.
+     * Sets the transparency of the sprite.
      *
      * @see ScratchImage#setTransparency(float)
      */
     public void setTransparency(float transparency) {
         if (costumes.size() == 0) return;
 
-        this.costumes.get(this.currentCostume).setTransparency(transparency);
+        for (ScratchImage costume : this.costumes) {
+            costume.setTransparency(transparency);
+        }
     }
 
     /**
-     * Changes the transparency for the current costume.
+     * Changes the transparency for the sprite.
      *
      * @see ScratchImage#changeTransparency(float)
      */
     public void changeTransparency(float step) {
         if (costumes.size() == 0) return;
 
-        this.costumes.get(this.currentCostume).changeTransparency(step);
+        for (ScratchImage costume : this.costumes) {
+            costume.changeTransparency(step);
+        }
     }
 
     /**
@@ -425,6 +435,26 @@ public class ScratchSprite {
      */
     public void changeY(float y) {
         this.y += y;
+    }
+
+    /**
+     * Return the width of the current costume or the pen size, when no costume is available.
+     * @return the width of the sprite
+     */
+    public int getWidth() {
+        if (costumes.size() == 0) return (int) this.getPen().getSize();
+
+        return this.costumes.get(this.currentCostume).getImage().width;
+    }
+
+    /**
+     * Return the height of the current costume or the pen size, when no costume is available.
+     * @return the height of the sprite
+     */
+    public int getHeight() {
+        if (costumes.size() == 0) return (int) this.getPen().getSize();
+
+        return this.costumes.get(this.currentCostume).getImage().height;
     }
 
     /**
