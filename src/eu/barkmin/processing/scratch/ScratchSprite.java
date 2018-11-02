@@ -468,6 +468,22 @@ public class ScratchSprite {
     }
 
     /**
+     * Return the pixelWidth of the current costume or an empty array, when no costume is available.
+     * @return the pixel width of the sprite
+     */
+    public int getPixelWidth() {
+        return this.costumes.get(this.currentCostume).getImage().pixelWidth;
+    }
+
+    /**
+     * Return the pixelHeight of the current costume or the pen size, when no costume is available.
+     * @return the pixel height of the sprite
+     */
+    public int getPixelHeight() {
+        return this.costumes.get(this.currentCostume).getImage().pixelHeight;
+    }
+
+    /**
      * Return the default timer
      * @return the default timer
      */
