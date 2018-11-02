@@ -458,6 +458,16 @@ public class ScratchSprite {
     }
 
     /**
+     * Return the pixels of the current costume or an empty array, when no costume is available.
+     * @return the pixels of the sprite
+     */
+    public int[] getPixels() {
+        if (costumes.size() == 0) return new int[0];
+
+        return this.costumes.get(this.currentCostume).getImage().pixels;
+    }
+
+    /**
      * Return the default timer
      * @return the default timer
      */
