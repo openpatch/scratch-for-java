@@ -251,6 +251,32 @@ public class ScratchStage {
     }
 
     /**
+     * Return the width of the current costume or the pen size, when no costume is available.
+     * @return the width of the sprite
+     */
+    public int getWidth() {
+        return ScratchStage.parent.width;
+    }
+
+    /**
+     * Return the height of the current costume or the pen size, when no costume is available.
+     * @return the height of the sprite
+     */
+    public int getHeight() {
+        return ScratchStage.parent.height;
+    }
+
+    /**
+     * Return the pixels of the current costume or an empty array, when no costume is available.
+     * @return the pixels of the sprite
+     */
+    public int[] getPixels() {
+        if (backdrops.size() == 0) return new int[0];
+
+        return this.backdrops.get(this.currentBackdrop).getImage().pixels;
+    }
+
+    /**
      * Returns the timer
      * @return the timer
      */
