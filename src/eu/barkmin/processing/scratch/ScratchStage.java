@@ -19,6 +19,8 @@ import java.util.HashMap;
 public class ScratchStage {
 
     public static PApplet parent;
+    private boolean debug;
+    public static final int[] DEBUG_COLOR = {255, 0, 0};
     private static ScratchStage instance;
     private ArrayList<ScratchImage> backdrops = new ArrayList<>();
     private ScratchColor color = new ScratchColor();
@@ -32,12 +34,14 @@ public class ScratchStage {
     private boolean mouseDown;
     private int keyCodePressed = -1;
 
-    private ScratchStage(PApplet parent) {
+    private ScratchStage(PApplet parent, boolean debug) {
         parent.imageMode(PConstants.CENTER);
+        parent.rectMode(PConstants.CENTER);
         ScratchStage.parent = parent;
         this.penBuffer = parent.createGraphics(parent.width, parent.height);
         this.timer = new HashMap<>();
         this.timer.put("default", new Timer());
+        this.debug = debug;
     }
 
     /**
@@ -50,10 +54,23 @@ public class ScratchStage {
     }
 
     public static void init(PApplet parent) {
-        ScratchStage.instance = new ScratchStage(parent);
+        ScratchStage.init(parent, false);
+    }
+
+    public static void init(PApplet parent, boolean debug) {
+        ScratchStage.instance = new ScratchStage(parent, debug);
         parent.registerMethod("pre", ScratchStage.instance);
+        parent.registerMethod("draw", ScratchStage.instance);
         parent.registerMethod("mouseEvent", ScratchStage.instance);
         parent.registerMethod("keyEvent", ScratchStage.instance);
+    }
+
+    public void setDebug(boolean debug) {
+        this.debug = debug;
+    }
+
+    public boolean isDebug() {
+        return debug;
     }
 
     /**
@@ -485,5 +502,18 @@ public class ScratchStage {
             this.backdrops.get(this.currentBackdrop).drawAsBackground();
         }
         ScratchStage.parent.image(penBuffer, ScratchStage.parent.width / 2, ScratchStage.parent.height / 2);
+    }
+
+    public void draw() {
+        if (debug) {
+            parent.strokeWeight(1);
+            parent.stroke(DEBUG_COLOR[0], DEBUG_COLOR[1], DEBUG_COLOR[2]);
+            parent.fill(DEBUG_COLOR[0], DEBUG_COLOR[1], DEBUG_COLOR[2]);
+            parent.line(mouseX, 0, mouseX, parent.height);
+            parent.line(0, mouseY, parent.width, mouseY);
+            parent.text("(" + mouseX + ", " + mouseY + ")", mouseX, mouseY);
+        }
+
+
     }
 }
