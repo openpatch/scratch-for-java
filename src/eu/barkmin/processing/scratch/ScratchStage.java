@@ -513,7 +513,17 @@ public class ScratchStage {
             parent.line(0, mouseY, parent.width, mouseY);
             parent.text("(" + mouseX + ", " + mouseY + ")", mouseX, mouseY);
         }
+    }
 
+    public static float[] rotateXY(float x, float y, float originX, float originY, float degrees) {
+        float[] rotatedXY = new float[2];
 
+        double radians = degrees * Math.PI / 180.0;
+        x = x - originX;
+        y = y - originY;
+        rotatedXY[0] = (float) (x * Math.cos(radians) - y * Math.sin(radians)) + originX;
+        rotatedXY[1] = (float) (x * Math.sin(radians) + y * Math.cos(radians)) + originY;
+
+        return rotatedXY;
     }
 }
