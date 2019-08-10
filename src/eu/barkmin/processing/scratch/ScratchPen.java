@@ -75,7 +75,7 @@ public class ScratchPen {
     /**
      * Set the size of the pen
      * 
-     * @param size
+     * @param size size of the pen
      */
     public void setSize(float size) {
         this.size = size;
@@ -100,7 +100,7 @@ public class ScratchPen {
     /**
      * Set the opacity
      * 
-     * @param opacity
+     * @param opacity opacity of the pen
      */
     public void setOpacity(float opacity) {
         this.opacity = opacity;
@@ -134,6 +134,10 @@ public class ScratchPen {
      */
     public void up() {
         this.down = false;
+    }
+
+    public void eraseAll() {
+        ScratchStage.getInstance().eraseAll();
     }
 
     /**
@@ -174,13 +178,13 @@ public class ScratchPen {
 }
 
 class Point {
-    float x = 0;
-    float y = 0;
+    float x;
+    float y;
     ScratchColor color;
-    float opacity = 0;
-    float size = 0;
+    float opacity;
+    float size;
 
-    public Point(float x, float y, ScratchColor color, float opacity, float size) {
+    Point(float x, float y, ScratchColor color, float opacity, float size) {
         this.x = x;
         this.y = y;
         this.color = new ScratchColor(color);
