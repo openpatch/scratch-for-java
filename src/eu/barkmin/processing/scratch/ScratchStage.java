@@ -3,7 +3,13 @@ package eu.barkmin.processing.scratch;
 import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PGraphics;
+import processing.event.KeyEvent;
+import processing.event.MouseEvent;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -20,6 +26,11 @@ public class ScratchStage {
     private ArrayList<ScratchSound> sounds = new ArrayList<>();
     private PGraphics penBuffer;
     private HashMap<String, Timer> timer;
+
+    private float mouseX;
+    private float mouseY;
+    private boolean mouseDown;
+    private int keyCodePressed = -1;
 
     private ScratchStage(PApplet parent) {
         parent.imageMode(PConstants.CENTER);
@@ -41,6 +52,8 @@ public class ScratchStage {
     public static void init(PApplet parent) {
         ScratchStage.instance = new ScratchStage(parent);
         parent.registerMethod("pre", ScratchStage.instance);
+        parent.registerMethod("mouseEvent", ScratchStage.instance);
+        parent.registerMethod("keyEvent", ScratchStage.instance);
     }
 
     /**
@@ -144,8 +157,7 @@ public class ScratchStage {
      * @param name the sound name
      */
     public void playSound(String name) {
-        for (int i = 0; i < sounds.size(); i++) {
-            ScratchSound sound = sounds.get(i);
+        for (ScratchSound sound : sounds) {
             if (sound.getName().equals(name) && !sound.isPlaying()) {
                 sound.play();
             }
@@ -252,6 +264,7 @@ public class ScratchStage {
 
     /**
      * Return the width of the current costume or the pen size, when no costume is available.
+     *
      * @return the width of the sprite
      */
     public int getWidth() {
@@ -260,6 +273,7 @@ public class ScratchStage {
 
     /**
      * Return the height of the current costume or the pen size, when no costume is available.
+     *
      * @return the height of the sprite
      */
     public int getHeight() {
@@ -268,6 +282,7 @@ public class ScratchStage {
 
     /**
      * Return the pixels of the current costume or an empty array, when no costume is available.
+     *
      * @return the pixels of the sprite
      */
     public int[] getPixels() {
@@ -278,6 +293,7 @@ public class ScratchStage {
 
     /**
      * Returns the timer
+     *
      * @return the timer
      */
     public Timer getTimer() {
@@ -286,6 +302,7 @@ public class ScratchStage {
 
     /**
      * Returns a timer by name
+     *
      * @param name a name
      * @return the timer
      */
@@ -295,6 +312,7 @@ public class ScratchStage {
 
     /**
      * Add a new timer by name. Overwriting default is not permitted.
+     *
      * @param name the name of the timer
      */
     public void addTimer(String name) {
@@ -305,12 +323,153 @@ public class ScratchStage {
 
     /**
      * Remove a timer by name. Removing of default is not permitted.
+     *
      * @param name the name of the timer
      */
     public void removeTimer(String name) {
         if (name.equals("default")) return;
 
         this.timer.remove(name);
+    }
+
+    public void mouseEvent(MouseEvent e) {
+        mouseX = e.getX();
+        mouseY = e.getY();
+        mouseDown = false;
+
+        if (e.getAction() == MouseEvent.PRESS) {
+            mouseDown = true;
+        }
+    }
+
+    /**
+     * Returns the current x-position of the mouse cursor
+     *
+     * @return x-position
+     */
+    public float getMouseX() {
+        return mouseX;
+    }
+
+    /**
+     * Returns the current y-position of the mouse cursor
+     *
+     * @return y-position
+     */
+    public float getMouseY() {
+        return mouseY;
+    }
+
+    /**
+     * Returns true is the mouse button is down
+     *
+     * @return mouse button down
+     */
+    public boolean isMouseDown() {
+        return mouseDown;
+    }
+
+    public void keyEvent(KeyEvent e) {
+        switch (e.getAction()) {
+            case KeyEvent.PRESS:
+                keyCodePressed = e.getKeyCode();
+                break;
+            case KeyEvent.RELEASE:
+                keyCodePressed = -1;
+                break;
+        }
+    }
+
+    /**
+     * Returns true if the key is pressed
+     *
+     * @param keyCode a key code
+     * @return key pressed
+     */
+    public boolean isKeyPressed(int keyCode) {
+        return keyCodePressed == keyCode;
+    }
+
+    /**
+     * Returns the current year
+     *
+     * @return current year
+     */
+    public int getCurrentYear() {
+        LocalDateTime now = LocalDateTime.now();
+        return now.getYear();
+    }
+
+    /**
+     * Returns the current date
+     *
+     * @return current date
+     */
+    public int getCurrentDate() {
+        LocalDateTime now = LocalDateTime.now();
+        return now.getDayOfMonth();
+    }
+
+    /**
+     * Returns the current week
+     *
+     * @return current week
+     */
+    public int getCurrentDayOfWeek() {
+        LocalDateTime now = LocalDateTime.now();
+        return now.getDayOfWeek().getValue();
+    }
+
+    /**
+     * Returns the current hour
+     *
+     * @return current hour
+     */
+    public int getCurrentHour() {
+        LocalDateTime now = LocalDateTime.now();
+        return now.getHour();
+    }
+
+    /**
+     * Returns the current minute
+     *
+     * @return current minute
+     */
+    public int getCurrentMinute() {
+        LocalDateTime now = LocalDateTime.now();
+        return now.getMinute();
+    }
+
+    /**
+     * Returns the current second
+     *
+     * @return current second
+     */
+    public int getCurrentSecond() {
+        LocalDateTime now = LocalDateTime.now();
+        return now.getSecond();
+    }
+
+    /**
+     * Returns the current millisecond
+     *
+     * @return current millisecond
+     */
+    public int getCurrentMillisecond() {
+        LocalDateTime now = LocalDateTime.now();
+        return (int) Math.round(now.getNano() / 1000000.0);
+    }
+
+    /**
+     * Returns the days since 2010/01/01
+     *
+     * @return days since 2010/01/01
+     */
+    public int getDaysSince2000() {
+        LocalDate now = LocalDate.now();
+        LocalDate then = LocalDate.of(2000, Month.JANUARY, 1);
+        Period p = Period.between(now, then);
+        return p.getDays();
     }
 
     /**
