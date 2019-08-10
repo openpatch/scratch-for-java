@@ -36,10 +36,7 @@ public class Timer {
         if (nextFrameFor < 0) {
             nextFrameFor = ScratchStage.parent.frameCount + frameDuration;
         }
-        if(ScratchStage.parent.frameCount < nextFrameFor) {
-            return true;
-        }
-        return false;
+        return ScratchStage.parent.frameCount < nextFrameFor;
     }
 
     public boolean afterMillis(int millis) {
@@ -47,10 +44,7 @@ public class Timer {
         if (nextFrameAfter < 0) {
             nextFrameAfter = ScratchStage.parent.frameCount + frameDuration;
         }
-        if(ScratchStage.parent.frameCount >= nextFrameAfter) {
-            return true;
-        }
-        return false;
+        return ScratchStage.parent.frameCount >= nextFrameAfter;
     }
 
     public boolean intervalMillis(int millis) {
