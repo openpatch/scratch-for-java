@@ -637,5 +637,23 @@ public class ScratchSprite {
         if (costumes.size() > 0 && this.show) {
             this.costumes.get(this.currentCostume).draw(this.size, this.rotation, this.x, this.y);
         }
+
+        if (ScratchStage.getInstance().isDebug()) {
+            ScratchImage currentCostume = null;
+            if(this.costumes.size() > 0) {
+                currentCostume = this.costumes.get(this.currentCostume);
+            }
+            float costumeWidth = currentCostume != null ? currentCostume.getImage().width : this.pen.getSize();
+            float costumeHeight = currentCostume != null ? currentCostume.getImage().height : this.pen.getSize();
+
+            ScratchStage.parent.strokeWeight(2);
+            ScratchStage.parent.stroke(ScratchStage.DEBUG_COLOR[0],ScratchStage.DEBUG_COLOR[1],ScratchStage.DEBUG_COLOR[2]);
+            ScratchStage.parent.noFill();
+            ScratchStage.parent.pushMatrix();
+            ScratchStage.parent.translate(x, y);
+            ScratchStage.parent.rotate(PApplet.radians(rotation));
+            ScratchStage.parent.rect(0, 0, costumeWidth, costumeHeight);
+            ScratchStage.parent.popMatrix();
+        }
     }
 }
