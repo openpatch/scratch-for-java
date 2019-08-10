@@ -329,7 +329,7 @@ public class ScratchSprite {
      * @param degrees
      */
     public void setRotation(float degrees) {
-        this.rotation = degrees;
+        this.rotation = degrees % 360;
     }
 
     /**
@@ -533,12 +533,109 @@ public class ScratchSprite {
     }
 
     /**
+     * Returns the current x-position of the mouse cursor
+     * @return x-position
+     */
+    public float getMouseX() {
+        return ScratchStage.getInstance().getMouseX();
+    }
+
+    /**
+     * Returns the current y-position of the mouse cursor
+     * @return y-position
+     */
+    public float getMouseY() {
+        return ScratchStage.getInstance().getMouseY();
+    }
+
+    /**
+     * Returns true is the mouse button is down
+     * @return mouse button down
+     */
+    public boolean isMouseDown() {
+        return ScratchStage.getInstance().isMouseDown();
+    }
+
+    /**
+     * Returns true if the key is pressed
+     * @param keyCode a key code
+     * @return key pressed
+     */
+    public boolean isKeyPressed(int keyCode) {
+        return ScratchStage.getInstance().isKeyPressed(keyCode);
+    }
+
+    /**
+     * Returns the current year
+     * @return current year
+     */
+    public int getCurrentYear() {
+        return ScratchStage.getInstance().getCurrentYear();
+    }
+
+    /**
+     * Returns the current date
+     * @return current date
+     */
+    public int getCurrentDate() {
+        return ScratchStage.getInstance().getCurrentDate();
+    }
+
+    /**
+     * Returns the current week
+     * @return current week
+     */
+    public int getCurrentDayOfWeek() {
+        return ScratchStage.getInstance().getCurrentDayOfWeek();
+    }
+
+    /**
+     * Returns the current hour
+     * @return current hour
+     */
+    public int getCurrentHour() {
+        return ScratchStage.getInstance().getCurrentHour();
+    }
+
+    /**
+     * Returns the current minute
+     * @return current minute
+     */
+    public int getCurrentMinute() {
+        return ScratchStage.getInstance().getCurrentMinute();
+    }
+
+    /**
+     * Returns the current second
+     * @return current second
+     */
+    public int getCurrentSecond() {
+        return ScratchStage.getInstance().getCurrentSecond();
+    }
+
+    /**
+     * Returns the current millisecond
+     * @return current millisecond
+     */
+    public int getCurrentMillisecond() {
+        return ScratchStage.getInstance().getCurrentMillisecond();
+    }
+
+    /**
+     * Returns the days since 2010/01/01
+     * @return days since 2010/01/01
+     */
+    public int getDaysSince2000() {
+        return ScratchStage.getInstance().getDaysSince2000();
+    }
+
+    /**
      * Draws the sprite if it is not hidden.
      */
     public void draw() {
         this.pen.draw();
         if (costumes.size() > 0 && this.show) {
-            this.costumes.get(this.currentCostume).draw(this.size, this.x, this.y);
+            this.costumes.get(this.currentCostume).draw(this.size, this.rotation, this.x, this.y);
         }
     }
 }
