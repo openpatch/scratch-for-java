@@ -143,10 +143,11 @@ public class ScratchImage {
      * Draw the scaled image at a given position.
      *
      * @param size a percentage value
+     * @param degrees rotate
      * @param x    a x coordinate
      * @param y    a y coordinate
      */
-    public void draw(float size, float x, float y) {
+    public void draw(float size, float degrees, float x, float y) {
         int newWidth = Math.round(this.originalImage.width * size / 100);
         int newHeight = Math.round(this.originalImage.height * size / 100);
 
@@ -156,9 +157,14 @@ public class ScratchImage {
         }
 
         PApplet parent = ScratchStage.parent;
+        parent.pushMatrix();
+        parent.translate(x, y);
+        parent.rotate(PApplet.radians(degrees));
         parent.tint(this.tint.getRed(), this.tint.getGreen(), this.tint.getBlue(), this.transparency);
-        parent.image(this.image, x, y);
+        parent.image(this.image, 0, 0);
         parent.noTint();
+        parent.popMatrix();
+
     }
 
     /**
