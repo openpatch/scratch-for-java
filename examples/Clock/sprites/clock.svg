@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="97.366669mm"
+   height="97.366669mm"
+   viewBox="0 0 97.366669 97.366669"
+   version="1.1"
+   id="svg4612"
+   inkscape:export-filename="/home/mbarkmin/clock.png"
+   inkscape:export-xdpi="208.69565"
+   inkscape:export-ydpi="208.69565"
+   inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
+   sodipodi:docname="clock.svg">
+  <defs
+     id="defs4606" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.4"
+     inkscape:cx="71.886024"
+     inkscape:cy="255.39621"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer5"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:window-width="1858"
+     inkscape:window-height="1016"
+     inkscape:window-x="62"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1">
+    <sodipodi:guide
+       position="1.1339286,48.569942"
+       orientation="0,1"
+       id="guide5197"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="48.75893,63.122025"
+       orientation="1,0"
+       id="guide5199"
+       inkscape:locked="false" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata4609">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:groupmode="layer"
+     id="layer3"
+     inkscape:label="Second"
+     style="display:none">
+    <rect
+       style="fill:#800000;fill-opacity:1;stroke:none;stroke-width:0.78858656;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
+       id="rect5207-1"
+       width="2.3623509"
+       height="34.017857"
+       x="47.672256"
+       y="17.613693"
+       ry="1.1601744"
+       inkscape:export-xdpi="208"
+       inkscape:export-ydpi="208" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Minute"
+     style="display:none">
+    <rect
+       style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.05391026;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
+       id="rect5207-4"
+       width="4.7247019"
+       height="30.379835"
+       x="46.491077"
+       y="21.251717"
+       ry="1.8100996"
+       inkscape:export-xdpi="208"
+       inkscape:export-ydpi="208" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer4"
+     inkscape:label="Hour"
+     style="display:none">
+    <rect
+       style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.94044441;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
+       id="rect5207"
+       width="4.7247019"
+       height="24.190475"
+       x="46.491077"
+       y="27.441069"
+       ry="1.4413234"
+       inkscape:export-xdpi="208"
+       inkscape:export-ydpi="208" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer5"
+     inkscape:label="Clock">
+    <path
+       inkscape:connector-curvature="0"
+       d="m 48.683341,15.874999 c 1.164159,0 2.116659,-0.9525 2.116659,-2.116667 v -1.058333 c 0,-1.164167 -0.9525,-2.116667 -2.116659,-2.116667 -1.164172,0 -2.116672,0.9525 -2.116672,2.116667 v 1.058333 c 0,1.164167 0.9525,2.116667 2.116672,2.116667 z"
+       id="path2"
+       style="stroke-width:0.26458332" />
+    <path
+       inkscape:connector-curvature="0"
+       d="m 48.683341,81.491668 c -1.164172,0 -2.116672,0.9525 -2.116672,2.11667 v 1.05833 c 0,1.16417 0.9525,2.11667 2.116672,2.11667 1.164159,0 2.116659,-0.9525 2.116659,-2.11667 v -1.05833 c 0,-1.16417 -0.9525,-2.11667 -2.116659,-2.11667 z"
+       id="path4"
+       style="stroke-width:0.26458332" />
+    <path
+       inkscape:connector-curvature="0"
+       d="M 13.75834,46.566666 H 12.7 c -1.16416,0 -2.11666,0.9525 -2.11666,2.116666 0,1.164164 0.9525,2.116664 2.11666,2.116664 h 1.05834 c 1.16416,0 2.11666,-0.9525 2.11666,-2.116664 0,-1.164166 -0.9525,-2.116666 -2.11666,-2.116666 z"
+       id="path6"
+       style="stroke-width:0.26458332" />
+    <path
+       inkscape:connector-curvature="0"
+       d="m 84.666667,46.566666 h -1.058328 c -1.164172,0 -2.116672,0.9525 -2.116672,2.116666 0,1.164164 0.9525,2.116664 2.116672,2.116664 h 1.058328 c 1.164172,0 2.116672,-0.9525 2.116672,-2.116664 0,-1.164166 -0.9525,-2.116666 -2.116672,-2.116666 z"
+       id="path8"
+       style="stroke-width:0.26458332" />
+    <path
+       inkscape:connector-curvature="0"
+       d="M 48.683341,-6.113281e-7 C 21.80167,-6.113281e-7 0,21.801666 0,48.683332 c 0,26.881667 21.80167,48.683336 48.683341,48.683336 26.881656,0 48.683328,-21.801669 48.683328,-48.683336 C 97.366669,21.801666 75.564997,-6.113281e-7 48.683341,-6.113281e-7 Z M 48.683341,93.133327 C 24.13,93.133327 4.2333399,73.236668 4.2333399,48.683332 4.2333399,24.129999 24.13,4.2333335 48.683341,4.2333335 c 24.553326,0 44.449998,19.8966655 44.449998,44.4499985 0,24.553336 -19.896672,44.449995 -44.449998,44.449995 z"
+       id="path18"
+       style="stroke-width:0.26458332" />
+    <circle
+       style="fill:#ff9955;fill-opacity:1;stroke:none;stroke-width:1.05799997;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
+       id="path5273"
+       cx="48.683334"
+       cy="48.683334"
+       r="4.0632439" />
+  </g>
+</svg>
