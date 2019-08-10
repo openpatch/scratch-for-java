@@ -29,8 +29,8 @@ public class ScratchSprite {
         this.timer = new HashMap<>();
         this.timer.put("default", new Timer());
 
-        ScratchStage.parent.registerMethod("keyPressed", this);
-        ScratchStage.parent.registerMethod("mouseMoved", this);
+        ScratchStage.parent.registerMethod("keyEvent", this);
+        ScratchStage.parent.registerMethod("mouseEvent", this);
     }
 
     public ScratchSprite(String name, String imagePath) {
@@ -756,9 +756,9 @@ public class ScratchSprite {
         return ScratchStage.getInstance().getDaysSince2000();
     }
 
-    public void keyPressed(KeyEvent e) {}
+    public void keyEvent(KeyEvent e) {}
 
-    public void mouseMoused(MouseEvent e) {}
+    public void mouseEvent(MouseEvent e) {}
 
     /**
      * Draws the sprite if it is not hidden.
