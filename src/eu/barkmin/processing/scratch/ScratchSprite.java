@@ -1,7 +1,11 @@
 package eu.barkmin.processing.scratch;
 
 import processing.core.PApplet;
+import processing.event.KeyEvent;
+import processing.event.MouseEvent;
 
+import java.awt.*;
+import java.awt.geom.Area;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -24,6 +28,9 @@ public class ScratchSprite {
         this.y = ScratchStage.parent.height / 2.0f;
         this.timer = new HashMap<>();
         this.timer.put("default", new Timer());
+
+        ScratchStage.parent.registerMethod("keyPressed", this);
+        ScratchStage.parent.registerMethod("mouseMoved", this);
     }
 
     public ScratchSprite(String name, String imagePath) {
@@ -179,7 +186,7 @@ public class ScratchSprite {
         if (costumes.size() == 0) return;
 
         for (ScratchImage costume : this.costumes) {
-            costume.setTint(r,g,b);
+            costume.setTint(r, g, b);
         }
     }
 
@@ -363,7 +370,7 @@ public class ScratchSprite {
         float newY = steps * (float) Math.sin(this.rotation * Math.PI / 180) + this.y;
 
         ScratchImage currentCostume = null;
-        if(this.costumes.size() > 0) {
+        if (this.costumes.size() > 0) {
             currentCostume = this.costumes.get(this.currentCostume);
         }
         float costumeWidth = currentCostume != null ? currentCostume.getImage().width : this.pen.getSize();
@@ -398,6 +405,7 @@ public class ScratchSprite {
 
     /**
      * Sets the x coordinate
+     *
      * @param x a x coordinate
      */
     public void setX(float x) {
@@ -406,10 +414,11 @@ public class ScratchSprite {
 
     /**
      * Changes x by a certain amount
+     *
      * @param x number in pixels
      */
     public void changeX(float x) {
-       this.x += x;
+        this.x += x;
     }
 
     /**
@@ -423,6 +432,7 @@ public class ScratchSprite {
 
     /**
      * Sets the y coordinate
+     *
      * @param y a y coordinate
      */
     public void setY(float y) {
@@ -431,6 +441,7 @@ public class ScratchSprite {
 
     /**
      * Changes y by a certain amount
+     *
      * @param y number in pixels
      */
     public void changeY(float y) {
@@ -439,6 +450,7 @@ public class ScratchSprite {
 
     /**
      * Return the width of the current costume or the pen size, when no costume is available.
+     *
      * @return the width of the sprite
      */
     public int getWidth() {
@@ -449,6 +461,7 @@ public class ScratchSprite {
 
     /**
      * Return the height of the current costume or the pen size, when no costume is available.
+     *
      * @return the height of the sprite
      */
     public int getHeight() {
@@ -459,6 +472,7 @@ public class ScratchSprite {
 
     /**
      * Return the pixels of the current costume or an empty array, when no costume is available.
+     *
      * @return the pixels of the sprite
      */
     public int[] getPixels() {
@@ -469,6 +483,7 @@ public class ScratchSprite {
 
     /**
      * Return the pixelWidth of the current costume or an empty array, when no costume is available.
+     *
      * @return the pixel width of the sprite
      */
     public int getPixelWidth() {
@@ -477,6 +492,7 @@ public class ScratchSprite {
 
     /**
      * Return the pixelHeight of the current costume or the pen size, when no costume is available.
+     *
      * @return the pixel height of the sprite
      */
     public int getPixelHeight() {
@@ -485,6 +501,7 @@ public class ScratchSprite {
 
     /**
      * Return the default timer
+     *
      * @return the default timer
      */
     public Timer getTimer() {
@@ -493,6 +510,7 @@ public class ScratchSprite {
 
     /**
      * Return a timer by name
+     *
      * @return a timer
      */
     public Timer getTimer(String name) {
@@ -501,6 +519,7 @@ public class ScratchSprite {
 
     /**
      * Add a new timer by name. Overwriting default is not permitted.
+     *
      * @param name the name of the timer
      */
     public void addTimer(String name) {
@@ -511,6 +530,7 @@ public class ScratchSprite {
 
     /**
      * Remove a timer by name. Removing of default is not permitted.
+     *
      * @param name the name of the timer
      */
     public void removeTimer(String name) {
@@ -529,11 +549,107 @@ public class ScratchSprite {
             while (angleOfReflection < 0) angleOfReflection += 360;
             return angleOfReflection;
         }
+    }
 
+    /**
+     * Returns true is the mouse pointer is touching a non transparent area of the sprite.
+     * @return true if touching
+     */
+    public boolean isTouchingMousePointer() {
+        float topLeftCornerX = x - getWidth() / 2.0f;
+        float topLeftCornerY = y - getHeight() / 2.0f;
+
+        float bottomRightCornerX = x + getWidth() / 2.0f;
+        float bottomRightCornerY = y + getHeight() / 2.0f;
+
+        float[] mouse = ScratchStage.rotateXY(getMouseX(), getMouseY(), x, y, -rotation);
+
+        boolean touching = mouse[0] > topLeftCornerX && mouse[1] > topLeftCornerY &&
+                mouse[0] < bottomRightCornerX && mouse[1] < bottomRightCornerY;
+
+        if (touching) {
+            int relativeMouseX = Math.round(mouse[0] - topLeftCornerX);
+            int relativeMouseY = Math.round(mouse[1] - topLeftCornerY);
+
+            int color = this.costumes.get(this.getCurrentCostumeIndex()).getImage().get(relativeMouseX, relativeMouseY);
+            return color != 0;
+        }
+
+        return false;
+    }
+
+
+    /**
+     * Returns true if the rectangle which contains the image is outside of the stage
+     * @return true if outside
+     */
+    public boolean isTouchingEdge() {
+        ScratchImage currentCostume = this.costumes.get(this.getCurrentCostumeIndex());
+        PApplet parent = ScratchStage.parent;
+        float costumeWidth = currentCostume != null ? currentCostume.getImage().width : this.pen.getSize();
+        float costumeHeight = currentCostume != null ? currentCostume.getImage().height : this.pen.getSize();
+        float spriteWidth = this.show ? costumeWidth : this.pen.getSize();
+        float spriteHeight = this.show ? costumeHeight : this.pen.getSize();
+
+        float[] cornerTopLeft = ScratchStage.rotateXY(x - spriteWidth / 2.0f, y - spriteHeight / 2.0f, x, y, rotation);
+        float[] cornerTopRight = ScratchStage.rotateXY(x + spriteWidth / 2.0f, y - spriteHeight / 2.0f, x,y, rotation);
+        float[] cornerBottomLeft = ScratchStage.rotateXY(x - spriteWidth / 2.0f, y + spriteHeight / 2.0f, x, y, rotation);
+        float[] cornerBottomRight = ScratchStage.rotateXY( x + spriteWidth / 2.0f, y + spriteHeight / 2.0f, x,y, rotation);
+
+        float[][] corners = { cornerTopLeft, cornerTopRight, cornerBottomLeft, cornerBottomRight };
+
+        for (float[] corner : corners) {
+            float cornerX = corner[0];
+            float cornerY = corner[1];
+            if (cornerX > parent.width || cornerX < 0) {
+                return true;
+            }
+
+            if (cornerY > parent.height || cornerY < 0) {
+                return true;
+            }
+        }
+
+        return false;
+
+    }
+
+    private Polygon getPolygon() {
+        ScratchImage currentCostume = this.costumes.get(this.getCurrentCostumeIndex());
+        PApplet parent = ScratchStage.parent;
+        float costumeWidth = currentCostume != null ? currentCostume.getImage().width : this.pen.getSize();
+        float costumeHeight = currentCostume != null ? currentCostume.getImage().height : this.pen.getSize();
+        float spriteWidth = this.show ? costumeWidth : this.pen.getSize();
+        float spriteHeight = this.show ? costumeHeight : this.pen.getSize();
+
+        float[] cornerTopLeft = ScratchStage.rotateXY(x - spriteWidth / 2.0f, y - spriteHeight / 2.0f, x, y, rotation);
+        float[] cornerTopRight = ScratchStage.rotateXY(x + spriteWidth / 2.0f, y - spriteHeight / 2.0f, x,y, rotation);
+        float[] cornerBottomLeft = ScratchStage.rotateXY(x - spriteWidth / 2.0f, y + spriteHeight / 2.0f, x, y, rotation);
+        float[] cornerBottomRight = ScratchStage.rotateXY( x + spriteWidth / 2.0f, y + spriteHeight / 2.0f, x,y, rotation);
+
+        Polygon p = new Polygon();
+        p.addPoint(Math.round(cornerTopLeft[0]), Math.round(cornerTopLeft[1]));
+        p.addPoint(Math.round(cornerTopRight[0]), Math.round(cornerTopRight[1]));
+        p.addPoint(Math.round(cornerBottomRight[0]), Math.round(cornerBottomRight[1]));
+        p.addPoint(Math.round(cornerBottomLeft[0]), Math.round(cornerBottomLeft[1]));
+
+        return p;
+    }
+
+    public boolean isTouchingSprite(ScratchSprite sprite) {
+        Polygon p1 = this.getPolygon();
+        Polygon p2 = sprite.getPolygon();
+
+        Area a = new Area(p1); Area b = new Area(p2);
+
+        a.intersect(b);
+
+        return !a.isEmpty();
     }
 
     /**
      * Returns the current x-position of the mouse cursor
+     *
      * @return x-position
      */
     public float getMouseX() {
@@ -542,6 +658,7 @@ public class ScratchSprite {
 
     /**
      * Returns the current y-position of the mouse cursor
+     *
      * @return y-position
      */
     public float getMouseY() {
@@ -550,6 +667,7 @@ public class ScratchSprite {
 
     /**
      * Returns true is the mouse button is down
+     *
      * @return mouse button down
      */
     public boolean isMouseDown() {
@@ -558,6 +676,7 @@ public class ScratchSprite {
 
     /**
      * Returns true if the key is pressed
+     *
      * @param keyCode a key code
      * @return key pressed
      */
@@ -567,6 +686,7 @@ public class ScratchSprite {
 
     /**
      * Returns the current year
+     *
      * @return current year
      */
     public int getCurrentYear() {
@@ -575,6 +695,7 @@ public class ScratchSprite {
 
     /**
      * Returns the current date
+     *
      * @return current date
      */
     public int getCurrentDate() {
@@ -583,6 +704,7 @@ public class ScratchSprite {
 
     /**
      * Returns the current week
+     *
      * @return current week
      */
     public int getCurrentDayOfWeek() {
@@ -591,6 +713,7 @@ public class ScratchSprite {
 
     /**
      * Returns the current hour
+     *
      * @return current hour
      */
     public int getCurrentHour() {
@@ -599,6 +722,7 @@ public class ScratchSprite {
 
     /**
      * Returns the current minute
+     *
      * @return current minute
      */
     public int getCurrentMinute() {
@@ -607,6 +731,7 @@ public class ScratchSprite {
 
     /**
      * Returns the current second
+     *
      * @return current second
      */
     public int getCurrentSecond() {
@@ -615,6 +740,7 @@ public class ScratchSprite {
 
     /**
      * Returns the current millisecond
+     *
      * @return current millisecond
      */
     public int getCurrentMillisecond() {
@@ -623,11 +749,16 @@ public class ScratchSprite {
 
     /**
      * Returns the days since 2010/01/01
+     *
      * @return days since 2010/01/01
      */
     public int getDaysSince2000() {
         return ScratchStage.getInstance().getDaysSince2000();
     }
+
+    public void keyPressed(KeyEvent e) {}
+
+    public void mouseMoused(MouseEvent e) {}
 
     /**
      * Draws the sprite if it is not hidden.
@@ -640,14 +771,14 @@ public class ScratchSprite {
 
         if (ScratchStage.getInstance().isDebug()) {
             ScratchImage currentCostume = null;
-            if(this.costumes.size() > 0) {
+            if (this.costumes.size() > 0) {
                 currentCostume = this.costumes.get(this.currentCostume);
             }
             float costumeWidth = currentCostume != null ? currentCostume.getImage().width : this.pen.getSize();
             float costumeHeight = currentCostume != null ? currentCostume.getImage().height : this.pen.getSize();
 
             ScratchStage.parent.strokeWeight(2);
-            ScratchStage.parent.stroke(ScratchStage.DEBUG_COLOR[0],ScratchStage.DEBUG_COLOR[1],ScratchStage.DEBUG_COLOR[2]);
+            ScratchStage.parent.stroke(ScratchStage.DEBUG_COLOR[0], ScratchStage.DEBUG_COLOR[1], ScratchStage.DEBUG_COLOR[2]);
             ScratchStage.parent.noFill();
             ScratchStage.parent.pushMatrix();
             ScratchStage.parent.translate(x, y);
