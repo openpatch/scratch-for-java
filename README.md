@@ -332,6 +332,31 @@ An example which makes use of the many methods of the timer.
 
 ![timer](web/assets/timer.gif)
 
+### Sensing
+
+Source Code: https://github.com/mikebarkmin/processing-library-scratch/tree/master/examples/Sensing
+
+An example which shows the usage of isTouchingMousePointer
+
+![sensing](web/assets/sensing.gif)
+
+### Stress Test
+
+Source Code: https://github.com/mikebarkmin/processing-library-scratch/tree/master/examples/StressTest
+
+How many sprites can you display? And how does it effect the frame rate and memory usage of your scratch. Test it with this example.
+
+It also show hot to animate a sprite.
+
+![stress_test](web/assets/stress_test.gif)
+
+## Color Hit
+
+Source Code: https://github.com/mikebarkmin/processing-library-scratch/tree/master/examples/ColorHit
+
+A little game developed which this library.
+
+![color_hit](web/assets/color_hit.gif)
 
 ## Missing
 
