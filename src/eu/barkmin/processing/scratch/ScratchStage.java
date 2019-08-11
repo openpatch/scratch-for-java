@@ -38,7 +38,7 @@ public class ScratchStage {
         parent.imageMode(PConstants.CENTER);
         parent.rectMode(PConstants.CENTER);
         ScratchStage.parent = parent;
-        this.penBuffer = parent.createGraphics(parent.width, parent.height);
+        this.penBuffer = parent.createGraphics(parent.width, parent.height, parent.sketchRenderer());
         this.timer = new HashMap<>();
         this.timer.put("default", new Timer());
         this.debug = debug;
@@ -132,7 +132,7 @@ public class ScratchStage {
      * Erases all lines on the pen layer.
      */
     public void eraseAll() {
-        this.penBuffer = parent.createGraphics(parent.width, parent.height);
+        this.penBuffer = parent.createGraphics(parent.width, parent.height, parent.sketchRenderer());
         this.pre();
     }
 
