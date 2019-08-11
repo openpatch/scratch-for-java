@@ -372,7 +372,7 @@ An example which makes use of the many methods of the timer.
 
 Source Code: https://github.com/mikebarkmin/processing-library-scratch/tree/master/examples/Sensing
 
-An example which shows the usage of isTouchingMousePointer
+An example which shows the usage of isTouchingMousePointer and custom hitboxes.
 
 ![sensing](web/assets/sensing.gif)
 
