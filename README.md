@@ -31,6 +31,8 @@ void draw() {
 }
 ```
 
+With `ScratchStage.init(this, true)` you can enable the debug mode. It will display the mouse cursor position and all hitboxes.
+
 #### Looks
 
 | Scratch | Processing |
