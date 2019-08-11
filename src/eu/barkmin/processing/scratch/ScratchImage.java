@@ -163,6 +163,12 @@ public class ScratchImage {
         parent.tint(this.tint.getRed(), this.tint.getGreen(), this.tint.getBlue(), this.transparency);
         parent.image(this.image, 0, 0);
         parent.noTint();
+        if(ScratchStage.getInstance().isDebug()) {
+            parent.fill(ScratchStage.DEBUG_COLOR[0], ScratchStage.DEBUG_COLOR[1], ScratchStage.DEBUG_COLOR[1]);
+            parent.textAlign(parent.CENTER);
+            parent.text("Rotation: " + degrees, 0, - newHeight/2.0f - 10);
+            parent.text("(" + x + ", " + y + ")", 0, 0);
+        }
         parent.popMatrix();
 
     }
