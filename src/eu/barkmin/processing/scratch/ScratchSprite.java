@@ -625,7 +625,10 @@ public class ScratchSprite {
     }
 
     public ScratchHitbox getHitbox() {
-        ScratchImage currentCostume = this.costumes.get(this.getCurrentCostumeIndex());
+        ScratchImage currentCostume = null;
+        if (this.costumes.size() > this.getCurrentCostumeIndex()) {
+            currentCostume = this.costumes.get(this.getCurrentCostumeIndex());
+        }
         float costumeWidth = currentCostume != null ? currentCostume.getImage().width : this.pen.getSize();
         float costumeHeight = currentCostume != null ? currentCostume.getImage().height : this.pen.getSize();
         float spriteWidth = this.show ? costumeWidth : this.pen.getSize();
