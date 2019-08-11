@@ -318,7 +318,7 @@ public class ScratchSprite {
      * @param degrees
      */
     public void turnLeft(float degrees) {
-        this.rotation = (this.rotation - degrees) % 360;
+        this.setRotation(this.rotation - degrees);
     }
 
     /**
@@ -327,7 +327,7 @@ public class ScratchSprite {
      * @param degrees
      */
     public void turnRight(float degrees) {
-        this.rotation = (this.rotation + degrees) % 360;
+        this.setRotation(this.rotation + degrees);
     }
 
     /**
@@ -336,7 +336,10 @@ public class ScratchSprite {
      * @param degrees
      */
     public void setRotation(float degrees) {
-        this.rotation = degrees % 360;
+        this.rotation = degrees;
+        if(this.rotation < 0) {
+            this.rotation += 360;
+        }
     }
 
     /**
