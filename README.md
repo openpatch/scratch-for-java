@@ -48,6 +48,22 @@ To add a new backdrop call `stage.addBackdrop("newBackdrop",
 "path/to/newBackdrop.png");`. Afterwards you can swith to the backdrop by calling
 `stage.switchBackdrop("newBackdrop");`.
 
+#### Sensing
+
+| Scratch | Processing |
+| :-: | :-: |
+| ![stage mouse down](web/assets/sprite_mouse_down.png) | `stage.isMouseDown()` |
+| ![stage mouse x](web/assets/sprite_mouse_x.png) | `stage.getMouseX()` |
+| ![stage mouse y](web/assets/sprite_mouse_y.png) | `stage.getMouseY()` |
+| ![stage is key pressed](web/assets/sprite_key_pressed.png) | `stage.isKeyPressed(32)` <br> For key pressed you need to use key codes see https://keycode.info/ to find the appropriate one. |
+| ![stage current ?](web/assets/sprite_current_time.png) | `stage.getCurrentYear()`, `stage.getCurrentDay()`, `stage.getCurrentHour()`, `stage.getCurrentMinute()`, `stage.getCurrentSecond()`, `stage.getCurrentMillisecond()`, `stage.getCurrentDayOfWeek()` |
+
+#### Events
+
+| Scratch | Processing |
+| :-: | :-: |
+| ![stage when key pressed](web/assets/sprite_when_keypressed.png) | Overwrite `stage.keyEvent(KeyEvent e)`. The method will be called everytime a new KeyEvent is fired. For example when pressing or releasing a key. See [KeyEvent](https://processing.github.io/processing-javadocs/core/processing/event/KeyEvent.html) for more Information. |
+| ![stage when move moved](web/assets/sprite_when_mouse_moved.png) | Overwrite `stage.mouseEvent(MouseEvent e)`. The method will be called everytime a new MouseEvent is fired. For example when pressing, releasing or moving the mouse. See [MouseEvent](https://processing.github.io/processing-javadocs/core/processing/event/MouseEvent.html) for more Information. |
 
 #### Sound
 
@@ -147,6 +163,26 @@ class CatSprite extends ScratchSprite {
 To add a new costume call `sprite.addCostume("newCostume",
 "path/to/newCostume.png");`. Afterwards you can swith to the costume by calling
 `sprite.switchCostume("newCostume");`.
+
+#### Sensing
+
+| Scratch | Processing |
+| :-: | :-: |
+| ![sprite mouse down](web/assets/sprite_mouse_down.png) | `sprite.isMouseDown()` |
+| ![sprite mouse x](web/assets/sprite_mouse_x.png) | `sprite.getMouseX()` |
+| ![sprite mouse y](web/assets/sprite_mouse_y.png) | `sprite.getMouseY()` |
+| ![sprite is key pressed](web/assets/sprite_key_pressed.png) | `sprite.isKeyPressed(32)` <br> For key pressed you need to use key codes see https://keycode.info/ to find the appropriate one. |
+| ![sprite current ?](web/assets/sprite_current_time.png) | `sprite.getCurrentYear()`, `sprite.getCurrentDay()`, `sprite.getCurrentHour()`, `sprite.getCurrentMinute()`, `sprite.getCurrentSecond()`, `sprite.getCurrentMillisecond()`, `sprite.getCurrentDayOfWeek()` |
+| ![sprite touching mouse pointer](web/assets/sprite_touching_mouse_pointer.png) | `sprite.isTouchingMousePointer()` |
+| ![sprite touching edge](web/assets/sprite_touching_edge.png) | `sprite.isTouchingEdge()` |
+| ![sprite touching sprite](web/assets/sprite_touching_sprite.png) | `sprite.isTouchingSprite(anotherSprite)` |
+
+#### Events
+
+| Scratch | Processing |
+| :-: | :-: |
+| ![sprite when key pressed](web/assets/sprite_when_keypressed.png) | Overwrite `sprite.keyEvent(KeyEvent e)`. The method will be called everytime a new KeyEvent is fired. For example when pressing or releasing a key. See [KeyEvent](https://processing.github.io/processing-javadocs/core/processing/event/KeyEvent.html) for more Information. |
+| ![sprite when move moved](web/assets/sprite_when_mouse_moved.png) | Overwrite `sprite.mouseEvent(MouseEvent e)`. The method will be called everytime a new MouseEvent is fired. For example when pressing, releasing or moving the mouse. See [MouseEvent](https://processing.github.io/processing-javadocs/core/processing/event/MouseEvent.html) for more Information. |
 
 #### Sound
 
@@ -358,10 +394,18 @@ A little game developed which this library.
 
 ![color_hit](web/assets/color_hit.gif)
 
+## Clock
+
+Source Code: https://github.com/mikebarkmin/processing-library-scratch/tree/master/examples/Clock
+
+Shows the sensing time methods
+
+![clock](web/assets/clock.gif)
+
+
 ## Missing
 
 * blocks which are not listed above are currently missing
-* sprites can not sense something. E.g.: a color or another sprite
 * sprites can not speak or think
 
 ## How to install Scratch
