@@ -91,7 +91,7 @@ API: https://www.barkmin.eu/processing-library-scratch/reference/eu/barkmin/proc
 Source Code: https://github.com/mikebarkmin/processing-library-scratch/blob/master/src/eu/barkmin/processing/scratch/ScratchSprite.java
 
 In Scratch sprites are the main actors. Every sprite has a custom set of
-costumes and sounds, which could be dynamicly changed. Most of the
+costumes and sounds, which could be dynamically changed. Most of the
 functionality which sprites in Scratch have were tried to reimplement in
 processing.
 
@@ -149,7 +149,7 @@ class CatSprite extends ScratchSprite {
 | :-: | :-: |
 | ![sprite show](web/assets/sprite_show.png) | `sprite.show();` |
 | ![sprite hide](web/assets/sprite_hide.png) | `sprite.hide();` |
-| ![srpite switch costume](web/assets/sprite_switch_costume_to.png) | `sprite.switchCostume("costume1");` |
+| ![sprite switch costume](web/assets/sprite_switch_costume_to.png) | `sprite.switchCostume("costume1");` |
 | ![sprite next costume](web/assets/sprite_next_costume.png) | `sprite.nextCostume();` |
 | ![sprite set color](web/assets/sprite_set_color_to.png) | `sprite.setTint(0);` |
 | ![sprite change color by](web/assets/sprite_change_color_by.png) | `sprite.changeTint(25);` |
@@ -161,7 +161,7 @@ class CatSprite extends ScratchSprite {
 | ![sprite size](web/assets/sprite_size.png) | `sprite.getSize();` |
 
 To add a new costume call `sprite.addCostume("newCostume",
-"path/to/newCostume.png");`. Afterwards you can swith to the costume by calling
+"path/to/newCostume.png");`. Afterwards you can switch to the costume by calling
 `sprite.switchCostume("newCostume");`.
 
 #### Sensing
@@ -173,9 +173,9 @@ To add a new costume call `sprite.addCostume("newCostume",
 | ![sprite mouse y](web/assets/sprite_mouse_y.png) | `sprite.getMouseY()` |
 | ![sprite is key pressed](web/assets/sprite_key_pressed.png) | `sprite.isKeyPressed(32)` <br> For key pressed you need to use key codes see https://keycode.info/ to find the appropriate one. |
 | ![sprite current ?](web/assets/sprite_current_time.png) | `sprite.getCurrentYear()`, `sprite.getCurrentDay()`, `sprite.getCurrentHour()`, `sprite.getCurrentMinute()`, `sprite.getCurrentSecond()`, `sprite.getCurrentMillisecond()`, `sprite.getCurrentDayOfWeek()` |
-| ![sprite touching mouse pointer](web/assets/sprite_touching_mouse_pointer.png) | `sprite.isTouchingMousePointer()` |
-| ![sprite touching edge](web/assets/sprite_touching_edge.png) | `sprite.isTouchingEdge()` |
-| ![sprite touching sprite](web/assets/sprite_touching_sprite.png) | `sprite.isTouchingSprite(anotherSprite)` |
+| ![sprite touching mouse pointer](web/assets/sprite_touching_mouse_pointer.png) | `sprite.isTouchingMousePointer()` Pixelperfect, transparent pixel will be ignored |
+| ![sprite touching edge](web/assets/sprite_touching_edge.png) | `sprite.isTouchingEdge()` based on the default [hitbox](#hitboxes)|
+| ![sprite touching sprite](web/assets/sprite_touching_sprite.png) | `sprite.isTouchingSprite(anotherSprite)` based on a custom or the default [hitbox](#hitboxes)|
 
 #### Events
 
@@ -210,7 +210,7 @@ API: https://www.barkmin.eu/processing-library-scratch/reference/eu/barkmin/proc
 Source Code: https://github.com/mikebarkmin/processing-library-scratch/blob/master/src/eu/barkmin/processing/scratch/ScratchPen.java
 
 In Scratch every sprite can use a pen to draw lines, therefore every
-ScratchSprite object has an pen assoziated with it. Through a similiar api the
+ScratchSprite object has an pen associated with it. Through a similar api the
 pen can be modified.
 
 | Scratch | Processing |
@@ -227,9 +227,9 @@ pen can be modified.
 
 ### Timer
 
-Sometimes you want to tigger an event after a certain time or at a certain time
+Sometimes you want to trigger an event after a certain time or at a certain time
 interval. Therefore the stage and every sprite have one or more Timer objects.
-You can access the timer objects throught `stage.getTimer()` or
+You can access the timer objects through `stage.getTimer()` or
 `sprite.getTimer()`. The timer object has some useful methods:
 
 | API | Example | Description |
@@ -261,18 +261,18 @@ intervalMillis(600, 300, true) -> red (seventh line)
 
 If you want that a sprite should do something every 2000ms and every 1000ms,
 you need two timers. To add a timer you simply call
-`sprite.addTimer("timerForMe")`. The timer is than accessable with `sprite.getTimer("timerForMe")`.
+`sprite.addTimer("timerForMe")`. The timer is than accessible with `sprite.getTimer("timerForMe")`.
 
-Unfortunatly the timer are not on point. Sometimes they are lacking behind.
+Unfortunately the timer are not on point. Sometimes they are lacking behind.
 This happens when the frame rate drops.  This can lead to a unwanted rendering
-order. For example the pattern which was tried to achive in the example
+order. For example the pattern which was tried to achieve in the example
 [TimedDot](#TimeDot) should look like this:
 
 Lila, Lila, Green, Lila, Lila, Green, Clear.
 
 Especially at the beginning of the sketch the frame rate increases slowly to
 the desired one. Therefore there are some missing frames in the beginning and
-the pattern is messed up. To achive a better result you should use a multiple
+the pattern is messed up. To achieve a better result you should use a multiple
 of the frame rate for millis. (If not set the standard frame rate is 60). You
 can see the difference below.
 
@@ -407,6 +407,26 @@ Shows the sensing time methods
 
 * blocks which are not listed above are currently missing
 * sprites can not speak or think
+
+## Advanced Features
+
+### Hitboxes
+
+The default hitbox is defined by the image you have used, but you have the
+ability to define a custom hitbox. Therefore call the method `setHitbox` on the
+sprite you would like to modify. The `setHitbox` method gets two arguments
+`int[] xPoints` and `int[] yPoints` these correspond to the outline out the new
+hitbox. The path will be close automatically.
+
+Example: We set the hitbox of an 615px x 570px image.
+
+```
+int[] xHitbox = {0, 300, 300, 0, 150};
+int[] yHitbox = {0, 0,   570, 570, 275};
+this.setHitbox(xHitbox, yHitbox);
+```
+
+![hitbox](web/assets/custom_hitbox.png)
 
 ## How to install Scratch
 
