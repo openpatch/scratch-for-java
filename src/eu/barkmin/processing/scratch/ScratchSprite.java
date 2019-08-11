@@ -21,6 +21,7 @@ public class ScratchSprite {
     private float y = 0;
     private HashMap<String, Timer> timer;
     private ScratchPen pen;
+    private ScratchHitbox hitbox;
 
     public ScratchSprite() {
         this.pen = new ScratchPen();
@@ -337,7 +338,7 @@ public class ScratchSprite {
      */
     public void setRotation(float degrees) {
         this.rotation = degrees;
-        if(this.rotation < 0) {
+        if (this.rotation < 0) {
             this.rotation += 360;
         }
     }
@@ -556,6 +557,7 @@ public class ScratchSprite {
 
     /**
      * Returns true is the mouse pointer is touching a non transparent area of the sprite.
+     *
      * @return true if touching
      */
     public boolean isTouchingMousePointer() {
@@ -584,6 +586,7 @@ public class ScratchSprite {
 
     /**
      * Returns true if the rectangle which contains the image is outside of the stage
+     *
      * @return true if outside
      */
     public boolean isTouchingEdge() {
@@ -595,11 +598,11 @@ public class ScratchSprite {
         float spriteHeight = this.show ? costumeHeight : this.pen.getSize();
 
         float[] cornerTopLeft = ScratchStage.rotateXY(x - spriteWidth / 2.0f, y - spriteHeight / 2.0f, x, y, rotation);
-        float[] cornerTopRight = ScratchStage.rotateXY(x + spriteWidth / 2.0f, y - spriteHeight / 2.0f, x,y, rotation);
+        float[] cornerTopRight = ScratchStage.rotateXY(x + spriteWidth / 2.0f, y - spriteHeight / 2.0f, x, y, rotation);
         float[] cornerBottomLeft = ScratchStage.rotateXY(x - spriteWidth / 2.0f, y + spriteHeight / 2.0f, x, y, rotation);
-        float[] cornerBottomRight = ScratchStage.rotateXY( x + spriteWidth / 2.0f, y + spriteHeight / 2.0f, x,y, rotation);
+        float[] cornerBottomRight = ScratchStage.rotateXY(x + spriteWidth / 2.0f, y + spriteHeight / 2.0f, x, y, rotation);
 
-        float[][] corners = { cornerTopLeft, cornerTopRight, cornerBottomLeft, cornerBottomRight };
+        float[][] corners = {cornerTopLeft, cornerTopRight, cornerBottomLeft, cornerBottomRight};
 
         for (float[] corner : corners) {
             float cornerX = corner[0];
@@ -617,37 +620,46 @@ public class ScratchSprite {
 
     }
 
-    private Polygon getPolygon() {
+    public void setHitbox(int[] xPoints, int[] yPoints) {
+        this.hitbox = new ScratchHitbox(xPoints, yPoints);
+    }
+
+    public ScratchHitbox getHitbox() {
         ScratchImage currentCostume = this.costumes.get(this.getCurrentCostumeIndex());
-        PApplet parent = ScratchStage.parent;
         float costumeWidth = currentCostume != null ? currentCostume.getImage().width : this.pen.getSize();
         float costumeHeight = currentCostume != null ? currentCostume.getImage().height : this.pen.getSize();
         float spriteWidth = this.show ? costumeWidth : this.pen.getSize();
         float spriteHeight = this.show ? costumeHeight : this.pen.getSize();
 
+        if (this.hitbox != null) {
+            this.hitbox.translateAndRotateAndResize(
+                    rotation, x, y,
+                    x - spriteWidth / 2.0f, y - spriteHeight / 2.0f,
+                    size);
+            return this.hitbox;
+        }
+
         float[] cornerTopLeft = ScratchStage.rotateXY(x - spriteWidth / 2.0f, y - spriteHeight / 2.0f, x, y, rotation);
-        float[] cornerTopRight = ScratchStage.rotateXY(x + spriteWidth / 2.0f, y - spriteHeight / 2.0f, x,y, rotation);
+        float[] cornerTopRight = ScratchStage.rotateXY(x + spriteWidth / 2.0f, y - spriteHeight / 2.0f, x, y, rotation);
         float[] cornerBottomLeft = ScratchStage.rotateXY(x - spriteWidth / 2.0f, y + spriteHeight / 2.0f, x, y, rotation);
-        float[] cornerBottomRight = ScratchStage.rotateXY( x + spriteWidth / 2.0f, y + spriteHeight / 2.0f, x,y, rotation);
+        float[] cornerBottomRight = ScratchStage.rotateXY(x + spriteWidth / 2.0f, y + spriteHeight / 2.0f, x, y, rotation);
 
-        Polygon p = new Polygon();
-        p.addPoint(Math.round(cornerTopLeft[0]), Math.round(cornerTopLeft[1]));
-        p.addPoint(Math.round(cornerTopRight[0]), Math.round(cornerTopRight[1]));
-        p.addPoint(Math.round(cornerBottomRight[0]), Math.round(cornerBottomRight[1]));
-        p.addPoint(Math.round(cornerBottomLeft[0]), Math.round(cornerBottomLeft[1]));
+        int[] xPoints = new int[4];
+        int[] yPoints = new int[4];
+        xPoints[0] = Math.round(cornerTopLeft[0]);
+        yPoints[0] = Math.round(cornerTopLeft[1]);
+        xPoints[1] = Math.round(cornerTopRight[0]);
+        yPoints[1] = Math.round(cornerTopRight[1]);
+        xPoints[2] = Math.round(cornerBottomRight[0]);
+        yPoints[2] = Math.round(cornerBottomRight[1]);
+        xPoints[3] = Math.round(cornerBottomLeft[0]);
+        yPoints[3] = Math.round(cornerBottomLeft[1]);
 
-        return p;
+        return new ScratchHitbox(xPoints, yPoints);
     }
 
     public boolean isTouchingSprite(ScratchSprite sprite) {
-        Polygon p1 = this.getPolygon();
-        Polygon p2 = sprite.getPolygon();
-
-        Area a = new Area(p1); Area b = new Area(p2);
-
-        a.intersect(b);
-
-        return !a.isEmpty();
+        return this.getHitbox().intersects(sprite.getHitbox());
     }
 
     /**
@@ -759,9 +771,11 @@ public class ScratchSprite {
         return ScratchStage.getInstance().getDaysSince2000();
     }
 
-    public void keyEvent(KeyEvent e) {}
+    public void keyEvent(KeyEvent e) {
+    }
 
-    public void mouseEvent(MouseEvent e) {}
+    public void mouseEvent(MouseEvent e) {
+    }
 
     /**
      * Draws the sprite if it is not hidden.
@@ -773,21 +787,7 @@ public class ScratchSprite {
         }
 
         if (ScratchStage.getInstance().isDebug()) {
-            ScratchImage currentCostume = null;
-            if (this.costumes.size() > 0) {
-                currentCostume = this.costumes.get(this.currentCostume);
-            }
-            float costumeWidth = currentCostume != null ? currentCostume.getImage().width : this.pen.getSize();
-            float costumeHeight = currentCostume != null ? currentCostume.getImage().height : this.pen.getSize();
-
-            ScratchStage.parent.strokeWeight(2);
-            ScratchStage.parent.stroke(ScratchStage.DEBUG_COLOR[0], ScratchStage.DEBUG_COLOR[1], ScratchStage.DEBUG_COLOR[2]);
-            ScratchStage.parent.noFill();
-            ScratchStage.parent.pushMatrix();
-            ScratchStage.parent.translate(x, y);
-            ScratchStage.parent.rotate(PApplet.radians(rotation));
-            ScratchStage.parent.rect(0, 0, costumeWidth, costumeHeight);
-            ScratchStage.parent.popMatrix();
+            this.getHitbox().draw();
         }
     }
 }
