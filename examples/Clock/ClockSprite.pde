@@ -5,16 +5,15 @@ class ClockSprite extends ScratchSprite {
   HourHandSprite hour;
 
   ClockSprite() {
-    super("clock", "sprites/clock.png");
+    this.addCostume("clock", "sprites/clock.png");
     second = new SecondHandSprite();
     minute = new MinuteHandSprite();
     hour = new HourHandSprite();
   }
 
-  void draw() {
+  void run() {
     second.draw();
     minute.draw();
     hour.draw();
-    super.draw();
   }
 }

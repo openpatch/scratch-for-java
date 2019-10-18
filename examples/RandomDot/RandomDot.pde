@@ -1,21 +1,20 @@
 import eu.barkmin.processing.scratch.*;
 
+ScratchStage stage;
 RandomDotSprite dot;
 
 void setup() {
   size(800, 600);
   ScratchStage.init(this);
+  stage = ScratchStage.getInstance();
   dot = new RandomDotSprite();
-  
+  stage.addSprite(dot);
 }
 
-void draw() {
-  dot.draw();
-}
+void draw() {}
 
 class RandomDotSprite extends ScratchSprite {
-  void draw() {
-    super.draw();
+  void run() {
     if(this.getTimer().everyMillis(100)) {
       this.getPen().down();
       this.getPen().setSize(10);
