@@ -23,8 +23,11 @@ initialize the ScratchStage. You only need to place this statement
 ```java
 import eu.barkmin.processing.scratch.*;
 
+ScratchStage stage;
+
 void setup() {
   ScratchStage.init(this);
+  stage = ScratchStage.getInstance();
 }
 
 void draw() {
@@ -64,8 +67,16 @@ To add a new backdrop call `stage.addBackdrop("newBackdrop",
 
 | Scratch | Processing |
 | :-: | :-: |
-| ![stage when key pressed](web/assets/sprite_when_keypressed.png) | Overwrite `stage.keyEvent(KeyEvent e)`. The method will be called everytime a new KeyEvent is fired. For example when pressing or releasing a key. See [KeyEvent](https://processing.github.io/processing-javadocs/core/processing/event/KeyEvent.html) for more Information. |
-| ![stage when move moved](web/assets/sprite_when_mouse_moved.png) | Overwrite `stage.mouseEvent(MouseEvent e)`. The method will be called everytime a new MouseEvent is fired. For example when pressing, releasing or moving the mouse. See [MouseEvent](https://processing.github.io/processing-javadocs/core/processing/event/MouseEvent.html) for more Information. |
+| ![stage when key pressed](web/assets/sprite_when_keypressed.png) | Overwrite `stage.whenKeyPressed(int keycode)`. This method is called everytime a key is pressed. See [http://keycode.info](http://keycode.info) for keycode information |
+| ![stage when move moved](web/assets/sprite_when_mouse_moved.png) | Overwrite `stage.whenMouseMoved(float x, float y)`. This method is called everytime the mouse is moved. |
+
+
+### Other methods
+
+| Processing | Description |
+| :-: | :-: |
+| `stage.addSprite(sprite)` | Adds a sprite to stage |
+| `stage.removeSprite(sprite)` | Removes a sprite from the stage |
 
 #### Sound
 
@@ -95,33 +106,34 @@ Source Code: https://github.com/mikebarkmin/processing-library-scratch/blob/mast
 In Scratch sprites are the main actors. Every sprite has a custom set of
 costumes and sounds, which could be dynamically changed. Most of the
 functionality which sprites in Scratch have were tried to reimplement in
-processing.
+processing. When added to the stage, the run method of a sprite will be called continuously.
 
 #### Creation
 
 ```java
 import eu.barkmin.processing.scratch.*;
 
+ScratchStage stage;
 CatSprite myCat;
 
 void setup() {
   size(800, 600);
   ScratchStage.init(this);
+  stage = ScratchStage.getInstance();
   myCat = new CatSprite();
+  stage.addSprite(myCat);
 }
 
 void draw() {
-  myCat.draw();
 }
 
 // Define a class Cat 
 class CatSprite extends ScratchSprite {
   CatSprite() {
-    super("cat", "sprites/cat.png");  
+    this.addCostume("cat", "sprites/cat.png");
     this.setOnEdgeBounce(true);
   }
-  void draw() {
-    super.draw();
+  void run() {
     this.move(2);
   }
 }
@@ -185,6 +197,41 @@ To add a new costume call `sprite.addCostume("newCostume",
 | :-: | :-: |
 | ![sprite when key pressed](web/assets/sprite_when_keypressed.png) | Overwrite `sprite.keyEvent(KeyEvent e)`. The method will be called everytime a new KeyEvent is fired. For example when pressing or releasing a key. See [KeyEvent](https://processing.github.io/processing-javadocs/core/processing/event/KeyEvent.html) for more Information. |
 | ![sprite when move moved](web/assets/sprite_when_mouse_moved.png) | Overwrite `sprite.mouseEvent(MouseEvent e)`. The method will be called everytime a new MouseEvent is fired. For example when pressing, releasing or moving the mouse. See [MouseEvent](https://processing.github.io/processing-javadocs/core/processing/event/MouseEvent.html) for more Information. |
+
+### Other methods
+
+| Processing | Description |
+| :-: | :-: |
+| `sprite.run()` | Will be called continuously, when the sprite is added to the stage. |
+| `sprite.draw()` | Overwrite this methode to gain more controll over the sprite and draw it without added it to the stage. |
+
+
+The following code will show the same result. The normal sprite is handled by the ScratchStage, the custom sprite is handled by us.
+```
+Custom custom;
+
+void setup () {
+  ScratchStage.init(this);
+  ScratchStage.getInstance().addSprite(new Normal());
+}
+
+void draw() {
+  custom.draw();
+}
+
+class Normal extends ScratchSprite {
+  run() {
+    this.move(10);
+  }
+}
+
+class Custom extends ScratchSprite {
+  draw() {
+    super.draw();
+    this.move(10);
+  }
+}
+```
 
 #### Sound
 
