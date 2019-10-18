@@ -775,9 +775,19 @@ public class ScratchSprite {
     }
 
     public void keyEvent(KeyEvent e) {
+        this.whenKeyPressed(e.getKeyCode());
+    }
+
+    public void whenKeyPressed(int keyCode) {
+
     }
 
     public void mouseEvent(MouseEvent e) {
+        this.whenMouseMoved(e.getX(), e.getY());
+    }
+
+    public void whenMouseMoved(float x, float y) {
+
     }
 
     /**
@@ -792,5 +802,10 @@ public class ScratchSprite {
         if (ScratchStage.getInstance().isDebug()) {
             this.getHitbox().draw();
         }
+        this.run();
+    }
+
+    public void run() {
+
     }
 }

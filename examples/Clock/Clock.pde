@@ -8,9 +8,8 @@ void setup() {
   ScratchStage.init(this);
   stage = ScratchStage.getInstance();
   clock = new ClockSprite();
+  stage.addSprite(clock);
 }
 
 void draw() {
-  //stage.eraseAll();
-  clock.draw();
 }
