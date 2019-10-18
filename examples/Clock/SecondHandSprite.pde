@@ -1,11 +1,10 @@
 class SecondHandSprite extends ScratchSprite {
 
   SecondHandSprite() {
-    super("hand", "sprites/second.png");
+    this.addCostume("hand", "sprites/second.png");
   }
 
-  void draw() {
-    super.draw();
+  void run() {
     int second = this.getCurrentSecond();
     if (isKeyPressed(32)) {
       int millisecond = this.getCurrentMillisecond();

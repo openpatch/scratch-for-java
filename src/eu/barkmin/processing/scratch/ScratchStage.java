@@ -28,6 +28,7 @@ public class ScratchStage {
     private ArrayList<ScratchSound> sounds = new ArrayList<>();
     private PGraphics penBuffer;
     private HashMap<String, Timer> timer;
+    private ArrayList<ScratchSprite> sprites;
 
     private float mouseX;
     private float mouseY;
@@ -42,6 +43,7 @@ public class ScratchStage {
         this.timer = new HashMap<>();
         this.timer.put("default", new Timer());
         this.debug = debug;
+        this.sprites = new ArrayList<>();
     }
 
     /**
@@ -71,6 +73,22 @@ public class ScratchStage {
 
     public boolean isDebug() {
         return debug;
+    }
+
+    /**
+     * Add a sprite to the stage.
+     * @param sprite
+     */
+    public void addSprite(ScratchSprite sprite) {
+        sprites.add(sprite);
+    }
+
+    /**
+     * Remove a sprite from the stage.
+     * @param sprite
+     */
+    public void removeSprite(ScratchSprite sprite) {
+        sprites.remove(sprite);
     }
 
     /**
@@ -512,6 +530,9 @@ public class ScratchStage {
             parent.line(mouseX, 0, mouseX, parent.height);
             parent.line(0, mouseY, parent.width, mouseY);
             parent.text("(" + mouseX + ", " + mouseY + ")", mouseX, mouseY);
+        }
+        for(ScratchSprite s : sprites) {
+            s.draw();
         }
     }
 

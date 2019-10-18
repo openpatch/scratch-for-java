@@ -11,26 +11,24 @@ void setup() {
   stage.setColor(0, 0, 0);
   
   vine = new VineSprite();
+  stage.addSprite(vine);
 }
 
-void draw() {
-  vine.draw(); 
-}
+void draw() {}
 
 class VineSprite extends ScratchSprite {
   
   ArrayList<LeafSprite> leafs = new ArrayList();
   
   VineSprite() {
-    super("vine", "sprites/vine.png");
+    this.addCostume("vine", "sprites/vine.png");
     this.getPen().down();
     this.getPen().setSize(3);
     this.getPen().setColor(120);
     this.hide();
   }
   
-  void draw() {
-    super.draw();
+  void run() {
     this.setPosition(ScratchStage.parent.mouseX, ScratchStage.parent.mouseY);
     this.turnRight(5);
     
