@@ -1,6 +1,8 @@
 language: java
 
-script: ant -f resources/build.xml
+script:
+  - jdk_switcher use openjdk8
+  - ant -f resources/build.xml
 
 before_install:
   - wget http://central.maven.org/maven2/org/processing/core/3.2.3/core-3.2.3.jar
