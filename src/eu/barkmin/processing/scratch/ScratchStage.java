@@ -1,5 +1,6 @@
 package eu.barkmin.processing.scratch;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PGraphics;
@@ -34,7 +35,7 @@ public class ScratchStage {
     private float mouseX;
     private float mouseY;
     private boolean mouseDown;
-    private int keyCodePressed = -1;
+    private HashMap<Integer, Boolean> keyCodePressed = new HashMap<>();
 
     private ScratchStage(PApplet parent, boolean debug) {
         parent.imageMode(PConstants.CENTER);
@@ -448,10 +449,10 @@ public class ScratchStage {
     public void keyEvent(KeyEvent e) {
         switch (e.getAction()) {
             case KeyEvent.PRESS:
-                keyCodePressed = e.getKeyCode();
+                keyCodePressed.put(e.getKeyCode(), true);
                 break;
             case KeyEvent.RELEASE:
-                keyCodePressed = -1;
+                keyCodePressed.put(e.getKeyCode(), false);
                 break;
         }
     }
@@ -463,7 +464,11 @@ public class ScratchStage {
      * @return key pressed
      */
     public boolean isKeyPressed(int keyCode) {
-        return keyCodePressed == keyCode;
+        Boolean isPressed = keyCodePressed.get(keyCode);
+        if (isPressed == null) {
+            return false;
+        }
+        return isPressed;
     }
 
     /**
