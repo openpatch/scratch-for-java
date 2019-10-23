@@ -35,21 +35,27 @@ public class ScratchSound {
      * Starts playing the sound file.
      */
     public void play() {
-        this.sound.play();
+        if (this.sound != null) {
+            this.sound.play();
+        }
     }
 
     /**
      * Pauses the playing of the sound file.
      */
     public void pause() {
-        this.sound.pause();
+        if (this.sound != null) {
+            this.sound.pause();
+        }
     }
 
     /**
      * Stops the playing of the sound file.
      */
     public void stop() {
-        this.sound.stop();
+        if (this.sound != null) {
+            this.sound.stop();
+        }
     }
 
     /**
@@ -58,7 +64,10 @@ public class ScratchSound {
      * @return sound file is playing
      */
     public boolean isPlaying() {
-        return this.sound.isPlaying();
+        if (this.sound != null) {
+            return this.sound.isPlaying();
+        }
+        return false;
     }
 
     /**
