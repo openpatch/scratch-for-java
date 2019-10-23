@@ -12,6 +12,7 @@ before_install:
 
 deploy:
   provider: pages
+  skip_cleanup: true
   github-token: $GITHUB_TOKEN
   local-dir: distribution/scratch-latest/
   on:
