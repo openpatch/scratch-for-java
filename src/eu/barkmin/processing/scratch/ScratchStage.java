@@ -12,6 +12,7 @@ import java.time.Month;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Collections;
 
 /**
  * Represents the scratch stage. Only one object of this class can be created.
@@ -84,6 +85,32 @@ public class ScratchStage {
     }
 
     /**
+     * Lower a sprite.
+     * @param sprite
+     */
+    public void lowerSprite(ScratchSprite sprite) {
+        int index = sprites.indexOf(sprite);
+        if (index > 0) {
+            Collections.swap(sprites, index, index-1);
+        }
+    }
+
+    /**
+     * Rise a sprite.
+     * @param sprite
+     */
+    public void raiseSprite(ScratchSprite sprite) {
+        int index = sprites.indexOf(sprite);
+        if (index > -1 && index < sprites.size() -1) {
+            Collections.swap(sprites, index+1, index);
+        }
+    }
+
+    public ArrayList<ScratchSprite> getSprites() {
+        return sprites;
+    }
+
+    /**
      * Remove a sprite from the stage.
      * @param sprite
      */
@@ -104,6 +131,20 @@ public class ScratchStage {
             }
         }
         this.backdrops.add(new ScratchImage(name, imagePath));
+    }
+
+    /**
+     * Remove a backdrop from the stage.
+     * @param name of the backdrop
+     */
+    public void removeBackdrop(String name) {
+        for (int i = 0; i < this.backdrops.size(); i++) {
+            ScratchImage backdrop = this.backdrops.get(i);
+            if (backdrop.getName().equals(name)) {
+                this.backdrops.remove(i);
+                return;
+            }
+        }
     }
 
     /**
@@ -523,6 +564,9 @@ public class ScratchStage {
     }
 
     public void draw() {
+        for(ScratchSprite s : sprites) {
+            s.draw();
+        }
         if (debug) {
             parent.strokeWeight(1);
             parent.stroke(DEBUG_COLOR[0], DEBUG_COLOR[1], DEBUG_COLOR[2]);
@@ -530,9 +574,6 @@ public class ScratchStage {
             parent.line(mouseX, 0, mouseX, parent.height);
             parent.line(0, mouseY, parent.width, mouseY);
             parent.text("(" + mouseX + ", " + mouseY + ")", mouseX, mouseY);
-        }
-        for(ScratchSprite s : sprites) {
-            s.draw();
         }
     }
 
