@@ -553,6 +553,13 @@ public class ScratchStage {
         return p.getDays();
     }
 
+    public int pickRandom(int from, int to) {
+        if (to < from) {
+            return to + (int) (Math.random() * (from - to));
+        }
+        return from + (int) (Math.random() * (to - from));
+    }
+
     /**
      * Draws the current backdrop or if none a solid color
      */

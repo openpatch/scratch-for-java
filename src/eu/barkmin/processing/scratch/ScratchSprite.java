@@ -790,6 +790,10 @@ public class ScratchSprite {
 
     }
 
+    public int pickRandom(int from, int to) {
+        return ScratchStage.getInstance().pickRandom(from, to);
+    }
+
     /**
      * Draws the sprite if it is not hidden.
      */
