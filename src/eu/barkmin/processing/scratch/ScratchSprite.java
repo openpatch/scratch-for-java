@@ -486,7 +486,7 @@ public class ScratchSprite {
     }
 
     /**
-     * Return the pixelWidth of the current costume or an empty array, when no costume is available.
+     * Return the pixelWidth of the current costume or an empty array, when no costume is available. Only useful when using the getPixels method. Otherwise use getWidth instead.
      *
      * @return the pixel width of the sprite
      */
@@ -495,7 +495,7 @@ public class ScratchSprite {
     }
 
     /**
-     * Return the pixelHeight of the current costume or the pen size, when no costume is available.
+     * Return the pixelHeight of the current costume or the pen size, when no costume is available. Only usefule when using the getPixels method. Otherwise use getHeight instead.
      *
      * @return the pixel height of the sprite
      */
