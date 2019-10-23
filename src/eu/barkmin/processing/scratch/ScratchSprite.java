@@ -577,7 +577,7 @@ public class ScratchSprite {
             int relativeMouseY = Math.round(mouse[1] - topLeftCornerY);
 
             int color = this.costumes.get(this.getCurrentCostumeIndex()).getImage().get(relativeMouseX, relativeMouseY);
-            return color != 0;
+            return ScratchStage.parent.alpha(color) != 0;
         }
 
         return false;
