@@ -1,7 +1,8 @@
 language: java
+jdk:
+ - openjdk8
 
 script:
-  - jdk_switcher use openjdk8
   - ant -f resources/build.xml
 
 before_install:
