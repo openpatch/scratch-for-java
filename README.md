@@ -425,7 +425,7 @@ An example which shows the usage of isTouchingMousePointer and custom hitboxes.
 
 ![sensing](web/assets/sensing.gif)
 
-### Stress Test
+### StressTest
 
 Source Code: https://github.com/mikebarkmin/processing-library-scratch/tree/master/examples/StressTest
 
@@ -435,7 +435,7 @@ It also show hot to animate a sprite.
 
 ![stress_test](web/assets/stress_test.gif)
 
-## Color Hit
+## ColorHit
 
 Source Code: https://github.com/mikebarkmin/processing-library-scratch/tree/master/examples/ColorHit
 

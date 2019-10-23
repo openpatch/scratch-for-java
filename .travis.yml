@@ -1,6 +1,9 @@
 language: java
+jdk:
+ - openjdk8
 
-script: ant -f resources/build.xml
+script:
+  - ant -f resources/build.xml
 
 before_install:
   - wget http://central.maven.org/maven2/org/processing/core/3.2.3/core-3.2.3.jar
@@ -8,13 +11,12 @@ before_install:
   - sudo mv core-3.2.3.jar /opt/processing/core/library/core.jar
   - mkdir -p /home/travis/sketchbook/libraries
   - wget https://github.com/processing/processing-sound/releases/download/v2.0.2/sound.zip
-  - unzip sound.zip -d /home/travis/sketchbook/libraries/sound
+  - unzip sound.zip -d /home/travis/sketchbook/libraries
 
 deploy:
   provider: pages
-  skip-cleanup: true
+  skip_cleanup: true
   github-token: $GITHUB_TOKEN
-  keep-history: true
   local-dir: distribution/scratch-latest/
   on:
     branch: master
