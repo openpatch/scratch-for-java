@@ -2,16 +2,7 @@ enum CharacterState {
   IDLE, RUN, WALK
 }
 
-class Character extends ScratchSprite {
-
-  int runAnimationFrame = 0;
-  String[] runAnimation;
-
-  int idleAnimationFrame = 0;
-  String[] idleAnimation;
-
-  int walkAnimationFrame = 0;
-  String[] walkAnimation;
+class Character extends ScratchAnimatedSprite {
 
   CharacterState state;
 
@@ -27,26 +18,9 @@ class Character extends ScratchSprite {
     this.addSound("bump", "assets/bump.wav");
     this.addSound("run", "assets/run.wav");
 
-    this.addTimer("idle");
-    idleAnimation = new String[idleAnimations];
-    for (int i = 1; i <= idleAnimations; i++) {
-      this.addCostume("idle_" + i, pathBase + "Idle (" + i + ").png");
-      idleAnimation[i-1] = "idle_" + i;
-    }
-
-    this.addTimer("run");
-    runAnimation = new String[runAnimations];
-    for (int i = 1; i <= runAnimations; i++) {
-      this.addCostume("run_" + i, pathBase + "Run (" + i + ").png");
-      runAnimation[i-1] = "run_" + i;
-    }
-
-    this.addTimer("walk");
-    walkAnimation = new String[walkAnimations];
-    for (int i = 1; i <= walkAnimations; i++) {
-      this.addCostume("walk_" + i, pathBase + "Walk (" + i + ").png");
-      walkAnimation[i-1] = "walk_" + i;
-    }
+    this.addAnimation("idle", pathBase + "Idle (%d).png", idleAnimations);
+    this.addAnimation("run", pathBase + "Run (%d).png", runAnimations);
+    this.addAnimation("walk", pathBase + "Walk (%d).png", walkAnimations);
 
     this.setOnEdgeBounce(true); 
     this.setSize(30);
@@ -56,9 +30,8 @@ class Character extends ScratchSprite {
     this.setRotation(random(0, 360));
   }
 
-  void draw() {
+  void run() {
     this.setTint(this.tintColor);
-    super.draw();
     
     if(isTouchingMousePointer()) {
       state = CharacterState.WALK;
@@ -69,31 +42,25 @@ class Character extends ScratchSprite {
     if(isTouchingEdge() && !hasTouchedEdge) {
       this.playSound("bump");
       hasTouchedEdge = true;
-  } else if(!isTouchingEdge() && hasTouchedEdge) {
+    } else if(!isTouchingEdge() && hasTouchedEdge) {
       hasTouchedEdge = false;
-  }
+    }
 
     switch (state) {
-    case IDLE:
-      if (this.getTimer("idle").everyMillis(100)) {
-        idleAnimationFrame = (idleAnimationFrame + 1) % idleAnimation.length;
-        this.switchCostume(idleAnimation[idleAnimationFrame]);
-      }
-      break;
-    case RUN:
-      if (this.getTimer("run").everyMillis(50)) {
-        runAnimationFrame = (runAnimationFrame + 1) % runAnimation.length;
-        this.switchCostume(runAnimation[runAnimationFrame]);
-      }
-      move(4);
-      break;
-    case WALK:
-      if (this.getTimer("walk").everyMillis(100)) {
-        walkAnimationFrame = (walkAnimationFrame + 1) % walkAnimation.length;
-        this.switchCostume(walkAnimation[walkAnimationFrame]);
-      }
-      move(4);
-      break;
+      case IDLE:
+        this.setAnimationInterval(100);
+        this.playAnimation("idle");
+        break;
+      case RUN:
+        this.setAnimationInterval(50);
+        this.playAnimation("run");
+        move(4);
+        break;
+      case WALK:
+        this.setAnimationInterval(100);
+        this.playAnimation("walk");
+        move(2);
+        break;
     }
   }
 }
