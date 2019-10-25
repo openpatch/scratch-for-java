@@ -70,8 +70,14 @@ To add a new backdrop call `stage.addBackdrop("newBackdrop",
 | ![stage when key pressed](web/assets/sprite_when_keypressed.png) | Overwrite `stage.whenKeyPressed(int keycode)`. This method is called everytime a key is pressed. See [http://keycode.info](http://keycode.info) for keycode information |
 | ![stage when move moved](web/assets/sprite_when_mouse_moved.png) | Overwrite `stage.whenMouseMoved(float x, float y)`. This method is called everytime the mouse is moved. |
 
+#### Operators
 
-### Other methods
+| Scratch | Processing |
+| :-: | :-: |
+| ![stage operator pick random](web/assets/operators_pick_random.png) | `stage.pickRandom(1, 10)` |
+
+
+#### Other methods
 
 | Processing | Description |
 | :-: | :-: |
@@ -198,7 +204,13 @@ To add a new costume call `sprite.addCostume("newCostume",
 | ![sprite when key pressed](web/assets/sprite_when_keypressed.png) | Overwrite `sprite.keyEvent(KeyEvent e)`. The method will be called everytime a new KeyEvent is fired. For example when pressing or releasing a key. See [KeyEvent](https://processing.github.io/processing-javadocs/core/processing/event/KeyEvent.html) for more Information. |
 | ![sprite when move moved](web/assets/sprite_when_mouse_moved.png) | Overwrite `sprite.mouseEvent(MouseEvent e)`. The method will be called everytime a new MouseEvent is fired. For example when pressing, releasing or moving the mouse. See [MouseEvent](https://processing.github.io/processing-javadocs/core/processing/event/MouseEvent.html) for more Information. |
 
-### Other methods
+#### Operators
+
+| Scratch | Processing |
+| :-: | :-: |
+| ![sprite operator pick random](web/assets/operators_pick_random.png) | `sprite.pickRandom(1, 10)` |
+
+#### Other methods
 
 | Processing | Description |
 | :-: | :-: |
@@ -273,6 +285,69 @@ pen can be modified.
 | ![pen set size to](web/assets/pen_set_pen_size_to.png) | `sprite.getPen().setSize(50);` |
 | ![pen change size by](web/assets/pen_change_pen_size_by.png) | `sprite.getPen().changeSize(1);` |
 | ![pen erase all](web/assets/pen_erase_all.png) | `stage.eraseAll();` |
+
+### ScratchAnimatedSprite
+
+Usage: `import eu.barkmin.processing.scratch.ScratchAnimatedSprite`
+
+API: https://www.barkmin.eu/processing-library-scratch/reference/eu/barkmin/processing/scratch/ScratchAnimatedSprite.html
+
+Source Code: https://github.com/mikebarkmin/processing-library-scratch/blob/master/src/eu/barkmin/processing/scratch/ScratchAnimatedSprite.java
+
+This class inherits form ScratchSprite. Therefore everything you can do with a ScratchSprite, you can also do with a ScratchAnimatedSprite. Additionally you can add animations.
+
+##### Animation
+
+| Method | Description |
+| :-: | :-: |
+| `sprite.addAnimation("idle", "sprites/pictures_%02d.png", 10)` | This will add a new animation called `idle`. For this animation `10` picture with match the pattern `sprites/pictures_%02.png` will be loaded. If these pictures are not present an error will occur. The pattern `sprites/pictures_%02d.png` will match `sprites/pictures_01.png`, `sprites/pictures_02.png` and so on. |
+| `sprite.playAnimation("idle")` | This will play the animation "idle" repeatedly. |
+| `sprite.playAnimation("idle", true)` | This will play the animation "idle" only once. |
+| `sprite.isAnimationPlayer("idle")` | This will return a boolean indication if the animation "idle" is fully played. |
+| `sprite.resetAnimation()` | This will reset the current animation. |
+| `sprite.getAnimationFrame()` | This will return the current animation frame. |
+| `sprite.getAnimationInterval()` | This will return the current animation interval. |
+| `sprite.setAnimationFrame(10)` | This will set the animation frame to 10. If you only have 6 frame, this will set the animation frame to 4. |
+| `sprite.setAnimationInterval(40)` | This will set the animation interval to 40. Lower values mean that the animation will be played faster. |
+
+
+##### Usage
+
+```java
+import eu.barkmin.processing.scratch.*;
+
+ScratchStage stage;
+CatSprite myCat;
+
+void setup() {
+  size(800, 600);
+  ScratchStage.init(this);
+  stage = ScratchStage.getInstance();
+  myCat = new CatSprite();
+  stage.addSprite(myCat);
+}
+
+void draw() {
+}
+
+// Define a class Cat 
+class CatSprite extends ScratchAnimatedSprite {
+  CatSprite() {
+    this.addAnimation("idle", "sprites/cat_idle_%02d.png");
+    this.addAnimation("running", "sprites/cat_running_%02d.png")
+    this.setOnEdgeBounce(true);
+  }
+  void run() {
+    if(this.isTouchingMousePointer()) {
+      this.playAnimation("running");
+      this.move(2);
+    } else {
+      this.playAnimation("idle");
+    }
+  }
+}
+```
+
 
 ### Timer
 
@@ -431,7 +506,7 @@ Source Code: https://github.com/mikebarkmin/processing-library-scratch/tree/mast
 
 How many sprites can you display? And how does it effect the frame rate and memory usage of your scratch. Test it with this example.
 
-It also show hot to animate a sprite.
+It also show how to animate a sprite.
 
 ![stress_test](web/assets/stress_test.gif)
 
