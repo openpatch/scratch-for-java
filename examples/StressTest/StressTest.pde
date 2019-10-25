@@ -28,14 +28,15 @@ void setup() {
   for(int i = 0; i < ninjas; i++) {
     characters.add(new Ninja());
   }
+  
+  for(Character c : characters) {
+    stage.addSprite(c);
+  }
 }
 
 void draw() {
   stage.playSound("outback");
   text(frameRate, 20, 20);
-  for(Character character : characters) {
-    character.draw();
-  }
 }
 
 void keyPressed() {
