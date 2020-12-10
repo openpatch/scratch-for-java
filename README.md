@@ -201,8 +201,8 @@ To add a new costume call `sprite.addCostume("newCostume",
 
 | Scratch | Processing |
 | :-: | :-: |
-| ![sprite when key pressed](web/assets/sprite_when_keypressed.png) | Overwrite `sprite.keyEvent(KeyEvent e)`. The method will be called everytime a new KeyEvent is fired. For example when pressing or releasing a key. See [KeyEvent](https://processing.github.io/processing-javadocs/core/processing/event/KeyEvent.html) for more Information. |
-| ![sprite when move moved](web/assets/sprite_when_mouse_moved.png) | Overwrite `sprite.mouseEvent(MouseEvent e)`. The method will be called everytime a new MouseEvent is fired. For example when pressing, releasing or moving the mouse. See [MouseEvent](https://processing.github.io/processing-javadocs/core/processing/event/MouseEvent.html) for more Information. |
+| ![sprite when key pressed](web/assets/sprite_when_keypressed.png) | Overwrite `sprite.whenKeyPressed(int keycode)`. The method will be called everytime a new KeyEvent is fired. For example when pressing or releasing a key. See [KeyEvent](https://processing.github.io/processing-javadocs/core/processing/event/KeyEvent.html) for more Information. |
+| ![sprite when move moved](web/assets/sprite_when_mouse_moved.png) | Overwrite `sprite.whenMouseMoved(float x, float y)`. The method will be called everytime a new MouseEvent is fired. For example when pressing, releasing or moving the mouse. See [MouseEvent](https://processing.github.io/processing-javadocs/core/processing/event/MouseEvent.html) for more Information. |
 
 #### Operators
 
