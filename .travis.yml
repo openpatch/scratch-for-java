@@ -6,9 +6,9 @@ script:
   - ant -f resources/build.xml
 
 before_install:
-  - wget http://central.maven.org/maven2/org/processing/core/3.2.3/core-3.2.3.jar
+  - wget https://repo1.maven.org/maven2/org/processing/core/3.3.6/core-3.3.6.jar
   - sudo mkdir -p /opt/processing/core/library/
-  - sudo mv core-3.2.3.jar /opt/processing/core/library/core.jar
+  - sudo mv core-3.3.6.jar /opt/processing/core/library/core.jar
   - mkdir -p /home/travis/sketchbook/libraries
   - wget https://github.com/processing/processing-sound/releases/download/v2.0.2/sound.zip
   - unzip sound.zip -d /home/travis/sketchbook/libraries
