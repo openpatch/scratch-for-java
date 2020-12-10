@@ -300,7 +300,7 @@ This class inherits form ScratchSprite. Therefore everything you can do with a S
 
 | Method | Description |
 | :-: | :-: |
-| `sprite.addAnimation("idle", "sprites/pictures_%02d.png", 10)` | This will add a new animation called `idle`. For this animation `10` picture with match the pattern `sprites/pictures_%02.png` will be loaded. If these pictures are not present an error will occur. The pattern `sprites/pictures_%02d.png` will match `sprites/pictures_01.png`, `sprites/pictures_02.png` and so on. |
+| `sprite.addAnimation("idle", "sprites/pictures_%02d.png", 10)` | This will add a new animation called `idle`. For this animation `10` pictures which match the pattern `sprites/pictures_%02.png` will be loaded. If these pictures are not present an error will occur. The pattern `sprites/pictures_%02d.png` will match `sprites/pictures_01.png`, `sprites/pictures_02.png` and so on. |
 | `sprite.playAnimation("idle")` | This will play the animation "idle" repeatedly. |
 | `sprite.playAnimation("idle", true)` | This will play the animation "idle" only once. |
 | `sprite.isAnimationPlayer("idle")` | This will return a boolean indication if the animation "idle" is fully played. |
