@@ -2,7 +2,7 @@
 
 To ease the transition from the block-based programming environment
 [Scratch](scratch.mit.edu) to [Processing](https://processing.org/) this
-library was created. Therefore the core elements of Scratch are remodelled. 
+library was created. Therefore, the core elements of Scratch are remodeled.
 
 ## Elements
 
@@ -50,7 +50,7 @@ With `ScratchStage.init(this, true)` you can enable the debug mode. It will disp
 | ![stage backdrop index](web/assets/stage_backdrop_number.png) | `stage.getCurrentBackdropIndex()` |
 
 To add a new backdrop call `stage.addBackdrop("newBackdrop",
-"path/to/newBackdrop.png");`. Afterwards you can swith to the backdrop by calling
+"path/to/newBackdrop.png");`. Afterwards you can switch to the backdrop by calling
 `stage.switchBackdrop("newBackdrop");`.
 
 #### Sensing
@@ -67,8 +67,8 @@ To add a new backdrop call `stage.addBackdrop("newBackdrop",
 
 | Scratch | Processing |
 | :-: | :-: |
-| ![stage when key pressed](web/assets/sprite_when_keypressed.png) | Overwrite `stage.whenKeyPressed(int keycode)`. This method is called everytime a key is pressed. See [http://keycode.info](http://keycode.info) for keycode information |
-| ![stage when move moved](web/assets/sprite_when_mouse_moved.png) | Overwrite `stage.whenMouseMoved(float x, float y)`. This method is called everytime the mouse is moved. |
+| ![stage when key pressed](web/assets/sprite_when_keypressed.png) | Overwrite `stage.whenKeyPressed(int keycode)`. This method is called every time a key is pressed. See [http://keycode.info](http://keycode.info) for keycode information |
+| ![stage when move moved](web/assets/sprite_when_mouse_moved.png) | Overwrite `stage.whenMouseMoved(float x, float y)`. This method is called every time the mouse is moved. |
 
 #### Operators
 
@@ -98,8 +98,8 @@ to import the library in your main `.pde` file. `import processing.sound.*;`
 To add a new sound call `stage.addSound("newSound", "path/to/newSound.wav");`.
 Afterwards you can play the sound by calling `stage.playSound("newSound");`.
 
-Hint: On my notebook I was not able to playback mp3 files, therefore I
-converted them to wav files with [SoundConverter](http://soundconverter.org/).
+Hint: On my notebook I was not able to play back mp3 files, therefore I
+converted them to `wav` files with [SoundConverter](http://soundconverter.org/).
 
 ### ScratchSprite
 
@@ -133,7 +133,7 @@ void setup() {
 void draw() {
 }
 
-// Define a class Cat 
+// Define a class Cat
 class CatSprite extends ScratchSprite {
   CatSprite() {
     this.addCostume("cat", "sprites/cat.png");
@@ -175,7 +175,7 @@ class CatSprite extends ScratchSprite {
 | ![sprite change color by](web/assets/sprite_change_color_by.png) | `sprite.changeTint(25);` |
 | ![sprite set ghost](web/assets/sprite_set_ghost_to.png) | `sprite.setTransparency(0);` |
 | ![sprite change ghost by](web/assets/sprite_change_ghost.png) | `sprite.changeTransparency(25);` |
-| ![sprite set size](web/assets/sprite_set_size_to.png) | `sprite.setSize(100);` | 
+| ![sprite set size](web/assets/sprite_set_size_to.png) | `sprite.setSize(100);` |
 | ![sprite costume name](web/assets/sprite_costume_name.png) | `sprite.getCurrentCostumeName();` |
 | ![sprite costume number](web/assets/sprite_costume_number.png) | `sprite.getCurrentCostumeIndex();` |
 | ![sprite size](web/assets/sprite_size.png) | `sprite.getSize();` |
@@ -193,7 +193,7 @@ To add a new costume call `sprite.addCostume("newCostume",
 | ![sprite mouse y](web/assets/sprite_mouse_y.png) | `sprite.getMouseY()` |
 | ![sprite is key pressed](web/assets/sprite_key_pressed.png) | `sprite.isKeyPressed(32)` <br> For key pressed you need to use key codes see https://keycode.info/ to find the appropriate one. |
 | ![sprite current ?](web/assets/sprite_current_time.png) | `sprite.getCurrentYear()`, `sprite.getCurrentDay()`, `sprite.getCurrentHour()`, `sprite.getCurrentMinute()`, `sprite.getCurrentSecond()`, `sprite.getCurrentMillisecond()`, `sprite.getCurrentDayOfWeek()` |
-| ![sprite touching mouse pointer](web/assets/sprite_touching_mouse_pointer.png) | `sprite.isTouchingMousePointer()` Pixelperfect, transparent pixel will be ignored |
+| ![sprite touching mouse pointer](web/assets/sprite_touching_mouse_pointer.png) | `sprite.isTouchingMousePointer()` Pixel-perfect, transparent pixel will be ignored |
 | ![sprite touching edge](web/assets/sprite_touching_edge.png) | `sprite.isTouchingEdge()` based on the default [hitbox](#hitboxes)|
 | ![sprite touching sprite](web/assets/sprite_touching_sprite.png) | `sprite.isTouchingSprite(anotherSprite)` based on a custom or the default [hitbox](#hitboxes)|
 
@@ -215,7 +215,7 @@ To add a new costume call `sprite.addCostume("newCostume",
 | Processing | Description |
 | :-: | :-: |
 | `sprite.run()` | Will be called continuously, when the sprite is added to the stage. |
-| `sprite.draw()` | Overwrite this methode to gain more controll over the sprite and draw it without added it to the stage. |
+| `sprite.draw()` | Overwrite this method to gain more controll over the sprite and draw it without added it to the stage. |
 
 
 The following code will show the same result. The normal sprite is handled by the ScratchStage, the custom sprite is handled by us.
@@ -259,8 +259,8 @@ to import the library in your main `.pde` file. `import processing.sound.*;`
 To add a new sound call `sprite.addSound("newSound", "path/to/newSound.wav");`.
 Afterwards you can play the sound by calling `sprite.playSound("newSound");`.
 
-Hint: On my notebook I was not able to playback mp3 files, therefore I
-converted them to wav files with [SoundConverter](http://soundconverter.org/).
+Hint: On my notebook I was not able to play back mp3 files, therefore I
+converted them to `wav` files with [SoundConverter](http://soundconverter.org/).
 
 ### ScratchPen
 
@@ -307,7 +307,7 @@ This class inherits form ScratchSprite. Therefore everything you can do with a S
 | `sprite.resetAnimation()` | This will reset the current animation. |
 | `sprite.getAnimationFrame()` | This will return the current animation frame. |
 | `sprite.getAnimationInterval()` | This will return the current animation interval. |
-| `sprite.setAnimationFrame(10)` | This will set the animation frame to 10. If you only have 6 frame, this will set the animation frame to 4. |
+| `sprite.setAnimationFrame(10)` | This will set the animation frame to 10. If you only have 6 frames, this will set the animation frame to 4. |
 | `sprite.setAnimationInterval(40)` | This will set the animation interval to 40. Lower values mean that the animation will be played faster. |
 
 
@@ -330,7 +330,7 @@ void setup() {
 void draw() {
 }
 
-// Define a class Cat 
+// Define a class Cat
 class CatSprite extends ScratchAnimatedSprite {
   CatSprite() {
     this.addAnimation("idle", "sprites/cat_idle_%02d.png");
@@ -352,7 +352,7 @@ class CatSprite extends ScratchAnimatedSprite {
 ### Timer
 
 Sometimes you want to trigger an event after a certain time or at a certain time
-interval. Therefore the stage and every sprite have one or more Timer objects.
+interval. Therefore, the stage and every sprite have one or more Timer objects.
 You can access the timer objects through `stage.getTimer()` or
 `sprite.getTimer()`. The timer object has some useful methods:
 
@@ -367,7 +367,7 @@ You can access the timer objects through `stage.getTimer()` or
 | `boolean intervalMillis(int, int)` | `cat.getTimer().intervalMillis(600, 200)` | Returns toggles between true for 600 Milliseconds and false for 200 Milliseconds starting with false |
 | `boolean intervalMillis(int, int, boolean)` | `cat.getTimer().intervalMillis(600, 200, true)` | Returns toggles between true for 600 Milliseconds and false for 200 Milliseconds starting with true |
 
-For a visual example of these methods see example [Timer](#Timer) or the gif
+For a visual example of these methods see example [Timer](#Timer) or the Gif
 below. A dot represents the return of true.
 
 ![timer](web/assets/timer.gif)
@@ -388,20 +388,20 @@ you need two timers. To add a timer you simply call
 `sprite.addTimer("timerForMe")`. The timer is than accessible with `sprite.getTimer("timerForMe")`.
 
 Unfortunately the timer are not on point. Sometimes they are lacking behind.
-This happens when the frame rate drops.  This can lead to a unwanted rendering
+This happens when the frame rate drops.  This can lead to an unwanted rendering
 order. For example the pattern which was tried to achieve in the example
 [TimedDot](#TimeDot) should look like this:
 
 Lila, Lila, Green, Lila, Lila, Green, Clear.
 
 Especially at the beginning of the sketch the frame rate increases slowly to
-the desired one. Therefore there are some missing frames in the beginning and
+the desired one. Therefore, there are some missing frames in the beginning and
 the pattern is messed up. To achieve a better result you should use a multiple
 of the frame rate for millis. (If not set the standard frame rate is 60). You
 can see the difference below.
 
 
-| Millis multipe of 100 | Millis multiple of 60 |
+| Millis multiple of 100 | Millis multiple of 60 |
 | :-: | :-: |
 | ![timed dot normal](web/assets/timed_dot_100.gif) | ![timed dot 60](web/assets/timed_dot_60.gif) |
 
@@ -431,7 +431,7 @@ Source Code: https://github.com/mikebarkmin/processing-library-scratch/blob/mast
 
 Scratch makes it easy to work with colors on the
 [hsl](https://en.wikipedia.org/wiki/HSL_and_HSV) color spectrum. To achive a
-similar behaviour the class ScratchColor was created.
+similar behavior the class ScratchColor was created.
 
 ## Examples
 
@@ -496,7 +496,7 @@ An example which makes use of the many methods of the timer.
 
 Source Code: https://github.com/mikebarkmin/processing-library-scratch/tree/master/examples/Sensing
 
-An example which shows the usage of isTouchingMousePointer and custom hitboxes.
+An example which shows the usage of `isTouchingMousePointer` and custom hitboxes.
 
 ![sensing](web/assets/sensing.gif)
 
@@ -506,7 +506,7 @@ Source Code: https://github.com/mikebarkmin/processing-library-scratch/tree/mast
 
 How many sprites can you display? And how does it effect the frame rate and memory usage of your scratch. Test it with this example.
 
-It also show how to animate a sprite.
+It also shows how to animate a sprite.
 
 ![stress_test](web/assets/stress_test.gif)
 
@@ -537,7 +537,7 @@ Shows the sensing time methods
 ### Hitboxes
 
 The default hitbox is defined by the image you have used, but you have the
-ability to define a custom hitbox. Therefore call the method `setHitbox` on the
+ability to define a custom hitbox. Therefore, call the method `setHitbox` on the
 sprite you would like to modify. The `setHitbox` method gets two arguments
 `int[] xPoints` and `int[] yPoints` these correspond to the outline out the new
 hitbox. The path will be close automatically.
@@ -564,8 +564,8 @@ Not all available Libraries have been converted to show up in this menu. If a Li
 
 Contributed Libraries may be downloaded separately and manually placed within the `libraries` folder of your Processing sketchbook. To find (and change) the Processing sketchbook location on your computer, open the Preferences window from the Processing application (PDE) and look for the "Sketchbook location" item at the top.
 
-By default the following locations are used for your sketchbook folder: 
-  * For Mac users, the sketchbook folder is located inside `~/Documents/Processing` 
+By default, the following locations are used for your sketchbook folder:
+  * For Mac users, the sketchbook folder is located inside `~/Documents/Processing`
   * For Windows users, the sketchbook folder is located inside `My Documents/Processing`
 
 Download Scratch from https://github.com/mikebarkmin/processing-library-scratch/releases/latest
@@ -584,7 +584,7 @@ Processing
       reference
       src
 ```
-             
+
 Some folders like `examples` or `src` might be missing. After Library Scratch has been successfully installed, restart the Processing application.
 
 ### Troubleshooting
