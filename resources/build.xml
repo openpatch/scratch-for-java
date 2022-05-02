@@ -375,13 +375,6 @@ ${line}
     <copydir src="${project.dist.version}" dest="${project.dist.latest}" />
   </target>
 
-  <target name="generate.travis">
-    <copy file="${project.travis}" tofile=".travis.yml"/>
-    <replaceregexp file=".travis.yml" match="##tested.processingVersion##" replace="${tested.processingVersion}" flags="g" />
-    <replaceregexp file=".travis.yml" match="##tested.soundVersion##" replace="${tested.soundVersion}" flags="g" />
-  </target>
-
-	
 	<target name="clean" depends="library.run">
 		<delete dir="${project.bin}"/>
 		<delete dir="${project.tmp}"/>
