@@ -53,7 +53,6 @@
 	<property name="project.dist" location="distribution"/>
 	<property name="project.dist.version" location="distribution/${project.name}-${library.version}"/>
 	<property name="project.dist.latest" location="distribution/${project.name}-latest"/>
-	<property name="project.travis" location="resources/travis.yml"/>
 	<property name="install.source" location="resources/README.md"/>
 	<property name="install.destination" location="${project.dist.version}/README.md"/>
 	<property name="libprops.source" location="resources/library.properties"/>
@@ -117,7 +116,6 @@ ${line}
     <antcall target="generate.zip" />	
     <delete dir="${project.tmp}"/>
     <antcall target="copy.web.latest" />
-    <antcall target="generate.travis" />
 	</target>
 	
 	
