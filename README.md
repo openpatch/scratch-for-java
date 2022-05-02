@@ -83,6 +83,10 @@ To add a new backdrop call `stage.addBackdrop("newBackdrop",
 | :-: | :-: |
 | `stage.addSprite(sprite)` | Adds a sprite to stage |
 | `stage.removeSprite(sprite)` | Removes a sprite from the stage |
+| `stage.removeSprites()` | Removes all sprites |
+| `stage.removeSprites(MySprite.class)` | Removes all sprites of class MySprite |
+| `stage.getSprites()` | Returns a list of all sprites |
+| `stage.getSprites(MySprite.class)` | Returns a list of all sprites of class MySprite |
 
 #### Sound
 
@@ -215,7 +219,7 @@ To add a new costume call `sprite.addCostume("newCostume",
 | Processing | Description |
 | :-: | :-: |
 | `sprite.run()` | Will be called continuously, when the sprite is added to the stage. |
-| `sprite.draw()` | Overwrite this method to gain more controll over the sprite and draw it without added it to the stage. |
+| `sprite.draw()` | Overwrite this method to gain more control over the sprite and draw it without added it to the stage. |
 
 
 The following code will show the same result. The normal sprite is handled by the ScratchStage, the custom sprite is handled by us.
