@@ -1,6 +1,5 @@
 package eu.barkmin.processing.scratch;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PGraphics;
@@ -12,6 +11,8 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.Period;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.HashMap;
 import java.util.Collections;
 
@@ -24,13 +25,13 @@ public class ScratchStage {
     private boolean debug;
     public static final int[] DEBUG_COLOR = {255, 0, 0};
     private static ScratchStage instance;
-    private ArrayList<ScratchImage> backdrops = new ArrayList<>();
+    private CopyOnWriteArrayList<ScratchImage> backdrops = new CopyOnWriteArrayList<>();
     private ScratchColor color = new ScratchColor();
     private int currentBackdrop = 0;
-    private ArrayList<ScratchSound> sounds = new ArrayList<>();
+    private CopyOnWriteArrayList<ScratchSound> sounds = new CopyOnWriteArrayList<>();
     private PGraphics penBuffer;
     private HashMap<String, Timer> timer;
-    private ArrayList<ScratchSprite> sprites;
+    private CopyOnWriteArrayList<ScratchSprite> sprites;
 
     private float mouseX;
     private float mouseY;
@@ -45,7 +46,7 @@ public class ScratchStage {
         this.timer = new HashMap<>();
         this.timer.put("default", new Timer());
         this.debug = debug;
-        this.sprites = new ArrayList<>();
+        this.sprites = new CopyOnWriteArrayList<>();
     }
 
     /**
@@ -79,6 +80,7 @@ public class ScratchStage {
 
     /**
      * Add a sprite to the stage.
+     *
      * @param sprite
      */
     public void addSprite(ScratchSprite sprite) {
@@ -87,36 +89,62 @@ public class ScratchStage {
 
     /**
      * Lower a sprite.
+     *
      * @param sprite
      */
     public void lowerSprite(ScratchSprite sprite) {
         int index = sprites.indexOf(sprite);
         if (index > 0) {
-            Collections.swap(sprites, index, index-1);
+            Collections.swap(sprites, index, index - 1);
         }
     }
 
     /**
      * Rise a sprite.
+     *
      * @param sprite
      */
     public void raiseSprite(ScratchSprite sprite) {
         int index = sprites.indexOf(sprite);
-        if (index > -1 && index < sprites.size() -1) {
-            Collections.swap(sprites, index+1, index);
+        if (index > -1 && index < sprites.size() - 1) {
+            Collections.swap(sprites, index + 1, index);
         }
     }
 
-    public ArrayList<ScratchSprite> getSprites() {
-        return sprites;
+    public List<ScratchSprite> getSprites() {
+        return new ArrayList<>(this.sprites);
     }
 
     /**
      * Remove a sprite from the stage.
+     *
      * @param sprite
      */
     public void removeSprite(ScratchSprite sprite) {
         sprites.remove(sprite);
+    }
+
+    public void removeSprites() {
+        sprites.clear();
+    }
+
+    public void removeSprites(Class<? extends ScratchSprite> c) {
+        sprites.removeIf(c::isInstance);
+    }
+
+    /**
+     * Find sprites of a given class.
+     *
+     * @param c Class
+     */
+    public List<ScratchSprite> findSprites(Class<? extends ScratchSprite> c) {
+        ArrayList<ScratchSprite> sprites = new ArrayList<>();
+        for (ScratchSprite s : this.sprites) {
+            if (c.isInstance(s)) {
+                sprites.add(s);
+            }
+        }
+        return sprites;
     }
 
     /**
@@ -136,6 +164,7 @@ public class ScratchStage {
 
     /**
      * Remove a backdrop from the stage.
+     *
      * @param name of the backdrop
      */
     public void removeBackdrop(String name) {
@@ -576,7 +605,7 @@ public class ScratchStage {
     }
 
     public void draw() {
-        for(ScratchSprite s : sprites) {
+        for (ScratchSprite s : sprites) {
             s.draw();
         }
         if (debug) {
