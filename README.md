@@ -396,7 +396,7 @@ This happens when the frame rate drops.  This can lead to an unwanted rendering
 order. For example the pattern which was tried to achieve in the example
 [TimedDot](#TimeDot) should look like this:
 
-Lila, Lila, Green, Lila, Lila, Green, Clear.
+Lila, Lila, Green, Lila, Lila, Green, Clear. 
 
 Especially at the beginning of the sketch the frame rate increases slowly to
 the desired one. Therefore, there are some missing frames in the beginning and
