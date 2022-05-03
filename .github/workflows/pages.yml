@@ -19,11 +19,9 @@ jobs:
       - name: Setup
         run: |
           wget https://repo1.maven.org/maven2/org/processing/core/3.3.6/core-3.3.6.jar
-          sudo mkdir -p /opt/processing/core/library/
-          sudo mv core-3.3.6.jar /opt/processing/core/library/core.jar
-          mkdir -p /home/$USER/sketchbook/libraries
+          sudo mv core-3.3.6.jar libs/core.jar
           wget https://github.com/processing/processing-sound/releases/download/v2.2.3/sound.zip
-          unzip sound.zip -d /home/$USER/sketchbook/libraries
+          unzip sound.zip -d libs/
 
       - name: Setup Java
         uses: actions/setup-java@v3
