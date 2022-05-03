@@ -3,15 +3,19 @@ package eu.barkmin.processing.scratch;
 import processing.core.PImage;
 import processing.core.PApplet;
 
+import java.util.HashMap;
+
 /**
  * The base class for representing scratch costumes and backdrops.
  */
 public class ScratchImage {
     private String name;
     private PImage image;
-    private PImage originalImage;
+    private final PImage originalImage;
     private ScratchColor tint = new ScratchColor();
     private float transparency = 255;
+
+    private static final HashMap<String, PImage> originalImages = new HashMap<>();
 
     /**
      * Construct a ScratchImage object by a name and a path to an image.
@@ -21,8 +25,8 @@ public class ScratchImage {
      */
     public ScratchImage(String name, String imagePath) {
         this.name = name;
-        this.originalImage = ScratchStage.parent.loadImage(imagePath);
-        this.image = this.originalImage.copy();
+        this.originalImage = ScratchImage.loadImage(imagePath);
+        this.image = this.originalImage;
     }
 
     /**
@@ -32,10 +36,19 @@ public class ScratchImage {
      */
     public ScratchImage(ScratchImage i) {
         this.name = i.name;
-        this.image = i.image.copy();
-        this.originalImage = i.originalImage.copy();
+        this.image = i.image;
+        this.originalImage = i.originalImage;
         this.tint = new ScratchColor(i.tint);
         this.transparency = i.transparency;
+    }
+
+    private static PImage loadImage(String path) {
+        PImage image = originalImages.get(path);
+        if (image == null) {
+            image = ScratchStage.parent.loadImage(path);
+            originalImages.put(path, image);
+        }
+        return image;
     }
 
     /**
