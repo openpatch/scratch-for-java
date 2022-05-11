@@ -53,6 +53,9 @@ To add a new backdrop call `stage.addBackdrop("newBackdrop",
 "path/to/newBackdrop.png");`. Afterwards you can switch to the backdrop by calling
 `stage.switchBackdrop("newBackdrop");`.
 
+Additionally to the blocks defined in Scratch you can display a text on the screen with: `stage.display("Hi!")`. You can
+also display the text for a certain amount of milliseconds like so: `stage.display("Hi", 2000)`.
+
 #### Sensing
 
 | Scratch | Processing |
@@ -183,6 +186,10 @@ class CatSprite extends ScratchSprite {
 | ![sprite costume name](web/assets/sprite_costume_name.png) | `sprite.getCurrentCostumeName();` |
 | ![sprite costume number](web/assets/sprite_costume_number.png) | `sprite.getCurrentCostumeIndex();` |
 | ![sprite size](web/assets/sprite_size.png) | `sprite.getSize();` |
+| ![sprite say](web/assets/sprite_say.png) | `sprite.say("Hello");` |
+| ![sprite say time](web/assets/sprite_say_time.png) | `sprite.say("Hello", 2000);`
+| ![sprite think](web/assets/sprite_think.png) | `sprite.think("Hello");` |
+| ![sprite think time](web/assets/sprite_think_time.png) | `sprite.think("Hello", 2000);`
 
 To add a new costume call `sprite.addCostume("newCostume",
 "path/to/newCostume.png");`. Afterwards you can switch to the costume by calling
@@ -207,6 +214,9 @@ To add a new costume call `sprite.addCostume("newCostume",
 | :-: | :-: |
 | ![sprite when key pressed](web/assets/sprite_when_keypressed.png) | Overwrite `sprite.whenKeyPressed(int keycode)`. The method will be called everytime a new KeyEvent is fired. For example when pressing or releasing a key. See [KeyEvent](https://processing.github.io/processing-javadocs/core/processing/event/KeyEvent.html) for more Information. |
 | ![sprite when move moved](web/assets/sprite_when_mouse_moved.png) | Overwrite `sprite.whenMouseMoved(float x, float y)`. The method will be called everytime a new MouseEvent is fired. For example when pressing, releasing or moving the mouse. See [MouseEvent](https://processing.github.io/processing-javadocs/core/processing/event/MouseEvent.html) for more Information. |
+| ![sprite when clicked](web/assets/sprite_when_clicked.png) | Overwrite `sprite.whenClicked()`. |
+| ![sprite when backdrop switches](web/assets/sprite_when_backdrop.png) | Overwrite `sprite.whenBackdropSwitches(String name)`. |
+
 
 #### Operators
 
@@ -425,6 +435,14 @@ API: https://www.barkmin.eu/processing-library-scratch/reference/eu/barkmin/proc
 
 Source Code: https://github.com/mikebarkmin/processing-library-scratch/blob/master/src/eu/barkmin/processing/scratch/ScratchImage.java
 
+### ScratchText (internally)
+
+Usage: `import eu.barkmin.processing.scratch.ScratchText`
+
+API: https://www.barkmin.eu/processing-library-scratch/reference/eu/barkmin/processing/scratch/ScratchText.html
+
+Source Code: https://github.com/mikebarkmin/processing-library-scratch/blob/master/src/eu/barkmin/processing/scratch/ScratchText.java
+
 ### ScratchColor (internally)
 
 Usage: `import eu.barkmin.processing.scratch.ScratchColor`
@@ -434,7 +452,7 @@ API: https://www.barkmin.eu/processing-library-scratch/reference/eu/barkmin/proc
 Source Code: https://github.com/mikebarkmin/processing-library-scratch/blob/master/src/eu/barkmin/processing/scratch/ScratchColor.java
 
 Scratch makes it easy to work with colors on the
-[hsl](https://en.wikipedia.org/wiki/HSL_and_HSV) color spectrum. To achive a
+[hsl](https://en.wikipedia.org/wiki/HSL_and_HSV) color spectrum. To achieve a
 similar behavior the class ScratchColor was created.
 
 ## Examples

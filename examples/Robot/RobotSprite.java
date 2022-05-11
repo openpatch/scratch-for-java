@@ -8,6 +8,8 @@ public class RobotSprite extends ScratchSprite {
     this.setRotation(65);
 
   }
+
+  public void
   
   public void run() {
      this.move(2);

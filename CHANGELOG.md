@@ -1,3 +1,10 @@
+## 1.14.0
+
+* add think and say to ScratchSprite
+* add display to ScratchStage
+* add whenClicked to Sprite
+* add whenBackdropSwitches to Sprite
+
 ## 1.13.0
 
 * add stage.removeSprites
