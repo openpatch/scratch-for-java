@@ -18,8 +18,8 @@ jobs:
 
       - name: Setup
         run: |
-          wget https://repo1.maven.org/maven2/org/processing/core/3.3.6/core-3.3.6.jar
-          mv core-3.3.6.jar libs/core.jar
+          wget https://clojars.org/repo/quil/processing-core/3.5.4/processing-core-3.5.4.jar
+          mv processing-core-3.5.4.jar libs/core.jar
           mkdir -p /home/$USER/sketchbook/libraries
           wget https://github.com/processing/processing-sound/releases/download/v2.2.3/sound.zip
           unzip sound.zip -d /home/$USER/sketchbook/libraries
