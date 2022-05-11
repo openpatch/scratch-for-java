@@ -3,7 +3,6 @@ package eu.barkmin.processing.scratch;
 import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PGraphics;
-import processing.core.PImage;
 import processing.event.KeyEvent;
 import processing.event.MouseEvent;
 
@@ -31,9 +30,9 @@ public class ScratchStage {
     private int currentBackdrop = 0;
     private CopyOnWriteArrayList<ScratchSound> sounds = new CopyOnWriteArrayList<>();
     private PGraphics penBuffer;
+    private ScratchText display;
     private HashMap<String, Timer> timer;
     private CopyOnWriteArrayList<ScratchSprite> sprites;
-
     private float mouseX;
     private float mouseY;
     private boolean mouseDown;
@@ -46,6 +45,7 @@ public class ScratchStage {
         this.penBuffer = parent.createGraphics(parent.width, parent.height, parent.sketchRenderer());
         this.timer = new HashMap<>();
         this.timer.put("default", new Timer());
+        this.display = new ScratchText(null,0,parent.height, parent.width , ScratchText.BOX);
         this.debug = debug;
         this.sprites = new CopyOnWriteArrayList<>();
     }
@@ -188,6 +188,9 @@ public class ScratchStage {
             ScratchImage backdrop = backdrops.get(i);
             if (backdrop.getName().equals(name)) {
                 this.currentBackdrop = i;
+                for (ScratchSprite s : this.sprites) {
+                    s.whenBackdropSwitches(name);
+                }
                 return;
             }
         }
@@ -446,6 +449,12 @@ public class ScratchStage {
 
         if (e.getAction() == MouseEvent.PRESS) {
             mouseDown = true;
+        } else if (e.getAction() == MouseEvent.CLICK) {
+            for (ScratchSprite s : this.sprites) {
+                if (s.isTouchingMousePointer()) {
+                    s.whenClicked();
+                }
+            }
         }
     }
 
@@ -590,12 +599,19 @@ public class ScratchStage {
         return from + (int) (Math.random() * (to - from));
     }
 
+    public void display(String text) {
+        this.display.showText(text);
+    }
+
+    public void display(String text, int millis) {
+        this.display.showText(text, millis);
+    }
+
     /**
      * Draws the current backdrop or if none a solid color
      */
     public void pre() {
         // redraw background to clear screen
-
         ScratchStage.parent.background(this.color.getRed(), this.color.getGreen(), this.color.getBlue());
 
         // draw current backdrop
@@ -609,6 +625,10 @@ public class ScratchStage {
         for (ScratchSprite s : sprites) {
             s.draw();
         }
+        if (display != null)  {
+            this.display.draw();
+        }
+
         if (debug) {
             parent.strokeWeight(1);
             parent.stroke(DEBUG_COLOR[0], DEBUG_COLOR[1], DEBUG_COLOR[2]);
