@@ -5,7 +5,7 @@ import java.awt.Polygon;
 import java.awt.geom.Area;
 
 public class ScratchHitbox {
-    private Polygon originalPolygon;
+    private final Polygon originalPolygon;
     private Polygon polygon;
 
     public ScratchHitbox(int[] xPoints, int[] yPoints) {

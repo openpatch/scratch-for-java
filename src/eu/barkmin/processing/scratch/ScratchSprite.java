@@ -1,11 +1,10 @@
 package eu.barkmin.processing.scratch;
 
 import processing.core.PApplet;
+import processing.core.PGraphics;
 import processing.event.KeyEvent;
 import processing.event.MouseEvent;
 
-import java.awt.*;
-import java.awt.geom.Area;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -19,9 +18,10 @@ public class ScratchSprite {
     private float rotation = 0;
     private float x = 0;
     private float y = 0;
-    private HashMap<String, Timer> timer;
-    private ScratchPen pen;
+    private final HashMap<String, Timer> timer;
+    private final ScratchPen pen;
     private ScratchHitbox hitbox;
+    private ScratchText text;
 
     public ScratchSprite() {
         this.pen = new ScratchPen();
@@ -29,6 +29,7 @@ public class ScratchSprite {
         this.y = ScratchStage.parent.height / 2.0f;
         this.timer = new HashMap<>();
         this.timer.put("default", new Timer());
+        this.text = new ScratchText(null, this.x, this.y, 242);
 
         ScratchStage.parent.registerMethod("keyEvent", this);
         ScratchStage.parent.registerMethod("mouseEvent", this);
@@ -64,6 +65,7 @@ public class ScratchSprite {
         this.timer = new HashMap<>();
         this.timer.put("default", new Timer());
         this.pen = new ScratchPen(s.pen);
+        this.text = new ScratchText(s.text);
     }
 
     /**
@@ -161,8 +163,7 @@ public class ScratchSprite {
      * @param name the sound name
      */
     public void playSound(String name) {
-        for (int i = 0; i < sounds.size(); i++) {
-            ScratchSound sound = sounds.get(i);
+        for (ScratchSound sound : sounds) {
             if (sound.getName().equals(name) && !sound.isPlaying()) {
                 sound.play();
             }
@@ -302,6 +303,7 @@ public class ScratchSprite {
     public void setPosition(int x, int y) {
         this.x = x;
         this.y = y;
+        this.text.setPosition(x + this.getWidth() / 2, y - this.getHeight() / 2);
         this.getPen().setPosition(x, y);
     }
 
@@ -396,6 +398,7 @@ public class ScratchSprite {
         this.y = newY;
 
         this.pen.setPosition(this.x, this.y);
+        this.text.setPosition(x + this.getWidth() / 4, y - this.getHeight() / 2 - 10);
     }
 
     /**
@@ -569,8 +572,7 @@ public class ScratchSprite {
 
         float[] mouse = ScratchStage.rotateXY(getMouseX(), getMouseY(), x, y, -rotation);
 
-        boolean touching = mouse[0] > topLeftCornerX && mouse[1] > topLeftCornerY &&
-                mouse[0] < bottomRightCornerX && mouse[1] < bottomRightCornerY;
+        boolean touching = mouse[0] > topLeftCornerX && mouse[1] > topLeftCornerY && mouse[0] < bottomRightCornerX && mouse[1] < bottomRightCornerY;
 
         if (touching) {
             int relativeMouseX = Math.round(mouse[0] - topLeftCornerX);
@@ -635,10 +637,7 @@ public class ScratchSprite {
         float spriteHeight = this.show ? costumeHeight : this.pen.getSize();
 
         if (this.hitbox != null) {
-            this.hitbox.translateAndRotateAndResize(
-                    rotation, x, y,
-                    x - spriteWidth / 2.0f, y - spriteHeight / 2.0f,
-                    size);
+            this.hitbox.translateAndRotateAndResize(rotation, x, y, x - spriteWidth / 2.0f, y - spriteHeight / 2.0f, size);
             return this.hitbox;
         }
 
@@ -790,8 +789,36 @@ public class ScratchSprite {
 
     }
 
+    public void whenClicked() {
+
+    }
+
+    public void whenBackdropSwitches(String name) {
+
+    }
+
     public int pickRandom(int from, int to) {
         return ScratchStage.getInstance().pickRandom(from, to);
+    }
+
+    public void think(String text) {
+        this.text.setMode(ScratchText.THINK);
+        this.text.showText(text);
+    }
+
+    public void think(String text, int millis) {
+        this.text.setMode(ScratchText.THINK);
+        this.text.showText(text, millis);
+    }
+
+    public void say(String text) {
+        this.text.setMode(ScratchText.SPEAK);
+        this.text.showText(text);
+    }
+
+    public void say(String text, int millis) {
+        this.text.setMode(ScratchText.SPEAK);
+        this.text.showText(text, millis);
     }
 
     /**
@@ -806,6 +833,7 @@ public class ScratchSprite {
         if (ScratchStage.getInstance().isDebug()) {
             this.getHitbox().draw();
         }
+        this.text.draw();
         this.run();
     }
 
