@@ -90,6 +90,8 @@ also display the text for a certain amount of milliseconds like so: `stage.displ
 | `stage.removeSprites(MySprite.class)` | Removes all sprites of class MySprite |
 | `stage.getSprites()` | Returns a list of all sprites |
 | `stage.getSprites(MySprite.class)` | Returns a list of all sprites of class MySprite |
+| `stage.display(String text)` | Displays a text at the bottom of the stage |
+| `stage.display(String text, int millis)` | Displays a text at the bottom of the stage for a given amount of milliseconds |
 
 #### Sound
 
@@ -406,7 +408,7 @@ This happens when the frame rate drops.  This can lead to an unwanted rendering
 order. For example the pattern which was tried to achieve in the example
 [TimedDot](#TimeDot) should look like this:
 
-Lila, Lila, Green, Lila, Lila, Green, Clear. 
+Lila, Lila, Green, Lila, Lila, Green, Clear.
 
 Especially at the beginning of the sketch the frame rate increases slowly to
 the desired one. Therefore, there are some missing frames in the beginning and
