@@ -45,7 +45,7 @@ public class ScratchStage {
         this.penBuffer = parent.createGraphics(parent.width, parent.height, parent.sketchRenderer());
         this.timer = new HashMap<>();
         this.timer.put("default", new Timer());
-        this.display = new ScratchText(null,0,parent.height, parent.width , ScratchText.BOX);
+        this.display = new ScratchText(null,0,parent.height, true , ScratchText.BOX);
         this.debug = debug;
         this.sprites = new CopyOnWriteArrayList<>();
     }
