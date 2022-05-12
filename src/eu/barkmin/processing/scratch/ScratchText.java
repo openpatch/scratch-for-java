@@ -247,9 +247,7 @@ public class ScratchText {
             } else {
                 // get minimum width
                 for (String l : lines) {
-                    System.out.println(l);
                     width = Math.max(textBuffer.textWidth(l), width);
-                    System.out.println(width);
                 }
                 width = Math.min(width + 16, this.width);
             }
