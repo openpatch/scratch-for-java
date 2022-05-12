@@ -1,3 +1,7 @@
+## 1.14.1
+
+* Improve ScratchText rendering
+
 ## 1.14.0
 
 * add think and say to ScratchSprite
