@@ -2,7 +2,6 @@ package eu.barkmin.processing.scratch;
 
 import processing.core.PApplet;
 import processing.core.PFont;
-import processing.core.PGraphics;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -14,6 +13,7 @@ public class ScratchText {
     private float x;
     private float y;
     private final float width;
+    private boolean fullWidth;
     private float height;
     private long lifetime;
     private boolean hasLifetime;
@@ -25,31 +25,6 @@ public class ScratchText {
     private boolean show;
     private int mode;
 
-    public ScratchText(String text, float x, float y) {
-        this(text, x, y, 242);
-        this.mode = ScratchText.BOX;
-    }
-
-    public ScratchText(String text, float x, float y, float width, int mode) {
-        this(text, x, y, width);
-        this.mode = mode;
-    }
-
-    public ScratchText(ScratchText t) {
-        this.x = t.x;
-        this.y = t.y;
-        this.lifetime = t.lifetime;
-        this.hasLifetime = t.hasLifetime;
-        this.textSize = 16;
-        this.originalText = t.originalText;
-        this.width = t.width;
-        this.height = t.height;
-        this.text = null;
-        this.show = false;
-        this.mono = t.mono;
-        this.mode = t.mode;
-    }
-
     public ScratchText(String text, float x, float y, float width) {
         this.x = x;
         this.y = y;
@@ -58,7 +33,32 @@ public class ScratchText {
         this.width = width;
         this.show = false;
         this.mono = ScratchStage.parent.createFont("UbuntuMono-Regular.ttf", this.textSize);
+    }
 
+    public ScratchText(String text, float x, float y, float width, int mode) {
+        this(text, x, y, width);
+        this.mode = mode;
+    }
+
+    public ScratchText(String text, float x, float y, boolean fullWidth, int mode) {
+        this(text, x, y, ScratchStage.parent.width, mode);
+        this.fullWidth = fullWidth;
+    }
+
+    public ScratchText(ScratchText t) {
+       this.fullWidth = t.fullWidth;
+       this.width = t.width;
+       this.originalText = t.originalText;
+       this.show = t.show;
+       this.lifetime = t.lifetime;
+       this.hasLifetime = t.hasLifetime;
+       this.height = t.height;
+       this.mono = t.mono;
+       this.textSize = t.textSize;
+       this.text = t.text;
+       this.x = t.x;
+       this.y = t.y;
+       this.mode = t.mode;
     }
 
     /**
@@ -191,7 +191,7 @@ public class ScratchText {
             // Breakup long word
             while (wrapLongWords && word.length() > lineLength) {
                 cache
-                        .append(word.substring(0, remaining - breakLength))
+                        .append(word, 0, remaining - breakLength)
                         .append(longWordBreak)
                         .append(newLineStr);
                 word = longWordLinePrefix + word.substring(remaining - breakLength);
@@ -236,37 +236,55 @@ public class ScratchText {
 
         if (this.text == null) {
             float cw = textBuffer.textWidth("w");
-            int lineLength = Math.round(width / cw);
+            int lineLength = Math.round((this.width - 16) / cw);
             this.text = wrap(originalText, lineLength, "\n", true, "-", " ");
-            this.height = 21 * this.text.split("\n").length + 8;
+        } else {
+            String[] lines = this.text.split("\n");
+
+            float width = 0;
+            if (this.fullWidth) {
+                width = ScratchStage.parent.width;
+            } else {
+                // get minimum width
+                for (String l : lines) {
+                    System.out.println(l);
+                    width = Math.max(textBuffer.textWidth(l), width);
+                    System.out.println(width);
+                }
+                width = Math.min(width + 16, this.width);
+            }
+
+            this.height = (this.textSize + 4) * lines.length + 16;
+            textBuffer.translate(this.x, this.y - height);
+            textBuffer.stroke(200);
+            if (this.mode == ScratchText.BOX) {
+                textBuffer.rect(0, 0, width, this.height, 16, 16, 0, 0);
+            } else {
+                textBuffer.rect(0, 0, width, this.height, 16, 16,   16, 16);
+                if (this.mode == ScratchText.SPEAK) {
+                    textBuffer.push();
+                    textBuffer.fill(255, 255, 255);
+                    textBuffer.translate(10, height);
+                    textBuffer.triangle(0, 20, 0, 0, 20, 0);
+                    textBuffer.stroke(255);
+                    textBuffer.strokeWeight(3);
+                    textBuffer.line(2, 0, 16, 0);
+                    textBuffer.pop();
+                } else if (this.mode == ScratchText.THINK) {
+                    textBuffer.circle(20, this.height, 10);
+                    textBuffer.circle(7, this.height + 7, 6);
+                    textBuffer.circle(0, this.height + 10, 4);
+                }
+            }
+            textBuffer.fill(120);
+            textBuffer.textLeading(this.textSize + 4);
+            textBuffer.text(this.text, 8, 8);
+            textBuffer.pop();
         }
 
-        textBuffer.translate(this.x, this.y - height);
-        if (this.mode == ScratchText.BOX) {
-            textBuffer.rect(0, 0, this.width, this.height, 8, 8, 0, 0);
-        } else {
-            textBuffer.rect(0, 0, this.width, this.height, 8, 8, 8, 8);
-            if (this.mode == ScratchText.SPEAK) {
-                textBuffer.push();
-                textBuffer.fill(255, 255, 255);
-                textBuffer.translate(10, height);
-                textBuffer.triangle(0, 20, 0, 0, 20, 0);
-                textBuffer.stroke(255);
-                textBuffer.strokeWeight(3);
-                textBuffer.line(2, 0, 16, 0);
-                textBuffer.pop();
-            } else if (this.mode == ScratchText.THINK) {
-                textBuffer.circle(20, this.height, 10);
-                textBuffer.circle(7, this.height + 7, 6);
-                textBuffer.circle(0, this.height + 10, 4);
-            }
-        }
-        textBuffer.fill(0, 0, 0);
-        textBuffer.text(this.text, 4, 4);
-        textBuffer.pop();
 
         if (this.hasLifetime && this.lifetime < System.currentTimeMillis()) {
-           this.show = false;
+            this.show = false;
         }
     }
 }
