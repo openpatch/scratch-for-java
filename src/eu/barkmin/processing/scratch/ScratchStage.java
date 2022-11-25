@@ -38,6 +38,43 @@ public class ScratchStage {
     private boolean mouseDown;
     private HashMap<Integer, Boolean> keyCodePressed = new HashMap<>();
 
+    public ScratchStage() {
+        this(420, 360, false);
+    }
+    public ScratchStage(int width, int height) {
+        this(width, height, false);
+    }
+
+    public ScratchStage(int width, int height, boolean debug) {
+        ScratchApplet sa = new ScratchApplet(width, height);
+        ScratchStage.parent = sa;
+        sa.runSketch();
+
+        // wait to make sure the PApplet runs.
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+
+        ScratchStage.parent.imageMode(PConstants.CENTER);
+        ScratchStage.parent.rectMode(PConstants.CENTER);
+        this.penBuffer = parent.createGraphics(parent.width, parent.height, parent.sketchRenderer());
+        this.timer = new HashMap<>();
+        this.timer.put("default", new Timer());
+        this.display = new ScratchText(null,0,parent.height, true , ScratchText.BOX);
+        this.debug = debug;
+        this.sprites = new CopyOnWriteArrayList<>();
+        if (ScratchStage.instance != null) {
+            throw new RuntimeException();
+        }
+        ScratchStage.instance = this;
+        parent.registerMethod("pre", ScratchStage.instance);
+        parent.registerMethod("draw", ScratchStage.instance);
+        parent.registerMethod("mouseEvent", ScratchStage.instance);
+        parent.registerMethod("keyEvent", ScratchStage.instance);
+    }
+
     private ScratchStage(PApplet parent, boolean debug) {
         parent.imageMode(PConstants.CENTER);
         parent.rectMode(PConstants.CENTER);
@@ -619,6 +656,13 @@ public class ScratchStage {
             this.backdrops.get(this.currentBackdrop).drawAsBackground();
         }
         ScratchStage.parent.image(penBuffer, ScratchStage.parent.width / 2, ScratchStage.parent.height / 2);
+    }
+
+    public void wait(int millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+        }
     }
 
     public void draw() {
