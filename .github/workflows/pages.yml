@@ -16,14 +16,6 @@ jobs:
           submodules: true  # Fetch Hugo themes (true OR recursive)
           fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
 
-      - name: Setup
-        run: |
-          wget https://clojars.org/repo/quil/processing-core/3.5.4/processing-core-3.5.4.jar
-          mv processing-core-3.5.4.jar libs/core.jar
-          mkdir -p /home/$USER/sketchbook/libraries
-          wget https://github.com/processing/processing-sound/releases/download/v2.2.3/sound.zip
-          unzip sound.zip -d /home/$USER/sketchbook/libraries
-
       - name: Setup Java
         uses: actions/setup-java@v3
         with:
