@@ -6,6 +6,12 @@
     "name": "OpenPatch",
     "url": "https://openpatch.org"
   },
+  "logo": "/assets/logo.png",
+  "colors": {
+    "brand": "#4e7896",
+    "brandDark": "#f58219",
+    "brandText": "#f58219"
+  },
   "license": "CC-BY-SA",
   "language": "en"
 }
