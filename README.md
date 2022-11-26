@@ -1,5 +1,7 @@
 # Scratch for Java
 
+![](./docs/public/assets/logo.png)
+
 To ease the transition from the block-based programming environment
 [Scratch](scratch.mit.edu) to text-based programming in Java this
 library was created. Therefore, the core elements of Scratch are remodeled.
