@@ -41,14 +41,13 @@
     <property name="project.jar.name" value="${project.name}"/>
     <property name="project.src" location="src"/>
     <property name="project.tmp" location="tmp"/>
-    <property name="project.web" location="web"/>
+    <property name="project.docs" location="docs"/>
     <property name="project.data" location="data"/>
     <property name="project.lib" location="lib"/>
     <property name="project.libs" location="libs"/>
     <property name="project.bin" location="bin"/>
     <property name="project.bin.data" location="${project.bin}/data"/>
     <property name="project.examples" location="examples"/>
-    <property name="project.reference" location="reference"/>
     <property name="project.dist" location="distribution"/>
     <property name="project.dist.version" location="distribution/${project.name}-${library.version}"/>
     <property name="project.dist.latest" location="distribution/${project.name}-latest"/>
@@ -129,17 +128,13 @@
         <antcall target="generate.jar">
             <param name="folder" value="library"/>
         </antcall>
-        <antcall target="generate.javadoc"/>
         <antcall target="generate.libprops"/>
         <antcall target="copyToSketchbook">
             <param name="folder" value="libraries"/>
         </antcall>
         <antcall target="generate.distribution"/>
-        <antcall target="generate.install.library"/>
-        <antcall target="generate.web"/>
         <antcall target="generate.zip"/>
         <delete dir="${project.tmp}"/>
-        <antcall target="copy.web.latest"/>
     </target>
 
 
@@ -194,7 +189,6 @@
         <mkdir dir="${project.tmp}/${project.name}"/>
         <mkdir dir="${project.tmp}/${project.name}/${folder}"/>
         <mkdir dir="${project.tmp}/${project.name}/examples"/>
-        <mkdir dir="${project.tmp}/${project.name}/reference"/>
         <mkdir dir="${project.tmp}/${project.name}/src"/>
         <copy todir="${project.tmp}/${project.name}/examples">
             <fileset dir="${project.examples}">
@@ -244,47 +238,6 @@
     </target>
 
 
-    <target name="generate.javadoc" if="is.normal">
-        <!-- create the java reference of the Library -->
-        <javadoc bottom="Scratch Library ${project.name} by ${author.name}. ${library.copyright}"
-                 classpathref="classpath"
-                 destdir="${project.tmp}/${project.name}/reference"
-                 verbose="true"
-                 stylesheetfile="resources/stylesheet.css"
-                 doctitle="Javadocs: ${project.name}"
-                 public="true" version="false"
-                 windowtitle="Javadocs: ${project.name}">
-
-            <link href="${javadoc.java.href}"/>
-            <link href="${javadoc.processing.href}"/>
-            <fileset dir="${project.tmp}/${project.name}/src" />
-        </javadoc>
-    </target>
-
-
-    <target name="generate.web" if="is.normal">
-
-        <mkdir dir="${project.dist.version}/web"/>
-        <copy todir="${project.dist.version}/web/reference">
-            <fileset dir="${project.dist.version}/${project.name}/reference"/>
-        </copy>
-
-        <copy todir="${project.dist.version}/web/examples">
-            <fileset dir="${project.dist.version}/${project.name}/examples"/>
-        </copy>
-
-        <copy todir="${project.dist.version}/web">
-            <fileset dir="${project.web}"/>
-        </copy>
-
-        <antcall target="parse.file">
-            <param name="file" value="${project.dist.version}/web/index.html"/>
-        </antcall>
-
-        <antcall target="processExamples"/>
-
-        <replaceregexp file="${project.dist.version}/web/index.html" match="##examples##" replace="" flags="g"/>
-    </target>
 
 
     <!-- find and replace ##placeholder## keywords in a file -->
@@ -324,14 +277,6 @@
     </target>
 
 
-    <target name="generate.install.library" if="is.normal">
-        <copy file="${install.source}" tofile="${install.destination}"/>
-
-        <antcall target="parse.file">
-            <param name="file" value="${install.destination}"/>
-        </antcall>
-    </target>
-
 
     <target name="generate.zip" if="is.normal">
         <!-- zip the distribution of the Library -->
@@ -341,27 +286,19 @@
         </move>
 
         <copy file="${project.dist.version}/tmp/${project.name}/library.properties"
-              tofile="${project.dist.version}/web/download/${project.name}.txt"/>
+              tofile="${project.dist}/${project.name}.txt"/>
 
-        <move file="${project.dist.version}/tmp/${project.name}/library/scratch-standalone.jar" todir="${project.dist.version}/web/download"/>
+        <move file="${project.dist.version}/tmp/${project.name}/library/scratch-standalone.jar" todir="${project.dist}"/>
 
         <zip destfile="${project.dist.version}/${project.name}.zip"
              basedir="${project.dist.version}/tmp"
              excludes="**/.DS_Store,**/${project.name}-standalone.jar"
         />
 
-        <move file="${project.dist.version}/${project.name}.zip" todir="${project.dist.version}/web/download"/>
+        <move file="${project.dist.version}/${project.name}.zip" todir="${project.dist}"/>
+        <move file="resources/index.html" todir="${project.dist}" />
 
-        <copy file="${project.dist.version}/web/download/${project.name}.zip"
-              tofile="${project.dist.version}/web/download/${project.name}-${library.version}.zip"/>
-        <copy file="${project.dist.version}/web/download/${project.name}.txt"
-              tofile="${project.dist.version}/web/download/${project.name}-${library.version}.txt"/>
-
-        <move todir="${project.dist.version}">
-            <fileset dir="${project.dist.version}/web"/>
-        </move>
-
-        <delete dir="${project.dist.version}/tmp"/>
+        <delete dir="${project.dist.version}"/>
     </target>
 
 
@@ -373,40 +310,6 @@
         </foreach>
     </target>
 
-
-    <target name="addExamples">
-        <echo>${exampleDir}</echo>
-        <propertyregex property="pde"
-                       input="${exampleDir}"
-                       regexp="^.*\/(.*)$"
-                       select="\1"
-                       casesensitive="false"
-                       defaultValue="${exampleDir}"/>
-
-        <propertyregex property="data"
-                       input="${exampleDir}"
-                       regexp="data$"
-                       select="true"
-                       casesensitive="false"
-                       defaultValue="false"/>
-
-        <if>
-            <equals arg1="${data}" arg2="false"/>
-            <then>
-                <replaceregexp file="${project.dist.version}/web/index.html"
-                               match="(##examples##)"
-                               replace="&lt;li&gt;&lt;a href=&quot;https://github.com/openpatch/scratch-for-java#${pde}&quot;&gt;${exampleDir}&lt;/a&gt;&lt;/li&gt; \1"
-                               flags="g"/>
-            </then>
-            <else>
-                <echo message="Data folder, attention."/>
-            </else>
-        </if>
-    </target>
-
-    <target name="copy.web.latest">
-        <copydir src="${project.dist.version}" dest="${project.dist.latest}"/>
-    </target>
 
     <target name="clean" depends="library.run">
         <delete dir="${project.bin}"/>

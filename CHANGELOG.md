@@ -1,3 +1,11 @@
+## 2.0.0
+
+* BREAKING CHANGE: Rename package to `org.openpatch.scratch`
+
+## 1.15.0
+
+* Add standalone version
+
 ## 1.14.1
 
 * Improve ScratchText rendering
