@@ -538,7 +538,7 @@ It also shows how to animate a sprite.
 
 ![stress_test](/assets/stress_test.gif)
 
-## ColorHit
+### ColorHit
 
 Source Code: https://github.com/openpatch/scratch-for-java/tree/master/examples/ColorHit
 
@@ -546,7 +546,7 @@ A little game developed which this library.
 
 ![color_hit](/assets/color_hit.gif)
 
-## Clock
+### Clock
 
 Source Code: https://github.com/openpatch/scratch-for-java/tree/master/examples/Clock
 
@@ -555,10 +555,9 @@ Shows the sensing time methods
 ![clock](/assets/clock.gif)
 
 
-## Missing
+## Missing Blocks
 
 * blocks which are not listed above are currently missing
-* sprites can not speak or think
 
 ## Advanced Features
 
