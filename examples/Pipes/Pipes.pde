@@ -1,6 +1,6 @@
 // import additional processing libraries
 import processing.sound.*;
-import eu.barkmin.processing.scratch.*;
+import org.openpatch.scratch.*;
 
 ScratchStage stage;
 ArrayList<PenSprite> pens = new ArrayList();

@@ -1,4 +1,4 @@
-import eu.barkmin.processing.scratch.*;
+import org.openpatch.scratch.*;
 
 public class PenSprite extends ScratchSprite {  
   

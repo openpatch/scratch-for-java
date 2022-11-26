@@ -1,4 +1,4 @@
-package eu.barkmin.processing.scratch;
+package org.openpatch.scratch;
 
 public class Timer {
     private int nextFrameEvery;
