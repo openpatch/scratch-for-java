@@ -1,5 +1,5 @@
 import processing.sound.*;
-import eu.barkmin.processing.scratch.*;
+import org.openpatch.scratch.*;
 
 
 ScratchStage stage;

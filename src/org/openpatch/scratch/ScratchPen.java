@@ -1,4 +1,4 @@
-package eu.barkmin.processing.scratch;
+package org.openpatch.scratch;
 
 import processing.core.PGraphics;
 

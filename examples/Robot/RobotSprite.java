@@ -1,4 +1,4 @@
-import eu.barkmin.processing.scratch.*;
+import org.openpatch.scratch.*;
 
 public class RobotSprite extends ScratchSprite {
   public RobotSprite() {

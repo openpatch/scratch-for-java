@@ -1,4 +1,4 @@
-<project name="Processing Library" default="clean" basedir="../">
+<project name="Library" default="clean" basedir="../">
 
 
     <!--
@@ -246,10 +246,10 @@
 
     <target name="generate.javadoc" if="is.normal">
         <!-- create the java reference of the Library -->
-        <javadoc bottom="Processing Library ${project.name} by ${author.name}. ${library.copyright}"
-                 classpath="${classpath.local.location}/core.jar;${classpath.libraries.location}/sound/library/sound.jar;{project.bin}"
+        <javadoc bottom="Scratch Library ${project.name} by ${author.name}. ${library.copyright}"
+                 classpathref="classpath"
                  destdir="${project.tmp}/${project.name}/reference"
-                 verbose="false"
+                 verbose="true"
                  stylesheetfile="resources/stylesheet.css"
                  doctitle="Javadocs: ${project.name}"
                  public="true" version="false"
@@ -257,11 +257,7 @@
 
             <link href="${javadoc.java.href}"/>
             <link href="${javadoc.processing.href}"/>
-            <taglet name="ExampleTaglet" path="resources/code"/>
-            <fileset dir="${project.tmp}/${project.name}/src" defaultexcludes="yes">
-                <!-- add packages to be added to reference. -->
-                <include name="**/*"/>
-            </fileset>
+            <fileset dir="${project.tmp}/${project.name}/src" />
         </javadoc>
     </target>
 
@@ -399,7 +395,7 @@
             <then>
                 <replaceregexp file="${project.dist.version}/web/index.html"
                                match="(##examples##)"
-                               replace="&lt;li&gt;&lt;a href=&quot;https://github.com/mikebarkmin/processing-library-scratch#${pde}&quot;&gt;${exampleDir}&lt;/a&gt;&lt;/li&gt; \1"
+                               replace="&lt;li&gt;&lt;a href=&quot;https://github.com/openpatch/scratch-for-java#${pde}&quot;&gt;${exampleDir}&lt;/a&gt;&lt;/li&gt; \1"
                                flags="g"/>
             </then>
             <else>
