@@ -1,0 +1,45 @@
+{
+  "name": "Scratch für Java",
+  "version": "0.0.0",
+  "description": "Eine Bibliothek die Scratch in Java nachbildet",
+  "author": {
+    "name": "OpenPatch",
+    "url": "https://openpatch.org"
+  },
+  "logo": "/assets/logo.png",
+  "colors": {
+    "brand": "#4e7896",
+    "brandDark": "#f58219",
+    "brandText": "#f58219"
+  },
+  "links": [
+    {
+      "label": "Kontakt",
+      "links": [
+        {
+          "label": "Mail",
+          "icon": "📧",
+          "href": "mailto:contact@openpatch.org"
+        },
+        {
+          "label": "Twitter",
+          "icon": "🐦",
+          "href": "https://twitter.com/openpatchorg"
+        },
+        {
+          "label": "Mastodon",
+          "icon": "🐘",
+          "href": "https://fosstodon.org/@openpatch"
+        },
+        {
+          "label": "Matrix (Chat)",
+          "icon": "👨‍💻",
+          "href": "https://matrix.to/#/#hyperbook:matrix.org"
+        }
+      ]
+    }
+  ],
+
+  "license": "CC-BY-SA",
+  "language": "de"
+}
