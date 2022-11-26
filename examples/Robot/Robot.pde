@@ -1,4 +1,4 @@
-import eu.barkmin.processing.scratch.*;
+import org.openpatch.scratch.*;
 
 ScratchStage stage;
 RobotSprite robot;

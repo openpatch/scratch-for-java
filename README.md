@@ -8,11 +8,11 @@ library was created. Therefore, the core elements of Scratch are remodeled.
 
 ### ScratchStage
 
-Usage: `import eu.barkmin.processing.scratch.ScratchStage`
+Usage: `import org.openpatch.scratch.ScratchStage`
 
-API: https://www.barkmin.eu/processing-library-scratch/reference/eu/barkmin/processing/scratch/ScratchStage.html
+API: https://scratch.openpatch.org/reference/org/barkmin/processing/scratch/ScratchStage.html
 
-Source Code: https://github.com/mikebarkmin/processing-library-scratch/blob/master/src/eu/barkmin/processing/scratch/ScratchStage.java
+Source Code: https://github.com/openpatch/scratch-for-java/blob/master/src/org/barkmin/processing/scratch/ScratchStage.java
 
 #### Initialization
 
@@ -20,17 +20,15 @@ Before you can use any of the class provided by this library be sure to
 initialize the ScratchStage. You only need to place this statement
 `ScratchStage.init(this)` in your setup function. A minimal example could look like this:
 
-```java
-import eu.barkmin.processing.scratch.*;
-
+```processing
 ScratchStage stage;
 
-void setup() {
-  ScratchStage.init(this);
-  stage = ScratchStage.getInstance();
+void setup(){
+ScratchStage.init(this);
+stage=ScratchStage.getInstance();
 }
 
-void draw() {
+void draw(){
 }
 ```
 
@@ -112,11 +110,11 @@ converted them to `wav` files with [SoundConverter](http://soundconverter.org/).
 
 ### ScratchSprite
 
-Usage: `import eu.barkmin.processing.scratch.ScratchSprite`
+Usage: `import org.openpatch.scratch.ScratchSprite`
 
-API: https://www.barkmin.eu/processing-library-scratch/reference/eu/barkmin/processing/scratch/ScratchSprite.html
+API: https://www.barkmin.org/processing-library-scratch/reference/org/barkmin/processing/scratch/ScratchSprite.html
 
-Source Code: https://github.com/mikebarkmin/processing-library-scratch/blob/master/src/eu/barkmin/processing/scratch/ScratchSprite.java
+Source Code: https://github.com/openpatch/scratch-for-java/blob/master/src/org/barkmin/processing/scratch/ScratchSprite.java
 
 In Scratch sprites are the main actors. Every sprite has a custom set of
 costumes and sounds, which could be dynamically changed. Most of the
@@ -125,32 +123,33 @@ processing. When added to the stage, the run method of a sprite will be called c
 
 #### Creation
 
-```java
-import eu.barkmin.processing.scratch.*;
+```processing
+import org.openpatch.scratch.*;
 
 ScratchStage stage;
 CatSprite myCat;
 
-void setup() {
-  size(800, 600);
-  ScratchStage.init(this);
-  stage = ScratchStage.getInstance();
-  myCat = new CatSprite();
-  stage.addSprite(myCat);
+void setup(){
+    size(800,600);
+    ScratchStage.init(this);
+    stage=ScratchStage.getInstance();
+    myCat=new CatSprite();
+    stage.addSprite(myCat);
 }
 
-void draw() {
+void draw(){
 }
 
 // Define a class Cat
 class CatSprite extends ScratchSprite {
-  CatSprite() {
-    this.addCostume("cat", "sprites/cat.png");
-    this.setOnEdgeBounce(true);
-  }
-  void run() {
-    this.move(2);
-  }
+    CatSprite() {
+        this.addCostume("cat", "sprites/cat.png");
+        this.setOnEdgeBounce(true);
+    }
+
+    void run() {
+        this.move(2);
+    }
 }
 ```
 
@@ -235,7 +234,7 @@ To add a new costume call `sprite.addCostume("newCostume",
 
 
 The following code will show the same result. The normal sprite is handled by the ScratchStage, the custom sprite is handled by us.
-```
+```processing
 Custom custom;
 
 void setup () {
@@ -280,11 +279,11 @@ converted them to `wav` files with [SoundConverter](http://soundconverter.org/).
 
 ### ScratchPen
 
-Usage: `import eu.barkmin.processing.scratch.ScratchPen`
+Usage: `import org.openpatch.scratch.ScratchPen`
 
-API: https://www.barkmin.eu/processing-library-scratch/reference/eu/barkmin/processing/scratch/ScratchPen.html
+API: https://www.barkmin.org/processing-library-scratch/reference/org/barkmin/processing/scratch/ScratchPen.html
 
-Source Code: https://github.com/mikebarkmin/processing-library-scratch/blob/master/src/eu/barkmin/processing/scratch/ScratchPen.java
+Source Code: https://github.com/openpatch/scratch-for-java/blob/master/src/org/barkmin/processing/scratch/ScratchPen.java
 
 In Scratch every sprite can use a pen to draw lines, therefore every
 ScratchSprite object has an pen associated with it. Through a similar api the
@@ -304,11 +303,11 @@ pen can be modified.
 
 ### ScratchAnimatedSprite
 
-Usage: `import eu.barkmin.processing.scratch.ScratchAnimatedSprite`
+Usage: `import org.openpatch.scratch.ScratchAnimatedSprite`
 
-API: https://www.barkmin.eu/processing-library-scratch/reference/eu/barkmin/processing/scratch/ScratchAnimatedSprite.html
+API: https://www.barkmin.org/processing-library-scratch/reference/org/barkmin/processing/scratch/ScratchAnimatedSprite.html
 
-Source Code: https://github.com/mikebarkmin/processing-library-scratch/blob/master/src/eu/barkmin/processing/scratch/ScratchAnimatedSprite.java
+Source Code: https://github.com/openpatch/scratch-for-java/blob/master/src/org/barkmin/processing/scratch/ScratchAnimatedSprite.java
 
 This class inherits form ScratchSprite. Therefore everything you can do with a ScratchSprite, you can also do with a ScratchAnimatedSprite. Additionally you can add animations.
 
@@ -329,38 +328,39 @@ This class inherits form ScratchSprite. Therefore everything you can do with a S
 
 ##### Usage
 
-```java
-import eu.barkmin.processing.scratch.*;
+```processing
+import org.openpatch.scratch.*;
 
 ScratchStage stage;
 CatSprite myCat;
 
-void setup() {
-  size(800, 600);
-  ScratchStage.init(this);
-  stage = ScratchStage.getInstance();
-  myCat = new CatSprite();
-  stage.addSprite(myCat);
+void setup(){
+    size(800,600);
+    ScratchStage.init(this);
+    stage=ScratchStage.getInstance();
+    myCat=new CatSprite();
+    stage.addSprite(myCat);
 }
 
-void draw() {
+void draw(){
 }
 
 // Define a class Cat
 class CatSprite extends ScratchAnimatedSprite {
-  CatSprite() {
-    this.addAnimation("idle", "sprites/cat_idle_%02d.png");
-    this.addAnimation("running", "sprites/cat_running_%02d.png")
-    this.setOnEdgeBounce(true);
-  }
-  void run() {
-    if(this.isTouchingMousePointer()) {
-      this.playAnimation("running");
-      this.move(2);
-    } else {
-      this.playAnimation("idle");
+    CatSprite() {
+        this.addAnimation("idle", "sprites/cat_idle_%02d.png");
+        this.addAnimation("running", "sprites/cat_running_%02d.png")
+        this.setOnEdgeBounce(true);
     }
-  }
+
+    void run() {
+        if (this.isTouchingMousePointer()) {
+            this.playAnimation("running");
+            this.move(2);
+        } else {
+            this.playAnimation("idle");
+        }
+    }
 }
 ```
 
@@ -423,35 +423,35 @@ can see the difference below.
 
 ### ScratchSound (internally)
 
-Usage: `import eu.barkmin.processing.scratch.ScratchSound`
+Usage: `import org.openpatch.scratch.ScratchSound`
 
-API: https://www.barkmin.eu/processing-library-scratch/reference/eu/barkmin/processing/scratch/ScratchSound.html
+API: https://www.barkmin.org/processing-library-scratch/reference/org/barkmin/processing/scratch/ScratchSound.html
 
-Source Code: https://github.com/mikebarkmin/processing-library-scratch/blob/master/src/eu/barkmin/processing/scratch/ScratchSound.java
+Source Code: https://github.com/openpatch/scratch-for-java/blob/master/src/org/barkmin/processing/scratch/ScratchSound.java
 
 ### ScratchImage (internally)
 
-Usage: `import eu.barkmin.processing.scratch.ScratchImage`
+Usage: `import org.openpatch.scratch.ScratchImage`
 
-API: https://www.barkmin.eu/processing-library-scratch/reference/eu/barkmin/processing/scratch/ScratchImage.html
+API: https://www.barkmin.org/processing-library-scratch/reference/org/barkmin/processing/scratch/ScratchImage.html
 
-Source Code: https://github.com/mikebarkmin/processing-library-scratch/blob/master/src/eu/barkmin/processing/scratch/ScratchImage.java
+Source Code: https://github.com/openpatch/scratch-for-java/blob/master/src/org/barkmin/processing/scratch/ScratchImage.java
 
 ### ScratchText (internally)
 
-Usage: `import eu.barkmin.processing.scratch.ScratchText`
+Usage: `import org.openpatch.scratch.ScratchText`
 
-API: https://www.barkmin.eu/processing-library-scratch/reference/eu/barkmin/processing/scratch/ScratchText.html
+API: https://www.barkmin.org/processing-library-scratch/reference/org/barkmin/processing/scratch/ScratchText.html
 
-Source Code: https://github.com/mikebarkmin/processing-library-scratch/blob/master/src/eu/barkmin/processing/scratch/ScratchText.java
+Source Code: https://github.com/openpatch/scratch-for-java/blob/master/src/org/barkmin/processing/scratch/ScratchText.java
 
 ### ScratchColor (internally)
 
-Usage: `import eu.barkmin.processing.scratch.ScratchColor`
+Usage: `import org.openpatch.scratch.ScratchColor`
 
-API: https://www.barkmin.eu/processing-library-scratch/reference/eu/barkmin/processing/scratch/ScratchColor.html
+API: https://www.barkmin.org/processing-library-scratch/reference/org/barkmin/processing/scratch/ScratchColor.html
 
-Source Code: https://github.com/mikebarkmin/processing-library-scratch/blob/master/src/eu/barkmin/processing/scratch/ScratchColor.java
+Source Code: https://github.com/openpatch/scratch-for-java/blob/master/src/org/barkmin/processing/scratch/ScratchColor.java
 
 Scratch makes it easy to work with colors on the
 [hsl](https://en.wikipedia.org/wiki/HSL_and_HSV) color spectrum. To achieve a
@@ -461,7 +461,7 @@ similar behavior the class ScratchColor was created.
 
 ### Cat
 
-Source Code: https://github.com/mikebarkmin/processing-library-scratch/tree/master/examples/Cat
+Source Code: https://github.com/openpatch/scratch-for-java/tree/master/examples/Cat
 
 An example with a simple one file setup.
 
@@ -469,7 +469,7 @@ An example with a simple one file setup.
 
 ### Robot
 
-Source Code: https://github.com/mikebarkmin/processing-library-scratch/tree/master/examples/Robot
+Source Code: https://github.com/openpatch/scratch-for-java/tree/master/examples/Robot
 
 An example with a class in another file.
 
@@ -477,7 +477,7 @@ An example with a class in another file.
 
 ### Pipes
 
-Source Code: https://github.com/mikebarkmin/processing-library-scratch/tree/master/examples/Pipes
+Source Code: https://github.com/openpatch/scratch-for-java/tree/master/examples/Pipes
 
 An example with heavy use of the ScratchPen. It also plays an sound file in the background.
 
@@ -485,7 +485,7 @@ An example with heavy use of the ScratchPen. It also plays an sound file in the 
 
 ### RainbowVine
 
-Source Code: https://github.com/mikebarkmin/processing-library-scratch/tree/master/examples/RainbowVine
+Source Code: https://github.com/openpatch/scratch-for-java/tree/master/examples/RainbowVine
 
 An example which makes use of mouse events and timers.
 
@@ -493,7 +493,7 @@ An example which makes use of mouse events and timers.
 
 ### RandomDot
 
-Source Code: https://github.com/mikebarkmin/processing-library-scratch/tree/master/examples/RandomDot
+Source Code: https://github.com/openpatch/scratch-for-java/tree/master/examples/RandomDot
 
 An example which makes use of timers.
 
@@ -502,7 +502,7 @@ An example which makes use of timers.
 
 ### TimedDot
 
-Source Code: https://github.com/mikebarkmin/processing-library-scratch/tree/master/examples/TimedDot
+Source Code: https://github.com/openpatch/scratch-for-java/tree/master/examples/TimedDot
 
 An example which makes use of timers.
 
@@ -510,7 +510,7 @@ An example which makes use of timers.
 
 ### Timer
 
-Source Code: https://github.com/mikebarkmin/processing-library-scratch/tree/master/examples/Timer
+Source Code: https://github.com/openpatch/scratch-for-java/tree/master/examples/Timer
 
 An example which makes use of the many methods of the timer.
 
@@ -518,7 +518,7 @@ An example which makes use of the many methods of the timer.
 
 ### Sensing
 
-Source Code: https://github.com/mikebarkmin/processing-library-scratch/tree/master/examples/Sensing
+Source Code: https://github.com/openpatch/scratch-for-java/tree/master/examples/Sensing
 
 An example which shows the usage of `isTouchingMousePointer` and custom hitboxes.
 
@@ -526,7 +526,7 @@ An example which shows the usage of `isTouchingMousePointer` and custom hitboxes
 
 ### StressTest
 
-Source Code: https://github.com/mikebarkmin/processing-library-scratch/tree/master/examples/StressTest
+Source Code: https://github.com/openpatch/scratch-for-java/tree/master/examples/StressTest
 
 How many sprites can you display? And how does it effect the frame rate and memory usage of your scratch. Test it with this example.
 
@@ -536,7 +536,7 @@ It also shows how to animate a sprite.
 
 ## ColorHit
 
-Source Code: https://github.com/mikebarkmin/processing-library-scratch/tree/master/examples/ColorHit
+Source Code: https://github.com/openpatch/scratch-for-java/tree/master/examples/ColorHit
 
 A little game developed which this library.
 
@@ -544,7 +544,7 @@ A little game developed which this library.
 
 ## Clock
 
-Source Code: https://github.com/mikebarkmin/processing-library-scratch/tree/master/examples/Clock
+Source Code: https://github.com/openpatch/scratch-for-java/tree/master/examples/Clock
 
 Shows the sensing time methods
 
@@ -592,7 +592,7 @@ By default, the following locations are used for your sketchbook folder:
   * For Mac users, the sketchbook folder is located inside `~/Documents/Processing`
   * For Windows users, the sketchbook folder is located inside `My Documents/Processing`
 
-Download Scratch from https://github.com/mikebarkmin/processing-library-scratch/releases/latest
+Download Scratch from https://github.com/openpatch/scratch-for-java/releases/latest
 
 Unzip and copy the contributed Library's folder into the `libraries` folder in the Processing sketchbook. You will need to create this `libraries` folder if it does not exist.
 
