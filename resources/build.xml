@@ -296,7 +296,7 @@
         />
 
         <move file="${project.dist.version}/${project.name}.zip" todir="${project.dist}"/>
-        <move file="resources/index.html" todir="${project.dist}" />
+        <copy file="resources/index.html" todir="${project.dist}" />
 
         <delete dir="${project.dist.version}"/>
     </target>
