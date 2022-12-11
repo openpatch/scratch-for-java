@@ -4,11 +4,11 @@ import java.awt.Point;
 import java.awt.Polygon;
 import java.awt.geom.Area;
 
-public class ScratchHitbox {
+public class Hitbox {
     private final Polygon originalPolygon;
     private Polygon polygon;
 
-    public ScratchHitbox(int[] xPoints, int[] yPoints) {
+    public Hitbox(int[] xPoints, int[] yPoints) {
         this.originalPolygon = new Polygon(xPoints, yPoints, xPoints.length);
         this.polygon = new Polygon(xPoints, yPoints, xPoints.length);
     }
@@ -53,7 +53,7 @@ public class ScratchHitbox {
         for (int i = 0; i < polygon.xpoints.length; i++) {
             int xPoint = polygon.xpoints[i];
             int yPoint = polygon.ypoints[i];
-            float[] rotatedXY = ScratchStage.rotateXY(xPoint, yPoint, originX, originY, degrees);
+            float[] rotatedXY = Stage.rotateXY(xPoint, yPoint, originX, originY, degrees);
             xPoints[i] = Math.round(rotatedXY[0]);
             yPoints[i] = Math.round(rotatedXY[1]);
         }
@@ -81,25 +81,25 @@ public class ScratchHitbox {
     private void draw(Polygon polygon, float r, float g, float b) {
         int[] xPoints = polygon.xpoints;
         int[] yPoints = polygon.ypoints;
-        ScratchStage.parent.stroke(r, g, b);
-        ScratchStage.parent.strokeWeight(2);
-        ScratchStage.parent.noFill();
-        ScratchStage.parent.beginShape();
+        Stage.parent.stroke(r, g, b);
+        Stage.parent.strokeWeight(2);
+        Stage.parent.noFill();
+        Stage.parent.beginShape();
         for (int i = 0; i < xPoints.length; i++) {
-            ScratchStage.parent.vertex(xPoints[i], yPoints[i]);
+            Stage.parent.vertex(xPoints[i], yPoints[i]);
         }
-        ScratchStage.parent.endShape(ScratchStage.parent.CLOSE);
+        Stage.parent.endShape(Stage.parent.CLOSE);
     }
 
     public void draw() {
-        draw(polygon, ScratchStage.DEBUG_COLOR[0], ScratchStage.DEBUG_COLOR[1], ScratchStage.DEBUG_COLOR[2]);
+        draw(polygon, Stage.DEBUG_COLOR[0], Stage.DEBUG_COLOR[1], Stage.DEBUG_COLOR[2]);
     }
 
     public boolean contains(float x, float y) {
         return polygon.contains(new Point(Math.round(x), Math.round(y)));
     }
 
-    public boolean intersects(ScratchHitbox hitbox) {
+    public boolean intersects(Hitbox hitbox) {
         Area a = new Area(this.getPolygon());
         Area b = new Area(hitbox.getPolygon());
 

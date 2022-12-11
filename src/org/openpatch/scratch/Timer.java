@@ -16,16 +16,16 @@ public class Timer {
     }
 
     public int getMillis() {
-       return Math.round(ScratchStage.parent.frameCount / ScratchStage.parent.frameRate * 1000);
+       return Math.round(Stage.parent.frameCount / Stage.parent.frameRate * 1000);
     }
 
     public boolean everyMillis(int millis) {
         int frameSkip = this.getFrameFromMillis(millis);
         if (nextFrameEvery < 0) {
-            nextFrameEvery = ScratchStage.parent.frameCount + frameSkip;
+            nextFrameEvery = Stage.parent.frameCount + frameSkip;
         }
-        if (ScratchStage.parent.frameCount >= nextFrameEvery) {
-            nextFrameEvery = ScratchStage.parent.frameCount + frameSkip;
+        if (Stage.parent.frameCount >= nextFrameEvery) {
+            nextFrameEvery = Stage.parent.frameCount + frameSkip;
             return true;
         }
         return false;
@@ -34,17 +34,17 @@ public class Timer {
     public boolean forMillis(int millis) {
         int frameDuration = this.getFrameFromMillis(millis);
         if (nextFrameFor < 0) {
-            nextFrameFor = ScratchStage.parent.frameCount + frameDuration;
+            nextFrameFor = Stage.parent.frameCount + frameDuration;
         }
-        return ScratchStage.parent.frameCount < nextFrameFor;
+        return Stage.parent.frameCount < nextFrameFor;
     }
 
     public boolean afterMillis(int millis) {
         int frameDuration = this.getFrameFromMillis(millis);
         if (nextFrameAfter < 0) {
-            nextFrameAfter = ScratchStage.parent.frameCount + frameDuration;
+            nextFrameAfter = Stage.parent.frameCount + frameDuration;
         }
-        return ScratchStage.parent.frameCount >= nextFrameAfter;
+        return Stage.parent.frameCount >= nextFrameAfter;
     }
 
     public boolean intervalMillis(int millis) {
@@ -64,27 +64,27 @@ public class Timer {
         int frameDuration2 = this.getFrameFromMillis(millis2);
 
         if (skipFirst && nextFrameInterval < 0) {
-            nextFrameInterval = ScratchStage.parent.frameCount + frameDuration1;
+            nextFrameInterval = Stage.parent.frameCount + frameDuration1;
         } else if(!skipFirst && nextFrameInterval < 0) {
             currentInterval = 1;
-            nextFrameInterval = ScratchStage.parent.frameCount + frameDuration2;
+            nextFrameInterval = Stage.parent.frameCount + frameDuration2;
         }
-        if(currentInterval == 0 && ScratchStage.parent.frameCount < nextFrameInterval) {
+        if(currentInterval == 0 && Stage.parent.frameCount < nextFrameInterval) {
             return true;
         } else if (currentInterval == 0) {
             currentInterval = 1;
-            nextFrameInterval = ScratchStage.parent.frameCount + frameDuration2;
+            nextFrameInterval = Stage.parent.frameCount + frameDuration2;
             return false;
-        } else if (currentInterval == 1 && ScratchStage.parent.frameCount < nextFrameInterval) {
+        } else if (currentInterval == 1 && Stage.parent.frameCount < nextFrameInterval) {
             return false;
         } else {
             currentInterval = 0;
-            nextFrameInterval = ScratchStage.parent.frameCount + frameDuration1;
+            nextFrameInterval = Stage.parent.frameCount + frameDuration1;
             return true;
         }
     }
 
     private int getFrameFromMillis(int millis) {
-        return (int) Math.round(millis * ScratchStage.parent.frameRate / 1000.0);
+        return (int) Math.round(millis * Stage.parent.frameRate / 1000.0);
     }
 }

@@ -5,18 +5,18 @@ TimerSprite timer;
 void setup() {
   frameRate(10);
   size(1800, 400);
-  ScratchStage.init(this);
+  stage = new Stage(this);
 
   timer = new TimerSprite();
 }
 
 void draw() {
-  if(ScratchStage.getInstance().getTimer().afterMillis(2400)) {
+  if(Stage.getInstance().getTimer().afterMillis(2400)) {
     timer.draw();
   }
 }
 
-class TimerSprite extends ScratchSprite {
+class TimerSprite extends Sprite {
   int x = 0;
 
   TimerSprite() {

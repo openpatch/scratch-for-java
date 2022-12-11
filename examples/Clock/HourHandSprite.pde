@@ -1,4 +1,4 @@
-class HourHandSprite extends ScratchSprite {
+class HourHandSprite extends Sprite {
   HourHandSprite() {
     this.addCostume("hand", "sprites/hour.png");
   }

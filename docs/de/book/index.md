@@ -10,33 +10,33 @@ library was created. Therefore, the core elements of Scratch are remodeled.
 
 ## Elements
 
-### ScratchStage
+### Stage
 
-Usage: `import org.openpatch.scratch.ScratchStage`
+Usage: `import org.openpatch.scratch.Stage`
 
-API: https://scratch.openpatch.org/reference/org/barkmin/processing/scratch/ScratchStage.html
+API: https://scratch.openpatch.org/reference/org/barkmin/processing/scratch/Stage.html
 
-Source Code: https://github.com/openpatch/scratch-for-java/blob/master/src/org/barkmin/processing/scratch/ScratchStage.java
+Source Code: https://github.com/openpatch/scratch-for-java/blob/master/src/org/barkmin/processing/scratch/Stage.java
 
 #### Initialization
 
 Before you can use any of the class provided by this library be sure to
-initialize the ScratchStage. You only need to place this statement
-`ScratchStage.init(this)` in your setup function. A minimal example could look like this:
+initialize the Stage. You only need to place this statement
+`stage = new Stage(this)` in your setup function. A minimal example could look like this:
 
 ```processing
-ScratchStage stage;
+Stage stage;
 
 void setup(){
-ScratchStage.init(this);
-stage=ScratchStage.getInstance();
+stage = new Stage(this);
+stage=Stage.getInstance();
 }
 
 void draw(){
 }
 ```
 
-With `ScratchStage.init(this, true)` you can enable the debug mode. It will display the mouse cursor position and all hitboxes.
+With `stage = new Stage(this, true)` you can enable the debug mode. It will display the mouse cursor position and all hitboxes.
 
 #### Looks
 
@@ -86,7 +86,7 @@ also display the text for a certain amount of milliseconds like so: `stage.displ
 
 | Processing | Description |
 | :-: | :-: |
-| `stage.addSprite(sprite)` | Adds a sprite to stage |
+| `stage.add(sprite)` | Adds a sprite to stage |
 | `stage.removeSprite(sprite)` | Removes a sprite from the stage |
 | `stage.removeSprites()` | Removes all sprites |
 | `stage.removeSprites(MySprite.class)` | Removes all sprites of class MySprite |
@@ -112,13 +112,13 @@ Afterwards you can play the sound by calling `stage.playSound("newSound");`.
 Hint: On my notebook I was not able to play back mp3 files, therefore I
 converted them to `wav` files with [SoundConverter](http://soundconverter.org/).
 
-### ScratchSprite
+### Sprite
 
-Usage: `import org.openpatch.scratch.ScratchSprite`
+Usage: `import org.openpatch.scratch.Sprite`
 
-API: https://www.barkmin.org/processing-library-scratch/reference/org/barkmin/processing/scratch/ScratchSprite.html
+API: https://www.barkmin.org/processing-library-scratch/reference/org/barkmin/processing/scratch/Sprite.html
 
-Source Code: https://github.com/openpatch/scratch-for-java/blob/master/src/org/barkmin/processing/scratch/ScratchSprite.java
+Source Code: https://github.com/openpatch/scratch-for-java/blob/master/src/org/barkmin/processing/scratch/Sprite.java
 
 In Scratch sprites are the main actors. Every sprite has a custom set of
 costumes and sounds, which could be dynamically changed. Most of the
@@ -130,22 +130,22 @@ processing. When added to the stage, the run method of a sprite will be called c
 ```processing
 import org.openpatch.scratch.*;
 
-ScratchStage stage;
+Stage stage;
 CatSprite myCat;
 
 void setup(){
     size(800,600);
-    ScratchStage.init(this);
-    stage=ScratchStage.getInstance();
+    stage = new Stage(this);
+    stage=Stage.getInstance();
     myCat=new CatSprite();
-    stage.addSprite(myCat);
+    stage.add(myCat);
 }
 
 void draw(){
 }
 
 // Define a class Cat
-class CatSprite extends ScratchSprite {
+class CatSprite extends Sprite {
     CatSprite() {
         this.addCostume("cat", "sprites/cat.png");
         this.setOnEdgeBounce(true);
@@ -237,26 +237,26 @@ To add a new costume call `sprite.addCostume("newCostume",
 | `sprite.draw()` | Overwrite this method to gain more control over the sprite and draw it without added it to the stage. |
 
 
-The following code will show the same result. The normal sprite is handled by the ScratchStage, the custom sprite is handled by us.
+The following code will show the same result. The normal sprite is handled by the Stage, the custom sprite is handled by us.
 ```processing
 Custom custom;
 
 void setup () {
-  ScratchStage.init(this);
-  ScratchStage.getInstance().addSprite(new Normal());
+  stage = new Stage(this);
+  Stage.getInstance().add(new Normal());
 }
 
 void draw() {
   custom.draw();
 }
 
-class Normal extends ScratchSprite {
+class Normal extends Sprite {
   run() {
     this.move(10);
   }
 }
 
-class Custom extends ScratchSprite {
+class Custom extends Sprite {
   draw() {
     super.draw();
     this.move(10);
@@ -281,16 +281,16 @@ Afterwards you can play the sound by calling `sprite.playSound("newSound");`.
 Hint: On my notebook I was not able to play back mp3 files, therefore I
 converted them to `wav` files with [SoundConverter](http://soundconverter.org/).
 
-### ScratchPen
+### Pen
 
-Usage: `import org.openpatch.scratch.ScratchPen`
+Usage: `import org.openpatch.scratch.extensions.Pen`
 
-API: https://www.barkmin.org/processing-library-scratch/reference/org/barkmin/processing/scratch/ScratchPen.html
+API: https://www.barkmin.org/processing-library-scratch/reference/org/barkmin/processing/scratch/Pen.html
 
-Source Code: https://github.com/openpatch/scratch-for-java/blob/master/src/org/barkmin/processing/scratch/ScratchPen.java
+Source Code: https://github.com/openpatch/scratch-for-java/blob/master/src/org/barkmin/processing/scratch/Pen.java
 
 In Scratch every sprite can use a pen to draw lines, therefore every
-ScratchSprite object has an pen associated with it. Through a similar api the
+Sprite object has an pen associated with it. Through a similar api the
 pen can be modified.
 
 | Scratch | Processing |
@@ -307,13 +307,13 @@ pen can be modified.
 
 ### ScratchAnimatedSprite
 
-Usage: `import org.openpatch.scratch.ScratchAnimatedSprite`
+Usage: `import org.openpatch.scratch.AnimatedSprite`
 
 API: https://www.barkmin.org/processing-library-scratch/reference/org/barkmin/processing/scratch/ScratchAnimatedSprite.html
 
 Source Code: https://github.com/openpatch/scratch-for-java/blob/master/src/org/barkmin/processing/scratch/ScratchAnimatedSprite.java
 
-This class inherits form ScratchSprite. Therefore everything you can do with a ScratchSprite, you can also do with a ScratchAnimatedSprite. Additionally you can add animations.
+This class inherits form Sprite. Therefore everything you can do with a Sprite, you can also do with a ScratchAnimatedSprite. Additionally you can add animations.
 
 ##### Animation
 
@@ -335,15 +335,15 @@ This class inherits form ScratchSprite. Therefore everything you can do with a S
 ```processing
 import org.openpatch.scratch.*;
 
-ScratchStage stage;
+Stage stage;
 CatSprite myCat;
 
 void setup(){
     size(800,600);
-    ScratchStage.init(this);
-    stage=ScratchStage.getInstance();
+    stage = new Stage(this);
+    stage=Stage.getInstance();
     myCat=new CatSprite();
-    stage.addSprite(myCat);
+    stage.add(myCat);
 }
 
 void draw(){
@@ -427,7 +427,7 @@ can see the difference below.
 
 ### ScratchSound (internally)
 
-Usage: `import org.openpatch.scratch.ScratchSound`
+Usage: `import org.openpatch.scratch.Sound`
 
 API: https://www.barkmin.org/processing-library-scratch/reference/org/barkmin/processing/scratch/ScratchSound.html
 
@@ -435,23 +435,23 @@ Source Code: https://github.com/openpatch/scratch-for-java/blob/master/src/org/b
 
 ### ScratchImage (internally)
 
-Usage: `import org.openpatch.scratch.ScratchImage`
+Usage: `import org.openpatch.scratch.Image`
 
 API: https://www.barkmin.org/processing-library-scratch/reference/org/barkmin/processing/scratch/ScratchImage.html
 
 Source Code: https://github.com/openpatch/scratch-for-java/blob/master/src/org/barkmin/processing/scratch/ScratchImage.java
 
-### ScratchText (internally)
+### Text (internally)
 
-Usage: `import org.openpatch.scratch.ScratchText`
+Usage: `import org.openpatch.scratch.Text`
 
-API: https://www.barkmin.org/processing-library-scratch/reference/org/barkmin/processing/scratch/ScratchText.html
+API: https://www.barkmin.org/processing-library-scratch/reference/org/barkmin/processing/scratch/Text.html
 
-Source Code: https://github.com/openpatch/scratch-for-java/blob/master/src/org/barkmin/processing/scratch/ScratchText.java
+Source Code: https://github.com/openpatch/scratch-for-java/blob/master/src/org/barkmin/processing/scratch/Text.java
 
 ### ScratchColor (internally)
 
-Usage: `import org.openpatch.scratch.ScratchColor`
+Usage: `import org.openpatch.scratch.Color`
 
 API: https://www.barkmin.org/processing-library-scratch/reference/org/barkmin/processing/scratch/ScratchColor.html
 
@@ -483,7 +483,7 @@ An example with a class in another file.
 
 Source Code: https://github.com/openpatch/scratch-for-java/tree/master/examples/Pipes
 
-An example with heavy use of the ScratchPen. It also plays an sound file in the background.
+An example with heavy use of the Pen. It also plays an sound file in the background.
 
 ![pipes example](/assets/pipes.gif)
 

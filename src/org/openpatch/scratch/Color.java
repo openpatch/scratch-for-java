@@ -1,8 +1,6 @@
 package org.openpatch.scratch;
 
-import java.awt.Color;
-
-public class ScratchColor {
+public class Color {
 
     private float r = 255;
     private float g = 255;
@@ -12,10 +10,10 @@ public class ScratchColor {
     private float s = 255;
     private float l = 255;
 
-    public ScratchColor() {
+    public Color() {
     }
 
-    public ScratchColor(float h) {
+    public Color(float h) {
         this.setHSB(h);
     }
 
@@ -24,7 +22,7 @@ public class ScratchColor {
      *
      * @param c ScratchColor object to copy
      */
-    public ScratchColor(ScratchColor c) {
+    public Color(Color c) {
         this.r = c.r;
         this.g = c.g;
         this.b = c.b;
@@ -78,7 +76,7 @@ public class ScratchColor {
         s = s / 255.0f;
         l = l / 255.0f;
 
-        float[] rgb = ScratchColor.HSBtoRGB(h, s, l);
+        float[] rgb = Color.HSBtoRGB(h, s, l);
         this.r = rgb[0];
         this.g = rgb[1];
         this.b = rgb[2];
@@ -96,7 +94,7 @@ public class ScratchColor {
         this.g = g;
         this.b = b;
 
-        float[] hsb = ScratchColor.RGBtoHSB(r, g, b);
+        float[] hsb = Color.RGBtoHSB(r, g, b);
 
         this.h = hsb[0] * 255;
         this.s = hsb[1] * 255;
@@ -122,7 +120,7 @@ public class ScratchColor {
      * @return hsb values
      */
     private static float[] RGBtoHSB(float r, float g, float b) {
-        float[] hsb = Color.RGBtoHSB(Math.round(r), Math.round(g), Math.round(b), null);
+        float[] hsb = java.awt.Color.RGBtoHSB(Math.round(r), Math.round(g), Math.round(b), null);
         return hsb;
     }
 
@@ -135,7 +133,7 @@ public class ScratchColor {
      * @return rgb values
      */
     private static float[] HSBtoRGB(float h, float s, float l) {
-        Color colorRgb = new Color(Color.HSBtoRGB(h, s, l));
+        java.awt.Color colorRgb = new java.awt.Color(java.awt.Color.HSBtoRGB(h, s, l));
         float[] rgb = new float[3];
         rgb[0] = colorRgb.getRed();
         rgb[1] = colorRgb.getGreen();

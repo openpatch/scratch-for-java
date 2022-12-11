@@ -8,12 +8,12 @@
 
 ## 1.14.1
 
-* Improve ScratchText rendering
+* Improve Text rendering
 
 ## 1.14.0
 
-* add think and say to ScratchSprite
-* add display to ScratchStage
+* add think and say to Sprite
+* add display to Stage
 * add whenClicked to Sprite
 * add whenBackdropSwitches to Sprite
 

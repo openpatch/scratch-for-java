@@ -1,24 +1,24 @@
 import org.openpatch.scratch.*;
 
-ScratchStage stage;
+Stage stage;
 RandomDotSprite dot;
 
 void setup() {
   size(800, 600);
-  ScratchStage.init(this);
-  stage = ScratchStage.getInstance();
+  stage = new Stage(this);
+
   dot = new RandomDotSprite();
-  stage.addSprite(dot);
+  stage.add(dot);
 }
 
 void draw() {}
 
-class RandomDotSprite extends ScratchSprite {
+class RandomDotSprite extends Sprite {
   void run() {
     if(this.getTimer().everyMillis(100)) {
       this.getPen().down();
       this.getPen().setSize(10);
-      this.setPosition(Math.random() * ScratchStage.parent.width, Math.random() * ScratchStage.parent.height);
+      this.setPosition(Math.random() * Stage.parent.width, Math.random() * Stage.parent.height);
       this.getPen().changeColor(2);
       this.getPen().up();
     }

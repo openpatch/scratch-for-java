@@ -1,22 +1,22 @@
 import org.openpatch.scratch.*;
 
-ScratchStage stage;
+Stage stage;
 
 VineSprite vine;
 
 void setup() {
   size(800, 600);
-  ScratchStage.init(this);
-  stage = ScratchStage.getInstance();
+  stage = new Stage(this);
+
   stage.setColor(0, 0, 0);
   
   vine = new VineSprite();
-  stage.addSprite(vine);
+  stage.add(vine);
 }
 
 void draw() {}
 
-class VineSprite extends ScratchSprite {
+class VineSprite extends Sprite {
   
   ArrayList<LeafSprite> leafs = new ArrayList();
   
@@ -29,7 +29,7 @@ class VineSprite extends ScratchSprite {
   }
   
   void run() {
-    this.setPosition(ScratchStage.parent.mouseX, ScratchStage.parent.mouseY);
+    this.setPosition(Stage.parent.mouseX, Stage.parent.mouseY);
     this.turnRight(5);
     
     for(int i = 0; i < leafs.size(); i++) {
@@ -42,7 +42,7 @@ class VineSprite extends ScratchSprite {
   }
 }
 
-class LeafSprite extends ScratchSprite {
+class LeafSprite extends Sprite {
   VineSprite vine;
   
   LeafSprite(VineSprite vine) {

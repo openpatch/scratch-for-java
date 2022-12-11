@@ -6,7 +6,7 @@ import processing.core.PFont;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ScratchText {
+public class Text implements Drawable {
     public static final int BOX = 0;
     public static final int SPEAK = 1;
     public static final int THINK = 2;
@@ -25,27 +25,27 @@ public class ScratchText {
     private boolean show;
     private int mode;
 
-    public ScratchText(String text, float x, float y, float width) {
+    public Text(String text, float x, float y, float width) {
         this.x = x;
         this.y = y;
         this.textSize = 16;
         this.originalText = text;
         this.width = width;
         this.show = false;
-        this.mono = ScratchStage.parent.createFont("UbuntuMono-Regular.ttf", this.textSize);
+        this.mono = Stage.parent.createFont("UbuntuMono-Regular.ttf", this.textSize);
     }
 
-    public ScratchText(String text, float x, float y, float width, int mode) {
+    public Text(String text, float x, float y, float width, int mode) {
         this(text, x, y, width);
         this.mode = mode;
     }
 
-    public ScratchText(String text, float x, float y, boolean fullWidth, int mode) {
-        this(text, x, y, ScratchStage.parent.width, mode);
+    public Text(String text, float x, float y, boolean fullWidth, int mode) {
+        this(text, x, y, Stage.parent.width, mode);
         this.fullWidth = fullWidth;
     }
 
-    public ScratchText(ScratchText t) {
+    public Text(Text t) {
        this.fullWidth = t.fullWidth;
        this.width = t.width;
        this.originalText = t.originalText;
@@ -223,7 +223,7 @@ public class ScratchText {
     public void draw() {
         if (!show || this.originalText == null) return;
 
-        PApplet textBuffer = ScratchStage.parent;
+        PApplet textBuffer = Stage.parent;
 
         textBuffer.push();
         textBuffer.textSize(this.textSize);
@@ -243,7 +243,7 @@ public class ScratchText {
 
             float width = 0;
             if (this.fullWidth) {
-                width = ScratchStage.parent.width;
+                width = Stage.parent.width;
             } else {
                 // get minimum width
                 for (String l : lines) {
@@ -255,11 +255,11 @@ public class ScratchText {
             this.height = (this.textSize + 4) * lines.length + 16;
             textBuffer.translate(this.x, this.y - height);
             textBuffer.stroke(200);
-            if (this.mode == ScratchText.BOX) {
+            if (this.mode == Text.BOX) {
                 textBuffer.rect(0, 0, width, this.height, 16, 16, 0, 0);
             } else {
                 textBuffer.rect(0, 0, width, this.height, 16, 16,   16, 16);
-                if (this.mode == ScratchText.SPEAK) {
+                if (this.mode == Text.SPEAK) {
                     textBuffer.push();
                     textBuffer.fill(255, 255, 255);
                     textBuffer.translate(10, height);
@@ -268,7 +268,7 @@ public class ScratchText {
                     textBuffer.strokeWeight(3);
                     textBuffer.line(2, 0, 16, 0);
                     textBuffer.pop();
-                } else if (this.mode == ScratchText.THINK) {
+                } else if (this.mode == Text.THINK) {
                     textBuffer.circle(20, this.height, 10);
                     textBuffer.circle(7, this.height + 7, 6);
                     textBuffer.circle(0, this.height + 10, 4);

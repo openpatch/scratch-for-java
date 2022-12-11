@@ -1,14 +1,14 @@
 import org.openpatch.scratch.*;
 
-ScratchStage stage;
+Stage stage;
 RobotSprite robot;
 
 void setup() {
   size(800, 600);
-  ScratchStage.init(this);
+  stage = new Stage(this);
   robot = new RobotSprite();
-  stage = ScratchStage.getInstance();
-  stage.addSprite(robot);
+
+  stage.add(robot);
 }
 
 void draw() {}

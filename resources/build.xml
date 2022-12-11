@@ -102,6 +102,8 @@
             <url url="https://github.com/micycle1/processing-core-4/releases/download/4.0.1/core-4.0.1-fat.jar"
                  name="core-fat.jar"/>
             <url url="https://github.com/processing/processing-sound/releases/download/v2.3.1/sound.zip"/>
+            <url url="https://github.com/java-native/jssc/releases/download/v2.9.4/jssc-2.9.4.jar" name="jssc.jar" />
+            <url url="https://repo1.maven.org/maven2/org/processing/serial/3.3.7/serial-3.3.7.jar" name="serial.jar" />
         </get>
 
         <echo message="extracting sound jars ..."/>
@@ -155,6 +157,7 @@
         <copy todir="${sketchbook.location}/${folder}/${project.name}">
             <fileset dir="${project.tmp}/${project.name}"/>
         </copy>
+        <delete file="${sketchbook.location}/${folder}/${project.name}/library/scratch-standalone.jar" />
     </target>
 
 
