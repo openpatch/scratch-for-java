@@ -1,6 +1,6 @@
 import org.openpatch.scratch.*;
 
-ScratchStage stage;
+Stage stage;
 Wheel wheel;
 Dart dart;
 ArrayList<Dart> dartLifes;
@@ -18,8 +18,8 @@ States state = States.INIT;
 
 void setup() {
   size(400, 600, P2D);
-  ScratchStage.init(this);
-  stage = ScratchStage.getInstance();
+  stage = new Stage(this);
+
   stage.addBackdrop("bg", "sprites/bg.png");
   stage.setTint(120);
   wheel = new Wheel(8);

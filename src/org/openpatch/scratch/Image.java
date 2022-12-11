@@ -8,11 +8,11 @@ import java.util.HashMap;
 /**
  * The base class for representing scratch costumes and backdrops.
  */
-public class ScratchImage {
+public class Image implements Drawable {
     private String name;
     private PImage image;
     private final PImage originalImage;
-    private ScratchColor tint = new ScratchColor();
+    private Color tint = new Color();
     private float transparency = 255;
 
     private static final HashMap<String, PImage> originalImages = new HashMap<>();
@@ -23,9 +23,15 @@ public class ScratchImage {
      * @param name      a name
      * @param imagePath a path to an image
      */
-    public ScratchImage(String name, String imagePath) {
+    public Image(String name, String imagePath) {
         this.name = name;
-        this.originalImage = ScratchImage.loadImage(imagePath);
+        this.originalImage = Image.loadImage(imagePath);
+        this.image = this.originalImage;
+    }
+
+    public Image(String name, String spriteSheetPath, int x, int y, int width, int height) {
+        this.name =name;
+        this.originalImage = Image.loadImage(spriteSheetPath, x,y, width, height);
         this.image = this.originalImage;
     }
 
@@ -34,21 +40,30 @@ public class ScratchImage {
      *
      * @param i the ScratchImage object to copy
      */
-    public ScratchImage(ScratchImage i) {
+    public Image(Image i) {
         this.name = i.name;
         this.image = i.image;
         this.originalImage = i.originalImage;
-        this.tint = new ScratchColor(i.tint);
+        this.tint = new Color(i.tint);
         this.transparency = i.transparency;
     }
 
     private static PImage loadImage(String path) {
         PImage image = originalImages.get(path);
         if (image == null) {
-            image = ScratchStage.parent.loadImage(path);
+            image = Stage.parent.loadImage(path);
             originalImages.put(path, image);
         }
         return image;
+    }
+
+    private static PImage loadImage(String path, int x, int y, int width, int height) {
+        PImage image = originalImages.get(path);
+        if (image == null) {
+            image = Stage.parent.loadImage(path);
+            originalImages.put(path, image);
+        }
+        return image.get(x, y, width, height);
     }
 
     /**
@@ -149,7 +164,7 @@ public class ScratchImage {
      * @param imagePath the path to the image
      */
     public void setImage(String imagePath) {
-        this.image = ScratchStage.parent.loadImage(imagePath);
+        this.image = Stage.parent.loadImage(imagePath);
     }
 
     /**
@@ -169,15 +184,15 @@ public class ScratchImage {
             this.image.resize(newWidth, newHeight);
         }
 
-        PApplet parent = ScratchStage.parent;
+        PApplet parent = Stage.parent;
         parent.pushMatrix();
         parent.translate(x, y);
         parent.rotate(PApplet.radians(degrees));
         parent.tint(this.tint.getRed(), this.tint.getGreen(), this.tint.getBlue(), this.transparency);
         parent.image(this.image, 0, 0);
         parent.noTint();
-        if(ScratchStage.getInstance().isDebug()) {
-            parent.fill(ScratchStage.DEBUG_COLOR[0], ScratchStage.DEBUG_COLOR[1], ScratchStage.DEBUG_COLOR[1]);
+        if(Stage.getInstance().isDebug()) {
+            parent.fill(Stage.DEBUG_COLOR[0], Stage.DEBUG_COLOR[1], Stage.DEBUG_COLOR[1]);
             parent.textAlign(parent.CENTER);
             parent.text("Rotation: " + degrees, 0, - newHeight/2.0f - 10);
             parent.text("(" + x + ", " + y + ")", 0, 0);
@@ -190,7 +205,7 @@ public class ScratchImage {
      * Draw the image.
      */
     public void draw() {
-        PApplet parent = ScratchStage.parent;
+        PApplet parent = Stage.parent;
         parent.tint(this.tint.getRed(), this.tint.getGreen(), this.tint.getBlue(), this.transparency);
         parent.image(this.image, 0, 0);
         parent.noTint();
@@ -200,7 +215,7 @@ public class ScratchImage {
      * Draw the image as a background. The image is automatically scaled to fit the window size.
      */
     public void drawAsBackground() {
-        PApplet parent = ScratchStage.parent;
+        PApplet parent = Stage.parent;
 
         int newWidth = parent.width;
         int newHeight = parent.height;

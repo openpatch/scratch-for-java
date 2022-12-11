@@ -2,14 +2,14 @@
 import processing.sound.*;
 import org.openpatch.scratch.*;
 
-ScratchStage stage;
+Stage stage;
 ArrayList<PenSprite> pens = new ArrayList();
 
 void setup() {
   size(1280, 800);
-  ScratchStage.init(this);
+  stage = new Stage(this);
   
-  stage = ScratchStage.getInstance();
+
   stage.addSound("background", "sounds/bensound-enigmatic.wav");
   stage.playSound("background");
   stage.addBackdrop("chalkBoard", "backdrops/chalk_board.jpg");

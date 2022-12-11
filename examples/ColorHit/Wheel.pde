@@ -1,4 +1,4 @@
-class Wheel extends ScratchSprite {
+class Wheel extends Sprite {
 
   WheelPart[] parts;
 

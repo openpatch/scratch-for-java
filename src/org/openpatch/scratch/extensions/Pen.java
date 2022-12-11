@@ -1,29 +1,32 @@
-package org.openpatch.scratch;
+package org.openpatch.scratch.extensions;
 
+import org.openpatch.scratch.Color;
+import org.openpatch.scratch.Drawable;
+import org.openpatch.scratch.Stage;
 import processing.core.PGraphics;
 
 import java.util.ArrayList;
 import java.util.Stack;
 import java.util.Iterator;
 
-public class ScratchPen {
+public class Pen implements Drawable {
 
-    private ScratchColor color = new ScratchColor(120);
+    private Color color = new Color(120);
     private float opacity = 255;
     private float size = 1;
     private Stack<ArrayList<Point>> pointsBuffer = new Stack<>();
     private boolean down = false;
 
-    public ScratchPen() {
+    public Pen() {
     }
 
     /**
-     * Copies a ScratchPen object.
+     * Copies a Pen object.
      * 
-     * @param p ScratchPen object to copy
+     * @param p Pen object to copy
      */
-    public ScratchPen(ScratchPen p) {
-        this.color = new ScratchColor(p.color);
+    public Pen(Pen p) {
+        this.color = new Color(p.color);
         this.size = p.size;
         this.opacity = p.opacity;
         this.pointsBuffer = new Stack<>();
@@ -137,14 +140,14 @@ public class ScratchPen {
     }
 
     public void eraseAll() {
-        ScratchStage.getInstance().eraseAll();
+        Stage.getInstance().eraseAll();
     }
 
     /**
      * Draw the line which the pen has drawn.
      */
     public void draw() {
-        PGraphics buffer = ScratchStage.getInstance().getPenBuffer();
+        PGraphics buffer = Stage.getInstance().getPenBuffer();
         int pointsBufferSize = this.pointsBuffer.size();
         if (pointsBufferSize <= 0)
             return;
@@ -155,19 +158,23 @@ public class ScratchPen {
 
         while (pointsBufferIter.hasNext()) {
             ArrayList<Point> points = pointsBufferIter.next();
-            int pointsSize = points.size();
+            Iterator<Point> pointsIter = points.iterator();
 
-            if (pointsSize > 1) {
-                Point point = points.get(pointsSize - 1);
-                Point previousPoint = points.get(pointsSize - 2);
-                buffer.stroke(point.color.getRed(), point.color.getGreen(), point.color.getBlue(), point.opacity);
-                buffer.strokeWeight(point.size);
-                buffer.line(previousPoint.x, previousPoint.y, point.x, point.y);
-            } else if (pointsSize == 1) {
-                Point point = points.get(pointsSize - 1);
-                buffer.stroke(point.color.getRed(), point.color.getGreen(), point.color.getBlue(), point.opacity);
-                buffer.strokeWeight(point.size);
-                buffer.point(point.x, point.y);
+            Point previousPoint = null;
+            int pointsSize = points.size();
+            while(pointsIter.hasNext()) {
+                Point point = pointsIter.next();
+                if (pointsSize > 1 && previousPoint != null) {
+                    buffer.stroke(point.color.getRed(), point.color.getGreen(), point.color.getBlue(), point.opacity);
+                    buffer.strokeWeight(point.size);
+                    buffer.line(previousPoint.x, previousPoint.y, point.x, point.y);
+                } else if (pointsSize == 1) {
+                    buffer.stroke(point.color.getRed(), point.color.getGreen(), point.color.getBlue(), point.opacity);
+                    buffer.fill(point.color.getRed(), point.color.getGreen(), point.color.getBlue(), point.opacity);
+                    buffer.strokeWeight(point.size);
+                    buffer.circle(point.x, point.y, point.size);
+                }
+                previousPoint = point;
             }
             if (!this.down || pointsBufferSize > 1) {
                 pointsBufferIter.remove();
@@ -180,14 +187,14 @@ public class ScratchPen {
 class Point {
     float x;
     float y;
-    ScratchColor color;
+    Color color;
     float opacity;
     float size;
 
-    Point(float x, float y, ScratchColor color, float opacity, float size) {
+    Point(float x, float y, Color color, float opacity, float size) {
         this.x = x;
         this.y = y;
-        this.color = new ScratchColor(color);
+        this.color = new Color(color);
         this.opacity = opacity;
         this.size = size;
     }

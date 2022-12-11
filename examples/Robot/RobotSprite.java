@@ -1,6 +1,6 @@
 import org.openpatch.scratch.*;
 
-public class RobotSprite extends ScratchSprite {
+public class RobotSprite extends Sprite {
   public RobotSprite() {
     this.addCostume("robot", "sprites/robot.png");
     this.setOnEdgeBounce(true);

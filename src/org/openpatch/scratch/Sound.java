@@ -2,14 +2,14 @@ package org.openpatch.scratch;
 
 import processing.sound.*;
 
-public class ScratchSound {
+public class Sound {
     private String name;
     private SoundFile sound;
     private float volume;
 
-    public ScratchSound(String name, String soundPath) {
+    public Sound(String name, String soundPath) {
         this.name = name;
-        this.sound = new SoundFile(ScratchStage.parent, soundPath);
+        this.sound = new SoundFile(Stage.parent, soundPath);
     }
 
     /**
@@ -17,7 +17,7 @@ public class ScratchSound {
      *
      * @param s ScratchSound object to copy
      */
-    public ScratchSound(ScratchSound s) {
+    public Sound(Sound s) {
         this.name = s.name;
         this.sound = s.sound;
     }

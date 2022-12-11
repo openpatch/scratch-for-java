@@ -1,16 +1,20 @@
 package org.openpatch.scratch;
 
+import org.openpatch.scratch.extensions.Pen;
 import processing.core.PApplet;
 import processing.event.KeyEvent;
 import processing.event.MouseEvent;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
-public class ScratchSprite {
-    private ArrayList<ScratchImage> costumes = new ArrayList<>();
+public class Sprite implements Drawable {
+    private ArrayList<Image> costumes = new ArrayList<>();
     private int currentCostume = 0;
-    private ArrayList<ScratchSound> sounds = new ArrayList<>();
+    private ArrayList<Sound> sounds = new ArrayList<>();
     private boolean show = true;
     private float size = 100;
     private boolean onEdgeBounce = false;
@@ -18,42 +22,43 @@ public class ScratchSprite {
     private float x = 0;
     private float y = 0;
     private final HashMap<String, Timer> timer;
-    private final ScratchPen pen;
-    private ScratchHitbox hitbox;
-    private ScratchText text;
+    private final Pen pen;
+    private Hitbox hitbox;
+    private Text text;
 
-    public ScratchSprite() {
-        this.pen = new ScratchPen();
-        this.x = ScratchStage.parent.width / 2.0f;
-        this.y = ScratchStage.parent.height / 2.0f;
+    public Sprite() {
+        this.pen = new Pen();
+        this.x = Stage.parent.width / 2.0f;
+        this.y = Stage.parent.height / 2.0f;
         this.timer = new HashMap<>();
         this.timer.put("default", new Timer());
-        this.text = new ScratchText(null, this.x, this.y, 242);
+        this.text = new Text(null, this.x, this.y, 242);
 
-        ScratchStage.parent.registerMethod("keyEvent", this);
-        ScratchStage.parent.registerMethod("mouseEvent", this);
+        Stage.parent.registerMethod("keyEvent", this);
+        Stage.parent.registerMethod("mouseEvent", this);
+
     }
 
-    public ScratchSprite(String name, String imagePath) {
+    public Sprite(String name, String imagePath) {
         this();
-        ScratchImage costume = new ScratchImage(name, imagePath);
+        Image costume = new Image(name, imagePath);
         this.costumes.add(costume);
     }
 
     /**
-     * Copies a ScratchSprite object.
+     * Copies a Sprite object.
      *
-     * @param s a ScratchSprite object to copy
+     * @param s a Sprite object to copy
      */
-    public ScratchSprite(ScratchSprite s) {
+    public Sprite(Sprite s) {
         this.costumes = new ArrayList<>();
-        for (ScratchImage costume : s.costumes) {
-            this.costumes.add(new ScratchImage(costume));
+        for (Image costume : s.costumes) {
+            this.costumes.add(new Image(costume));
         }
         this.currentCostume = s.currentCostume;
         this.sounds = new ArrayList<>();
-        for (ScratchSound sound : s.sounds) {
-            this.sounds.add(new ScratchSound(sound));
+        for (Sound sound : s.sounds) {
+            this.sounds.add(new Sound(sound));
         }
         this.show = s.show;
         this.size = s.size;
@@ -63,8 +68,8 @@ public class ScratchSprite {
         this.y = s.y;
         this.timer = new HashMap<>();
         this.timer.put("default", new Timer());
-        this.pen = new ScratchPen(s.pen);
-        this.text = new ScratchText(s.text);
+        this.pen = new Pen(s.pen);
+        this.text = new Text(s.text);
     }
 
     /**
@@ -74,13 +79,24 @@ public class ScratchSprite {
      * @param imagePath a image path
      */
     public void addCostume(String name, String imagePath) {
-        for (ScratchImage costume : this.costumes) {
+        for (Image costume : this.costumes) {
             if (costume.getName().equals(name)) {
                 return;
             }
         }
 
-        this.costumes.add(new ScratchImage(name, imagePath));
+        this.costumes.add(new Image(name, imagePath));
+    }
+
+    public void addCostume(String name, String spriteSheetPath, int x, int y, int width, int height) {
+        for (Image costume : this.costumes) {
+            if (costume.getName().equals(name)) {
+                return;
+            }
+        }
+
+        this.costumes.add(new Image(name, spriteSheetPath, x, y, width, height));
+
     }
 
     /**
@@ -90,7 +106,7 @@ public class ScratchSprite {
      */
     public void switchCostume(String name) {
         for (int i = 0; i < costumes.size(); i++) {
-            ScratchImage costume = costumes.get(i);
+            Image costume = costumes.get(i);
             if (costume.getName().equals(name)) {
                 this.currentCostume = i;
                 return;
@@ -132,13 +148,13 @@ public class ScratchSprite {
      * @param soundPath a sound path
      */
     public void addSound(String name, String soundPath) {
-        for (ScratchSound sound : this.sounds) {
+        for (Sound sound : this.sounds) {
             if (sound.getName().equals(name)) {
                 return;
             }
         }
 
-        this.sounds.add(new ScratchSound(name, soundPath));
+        this.sounds.add(new Sound(name, soundPath));
     }
 
     /**
@@ -148,7 +164,7 @@ public class ScratchSprite {
      */
     public void removeSound(String name) {
         for (int i = 0; i < this.sounds.size(); i++) {
-            ScratchSound sound = this.sounds.get(i);
+            Sound sound = this.sounds.get(i);
             if (sound.getName().equals(name)) {
                 this.sounds.remove(i);
                 return;
@@ -162,7 +178,7 @@ public class ScratchSprite {
      * @param name the sound name
      */
     public void playSound(String name) {
-        for (ScratchSound sound : sounds) {
+        for (Sound sound : sounds) {
             if (sound.getName().equals(name) && !sound.isPlaying()) {
                 sound.play();
             }
@@ -173,7 +189,7 @@ public class ScratchSprite {
      * Stops the playing of all sounds of the sprite.
      */
     public void stopAllSounds() {
-        for (ScratchSound sound : sounds) {
+        for (Sound sound : sounds) {
             sound.stop();
         }
     }
@@ -181,12 +197,12 @@ public class ScratchSprite {
     /**
      * Sets the tint for the sprite with rgb.
      *
-     * @see ScratchImage#setTint(float, float, float)
+     * @see Image#setTint(float, float, float)
      */
     public void setTint(int r, int g, int b) {
         if (costumes.size() == 0) return;
 
-        for (ScratchImage costume : this.costumes) {
+        for (Image costume : this.costumes) {
             costume.setTint(r, g, b);
         }
     }
@@ -194,12 +210,12 @@ public class ScratchSprite {
     /**
      * Sets the tint for the sprite with a hue.
      *
-     * @see ScratchImage#setTint(float)
+     * @see Image#setTint(float)
      */
     public void setTint(float h) {
         if (costumes.size() == 0) return;
 
-        for (ScratchImage costume : this.costumes) {
+        for (Image costume : this.costumes) {
             costume.setTint(h);
         }
     }
@@ -207,12 +223,12 @@ public class ScratchSprite {
     /**
      * Changes the tint for the sprite.
      *
-     * @see ScratchImage#changeTint(float)
+     * @see Image#changeTint(float)
      */
     public void changeTint(float step) {
         if (costumes.size() == 0) return;
 
-        for (ScratchImage costume : this.costumes) {
+        for (Image costume : this.costumes) {
             costume.changeTint(step);
         }
     }
@@ -220,12 +236,12 @@ public class ScratchSprite {
     /**
      * Sets the transparency of the sprite.
      *
-     * @see ScratchImage#setTransparency(float)
+     * @see Image#setTransparency(float)
      */
     public void setTransparency(float transparency) {
         if (costumes.size() == 0) return;
 
-        for (ScratchImage costume : this.costumes) {
+        for (Image costume : this.costumes) {
             costume.setTransparency(transparency);
         }
     }
@@ -233,12 +249,12 @@ public class ScratchSprite {
     /**
      * Changes the transparency for the sprite.
      *
-     * @see ScratchImage#changeTransparency(float)
+     * @see Image#changeTransparency(float)
      */
     public void changeTransparency(float step) {
         if (costumes.size() == 0) return;
 
-        for (ScratchImage costume : this.costumes) {
+        for (Image costume : this.costumes) {
             costume.changeTransparency(step);
         }
     }
@@ -300,6 +316,8 @@ public class ScratchSprite {
      * @param y a y coordinate
      */
     public void setPosition(int x, int y) {
+        float deltaX = this.x - x;
+        float deltaY = this.y - y;
         this.x = x;
         this.y = y;
         this.text.setPosition(x + this.getWidth() / 2, y - this.getHeight() / 2);
@@ -358,7 +376,7 @@ public class ScratchSprite {
      *
      * @return
      */
-    public ScratchPen getPen() {
+    public Pen getPen() {
         return this.pen;
     }
 
@@ -368,13 +386,13 @@ public class ScratchSprite {
      * @param steps a number of pixels
      */
     public void move(float steps) {
-        PApplet parent = ScratchStage.parent;
+        PApplet parent = Stage.parent;
 
         // convert degrees to radians
         float newX = steps * (float) Math.cos(this.rotation * Math.PI / 180) + this.x;
         float newY = steps * (float) Math.sin(this.rotation * Math.PI / 180) + this.y;
 
-        ScratchImage currentCostume = null;
+        Image currentCostume = null;
         if (this.costumes.size() > 0) {
             currentCostume = this.costumes.get(this.currentCostume);
         }
@@ -569,7 +587,7 @@ public class ScratchSprite {
         float bottomRightCornerX = x + getWidth() / 2.0f;
         float bottomRightCornerY = y + getHeight() / 2.0f;
 
-        float[] mouse = ScratchStage.rotateXY(getMouseX(), getMouseY(), x, y, -rotation);
+        float[] mouse = Stage.rotateXY(getMouseX(), getMouseY(), x, y, -rotation);
 
         boolean touching = mouse[0] > topLeftCornerX && mouse[1] > topLeftCornerY && mouse[0] < bottomRightCornerX && mouse[1] < bottomRightCornerY;
 
@@ -578,7 +596,7 @@ public class ScratchSprite {
             int relativeMouseY = Math.round(mouse[1] - topLeftCornerY);
 
             int color = this.costumes.get(this.getCurrentCostumeIndex()).getImage().get(relativeMouseX, relativeMouseY);
-            return ScratchStage.parent.alpha(color) != 0;
+            return Stage.parent.alpha(color) != 0;
         }
 
         return false;
@@ -591,17 +609,17 @@ public class ScratchSprite {
      * @return true if outside
      */
     public boolean isTouchingEdge() {
-        ScratchImage currentCostume = this.costumes.get(this.getCurrentCostumeIndex());
-        PApplet parent = ScratchStage.parent;
+        Image currentCostume = this.costumes.get(this.getCurrentCostumeIndex());
+        PApplet parent = Stage.parent;
         float costumeWidth = currentCostume != null ? currentCostume.getImage().width : this.pen.getSize();
         float costumeHeight = currentCostume != null ? currentCostume.getImage().height : this.pen.getSize();
         float spriteWidth = this.show ? costumeWidth : this.pen.getSize();
         float spriteHeight = this.show ? costumeHeight : this.pen.getSize();
 
-        float[] cornerTopLeft = ScratchStage.rotateXY(x - spriteWidth / 2.0f, y - spriteHeight / 2.0f, x, y, rotation);
-        float[] cornerTopRight = ScratchStage.rotateXY(x + spriteWidth / 2.0f, y - spriteHeight / 2.0f, x, y, rotation);
-        float[] cornerBottomLeft = ScratchStage.rotateXY(x - spriteWidth / 2.0f, y + spriteHeight / 2.0f, x, y, rotation);
-        float[] cornerBottomRight = ScratchStage.rotateXY(x + spriteWidth / 2.0f, y + spriteHeight / 2.0f, x, y, rotation);
+        float[] cornerTopLeft = Stage.rotateXY(x - spriteWidth / 2.0f, y - spriteHeight / 2.0f, x, y, rotation);
+        float[] cornerTopRight = Stage.rotateXY(x + spriteWidth / 2.0f, y - spriteHeight / 2.0f, x, y, rotation);
+        float[] cornerBottomLeft = Stage.rotateXY(x - spriteWidth / 2.0f, y + spriteHeight / 2.0f, x, y, rotation);
+        float[] cornerBottomRight = Stage.rotateXY(x + spriteWidth / 2.0f, y + spriteHeight / 2.0f, x, y, rotation);
 
         float[][] corners = {cornerTopLeft, cornerTopRight, cornerBottomLeft, cornerBottomRight};
 
@@ -622,11 +640,11 @@ public class ScratchSprite {
     }
 
     public void setHitbox(int[] xPoints, int[] yPoints) {
-        this.hitbox = new ScratchHitbox(xPoints, yPoints);
+        this.hitbox = new Hitbox(xPoints, yPoints);
     }
 
-    public ScratchHitbox getHitbox() {
-        ScratchImage currentCostume = null;
+    public Hitbox getHitbox() {
+        Image currentCostume = null;
         if (this.costumes.size() > this.getCurrentCostumeIndex()) {
             currentCostume = this.costumes.get(this.getCurrentCostumeIndex());
         }
@@ -640,10 +658,10 @@ public class ScratchSprite {
             return this.hitbox;
         }
 
-        float[] cornerTopLeft = ScratchStage.rotateXY(x - spriteWidth / 2.0f, y - spriteHeight / 2.0f, x, y, rotation);
-        float[] cornerTopRight = ScratchStage.rotateXY(x + spriteWidth / 2.0f, y - spriteHeight / 2.0f, x, y, rotation);
-        float[] cornerBottomLeft = ScratchStage.rotateXY(x - spriteWidth / 2.0f, y + spriteHeight / 2.0f, x, y, rotation);
-        float[] cornerBottomRight = ScratchStage.rotateXY(x + spriteWidth / 2.0f, y + spriteHeight / 2.0f, x, y, rotation);
+        float[] cornerTopLeft = Stage.rotateXY(x - spriteWidth / 2.0f, y - spriteHeight / 2.0f, x, y, rotation);
+        float[] cornerTopRight = Stage.rotateXY(x + spriteWidth / 2.0f, y - spriteHeight / 2.0f, x, y, rotation);
+        float[] cornerBottomLeft = Stage.rotateXY(x - spriteWidth / 2.0f, y + spriteHeight / 2.0f, x, y, rotation);
+        float[] cornerBottomRight = Stage.rotateXY(x + spriteWidth / 2.0f, y + spriteHeight / 2.0f, x, y, rotation);
 
         int[] xPoints = new int[4];
         int[] yPoints = new int[4];
@@ -656,10 +674,10 @@ public class ScratchSprite {
         xPoints[3] = Math.round(cornerBottomLeft[0]);
         yPoints[3] = Math.round(cornerBottomLeft[1]);
 
-        return new ScratchHitbox(xPoints, yPoints);
+        return new Hitbox(xPoints, yPoints);
     }
 
-    public boolean isTouchingSprite(ScratchSprite sprite) {
+    public boolean isTouchingSprite(Sprite sprite) {
         return this.getHitbox().intersects(sprite.getHitbox());
     }
 
@@ -669,7 +687,7 @@ public class ScratchSprite {
      * @return x-position
      */
     public float getMouseX() {
-        return ScratchStage.getInstance().getMouseX();
+        return Stage.getInstance().getMouseX();
     }
 
     /**
@@ -678,7 +696,7 @@ public class ScratchSprite {
      * @return y-position
      */
     public float getMouseY() {
-        return ScratchStage.getInstance().getMouseY();
+        return Stage.getInstance().getMouseY();
     }
 
     /**
@@ -687,7 +705,7 @@ public class ScratchSprite {
      * @return mouse button down
      */
     public boolean isMouseDown() {
-        return ScratchStage.getInstance().isMouseDown();
+        return Stage.getInstance().isMouseDown();
     }
 
     /**
@@ -697,7 +715,7 @@ public class ScratchSprite {
      * @return key pressed
      */
     public boolean isKeyPressed(int keyCode) {
-        return ScratchStage.getInstance().isKeyPressed(keyCode);
+        return Stage.getInstance().isKeyPressed(keyCode);
     }
 
     /**
@@ -706,7 +724,7 @@ public class ScratchSprite {
      * @return current year
      */
     public int getCurrentYear() {
-        return ScratchStage.getInstance().getCurrentYear();
+        return Stage.getInstance().getCurrentYear();
     }
 
     /**
@@ -715,7 +733,7 @@ public class ScratchSprite {
      * @return current date
      */
     public int getCurrentDate() {
-        return ScratchStage.getInstance().getCurrentDate();
+        return Stage.getInstance().getCurrentDate();
     }
 
     /**
@@ -724,7 +742,7 @@ public class ScratchSprite {
      * @return current week
      */
     public int getCurrentDayOfWeek() {
-        return ScratchStage.getInstance().getCurrentDayOfWeek();
+        return Stage.getInstance().getCurrentDayOfWeek();
     }
 
     /**
@@ -733,7 +751,7 @@ public class ScratchSprite {
      * @return current hour
      */
     public int getCurrentHour() {
-        return ScratchStage.getInstance().getCurrentHour();
+        return Stage.getInstance().getCurrentHour();
     }
 
     /**
@@ -742,7 +760,7 @@ public class ScratchSprite {
      * @return current minute
      */
     public int getCurrentMinute() {
-        return ScratchStage.getInstance().getCurrentMinute();
+        return Stage.getInstance().getCurrentMinute();
     }
 
     /**
@@ -751,7 +769,7 @@ public class ScratchSprite {
      * @return current second
      */
     public int getCurrentSecond() {
-        return ScratchStage.getInstance().getCurrentSecond();
+        return Stage.getInstance().getCurrentSecond();
     }
 
     /**
@@ -760,7 +778,7 @@ public class ScratchSprite {
      * @return current millisecond
      */
     public int getCurrentMillisecond() {
-        return ScratchStage.getInstance().getCurrentMillisecond();
+        return Stage.getInstance().getCurrentMillisecond();
     }
 
     /**
@@ -769,7 +787,7 @@ public class ScratchSprite {
      * @return days since 2010/01/01
      */
     public int getDaysSince2000() {
-        return ScratchStage.getInstance().getDaysSince2000();
+        return Stage.getInstance().getDaysSince2000();
     }
 
     public void keyEvent(KeyEvent e) {
@@ -797,26 +815,26 @@ public class ScratchSprite {
     }
 
     public int pickRandom(int from, int to) {
-        return ScratchStage.getInstance().pickRandom(from, to);
+        return Stage.getInstance().pickRandom(from, to);
     }
 
     public void think(String text) {
-        this.text.setMode(ScratchText.THINK);
+        this.text.setMode(Text.THINK);
         this.text.showText(text);
     }
 
     public void think(String text, int millis) {
-        this.text.setMode(ScratchText.THINK);
+        this.text.setMode(Text.THINK);
         this.text.showText(text, millis);
     }
 
     public void say(String text) {
-        this.text.setMode(ScratchText.SPEAK);
+        this.text.setMode(Text.SPEAK);
         this.text.showText(text);
     }
 
     public void say(String text, int millis) {
-        this.text.setMode(ScratchText.SPEAK);
+        this.text.setMode(Text.SPEAK);
         this.text.showText(text, millis);
     }
 
@@ -829,7 +847,7 @@ public class ScratchSprite {
             this.costumes.get(this.currentCostume).draw(this.size, this.rotation, this.x, this.y);
         }
 
-        if (ScratchStage.getInstance().isDebug()) {
+        if (Stage.getInstance().isDebug()) {
             this.getHitbox().draw();
         }
         this.text.draw();

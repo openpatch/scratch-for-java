@@ -1,14 +1,13 @@
 import org.openpatch.scratch.*;
 
-ScratchStage stage;
+Stage stage;
 Hero h, m;
 
 boolean hit = false;
 
 void setup() {
   size(800, 800, P2D);
-  ScratchStage.init(this, true);
-  stage = ScratchStage.getInstance();
+  stage = new Stage(this, true);
   h = new Hero();
   m = new MovableHero();
 }
@@ -54,7 +53,7 @@ class MovableHero extends Hero {
   }
 }
 
-class Hero extends ScratchSprite {
+class Hero extends Sprite {
   Hero() {
     super("hero", "sprites/hero.png");
     this.addCostume("hero2", "sprites/hero2.png");
