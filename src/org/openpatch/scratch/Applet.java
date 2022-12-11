@@ -2,17 +2,17 @@ package org.openpatch.scratch;
 
 import processing.core.*;
 
-class ScratchApplet extends PApplet
+class Applet extends PApplet
 {
     private boolean isRunning = false;
     private final int INITIAL_HEIGHT;
     private final int INITIAL_WIDTH;
 
-    public ScratchApplet() {
+    public Applet() {
         this(480, 360);
     }
 
-    public ScratchApplet(int width, int height) {
+    public Applet(int width, int height) {
         super();
         this.INITIAL_HEIGHT = height;
         this.INITIAL_WIDTH = width;

@@ -1,4 +1,4 @@
-class Dart extends ScratchSprite {
+class Dart extends Sprite {
 
   DartFlight flight;
   DartShaft shaft;

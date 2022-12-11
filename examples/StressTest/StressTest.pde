@@ -2,7 +2,7 @@ import processing.sound.*;
 import org.openpatch.scratch.*;
 
 
-ScratchStage stage;
+Stage stage;
 
 int dinos = 15;
 int knights = 15;
@@ -12,8 +12,8 @@ ArrayList<Character> characters = new ArrayList();
 
 void setup() {
   size(1000, 1000, P2D);
-  ScratchStage.init(this);
-  stage = ScratchStage.getInstance();
+  stage = new Stage(this);
+
   stage.addBackdrop("outback", "assets/outback.png");
   stage.addSound("outback", "assets/outback.wav");
   
@@ -30,7 +30,7 @@ void setup() {
   }
   
   for(Character c : characters) {
-    stage.addSprite(c);
+    stage.add(c);
   }
 }
 

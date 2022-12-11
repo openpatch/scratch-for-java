@@ -1,13 +1,13 @@
 import org.openpatch.scratch.*;
 
-ScratchStage stage;
+Stage stage;
 DotSprite dot;
 
 void setup() {
   size(400, 200);
   frameRate(60);
-  ScratchStage.init(this);
-  stage = ScratchStage.getInstance();
+  stage = new Stage(this);
+
   dot = new DotSprite();
 }
 
@@ -18,7 +18,7 @@ void draw() {
   }
 }
 
-class DotSprite extends ScratchSprite {  
+class DotSprite extends Sprite {
   DotSprite() {
     super();
     this.addTimer("timer2");
