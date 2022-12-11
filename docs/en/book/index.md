@@ -28,8 +28,7 @@ initialize the Stage. You only need to place this statement
 Stage stage;
 
 void setup(){
-stage = new Stage(this);
-stage=Stage.getInstance();
+	stage = new Stage(this);
 }
 
 void draw(){
@@ -136,7 +135,7 @@ CatSprite myCat;
 void setup(){
     size(800,600);
     stage = new Stage(this);
-    stage=Stage.getInstance();
+    
     myCat=new CatSprite();
     stage.add(myCat);
 }
@@ -341,7 +340,7 @@ CatSprite myCat;
 void setup(){
     size(800,600);
     stage = new Stage(this);
-    stage=Stage.getInstance();
+    
     myCat=new CatSprite();
     stage.add(myCat);
 }
