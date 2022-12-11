@@ -2,7 +2,7 @@ package org.openpatch.scratch;
 
 import java.util.HashMap;
 
-public class ScratchAnimatedSprite extends ScratchSprite {
+public class AnimatedSprite extends Sprite implements Drawable {
 
     private HashMap<String, String[]> animations = new HashMap<>();
     private int animationInterval = 120;
@@ -15,6 +15,20 @@ public class ScratchAnimatedSprite extends ScratchSprite {
             String costumeName = "_animation_" + name + "_" + i;
             String file = String.format(pattern, i+1);
             this.addCostume(costumeName,  file);
+            animation[i] = costumeName;
+        }
+        animations.put(name, animation);
+    }
+
+    public void addAnimation(String name, String path, int frames, int width, int height) {
+        this.addAnimation(name, path, frames, width, height, 0);
+    }
+
+    public void addAnimation(String name, String path, int frames, int width, int height, int row) {
+        String[] animation = new String[frames];
+        for (int i = 0; i < animation.length; i++) {
+            String costumeName = "_animation_" + name + "_" + i + "_" + row;
+            this.addCostume(costumeName,  path, i*width, row*height, width, height);
             animation[i] = costumeName;
         }
         animations.put(name, animation);

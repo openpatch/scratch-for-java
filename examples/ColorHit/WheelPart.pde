@@ -1,4 +1,4 @@
-class WheelPart extends ScratchSprite {
+class WheelPart extends Sprite {
   WheelPart(int parts) {
     super("full", "sprites/full.png");
     this.addCostume("half", "sprites/half.png");

@@ -1,6 +1,6 @@
 import org.openpatch.scratch.*;
 
-public class PenSprite extends ScratchSprite {  
+public class PenSprite extends Sprite {  
   
   private boolean finished = false;
   private static float color;

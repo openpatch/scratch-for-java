@@ -19,35 +19,35 @@ import java.util.Collections;
 /**
  * Represents the scratch stage. Only one object of this class can be created.
  */
-public class ScratchStage {
+public class Stage {
 
     public static PApplet parent;
     private boolean debug;
     public static final int[] DEBUG_COLOR = {255, 0, 0};
-    private static ScratchStage instance;
-    private CopyOnWriteArrayList<ScratchImage> backdrops = new CopyOnWriteArrayList<>();
-    private ScratchColor color = new ScratchColor();
+    private static Stage instance;
+    private CopyOnWriteArrayList<Image> backdrops = new CopyOnWriteArrayList<>();
+    private Color color = new Color();
     private int currentBackdrop = 0;
-    private CopyOnWriteArrayList<ScratchSound> sounds = new CopyOnWriteArrayList<>();
+    private CopyOnWriteArrayList<Sound> sounds = new CopyOnWriteArrayList<>();
     private PGraphics penBuffer;
-    private ScratchText display;
+    private Text display;
     private HashMap<String, Timer> timer;
-    private CopyOnWriteArrayList<ScratchSprite> sprites;
+    private CopyOnWriteArrayList<Drawable> drawables;
     private float mouseX;
     private float mouseY;
     private boolean mouseDown;
     private HashMap<Integer, Boolean> keyCodePressed = new HashMap<>();
 
-    public ScratchStage() {
+    public Stage() {
         this(420, 360, false);
     }
-    public ScratchStage(int width, int height) {
+    public Stage(int width, int height) {
         this(width, height, false);
     }
 
-    public ScratchStage(int width, int height, boolean debug) {
-        ScratchApplet sa = new ScratchApplet(width, height);
-        ScratchStage.parent = sa;
+    public Stage(int width, int height, boolean debug) {
+        Applet sa = new Applet(width, height);
+        Stage.parent = sa;
         sa.runSketch();
 
         // wait to make sure the PApplet runs.
@@ -57,55 +57,56 @@ public class ScratchStage {
             Thread.currentThread().interrupt();
         }
 
-        ScratchStage.parent.imageMode(PConstants.CENTER);
-        ScratchStage.parent.rectMode(PConstants.CENTER);
+        Stage.parent.imageMode(PConstants.CENTER);
+        Stage.parent.rectMode(PConstants.CENTER);
         this.penBuffer = parent.createGraphics(parent.width, parent.height, parent.sketchRenderer());
         this.timer = new HashMap<>();
         this.timer.put("default", new Timer());
-        this.display = new ScratchText(null,0,parent.height, true , ScratchText.BOX);
+        this.display = new Text(null,0,parent.height, true , Text.BOX);
         this.debug = debug;
-        this.sprites = new CopyOnWriteArrayList<>();
-        if (ScratchStage.instance != null) {
-            throw new RuntimeException();
+        this.drawables = new CopyOnWriteArrayList<>();
+        if (Stage.instance != null) {
+            throw new RuntimeException("You can only create one Stage object.");
         }
-        ScratchStage.instance = this;
-        parent.registerMethod("pre", ScratchStage.instance);
-        parent.registerMethod("draw", ScratchStage.instance);
-        parent.registerMethod("mouseEvent", ScratchStage.instance);
-        parent.registerMethod("keyEvent", ScratchStage.instance);
+        Stage.instance = this;
+        parent.registerMethod("pre", Stage.instance);
+        parent.registerMethod("draw", Stage.instance);
+        parent.registerMethod("mouseEvent", Stage.instance);
+        parent.registerMethod("keyEvent", Stage.instance);
     }
 
-    private ScratchStage(PApplet parent, boolean debug) {
-        parent.imageMode(PConstants.CENTER);
-        parent.rectMode(PConstants.CENTER);
-        ScratchStage.parent = parent;
+    public Stage(PApplet parent) {
+        this(parent, false);
+    }
+
+    public Stage(PApplet parent, boolean debug) {
+        if (Stage.instance != null) {
+            throw new RuntimeException("You can only create one Stage object.");
+        }
+        Stage.instance = this;
+        Stage.parent = parent;
+        Stage.parent.imageMode(PConstants.CENTER);
+        Stage.parent.rectMode(PConstants.CENTER);
         this.penBuffer = parent.createGraphics(parent.width, parent.height, parent.sketchRenderer());
         this.timer = new HashMap<>();
         this.timer.put("default", new Timer());
-        this.display = new ScratchText(null,0,parent.height, true , ScratchText.BOX);
+        this.display = new Text(null,0,parent.height, true , Text.BOX);
         this.debug = debug;
-        this.sprites = new CopyOnWriteArrayList<>();
+        this.drawables = new CopyOnWriteArrayList<>();
+
+        parent.registerMethod("pre", Stage.instance);
+        parent.registerMethod("draw", Stage.instance);
+        parent.registerMethod("mouseEvent", Stage.instance);
+        parent.registerMethod("keyEvent", Stage.instance);
     }
 
     /**
-     * Returns the only instance of ScratchStage
+     * Returns the only instance of Stage
      *
-     * @return the ScratchStage object
+     * @return the Stage object
      */
-    public static ScratchStage getInstance() {
-        return ScratchStage.instance;
-    }
-
-    public static void init(PApplet parent) {
-        ScratchStage.init(parent, false);
-    }
-
-    public static void init(PApplet parent, boolean debug) {
-        ScratchStage.instance = new ScratchStage(parent, debug);
-        parent.registerMethod("pre", ScratchStage.instance);
-        parent.registerMethod("draw", ScratchStage.instance);
-        parent.registerMethod("mouseEvent", ScratchStage.instance);
-        parent.registerMethod("keyEvent", ScratchStage.instance);
+    public static Stage getInstance() {
+        return Stage.instance;
     }
 
     public void setDebug(boolean debug) {
@@ -117,57 +118,57 @@ public class ScratchStage {
     }
 
     /**
-     * Add a sprite to the stage.
+     * Add a sprite, text, pen or image to the stage.
      *
-     * @param sprite
+     * @param drawable
      */
-    public void addSprite(ScratchSprite sprite) {
-        sprites.add(sprite);
+    public void add(Drawable drawable) {
+        drawables.add(drawable);
     }
 
     /**
-     * Lower a sprite.
+     * Lower a sprite, text, pen or image.
      *
-     * @param sprite
+     * @param drawable
      */
-    public void lowerSprite(ScratchSprite sprite) {
-        int index = sprites.indexOf(sprite);
+    public void lower(Drawable drawable) {
+        int index = drawables.indexOf(drawable);
         if (index > 0) {
-            Collections.swap(sprites, index, index - 1);
+            Collections.swap(drawables, index, index - 1);
         }
     }
 
     /**
-     * Rise a sprite.
+     * Rise a sprite, text, pen or image.
      *
-     * @param sprite
+     * @param drawable
      */
-    public void raiseSprite(ScratchSprite sprite) {
-        int index = sprites.indexOf(sprite);
-        if (index > -1 && index < sprites.size() - 1) {
-            Collections.swap(sprites, index + 1, index);
+    public void raise(Drawable drawable) {
+        int index = drawables.indexOf(drawable);
+        if (index > -1 && index < drawables.size() - 1) {
+            Collections.swap(drawables, index + 1, index);
         }
     }
 
-    public List<ScratchSprite> getSprites() {
-        return new ArrayList<>(this.sprites);
+    public List<Drawable> getAll() {
+        return new ArrayList<>(this.drawables);
     }
 
     /**
-     * Remove a sprite from the stage.
+     * Rise a sprite, text, pen or image.
      *
-     * @param sprite
+     * @param drawable
      */
-    public void removeSprite(ScratchSprite sprite) {
-        sprites.remove(sprite);
+    public void remove(Drawable drawable) {
+        drawables.remove(drawable);
     }
 
-    public void removeSprites() {
-        sprites.clear();
+    public void removeAll() {
+        drawables.clear();
     }
 
-    public void removeSprites(Class<? extends ScratchSprite> c) {
-        sprites.removeIf(c::isInstance);
+    public void remove(Class<? extends Drawable> c) {
+        drawables.removeIf(c::isInstance);
     }
 
     /**
@@ -175,14 +176,14 @@ public class ScratchStage {
      *
      * @param c Class
      */
-    public List<ScratchSprite> findSprites(Class<? extends ScratchSprite> c) {
-        ArrayList<ScratchSprite> sprites = new ArrayList<>();
-        for (ScratchSprite s : this.sprites) {
-            if (c.isInstance(s)) {
-                sprites.add(s);
+    public List<Drawable> find(Class<? extends Drawable> c) {
+        ArrayList<Drawable> drawables = new ArrayList<>();
+        for (Drawable d : this.drawables) {
+            if (c.isInstance(d)) {
+                drawables.add(d);
             }
         }
-        return sprites;
+        return drawables;
     }
 
     /**
@@ -192,12 +193,12 @@ public class ScratchStage {
      * @param imagePath a image path
      */
     public void addBackdrop(String name, String imagePath) {
-        for (ScratchImage backdrop : this.backdrops) {
+        for (Image backdrop : this.backdrops) {
             if (backdrop.getName().equals(name)) {
                 return;
             }
         }
-        this.backdrops.add(new ScratchImage(name, imagePath));
+        this.backdrops.add(new Image(name, imagePath));
     }
 
     /**
@@ -207,7 +208,7 @@ public class ScratchStage {
      */
     public void removeBackdrop(String name) {
         for (int i = 0; i < this.backdrops.size(); i++) {
-            ScratchImage backdrop = this.backdrops.get(i);
+            Image backdrop = this.backdrops.get(i);
             if (backdrop.getName().equals(name)) {
                 this.backdrops.remove(i);
                 return;
@@ -222,10 +223,11 @@ public class ScratchStage {
      */
     public void switchBackdrop(String name) {
         for (int i = 0; i < backdrops.size(); i++) {
-            ScratchImage backdrop = backdrops.get(i);
+            Image backdrop = backdrops.get(i);
             if (backdrop.getName().equals(name)) {
                 this.currentBackdrop = i;
-                for (ScratchSprite s : this.sprites) {
+                ArrayList<Sprite> sprites = (ArrayList<Sprite>) drawables.stream().filter(d -> Sprite.class.isInstance(d));
+                for (Sprite s : sprites) {
                     s.whenBackdropSwitches(name);
                 }
                 return;
@@ -274,13 +276,13 @@ public class ScratchStage {
      * @param soundPath a sound path
      */
     public void addSound(String name, String soundPath) {
-        for (ScratchSound sound : this.sounds) {
+        for (Sound sound : this.sounds) {
             if (sound.getName().equals(name)) {
                 return;
             }
         }
 
-        this.sounds.add(new ScratchSound(name, soundPath));
+        this.sounds.add(new Sound(name, soundPath));
     }
 
     /**
@@ -290,7 +292,7 @@ public class ScratchStage {
      */
     public void removeSound(String name) {
         for (int i = 0; i < this.sounds.size(); i++) {
-            ScratchSound sound = this.sounds.get(i);
+            Sound sound = this.sounds.get(i);
             if (sound.getName().equals(name)) {
                 this.sounds.remove(i);
                 return;
@@ -304,7 +306,7 @@ public class ScratchStage {
      * @param name the sound name
      */
     public void playSound(String name) {
-        for (ScratchSound sound : sounds) {
+        for (Sound sound : sounds) {
             if (sound.getName().equals(name) && !sound.isPlaying()) {
                 sound.play();
             }
@@ -315,7 +317,7 @@ public class ScratchStage {
      * Stops the playing of all sounds of the stage.
      */
     public void stopAllSounds() {
-        for (ScratchSound sound : sounds) {
+        for (Sound sound : sounds) {
             sound.stop();
         }
     }
@@ -361,7 +363,7 @@ public class ScratchStage {
     /**
      * Sets the tint for the current backdrop with rgb.
      *
-     * @see ScratchImage#setTint(float, float, float)
+     * @see Image#setTint(float, float, float)
      */
     public void setTint(int r, int g, int b) {
         if (this.backdrops.size() == 0) return;
@@ -371,7 +373,7 @@ public class ScratchStage {
     /**
      * Sets the tint for the current backdrop with a hue.
      *
-     * @see ScratchImage#setTint(float)
+     * @see Image#setTint(float)
      */
     public void setTint(float h) {
         if (this.backdrops.size() == 0) return;
@@ -381,7 +383,7 @@ public class ScratchStage {
     /**
      * Changes the tint for the current backdrop
      *
-     * @see ScratchImage#changeTint(float)
+     * @see Image#changeTint(float)
      */
     public void changeTint(float step) {
         if (this.backdrops.size() == 0) return;
@@ -392,7 +394,7 @@ public class ScratchStage {
     /**
      * Sets the transparency of the current backdrop.
      *
-     * @see ScratchImage#setTransparency(float)
+     * @see Image#setTransparency(float)
      */
     public void setTransparency(float transparency) {
         this.backdrops.get(this.currentBackdrop).setTransparency(transparency);
@@ -401,7 +403,7 @@ public class ScratchStage {
     /**
      * Changes the transparency for the current costume.
      *
-     * @see ScratchImage#changeTransparency(float)
+     * @see Image#changeTransparency(float)
      */
     public void changeTransparency(float step) {
         if (this.backdrops.size() == 0) return;
@@ -415,7 +417,7 @@ public class ScratchStage {
      * @return the width of the sprite
      */
     public int getWidth() {
-        return ScratchStage.parent.width;
+        return Stage.parent.width;
     }
 
     /**
@@ -424,7 +426,7 @@ public class ScratchStage {
      * @return the height of the sprite
      */
     public int getHeight() {
-        return ScratchStage.parent.height;
+        return Stage.parent.height;
     }
 
     /**
@@ -487,7 +489,8 @@ public class ScratchStage {
         if (e.getAction() == MouseEvent.PRESS) {
             mouseDown = true;
         } else if (e.getAction() == MouseEvent.CLICK) {
-            for (ScratchSprite s : this.sprites) {
+            ArrayList<Sprite> sprites = (ArrayList<Sprite>) drawables.stream().filter(d -> Sprite.class.isInstance(d));
+            for (Sprite s : sprites) {
                 if (s.isTouchingMousePointer()) {
                     s.whenClicked();
                 }
@@ -649,13 +652,13 @@ public class ScratchStage {
      */
     public void pre() {
         // redraw background to clear screen
-        ScratchStage.parent.background(this.color.getRed(), this.color.getGreen(), this.color.getBlue());
+        Stage.parent.background(this.color.getRed(), this.color.getGreen(), this.color.getBlue());
 
         // draw current backdrop
         if (this.backdrops.size() > 0) {
             this.backdrops.get(this.currentBackdrop).drawAsBackground();
         }
-        ScratchStage.parent.image(penBuffer, ScratchStage.parent.width / 2, ScratchStage.parent.height / 2);
+        Stage.parent.image(penBuffer, Stage.parent.width / 2, Stage.parent.height / 2);
     }
 
     public void wait(int millis) {
@@ -666,8 +669,8 @@ public class ScratchStage {
     }
 
     public void draw() {
-        for (ScratchSprite s : sprites) {
-            s.draw();
+        for (Drawable d: this.drawables) {
+            d.draw();
         }
         if (display != null)  {
             this.display.draw();

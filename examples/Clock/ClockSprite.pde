@@ -1,4 +1,4 @@
-class ClockSprite extends ScratchSprite {
+class ClockSprite extends Sprite {
 
   SecondHandSprite second;
   MinuteHandSprite minute;

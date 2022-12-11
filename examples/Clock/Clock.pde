@@ -1,14 +1,13 @@
 import org.openpatch.scratch.*;
 
-ScratchStage stage;
+Stage stage;
 ClockSprite clock;
 
 void setup() {
   size(800, 800);
-  ScratchStage.init(this);
-  stage = ScratchStage.getInstance();
+  stage = new Stage(this);
   clock = new ClockSprite();
-  stage.addSprite(clock);
+  stage.add(clock);
 }
 
 void draw() {
