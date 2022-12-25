@@ -7,7 +7,7 @@ public class Timer {
     private int nextFrameInterval;
     private int currentInterval;
 
-    public Timer () {
+    public Timer() {
         this.nextFrameEvery = -1;
         this.nextFrameFor = -1;
         this.nextFrameAfter = -1;
@@ -16,7 +16,7 @@ public class Timer {
     }
 
     public int getMillis() {
-       return Math.round(Stage.parent.frameCount / Stage.parent.frameRate * 1000);
+        return Math.round(Stage.parent.frameCount / Stage.parent.frameRate * 1000);
     }
 
     public boolean everyMillis(int millis) {
@@ -56,7 +56,7 @@ public class Timer {
     }
 
     public boolean intervalMillis(int millis1, int millis2) {
-       return this.intervalMillis(millis1, millis2, false);
+        return this.intervalMillis(millis1, millis2, false);
     }
 
     public boolean intervalMillis(int milli1, int millis2, boolean skipFirst) {
@@ -65,11 +65,11 @@ public class Timer {
 
         if (skipFirst && nextFrameInterval < 0) {
             nextFrameInterval = Stage.parent.frameCount + frameDuration1;
-        } else if(!skipFirst && nextFrameInterval < 0) {
+        } else if (!skipFirst && nextFrameInterval < 0) {
             currentInterval = 1;
             nextFrameInterval = Stage.parent.frameCount + frameDuration2;
         }
-        if(currentInterval == 0 && Stage.parent.frameCount < nextFrameInterval) {
+        if (currentInterval == 0 && Stage.parent.frameCount < nextFrameInterval) {
             return true;
         } else if (currentInterval == 0) {
             currentInterval = 1;

@@ -1,0 +1,12 @@
+image: mikebarkmin/gitpod-workspace-full-vnc-java-ipad
+
+ports:
+  - port: 6080
+    onOpen: open-preview
+
+vscode:
+  extensions:
+    - vscjava.vscode-java-pack
+    - esbenp.prettier-vscode
+    - openpatch.hyperbook-studio
+    - Tobiah.language-pde

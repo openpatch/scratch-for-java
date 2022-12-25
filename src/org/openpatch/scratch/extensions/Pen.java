@@ -162,7 +162,7 @@ public class Pen implements Drawable {
 
             Point previousPoint = null;
             int pointsSize = points.size();
-            while(pointsIter.hasNext()) {
+            while (pointsIter.hasNext()) {
                 Point point = pointsIter.next();
                 if (pointsSize > 1 && previousPoint != null) {
                     buffer.stroke(point.color.getRed(), point.color.getGreen(), point.color.getBlue(), point.opacity);

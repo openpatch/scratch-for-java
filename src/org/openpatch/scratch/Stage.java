@@ -9,11 +9,12 @@ import processing.event.MouseEvent;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
-import java.time.Period;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.HashMap;
+
 import java.util.Collections;
 
 /**
@@ -23,7 +24,7 @@ public class Stage {
 
     public static PApplet parent;
     private boolean debug;
-    public static final int[] DEBUG_COLOR = {255, 0, 0};
+    public static final int[] DEBUG_COLOR = { 255, 0, 0 };
     private static Stage instance;
     private CopyOnWriteArrayList<Image> backdrops = new CopyOnWriteArrayList<>();
     private Color color = new Color();
@@ -31,16 +32,17 @@ public class Stage {
     private CopyOnWriteArrayList<Sound> sounds = new CopyOnWriteArrayList<>();
     private PGraphics penBuffer;
     private Text display;
-    private HashMap<String, Timer> timer;
+    private ConcurrentHashMap<String, Timer> timer;
     private CopyOnWriteArrayList<Drawable> drawables;
     private float mouseX;
     private float mouseY;
     private boolean mouseDown;
-    private HashMap<Integer, Boolean> keyCodePressed = new HashMap<>();
+    private ConcurrentHashMap<Integer, Boolean> keyCodePressed = new ConcurrentHashMap<>();
 
     public Stage() {
         this(420, 360, false);
     }
+
     public Stage(int width, int height) {
         this(width, height, false);
     }
@@ -60,9 +62,9 @@ public class Stage {
         Stage.parent.imageMode(PConstants.CENTER);
         Stage.parent.rectMode(PConstants.CENTER);
         this.penBuffer = parent.createGraphics(parent.width, parent.height, parent.sketchRenderer());
-        this.timer = new HashMap<>();
+        this.timer = new ConcurrentHashMap<>();
         this.timer.put("default", new Timer());
-        this.display = new Text(null,0,parent.height, true , Text.BOX);
+        this.display = new Text(null, 0, parent.height, true, TextStyle.BOX);
         this.debug = debug;
         this.drawables = new CopyOnWriteArrayList<>();
         if (Stage.instance != null) {
@@ -88,9 +90,9 @@ public class Stage {
         Stage.parent.imageMode(PConstants.CENTER);
         Stage.parent.rectMode(PConstants.CENTER);
         this.penBuffer = parent.createGraphics(parent.width, parent.height, parent.sketchRenderer());
-        this.timer = new HashMap<>();
+        this.timer = new ConcurrentHashMap<>();
         this.timer.put("default", new Timer());
-        this.display = new Text(null,0,parent.height, true , Text.BOX);
+        this.display = new Text(null, 0, parent.height, true, TextStyle.BOX);
         this.debug = debug;
         this.drawables = new CopyOnWriteArrayList<>();
 
@@ -115,6 +117,10 @@ public class Stage {
 
     public boolean isDebug() {
         return debug;
+    }
+
+    public void setSize(int width, int height) {
+        Stage.parent.getSurface().setSize(width, height);
     }
 
     /**
@@ -187,7 +193,8 @@ public class Stage {
     }
 
     /**
-     * Add a backdrop to the stage. If a backdrop with the received name already exists do nothing.
+     * Add a backdrop to the stage. If a backdrop with the received name already
+     * exists do nothing.
      *
      * @param name      a unique name
      * @param imagePath a image path
@@ -226,10 +233,13 @@ public class Stage {
             Image backdrop = backdrops.get(i);
             if (backdrop.getName().equals(name)) {
                 this.currentBackdrop = i;
-                ArrayList<Sprite> sprites = (ArrayList<Sprite>) drawables.stream().filter(d -> Sprite.class.isInstance(d));
-                for (Sprite s : sprites) {
-                    s.whenBackdropSwitches(name);
-                }
+
+                drawables.stream().forEach(d -> {
+                    if (d instanceof Sprite) {
+                        Sprite s = (Sprite) d;
+                        s.whenBackdropSwitches(name);
+                    }
+                });
                 return;
             }
         }
@@ -268,9 +278,9 @@ public class Stage {
         this.pre();
     }
 
-
     /**
-     * Add a sound to the stage. If a sound with the received name already exists do nothing.
+     * Add a sound to the stage. If a sound with the received name already exists do
+     * nothing.
      *
      * @param name      a unique name
      * @param soundPath a sound path
@@ -366,7 +376,8 @@ public class Stage {
      * @see Image#setTint(float, float, float)
      */
     public void setTint(int r, int g, int b) {
-        if (this.backdrops.size() == 0) return;
+        if (this.backdrops.size() == 0)
+            return;
         this.backdrops.get(this.currentBackdrop).setTint(r, g, b);
     }
 
@@ -376,7 +387,8 @@ public class Stage {
      * @see Image#setTint(float)
      */
     public void setTint(float h) {
-        if (this.backdrops.size() == 0) return;
+        if (this.backdrops.size() == 0)
+            return;
         this.backdrops.get(this.currentBackdrop).setTint(h);
     }
 
@@ -386,7 +398,8 @@ public class Stage {
      * @see Image#changeTint(float)
      */
     public void changeTint(float step) {
-        if (this.backdrops.size() == 0) return;
+        if (this.backdrops.size() == 0)
+            return;
 
         this.backdrops.get(this.currentBackdrop).changeTint(step);
     }
@@ -399,6 +412,9 @@ public class Stage {
     public void setTransparency(float transparency) {
         this.backdrops.get(this.currentBackdrop).setTransparency(transparency);
     }
+    public void setTransparency(double transparency) {
+        this.setTransparency((float) transparency);
+    }
 
     /**
      * Changes the transparency for the current costume.
@@ -406,13 +422,15 @@ public class Stage {
      * @see Image#changeTransparency(float)
      */
     public void changeTransparency(float step) {
-        if (this.backdrops.size() == 0) return;
+        if (this.backdrops.size() == 0)
+            return;
 
         this.backdrops.get(this.currentBackdrop).changeTransparency(step);
     }
 
     /**
-     * Return the width of the current costume or the pen size, when no costume is available.
+     * Return the width of the current costume or the pen size, when no costume is
+     * available.
      *
      * @return the width of the sprite
      */
@@ -421,7 +439,8 @@ public class Stage {
     }
 
     /**
-     * Return the height of the current costume or the pen size, when no costume is available.
+     * Return the height of the current costume or the pen size, when no costume is
+     * available.
      *
      * @return the height of the sprite
      */
@@ -430,12 +449,14 @@ public class Stage {
     }
 
     /**
-     * Return the pixels of the current costume or an empty array, when no costume is available.
+     * Return the pixels of the current costume or an empty array, when no costume
+     * is available.
      *
      * @return the pixels of the sprite
      */
     public int[] getPixels() {
-        if (backdrops.size() == 0) return new int[0];
+        if (backdrops.size() == 0)
+            return new int[0];
 
         return this.backdrops.get(this.currentBackdrop).getImage().pixels;
     }
@@ -465,7 +486,8 @@ public class Stage {
      * @param name the name of the timer
      */
     public void addTimer(String name) {
-        if (name.equals("default")) return;
+        if (name.equals("default"))
+            return;
 
         this.timer.put(name, new Timer());
     }
@@ -476,7 +498,8 @@ public class Stage {
      * @param name the name of the timer
      */
     public void removeTimer(String name) {
-        if (name.equals("default")) return;
+        if (name.equals("default"))
+            return;
 
         this.timer.remove(name);
     }
@@ -489,12 +512,14 @@ public class Stage {
         if (e.getAction() == MouseEvent.PRESS) {
             mouseDown = true;
         } else if (e.getAction() == MouseEvent.CLICK) {
-            ArrayList<Sprite> sprites = (ArrayList<Sprite>) drawables.stream().filter(d -> Sprite.class.isInstance(d));
-            for (Sprite s : sprites) {
-                if (s.isTouchingMousePointer()) {
-                    s.whenClicked();
+            drawables.stream().forEach(d -> {
+                if (d instanceof Sprite) {
+                    Sprite s = (Sprite) d;
+                    if (s.isTouchingMousePointer()) {
+                        s.whenClicked();
+                    }
                 }
-            }
+            });
         }
     }
 
@@ -525,9 +550,12 @@ public class Stage {
         return mouseDown;
     }
 
+    public void whenKeyPressed(int keyCode) {}
+
     public void keyEvent(KeyEvent e) {
         switch (e.getAction()) {
             case KeyEvent.PRESS:
+                this.whenKeyPressed(e.getKeyCode());
                 keyCodePressed.put(e.getKeyCode(), true);
                 break;
             case KeyEvent.RELEASE:
@@ -561,23 +589,33 @@ public class Stage {
     }
 
     /**
-     * Returns the current date
+     * Returns the current month
      *
-     * @return current date
+     * @return current month
      */
-    public int getCurrentDate() {
+    public int getCurrentMonth() {
         LocalDateTime now = LocalDateTime.now();
-        return now.getDayOfMonth();
+        return now.getMonthValue();
     }
 
     /**
-     * Returns the current week
+     * Returns the current day of the week
      *
-     * @return current week
+     * @return current day of the week
      */
     public int getCurrentDayOfWeek() {
         LocalDateTime now = LocalDateTime.now();
         return now.getDayOfWeek().getValue();
+    }
+
+    /**
+     * Returns the current day of the month
+     *
+     * @return current day of the month
+     */
+    public int getCurrentDay() {
+        LocalDateTime now = LocalDateTime.now();
+        return now.getDayOfMonth();
     }
 
     /**
@@ -628,8 +666,8 @@ public class Stage {
     public int getDaysSince2000() {
         LocalDate now = LocalDate.now();
         LocalDate then = LocalDate.of(2000, Month.JANUARY, 1);
-        Period p = Period.between(now, then);
-        return p.getDays();
+        long c = ChronoUnit.DAYS.between(then, now);
+        return (int) c;
     }
 
     public int pickRandom(int from, int to) {
@@ -637,6 +675,18 @@ public class Stage {
             return to + (int) (Math.random() * (from - to));
         }
         return from + (int) (Math.random() * (to - from));
+    }
+
+    /**
+     * Set the desired frame rate of the stage.
+     * The frame rate can drop below, but can not raise above.
+     * The default frame rate is 60 FPS.
+     * A lower frame does reduce the load on the CPU.
+     *
+     * @param frameRate Frame Rate in Seconds. For Example: 30
+     */
+    public void setFrameRate(int frameRate) {
+        parent.frameRate(frameRate);
     }
 
     public void display(String text) {
@@ -661,6 +711,11 @@ public class Stage {
         Stage.parent.image(penBuffer, Stage.parent.width / 2, Stage.parent.height / 2);
     }
 
+    /**
+     * Stop the execution of the whole applications for the given milliseconds.
+     * 
+     * @param millis Milliseconds
+     */
     public void wait(int millis) {
         try {
             Thread.sleep(millis);
@@ -668,11 +723,15 @@ public class Stage {
         }
     }
 
+    public void run() {
+
+    }
+
     public void draw() {
-        for (Drawable d: this.drawables) {
+        for (Drawable d : this.drawables) {
             d.draw();
         }
-        if (display != null)  {
+        if (display != null) {
             this.display.draw();
         }
 
@@ -684,6 +743,7 @@ public class Stage {
             parent.line(0, mouseY, parent.width, mouseY);
             parent.text("(" + mouseX + ", " + mouseY + ")", mouseX, mouseY);
         }
+        this.run();
     }
 
     public static float[] rotateXY(float x, float y, float originX, float originY, float degrees) {

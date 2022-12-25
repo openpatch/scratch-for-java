@@ -17,6 +17,10 @@ public class Color {
         this.setHSB(h);
     }
 
+    public Color(float r, float g, float b) {
+        this.setRGB(r, g, g);
+    }
+
     /**
      * Copies the received ScratchColor object.
      *
@@ -42,7 +46,8 @@ public class Color {
     }
 
     /**
-     * Setting the color value after the HSB spectrum. Saturation and Luminosity are fixed at 255.
+     * Setting the color value after the HSB spectrum. Saturation and Luminosity are
+     * fixed at 255.
      *
      * @param h A hue value [0...255]
      */
@@ -62,7 +67,7 @@ public class Color {
             h -= 255;
         }
         while (s > 255) {
-            s-= 255;
+            s -= 255;
         }
         while (l > 255) {
             l -= 255;
@@ -102,7 +107,9 @@ public class Color {
     }
 
     /**
-     * Changes the color accordining to a hue value, which is added to the current hue value. When the resulting value is greater than 255 it will be reset. For example: 285 => 30.
+     * Changes the color accordining to a hue value, which is added to the current
+     * hue value. When the resulting value is greater than 255 it will be reset. For
+     * example: 285 => 30.
      *
      * @param h A hue value. Could be any positive or negative number.
      */
@@ -168,7 +175,6 @@ public class Color {
     public float getBlue() {
         return this.b;
     }
-
 
     public float getH() {
         return h;

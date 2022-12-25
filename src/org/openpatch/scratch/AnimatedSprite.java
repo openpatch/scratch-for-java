@@ -1,10 +1,10 @@
 package org.openpatch.scratch;
 
-import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
-public class AnimatedSprite extends Sprite implements Drawable {
+public class AnimatedSprite extends Sprite {
 
-    private HashMap<String, String[]> animations = new HashMap<>();
+    private ConcurrentHashMap<String, String[]> animations = new ConcurrentHashMap<>();
     private int animationInterval = 120;
     private int animationFrame = 0;
     private boolean animationPlayed = false;
@@ -13,8 +13,8 @@ public class AnimatedSprite extends Sprite implements Drawable {
         String[] animation = new String[frames];
         for (int i = 0; i < animation.length; i++) {
             String costumeName = "_animation_" + name + "_" + i;
-            String file = String.format(pattern, i+1);
-            this.addCostume(costumeName,  file);
+            String file = String.format(pattern, i + 1);
+            this.addCostume(costumeName, file);
             animation[i] = costumeName;
         }
         animations.put(name, animation);
@@ -28,14 +28,14 @@ public class AnimatedSprite extends Sprite implements Drawable {
         String[] animation = new String[frames];
         for (int i = 0; i < animation.length; i++) {
             String costumeName = "_animation_" + name + "_" + i + "_" + row;
-            this.addCostume(costumeName,  path, i*width, row*height, width, height);
+            this.addCostume(costumeName, path, i * width, row * height, width, height);
             animation[i] = costumeName;
         }
         animations.put(name, animation);
     }
 
     public void playAnimation(String name) {
-        this.playAnimation(name,false);
+        this.playAnimation(name, false);
     }
 
     public void playAnimation(String name, boolean once) {
