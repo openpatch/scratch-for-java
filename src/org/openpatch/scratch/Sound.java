@@ -35,7 +35,7 @@ public class Sound {
      * Starts playing the sound file.
      */
     public void play() {
-        if (this.sound != null) {
+        if (!this.isPlaying()) {
             this.sound.play();
         }
     }
@@ -84,6 +84,7 @@ public class Sound {
 
     /**
      * Changes the volume by a step
+     * 
      * @param step
      */
     public void changeVolume(float step) {
@@ -95,6 +96,7 @@ public class Sound {
 
     /**
      * Returns the volume
+     * 
      * @return the volume
      */
     public float getVolume() {

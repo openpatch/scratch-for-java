@@ -4,6 +4,8 @@ import java.awt.Point;
 import java.awt.Polygon;
 import java.awt.geom.Area;
 
+import processing.core.PConstants;
+
 public class Hitbox {
     private final Polygon originalPolygon;
     private Polygon polygon;
@@ -17,7 +19,8 @@ public class Hitbox {
         return polygon;
     }
 
-    public void translateAndRotateAndResize(float degrees, float originX, float originY, float translateX, float translateY, float size) {
+    public void translateAndRotateAndResize(float degrees, float originX, float originY, float translateX,
+            float translateY, float size) {
         Polygon polygon;
         polygon = this.scale(size, this.originalPolygon);
         polygon = this.translate(translateX, translateY, polygon);
@@ -88,7 +91,7 @@ public class Hitbox {
         for (int i = 0; i < xPoints.length; i++) {
             Stage.parent.vertex(xPoints[i], yPoints[i]);
         }
-        Stage.parent.endShape(Stage.parent.CLOSE);
+        Stage.parent.endShape(PConstants.CLOSE);
     }
 
     public void draw() {

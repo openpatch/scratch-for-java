@@ -1,0 +1,26 @@
+{
+    "java.project.sourcePaths": [
+        "test",
+        "src",
+        "examples/java"
+    ],
+    "java.project.referencedLibraries": [
+        "libs/**/*.jar",
+    ],
+    "hyperbook.root": "docs",
+    "java.configuration.runtimes": [
+        {
+            "name": "JavaSE-11",
+            "path": "/usr/lib/jvm/jre-11-openjdk",
+            "default":  true
+        },
+        {
+            "name": "JavaSE-17",
+            "path": "/usr/lib/jvm/jre-17-openjdk",
+        },
+        {
+            "name": "JavaSE-19",
+            "path": "/usr/lib/jvm/jre-19-openjdk"
+        }
+    ],
+}

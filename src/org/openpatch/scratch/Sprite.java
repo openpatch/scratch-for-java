@@ -5,23 +5,21 @@ import processing.core.PApplet;
 import processing.event.KeyEvent;
 import processing.event.MouseEvent;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Sprite implements Drawable {
-    private ArrayList<Image> costumes = new ArrayList<>();
+    private CopyOnWriteArrayList<Image> costumes = new CopyOnWriteArrayList<>();
     private int currentCostume = 0;
-    private ArrayList<Sound> sounds = new ArrayList<>();
+    private CopyOnWriteArrayList<Sound> sounds = new CopyOnWriteArrayList<>();
     private boolean show = true;
     private float size = 100;
     private boolean onEdgeBounce = false;
     private float rotation = 0;
+    private RotationStyle rotationStyle = RotationStyle.ALL_AROUND;
     private float x = 0;
     private float y = 0;
-    private final HashMap<String, Timer> timer;
+    private final ConcurrentHashMap<String, Timer> timer;
     private final Pen pen;
     private Hitbox hitbox;
     private Text text;
@@ -30,9 +28,9 @@ public class Sprite implements Drawable {
         this.pen = new Pen();
         this.x = Stage.parent.width / 2.0f;
         this.y = Stage.parent.height / 2.0f;
-        this.timer = new HashMap<>();
+        this.timer = new ConcurrentHashMap<>();
         this.timer.put("default", new Timer());
-        this.text = new Text(null, this.x, this.y, 242);
+        this.text = new Text(null, x + this.getWidth() / 2, y - this.getHeight() / 2, 242);
 
         Stage.parent.registerMethod("keyEvent", this);
         Stage.parent.registerMethod("mouseEvent", this);
@@ -51,12 +49,12 @@ public class Sprite implements Drawable {
      * @param s a Sprite object to copy
      */
     public Sprite(Sprite s) {
-        this.costumes = new ArrayList<>();
+        this.costumes = new CopyOnWriteArrayList<>();
         for (Image costume : s.costumes) {
             this.costumes.add(new Image(costume));
         }
         this.currentCostume = s.currentCostume;
-        this.sounds = new ArrayList<>();
+        this.sounds = new CopyOnWriteArrayList<>();
         for (Sound sound : s.sounds) {
             this.sounds.add(new Sound(sound));
         }
@@ -66,14 +64,15 @@ public class Sprite implements Drawable {
         this.rotation = s.rotation;
         this.x = s.x;
         this.y = s.y;
-        this.timer = new HashMap<>();
+        this.timer = new ConcurrentHashMap<>();
         this.timer.put("default", new Timer());
         this.pen = new Pen(s.pen);
         this.text = new Text(s.text);
     }
 
     /**
-     * Add a costume to the sprite. If a costume with the received name already exists do nothing.
+     * Add a costume to the sprite. If a costume with the received name already
+     * exists do nothing.
      *
      * @param name      a unique name
      * @param imagePath a image path
@@ -127,7 +126,8 @@ public class Sprite implements Drawable {
      * @return a costume name
      */
     public String getCurrentCostumeName() {
-        if (costumes.size() == 0) return null;
+        if (costumes.size() == 0)
+            return null;
 
         return this.costumes.get(this.currentCostume).getName();
     }
@@ -142,7 +142,8 @@ public class Sprite implements Drawable {
     }
 
     /**
-     * Add a sound to the sprite. If a sound with the received name already exists do nothing.
+     * Add a sound to the sprite. If a sound with the received name already exists
+     * do nothing.
      *
      * @param name      a unique name
      * @param soundPath a sound path
@@ -200,7 +201,8 @@ public class Sprite implements Drawable {
      * @see Image#setTint(float, float, float)
      */
     public void setTint(int r, int g, int b) {
-        if (costumes.size() == 0) return;
+        if (costumes.size() == 0)
+            return;
 
         for (Image costume : this.costumes) {
             costume.setTint(r, g, b);
@@ -213,7 +215,8 @@ public class Sprite implements Drawable {
      * @see Image#setTint(float)
      */
     public void setTint(float h) {
-        if (costumes.size() == 0) return;
+        if (costumes.size() == 0)
+            return;
 
         for (Image costume : this.costumes) {
             costume.setTint(h);
@@ -226,7 +229,8 @@ public class Sprite implements Drawable {
      * @see Image#changeTint(float)
      */
     public void changeTint(float step) {
-        if (costumes.size() == 0) return;
+        if (costumes.size() == 0)
+            return;
 
         for (Image costume : this.costumes) {
             costume.changeTint(step);
@@ -237,9 +241,11 @@ public class Sprite implements Drawable {
      * Sets the transparency of the sprite.
      *
      * @see Image#setTransparency(float)
+     * @param transparency 0 full transparency, 255 no transparency
      */
     public void setTransparency(float transparency) {
-        if (costumes.size() == 0) return;
+        if (costumes.size() == 0)
+            return;
 
         for (Image costume : this.costumes) {
             costume.setTransparency(transparency);
@@ -252,7 +258,8 @@ public class Sprite implements Drawable {
      * @see Image#changeTransparency(float)
      */
     public void changeTransparency(float step) {
-        if (costumes.size() == 0) return;
+        if (costumes.size() == 0)
+            return;
 
         for (Image costume : this.costumes) {
             costume.changeTransparency(step);
@@ -294,10 +301,13 @@ public class Sprite implements Drawable {
     /**
      * Sets the size of the sprite
      *
-     * @param percentage a percentage
+     * @param percentage a percentage [0...100]
      */
     public void setSize(float percentage) {
         this.size = percentage;
+    }
+    public void setSize(double percentage) {
+        this.setSize((float) percentage);
     }
 
     /**
@@ -309,6 +319,10 @@ public class Sprite implements Drawable {
         this.onEdgeBounce = b;
     }
 
+    public void setRotationStyle(RotationStyle style) {
+        this.rotationStyle = style;
+    }
+
     /**
      * Sets the position of the sprite
      *
@@ -316,11 +330,8 @@ public class Sprite implements Drawable {
      * @param y a y coordinate
      */
     public void setPosition(int x, int y) {
-        float deltaX = this.x - x;
-        float deltaY = this.y - y;
         this.x = x;
         this.y = y;
-        this.text.setPosition(x + this.getWidth() / 2, y - this.getHeight() / 2);
         this.getPen().setPosition(x, y);
     }
 
@@ -351,7 +362,8 @@ public class Sprite implements Drawable {
     }
 
     /**
-     * Sets the rotation of the sprite to a given degrees. When this value is 0 the sprite move right, when it is 180 is moves to the left.
+     * Sets the rotation of the sprite to a given degrees. When this value is 0 the
+     * sprite move right, when it is 180 is moves to the left.
      *
      * @param degrees
      */
@@ -402,12 +414,12 @@ public class Sprite implements Drawable {
         if (this.onEdgeBounce) {
             float spriteWidth = this.show ? costumeWidth : this.pen.getSize();
             if (newX > parent.width - spriteWidth / 2 || newX < spriteWidth / 2) {
-                this.rotation = this.calculateAngleOfReflection(this.rotation, false);
+                this.setRotation(this.calculateAngleOfReflection(this.rotation, false));
             }
 
             float spriteHeight = this.show ? costumeHeight : this.pen.getSize();
             if (newY > parent.height - spriteHeight / 2 || newY < spriteHeight / 2) {
-                this.rotation = this.calculateAngleOfReflection(this.rotation, true);
+                this.setRotation(this.calculateAngleOfReflection(this.rotation, true));
             }
         }
 
@@ -415,7 +427,10 @@ public class Sprite implements Drawable {
         this.y = newY;
 
         this.pen.setPosition(this.x, this.y);
-        this.text.setPosition(x + this.getWidth() / 4, y - this.getHeight() / 2 - 10);
+    }
+
+    public void move(double steps) {
+        this.move((float) steps);
     }
 
     /**
@@ -473,53 +488,63 @@ public class Sprite implements Drawable {
     }
 
     /**
-     * Return the width of the current costume or the pen size, when no costume is available.
+     * Return the width of the current costume or the pen size, when no costume is
+     * available.
      *
      * @return the width of the sprite
      */
     public int getWidth() {
-        if (costumes.size() == 0) return (int) this.getPen().getSize();
+        if (costumes.size() == 0)
+            return (int) this.getPen().getSize();
 
         return this.costumes.get(this.currentCostume).getImage().width;
     }
 
     /**
-     * Return the height of the current costume or the pen size, when no costume is available.
+     * Return the height of the current costume or the pen size, when no costume is
+     * available.
      *
      * @return the height of the sprite
      */
     public int getHeight() {
-        if (costumes.size() == 0) return (int) this.getPen().getSize();
+        if (costumes.size() == 0)
+            return (int) this.getPen().getSize();
 
         return this.costumes.get(this.currentCostume).getImage().height;
     }
 
     /**
-     * Return the pixels of the current costume or an empty array, when no costume is available.
+     * Return the pixels of the current costume or an empty array, when no costume
+     * is available.
      *
      * @return the pixels of the sprite
      */
-    public int[] getPixels() {
-        if (costumes.size() == 0) return new int[0];
+    protected int[] getPixels() {
+        if (costumes.size() == 0)
+            return new int[0];
 
         return this.costumes.get(this.currentCostume).getImage().pixels;
     }
 
     /**
-     * Return the pixelWidth of the current costume or an empty array, when no costume is available. Only useful when using the getPixels method. Otherwise use getWidth instead.
+     * Return the pixelWidth of the current costume or an empty array, when no
+     * costume is available. Only useful when using the getPixels method. Otherwise
+     * use getWidth instead.
      *
      * @return the pixel width of the sprite
      */
-    public int getPixelWidth() {
+    protected int getPixelWidth() {
         return this.costumes.get(this.currentCostume).getImage().pixelWidth;
     }
 
     /**
-     * Return the pixelHeight of the current costume or the pen size, when no costume is available. Only usefule when using the getPixels method. Otherwise use getHeight instead.
+     * Return the pixelHeight of the current costume or the pen size, when no
+     * costume is available. Only usefule when using the getPixels method. Otherwise
+     * use getHeight instead.
      *
      * @return the pixel height of the sprite
      */
-    public int getPixelHeight() {
+    protected int getPixelHeight() {
         return this.costumes.get(this.currentCostume).getImage().pixelHeight;
     }
 
@@ -547,7 +572,8 @@ public class Sprite implements Drawable {
      * @param name the name of the timer
      */
     public void addTimer(String name) {
-        if (name.equals("default")) return;
+        if (name.equals("default"))
+            return;
 
         this.timer.put(name, new Timer());
     }
@@ -558,7 +584,8 @@ public class Sprite implements Drawable {
      * @param name the name of the timer
      */
     public void removeTimer(String name) {
-        if (name.equals("default")) return;
+        if (name.equals("default"))
+            return;
 
         this.timer.remove(name);
     }
@@ -566,17 +593,20 @@ public class Sprite implements Drawable {
     private float calculateAngleOfReflection(float angleOfIncidence, boolean horizontalWall) {
         if (horizontalWall) {
             float angleOfReflection = 360 - angleOfIncidence;
-            while (angleOfReflection < 0) angleOfReflection += 360;
+            while (angleOfReflection < 0)
+                angleOfReflection += 360;
             return angleOfReflection;
         } else {
             float angleOfReflection = 180 - angleOfIncidence;
-            while (angleOfReflection < 0) angleOfReflection += 360;
+            while (angleOfReflection < 0)
+                angleOfReflection += 360;
             return angleOfReflection;
         }
     }
 
     /**
-     * Returns true is the mouse pointer is touching a non transparent area of the sprite.
+     * Returns true is the mouse pointer is touching a non transparent area of the
+     * sprite.
      *
      * @return true if touching
      */
@@ -589,7 +619,8 @@ public class Sprite implements Drawable {
 
         float[] mouse = Stage.rotateXY(getMouseX(), getMouseY(), x, y, -rotation);
 
-        boolean touching = mouse[0] > topLeftCornerX && mouse[1] > topLeftCornerY && mouse[0] < bottomRightCornerX && mouse[1] < bottomRightCornerY;
+        boolean touching = mouse[0] > topLeftCornerX && mouse[1] > topLeftCornerY && mouse[0] < bottomRightCornerX
+                && mouse[1] < bottomRightCornerY;
 
         if (touching) {
             int relativeMouseX = Math.round(mouse[0] - topLeftCornerX);
@@ -602,9 +633,9 @@ public class Sprite implements Drawable {
         return false;
     }
 
-
     /**
-     * Returns true if the rectangle which contains the image is outside of the stage
+     * Returns true if the rectangle which contains the image is outside of the
+     * stage
      *
      * @return true if outside
      */
@@ -621,7 +652,7 @@ public class Sprite implements Drawable {
         float[] cornerBottomLeft = Stage.rotateXY(x - spriteWidth / 2.0f, y + spriteHeight / 2.0f, x, y, rotation);
         float[] cornerBottomRight = Stage.rotateXY(x + spriteWidth / 2.0f, y + spriteHeight / 2.0f, x, y, rotation);
 
-        float[][] corners = {cornerTopLeft, cornerTopRight, cornerBottomLeft, cornerBottomRight};
+        float[][] corners = { cornerTopLeft, cornerTopRight, cornerBottomLeft, cornerBottomRight };
 
         for (float[] corner : corners) {
             float cornerX = corner[0];
@@ -654,7 +685,8 @@ public class Sprite implements Drawable {
         float spriteHeight = this.show ? costumeHeight : this.pen.getSize();
 
         if (this.hitbox != null) {
-            this.hitbox.translateAndRotateAndResize(rotation, x, y, x - spriteWidth / 2.0f, y - spriteHeight / 2.0f, size);
+            this.hitbox.translateAndRotateAndResize(rotation, x, y, x - spriteWidth / 2.0f, y - spriteHeight / 2.0f,
+                    size);
             return this.hitbox;
         }
 
@@ -728,18 +760,27 @@ public class Sprite implements Drawable {
     }
 
     /**
-     * Returns the current date
+     * Returns the current month
      *
-     * @return current date
+     * @return current month
      */
-    public int getCurrentDate() {
-        return Stage.getInstance().getCurrentDate();
+    public int getCurrentMonth() {
+        return Stage.getInstance().getCurrentMonth();
     }
 
     /**
-     * Returns the current week
+     * Returns the current day of the month
      *
-     * @return current week
+     * @return current day of the month
+     */
+    public int getCurrentDay() {
+        return Stage.getInstance().getCurrentDay();
+    }
+
+    /**
+     * Returns the current day of the week
+     *
+     * @return current day of the week
      */
     public int getCurrentDayOfWeek() {
         return Stage.getInstance().getCurrentDayOfWeek();
@@ -791,7 +832,10 @@ public class Sprite implements Drawable {
     }
 
     public void keyEvent(KeyEvent e) {
-        this.whenKeyPressed(e.getKeyCode());
+        switch (e.getAction()) {
+            case KeyEvent.PRESS:
+                this.whenKeyPressed(e.getKeyCode());
+        }
     }
 
     public void whenKeyPressed(int keyCode) {
@@ -819,22 +863,22 @@ public class Sprite implements Drawable {
     }
 
     public void think(String text) {
-        this.text.setMode(Text.THINK);
+        this.text.setStyle(TextStyle.THINK);
         this.text.showText(text);
     }
 
     public void think(String text, int millis) {
-        this.text.setMode(Text.THINK);
+        this.text.setStyle(TextStyle.THINK);
         this.text.showText(text, millis);
     }
 
     public void say(String text) {
-        this.text.setMode(Text.SPEAK);
+        this.text.setStyle(TextStyle.SPEAK);
         this.text.showText(text);
     }
 
     public void say(String text, int millis) {
-        this.text.setMode(Text.SPEAK);
+        this.text.setStyle(TextStyle.SPEAK);
         this.text.showText(text, millis);
     }
 
@@ -844,12 +888,13 @@ public class Sprite implements Drawable {
     public void draw() {
         this.pen.draw();
         if (costumes.size() > 0 && this.show) {
-            this.costumes.get(this.currentCostume).draw(this.size, this.rotation, this.x, this.y);
+            this.costumes.get(this.currentCostume).draw(this.size, this.rotation, this.x, this.y, this.rotationStyle);
         }
 
         if (Stage.getInstance().isDebug()) {
             this.getHitbox().draw();
         }
+        this.text.setPosition(x + this.getWidth() * 0.9 / 2, y - this.getHeight() * 0.90);
         this.text.draw();
         this.run();
     }

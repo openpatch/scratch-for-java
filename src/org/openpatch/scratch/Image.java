@@ -2,8 +2,9 @@ package org.openpatch.scratch;
 
 import processing.core.PImage;
 import processing.core.PApplet;
+import processing.core.PConstants;
 
-import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * The base class for representing scratch costumes and backdrops.
@@ -15,7 +16,7 @@ public class Image implements Drawable {
     private Color tint = new Color();
     private float transparency = 255;
 
-    private static final HashMap<String, PImage> originalImages = new HashMap<>();
+    private static final ConcurrentHashMap<String, PImage> originalImages = new ConcurrentHashMap<>();
 
     /**
      * Construct a ScratchImage object by a name and a path to an image.
@@ -30,8 +31,8 @@ public class Image implements Drawable {
     }
 
     public Image(String name, String spriteSheetPath, int x, int y, int width, int height) {
-        this.name =name;
-        this.originalImage = Image.loadImage(spriteSheetPath, x,y, width, height);
+        this.name = name;
+        this.originalImage = Image.loadImage(spriteSheetPath, x, y, width, height);
         this.image = this.originalImage;
     }
 
@@ -170,12 +171,12 @@ public class Image implements Drawable {
     /**
      * Draw the scaled image at a given position.
      *
-     * @param size a percentage value
+     * @param size    a percentage value
      * @param degrees rotate
-     * @param x    a x coordinate
-     * @param y    a y coordinate
+     * @param x       a x coordinate
+     * @param y       a y coordinate
      */
-    public void draw(float size, float degrees, float x, float y) {
+    public void draw(float size, float degrees, float x, float y, RotationStyle style) {
         int newWidth = Math.round(this.originalImage.width * size / 100);
         int newHeight = Math.round(this.originalImage.height * size / 100);
 
@@ -187,18 +188,35 @@ public class Image implements Drawable {
         PApplet parent = Stage.parent;
         parent.pushMatrix();
         parent.translate(x, y);
-        parent.rotate(PApplet.radians(degrees));
+        switch (style) {
+            case DONT:
+                break;
+            case ALL_AROUND:
+                parent.rotate(PApplet.radians(degrees));
+                break;
+            case LEFT_RIGHT:
+                if (degrees > -90 && degrees < 90) {
+                    parent.scale(1, 1);
+                } else {
+                    parent.scale(-1, 1);
+                }
+                break;
+        }
         parent.tint(this.tint.getRed(), this.tint.getGreen(), this.tint.getBlue(), this.transparency);
         parent.image(this.image, 0, 0);
         parent.noTint();
-        if(Stage.getInstance().isDebug()) {
+        if (Stage.getInstance().isDebug()) {
             parent.fill(Stage.DEBUG_COLOR[0], Stage.DEBUG_COLOR[1], Stage.DEBUG_COLOR[1]);
-            parent.textAlign(parent.CENTER);
-            parent.text("Rotation: " + degrees, 0, - newHeight/2.0f - 10);
+            parent.textAlign(PConstants.CENTER);
+            parent.text("Rotation: " + degrees, 0, -newHeight / 2.0f - 10);
             parent.text("(" + x + ", " + y + ")", 0, 0);
         }
         parent.popMatrix();
 
+    }
+
+    public void draw(float size, float degrees, float x, float y) {
+        draw(size, degrees, x, y, RotationStyle.ALL_AROUND);
     }
 
     /**
@@ -212,7 +230,8 @@ public class Image implements Drawable {
     }
 
     /**
-     * Draw the image as a background. The image is automatically scaled to fit the window size.
+     * Draw the image as a background. The image is automatically scaled to fit the
+     * window size.
      */
     public void drawAsBackground() {
         PApplet parent = Stage.parent;
