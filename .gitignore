@@ -4,3 +4,5 @@ distribution
 *.iml
 libs
 classes
+*.class
+*.ctxt

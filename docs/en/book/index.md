@@ -54,7 +54,7 @@ To add a new backdrop call `stage.addBackdrop("newBackdrop",
 "path/to/newBackdrop.png");`. Afterwards you can switch to the backdrop by calling
 `stage.switchBackdrop("newBackdrop");`.
 
-Additionally to the blocks defined in Scratch you can display a text on the screen with: `stage.display("Hi!")`. You can
+Additionally, to the blocks defined in Scratch you can display a text on the screen with: `stage.display("Hi!")`. You can
 also display the text for a certain amount of milliseconds like so: `stage.display("Hi", 2000)`.
 
 #### Sensing
@@ -86,11 +86,13 @@ also display the text for a certain amount of milliseconds like so: `stage.displ
 | Processing | Description |
 | :-: | :-: |
 | `stage.add(sprite)` | Adds a sprite to stage |
-| `stage.removeSprite(sprite)` | Removes a sprite from the stage |
-| `stage.removeSprites()` | Removes all sprites |
-| `stage.removeSprites(MySprite.class)` | Removes all sprites of class MySprite |
-| `stage.getSprites()` | Returns a list of all sprites |
-| `stage.getSprites(MySprite.class)` | Returns a list of all sprites of class MySprite |
+| `stage.remove(sprite)` | Removes a sprite from the stage |
+| `stage.removeAll()` | Removes all sprites |
+| `stage.raise(sprite)` | Raises a sprite |
+| `stage.lower(sprite)` | Lowers a sprite |
+| `stage.remove(MySprite.class)` | Removes all sprites of class MySprite |
+| `stage.getAll()` | Returns a list of all sprites |
+| `stage.find(MySprite.class)` | Returns a list of all sprites of class MySprite |
 | `stage.display(String text)` | Displays a text at the bottom of the stage |
 | `stage.display(String text, int millis)` | Displays a text at the bottom of the stage for a given amount of milliseconds |
 
@@ -115,7 +117,7 @@ converted them to `wav` files with [SoundConverter](http://soundconverter.org/).
 
 Usage: `import org.openpatch.scratch.Sprite`
 
-API: https://www.barkmin.org/processing-library-scratch/reference/org/barkmin/processing/scratch/Sprite.html
+API: https://openpatch.github.io/scratch-for-java/reference/org/barkmin/processing/scratch/Sprite.html
 
 Source Code: https://github.com/openpatch/scratch-for-java/blob/master/src/org/barkmin/processing/scratch/Sprite.java
 
@@ -284,7 +286,7 @@ converted them to `wav` files with [SoundConverter](http://soundconverter.org/).
 
 Usage: `import org.openpatch.scratch.extensions.Pen`
 
-API: https://www.barkmin.org/processing-library-scratch/reference/org/barkmin/processing/scratch/Pen.html
+API: https://openpatch.github.io/scratch-for-java/reference/org/barkmin/processing/scratch/Pen.html
 
 Source Code: https://github.com/openpatch/scratch-for-java/blob/master/src/org/barkmin/processing/scratch/Pen.java
 
@@ -308,7 +310,7 @@ pen can be modified.
 
 Usage: `import org.openpatch.scratch.AnimatedSprite`
 
-API: https://www.barkmin.org/processing-library-scratch/reference/org/barkmin/processing/scratch/ScratchAnimatedSprite.html
+API: https://openpatch.github.io/scratch-for-java/reference/org/barkmin/processing/scratch/ScratchAnimatedSprite.html
 
 Source Code: https://github.com/openpatch/scratch-for-java/blob/master/src/org/barkmin/processing/scratch/ScratchAnimatedSprite.java
 
@@ -428,7 +430,7 @@ can see the difference below.
 
 Usage: `import org.openpatch.scratch.Sound`
 
-API: https://www.barkmin.org/processing-library-scratch/reference/org/barkmin/processing/scratch/ScratchSound.html
+API: https://openpatch.github.io/scratch-for-java/reference/org/barkmin/processing/scratch/ScratchSound.html
 
 Source Code: https://github.com/openpatch/scratch-for-java/blob/master/src/org/barkmin/processing/scratch/ScratchSound.java
 
@@ -436,7 +438,7 @@ Source Code: https://github.com/openpatch/scratch-for-java/blob/master/src/org/b
 
 Usage: `import org.openpatch.scratch.Image`
 
-API: https://www.barkmin.org/processing-library-scratch/reference/org/barkmin/processing/scratch/ScratchImage.html
+API: https://openpatch.github.io/scratch-for-java/reference/org/barkmin/processing/scratch/ScratchImage.html
 
 Source Code: https://github.com/openpatch/scratch-for-java/blob/master/src/org/barkmin/processing/scratch/ScratchImage.java
 
@@ -444,7 +446,7 @@ Source Code: https://github.com/openpatch/scratch-for-java/blob/master/src/org/b
 
 Usage: `import org.openpatch.scratch.Text`
 
-API: https://www.barkmin.org/processing-library-scratch/reference/org/barkmin/processing/scratch/Text.html
+API: https://openpatch.github.io/scratch-for-java/reference/org/barkmin/processing/scratch/Text.html
 
 Source Code: https://github.com/openpatch/scratch-for-java/blob/master/src/org/barkmin/processing/scratch/Text.java
 
@@ -452,7 +454,7 @@ Source Code: https://github.com/openpatch/scratch-for-java/blob/master/src/org/b
 
 Usage: `import org.openpatch.scratch.Color`
 
-API: https://www.barkmin.org/processing-library-scratch/reference/org/barkmin/processing/scratch/ScratchColor.html
+API: https://openpatch.github.io/scratch-for-java/reference/org/barkmin/processing/scratch/ScratchColor.html
 
 Source Code: https://github.com/openpatch/scratch-for-java/blob/master/src/org/barkmin/processing/scratch/ScratchColor.java
 
@@ -615,4 +617,4 @@ Some folders like `examples` or `src` might be missing. After Library Scratch ha
 
 ### Troubleshooting
 
-If you're having trouble, have a look at the [Processing Wiki](https://github.com/processing/processing/wiki/How-to-Install-a-Contributed-Library) for more information, or contact the author [Mike Barkmin](http://barkmin.eu).
+If you're having trouble, have a look at the [Processing Wiki](https://github.com/processing/processing/wiki/How-to-Install-a-Contributed-Library) for more information, or contact the author [OpenPatch](https://openpatch.org).
