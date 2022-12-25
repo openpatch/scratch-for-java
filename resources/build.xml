@@ -3,15 +3,18 @@
 
     <!--
             Properties for your project should be set and modified in the
-            build.properties file (located in the same folder as this build.xml file).
+            build.properties
+    file (located in the same folder as this build.xml file).
 
-            THIS FILE SHOULD NOT BE EDITED, unless you know what you are doing.
-            If you have recommendations for improvements, please let Elie know
+            THIS FILE SHOULD NOT BE
+    EDITED, unless you know what you are doing.
+            If you have recommendations for
+    improvements, please let Elie know
             at prisonerjohn@gmail.com
     -->
 
 
-    <property file="./resources/build.properties"/>
+    <property file="./resources/build.properties" />
 
     <description>
         ${ant.description}
@@ -19,59 +22,59 @@
 
 
     <property name="line"
-              value="------------------------------------------------------------------------------------------------"/>
+        value="------------------------------------------------------------------------------------------------" />
 
     <condition property="is.normal">
-        <equals arg1="${project.compile}" arg2="normal"/>
+        <equals arg1="${project.compile}" arg2="normal" />
     </condition>
 
 
     <!-- set the OS properties -->
     <condition property="is.mac">
-        <os family="mac"/>
+        <os family="mac" />
     </condition>
     <condition property="is.windows">
-        <os family="windows"/>
+        <os family="windows" />
     </condition>
     <condition property="is.unix">
-        <os family="unix"/>
+        <os family="unix" />
     </condition>
 
 
-    <property name="project.jar.name" value="${project.name}"/>
-    <property name="project.src" location="src"/>
-    <property name="project.tmp" location="tmp"/>
-    <property name="project.docs" location="docs"/>
-    <property name="project.data" location="data"/>
-    <property name="project.lib" location="lib"/>
-    <property name="project.libs" location="libs"/>
-    <property name="project.bin" location="bin"/>
-    <property name="project.bin.data" location="${project.bin}/data"/>
-    <property name="project.examples" location="examples"/>
-    <property name="project.dist" location="distribution"/>
-    <property name="project.dist.version" location="distribution/${project.name}-${library.version}"/>
-    <property name="project.dist.latest" location="distribution/${project.name}-latest"/>
-    <property name="install.source" location="resources/README.md"/>
-    <property name="install.destination" location="${project.dist.version}/README.md"/>
-    <property name="libprops.source" location="resources/library.properties"/>
+    <property name="project.jar.name" value="${project.name}" />
+    <property name="project.src" location="src" />
+    <property name="project.tmp" location="tmp" />
+    <property name="project.docs" location="docs" />
+    <property name="project.data" location="data" />
+    <property name="project.lib" location="lib" />
+    <property name="project.libs" location="libs" />
+    <property name="project.bin" location="bin" />
+    <property name="project.bin.data" location="${project.bin}/data" />
+    <property name="project.examples" location="examples/processing" />
+    <property name="project.dist" location="distribution" />
+    <property name="project.dist.version" location="distribution/${project.name}-${library.version}" />
+    <property name="project.dist.latest" location="distribution/${project.name}-latest" />
+    <property name="install.source" location="resources/README.md" />
+    <property name="install.destination" location="${project.dist.version}/README.md" />
+    <property name="libprops.source" location="resources/library.properties" />
 
     <taskdef resource="net/sf/antcontrib/antcontrib.properties">
         <classpath>
-            <pathelement location="./resources/code/ant-contrib-1.0b3.jar"/>
+            <pathelement location="./resources/code/ant-contrib-1.0b3.jar" />
         </classpath>
     </taskdef>
 
 
     <path id="classpath">
-        <fileset dir="${classpath.local.location}" includes="${classpath.local.include}"/>
-        <fileset dir="${classpath.libraries.location}" includes="**/*.jar"/>
-        <fileset dir="${project.libs}" includes="**/*.jar"/>
+        <fileset dir="${classpath.local.location}" includes="${classpath.local.include}" />
+        <fileset dir="${classpath.libraries.location}" includes="**/*.jar" />
+        <fileset dir="${project.libs}" includes="**/*.jar" />
     </path>
 
 
     <!-- Create the time stamp -->
     <tstamp>
-        <format property="date" pattern="MM/dd/yyyy" offset="0" unit="hour"/>
+        <format property="date" pattern="MM/dd/yyyy" offset="0" unit="hour" />
     </tstamp>
 
     <target name="init">
@@ -87,97 +90,122 @@
         </echo>
 
 
-        <mkdir dir="${sketchbook.location}/libraries"/>
-        <mkdir dir="${project.bin}"/>
-        <mkdir dir="${project.libs}"/>
+        <mkdir dir="${sketchbook.location}/libraries" />
+        <mkdir dir="${project.bin}" />
+        <mkdir dir="${project.libs}" />
     </target>
 
 
     <target name="library.init" depends="init">
-        <echo message="init library ..."/>
+        <echo message="init library ..." />
 
-        <echo message="download dependencies ..."/>
+        <echo message="download dependencies ..." />
 
         <get dest="${project.libs}">
-            <url url="https://github.com/micycle1/processing-core-4/releases/download/4.0.1/core-4.0.1-fat.jar"
-                 name="core-fat.jar"/>
-            <url url="https://github.com/processing/processing-sound/releases/download/v2.3.1/sound.zip"/>
-            <url url="https://github.com/java-native/jssc/releases/download/v2.9.4/jssc-2.9.4.jar" name="jssc.jar" />
-            <url url="https://repo1.maven.org/maven2/org/processing/serial/3.3.7/serial-3.3.7.jar" name="serial.jar" />
+            <url
+                url="https://github.com/micycle1/processing-core-4/releases/download/4.0.1/core-4.0.1-fat.jar"
+                name="core-fat.jar" />
+            <url
+                url="https://github.com/processing/processing-sound/releases/download/v2.3.1/sound.zip" />
+            <url url="https://github.com/java-native/jssc/releases/download/v2.9.4/jssc-2.9.4.jar"
+                name="jssc.jar" />
+            <url url="https://repo1.maven.org/maven2/org/processing/serial/3.3.7/serial-3.3.7.jar"
+                name="serial.jar" />
         </get>
 
-        <echo message="extracting sound jars ..."/>
-        <unzip src="${project.libs}/sound.zip" dest="${project.libs}" overwrite="true"/>
+        <echo message="extracting sound jars ..." />
+        <unzip src="${project.libs}/sound.zip" dest="${project.libs}" overwrite="true" />
         <move todir="${project.libs}">
             <fileset dir="${project.libs}/sound/library">
-                <include name="*.jar"/>
+                <include name="*.jar" />
             </fileset>
         </move>
 
-        <echo message="deleting temp files ..."/>
-        <delete file="${project.libs}/sound.zip"/>
-        <delete dir="${project.libs}/sound"/>
+        <echo message="deleting temp files ..." />
+        <delete file="${project.libs}/sound.zip" />
+        <delete dir="${project.libs}/sound" />
     </target>
 
 
     <target name="library.run" depends="library.init">
-        <echo message="building library ..."/>
+        <echo message="building library ..." />
         <antcall target="generate.structure">
-            <param name="folder" value="library"/>
+            <param name="folder" value="library" />
         </antcall>
-        <antcall target="generate.source"/>
-        <antcall target="compile"/>
+        <antcall target="generate.source" />
+        <antcall target="compile" />
         <antcall target="generate.jar">
-            <param name="folder" value="library"/>
+            <param name="folder" value="library" />
         </antcall>
-        <antcall target="generate.libprops"/>
+        <antcall target="generate.javadoc" />
+        <antcall target="generate.libprops" />
         <antcall target="copyToSketchbook">
-            <param name="folder" value="libraries"/>
+            <param name="folder" value="libraries" />
         </antcall>
-        <antcall target="generate.distribution"/>
-        <antcall target="generate.zip"/>
-        <delete dir="${project.tmp}"/>
+        <antcall target="generate.distribution" />
+        <antcall target="generate.zip" />
+        <delete dir="${project.tmp}" />
     </target>
 
 
     <target name="generate.libprops" if="is.normal">
-        <property name="libprops.destination" location="${project.tmp}/${project.name}/library.properties"/>
-        <copy file="${libprops.source}" tofile="${libprops.destination}"/>
+        <property name="libprops.destination"
+            location="${project.tmp}/${project.name}/library.properties" />
+        <copy file="${libprops.source}" tofile="${libprops.destination}" />
         <antcall target="parse.file">
-            <param name="file" value="${libprops.destination}"/>
+            <param name="file" value="${libprops.destination}" />
         </antcall>
     </target>
 
+    <target name="generate.javadoc" if="is.normal">
+        <!-- create the java reference of the Library -->
+        <javadoc bottom="Scratch for Java by ${author.name}. ${library.copyright}"
+            classpathref="classpath"
+            destdir="${project.dist}/reference"
+            verbose="false"
+            sourcepath="${project.src}"
+            doctitle="Javadocs: ${project.name}"
+            public="true" version="false"
+            windowtitle="Javadocs: ${project.name}">
+
+            <link href="${javadoc.java.href}" />
+            <link href="${javadoc.processing.href}" />
+        </javadoc>
+    </target>
 
     <target name="copyToSketchbook">
-        <echo message="copying files to the ${folder} folder in your sketchbook."/>
+        <echo message="copying files to the ${folder} folder in your sketchbook." />
         <!-- copy the jar file to processing's sketchbook libraries folder -->
-        <delete dir="${sketchbook.location}/${folder}/${project.name}"/>
-        <mkdir dir="${sketchbook.location}/${folder}/${project.name}"/>
+        <delete dir="${sketchbook.location}/${folder}/${project.name}" />
+        <mkdir dir="${sketchbook.location}/${folder}/${project.name}" />
         <copy todir="${sketchbook.location}/${folder}/${project.name}">
-            <fileset dir="${project.tmp}/${project.name}"/>
+            <fileset dir="${project.tmp}/${project.name}" />
         </copy>
-        <delete file="${sketchbook.location}/${folder}/${project.name}/library/scratch-standalone.jar" />
+        <delete
+            file="${sketchbook.location}/${folder}/${project.name}/library/scratch-standalone.jar" />
     </target>
 
 
     <target name="compile">
-        <javac srcdir="${project.tmp}/${project.name}/src" destdir="${project.bin}" source="${java.target.version}"
-               target="${java.target.version}" includeantruntime="false">
+        <javac srcdir="${project.tmp}/${project.name}/src" destdir="${project.bin}"
+            source="${java.target.version}"
+            target="${java.target.version}" includeantruntime="false">
             <classpath>
-                <path refid="classpath"/>
+                <path refid="classpath" />
             </classpath>
-            <compilerarg value="-Xlint"/>
+            <compilerarg value="-Xlint" />
         </javac>
         <copy todir="${project.bin.data}">
-            <fileset dir="${project.data}" excludes="README"/>
+            <fileset dir="${project.data}" excludes="README" />
         </copy>
     </target>
 
     <target name="generate.jar">
-        <jar jarfile="${project.tmp}/${project.name}/${folder}/${project.jar.name}.jar" basedir="${project.bin}"/>
+        <jar jarfile="${project.tmp}/${project.name}/${folder}/${project.jar.name}.jar"
+            basedir="${project.bin}" />
 
-        <jar jarfile="${project.tmp}/${project.name}/${folder}/${project.jar.name}-standalone.jar" basedir="${project.bin}">
+        <jar jarfile="${project.tmp}/${project.name}/${folder}/${project.jar.name}-standalone.jar"
+            basedir="${project.bin}">
             <zipgroupfileset dir="${project.libs}" includes="*.jar" />
             <manifest>
                 <attribute name="Class-Path" value="${project.libs}" />
@@ -187,136 +215,149 @@
 
 
     <target name="generate.structure">
-        <delete dir="${project.tmp}"/>
-        <mkdir dir="${project.tmp}"/>
-        <mkdir dir="${project.tmp}/${project.name}"/>
-        <mkdir dir="${project.tmp}/${project.name}/${folder}"/>
-        <mkdir dir="${project.tmp}/${project.name}/examples"/>
-        <mkdir dir="${project.tmp}/${project.name}/src"/>
+        <delete dir="${project.tmp}" />
+        <mkdir dir="${project.tmp}" />
+        <mkdir dir="${project.tmp}/${project.name}" />
+        <mkdir dir="${project.tmp}/${project.name}/${folder}" />
+        <mkdir dir="${project.tmp}/${project.name}/examples" />
+        <mkdir dir="${project.tmp}/${project.name}/src" />
         <copy todir="${project.tmp}/${project.name}/examples">
             <fileset dir="${project.examples}">
-                <exclude name="**/*README*"/>
+                <exclude name="**/*README*" />
             </fileset>
         </copy>
         <copy todir="${project.tmp}/${project.name}/src">
-            <fileset dir="${project.src}"/>
+            <fileset dir="${project.src}" />
         </copy>
         <copy todir="${project.tmp}/${project.name}/${folder}">
-            <fileset dir="${project.lib}" excludes="README"/>
+            <fileset dir="${project.lib}" excludes="README" />
         </copy>
     </target>
 
 
     <target name="generate.source" if="is.normal">
-        <antcall target="generate.source.win"/>
-        <antcall target="generate.source.nix"/>
+        <antcall target="generate.source.win" />
+        <antcall target="generate.source.nix" />
     </target>
 
 
-    <!-- These two targets are pretty much the same, except for the delimiter (can't find a better way of doing this) -->
+    <!-- These two targets are pretty much the same, except for the delimiter (can't find a better
+    way of doing this) -->
     <target name="generate.source.win" if="is.windows">
-        <echo message="generating source (windows) ..."/>
+        <echo message="generating source (windows) ..." />
         <path id="src.contents">
-            <fileset dir="${project.tmp}/${project.name}/src" includes="**/*.java"/>
+            <fileset dir="${project.tmp}/${project.name}/src" includes="**/*.java" />
         </path>
-        <property name="src.list" refid="src.contents"/>
-        <foreach list="${src.list}" param="file" target="parse.file" delimiter=";"/>
+        <property name="src.list" refid="src.contents" />
+        <foreach list="${src.list}" param="file" target="parse.file" delimiter=";" />
     </target>
     <target name="generate.source.nix" unless="is.windows">
-        <echo message="generating source (mac/linux) ..."/>
+        <echo message="generating source (mac/linux) ..." />
         <path id="src.contents">
-            <fileset dir="${project.tmp}/${project.name}/src" includes="**/*.java"/>
+            <fileset dir="${project.tmp}/${project.name}/src" includes="**/*.java" />
         </path>
-        <property name="src.list" refid="src.contents"/>
-        <foreach list="${src.list}" param="file" target="parse.file" delimiter=":"/>
+        <property name="src.list" refid="src.contents" />
+        <foreach list="${src.list}" param="file" target="parse.file" delimiter=":" />
     </target>
 
 
     <target name="generate.distribution" if="is.normal">
-        <mkdir dir="${project.dist}"/>
-        <delete dir="${project.dist.version}"/>
-        <mkdir dir="${project.dist.version}"/>
-        <mkdir dir="${project.dist.version}/${project.name}"/>
-        <move file="${project.tmp}/${project.name}" toDir="${project.dist.version}"/>
+        <mkdir dir="${project.dist}" />
+        <delete dir="${project.dist.version}" />
+        <mkdir dir="${project.dist.version}" />
+        <mkdir dir="${project.dist.version}/${project.name}" />
+        <move file="${project.tmp}/${project.name}" toDir="${project.dist.version}" />
     </target>
-
-
 
 
     <!-- find and replace ##placeholder## keywords in a file -->
     <target name="parse.file">
-        <echo message="${file}"/>
+        <echo message="${file}" />
 
-        <replaceregexp file="${file}" match="##date##" replace="${date}" flags="g"/>
-        <replaceregexp file="${file}" match="##copyright##" replace="${library.copyright}" flags="g"/>
+        <replaceregexp file="${file}" match="##date##" replace="${date}" flags="g" />
+        <replaceregexp file="${file}" match="##copyright##" replace="${library.copyright}" flags="g" />
 
-        <replaceregexp file="${file}" match="##author##" replace="${author.name} ${author.url}" flags="g"/>
-        <replaceregexp file="${file}" match="##author.name##" replace="${author.name}" flags="g"/>
-        <replaceregexp file="${file}" match="##author.url##" replace="${author.url}" flags="g"/>
+        <replaceregexp file="${file}" match="##author##" replace="${author.name} ${author.url}"
+            flags="g" />
+        <replaceregexp file="${file}" match="##author.name##" replace="${author.name}" flags="g" />
+        <replaceregexp file="${file}" match="##author.url##" replace="${author.url}" flags="g" />
 
-        <replaceregexp file="${file}" match="##library.name##" replace="${project.prettyName}" flags="g"/>
-        <replaceregexp file="${file}" match="##project.name##" replace="${project.name}" flags="g"/>
+        <replaceregexp file="${file}" match="##library.name##" replace="${project.prettyName}"
+            flags="g" />
+        <replaceregexp file="${file}" match="##project.name##" replace="${project.name}" flags="g" />
 
-        <replaceregexp file="${file}" match="##library.version##" replace="${library.version}" flags="g"/>
-        <replaceregexp file="${file}" match="##library.prettyVersion##" replace="${library.prettyVersion}" flags="g"/>
+        <replaceregexp file="${file}" match="##library.version##" replace="${library.version}"
+            flags="g" />
+        <replaceregexp file="${file}" match="##library.prettyVersion##"
+            replace="${library.prettyVersion}" flags="g" />
 
-        <replaceregexp file="${file}" match="##compatible.minRevision##" replace="${compatible.minRevision}" flags="g"/>
-        <replaceregexp file="${file}" match="##compatible.maxRevision##" replace="${compatible.maxRevision}" flags="g"/>
+        <replaceregexp file="${file}" match="##compatible.minRevision##"
+            replace="${compatible.minRevision}" flags="g" />
+        <replaceregexp file="${file}" match="##compatible.maxRevision##"
+            replace="${compatible.maxRevision}" flags="g" />
 
-        <replaceregexp file="${file}" match="##library.url##" replace="${library.url}" flags="g"/>
-        <replaceregexp file="${file}" match="##library.categories##" replace="${library.categories}" flags="g"/>
-        <replaceregexp file="${file}" match="##library.sentence##" replace="${library.sentence}" flags="g"/>
-        <replaceregexp file="${file}" match="##library.paragraph##" replace="${library.paragraph}" flags="g"/>
-        <replaceregexp file="${file}" match="##library.keywords##" replace="${library.keywords}" flags="g"/>
-        <replaceregexp file="${file}" match="##library.dependencies##" replace="${library.dependencies}" flags="g"/>
+        <replaceregexp file="${file}" match="##library.url##" replace="${library.url}" flags="g" />
+        <replaceregexp file="${file}" match="##library.categories##" replace="${library.categories}"
+            flags="g" />
+        <replaceregexp file="${file}" match="##library.sentence##" replace="${library.sentence}"
+            flags="g" />
+        <replaceregexp file="${file}" match="##library.paragraph##" replace="${library.paragraph}"
+            flags="g" />
+        <replaceregexp file="${file}" match="##library.keywords##" replace="${library.keywords}"
+            flags="g" />
+        <replaceregexp file="${file}" match="##library.dependencies##"
+            replace="${library.dependencies}" flags="g" />
 
-        <replaceregexp file="${file}" match="##source.host##" replace="${source.host}" flags="g"/>
-        <replaceregexp file="${file}" match="##source.url##" replace="${source.url}" flags="g"/>
-        <replaceregexp file="${file}" match="##source.repository##" replace="${source.repository}" flags="g"/>
+        <replaceregexp file="${file}" match="##source.host##" replace="${source.host}" flags="g" />
+        <replaceregexp file="${file}" match="##source.url##" replace="${source.url}" flags="g" />
+        <replaceregexp file="${file}" match="##source.repository##" replace="${source.repository}"
+            flags="g" />
 
-        <replaceregexp file="${file}" match="##tested.platform##" replace="${tested.platform}" flags="g"/>
-        <replaceregexp file="${file}" match="##tested.processingVersion##" replace="${tested.processingVersion}"
-                       flags="g"/>
+        <replaceregexp file="${file}" match="##tested.platform##" replace="${tested.platform}"
+            flags="g" />
+        <replaceregexp file="${file}" match="##tested.processingVersion##"
+            replace="${tested.processingVersion}"
+            flags="g" />
     </target>
-
 
 
     <target name="generate.zip" if="is.normal">
         <!-- zip the distribution of the Library -->
 
         <move todir="${project.dist.version}/tmp/${project.name}">
-            <fileset dir="${project.dist.version}/${project.name}"/>
+            <fileset dir="${project.dist.version}/${project.name}" />
         </move>
 
         <copy file="${project.dist.version}/tmp/${project.name}/library.properties"
-              tofile="${project.dist}/${project.name}.txt"/>
+            tofile="${project.dist}/${project.name}.txt" />
 
-        <move file="${project.dist.version}/tmp/${project.name}/library/scratch-standalone.jar" todir="${project.dist}"/>
+        <move file="${project.dist.version}/tmp/${project.name}/library/scratch-standalone.jar"
+            todir="${project.dist}" />
 
         <zip destfile="${project.dist.version}/${project.name}.zip"
-             basedir="${project.dist.version}/tmp"
-             excludes="**/.DS_Store,**/${project.name}-standalone.jar"
+            basedir="${project.dist.version}/tmp"
+            excludes="**/.DS_Store,**/${project.name}-standalone.jar"
         />
 
-        <move file="${project.dist.version}/${project.name}.zip" todir="${project.dist}"/>
+        <move file="${project.dist.version}/${project.name}.zip" todir="${project.dist}" />
         <copy file="resources/index.html" todir="${project.dist}" />
 
-        <delete dir="${project.dist.version}"/>
+        <delete dir="${project.dist.version}" />
     </target>
 
 
     <!-- parsing the examples folder -->
     <target name="processExamples">
-        <dirset id="examples.contents" dir="${project.examples}" excludes="*/*"/>
-        <property name="examples.list" refid="examples.contents"/>
+        <dirset id="examples.contents" dir="${project.examples}" excludes="*/*" />
+        <property name="examples.list" refid="examples.contents" />
         <foreach list="${examples.list}" target="addExamples" param="exampleDir" delimiter=";">
         </foreach>
     </target>
 
 
     <target name="clean" depends="library.run">
-        <delete dir="${project.bin}"/>
-        <delete dir="${project.tmp}"/>
+        <delete dir="${project.bin}" />
+        <delete dir="${project.tmp}" />
         <echo>
 
             ${line}

@@ -2,8 +2,7 @@ package org.openpatch.scratch;
 
 import processing.core.*;
 
-class Applet extends PApplet
-{
+class Applet extends PApplet {
     private boolean isRunning = false;
     private final int INITIAL_HEIGHT;
     private final int INITIAL_WIDTH;
@@ -59,7 +58,10 @@ class Applet extends PApplet
         }
     }
 
-    public void setup() {}
+    public void setup() {
+        this.surface.setTitle("Scratch for Java");
+    }
 
-    public void draw() {}
+    public void draw() {
+    }
 }
