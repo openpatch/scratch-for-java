@@ -1,0 +1,13 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "(direction)",
+  "name": "getRotation()",
+  "class": "Sprite",
+  "description": "Get the rotation of the sprite.",
+  "syntax": [".getRotation()"],
+  "returns": "float",
+  "examples": [
+    { "src": "SpriteGetRotation.java", "preview": "SpriteGetRotation.gif", "lines": "reg:[Rr]ecorder" }
+  ]
+}

@@ -39,7 +39,9 @@
       ]
     }
   ],
-
-  "license": "CC-BY-SA",
+  "elements": {
+    "bookmarks": false
+  },
+  "license": "CC-BY-NC-SA",
   "language": "en"
 }

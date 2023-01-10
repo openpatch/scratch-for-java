@@ -1,0 +1,13 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "costume [name v]",
+  "name": "getCurrentCostumeName()",
+  "class": "Sprite",
+  "description": "Get the name of the current costume.",
+  "syntax": [".getCurrentCostumeName()"],
+  "returns": "String",
+  "examples": [
+    { "src": "SpriteGetCurrentCostumeName.java", "preview": "SpriteGetCurrentCostumeName.gif" }
+  ]
+}

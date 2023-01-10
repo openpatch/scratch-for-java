@@ -1,0 +1,19 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "set size to (50) %",
+  "name": "setSize()",
+  "class": "Sprite",
+  "description": "Sets the sprite's size to the percentage.",
+  "syntax": [".setSize(percentage)"],
+  "returns": "void",
+  "examples": [{ "src": "SpriteSetSize.java", "preview": "SpriteSetSize.gif" }],
+  "parameters": [
+    {
+      "name": "percentage",
+      "description": "A value in percent.",
+      "type": "float"
+    }
+  ]
+}
+

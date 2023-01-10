@@ -1,0 +1,66 @@
+---
+name: {{ name }}
+---
+
+# {{ class }}::{{ name }}
+
+{{ description }}
+
+{{#if examples}}
+## Examples
+
+{{#each examples}}
+{{#if preview}}
+![]({{ base64 (concat "../../examples/java/" preview) }})
+{{/if}}
+
+```java
+{{#if lines}}
+{{{ file (concat "../../examples/java/" src) lines "" }}}
+{{else}}
+{{{ file (concat "../../examples/java/" src) }}}
+{{/if}}
+```
+
+[View on GitHub](https://github.com/openpatch/scratch-for-java/blob/main/examples/java/{{ src }})
+{{/each}}
+{{/if}}
+
+## Syntax
+
+### Java
+```java
+{{#each syntax}}
+{{{this}}}
+{{/each}}
+```
+
+{{#if scratchblock}}
+### Scratch
+
+:::scratchblock
+{{{scratchblock}}}
+:::
+{{/if}}
+
+{{#if parameters}}
+## Parameters
+
+| Name | Data Type | Description          |
+| --------- | --------- | -------------------- |
+{{#each parameters}}
+| {{ name }}      |  {{ type }}    | {{ description }} |
+{{/each}}
+{{/if}}
+
+## Return
+
+{{ returns }}
+
+{{#if related}}
+## Related
+
+{{#each related}}
+- [{{ name }}](/reference/{{ href }})
+{{/each}}
+{{/if}}
