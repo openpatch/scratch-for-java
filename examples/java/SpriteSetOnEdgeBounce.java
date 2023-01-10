@@ -1,19 +1,24 @@
 import org.openpatch.scratch.RotationStyle;
 import org.openpatch.scratch.Sprite;
 import org.openpatch.scratch.Stage;
+import org.openpatch.scratch.extensions.GifRecorder;
 
 public class SpriteSetOnEdgeBounce {
     public SpriteSetOnEdgeBounce() {
         Stage myStage = new Stage(254, 100);
-        Sprite mySprite = new Sprite("slime", "examples/java/assets/slime.png");
+        Sprite mySprite = new Sprite("slime", "assets/slime.png");
         myStage.add(mySprite);
         mySprite.setOnEdgeBounce(true);
         mySprite.setRotationStyle(RotationStyle.LEFT_RIGHT);
 
-        while(true) {
+        GifRecorder recorder = new GifRecorder("" + this.getClass().getName() + ".gif");
+        recorder.start();
+        while(myStage.getTimer().forMillis(3000)) {
             mySprite.move(1);
             myStage.wait(20);
         }
+        recorder.stop();
+        System.exit(0);
     }
 
     public static void main(String[] args) {

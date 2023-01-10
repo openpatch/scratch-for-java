@@ -1,17 +1,23 @@
 import org.openpatch.scratch.Sprite;
 import org.openpatch.scratch.Stage;
+import org.openpatch.scratch.extensions.GifRecorder;
 
 public class SpriteNextCostume {
     public SpriteNextCostume() {
         Stage myStage = new Stage(254, 100);
-        Sprite zeta = new Sprite("green", "examples/java/assets/zeta_green_badge.png");
-        zeta.addCostume("yellow", "examples/java/assets/zeta_yellow_badge.png");
+        Sprite zeta = new Sprite("green", "assets/zeta_green_badge.png");
+        zeta.addCostume("yellow", "assets/zeta_yellow_badge.png");
         myStage.add(zeta);
 
-        while(true) {
-            myStage.wait(3000);
-            zeta.nextCostume();
-        }
+        GifRecorder recorder = new GifRecorder("" + this.getClass().getName() + ".gif");
+        recorder.start();
+        myStage.wait(2000);
+        zeta.nextCostume();
+        myStage.wait(2000);
+        zeta.nextCostume();
+        myStage.wait(2000);
+        recorder.stop();
+        System.exit(0);
     }
     public static void main(String[] args) {
         new SpriteNextCostume();

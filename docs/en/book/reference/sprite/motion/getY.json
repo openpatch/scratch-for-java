@@ -1,0 +1,13 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "(y position)",
+  "name": "getY()",
+  "class": "Sprite",
+  "description": "Gets the y position of the sprite.",
+  "syntax": [".getY()"],
+  "returns": "float",
+  "examples": [
+    { "src": "SpriteGetY.java", "preview": "SpriteGetY.gif", "lines": "reg:[Rr]ecorder"}
+  ]
+}

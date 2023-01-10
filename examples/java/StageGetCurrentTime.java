@@ -1,26 +1,26 @@
 import org.openpatch.scratch.Stage;
+import org.openpatch.scratch.extensions.GifRecorder;
 
 public class StageGetCurrentTime {
     public StageGetCurrentTime() {
         Stage myStage = new Stage(254, 100);
-        int year = myStage.getCurrentYear();
-        System.out.println("Year: " + year);
-        int month = myStage.getCurrentMonth();
-        System.out.println("Month: " + month);
-        int day = myStage.getCurrentDay();
-        System.out.println("Day: " + day);
-        int weekday = myStage.getCurrentDayOfWeek();
-        System.out.println("Weekday: " + weekday);
-        int hour = myStage.getCurrentHour();
-        System.out.println("Hour: " + hour);
-        int minute = myStage.getCurrentMinute();
-        System.out.println("Minute: " + minute);
-        int second = myStage.getCurrentSecond();
-        System.out.println("Second: " + second);
-        int millisecond = myStage.getCurrentMillisecond();
-        System.out.println("Millisecond: " + millisecond);
-        int daysSince2000 = myStage.getDaysSince2000();
-        System.out.println("Days since 2000: " + daysSince2000);
+
+        GifRecorder recorder = new GifRecorder("" + this.getClass().getName() + ".gif");
+        recorder.start();
+        while (myStage.getTimer().forMillis(3000)) {
+            int year = myStage.getCurrentYear();
+            int month = myStage.getCurrentMonth();
+            int day = myStage.getCurrentDay();
+            int weekday = myStage.getCurrentDayOfWeek();
+            int hour = myStage.getCurrentHour();
+            int minute = myStage.getCurrentMinute();
+            int second = myStage.getCurrentSecond();
+            int millisecond = myStage.getCurrentMillisecond();
+            int daysSince2000 = myStage.getDaysSince2000();
+            myStage.display(hour + ":" + minute + ":" + second + ":" + millisecond + " " + year + "-" + month + "-" + day + " (" + weekday + ")" + " " + daysSince2000);
+        }
+        recorder.stop();
+        System.exit(0);
     }
 
     public static void main(String[] args) {

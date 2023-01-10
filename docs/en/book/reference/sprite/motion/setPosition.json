@@ -1,0 +1,25 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "set position to x () y ()",
+  "name": "setPosition()",
+  "class": "Sprite",
+  "description": "Sets position of the sprite.",
+  "syntax": [".setPosition(x, y)"],
+  "returns": "void",
+  "examples": [
+    { "src": "SpriteSetPosition.java", "preview": "SpriteSetPosition.gif", "lines": "[Rr]ecorder" }
+  ],
+  "parameters": [
+    {
+      "name": "x",
+      "description": "X coordinate",
+      "type": "float"
+    },
+    {
+      "name": "y",
+      "description": "Y coordinate",
+      "type": "float"
+    }
+  ]
+}
