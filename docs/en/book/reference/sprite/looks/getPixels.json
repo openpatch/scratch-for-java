@@ -1,0 +1,10 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "(pixels)",
+  "name": "getPixels()",
+  "class": "Sprite",
+  "description": "Get the pixels of the spripte.",
+  "syntax": [".getPixels()"],
+  "returns": "int[]"
+}

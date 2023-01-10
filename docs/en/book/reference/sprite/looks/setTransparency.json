@@ -1,0 +1,18 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "set [ghost v] effect to (50)",
+  "name": "setTransparency()",
+  "class": "Sprite",
+  "description": "Sets the sprite's transparency to the percentage.",
+  "syntax": [".setTransparency(percentage)"],
+  "returns": "void",
+  "examples": [{ "src": "SpriteSetTransparency.java", "preview": "SpriteSetTransparency.gif" }],
+  "parameters": [
+    {
+      "name": "percentage",
+      "description": "A value in percent in the range of 0 ... 255.",
+      "type": "float"
+    }
+  ]
+}

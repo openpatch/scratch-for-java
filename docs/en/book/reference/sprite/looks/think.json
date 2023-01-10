@@ -1,0 +1,23 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "think [Hi!]\nthink [Hi!] for (5) seconds",
+  "name": "think()",
+  "class": "Sprite",
+  "description": "A thought bubble appears over the sprite and will only go away if the sprite thinks or thinks something else.",
+  "syntax": [".think(text)", ".think(text, milliseconds)"],
+  "returns": "void",
+  "examples": [{ "src": "SpriteThink.java", "preview": "SpriteThink.gif" }],
+  "parameters": [
+    {
+      "name": "text",
+      "description": "Text for the speech bubble.",
+      "type": "String"
+    },
+    {
+      "name": "milliseconds",
+      "description": "Time for the speech bubble to stay.",
+      "type": "int"
+    }
+  ]
+}

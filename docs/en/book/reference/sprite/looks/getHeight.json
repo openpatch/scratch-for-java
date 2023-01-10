@@ -1,0 +1,13 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "(height)",
+  "name": "getHeight()",
+  "class": "Sprite",
+  "description": "Get the height of the spripte.",
+  "syntax": [".getHeight()"],
+  "returns": "float",
+  "examples": [
+    { "src": "SpriteGetHeight.java", "preview": "SpriteGetHeight.gif" }
+  ]
+}

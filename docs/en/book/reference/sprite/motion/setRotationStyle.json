@@ -1,0 +1,20 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "set rotation style [ v]",
+  "name": "setRotationStyle()",
+  "class": "Sprite",
+  "description": "Sets the rotation style of the sprite. This influences how different rotations are visually expressed. You should use the enum RotationStyle for setting this value.\n\nThere are three options for you to choose. All around means the sprite can face any of the 360 degrees. It is the default. Left-right means the sprite can only face left or right, and any other directions are rounded. The sprite will also be horizontally flipped when facing left in the left-right style. Don't rotate means that the sprite always faces as in 0°.",
+  "syntax": [".setRotationStyle(style)"],
+  "returns": "void",
+  "examples": [
+    { "src": "SpriteSetRotationStyle.java", "preview": "SpriteSetRotationStyle.gif", "lines": "reg:[Rr]ecorder" }
+  ],
+  "parameters": [
+    {
+      "name": "style",
+      "description": "Sets the rotation style.",
+      "type": "RotationStyle"
+    }
+  ]
+}

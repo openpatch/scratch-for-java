@@ -1,0 +1,20 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "change y by ()",
+  "name": "changeY()",
+  "class": "Sprite",
+  "description": "Change the y position by a given amount.",
+  "syntax": [".changeY(amount)"],
+  "returns": "void",
+  "examples": [
+    { "src": "SpriteChangeY.java", "preview": "SpriteChangeY.gif", "lines": "reg:[Rr]ecorder" }
+  ],
+  "parameters": [
+    {
+      "name": "amount",
+      "description": "Changes the y position by the amount.",
+      "type": "float"
+    }
+  ]
+}

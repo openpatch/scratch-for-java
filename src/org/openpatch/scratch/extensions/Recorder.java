@@ -2,34 +2,29 @@ package org.openpatch.scratch.extensions;
 
 import org.openpatch.scratch.Stage;
 
-import java.nio.file.Paths;
+public abstract class Recorder {
+    protected String path;
+    protected boolean recording;
 
-public class Recorder {
-
-    private String outputFolder;
-    private String filePattern;
-    private boolean recording;
-
-    public Recorder(String outputFolder) {
-        this.outputFolder = outputFolder;
-        this.recording = false;
-
+    public Recorder(String path, String ext) {
+        if (!path.endsWith(ext)) {
+            path += ext;
+        }
+        this.path = path;
         Stage.parent.registerMethod("post", this);
     }
 
     public void post() {
         if (this.recording) {
-            Stage.parent.saveFrame(Paths.get(this.outputFolder, this.filePattern).toString());
+            this.saveFrame();
         }
     }
 
-    public void start(String filePattern) {
-        this.recording = true;
-        this.filePattern = filePattern;
-    }
+    public abstract void saveFrame();
 
-    public void snapshot(String filename) {
-        Stage.parent.save(Paths.get(this.outputFolder, filename).toString());
+    public void start() {
+        this.recording = true;
+        // wait for last frame to draw before starting
     }
 
     public void stop() {

@@ -253,6 +253,21 @@ public class Stage {
     }
 
     /**
+     * Switch to the previous backdrop.
+     */
+    public void previousBackdrop() {
+        this.currentBackdrop = (this.currentBackdrop - 1) % backdrops.size();
+    }
+
+    /**
+     * Switch to a random backdrop.
+     */
+    public void randomBackdrop() {
+        int size = this.backdrops.size();
+        this.currentBackdrop = this.pickRandom(0, size - 1) % size;
+    }
+
+    /**
      * Returns the current backdrop name
      *
      * @return a backdrop name
@@ -359,6 +374,10 @@ public class Stage {
      */
     public void setColor(float r, float g, float b) {
         this.color.setRGB(r, g, b);
+    }
+
+    public void setColor(Color c) {
+        this.color = c;
     }
 
     /**
