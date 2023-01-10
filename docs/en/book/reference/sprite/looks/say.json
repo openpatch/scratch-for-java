@@ -1,0 +1,23 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "say [Hi!]\nsay [Hi!] for (5) seconds",
+  "name": "say()",
+  "class": "Sprite",
+  "description": "A speech bubble appears over the sprite and will only go away if the sprite says or thinks something else.",
+  "syntax": [".say(text)", ".say(text, milliseconds)"],
+  "returns": "void",
+  "examples": [{ "src": "SpriteSay.java", "preview": "SpriteSay.gif" }],
+  "parameters": [
+    {
+      "name": "text",
+      "description": "Text for the speech bubble.",
+      "type": "String"
+    },
+    {
+      "name": "milliseconds",
+      "description": "Time for the speech bubble to stay.",
+      "type": "int"
+    }
+  ]
+}

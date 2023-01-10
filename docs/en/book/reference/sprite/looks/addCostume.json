@@ -1,0 +1,51 @@
+{
+  "template": "method",
+  "related": [],
+  "name": "addCostume()",
+  "class": "Sprite",
+  "description": "Add a costume to the sprite. The costume can either be an image or a part of a spritesheet.",
+  "syntax": [
+    ".addCostume(name, filePath)",
+    ".addCostume(name, filePath, x, y, width, height)"
+  ],
+  "returns": "void",
+  "examples": [
+    {
+      "src": "SpriteAddCostume.java",
+      "preview": "SpriteAddCostume.gif",
+      "lines": "reg:[Rr]ecorder"
+    }
+  ],
+  "parameters": [
+    {
+      "name": "name",
+      "description": "Name of the costume",
+      "type": "String"
+    },
+    {
+      "name": "filePath",
+      "description": "Path to an image file.",
+      "type": "String"
+    },
+    {
+      "name": "x",
+      "description": "x-Coordinate in a Spritesheet.",
+      "type": "int"
+    },
+    {
+      "name": "y",
+      "description": "y-Coordinate in a Spritesheet.",
+      "type": "int"
+    },
+    {
+      "name": "width",
+      "description": "Width of the image at the x- and y-coordinate in the Spritesheet.",
+      "type": "int"
+    },
+    {
+      "name": "height",
+      "description": "Height of the image at the x- and y-coordinate in the Spritesheet.",
+      "type": "int"
+    }
+  ]
+}

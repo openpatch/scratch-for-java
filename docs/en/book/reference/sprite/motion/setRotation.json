@@ -1,0 +1,20 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "point in direction ()",
+  "name": "setRotation()",
+  "class": "Sprite",
+  "description": "Sets the rotation of the sprite.",
+  "syntax": [".setRotation(angle)"],
+  "returns": "void",
+  "examples": [
+    { "src": "SpriteSetRotation.java", "preview": "SpriteSetRotation.gif", "lines": "[Rr]ecorder" }
+  ],
+  "parameters": [
+    {
+      "name": "angle",
+      "description": "Rotation angle. Initial rotation is 0 and facing to the right.",
+      "type": "float"
+    }
+  ]
+}

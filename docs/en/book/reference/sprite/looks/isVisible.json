@@ -1,0 +1,19 @@
+{
+  "template": "method",
+  "related": [{
+    "name": "hide",
+    "href": "sprite/looks/hide"
+  }, {
+    "name": "show",
+    "href": "sprite/looks/show"
+  }],
+  "scratchblock": "(visible)",
+  "name": "isVisible()",
+  "class": "Sprite",
+  "description": "Returns false if the sprite is hidden.",
+  "syntax": [".isVisible()"],
+  "returns": "boolean",
+  "examples": [
+    { "src": "SpriteIsVisible.java", "preview": "SpriteIsVisible.gif" }
+  ]
+}

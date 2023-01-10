@@ -1,0 +1,13 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "(width)",
+  "name": "getWidth()",
+  "class": "Sprite",
+  "description": "Get the width of the spripte.",
+  "syntax": [".getWidth()"],
+  "returns": "float",
+  "examples": [
+    { "src": "SpriteGetWidth.java", "preview": "SpriteGetWidth.gif" }
+  ]
+}

@@ -1,17 +1,17 @@
 package org.openpatch.scratch;
 
 public class Timer {
-    private int nextFrameEvery;
-    private int nextFrameFor;
-    private int nextFrameAfter;
-    private int nextFrameInterval;
+    private int startFrameEvery;
+    private int startFrameFor;
+    private int startFrameAfter;
+    private int startFrameInterval;
     private int currentInterval;
 
     public Timer() {
-        this.nextFrameEvery = -1;
-        this.nextFrameFor = -1;
-        this.nextFrameAfter = -1;
-        this.nextFrameInterval = -1;
+        this.startFrameEvery = -1;
+        this.startFrameFor = -1;
+        this.startFrameAfter = -1;
+        this.startFrameInterval = -1;
         this.currentInterval = 0;
     }
 
@@ -21,11 +21,11 @@ public class Timer {
 
     public boolean everyMillis(int millis) {
         int frameSkip = this.getFrameFromMillis(millis);
-        if (nextFrameEvery < 0) {
-            nextFrameEvery = Stage.parent.frameCount + frameSkip;
+        if (startFrameEvery < 0) {
+            startFrameEvery = Stage.parent.frameCount;
         }
-        if (Stage.parent.frameCount >= nextFrameEvery) {
-            nextFrameEvery = Stage.parent.frameCount + frameSkip;
+        if (Stage.parent.frameCount >= startFrameEvery + frameSkip) {
+            startFrameEvery = Stage.parent.frameCount;
             return true;
         }
         return false;
@@ -33,18 +33,18 @@ public class Timer {
 
     public boolean forMillis(int millis) {
         int frameDuration = this.getFrameFromMillis(millis);
-        if (nextFrameFor < 0) {
-            nextFrameFor = Stage.parent.frameCount + frameDuration;
+        if (startFrameFor < 0) {
+            startFrameFor = Stage.parent.frameCount;
         }
-        return Stage.parent.frameCount < nextFrameFor;
+        return Stage.parent.frameCount < startFrameFor + frameDuration;
     }
 
     public boolean afterMillis(int millis) {
         int frameDuration = this.getFrameFromMillis(millis);
-        if (nextFrameAfter < 0) {
-            nextFrameAfter = Stage.parent.frameCount + frameDuration;
+        if (startFrameAfter < 0) {
+            startFrameAfter = Stage.parent.frameCount;
         }
-        return Stage.parent.frameCount >= nextFrameAfter;
+        return Stage.parent.frameCount >= startFrameAfter + frameDuration;
     }
 
     public boolean intervalMillis(int millis) {
@@ -63,23 +63,24 @@ public class Timer {
         int frameDuration1 = this.getFrameFromMillis(milli1);
         int frameDuration2 = this.getFrameFromMillis(millis2);
 
-        if (skipFirst && nextFrameInterval < 0) {
-            nextFrameInterval = Stage.parent.frameCount + frameDuration1;
-        } else if (!skipFirst && nextFrameInterval < 0) {
-            currentInterval = 1;
-            nextFrameInterval = Stage.parent.frameCount + frameDuration2;
+        if (startFrameInterval < 0) {
+            startFrameInterval = Stage.parent.frameCount;
         }
-        if (currentInterval == 0 && Stage.parent.frameCount < nextFrameInterval) {
+        if (skipFirst) {
+            currentInterval = 1;
+        }
+
+        if (currentInterval == 0 && Stage.parent.frameCount < startFrameInterval + frameDuration1) {
             return true;
         } else if (currentInterval == 0) {
             currentInterval = 1;
-            nextFrameInterval = Stage.parent.frameCount + frameDuration2;
+            startFrameInterval = Stage.parent.frameCount;
             return false;
-        } else if (currentInterval == 1 && Stage.parent.frameCount < nextFrameInterval) {
+        } else if (currentInterval == 1 && Stage.parent.frameCount < startFrameInterval + frameDuration2) {
             return false;
         } else {
             currentInterval = 0;
-            nextFrameInterval = Stage.parent.frameCount + frameDuration1;
+            startFrameInterval = Stage.parent.frameCount;
             return true;
         }
     }

@@ -311,6 +311,14 @@ public class Sprite implements Drawable {
     }
 
     /**
+     * 
+     * @param amount
+     */
+    public void changeSize(float amount) {
+        this.size += amount;
+    }
+
+    /**
      * Sets if the sprite should bounce when hitting the edge of the screen.
      *
      * @param b
