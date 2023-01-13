@@ -11,14 +11,14 @@ name: {{ name }}
 
 {{#each examples}}
 {{#if preview}}
-![]({{ base64 (concat "../../examples/java/" preview) }})
+![]({{ rbase64 (concat "/examples/java/" preview) }})
 {{/if}}
 
 ```java
 {{#if lines}}
-{{{ file (concat "../../examples/java/" src) lines "" }}}
+{{{ rfile (concat "/examples/java/" src) lines "" }}}
 {{else}}
-{{{ file (concat "../../examples/java/" src) }}}
+{{{ rfile (concat "/examples/java/" src) }}}
 {{/if}}
 ```
 
