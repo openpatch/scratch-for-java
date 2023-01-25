@@ -1,0 +1,20 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "(time [name v])",
+  "name": "getTimer()",
+  "class": "Sprite",
+  "description": "Returns the default timer or a timer with the given name.",
+  "syntax": [".getTimer()", ".getTimer(name)"],
+  "returns": "Timer",
+  "examples": [
+    { "src": "SpriteGetTimer.java", "preview": "SpriteGetTimer.gif", "lines": "reg:[Rr]ecorder" }
+  ],
+  "parameters": [
+    {
+      "name": "name",
+      "description": "The name of the timer",
+      "type": "String"
+    }
+  ]
+}

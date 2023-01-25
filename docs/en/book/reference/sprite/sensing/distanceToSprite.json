@@ -1,0 +1,20 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "distance to [sprite v]?",
+  "name": "distanceToSprite()",
+  "class": "Sprite",
+  "description": "Returns the distance to the other sprite.",
+  "syntax": [".distanceToSprite(sprite)"],
+  "returns": "float",
+  "examples": [
+    { "src": "SpriteDistanceToSprite.java", "preview": "SpriteDistanceToSprite.gif", "lines": "reg:[Rr]ecorder" }
+  ],
+  "parameters": [
+    {
+      "name": "sprite",
+      "description": "A reference to a sprite.",
+      "type": "Sprite"
+    }
+  ]
+}

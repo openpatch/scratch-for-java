@@ -1,0 +1,13 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "(direction)",
+  "name": "getDirection()",
+  "class": "Sprite",
+  "description": "Get the direction of the sprite.",
+  "syntax": [".getDirection()"],
+  "returns": "float",
+  "examples": [
+    { "src": "SpriteGetDirection.java", "preview": "SpriteGetDirection.gif", "lines": "reg:[Rr]ecorder" }
+  ]
+}

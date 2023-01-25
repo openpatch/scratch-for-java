@@ -1,0 +1,14 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "current [month v]",
+  "name": "getCurrentMonth()",
+  "class": "Sprite",
+  "description": "Returns the current month.",
+  "syntax": [".getCurrentMonth()"],
+  "returns": "int",
+  "examples": [
+    { "src": "SpriteGetCurrentTime.java", "preview": "SpriteGetCurrentTime.gif", "lines": "reg:[Rr]ecorder" }
+  ]
+}
+

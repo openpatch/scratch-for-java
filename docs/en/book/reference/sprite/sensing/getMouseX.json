@@ -1,0 +1,14 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "(mouse x)",
+  "name": "getMouseX()",
+  "class": "Sprite",
+  "description": "Returns x coordinate of the mouse.",
+  "syntax": [".getMouseX()"],
+  "returns": "float",
+  "examples": [
+    { "src": "SpriteGetMouseX.java", "preview": "SpriteGetMouseX.gif", "lines": "reg:[Rr]ecorder" }
+  ]
+}
+

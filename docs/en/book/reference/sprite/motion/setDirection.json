@@ -1,0 +1,20 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "point in direction ()",
+  "name": "setDirection()",
+  "class": "Sprite",
+  "description": "Sets the direction of the sprite.",
+  "syntax": [".setDirection(angle)"],
+  "returns": "void",
+  "examples": [
+    { "src": "SpriteSetDirection.java", "preview": "SpriteSetDirection.gif", "lines": "[Rr]ecorder" }
+  ],
+  "parameters": [
+    {
+      "name": "angle",
+      "description": "Direction angle. Initial direction is 0 and facing to the right.",
+      "type": "float"
+    }
+  ]
+}

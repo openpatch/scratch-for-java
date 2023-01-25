@@ -1,0 +1,13 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "mouse down?",
+  "name": "isMouseDown()",
+  "class": "Sprite",
+  "description": "Returns true if the left mouse button is down.",
+  "syntax": [".isMousePressed()"],
+  "returns": "boolean",
+  "examples": [
+    { "src": "SpriteIsMousePressed.java", "preview": "SpriteIsMousePressed.gif", "lines": "reg:[Rr]ecorder" }
+  ]
+}
