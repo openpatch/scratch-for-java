@@ -10,6 +10,11 @@ public class Hitbox {
     private final Polygon originalPolygon;
     private Polygon polygon;
 
+    public Hitbox(Polygon polygon) {
+        this.originalPolygon = polygon;
+        this.polygon = new Polygon(polygon.xpoints, polygon.ypoints, polygon.npoints);
+    }
+
     public Hitbox(int[] xPoints, int[] yPoints) {
         this.originalPolygon = new Polygon(xPoints, yPoints, xPoints.length);
         this.polygon = new Polygon(xPoints, yPoints, xPoints.length);

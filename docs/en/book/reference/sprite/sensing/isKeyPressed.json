@@ -1,0 +1,20 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "key [space v] pressed?",
+  "name": "isKeyPressed()",
+  "class": "Sprite",
+  "description": "Returns true if the passed key is pressed.",
+  "syntax": [".isKeyPressed(keyCode)"],
+  "returns": "boolean",
+  "examples": [
+    { "src": "SpriteIsKeyPressed.java", "preview": "SpriteIsKeyPressed.gif", "lines": "reg:[Rr]ecorder" }
+  ],
+  "parameters": [
+    {
+      "name": "keyCode",
+      "description": "A key code. You can use the enum KeyCode. For example KeyCode.VK_SPACE.",
+      "type": "int"
+    }
+  ]
+}
