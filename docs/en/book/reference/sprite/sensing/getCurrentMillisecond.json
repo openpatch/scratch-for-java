@@ -1,0 +1,13 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "current [millisecond v]",
+  "name": "getCurrentMillisecond()",
+  "class": "Sprite",
+  "description": "Returns the current millisecond.",
+  "syntax": [".getCurrentMillisecond()"],
+  "returns": "int",
+  "examples": [
+    { "src": "SpriteGetCurrentTime.java", "preview": "SpriteGetCurrentTime.gif", "lines": "reg:[Rr]ecorder" }
+  ]
+}

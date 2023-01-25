@@ -1,0 +1,13 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "(hitbox)",
+  "name": "getHitbox()",
+  "class": "Sprite",
+  "description": "Returns the hitbox of the sprite.",
+  "syntax": [".getHitbox()"],
+  "returns": "Hitbox",
+  "examples": [
+    { "src": "SpriteGetHitbox.java", "preview": "SpriteGetHitbox.gif", "lines": "reg:[Rr]ecorder" }
+  ]
+}

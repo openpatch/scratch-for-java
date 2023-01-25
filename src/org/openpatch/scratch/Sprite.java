@@ -15,7 +15,7 @@ public class Sprite implements Drawable {
     private boolean show = true;
     private float size = 100;
     private boolean onEdgeBounce = false;
-    private float rotation = 0;
+    private float direction = 0;
     private RotationStyle rotationStyle = RotationStyle.ALL_AROUND;
     private float x = 0;
     private float y = 0;
@@ -61,7 +61,7 @@ public class Sprite implements Drawable {
         this.show = s.show;
         this.size = s.size;
         this.onEdgeBounce = s.onEdgeBounce;
-        this.rotation = s.rotation;
+        this.direction = s.direction;
         this.x = s.x;
         this.y = s.y;
         this.timer = new ConcurrentHashMap<>();
@@ -306,6 +306,7 @@ public class Sprite implements Drawable {
     public void setSize(float percentage) {
         this.size = percentage;
     }
+
     public void setSize(double percentage) {
         this.setSize((float) percentage);
     }
@@ -357,7 +358,7 @@ public class Sprite implements Drawable {
      * @param degrees
      */
     public void turnLeft(float degrees) {
-        this.setRotation(this.rotation - degrees);
+        this.setDirection(this.direction - degrees);
     }
 
     /**
@@ -366,29 +367,29 @@ public class Sprite implements Drawable {
      * @param degrees
      */
     public void turnRight(float degrees) {
-        this.setRotation(this.rotation + degrees);
+        this.setDirection(this.direction + degrees);
     }
 
     /**
-     * Sets the rotation of the sprite to a given degrees. When this value is 0 the
+     * Sets the direction of the sprite to a given degrees. When this value is 0 the
      * sprite move right, when it is 180 is moves to the left.
      *
      * @param degrees
      */
-    public void setRotation(float degrees) {
-        this.rotation = degrees;
-        if (this.rotation < 0) {
-            this.rotation += 360;
+    public void setDirection(float degrees) {
+        this.direction = degrees;
+        if (this.direction < 0) {
+            this.direction += 360;
         }
     }
 
     /**
-     * Returns the rotation of the sprite.
+     * Returns the direction of the sprite.
      *
-     * @return the rotation [0...360]
+     * @return the direction [0...360]
      */
-    public float getRotation() {
-        return this.rotation;
+    public float getDirection() {
+        return this.direction;
     }
 
     /**
@@ -409,8 +410,8 @@ public class Sprite implements Drawable {
         PApplet parent = Stage.parent;
 
         // convert degrees to radians
-        float newX = steps * (float) Math.cos(this.rotation * Math.PI / 180) + this.x;
-        float newY = steps * (float) Math.sin(this.rotation * Math.PI / 180) + this.y;
+        float newX = steps * (float) Math.cos(this.direction * Math.PI / 180) + this.x;
+        float newY = steps * (float) Math.sin(this.direction * Math.PI / 180) + this.y;
 
         Image currentCostume = null;
         if (this.costumes.size() > 0) {
@@ -422,12 +423,12 @@ public class Sprite implements Drawable {
         if (this.onEdgeBounce) {
             float spriteWidth = this.show ? costumeWidth : this.pen.getSize();
             if (newX > parent.width - spriteWidth / 2 || newX < spriteWidth / 2) {
-                this.setRotation(this.calculateAngleOfReflection(this.rotation, false));
+                this.setDirection(this.calculateAngleOfReflection(this.direction, false));
             }
 
             float spriteHeight = this.show ? costumeHeight : this.pen.getSize();
             if (newY > parent.height - spriteHeight / 2 || newY < spriteHeight / 2) {
-                this.setRotation(this.calculateAngleOfReflection(this.rotation, true));
+                this.setDirection(this.calculateAngleOfReflection(this.direction, true));
             }
         }
 
@@ -625,7 +626,7 @@ public class Sprite implements Drawable {
         float bottomRightCornerX = x + getWidth() / 2.0f;
         float bottomRightCornerY = y + getHeight() / 2.0f;
 
-        float[] mouse = Stage.rotateXY(getMouseX(), getMouseY(), x, y, -rotation);
+        float[] mouse = Stage.rotateXY(getMouseX(), getMouseY(), x, y, -direction);
 
         boolean touching = mouse[0] > topLeftCornerX && mouse[1] > topLeftCornerY && mouse[0] < bottomRightCornerX
                 && mouse[1] < bottomRightCornerY;
@@ -655,10 +656,10 @@ public class Sprite implements Drawable {
         float spriteWidth = this.show ? costumeWidth : this.pen.getSize();
         float spriteHeight = this.show ? costumeHeight : this.pen.getSize();
 
-        float[] cornerTopLeft = Stage.rotateXY(x - spriteWidth / 2.0f, y - spriteHeight / 2.0f, x, y, rotation);
-        float[] cornerTopRight = Stage.rotateXY(x + spriteWidth / 2.0f, y - spriteHeight / 2.0f, x, y, rotation);
-        float[] cornerBottomLeft = Stage.rotateXY(x - spriteWidth / 2.0f, y + spriteHeight / 2.0f, x, y, rotation);
-        float[] cornerBottomRight = Stage.rotateXY(x + spriteWidth / 2.0f, y + spriteHeight / 2.0f, x, y, rotation);
+        float[] cornerTopLeft = Stage.rotateXY(x - spriteWidth / 2.0f, y - spriteHeight / 2.0f, x, y, direction);
+        float[] cornerTopRight = Stage.rotateXY(x + spriteWidth / 2.0f, y - spriteHeight / 2.0f, x, y, direction);
+        float[] cornerBottomLeft = Stage.rotateXY(x - spriteWidth / 2.0f, y + spriteHeight / 2.0f, x, y, direction);
+        float[] cornerBottomRight = Stage.rotateXY(x + spriteWidth / 2.0f, y + spriteHeight / 2.0f, x, y, direction);
 
         float[][] corners = { cornerTopLeft, cornerTopRight, cornerBottomLeft, cornerBottomRight };
 
@@ -678,8 +679,28 @@ public class Sprite implements Drawable {
 
     }
 
+    public float distanceToMousePointer() {
+        float x2 = this.getMouseX();
+        float y2 = this.getMouseY();
+        float x1 = this.getX();
+        float y1 = this.getY();
+        return (float) Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
+    }
+
+    public float distanceToSprite(Sprite sprite) {
+        float x2 = sprite.getX();
+        float y2 = sprite.getY();
+        float x1 = this.getX();
+        float y1 = this.getY();
+        return (float) Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
+    }
+
     public void setHitbox(int[] xPoints, int[] yPoints) {
         this.hitbox = new Hitbox(xPoints, yPoints);
+    }
+
+    public void setHitbox(Hitbox hitbox) {
+        this.hitbox = hitbox;
     }
 
     public Hitbox getHitbox() {
@@ -693,15 +714,15 @@ public class Sprite implements Drawable {
         float spriteHeight = this.show ? costumeHeight : this.pen.getSize();
 
         if (this.hitbox != null) {
-            this.hitbox.translateAndRotateAndResize(rotation, x, y, x - spriteWidth / 2.0f, y - spriteHeight / 2.0f,
+            this.hitbox.translateAndRotateAndResize(direction, x, y, x - spriteWidth / 2.0f, y - spriteHeight / 2.0f,
                     size);
             return this.hitbox;
         }
 
-        float[] cornerTopLeft = Stage.rotateXY(x - spriteWidth / 2.0f, y - spriteHeight / 2.0f, x, y, rotation);
-        float[] cornerTopRight = Stage.rotateXY(x + spriteWidth / 2.0f, y - spriteHeight / 2.0f, x, y, rotation);
-        float[] cornerBottomLeft = Stage.rotateXY(x - spriteWidth / 2.0f, y + spriteHeight / 2.0f, x, y, rotation);
-        float[] cornerBottomRight = Stage.rotateXY(x + spriteWidth / 2.0f, y + spriteHeight / 2.0f, x, y, rotation);
+        float[] cornerTopLeft = Stage.rotateXY(x - spriteWidth / 2.0f, y - spriteHeight / 2.0f, x, y, direction);
+        float[] cornerTopRight = Stage.rotateXY(x + spriteWidth / 2.0f, y - spriteHeight / 2.0f, x, y, direction);
+        float[] cornerBottomLeft = Stage.rotateXY(x - spriteWidth / 2.0f, y + spriteHeight / 2.0f, x, y, direction);
+        float[] cornerBottomRight = Stage.rotateXY(x + spriteWidth / 2.0f, y + spriteHeight / 2.0f, x, y, direction);
 
         int[] xPoints = new int[4];
         int[] yPoints = new int[4];
@@ -896,7 +917,7 @@ public class Sprite implements Drawable {
     public void draw() {
         this.pen.draw();
         if (costumes.size() > 0 && this.show) {
-            this.costumes.get(this.currentCostume).draw(this.size, this.rotation, this.x, this.y, this.rotationStyle);
+            this.costumes.get(this.currentCostume).draw(this.size, this.direction, this.x, this.y, this.rotationStyle);
         }
 
         if (Stage.getInstance().isDebug()) {

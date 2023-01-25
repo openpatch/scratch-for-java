@@ -1,0 +1,17 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "current [year v]",
+  "name": "getCurrentYear()",
+  "class": "Sprite",
+  "description": "Returns the current year.",
+  "syntax": [".getCurrentYear()"],
+  "returns": "int",
+  "examples": [
+    {
+      "src": "SpriteGetCurrentTime.java",
+      "preview": "SpriteGetCurrentTime.gif",
+      "lines": "reg:[Rr]ecorder"
+    }
+  ]
+}
