@@ -172,7 +172,7 @@ public class Image implements Drawable {
      * Draw the scaled image at a given position.
      *
      * @param size    a percentage value
-     * @param degrees rotate
+     * @param degrees direction 
      * @param x       a x coordinate
      * @param y       a y coordinate
      */
@@ -208,7 +208,7 @@ public class Image implements Drawable {
         if (Stage.getInstance().isDebug()) {
             parent.fill(Stage.DEBUG_COLOR[0], Stage.DEBUG_COLOR[1], Stage.DEBUG_COLOR[1]);
             parent.textAlign(PConstants.CENTER);
-            parent.text("Rotation: " + degrees, 0, -newHeight / 2.0f - 10);
+            parent.text("Direction: " + degrees, 0, -newHeight / 2.0f - 10);
             parent.text("(" + x + ", " + y + ")", 0, 0);
         }
         parent.popMatrix();

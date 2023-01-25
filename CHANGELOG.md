@@ -1,5 +1,6 @@
-## 2.2.0
+## 3.0.0
 
+Scratch for Java will from now on focus on being a standalone library. Even though it can be used in processing.
 
 ## 2.1.0
 

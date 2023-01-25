@@ -1,0 +1,14 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "current [day of week v]",
+  "name": "getCurrentDayOfWeek()",
+  "class": "Sprite",
+  "description": "Returns the current day of the week.",
+  "syntax": [".getCurrentDayOfWeek()"],
+  "returns": "int",
+  "examples": [
+    { "src": "SpriteGetCurrentTime.java", "preview": "SpriteGetCurrentTime.gif", "lines": "reg:[Rr]ecorder" }
+  ]
+}
+

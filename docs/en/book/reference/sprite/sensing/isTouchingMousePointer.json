@@ -1,0 +1,13 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "touching [mouse-pointer v]?",
+  "name": "isTouchingMousePointer()",
+  "class": "Sprite",
+  "description": "Returns true if the sprite is touched by the mouse pointer.",
+  "syntax": [".isTouchingMousePointer()"],
+  "returns": "boolean",
+  "examples": [
+    { "src": "SpriteIsTouchingMousePointer.java", "preview": "SpriteIsTouchingMousePointer.gif", "lines": "reg:[Rr]ecorder" }
+  ]
+}

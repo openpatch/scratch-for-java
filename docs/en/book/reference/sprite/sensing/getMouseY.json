@@ -1,0 +1,13 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "(mouse y)",
+  "name": "getMouseY()",
+  "class": "Sprite",
+  "description": "Returns y coordinate of the mouse.",
+  "syntax": [".getMouseY()"],
+  "returns": "float",
+  "examples": [
+    { "src": "SpriteGetMouseY.java", "preview": "SpriteGetMouseY.gif", "lines": "reg:[Rr]ecorder" }
+  ]
+}

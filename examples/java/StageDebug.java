@@ -10,7 +10,7 @@ public class StageDebug {
         GifRecorder recorder = new GifRecorder("" + this.getClass().getName() + ".gif");
         recorder.start();
         bee.addAnimation("idle", "assets/bee_idle.png", 6, 36, 34);
-        bee.setRotation(45);
+        bee.setDirection(45);
         myStage.add(bee);
         myStage.wait(2000);
         recorder.stop();

@@ -1,5 +1,3 @@
-import javax.sound.midi.SysexMessage;
-
 import org.openpatch.scratch.Stage;
 import org.openpatch.scratch.extensions.GifRecorder;
 
