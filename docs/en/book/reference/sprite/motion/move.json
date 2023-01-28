@@ -5,15 +5,15 @@
   "name": "move()",
   "class": "Sprite",
   "description": "Change the tint by a given amount.",
-  "syntax": [".changeTint(amount)"],
+  "syntax": [".move(steps)"],
   "returns": "void",
   "examples": [
-    { "src": "SpriteChangeTint.java", "preview": "SpriteChangeTint.gif" }
+    { "src": "SpriteMove.java", "preview": "SpriteMove.gif" }
   ],
   "parameters": [
     {
-      "name": "amount",
-      "description": "Changes the tint by the amount.",
+      "name": "steps",
+      "description": "Steps to move in the current direction.",
       "type": "float"
     }
   ]
