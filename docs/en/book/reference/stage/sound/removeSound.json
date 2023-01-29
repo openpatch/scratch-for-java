@@ -1,0 +1,20 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "remove sound (name)",
+  "name": "removeSound()",
+  "class": "Stage",
+  "description": "Removes a sound.",
+  "syntax": [".removeSound(name)"],
+  "returns": "void",
+  "examples": [
+    { "src": "StageRemoveSound.java", "preview": "StageRemoveSound.gif", "lines": "reg:[Rr]ecorder"}
+  ],
+  "parameters": [
+    {
+      "name": "name",
+      "description": "The name of the sound to remove",
+      "type": "String"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "(mouse y)",
+  "name": "getMouseY()",
+  "class": "Stage",
+  "description": "Returns y coordinate of the mouse.",
+  "syntax": [".getMouseY()"],
+  "returns": "float",
+  "examples": [
+    { "src": "StageGetMouse.java", "preview": "StageGetMouse.gif", "lines": "reg:[Rr]ecorder" }
+  ]
+}

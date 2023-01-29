@@ -8,7 +8,10 @@
   "syntax": [".nextCostume()"],
   "returns": "void",
   "examples": [
-    { "src": "SpriteNextCostume.java", "preview": "SpriteNextCostume.gif" }
+    {
+      "src": "SpriteNextCostume.java",
+      "preview": "SpriteNextCostume.gif",
+      "lines": "reg:[Rr]ecorder"
+    }
   ]
 }
-

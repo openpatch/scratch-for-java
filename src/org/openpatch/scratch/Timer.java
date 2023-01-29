@@ -65,9 +65,9 @@ public class Timer {
 
         if (startFrameInterval < 0) {
             startFrameInterval = Stage.parent.frameCount;
-        }
-        if (skipFirst) {
-            currentInterval = 1;
+            if (skipFirst) {
+                startFrameInterval -= frameDuration1;
+            }
         }
 
         if (currentInterval == 0 && Stage.parent.frameCount < startFrameInterval + frameDuration1) {

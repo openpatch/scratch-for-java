@@ -4,10 +4,14 @@
   "scratchblock": "(width)",
   "name": "getWidth()",
   "class": "Sprite",
-  "description": "Get the width of the spripte.",
+  "description": "Get the width of the sprite.",
   "syntax": [".getWidth()"],
   "returns": "float",
   "examples": [
-    { "src": "SpriteGetWidth.java", "preview": "SpriteGetWidth.gif" }
+    {
+      "src": "SpriteGetWidth.java",
+      "preview": "SpriteGetWidth.gif",
+      "lines": "reg:[Rr]ecorder"
+    }
   ]
 }

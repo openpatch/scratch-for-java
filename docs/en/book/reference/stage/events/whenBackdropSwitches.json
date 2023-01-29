@@ -1,0 +1,25 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "when backdrop switches to [name v]",
+  "name": "whenBackdropSwitches()",
+  "class": "Stage",
+  "description": "This method is called when the backdrop of the stage switches. The method will receive the name of the new backdrop as a paramter.",
+  "syntax": ["void whenBackdropSwitches(name)"],
+  "returns": "void",
+  "examples": [
+    {
+      "src": "StageWhenBackdropSwitches.java",
+      "preview": "StageWhenBackdropSwitches.gif",
+      "lines": "reg:[Rr]ecorder"
+    }
+  ],
+  "parameters": [
+    {
+      "name": "name",
+      "description": "Name of the new backdrop",
+      "type": "String"
+    }
+  ]
+}
+

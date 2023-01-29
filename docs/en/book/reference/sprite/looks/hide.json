@@ -1,12 +1,15 @@
 {
   "template": "method",
-  "related": [{
-    "name": "isVisible",
-    "href": "sprite/looks/isVisible"
-  }, {
-    "name": "show",
-    "href": "sprite/looks/show"
-  }],
+  "related": [
+    {
+      "name": "isVisible",
+      "href": "sprite/looks/isVisible"
+    },
+    {
+      "name": "show",
+      "href": "sprite/looks/show"
+    }
+  ],
   "scratchblock": "hide",
   "name": "hide()",
   "class": "Sprite",
@@ -14,7 +17,10 @@
   "syntax": [".hide()"],
   "returns": "void",
   "examples": [
-    { "src": "SpriteHide.java", "preview": "SpriteHide.gif" }
+    {
+      "src": "SpriteHide.java",
+      "preview": "SpriteHide.gif",
+      "lines": "reg:[Rr]ecorder"
+    }
   ]
 }
-

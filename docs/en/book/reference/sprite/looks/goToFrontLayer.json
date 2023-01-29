@@ -1,0 +1,17 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "go to [back v] layer",
+  "name": "goToFrontLayer()",
+  "class": "Sprite",
+  "description": "Puts the sprite in the front.",
+  "syntax": [".goToFrontLayer()"],
+  "returns": "void",
+  "examples": [
+    {
+      "src": "SpriteGoToFrontLayer.java",
+      "preview": "SpriteGoToFrontLayer.gif",
+      "lines": "reg:[Rr]ecorder"
+    }
+  ]
+}
