@@ -11,18 +11,18 @@ name: {{ name }}
 
 {{#each examples}}
 {{#if preview}}
-![]({{ rbase64 (concat "/examples/java/" preview) }})
+![]({{ concat "/reference/" preview }})
 {{/if}}
 
 ```java
 {{#if lines}}
-{{{ rfile (concat "/examples/java/" src) lines "" }}}
+{{{ rfile (concat "/examples/reference/" src) lines "" }}}
 {{else}}
-{{{ rfile (concat "/examples/java/" src) }}}
+{{{ rfile (concat "/examples/reference" src) }}}
 {{/if}}
 ```
 
-[View on GitHub](https://github.com/openpatch/scratch-for-java/blob/main/examples/java/{{ src }})
+[View on GitHub](https://github.com/openpatch/scratch-for-java/blob/main/examples/reference/{{ src }})
 {{/each}}
 {{/if}}
 

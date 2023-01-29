@@ -4,10 +4,14 @@
   "scratchblock": "(height)",
   "name": "getHeight()",
   "class": "Sprite",
-  "description": "Get the height of the spripte.",
+  "description": "Get the height of the sprite.",
   "syntax": [".getHeight()"],
   "returns": "float",
   "examples": [
-    { "src": "SpriteGetHeight.java", "preview": "SpriteGetHeight.gif" }
+    {
+      "src": "SpriteGetHeight.java",
+      "preview": "SpriteGetHeight.gif",
+      "lines": "reg:[Rr]ecorder"
+    }
   ]
 }

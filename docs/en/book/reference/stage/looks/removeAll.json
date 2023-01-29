@@ -1,0 +1,20 @@
+{
+  "template": "method",
+  "related": [],
+  "name": "removeAll()",
+  "scratchblock": "remove all",
+  "class": "Stage",
+  "description": "Remove all drawables",
+  "syntax": [
+    ".removeAll()"
+  ],
+  "returns": "void",
+  "examples": [
+    {
+      "src": "StageRemoveAll.java",
+      "preview": "StageRemoveAll.gif",
+      "lines": "reg:[Rr]ecorder"
+    }
+  ]
+}
+

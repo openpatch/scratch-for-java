@@ -1,0 +1,32 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "interval () () <> millis :: boolean",
+  "name": "intervalMillis()",
+  "class": "Timer",
+  "description": "Returns true for the first interval and then false for the second interval. The starting interval can bechanged by passing a true as a third parameter.",
+  "syntax": [".intervalMillis(millis1)", ".intervalMillis(millis1, millis2)", ".intervalMillis(millis, true)", ".intervalMillis(millis1, millis2, true)"],
+  "returns": "boolean",
+  "examples": [
+    { "src": "TimerIntervalMillis.java", "preview": "TimerIntervalMillis.gif", "lines": "reg:[Rr]ecorder" },
+    { "src": "TimerIntervalMillis2.java", "preview": "TimerIntervalMillis2.gif", "lines": "reg:[Rr]ecorder" },
+    { "src": "TimerIntervalMillis3.java", "preview": "TimerIntervalMillis3.gif", "lines": "reg:[Rr]ecorder" }
+  ],
+  "parameters": [
+    {
+      "name": "millis1",
+      "description": "Time in milliseconds for the first interval",
+      "type": "boolean"
+    },
+    {
+      "name": "millis2",
+      "description": "Time in milliseconds for the seconds interval",
+      "type": "boolean"
+    },
+    {
+      "name": "skipFirst",
+      "description": "If true start with the second interval",
+      "type": "boolean"
+    }
+  ]
+}

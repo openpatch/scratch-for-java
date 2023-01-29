@@ -1,0 +1,39 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "set [tint v] effect to ()",
+  "name": "setTint()",
+  "class": "Stage",
+  "description": "Set the tint.",
+  "syntax": [".setTint(hue), .setTint(r,g,b)"],
+  "returns": "void",
+  "examples": [
+    {
+      "src": "StageSetTint.java",
+      "preview": "StageSetTint.gif",
+      "lines": "reg:[Rr]ecorder"
+    }
+  ],
+  "parameters": [
+    {
+      "name": "hue",
+      "description": "A hue value in the range of 0 ... 255",
+      "type": "float"
+    },
+    {
+      "name": "r",
+      "type": "int",
+      "description": "A red value in the range of 0 ... 255"
+    },
+    {
+      "name": "g",
+      "type": "int",
+      "description": "A green value in the range of 0 ... 255"
+    },
+    {
+      "name": "b",
+      "type": "int",
+      "description": "A blue value in the range of 0 ... 255"
+    }
+  ]
+}

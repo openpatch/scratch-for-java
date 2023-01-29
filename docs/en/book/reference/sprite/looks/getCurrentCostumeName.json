@@ -8,6 +8,10 @@
   "syntax": [".getCurrentCostumeName()"],
   "returns": "String",
   "examples": [
-    { "src": "SpriteGetCurrentCostumeName.java", "preview": "SpriteGetCurrentCostumeName.gif" }
+    {
+      "src": "SpriteGetCurrentCostumeName.java",
+      "preview": "SpriteGetCurrentCostumeName.gif",
+      "lines": "reg:[Rr]ecorder"
+    }
   ]
 }

@@ -1,0 +1,13 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "current [millisecond v]",
+  "name": "getCurrentMillisecond()",
+  "class": "Stage",
+  "description": "Returns the current millisecond.",
+  "syntax": [".getCurrentMillisecond()"],
+  "returns": "int",
+  "examples": [
+    { "src": "StageGetCurrentTime.java", "preview": "StageGetCurrentTime.gif", "lines": "reg:[Rr]ecorder" }
+  ]
+}

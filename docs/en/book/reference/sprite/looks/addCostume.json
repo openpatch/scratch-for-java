@@ -2,6 +2,7 @@
   "template": "method",
   "related": [],
   "name": "addCostume()",
+  "scratchblock": "add costume (name) (file path)",
   "class": "Sprite",
   "description": "Add a costume to the sprite. The costume can either be an image or a part of a spritesheet.",
   "syntax": [

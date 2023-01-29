@@ -1,0 +1,20 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "play sound (name) until done",
+  "name": "playSound()",
+  "class": "Sprite",
+  "description": "Plays a sound.",
+  "syntax": [".playSound(name)"],
+  "returns": "void",
+  "examples": [
+    { "src": "SpritePlaySound.java", "preview": "SpritePlaySound.gif", "lines": "reg:[Rr]ecorder"}
+  ],
+  "parameters": [
+    {
+      "name": "name",
+      "description": "The name of the sound to play",
+      "type": "String"
+    }
+  ]
+}

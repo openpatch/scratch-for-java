@@ -1,12 +1,15 @@
 {
   "template": "method",
-  "related": [{
-    "name": "hide",
-    "href": "sprite/looks/hide"
-  }, {
-    "name": "show",
-    "href": "sprite/looks/show"
-  }],
+  "related": [
+    {
+      "name": "hide",
+      "href": "sprite/looks/hide"
+    },
+    {
+      "name": "show",
+      "href": "sprite/looks/show"
+    }
+  ],
   "scratchblock": "(visible)",
   "name": "isVisible()",
   "class": "Sprite",
@@ -14,6 +17,10 @@
   "syntax": [".isVisible()"],
   "returns": "boolean",
   "examples": [
-    { "src": "SpriteIsVisible.java", "preview": "SpriteIsVisible.gif" }
+    {
+      "src": "SpriteIsVisible.java",
+      "preview": "SpriteIsVisible.gif",
+      "lines": "reg:[Rr]ecorder"
+    }
   ]
 }

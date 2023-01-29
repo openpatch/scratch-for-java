@@ -1,0 +1,17 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "backdrop [name v]",
+  "name": "getCurrentBackdropName()",
+  "class": "Stage",
+  "description": "Get the name of the current backdrop.",
+  "syntax": [".getCurrentCostumeName()"],
+  "returns": "String",
+  "examples": [
+    {
+      "src": "StageGetCurrentBackdropName.java",
+      "preview": "StageGetCurrentBackdropName.gif",
+      "lines": "reg:[Rr]ecorder"
+    }
+  ]
+}
