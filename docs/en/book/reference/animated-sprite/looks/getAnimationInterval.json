@@ -1,0 +1,17 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "(animation interval)",
+  "name": "getAnimationInterval()",
+  "class": "AnimatedSprite",
+  "description": "Gets the current animation interval.",
+  "syntax": [".getAnimationInterval()"],
+  "returns": "int",
+  "examples": [
+    {
+      "src": "AnimatedSpriteGetAnimationInterval.java",
+      "preview": "AnimatedSpriteGetAnimationInterval.gif",
+      "lines": "reg:[Rr]ecorder"
+    }
+  ]
+}

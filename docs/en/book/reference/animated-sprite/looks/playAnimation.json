@@ -1,0 +1,26 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "play animation (name) <once>",
+  "name": "playAnimation()",
+  "class": "AnimatedSprite",
+  "description": "Plays an animation.",
+  "syntax": [".playAnimation(name)", ".playAnimation(name, once)"],
+  "returns": "void",
+  "examples": [
+    { "src": "AnimatedSpritePlayAnimation.java", "preview": "AnimatedSpritePlayAnimation.gif", "lines": "reg:[Rr]ecorder"}
+  ],
+  "parameters": [
+    {
+      "name": "name",
+      "description": "The name of the animation to play",
+      "type": "String"
+    },
+    {
+      "name": "once",
+      "description": "If true plays the animation only once.",
+      "type": "boolean"
+    }
+  ]
+}
+

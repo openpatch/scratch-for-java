@@ -1,0 +1,17 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "reset animation",
+  "name": "resetAnimation()",
+  "class": "AnimatedSprite",
+  "description": "Resets an animation. This is useful for example, when an animation should only be played once, but maybe on a user interaction should play again.",
+  "syntax": [".resetAnimation()"],
+  "returns": "void",
+  "examples": [
+    {
+      "src": "AnimatedSpriteResetAnimation.java",
+      "preview": "AnimatedSpriteResetAnimation.gif",
+      "lines": "reg:[Rr]ecorder"
+    }
+  ]
+}

@@ -8,6 +8,10 @@ public class Timer {
     private int currentInterval;
 
     public Timer() {
+        this.reset();
+    }
+
+    public void reset() {
         this.startFrameEvery = -1;
         this.startFrameFor = -1;
         this.startFrameAfter = -1;

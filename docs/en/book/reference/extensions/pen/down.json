@@ -1,0 +1,17 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "pen down",
+  "name": "down()",
+  "class": "Pen",
+  "description": "Puts the pen down. Afterwards the pen can draw on the stage.",
+  "syntax": [".down()"],
+  "returns": "void",
+  "examples": [
+    {
+      "src": "PenDown.java",
+      "preview": "PenDown.gif",
+      "lines": "reg:[Rr]ecorder"
+    }
+  ]
+}

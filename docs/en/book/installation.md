@@ -1,5 +1,6 @@
 ---
 name: Installation
+index: 1
 ---
 
 # Installation

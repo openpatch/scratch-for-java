@@ -41,12 +41,28 @@ public class Stage {
         this(420, 360, false);
     }
 
+    public Stage(boolean debug) {
+        this(420, 360, debug);
+    }
+
+    public Stage(String renderer) {
+        this(420, 360, false, renderer);
+    }
+
     public Stage(int width, int height) {
         this(width, height, false);
     }
 
+    public Stage(int width, int height, String renderer) {
+        this(width, height, false, renderer);
+    }
+
     public Stage(int width, int height, boolean debug) {
-        Applet sa = new Applet(width, height);
+        this(width, height, debug, Renderer.JAVA2D);
+    }
+
+    public Stage(int width, int height, boolean debug, String renderer) {
+        Applet sa = new Applet(width, height, renderer);
         Stage.parent = sa;
         sa.runSketch();
 
@@ -132,9 +148,11 @@ public class Stage {
 
     public void goLayersBackwards(Drawable drawable, int number) {
         int index = drawables.indexOf(drawable);
-        if (index == -1) return;
-        int newIndex = index-number;
-        if (newIndex < 0) newIndex = 0;
+        if (index == -1)
+            return;
+        int newIndex = index - number;
+        if (newIndex < 0)
+            newIndex = 0;
         newIndex = Math.min(newIndex, drawables.size() - 1);
         drawables.remove(index);
         drawables.add(newIndex, drawable);
@@ -142,9 +160,11 @@ public class Stage {
 
     public void goLayersForwards(Drawable drawable, int number) {
         int index = drawables.indexOf(drawable);
-        if (index == -1) return;
-        int newIndex = index+number;
-        if (newIndex < 0) newIndex = 0;
+        if (index == -1)
+            return;
+        int newIndex = index + number;
+        if (newIndex < 0)
+            newIndex = 0;
         newIndex = Math.min(newIndex, drawables.size() - 1);
         drawables.remove(index);
         drawables.add(newIndex, drawable);
@@ -307,8 +327,10 @@ public class Stage {
      * Erases all lines on the pen layer.
      */
     public void eraseAll() {
-        this.penBuffer = parent.createGraphics(parent.width, parent.height, parent.sketchRenderer());
-        this.pre();
+        try {
+            this.penBuffer = parent.createGraphics(this.getWidth(), this.getHeight());
+        } catch (Exception e) {
+        }
     }
 
     /**
@@ -730,6 +752,10 @@ public class Stage {
      */
     public void setFrameRate(int frameRate) {
         parent.frameRate(frameRate);
+    }
+
+    public float getFrameRate() {
+        return parent.frameRate;
     }
 
     public void display(String text) {

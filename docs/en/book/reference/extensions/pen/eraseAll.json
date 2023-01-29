@@ -1,0 +1,17 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "erase all",
+  "name": "eraseAll()",
+  "class": "Pen",
+  "description": "Erases all drawings made by a pen.",
+  "syntax": [".eraseAll()"],
+  "returns": "void",
+  "examples": [
+    {
+      "src": "PenEraseAll.java",
+      "preview": "PenEraseAll.gif",
+      "lines": "reg:[Rr]ecorder"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "set pen size to (50) %",
+  "name": "setSize()",
+  "class": "Pen",
+  "description": "Sets the pen's size to the percentage.",
+  "syntax": [".setSize(percentage)"],
+  "returns": "void",
+  "examples": [
+    {
+      "src": "PenSetSize.java",
+      "preview": "PenSetSize.gif",
+      "lines": "reg:[Rr]ecorder"
+    }
+  ],
+  "parameters": [
+    {
+      "name": "percentage",
+      "description": "A value in percent.",
+      "type": "float"
+    }
+  ]
+}

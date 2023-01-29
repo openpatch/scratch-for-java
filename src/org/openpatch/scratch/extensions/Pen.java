@@ -10,8 +10,23 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.Iterator;
 
 public class Pen implements Drawable {
+    class Point {
+        float x;
+        float y;
+        Color color;
+        float opacity;
+        float size;
 
-    private Color color = new Color(0,0,0);
+        Point(float x, float y, Color color, float opacity, float size) {
+            this.x = x;
+            this.y = y;
+            this.color = new Color(color);
+            this.opacity = opacity;
+            this.size = size;
+        }
+    }
+
+    private Color color = new Color(0);
     private float transparency = 255;
     private float size = 1;
     private Stack<CopyOnWriteArrayList<Point>> pointsBuffer = new Stack<>();
@@ -109,6 +124,10 @@ public class Pen implements Drawable {
         this.transparency = transparency;
     }
 
+    public void changeTransparency(float step) {
+        this.setTransparency((this.transparency + step) % 255);
+    }
+
     /**
      * Set the position if the pen is down.
      * 
@@ -117,6 +136,9 @@ public class Pen implements Drawable {
      */
     public void setPosition(float x, float y) {
         if (this.down) {
+            if (this.pointsBuffer.empty()) {
+                this.pointsBuffer.add(new CopyOnWriteArrayList<>());
+            }
             this.pointsBuffer.get(this.pointsBuffer.size() - 1)
                     .add(new Point(x, y, this.color, this.transparency, this.size));
         }
@@ -140,6 +162,7 @@ public class Pen implements Drawable {
     }
 
     public void eraseAll() {
+        this.pointsBuffer.clear();
         Stage.getInstance().eraseAll();
     }
 
@@ -176,26 +199,10 @@ public class Pen implements Drawable {
                 }
                 previousPoint = point;
             }
-            if (!this.down || pointsBufferSize > 1) {
+            if (!this.down || pointsBufferSize > 0) {
                 pointsBufferIter.remove();
             }
         }
         buffer.endDraw();
-    }
-}
-
-class Point {
-    float x;
-    float y;
-    Color color;
-    float opacity;
-    float size;
-
-    Point(float x, float y, Color color, float opacity, float size) {
-        this.x = x;
-        this.y = y;
-        this.color = new Color(color);
-        this.opacity = opacity;
-        this.size = size;
     }
 }

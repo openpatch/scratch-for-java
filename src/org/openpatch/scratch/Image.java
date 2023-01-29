@@ -21,7 +21,7 @@ public class Image implements Drawable {
     /**
      * Construct a ScratchImage object by a name and a path to an image.
      *
-     * @param name      a name
+     * @param name a    a name
      * @param imagePath a path to an image
      */
     public Image(String name, String imagePath) {
