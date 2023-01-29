@@ -1,0 +1,18 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "run :: hat",
+  "name": "run()",
+  "class": "Stage",
+  "description": "This method is called every frame. This method has the some effect like a for ever loop in a when green flag clicked block.",
+  "syntax": ["void run()"],
+  "returns": "void",
+  "examples": [
+    {
+      "src": "StageRun.java",
+      "preview": "StageRun.gif",
+      "lines": "reg:[Rr]ecorder"
+    }
+  ]
+}
+

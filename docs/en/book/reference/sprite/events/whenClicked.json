@@ -1,0 +1,13 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "when this sprite clicked",
+  "name": "whenClicked()",
+  "class": "Sprite",
+  "description": "This method is called when the sprite is clicked.",
+  "syntax": ["void whenClicked()"],
+  "returns": "void",
+  "examples": [
+    { "src": "SpriteClicked.java", "preview": "SpriteWhenClicked.gif", "lines": "reg:[Rr]ecorder" }
+  ]
+}

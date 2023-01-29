@@ -7,7 +7,13 @@
   "description": "Sets the sprite's tint to the amount.",
   "syntax": [".setTint(hue)", ".setTint(r, g, b)"],
   "returns": "void",
-  "examples": [{ "src": "SpriteSetTint.java", "preview": "SpriteSetTint.gif" }],
+  "examples": [
+    {
+      "src": "SpriteSetTint.java",
+      "preview": "SpriteSetTint.gif",
+      "lines": "reg:[Rr]ecorder"
+    }
+  ],
   "parameters": [
     {
       "name": "hue",

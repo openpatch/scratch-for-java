@@ -1,0 +1,24 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "go [backwards v] () layer",
+  "name": "goLayersBackwards()",
+  "class": "Sprite",
+  "description": "Changes the sprite's layer by the amount.",
+  "syntax": [".goLayersBackwards(amount)"],
+  "returns": "void",
+  "examples": [
+    {
+      "src": "SpriteGoLayersBackwards.java",
+      "preview": "SpriteGoLayersBackwards.gif",
+      "lines": "reg:[Rr]ecorder"
+    }
+  ],
+  "parameters": [
+    {
+      "name": "amount",
+      "description": "Amout of layers to move backwards.",
+      "type": "int"
+    }
+  ]
+}

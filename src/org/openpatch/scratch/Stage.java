@@ -15,8 +15,6 @@ import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import java.util.Collections;
-
 /**
  * Represents the scratch stage. Only one object of this class can be created.
  */
@@ -132,28 +130,34 @@ public class Stage {
         drawables.add(drawable);
     }
 
-    /**
-     * Lower a sprite, text, pen or image.
-     *
-     * @param drawable
-     */
-    public void lower(Drawable drawable) {
+    public void goLayersBackwards(Drawable drawable, int number) {
         int index = drawables.indexOf(drawable);
-        if (index > 0) {
-            Collections.swap(drawables, index, index - 1);
-        }
+        if (index == -1) return;
+        int newIndex = index-number;
+        if (newIndex < 0) newIndex = 0;
+        newIndex = Math.min(newIndex, drawables.size() - 1);
+        drawables.remove(index);
+        drawables.add(newIndex, drawable);
     }
 
-    /**
-     * Rise a sprite, text, pen or image.
-     *
-     * @param drawable
-     */
-    public void raise(Drawable drawable) {
+    public void goLayersForwards(Drawable drawable, int number) {
         int index = drawables.indexOf(drawable);
-        if (index > -1 && index < drawables.size() - 1) {
-            Collections.swap(drawables, index + 1, index);
-        }
+        if (index == -1) return;
+        int newIndex = index+number;
+        if (newIndex < 0) newIndex = 0;
+        newIndex = Math.min(newIndex, drawables.size() - 1);
+        drawables.remove(index);
+        drawables.add(newIndex, drawable);
+    }
+
+    public void goToFrontLayer(Drawable drawable) {
+        drawables.remove(drawable);
+        drawables.add(drawable);
+    }
+
+    public void goToBackLayer(Drawable drawable) {
+        drawables.remove(drawable);
+        drawables.add(0, drawable);
     }
 
     public List<Drawable> getAll() {
@@ -233,16 +237,27 @@ public class Stage {
             Image backdrop = backdrops.get(i);
             if (backdrop.getName().equals(name)) {
                 this.currentBackdrop = i;
-
-                drawables.stream().forEach(d -> {
-                    if (d instanceof Sprite) {
-                        Sprite s = (Sprite) d;
-                        s.whenBackdropSwitches(name);
-                    }
-                });
+                this.emitBackdropSwitch();
                 return;
             }
         }
+    }
+
+    private void emitBackdropSwitch() {
+        Image backdrop = backdrops.get(this.currentBackdrop);
+        String name = backdrop.getName();
+        drawables.stream().forEach(d -> {
+            if (d instanceof Sprite) {
+                Sprite s = (Sprite) d;
+                s.whenBackdropSwitches(name);
+            }
+        });
+        this.whenBackdropSwitches(name);
+
+    }
+
+    public void whenBackdropSwitches(String name) {
+
     }
 
     /**
@@ -250,6 +265,7 @@ public class Stage {
      */
     public void nextBackdrop() {
         this.currentBackdrop = (this.currentBackdrop + 1) % backdrops.size();
+        this.emitBackdropSwitch();
     }
 
     /**
@@ -257,6 +273,7 @@ public class Stage {
      */
     public void previousBackdrop() {
         this.currentBackdrop = (this.currentBackdrop - 1) % backdrops.size();
+        this.emitBackdropSwitch();
     }
 
     /**
@@ -265,6 +282,7 @@ public class Stage {
     public void randomBackdrop() {
         int size = this.backdrops.size();
         this.currentBackdrop = this.pickRandom(0, size - 1) % size;
+        this.emitBackdropSwitch();
     }
 
     /**
@@ -389,6 +407,10 @@ public class Stage {
         this.color.changeColor(h);
     }
 
+    public void changeColor(double h) {
+        this.changeColor((float) h);
+    }
+
     /**
      * Sets the tint for the current backdrop with rgb.
      *
@@ -431,6 +453,7 @@ public class Stage {
     public void setTransparency(float transparency) {
         this.backdrops.get(this.currentBackdrop).setTransparency(transparency);
     }
+
     public void setTransparency(double transparency) {
         this.setTransparency((float) transparency);
     }
@@ -569,7 +592,8 @@ public class Stage {
         return mouseDown;
     }
 
-    public void whenKeyPressed(int keyCode) {}
+    public void whenKeyPressed(int keyCode) {
+    }
 
     public void keyEvent(KeyEvent e) {
         switch (e.getAction()) {

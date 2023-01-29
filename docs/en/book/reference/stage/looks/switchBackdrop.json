@@ -1,0 +1,24 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "switch backdrop to [ v]",
+  "name": "switchBackdrop()",
+  "class": "Stage",
+  "description": "Changes the stage's backdrop to the specified one.",
+  "syntax": [".switchBackdrop(name)"],
+  "returns": "void",
+  "examples": [
+    {
+      "src": "StageSwitchBackdrop.java",
+      "preview": "StageSwitchBackdrop.gif",
+      "lines": "reg:[Rr]ecorder"
+    }
+  ],
+  "parameters": [
+    {
+      "name": "name",
+      "description": "Name of the backdrop.",
+      "type": "String"
+    }
+  ]
+}

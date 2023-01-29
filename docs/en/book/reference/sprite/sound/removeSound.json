@@ -1,0 +1,20 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "remove sound (name)",
+  "name": "removeSound()",
+  "class": "Sprite",
+  "description": "Removes a sound.",
+  "syntax": [".removeSound(name)"],
+  "returns": "void",
+  "examples": [
+    { "src": "SpriteRemoveSound.java", "preview": "SpriteRemoveSound.gif", "lines": "reg:[Rr]ecorder"}
+  ],
+  "parameters": [
+    {
+      "name": "name",
+      "description": "The name of the sound to remove",
+      "type": "String"
+    }
+  ]
+}

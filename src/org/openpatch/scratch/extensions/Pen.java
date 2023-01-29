@@ -5,16 +5,16 @@ import org.openpatch.scratch.Drawable;
 import org.openpatch.scratch.Stage;
 import processing.core.PGraphics;
 
-import java.util.ArrayList;
 import java.util.Stack;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.Iterator;
 
 public class Pen implements Drawable {
 
-    private Color color = new Color(120);
-    private float opacity = 255;
+    private Color color = new Color(0,0,0);
+    private float transparency = 255;
     private float size = 1;
-    private Stack<ArrayList<Point>> pointsBuffer = new Stack<>();
+    private Stack<CopyOnWriteArrayList<Point>> pointsBuffer = new Stack<>();
     private boolean down = false;
 
     public Pen() {
@@ -28,9 +28,9 @@ public class Pen implements Drawable {
     public Pen(Pen p) {
         this.color = new Color(p.color);
         this.size = p.size;
-        this.opacity = p.opacity;
+        this.transparency = p.transparency;
         this.pointsBuffer = new Stack<>();
-        this.pointsBuffer.add(new ArrayList<>());
+        this.pointsBuffer.add(new CopyOnWriteArrayList<>());
         this.down = p.down;
     }
 
@@ -101,12 +101,12 @@ public class Pen implements Drawable {
     }
 
     /**
-     * Set the opacity
+     * Set the transparency
      * 
-     * @param opacity opacity of the pen
+     * @param transparency transparency of the pen
      */
-    public void setOpacity(float opacity) {
-        this.opacity = opacity;
+    public void setTransparency(float transparency) {
+        this.transparency = transparency;
     }
 
     /**
@@ -118,7 +118,7 @@ public class Pen implements Drawable {
     public void setPosition(float x, float y) {
         if (this.down) {
             this.pointsBuffer.get(this.pointsBuffer.size() - 1)
-                    .add(new Point(x, y, this.color, this.opacity, this.size));
+                    .add(new Point(x, y, this.color, this.transparency, this.size));
         }
     }
 
@@ -127,7 +127,7 @@ public class Pen implements Drawable {
      */
     public void down() {
         if (!this.down) {
-            this.pointsBuffer.add(new ArrayList<>());
+            this.pointsBuffer.add(new CopyOnWriteArrayList<>());
         }
         this.down = true;
     }
@@ -152,12 +152,12 @@ public class Pen implements Drawable {
         if (pointsBufferSize <= 0)
             return;
 
-        Iterator<ArrayList<Point>> pointsBufferIter = this.pointsBuffer.iterator();
+        Iterator<CopyOnWriteArrayList<Point>> pointsBufferIter = this.pointsBuffer.iterator();
 
         buffer.beginDraw();
 
         while (pointsBufferIter.hasNext()) {
-            ArrayList<Point> points = pointsBufferIter.next();
+            CopyOnWriteArrayList<Point> points = pointsBufferIter.next();
             Iterator<Point> pointsIter = points.iterator();
 
             Point previousPoint = null;

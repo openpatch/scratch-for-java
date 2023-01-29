@@ -8,7 +8,11 @@
   "syntax": [".changeTint(amount)"],
   "returns": "void",
   "examples": [
-    { "src": "SpriteChangeTint.java", "preview": "SpriteChangeTint.gif" }
+    {
+      "src": "SpriteChangeTint.java",
+      "preview": "SpriteChangeTint.gif",
+      "lines": "reg:[Rr]ecorder"
+    }
   ],
   "parameters": [
     {

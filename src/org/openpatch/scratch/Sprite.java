@@ -458,6 +458,7 @@ public class Sprite implements Drawable {
      */
     public void setX(float x) {
         this.x = x;
+        this.pen.setPosition(this.x, this.y);
     }
 
     /**
@@ -467,6 +468,7 @@ public class Sprite implements Drawable {
      */
     public void changeX(float x) {
         this.x += x;
+        this.pen.setPosition(this.x, this.y);
     }
 
     /**
@@ -485,6 +487,7 @@ public class Sprite implements Drawable {
      */
     public void setY(float y) {
         this.y = y;
+        this.pen.setPosition(this.x, this.y);
     }
 
     /**
@@ -494,6 +497,7 @@ public class Sprite implements Drawable {
      */
     public void changeY(float y) {
         this.y += y;
+        this.pen.setPosition(this.x, this.y);
     }
 
     /**
@@ -881,6 +885,22 @@ public class Sprite implements Drawable {
 
     public void whenClicked() {
 
+    }
+
+    public void goToFrontLayer() {
+        Stage.getInstance().goToFrontLayer(this);
+    }
+
+    public void goToBackLayer() {
+        Stage.getInstance().goToBackLayer(this);
+    }
+
+    public void goLayersForwards(int number) {
+            Stage.getInstance().goLayersForwards(this, number);
+    }
+
+    public void goLayersBackwards(int number) {
+            Stage.getInstance().goLayersBackwards(this, number);
     }
 
     public void whenBackdropSwitches(String name) {

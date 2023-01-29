@@ -8,7 +8,11 @@
   "syntax": [".switchCostume(name)"],
   "returns": "void",
   "examples": [
-    { "src": "SpriteSwitchCostume.java", "preview": "SpriteSwitchCostume.gif" }
+    {
+      "src": "SpriteSwitchCostume.java",
+      "preview": "SpriteSwitchCostume.gif",
+      "lines": "reg:[Rr]ecorder"
+    }
   ],
   "parameters": [
     {
@@ -18,4 +22,3 @@
     }
   ]
 }
-
