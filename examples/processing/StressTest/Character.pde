@@ -2,7 +2,7 @@ enum CharacterState {
   IDLE, RUN, WALK
 }
 
-class Character extends ScratchAnimatedSprite {
+class Character extends AnimatedSprite {
 
   CharacterState state;
 
@@ -27,7 +27,7 @@ class Character extends ScratchAnimatedSprite {
 
     this.tintColor = (int) random(0, 256);
     this.setPosition(random(200, width - 200), random(200, height - 200));
-    this.setRotation(random(0, 360));
+    this.setDirection(random(0, 360));
   }
 
   void run() {

@@ -383,6 +383,10 @@ public class Sprite implements Drawable {
         }
     }
 
+    public void setDirection(double degrees) {
+        this.setDirection((float) degrees);
+    }
+
     /**
      * Returns the direction of the sprite.
      *
