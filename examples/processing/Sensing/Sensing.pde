@@ -10,26 +10,19 @@ void setup() {
   stage = new Stage(this, true);
   h = new Hero();
   m = new MovableHero();
+  stage.display("Move the hero with WASD and rotate him with R");
 }
 
 void draw() {
-  textAlign(CENTER);
-  
-  fill(0);
-  text("Move the hero with WASD and rotate him with R", width / 2, 40);
-  text("Hit: " + hit, width / 2, 80);
-  h.draw();
-  m.draw();
 }
 
 class MovableHero extends Hero {
   MovableHero() {
     super();
     this.setPosition(332, 578);
-    this.setRotation(270);
+    this.setDirection(270);
   }
-  void draw() {
-    super.draw();
+  void run() {
     if(isKeyPressed(65)) {
       this.changeX(-1);;
     }
@@ -46,9 +39,9 @@ class MovableHero extends Hero {
       this.turnRight(1);
     }
     if(isTouchingSprite(h)) {
-      hit = true;
+      this.say("Hit");
     } else {
-      hit = false;
+      this.say(null);
     }
   }
 }
@@ -58,7 +51,7 @@ class Hero extends Sprite {
     super("hero", "sprites/hero.png");
     this.addCostume("hero2", "sprites/hero2.png");
     this.setSize(50);
-    this.setRotation(45);
+    this.setDirection(45);
     this.move(280);
     
     int[] xHitbox = {0, 300, 300, 0, 150};
@@ -66,8 +59,7 @@ class Hero extends Sprite {
     this.setHitbox(xHitbox, yHitbox);
   }
   
-  void draw() {
-    super.draw();
+  void run() {
     if(isTouchingMousePointer()) {
       this.switchCostume("hero2");
     } else {

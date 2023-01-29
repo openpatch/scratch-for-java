@@ -9,9 +9,6 @@ void setup() {
   size(1280, 800);
   stage = new Stage(this);
   
-
-  stage.addSound("background", "sounds/bensound-enigmatic.wav");
-  stage.playSound("background");
   stage.addBackdrop("chalkBoard", "backdrops/chalk_board.jpg");
   stage.setTint(60);
   
@@ -22,7 +19,6 @@ void setup() {
 void draw() {
   for(int i = 0; i < pens.size(); i++) {
     PenSprite pen = pens.get(i);
-    pen.draw();
     
     if(Math.random() < 0.05 && pens.size() < 15) {
       pens.add(new PenSprite(pen));
@@ -34,10 +30,6 @@ void draw() {
 }
 
 void keyPressed() {
-  for (PenSprite pen : pens) {
-    pen.keyPressed(this.keyCode);
-  }
-  
   if (this.keyCode == 32) {
     PenSprite.setColor((float) Math.random() * 255);
   }

@@ -5,11 +5,9 @@ public class RobotSprite extends Sprite {
     this.addCostume("robot", "sprites/robot.png");
     this.setOnEdgeBounce(true);
     this.setSize(20);
-    this.setRotation(65);
+    this.setDirection(65);
 
   }
-
-  public void
   
   public void run() {
      this.move(2);
