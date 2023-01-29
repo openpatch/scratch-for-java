@@ -1,0 +1,17 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "(all)",
+  "name": "getAll()",
+  "class": "Stage",
+  "description": "Get all objects added to the stage.",
+  "syntax": [".getAll()"],
+  "returns": "List",
+  "examples": [
+    {
+      "src": "StageGetAll.java",
+      "preview": "StageGetAll.gif",
+      "lines": "reg:[Rr]ecorder"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "(find [sprites])",
+  "name": "find()",
+  "class": "Stage",
+  "description": "Returns a list of all objects of a certain class, which are currently on the stage. It does not matter if they are visible or not.",
+  "syntax": [".find(class)"],
+  "returns": "List",
+  "examples": [
+    {
+      "src": "StageFind.java",
+      "preview": "StageFind.gif",
+      "lines": "reg:[Rr]ecorder"
+    }
+  ],
+  "parameters": [
+    {
+      "name": "class",
+      "description": "The class of objects you want to find.",
+      "type": "Class"
+    }
+  ]
+}

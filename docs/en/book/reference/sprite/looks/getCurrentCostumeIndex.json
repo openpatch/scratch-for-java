@@ -8,7 +8,10 @@
   "syntax": [".getCurrentCostumeIndex()"],
   "returns": "int",
   "examples": [
-    { "src": "SpriteGetCurrentCostumeIndex.java", "preview": "SpriteGetCurrentCostumeIndex.gif" }
+    {
+      "src": "SpriteGetCurrentCostumeIndex.java",
+      "preview": "SpriteGetCurrentCostumeIndex.gif",
+      "lines": "reg:[Rr]ecorder"
+    }
   ]
 }
-

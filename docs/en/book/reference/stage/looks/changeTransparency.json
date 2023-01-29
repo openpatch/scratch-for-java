@@ -1,0 +1,25 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "change [ghost v] effect by (25)",
+  "name": "changeTransparency()",
+  "class": "Stage",
+  "description": "Change the transparency by a given amount.",
+  "syntax": [".changeTransparency(amount)"],
+  "returns": "void",
+  "examples": [
+    {
+      "src": "StageChangeTransparency.java",
+      "preview": "StageChangeTransparency.gif",
+      "lines": "reg:[Rr]ecorder"
+    }
+  ],
+  "parameters": [
+    {
+      "name": "amount",
+      "description": "Changes the tint by the amount.",
+      "type": "float"
+    }
+  ]
+}
+

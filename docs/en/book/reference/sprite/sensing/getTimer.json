@@ -4,7 +4,7 @@
   "scratchblock": "(time [name v])",
   "name": "getTimer()",
   "class": "Sprite",
-  "description": "Returns the default timer or a timer with the given name.",
+  "description": "Returns the default timer or a timer with the given name. For more information about timer see the documentation for the [Timer class](/reference/timer/forMillis).",
   "syntax": [".getTimer()", ".getTimer(name)"],
   "returns": "Timer",
   "examples": [

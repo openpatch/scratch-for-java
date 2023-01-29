@@ -7,7 +7,13 @@
   "description": "A speech bubble appears over the sprite and will only go away if the sprite says or thinks something else.",
   "syntax": [".say(text)", ".say(text, milliseconds)"],
   "returns": "void",
-  "examples": [{ "src": "SpriteSay.java", "preview": "SpriteSay.gif" }],
+  "examples": [
+    {
+      "src": "SpriteSay.java",
+      "preview": "SpriteSay.gif",
+      "lines": "reg:[Rr]ecorder"
+    }
+  ],
   "parameters": [
     {
       "name": "text",
