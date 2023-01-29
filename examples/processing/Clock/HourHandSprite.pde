@@ -5,6 +5,6 @@ class HourHandSprite extends Sprite {
 
   void run() {
     int hour = this.getCurrentHour();
-    this.setRotation(hour / 12.0 * 360);
+    this.setDirection(hour / 12.0 * 360);
   }
 }

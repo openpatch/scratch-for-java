@@ -50,7 +50,7 @@ class LeafSprite extends Sprite {
     this.getPen().down();
     this.getPen().setSize(2);
     this.vine = vine;
-    this.setRotation(vine.getRotation());
+    this.setDirection(vine.getDirection());
     // use current color from vine for pen
     this.getPen().setColor(vine.getPen().getColor());
     // update vine color with every leaf spawn

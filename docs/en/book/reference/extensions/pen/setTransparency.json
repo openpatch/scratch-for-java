@@ -1,0 +1,25 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "set pen [transparency v] to (50)",
+  "name": "setTransparency()",
+  "class": "Pen",
+  "description": "Sets the pen's transparency to the percentage.",
+  "syntax": [".setTransparency(percentage)"],
+  "returns": "void",
+  "examples": [
+    {
+      "src": "PenSetTransparency.java",
+      "preview": "PenSetTransparency.gif",
+      "lines": "reg:[Rr]ecorder"
+    }
+  ],
+  "parameters": [
+    {
+      "name": "percentage",
+      "description": "A value in percent in the range of 0 ... 255.",
+      "type": "float"
+    }
+  ]
+}
+

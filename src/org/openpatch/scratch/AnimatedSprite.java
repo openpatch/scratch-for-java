@@ -47,6 +47,8 @@ public class AnimatedSprite extends Sprite {
             if (!animationPlayed && animationFrame != animation.length - 1 || !once) {
                 animationFrame = (animationFrame + 1) % animation.length;
                 this.switchCostume(animation[animationFrame]);
+            } else {
+                animationPlayed = true;
             }
         }
     }

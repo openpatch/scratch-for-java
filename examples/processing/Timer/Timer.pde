@@ -33,8 +33,7 @@ class TimerSprite extends Sprite {
     this.addTimer("interval4");
   }
 
-  void draw() {
-    super.draw();
+  void run() {
     int y = 20;
     x += 20;
     if (this.getTimer("every").everyMillis(600)) {

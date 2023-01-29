@@ -1,0 +1,17 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "<is animation played>",
+  "name": "isAnimationPlayed()",
+  "class": "AnimatedSprite",
+  "description": "Returns true if the animation is fully played. This only works, when the animation is played once.",
+  "syntax": [".isAnimationPlayed()"],
+  "returns": "boolean",
+  "examples": [
+    {
+      "src": "AnimatedSpriteIsAnimationPlayed.java",
+      "preview": "AnimatedSpriteIsAnimationPlayed.gif",
+      "lines": "reg:[Rr]ecorder"
+    }
+  ]
+}

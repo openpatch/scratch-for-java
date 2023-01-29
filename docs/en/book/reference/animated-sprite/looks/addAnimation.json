@@ -1,0 +1,54 @@
+{
+  "template": "method",
+  "related": [],
+  "name": "addAnimation()",
+  "scratchblock": "add animation (name) (pattern) (frames)",
+  "class": "AnimatedSprite",
+  "description": "Add an animation to the sprite. The animation can either be multiple images or parts of a spritesheet.",
+  "syntax": [
+    ".addAnimation(name, pattern, frames)",
+    ".addAnimation(name, path, frames, width, height)",
+    ".addAnimation(name, path, frames, width, height, int row)"
+  ],
+  "returns": "void",
+  "examples": [
+    {
+      "src": "AnimatedSpriteAddAnimation.java",
+      "preview": "AnimatedSpriteAddAnimation.gif",
+      "lines": "reg:[Rr]ecorder"
+    }
+  ],
+  "parameters": [
+    {
+      "name": "name",
+      "description": "Name of the animation",
+      "type": "String"
+    },
+    {
+      "name": "pattern",
+      "description": "A pattern for finding images representing the frames.",
+      "type": "String"
+    },
+    {
+      "name": "frames",
+      "description": "The number of frames for this animation.",
+      "type": "int"
+    },
+    {
+      "name": "width",
+      "description": "The width of one frame. Only needed when loading from a spritesheet.",
+      "type": "int"
+    },
+    {
+      "name": "height",
+      "description": "The height of one frame. Only needed when loading from a spritesheet.",
+      "type": "int"
+    },
+    {
+      "name": "row",
+      "description": "The row in a spritesheet. Only needed when loading from a spritesheet.",
+      "type": "int"
+    }
+  ]
+}
+

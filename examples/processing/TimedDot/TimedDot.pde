@@ -25,11 +25,10 @@ class DotSprite extends Sprite {
     this.addTimer("timer1");
     this.getPen().setSize(20);
     this.setOnEdgeBounce(true);
-    this.setRotation(65);
+    this.setDirection(65);
   }
   
-  void draw() {
-    super.draw();
+  void run() {
     if(this.getTimer("timer2").everyMillis(600)) {
       this.getPen().down();
       this.getPen().setColor(200);

@@ -1,0 +1,24 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "change pen [size v] by ()",
+  "name": "changeSize()",
+  "class": "Pen",
+  "description": "Change the size by a given amount. This does only have an effect on new points, which are created by setting the position.",
+  "syntax": [".changeSize(amount)"],
+  "returns": "void",
+  "examples": [
+    {
+      "src": "PenChangeSize.java",
+      "preview": "PenChangeSize.gif",
+      "lines": "reg:[Rr]ecorder"
+    }
+  ],
+  "parameters": [
+    {
+      "name": "amount",
+      "description": "Changes the size by the amount.",
+      "type": "float"
+    }
+  ]
+}
