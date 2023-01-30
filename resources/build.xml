@@ -93,6 +93,9 @@
         <mkdir dir="${sketchbook.location}/libraries" />
         <mkdir dir="${project.bin}" />
         <mkdir dir="${project.libs}" />
+        <mkdir dir="${project.libs}/windows-amd64" />
+        <mkdir dir="${project.libs}/macosx-universal" />
+        <mkdir dir="${project.libs}/linux-amd64" />
     </target>
 
 
@@ -103,14 +106,54 @@
 
         <get dest="${project.libs}">
             <url
-                url="https://github.com/micycle1/processing-core-4/releases/download/4.0.1/core-4.0.1-fat.jar"
-                name="core-fat.jar" />
+                url="https://github.com/micycle1/processing-core-4/releases/download/4.0.1/original-core-4.0.1.jar" />
+            <url
+                url="https://repo1.maven.org/maven2/org/jogamp/jogl/jogl-all/2.3.2/jogl-all-2.3.2.jar" />
+            <url
+                url="https://repo1.maven.org/maven2/org/jogamp/gluegen/gluegen-rt/2.3.2/gluegen-rt-2.3.2.jar" />
             <url
                 url="https://github.com/processing/processing-sound/releases/download/v2.3.1/sound.zip" />
-            <url url="https://github.com/java-native/jssc/releases/download/v2.9.4/jssc-2.9.4.jar"
-                name="jssc.jar" />
-            <url url="https://repo1.maven.org/maven2/org/processing/serial/3.3.7/serial-3.3.7.jar"
-                name="serial.jar" />
+            <url url="https://github.com/java-native/jssc/releases/download/v2.9.4/jssc-2.9.4.jar" />
+            <url url="https://repo1.maven.org/maven2/org/processing/serial/3.3.7/serial-3.3.7.jar" />
+        </get>
+
+        <get dest="${project.libs}/linux-amd64">
+            <url
+                url="https://maven.scijava.org/content/repositories/public/org/jogamp/jogl/jogl-all-natives-linux-amd64/2.1.5/jogl-all-natives-linux-amd64-2.1.5.jar" />
+            <url
+                url="https://maven.scijava.org/content/repositories/public/org/jogamp/gluegen/gluegen-rt-natives-linux-amd64/2.1.5/gluegen-rt-natives-linux-amd64-2.1.5.jar" />
+            <url
+                url="https://repo1.maven.org/maven2/org/openjfx/javafx-controls/18.0.2/javafx-controls-18.0.2-linux.jar" />
+            <url
+                url="https://repo1.maven.org/maven2/org/openjfx/javafx-graphics/18.0.2/javafx-graphics-18.0.2-linux.jar" />
+            <url
+                url="https://repo1.maven.org/maven2/org/openjfx/javafx-base/18.0.2/javafx-base-18.0.2-linux.jar" />
+        </get>
+
+        <get dest="${project.libs}/windows-amd64">
+            <url
+                url="https://maven.scijava.org/content/repositories/public/org/jogamp/jogl/jogl-all-natives-windows-amd64/2.1.5/jogl-all-natives-windows-amd64-2.1.5.jar" />
+            <url
+                url="https://maven.scijava.org/content/repositories/public/org/jogamp/gluegen/gluegen-rt-natives-windows-amd64/2.1.5/gluegen-rt-natives-windows-amd64-2.1.5.jar" />
+            <url
+                url="https://repo1.maven.org/maven2/org/openjfx/javafx-controls/18.0.2/javafx-controls-18.0.2-win.jar" />
+            <url
+                url="https://repo1.maven.org/maven2/org/openjfx/javafx-graphics/18.0.2/javafx-graphics-18.0.2-win.jar" />
+            <url
+                url="https://repo1.maven.org/maven2/org/openjfx/javafx-base/18.0.2/javafx-base-18.0.2-win.jar" />
+        </get>
+
+        <get dest="${project.libs}/macosx-universal">
+            <url
+                url="https://maven.scijava.org/content/repositories/public/org/jogamp/jogl/jogl-all-natives-macosx-universal/2.1.5/jogl-all-natives-macosx-universal-2.1.5.jar" />
+            <url
+                url="https://maven.scijava.org/content/repositories/public/org/jogamp/gluegen/gluegen-rt-natives-macosx-universal/2.1.5/gluegen-rt-natives-macosx-universal-2.1.5.jar" />
+            <url
+                url="https://repo1.maven.org/maven2/org/openjfx/javafx-controls/18.0.2/javafx-controls-18.0.2-mac.jar" />
+            <url
+                url="https://repo1.maven.org/maven2/org/openjfx/javafx-graphics/18.0.2/javafx-graphics-18.0.2-mac.jar" />
+            <url
+                url="https://repo1.maven.org/maven2/org/openjfx/javafx-base/18.0.2/javafx-base-18.0.2-mac.jar" />
         </get>
 
         <echo message="extracting sound jars ..." />
@@ -182,7 +225,7 @@
             <fileset dir="${project.tmp}/${project.name}" />
         </copy>
         <delete
-            file="${sketchbook.location}/${folder}/${project.name}/library/scratch-standalone.jar" />
+            file="${sketchbook.location}/${folder}/${project.name}/library/scratch-standalone-*.jar" />
     </target>
 
 
@@ -204,9 +247,31 @@
         <jar jarfile="${project.tmp}/${project.name}/${folder}/${project.jar.name}.jar"
             basedir="${project.bin}" />
 
-        <jar jarfile="${project.tmp}/${project.name}/${folder}/${project.jar.name}-standalone.jar"
+        <jar
+            jarfile="${project.tmp}/${project.name}/${folder}/${project.jar.name}-standalone-linux-amd64.jar"
             basedir="${project.bin}">
             <zipgroupfileset dir="${project.libs}" includes="*.jar" />
+            <zipgroupfileset dir="${project.libs}/linux-amd64" includes="*.jar" />
+            <manifest>
+                <attribute name="Class-Path" value="${project.libs}" />
+            </manifest>
+        </jar>
+
+        <jar
+            jarfile="${project.tmp}/${project.name}/${folder}/${project.jar.name}-standalone-windows-amd64.jar"
+            basedir="${project.bin}">
+            <zipgroupfileset dir="${project.libs}" includes="*.jar" />
+            <zipgroupfileset dir="${project.libs}/windows-amd64" includes="*.jar" />
+            <manifest>
+                <attribute name="Class-Path" value="${project.libs}" />
+            </manifest>
+        </jar>
+
+        <jar
+            jarfile="${project.tmp}/${project.name}/${folder}/${project.jar.name}-standalone-macosx-universal.jar"
+            basedir="${project.bin}">
+            <zipgroupfileset dir="${project.libs}" includes="*.jar" />
+            <zipgroupfileset dir="${project.libs}/macosx-universal" includes="*.jar" />
             <manifest>
                 <attribute name="Class-Path" value="${project.libs}" />
             </manifest>
@@ -331,12 +396,16 @@
         <copy file="${project.dist.version}/tmp/${project.name}/library.properties"
             tofile="${project.dist}/${project.name}.txt" />
 
-        <move file="${project.dist.version}/tmp/${project.name}/library/scratch-standalone.jar"
+        <move file="${project.dist.version}/tmp/${project.name}/library/scratch-standalone-windows-amd64.jar"
+            todir="${project.dist}" />
+        <move file="${project.dist.version}/tmp/${project.name}/library/scratch-standalone-linux-amd64.jar"
+            todir="${project.dist}" />
+        <move file="${project.dist.version}/tmp/${project.name}/library/scratch-standalone-macosx-universal.jar"
             todir="${project.dist}" />
 
         <zip destfile="${project.dist.version}/${project.name}.zip"
             basedir="${project.dist.version}/tmp"
-            excludes="**/.DS_Store,**/${project.name}-standalone.jar"
+            excludes="**/.DS_Store,**/${project.name}-standalone-*.jar"
         />
 
         <move file="${project.dist.version}/${project.name}.zip" todir="${project.dist}" />
