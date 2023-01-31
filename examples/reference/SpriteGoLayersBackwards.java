@@ -25,7 +25,7 @@ public class SpriteGoLayersBackwards {
     }
 
     public static void main(String[] args) {
-        new SpriteGoLayersForwards();
+        new SpriteGoLayersBackwards();
     }
 }
 

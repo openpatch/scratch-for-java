@@ -8,7 +8,7 @@
   "syntax": [".setDirection(angle)"],
   "returns": "void",
   "examples": [
-    { "src": "SpriteSetDirection.java", "preview": "SpriteSetDirection.gif", "lines": "[Rr]ecorder" }
+    { "src": "SpriteSetDirection.java", "preview": "SpriteSetDirection.gif", "lines": "reg:[Rr]ecorder" }
   ],
   "parameters": [
     {
