@@ -9,12 +9,11 @@ index: 1
 
 You need to download the Jar file for your operating system and put it in the **+libs** folder for a local installation.
 
-::download[Windows Jar]{src="https://github.com/openpatch/scratch-for-java/releases/download/v3.0.0/scratch-standalone-windows-amd64.jar"}
+::download[Windows Jar]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch-standalone-windows-amd64.jar"}
 
-::download[MacOS Jar]{src="https://github.com/openpatch/scratch-for-java/releases/download/v3.0.0/scratch-standalone-linux-amd64.jar"}
+::download[MacOS Jar]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch-standalone-linux-amd64.jar"}
 
-::download[Linux Jar]{src="https://github.com/openpatch/scratch-for-java/releases/download/v3.0.0/scratch-standalone-macosx-universal.jar"}
-
+::download[Linux Jar]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch-standalone-macosx-universal.jar"}
 
 ## Processing
 
@@ -55,8 +54,8 @@ Some folders like `examples` or `src` might be missing. After Library Scratch ha
 
 You need to add the Jar file for your operating system to the classpath.
 
-::download[Windows Jar]{src="https://github.com/openpatch/scratch-for-java/releases/download/v3.0.0/scratch-standalone-windows-amd64.jar"}
+::download[Windows Jar]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch-standalone-windows-amd64.jar"}
 
-::download[MacOS Jar]{src="https://github.com/openpatch/scratch-for-java/releases/download/v3.0.0/scratch-standalone-linux-amd64.jar"}
+::download[MacOS Jar]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch-standalone-linux-amd64.jar"}
 
-::download[Linux Jar]{src="https://github.com/openpatch/scratch-for-java/releases/download/v3.0.0/scratch-standalone-macosx-universal.jar"}
+::download[Linux Jar]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch-standalone-macosx-universal.jar"}
