@@ -8,6 +8,6 @@
   "syntax": [".getMouseY()"],
   "returns": "float",
   "examples": [
-    { "src": "SpriteGetMouseY.java", "preview": "SpriteGetMouseY.gif", "lines": "reg:[Rr]ecorder" }
+    { "src": "SpriteGetMouse.java", "preview": "SpriteGetMouse.gif", "lines": "reg:[Rr]ecorder" }
   ]
 }
