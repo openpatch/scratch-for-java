@@ -11,9 +11,9 @@ You need to download the Jar file for your operating system and put it in the **
 
 ::download[Windows Jar]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch-standalone-windows-amd64.jar"}
 
-::download[MacOS Jar]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch-standalone-linux-amd64.jar"}
+::download[Linux Jar]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch-standalone-linux-amd64.jar"}
 
-::download[Linux Jar]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch-standalone-macosx-universal.jar"}
+::download[MacOS Jar]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch-standalone-macosx-universal.jar"}
 
 ## Processing
 
@@ -56,6 +56,6 @@ You need to add the Jar file for your operating system to the classpath.
 
 ::download[Windows Jar]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch-standalone-windows-amd64.jar"}
 
-::download[MacOS Jar]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch-standalone-linux-amd64.jar"}
+::download[Linux Jar]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch-standalone-linux-amd64.jar"}
 
-::download[Linux Jar]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch-standalone-macosx-universal.jar"}
+::download[MacOS Jar]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch-standalone-macosx-universal.jar"}
