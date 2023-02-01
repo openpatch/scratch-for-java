@@ -108,22 +108,23 @@
             <url
                 url="https://github.com/micycle1/processing-core-4/releases/download/4.0.1/original-core-4.0.1.jar" />
             <url
-                url="https://repo1.maven.org/maven2/org/jogamp/jogl/jogl-all/2.3.2/jogl-all-2.3.2.jar" />
+                url="https://jogamp.org/deployment/archive/master/gluegen_951-joal_669-jogl_1517-jocl_1157/jar/jogl-all.jar" />
             <url
-                url="https://repo1.maven.org/maven2/org/jogamp/gluegen/gluegen-rt/2.3.2/gluegen-rt-2.3.2.jar" />
+                url="https://jogamp.org/deployment/archive/master/gluegen_951-joal_669-jogl_1517-jocl_1157/jar/gluegen-rt.jar" />
             <url
                 url="https://github.com/processing/processing-sound/releases/download/v2.3.1/sound.zip" />
             <url url="https://github.com/java-native/jssc/releases/download/v2.9.4/jssc-2.9.4.jar" />
             <url url="https://repo1.maven.org/maven2/org/processing/serial/3.3.7/serial-3.3.7.jar" />
+            <url url="https://jogamp.org/deployment/archive/master/gluegen_951-joal_669-jogl_1517-jocl_1157/jar/gluegen.jar" />
         </get>
 
         <get dest="${project.libs}/linux-amd64">
             <url
-                url="https://maven.scijava.org/content/repositories/public/org/jogamp/jogl/jogl-all-natives-linux-amd64/2.1.5/jogl-all-natives-linux-amd64-2.1.5.jar" />
+                url="https://jogamp.org/deployment/archive/master/gluegen_951-joal_669-jogl_1517-jocl_1157/jar/jogl-all-natives-linux-amd64.jar" />
             <url
                 url="https://maven.scijava.org/content/repositories/public/org/jogamp/gluegen/gluegen-rt-natives-linux-amd64/2.1.5/gluegen-rt-natives-linux-amd64-2.1.5.jar" />
             <url
-                url="https://repo1.maven.org/maven2/org/openjfx/javafx-controls/18.0.2/javafx-controls-18.0.2-linux.jar" />
+                url="https://jogamp.org/deployment/archive/master/gluegen_951-joal_669-jogl_1517-jocl_1157/jar/gluegen-rt-natives-linux-amd64.jar" />
             <url
                 url="https://repo1.maven.org/maven2/org/openjfx/javafx-graphics/18.0.2/javafx-graphics-18.0.2-linux.jar" />
             <url
@@ -132,9 +133,9 @@
 
         <get dest="${project.libs}/windows-amd64">
             <url
-                url="https://maven.scijava.org/content/repositories/public/org/jogamp/jogl/jogl-all-natives-windows-amd64/2.1.5/jogl-all-natives-windows-amd64-2.1.5.jar" />
+                url="https://jogamp.org/deployment/archive/master/gluegen_951-joal_669-jogl_1517-jocl_1157/jar/jogl-all-natives-windows-amd64.jar" />
             <url
-                url="https://maven.scijava.org/content/repositories/public/org/jogamp/gluegen/gluegen-rt-natives-windows-amd64/2.1.5/gluegen-rt-natives-windows-amd64-2.1.5.jar" />
+                url="https://jogamp.org/deployment/archive/master/gluegen_951-joal_669-jogl_1517-jocl_1157/jar/gluegen-rt-natives-windows-amd64.jar" />
             <url
                 url="https://repo1.maven.org/maven2/org/openjfx/javafx-controls/18.0.2/javafx-controls-18.0.2-win.jar" />
             <url
@@ -145,9 +146,9 @@
 
         <get dest="${project.libs}/macosx-universal">
             <url
-                url="https://maven.scijava.org/content/repositories/public/org/jogamp/jogl/jogl-all-natives-macosx-universal/2.1.5/jogl-all-natives-macosx-universal-2.1.5.jar" />
+                url="https://jogamp.org/deployment/archive/master/gluegen_951-joal_669-jogl_1517-jocl_1157/jar/jogl-all-natives-macosx-universal.jar" />
             <url
-                url="https://maven.scijava.org/content/repositories/public/org/jogamp/gluegen/gluegen-rt-natives-macosx-universal/2.1.5/gluegen-rt-natives-macosx-universal-2.1.5.jar" />
+                url="https://jogamp.org/deployment/archive/master/gluegen_951-joal_669-jogl_1517-jocl_1157/jar/gluegen-rt-natives-macosx-universal.jar" />
             <url
                 url="https://repo1.maven.org/maven2/org/openjfx/javafx-controls/18.0.2/javafx-controls-18.0.2-mac.jar" />
             <url
@@ -224,8 +225,9 @@
         <copy todir="${sketchbook.location}/${folder}/${project.name}">
             <fileset dir="${project.tmp}/${project.name}" />
         </copy>
-        <delete
-            file="${sketchbook.location}/${folder}/${project.name}/library/scratch-standalone-*.jar" />
+        <delete>
+          <fileset dir="${sketchbook.location}/${folder}/${project.name}/library" includes="scratch-*.jar"/>
+        </delete>
     </target>
 
 
