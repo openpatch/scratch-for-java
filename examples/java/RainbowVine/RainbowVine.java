@@ -27,7 +27,7 @@ class VineSprite extends Sprite {
         this.setPosition(Stage.parent.mouseX, Stage.parent.mouseY);
         this.turnRight(5);
 
-        if(this.getTimer().everyMillis(20)) {
+        if(this.getTimer().everyMillis(60)) {
             Stage.getInstance().add(new LeafSprite(this));
         }
     }
@@ -51,7 +51,7 @@ class LeafSprite extends Sprite {
 
     public void run() {
         this.turnRight(5);
-        this.move(10);
+        this.move(5);
         this.getPen().changeSize(1);
         if (this.getTimer().afterMillis(200)) {
             Stage.getInstance().remove(this);

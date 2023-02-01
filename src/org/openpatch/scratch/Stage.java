@@ -58,7 +58,7 @@ public class Stage {
     }
 
     public Stage(int width, int height, boolean debug) {
-        this(width, height, debug, Renderer.JAVA2D);
+        this(width, height, debug, Renderer.JAVA);
     }
 
     public Stage(int width, int height, boolean debug, String renderer) {
@@ -782,7 +782,7 @@ public class Stage {
 
     /**
      * Stop the execution of the whole applications for the given milliseconds.
-     * 
+     *
      * @param millis Milliseconds
      */
     public void wait(int millis) {
