@@ -38,15 +38,15 @@ public class Stage {
     private ConcurrentHashMap<Integer, Boolean> keyCodePressed = new ConcurrentHashMap<>();
 
     public Stage() {
-        this(420, 360, false);
+        this(480, 360, false);
     }
 
     public Stage(boolean debug) {
-        this(420, 360, debug);
+        this(480, 360, debug);
     }
 
     public Stage(String renderer) {
-        this(420, 360, false, renderer);
+        this(480, 360, false, renderer);
     }
 
     public Stage(int width, int height) {
