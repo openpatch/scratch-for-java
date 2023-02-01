@@ -16,4 +16,4 @@ The following video show a Scratch project and a similar BlueJ project using the
 If you want to compare it yourself, you can take a look inside both projects:
 
 - Scratch: https://scratch.mit.edu/projects/338613208
-- BlueJ: [Project Halloween.zip](/archives/Halloween.zip)
+- BlueJ: [Source Code on GitHub](https://github.com/openpatch/scratch-for-java/tree/main/docs/en/archives/Halloween) or [Project Halloween.zip](/archives/Halloween.zip)
