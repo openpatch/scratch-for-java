@@ -177,10 +177,10 @@
         </antcall>
         <antcall target="generate.source" />
         <antcall target="compile" />
+        <antcall target="generate.javadoc" />
         <antcall target="generate.jar">
             <param name="folder" value="library" />
         </antcall>
-        <antcall target="generate.javadoc" />
         <antcall target="generate.libprops" />
         <antcall target="copyToSketchbook">
             <param name="folder" value="libraries" />
@@ -204,7 +204,7 @@
         <!-- create the java reference of the Library -->
         <javadoc bottom="Scratch for Java by ${author.name}. ${library.copyright}"
             classpathref="classpath"
-            destdir="${project.dist}/reference"
+            destdir="${project.dist}/javadoc"
             verbose="false"
             sourcepath="${project.src}"
             doctitle="Javadocs: ${project.name}"
@@ -247,9 +247,16 @@
         <jar jarfile="${project.tmp}/${project.name}/${folder}/${project.jar.name}.jar"
             basedir="${project.bin}" />
 
+        <jar jarfile="${project.tmp}/${project.name}/${folder}/${project.jar.name}-javadoc.jar"
+        basedir="${project.dist}/javadoc" />
+
+        <jar jarfile="${project.tmp}/${project.name}/${folder}/${project.jar.name}-sources.jar"
+        basedir="${project.src}" />
+
         <jar
             jarfile="${project.tmp}/${project.name}/${folder}/${project.jar.name}-standalone-linux-amd64.jar"
             basedir="${project.bin}">
+            <fileset dir="${project.dist}/javadoc" />
             <zipgroupfileset dir="${project.libs}" includes="*.jar" />
             <zipgroupfileset dir="${project.libs}/linux-amd64" includes="*.jar" />
             <manifest>
@@ -395,6 +402,10 @@
 
         <copy file="${project.dist.version}/tmp/${project.name}/library.properties"
             tofile="${project.dist}/${project.name}.txt" />
+        <move file="${project.dist.version}/tmp/${project.name}/library/scratch-javadoc.jar"
+            todir="${project.dist}" />
+        <move file="${project.dist.version}/tmp/${project.name}/library/scratch-sources.jar"
+            todir="${project.dist}" />
 
         <move file="${project.dist.version}/tmp/${project.name}/library/scratch-standalone-windows-amd64.jar"
             todir="${project.dist}" />
