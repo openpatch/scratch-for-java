@@ -4,11 +4,11 @@ import org.openpatch.scratch.Stage;
 
 public class StressTest extends Stage {
 
-private static int dinos = 15;
-private static int knights = 15;
-private static int ninjas = 15;
+    private static int dinos = 15;
+    private static int knights = 15;
+    private static int ninjas = 15;
     public StressTest() {
-        super(1000, 1000, Renderer.P2D);
+        super(1000, 1000, Renderer.OPENGL);
 
         this.addBackdrop("outback", "assets/outback.png");
         this.addSound("outback", "assets/outback.wav");
@@ -37,7 +37,7 @@ private static int ninjas = 15;
             }
         }
     }
-    
+
     public static void main(String[] args) {
         new StressTest();
     }

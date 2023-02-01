@@ -7,6 +7,7 @@ public class HalloweenStage extends Stage
     GhostSprite ghost;
     
     public HalloweenStage() {
+        super(400, 400, Renderer.P2D);
         this.addBackdrop("bg", "sprites/background.jpg");
         this.addSound("bg", "sounds/background.wav");
         
