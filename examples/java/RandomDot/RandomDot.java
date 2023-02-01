@@ -1,5 +1,3 @@
-package RandomDot;
-
 import org.openpatch.scratch.Sprite;
 import org.openpatch.scratch.Stage;
 

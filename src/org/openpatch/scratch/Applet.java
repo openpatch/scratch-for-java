@@ -7,7 +7,7 @@ class Applet extends PApplet {
   private boolean isRunning = false;
   private final int INITIAL_HEIGHT;
   private final int INITIAL_WIDTH;
-  private String renderer = Renderer.JAVA2D;
+  private String renderer = Renderer.JAVA;
 
   public Applet() {
     this(480, 360);
@@ -69,6 +69,5 @@ class Applet extends PApplet {
     this.surface.setTitle("Scratch for Java");
   }
 
-  public void draw() {
-  }
+  public void draw() {}
 }
