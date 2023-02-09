@@ -236,6 +236,9 @@ public class Sprite implements Drawable {
             costume.changeTint(step);
         }
     }
+    public void changeTint(double step) {
+        this.changeTint((float) step);
+    }
 
     /**
      * Sets the transparency of the sprite.
@@ -264,6 +267,9 @@ public class Sprite implements Drawable {
         for (Image costume : this.costumes) {
             costume.changeTransparency(step);
         }
+    }
+    public void changeTransparency(double step) {
+        this.changeTransparency((float) step);
     }
 
     /**
@@ -312,7 +318,7 @@ public class Sprite implements Drawable {
     }
 
     /**
-     * 
+     *
      * @param amount
      */
     public void changeSize(float amount) {
@@ -464,6 +470,9 @@ public class Sprite implements Drawable {
         this.x = x;
         this.pen.setPosition(this.x, this.y);
     }
+    public void setX(double x) {
+        this.setX((float) x);
+    }
 
     /**
      * Changes x by a certain amount
@@ -473,6 +482,9 @@ public class Sprite implements Drawable {
     public void changeX(float x) {
         this.x += x;
         this.pen.setPosition(this.x, this.y);
+    }
+    public void changeX(double x) {
+      this.changeX((float) x);
     }
 
     /**
@@ -502,6 +514,9 @@ public class Sprite implements Drawable {
     public void changeY(float y) {
         this.y += y;
         this.pen.setPosition(this.x, this.y);
+    }
+    public void changeY(double y) {
+        this.changeY((float) y);
     }
 
     /**
@@ -701,6 +716,17 @@ public class Sprite implements Drawable {
         float x1 = this.getX();
         float y1 = this.getY();
         return (float) Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
+    }
+
+    public void setHitbox(int ...points) {
+        int l = points.length / 2;
+        int[] xPoints = new int[l];
+        int[] yPoints = new int[l];
+        for (int i = 0; i < points.length; i+=2) {
+            xPoints[i/2] = points[i];
+            yPoints[i/2] = points[i+1];
+        }
+        this.hitbox = new Hitbox(xPoints, yPoints);
     }
 
     public void setHitbox(int[] xPoints, int[] yPoints) {
