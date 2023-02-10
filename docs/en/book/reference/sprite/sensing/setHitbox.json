@@ -5,7 +5,7 @@
   "name": "setHitbox()",
   "class": "Sprite",
   "description": "Sets the hitbox of the sprite.",
-  "syntax": [".setHitbox(xcoordinates, ycoordinates)", ".setHitbox(hitbox)"],
+  "syntax": [".setHitbox(xcoordinates, ycoordinates)", ".setHitbox(hitbox)", ".setHitbox(...coordinates)"],
   "returns": "boolean",
   "examples": [
     { "src": "SpriteSetHitbox.java", "preview": "SpriteSetHitbox.gif", "lines": "reg:[Rr]ecorder" }
@@ -25,6 +25,10 @@
       "name": "hitbox",
       "description": "A hitbox",
       "type": "Hitbox"
+    }, {
+      "name": "...coordinates",
+      "description": "A variable argument list, which has the following structure: x1, y1, x2, y2, x3, y3 ...",
+      "type": "int"
     }
   ]
 }

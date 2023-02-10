@@ -31,7 +31,7 @@ public class Stage {
     private PGraphics penBuffer;
     private Text display;
     private ConcurrentHashMap<String, Timer> timer;
-    private CopyOnWriteArrayList<Drawable> drawables;
+    CopyOnWriteArrayList<Drawable> drawables;
     private float mouseX;
     private float mouseY;
     private boolean mouseDown;
@@ -811,6 +811,7 @@ public class Stage {
             parent.line(mouseX, 0, mouseX, parent.height);
             parent.line(0, mouseY, parent.width, mouseY);
             parent.text("(" + mouseX + ", " + mouseY + ")", mouseX, mouseY);
+            parent.text("FPS: " + Math.round(this.getFrameRate() * 100) /100, 20, 10);
         }
         this.run();
     }
