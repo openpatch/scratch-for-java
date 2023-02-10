@@ -1,3 +1,8 @@
+## 3.1.0
+
+- 🚀 Feat: The debug modus now shows the current FPS.
+- 🚀 Feat: `isTouchingSprite(Class)`. IsTouchingSprite accepts also a Class. So you can check the collision with all objects of this class.
+
 ## 3.0.0
 
 Scratch for Java will from now on focus on being a standalone library. Even though it can be used in processing.
