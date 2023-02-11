@@ -1,5 +1,6 @@
 package org.openpatch.scratch;
 
+import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import org.openpatch.scratch.extensions.Pen;
@@ -317,6 +318,9 @@ public class Sprite implements Drawable {
    */
   public void setSize(float percentage) {
     this.size = percentage;
+    for (Image costume : this.costumes) {
+      costume.setSize(percentage);
+    }
   }
 
   public void setSize(double percentage) {
@@ -851,6 +855,8 @@ public class Sprite implements Drawable {
   }
 
   public boolean isTouchingSprite(Sprite sprite) {
+    if (sprite == null || !sprite.show)
+      return false;
     return this.getHitbox().intersects(sprite.getHitbox());
   }
 
@@ -870,6 +876,16 @@ public class Sprite implements Drawable {
       }
     }
     return null;
+  }
+
+  public ArrayList<Sprite> getTouchingSprites(Class<? extends Sprite> c) {
+    ArrayList<Sprite> sprites = new ArrayList<>();
+    for (Drawable d : Stage.getInstance().drawables) {
+      if (c.isInstance(d) && this.isTouchingSprite((Sprite) d)) {
+        sprites.add((Sprite) d);
+      }
+    }
+    return sprites;
   }
 
   /**

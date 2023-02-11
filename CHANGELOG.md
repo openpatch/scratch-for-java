@@ -1,3 +1,12 @@
+---
+name: Changelog
+index: 4
+---
+
+## 3.1.1
+
+- 🐛 Fix: setSize did not affect getWidth and getHeight.
+
 ## 3.1.0
 
 - 🚀 Feat: The debug modus now shows the current FPS.
