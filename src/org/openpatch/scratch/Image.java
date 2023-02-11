@@ -168,6 +168,16 @@ public class Image implements Drawable {
         this.image = Stage.parent.loadImage(imagePath);
     }
 
+    public void setSize(float percentage) {
+        int newWidth = Math.round(this.originalImage.width * percentage / 100);
+        int newHeight = Math.round(this.originalImage.height * percentage / 100);
+
+        if (newWidth != this.image.width || newHeight != this.image.height) {
+            this.image = this.originalImage.copy();
+            this.image.resize(newWidth, newHeight);
+        }
+    }
+
     /**
      * Draw the scaled image at a given position.
      *
@@ -177,14 +187,7 @@ public class Image implements Drawable {
      * @param y       a y coordinate
      */
     public void draw(float size, float degrees, float x, float y, RotationStyle style) {
-        int newWidth = Math.round(this.originalImage.width * size / 100);
-        int newHeight = Math.round(this.originalImage.height * size / 100);
-
-        if (newWidth != this.image.width || newHeight != this.image.height) {
-            this.image = this.originalImage.copy();
-            this.image.resize(newWidth, newHeight);
-        }
-
+        this.setSize(size);
         PApplet parent = Stage.parent;
         parent.pushMatrix();
         parent.translate(x, y);
@@ -208,7 +211,7 @@ public class Image implements Drawable {
         if (Stage.getInstance().isDebug()) {
             parent.fill(Stage.DEBUG_COLOR[0], Stage.DEBUG_COLOR[1], Stage.DEBUG_COLOR[1]);
             parent.textAlign(PConstants.CENTER);
-            parent.text("Direction: " + degrees, 0, -newHeight / 2.0f - 10);
+            parent.text("Direction: " + degrees, 0, -this.image.width / 2.0f - 10);
             parent.text("(" + x + ", " + y + ")", 0, 0);
         }
         parent.popMatrix();
