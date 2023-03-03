@@ -11,7 +11,7 @@ public class StagePlaySound {
             myStage.playSound("bump");
             myStage.wait(500);
         }
-        System.exit(0);
+        Window.getInstance().exit();
     }
 
     public static void main(String[] args) {

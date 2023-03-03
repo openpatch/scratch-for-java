@@ -4,7 +4,6 @@ import org.openpatch.scratch.Stage;
 public class Timer extends Stage {
     public Timer() {
         super(1800, 400);
-        this.setFrameRate(10);
         this.add(new TimerSprite());
     }
 

@@ -20,7 +20,7 @@ public class Animation {
         // do stuff
 
         recorder.stop();
-        System.exit(0);
+        Window.getInstance().exit();
     }
 
     public static void main(String[] args) {

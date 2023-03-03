@@ -16,19 +16,17 @@ public class RainbowVine extends Stage {
 
 class VineSprite extends Sprite {
     public VineSprite() {
-        this.addCostume("vine", "sprites/vine.png");
         this.getPen().down();
         this.getPen().setSize(3);
         this.getPen().setColor(120);
-        this.hide();
     }
 
     public void run() {
-        this.setPosition(Stage.parent.mouseX, Stage.parent.mouseY);
+        this.setPosition(this.getMouseX(), this.getMouseY());
         this.turnRight(5);
 
         if(this.getTimer().everyMillis(60)) {
-            Stage.getInstance().add(new LeafSprite(this));
+            this.getStage().add(new LeafSprite(this));
         }
     }
 
@@ -38,7 +36,6 @@ class LeafSprite extends Sprite {
     VineSprite vine;
 
     public LeafSprite(VineSprite vine) {
-        super("leaf", "sprites/vine.png");
         this.vine = vine;
         this.getPen().down();
         this.getPen().setSize(2);
@@ -46,7 +43,6 @@ class LeafSprite extends Sprite {
         this.getPen().setColor(vine.getPen().getColor());
         vine.getPen().changeColor(2);
         this.setPosition(vine.getX(), vine.getY());
-        this.hide();
     }
 
     public void run() {
@@ -54,7 +50,7 @@ class LeafSprite extends Sprite {
         this.move(5);
         this.getPen().changeSize(1);
         if (this.getTimer().afterMillis(200)) {
-            Stage.getInstance().remove(this);
+            this.getStage().remove(this);
         }
     }
 }

@@ -1,5 +1,6 @@
 import org.openpatch.scratch.Stage;
 import org.openpatch.scratch.extensions.GifRecorder;
+import org.openpatch.scratch.Window;
 
 public class StageTimer {
     public StageTimer() {
@@ -14,7 +15,7 @@ public class StageTimer {
             }
         }
         recorder.stop();
-        System.exit(0);
+        Window.getInstance().exit();
     }
 
     public static void main(String[] args) {

@@ -2,6 +2,7 @@ import org.openpatch.scratch.KeyCode;
 import org.openpatch.scratch.Sprite;
 import org.openpatch.scratch.Stage;
 import org.openpatch.scratch.extensions.GifRecorder;
+import org.openpatch.scratch.Window;
 
 public class SpriteIsKeyPressed {
     public SpriteIsKeyPressed() {
@@ -17,7 +18,7 @@ public class SpriteIsKeyPressed {
             mySprite.say("Space pressed? " + mySprite.isKeyPressed(KeyCode.VK_SPACE));
         }
         recorder.stop();
-        System.exit(0);
+        Window.getInstance().exit();
     }
 
     public static void main(String[] args) {

@@ -4,7 +4,7 @@
   "scratchblock": "set size to (50) %",
   "name": "setSize()",
   "class": "Sprite",
-  "description": "Sets the sprite's size to the percentage.",
+  "description": "Sets the sprite's size to the percentage.\n:::alert{warn}\nYou this methode wisely, since it is slow. If you want to resize a sprite just once, consider reducing the size of the original image.\n:::",
   "syntax": [".setSize(percentage)"],
   "returns": "void",
   "examples": [

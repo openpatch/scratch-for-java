@@ -9,7 +9,7 @@ public class StageSetSize {
         myStage.wait(2000);
         myStage.setSize(500, 200);
         myStage.wait(2000);
-        System.exit(0);
+        Window.getInstance().exit();
     }
     public static void main(String[] args) {
         new StageSetSize();

@@ -1,7 +1,5 @@
 package org.openpatch.scratch;
 
-import processing.core.PApplet;
-import processing.core.PConstants;
 import processing.core.PGraphics;
 import processing.event.KeyEvent;
 import processing.event.MouseEvent;
@@ -16,14 +14,10 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
- * Represents the scratch stage. Only one object of this class can be created.
+ * Represents a scratch stage.
  */
 public class Stage {
 
-    public static PApplet parent;
-    private boolean debug;
-    public static final int[] DEBUG_COLOR = { 255, 0, 0 };
-    private static Stage instance;
     private CopyOnWriteArrayList<Image> backdrops = new CopyOnWriteArrayList<>();
     private Color color = new Color();
     private int currentBackdrop = 0;
@@ -38,103 +32,42 @@ public class Stage {
     private ConcurrentHashMap<Integer, Boolean> keyCodePressed = new ConcurrentHashMap<>();
 
     public Stage() {
-        this(480, 360, false);
-    }
-
-    public Stage(boolean debug) {
-        this(480, 360, debug);
-    }
-
-    public Stage(String renderer) {
-        this(480, 360, false, renderer);
+        this(480, 360);
     }
 
     public Stage(int width, int height) {
         this(width, height, false);
     }
 
-    public Stage(int width, int height, String renderer) {
-        this(width, height, false, renderer);
-    }
-
     public Stage(int width, int height, boolean debug) {
-        this(width, height, debug, Renderer.JAVA);
-    }
-
-    public Stage(int width, int height, boolean debug, String renderer) {
-        Applet sa = new Applet(width, height, renderer);
-        Stage.parent = sa;
-        sa.runSketch();
-
-        // wait to make sure the PApplet runs.
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
+        if (Window.getInstance() == null) {
+            new Window(width, height);
+            Applet a = Applet.getInstance();
+            a.setDebug(debug);
+            a.addStage("main", this);
         }
-
-        Stage.parent.imageMode(PConstants.CENTER);
-        Stage.parent.rectMode(PConstants.CENTER);
-        this.penBuffer = parent.createGraphics(parent.width, parent.height, parent.sketchRenderer());
+        Applet applet = Applet.getInstance();
+        this.penBuffer = applet.createGraphics(applet.width, applet.height, applet.sketchRenderer());
         this.timer = new ConcurrentHashMap<>();
         this.timer.put("default", new Timer());
-        this.display = new Text(null, 0, parent.height, true, TextStyle.BOX);
-        this.debug = debug;
-        this.drawables = new CopyOnWriteArrayList<>();
-        if (Stage.instance != null) {
-            throw new RuntimeException("You can only create one Stage object.");
-        }
-        Stage.instance = this;
-        parent.registerMethod("pre", Stage.instance);
-        parent.registerMethod("draw", Stage.instance);
-        parent.registerMethod("mouseEvent", Stage.instance);
-        parent.registerMethod("keyEvent", Stage.instance);
-    }
-
-    public Stage(PApplet parent) {
-        this(parent, false);
-    }
-
-    public Stage(PApplet parent, boolean debug) {
-        if (Stage.instance != null) {
-            throw new RuntimeException("You can only create one Stage object.");
-        }
-        Stage.instance = this;
-        Stage.parent = parent;
-        Stage.parent.imageMode(PConstants.CENTER);
-        Stage.parent.rectMode(PConstants.CENTER);
-        this.penBuffer = parent.createGraphics(parent.width, parent.height, parent.sketchRenderer());
-        this.timer = new ConcurrentHashMap<>();
-        this.timer.put("default", new Timer());
-        this.display = new Text(null, 0, parent.height, true, TextStyle.BOX);
-        this.debug = debug;
+        this.display = new Text(null, 0, applet.height, true, TextStyle.BOX);
+        this.display.addedToStage(this);
         this.drawables = new CopyOnWriteArrayList<>();
 
-        parent.registerMethod("pre", Stage.instance);
-        parent.registerMethod("draw", Stage.instance);
-        parent.registerMethod("mouseEvent", Stage.instance);
-        parent.registerMethod("keyEvent", Stage.instance);
     }
 
     /**
-     * Returns the only instance of Stage
-     *
-     * @return the Stage object
+     * @deprecated since v3.2.0: Use stage.getWindow().setDebug(debug) instead
      */
-    public static Stage getInstance() {
-        return Stage.instance;
-    }
-
     public void setDebug(boolean debug) {
-        this.debug = debug;
+        Applet.getInstance().setDebug(debug);
     }
 
+    /**
+     * @deprecated since v3.2.0: Use stage.getWindow().isDebug() instead
+     */
     public boolean isDebug() {
-        return debug;
-    }
-
-    public void setSize(int width, int height) {
-        Stage.parent.getSurface().setSize(width, height);
+        return Applet.getInstance().isDebug();
     }
 
     /**
@@ -144,6 +77,7 @@ public class Stage {
      */
     public void add(Drawable drawable) {
         drawables.add(drawable);
+        drawable.addedToStage(this);
     }
 
     public void goLayersBackwards(Drawable drawable, int number) {
@@ -191,13 +125,22 @@ public class Stage {
      */
     public void remove(Drawable drawable) {
         drawables.remove(drawable);
+        drawable.removedFromStage(this);
     }
 
     public void removeAll() {
+        for (Drawable drawable : this.drawables) {
+            drawable.removedFromStage(this);
+        }
         drawables.clear();
     }
 
     public void remove(Class<? extends Drawable> c) {
+        for (Drawable drawable : this.drawables) {
+            if (c.isInstance(drawable)) {
+                drawable.removedFromStage(this);
+            }
+        }
         drawables.removeIf(c::isInstance);
     }
 
@@ -229,7 +172,9 @@ public class Stage {
                 return;
             }
         }
-        this.backdrops.add(new Image(name, imagePath));
+        Image backdrop = new Image(name, imagePath);
+        this.backdrops.add(backdrop);
+        backdrop.addedToStage(this);
     }
 
     /**
@@ -328,7 +273,7 @@ public class Stage {
      */
     public void eraseAll() {
         try {
-            this.penBuffer = parent.createGraphics(this.getWidth(), this.getHeight());
+            this.penBuffer = Applet.getInstance().createGraphics(this.getWidth(), this.getHeight());
         } catch (Exception e) {
         }
     }
@@ -347,7 +292,8 @@ public class Stage {
             }
         }
 
-        this.sounds.add(new Sound(name, soundPath));
+        Sound sound = new Sound(name, soundPath);
+        this.sounds.add(sound);
     }
 
     /**
@@ -493,36 +439,27 @@ public class Stage {
     }
 
     /**
-     * Return the width of the current costume or the pen size, when no costume is
-     * available.
+     * @deprecated since v3.2.0: Use Window.getInstance().getWidth() instead
+     *             Return the width of the current costume or the pen size, when no
+     *             costume is
+     *             available.
      *
      * @return the width of the sprite
      */
     public int getWidth() {
-        return Stage.parent.width;
+        return Applet.getInstance().getWidth();
     }
 
     /**
-     * Return the height of the current costume or the pen size, when no costume is
-     * available.
+     * @deprecated since v3.2.0: Use Window.getInstance().getHeight() instead
+     *             Return the height of the current costume or the pen size, when no
+     *             costume is
+     *             available.
      *
      * @return the height of the sprite
      */
     public int getHeight() {
-        return Stage.parent.height;
-    }
-
-    /**
-     * Return the pixels of the current costume or an empty array, when no costume
-     * is available.
-     *
-     * @return the pixels of the sprite
-     */
-    public int[] getPixels() {
-        if (backdrops.size() == 0)
-            return new int[0];
-
-        return this.backdrops.get(this.currentBackdrop).getImage().pixels;
+        return Applet.getInstance().getHeight();
     }
 
     /**
@@ -742,22 +679,6 @@ public class Stage {
         return from + (int) (Math.random() * (to - from));
     }
 
-    /**
-     * Set the desired frame rate of the stage.
-     * The frame rate can drop below, but can not raise above.
-     * The default frame rate is 60 FPS.
-     * A lower frame does reduce the load on the CPU.
-     *
-     * @param frameRate Frame Rate in Seconds. For Example: 30
-     */
-    public void setFrameRate(int frameRate) {
-        parent.frameRate(frameRate);
-    }
-
-    public float getFrameRate() {
-        return parent.frameRate;
-    }
-
     public void display(String text) {
         this.display.showText(text);
     }
@@ -770,14 +691,24 @@ public class Stage {
      * Draws the current backdrop or if none a solid color
      */
     public void pre() {
+        Applet applet = Applet.getInstance();
+        if (applet == null)
+            return;
         // redraw background to clear screen
-        Stage.parent.background(this.color.getRed(), this.color.getGreen(), this.color.getBlue());
+        applet.background(this.color.getRed(), this.color.getGreen(), this.color.getBlue());
 
         // draw current backdrop
         if (this.backdrops.size() > 0) {
             this.backdrops.get(this.currentBackdrop).drawAsBackground();
         }
-        Stage.parent.image(penBuffer, Stage.parent.width / 2, Stage.parent.height / 2);
+        if (penBuffer.pixels != null) {
+            applet.image(penBuffer, applet.width / 2, applet.height / 2);
+        } else {
+            try {
+                penBuffer.loadPixels();
+            } catch (Exception e) {
+            }
+        }
     }
 
     /**
@@ -797,6 +728,9 @@ public class Stage {
     }
 
     public void draw() {
+        Applet applet = Applet.getInstance();
+        if (applet == null)
+            return;
         for (Drawable d : this.drawables) {
             d.draw();
         }
@@ -804,14 +738,14 @@ public class Stage {
             this.display.draw();
         }
 
-        if (debug) {
-            parent.strokeWeight(1);
-            parent.stroke(DEBUG_COLOR[0], DEBUG_COLOR[1], DEBUG_COLOR[2]);
-            parent.fill(DEBUG_COLOR[0], DEBUG_COLOR[1], DEBUG_COLOR[2]);
-            parent.line(mouseX, 0, mouseX, parent.height);
-            parent.line(0, mouseY, parent.width, mouseY);
-            parent.text("(" + mouseX + ", " + mouseY + ")", mouseX, mouseY);
-            parent.text("FPS: " + Math.round(this.getFrameRate() * 100) /100, 20, 10);
+        if (applet.isDebug()) {
+            applet.strokeWeight(1);
+            applet.stroke(Window.DEBUG_COLOR[0], Window.DEBUG_COLOR[1], Window.DEBUG_COLOR[2]);
+            applet.fill(Window.DEBUG_COLOR[0], Window.DEBUG_COLOR[1], Window.DEBUG_COLOR[2]);
+            applet.line(mouseX, 0, mouseX, applet.height);
+            applet.line(0, mouseY, applet.width, mouseY);
+            applet.text("(" + mouseX + ", " + mouseY + ")", mouseX, mouseY);
+            applet.text("FPS: " + Math.round(applet.frameRate * 100) / 100, 20, 10);
         }
         this.run();
     }
