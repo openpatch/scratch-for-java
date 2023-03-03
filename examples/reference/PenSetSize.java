@@ -1,5 +1,6 @@
 import org.openpatch.scratch.Stage;
 import org.openpatch.scratch.extensions.GifRecorder;
+import org.openpatch.scratch.Window;
 import org.openpatch.scratch.extensions.Pen;
 
 public class PenSetSize {
@@ -20,7 +21,7 @@ public class PenSetSize {
             myStage.wait(200);
         }
         recorder.stop();
-        System.exit(0);
+        Window.getInstance().exit();
     }
 
     public static void main(String[] args) {

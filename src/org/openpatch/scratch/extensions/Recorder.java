@@ -1,6 +1,6 @@
 package org.openpatch.scratch.extensions;
 
-import org.openpatch.scratch.Stage;
+import org.openpatch.scratch.Applet;
 
 public abstract class Recorder {
     protected String path;
@@ -11,7 +11,7 @@ public abstract class Recorder {
             path += ext;
         }
         this.path = path;
-        Stage.parent.registerMethod("post", this);
+        Applet.getInstance().registerMethod("post", this);
     }
 
     public void post() {

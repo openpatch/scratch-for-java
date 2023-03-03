@@ -8,7 +8,11 @@
   "syntax": [".isKeyPressed(keyCode)"],
   "returns": "boolean",
   "examples": [
-    { "src": "StageIsKeyPressed.java", "preview": "StageIsKeyPressed.gif", "lines": "reg:[Rr]ecorder" }
+    {
+      "src": "StageIsKeyPressed.java",
+      "preview": "StageIsKeyPressed.gif",
+      "lines": "reg:[Rr]ecorder"
+    }
   ],
   "parameters": [
     {

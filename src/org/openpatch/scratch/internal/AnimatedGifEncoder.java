@@ -81,6 +81,10 @@ public class AnimatedGifEncoder {
     delay = Math.round(ms / 10.0f);
   }
 
+  public OutputStream getOut() {
+    return this.out;
+  }
+
   /**
    * Sets the GIF frame disposal code for the last added frame and any
    * subsequent frames. Default is 0 if no transparent color has been set,

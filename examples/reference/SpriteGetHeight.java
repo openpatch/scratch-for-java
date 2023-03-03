@@ -1,6 +1,7 @@
 import org.openpatch.scratch.Sprite;
 import org.openpatch.scratch.Stage;
 import org.openpatch.scratch.extensions.GifRecorder;
+import org.openpatch.scratch.Window;
 
 public class SpriteGetHeight {
     public SpriteGetHeight() {
@@ -12,7 +13,7 @@ public class SpriteGetHeight {
         GifRecorder recorder = new GifRecorder("" + this.getClass().getName() + ".gif");
         myStage.wait(1000);
         recorder.snapshot();
-        System.exit(0);
+        Window.getInstance().exit();
     }
 
     public static void main(String[] args) {

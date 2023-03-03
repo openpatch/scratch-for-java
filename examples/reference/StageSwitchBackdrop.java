@@ -1,5 +1,6 @@
 import org.openpatch.scratch.Stage;
 import org.openpatch.scratch.extensions.GifRecorder;
+import org.openpatch.scratch.Window;
 
 public class StageSwitchBackdrop {
     public StageSwitchBackdrop() {
@@ -12,7 +13,7 @@ public class StageSwitchBackdrop {
         myStage.switchBackdrop("sea");
         myStage.wait(2000);
         recorder.stop();
-        System.exit(0);
+        Window.getInstance().exit();
     }
     public static void main(String[] args) {
         new StageSwitchBackdrop();

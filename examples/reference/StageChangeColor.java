@@ -1,5 +1,6 @@
 import org.openpatch.scratch.Stage;
 import org.openpatch.scratch.extensions.GifRecorder;
+import org.openpatch.scratch.Window;
 
 public class StageChangeColor {
     public StageChangeColor() {
@@ -10,7 +11,7 @@ public class StageChangeColor {
         myStage.changeColor(200);
         myStage.wait(2000);
         recorder.stop();
-        System.exit(0);
+        Window.getInstance().exit();
     }
 
     public static void main(String[] args) {

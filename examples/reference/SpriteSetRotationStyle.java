@@ -2,6 +2,7 @@ import org.openpatch.scratch.RotationStyle;
 import org.openpatch.scratch.Sprite;
 import org.openpatch.scratch.Stage;
 import org.openpatch.scratch.extensions.GifRecorder;
+import org.openpatch.scratch.Window;
 
 public class SpriteSetRotationStyle {
     public SpriteSetRotationStyle() {
@@ -26,7 +27,7 @@ public class SpriteSetRotationStyle {
         mySprite.say("LEFT-RIGHT: " + mySprite.getDirection());
         myStage.wait(1000);
         recorder.stop();
-        System.exit(0);
+        Window.getInstance().exit();
 
     }
 

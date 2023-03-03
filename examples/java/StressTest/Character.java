@@ -1,5 +1,6 @@
 import org.openpatch.scratch.AnimatedSprite;
 import org.openpatch.scratch.Stage;
+import org.openpatch.scratch.Window;
 
 public class Character extends AnimatedSprite {
     public CharacterState state;
@@ -19,11 +20,10 @@ public class Character extends AnimatedSprite {
         this.addAnimation("walk", pathBase + "Walk (%d).png", walkAnimations);
 
         this.setOnEdgeBounce(true);
-        this.setSize(30);
 
         this.tintColor = (int) this.pickRandom(0, 256);
-        this.setPosition(this.pickRandom(200, Stage.getInstance().getWidth() - 200),
-                this.pickRandom(200, Stage.getInstance().getHeight() - 200));
+        this.setPosition(this.pickRandom(200, Window.getInstance().getWidth() - 200),
+                this.pickRandom(200, Window.getInstance().getHeight() - 200));
         this.setDirection(this.pickRandom(0, 360));
     }
 

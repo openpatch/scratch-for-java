@@ -12,7 +12,7 @@ public class SpriteStopAllSounds {
         zeta.playSound("music");
         myStage.wait(300);
         zeta.stopAllSounds();
-        System.exit(0);
+        Window.getInstance().exit();
     }
 
     public static void main(String[] args) {
