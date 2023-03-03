@@ -1,5 +1,6 @@
 import org.openpatch.scratch.Stage;
 import org.openpatch.scratch.extensions.GifRecorder;
+import org.openpatch.scratch.Window;
 
 public class StageGetHeight {
     public StageGetHeight() {
@@ -9,7 +10,7 @@ public class StageGetHeight {
         myStage.display("Height: " + myStage.getHeight());
         myStage.wait(500);
         recorder.snapshot();
-        System.exit(0);
+        Window.getInstance().exit();
     }
 
     public static void main(String[] args) {

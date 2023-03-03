@@ -1,0 +1,8 @@
+template: class
+name: Window
+index: -1
+constructors:
+  - Window()
+  - Window(width, height)
+  - Window(assets)
+  - Window(width, height, assets)

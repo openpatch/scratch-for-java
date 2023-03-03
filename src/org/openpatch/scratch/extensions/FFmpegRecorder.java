@@ -6,7 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
-import org.openpatch.scratch.Stage;
+import org.openpatch.scratch.Applet;
 
 public class FFmpegRecorder extends Recorder {
     private String tmpDir;
@@ -24,14 +24,14 @@ public class FFmpegRecorder extends Recorder {
 
     @Override
     public void saveFrame() {
-        Stage.parent.saveFrame(pattern);
+        Applet.getInstance().saveFrame(pattern);
     }
 
     @Override
     public void stop() {
         super.stop();
         if (tmpDir != null) {
-            String cmd = "ffmpeg -v warning -pattern_type glob -framerate " + Stage.parent.frameRate + " -i "
+            String cmd = "ffmpeg -v warning -pattern_type glob -framerate " + Applet.getInstance().frameRate + " -i "
                     + this.tmpDir
                     + "/*.png -vcodec libx264 -y " + Paths.get("", path).toAbsolutePath().toString();
             System.out.println("Converting video! Please wait.");

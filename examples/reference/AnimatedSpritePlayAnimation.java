@@ -1,5 +1,6 @@
 import org.openpatch.scratch.*;
 import org.openpatch.scratch.extensions.GifRecorder;
+import org.openpatch.scratch.Window;
 import org.openpatch.scratch.extensions.Recorder;
 
 public class AnimatedSpritePlayAnimation {
@@ -22,7 +23,7 @@ public class AnimatedSpritePlayAnimation {
             bee2.playAnimation("idle");
         }
         recorder.stop();
-        System.exit(0);
+        Window.getInstance().exit();
     }
 
     public static void main(String[] args) {

@@ -89,18 +89,19 @@ public class Hitbox {
     private void draw(Polygon polygon, float r, float g, float b) {
         int[] xPoints = polygon.xpoints;
         int[] yPoints = polygon.ypoints;
-        Stage.parent.stroke(r, g, b);
-        Stage.parent.strokeWeight(2);
-        Stage.parent.noFill();
-        Stage.parent.beginShape();
+        Applet applet = Applet.getInstance();
+        applet.stroke(r, g, b);
+        applet.strokeWeight(2);
+        applet.noFill();
+        applet.beginShape();
         for (int i = 0; i < xPoints.length; i++) {
-            Stage.parent.vertex(xPoints[i], yPoints[i]);
+            applet.vertex(xPoints[i], yPoints[i]);
         }
-        Stage.parent.endShape(PConstants.CLOSE);
+        applet.endShape(PConstants.CLOSE);
     }
 
     public void draw() {
-        draw(polygon, Stage.DEBUG_COLOR[0], Stage.DEBUG_COLOR[1], Stage.DEBUG_COLOR[2]);
+        draw(polygon, Window.DEBUG_COLOR[0], Window.DEBUG_COLOR[1], Window.DEBUG_COLOR[2]);
     }
 
     public boolean contains(float x, float y) {
@@ -108,11 +109,15 @@ public class Hitbox {
     }
 
     public boolean intersects(Hitbox hitbox) {
-        Area a = new Area(this.getPolygon());
-        Area b = new Area(hitbox.getPolygon());
+        if (this.getPolygon().getBounds().intersects(hitbox.getPolygon().getBounds())) {
 
-        a.intersect(b);
+            Area a = new Area(this.getPolygon());
+            Area b = new Area(hitbox.getPolygon());
 
-        return !a.isEmpty();
+            a.intersect(b);
+
+            return !a.isEmpty();
+        }
+        return false;
     }
 }

@@ -1,6 +1,7 @@
 import org.openpatch.scratch.Sprite;
 import org.openpatch.scratch.Stage;
 import org.openpatch.scratch.extensions.GifRecorder;
+import org.openpatch.scratch.Window;
 
 public class SpriteSetTint {
     public SpriteSetTint() {
@@ -13,7 +14,7 @@ public class SpriteSetTint {
         mySprite.setTint(200);
         myStage.wait(2000);
         recorder.stop();
-        System.exit(0);
+        Window.getInstance().exit();
     }
 
     public static void main(String[] args) {

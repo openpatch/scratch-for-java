@@ -1,6 +1,7 @@
 import org.openpatch.scratch.Sprite;
 import org.openpatch.scratch.Stage;
 import org.openpatch.scratch.extensions.GifRecorder;
+import org.openpatch.scratch.Window;
 
 public class SpriteGetY {
     public SpriteGetY() {
@@ -13,7 +14,7 @@ public class SpriteGetY {
         GifRecorder recorder = new GifRecorder("" + this.getClass().getName() + ".gif");
         myStage.wait(3000);
         recorder.snapshot();
-        System.exit(0);
+        Window.getInstance().exit();
     }
 
     public static void main(String[] args) {
