@@ -1,5 +1,6 @@
 import org.openpatch.scratch.Stage;
 import org.openpatch.scratch.extensions.GifRecorder;
+import org.openpatch.scratch.Window;
 import org.openpatch.scratch.extensions.Pen;
 
 public class PenDown {
@@ -14,7 +15,7 @@ public class PenDown {
         myPen.setColor(0, 255, 0);
         myStage.wait(500);
         recorder.snapshot();
-        System.exit(0);
+        Window.getInstance().exit();
     }
 
     public static void main(String[] args) {

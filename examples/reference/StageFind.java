@@ -1,6 +1,7 @@
 import org.openpatch.scratch.Sprite;
 import org.openpatch.scratch.Stage;
 import org.openpatch.scratch.extensions.GifRecorder;
+import org.openpatch.scratch.Window;
 import org.openpatch.scratch.extensions.Pen;
 
 public class StageFind {
@@ -17,7 +18,7 @@ public class StageFind {
         myStage.display("Pens: " + myStage.find(Pen.class).size());
         myStage.wait(2000);
         recorder.stop();
-        System.exit(0);
+        Window.getInstance().exit();
 
     }
 

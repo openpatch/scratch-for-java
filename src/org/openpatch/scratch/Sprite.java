@@ -20,6 +20,7 @@ public class Sprite implements Drawable {
   private RotationStyle rotationStyle = RotationStyle.ALL_AROUND;
   private float x = 0;
   private float y = 0;
+  private Stage stage;
   private final ConcurrentHashMap<String, Timer> timer;
   private final Pen pen;
   private Hitbox hitbox;
@@ -27,14 +28,12 @@ public class Sprite implements Drawable {
 
   public Sprite() {
     this.pen = new Pen();
-    this.x = Stage.parent.width / 2.0f;
-    this.y = Stage.parent.height / 2.0f;
     this.timer = new ConcurrentHashMap<>();
-    this.timer.put("default", new Timer());
     this.text = new Text(null, x + this.getWidth() / 2, y - this.getHeight() / 2, 242);
+    this.x = Applet.getInstance().getWidth() / 2.0f;
+    this.y = Applet.getInstance().getHeight() / 2.0f;
+    this.timer.put("default", new Timer());
 
-    Stage.parent.registerMethod("keyEvent", this);
-    Stage.parent.registerMethod("mouseEvent", this);
   }
 
   public Sprite(String name, String imagePath) {
@@ -65,9 +64,28 @@ public class Sprite implements Drawable {
     this.x = s.x;
     this.y = s.y;
     this.timer = new ConcurrentHashMap<>();
-    this.timer.put("default", new Timer());
     this.pen = new Pen(s.pen);
     this.text = new Text(s.text);
+    this.stage = s.stage;
+  }
+
+  public void addedToStage(Stage stage) {
+    this.stage = stage;
+    this.pen.addedToStage(stage);
+    this.text.addedToStage(stage);
+    Applet.getInstance().registerMethod("keyEvent", this);
+    Applet.getInstance().registerMethod("mouseEvent", this);
+  }
+
+  public void removedFromStage(Stage stage) {
+    this.pen.removedFromStage(stage);
+    Applet.getInstance().unregisterMethod("keyEvent", this);
+    Applet.getInstance().unregisterMethod("mouseEvent", this);
+    this.stage = null;
+  }
+
+  public Stage getStage() {
+    return this.stage;
   }
 
   /**
@@ -84,7 +102,8 @@ public class Sprite implements Drawable {
       }
     }
 
-    this.costumes.add(new Image(name, imagePath));
+    Image costume = new Image(name, imagePath);
+    this.costumes.add(costume);
   }
 
   public void addCostume(
@@ -100,7 +119,8 @@ public class Sprite implements Drawable {
       }
     }
 
-    this.costumes.add(new Image(name, spriteSheetPath, x, y, width, height));
+    Image costume = new Image(name, spriteSheetPath, x, y, width, height);
+    this.costumes.add(costume);
   }
 
   /**
@@ -160,7 +180,8 @@ public class Sprite implements Drawable {
       }
     }
 
-    this.sounds.add(new Sound(name, soundPath));
+    Sound sound = new Sound(name, soundPath);
+    this.sounds.add(sound);
   }
 
   /**
@@ -200,12 +221,20 @@ public class Sprite implements Drawable {
     }
   }
 
+  public void setTint(int r, int g, int b) {
+    this.setTint((float) b, (float) g, (float) b);
+  }
+
+  public void setTint(Color c) {
+    this.setTint(c.getRed(), c.getGreen(), c.getBlue());
+  }
+
   /**
    * Sets the tint for the sprite with rgb.
    *
    * @see Image#setTint(float, float, float)
    */
-  public void setTint(int r, int g, int b) {
+  public void setTint(float r, float g, float b) {
     if (costumes.size() == 0)
       return;
 
@@ -427,8 +456,6 @@ public class Sprite implements Drawable {
    * @param steps a number of pixels
    */
   public void move(float steps) {
-    PApplet parent = Stage.parent;
-
     // convert degrees to radians
     float newX = steps * (float) Math.cos(this.direction * Math.PI / 180) + this.x;
     float newY = steps * (float) Math.sin(this.direction * Math.PI / 180) + this.y;
@@ -438,21 +465,21 @@ public class Sprite implements Drawable {
       currentCostume = this.costumes.get(this.currentCostume);
     }
     float costumeWidth = currentCostume != null
-        ? currentCostume.getImage().width
+        ? currentCostume.getWidth()
         : this.pen.getSize();
     float costumeHeight = currentCostume != null
-        ? currentCostume.getImage().height
+        ? currentCostume.getHeight()
         : this.pen.getSize();
 
     if (this.onEdgeBounce) {
       float spriteWidth = this.show ? costumeWidth : this.pen.getSize();
-      if (newX > parent.width - spriteWidth / 2 || newX < spriteWidth / 2) {
+      if (newX > Applet.getInstance().getWidth() - spriteWidth / 2 || newX < spriteWidth / 2) {
         this.setDirection(
             this.calculateAngleOfReflection(this.direction, false));
       }
 
       float spriteHeight = this.show ? costumeHeight : this.pen.getSize();
-      if (newY > parent.height - spriteHeight / 2 || newY < spriteHeight / 2) {
+      if (newY > Applet.getInstance().getHeight() - spriteHeight / 2 || newY < spriteHeight / 2) {
         this.setDirection(
             this.calculateAngleOfReflection(this.direction, true));
       }
@@ -548,7 +575,7 @@ public class Sprite implements Drawable {
     if (costumes.size() == 0)
       return (int) this.getPen().getSize();
 
-    return this.costumes.get(this.currentCostume).getImage().width;
+    return this.costumes.get(this.currentCostume).getWidth();
   }
 
   /**
@@ -561,42 +588,7 @@ public class Sprite implements Drawable {
     if (costumes.size() == 0)
       return (int) this.getPen().getSize();
 
-    return this.costumes.get(this.currentCostume).getImage().height;
-  }
-
-  /**
-   * Return the pixels of the current costume or an empty array, when no costume
-   * is available.
-   *
-   * @return the pixels of the sprite
-   */
-  protected int[] getPixels() {
-    if (costumes.size() == 0)
-      return new int[0];
-
-    return this.costumes.get(this.currentCostume).getImage().pixels;
-  }
-
-  /**
-   * Return the pixelWidth of the current costume or an empty array, when no
-   * costume is available. Only useful when using the getPixels method. Otherwise
-   * use getWidth instead.
-   *
-   * @return the pixel width of the sprite
-   */
-  protected int getPixelWidth() {
-    return this.costumes.get(this.currentCostume).getImage().pixelWidth;
-  }
-
-  /**
-   * Return the pixelHeight of the current costume or the pen size, when no
-   * costume is available. Only usefule when using the getPixels method. Otherwise
-   * use getHeight instead.
-   *
-   * @return the pixel height of the sprite
-   */
-  protected int getPixelHeight() {
-    return this.costumes.get(this.currentCostume).getImage().pixelHeight;
+    return this.costumes.get(this.currentCostume).getHeight();
   }
 
   /**
@@ -682,9 +674,8 @@ public class Sprite implements Drawable {
       int relativeMouseY = Math.round(mouse[1] - topLeftCornerY);
 
       int color = this.costumes.get(this.getCurrentCostumeIndex())
-          .getImage()
-          .get(relativeMouseX, relativeMouseY);
-      return Stage.parent.alpha(color) != 0;
+          .getPixel(relativeMouseX, relativeMouseY);
+      return Applet.getInstance().alpha(color) != 0;
     }
 
     return false;
@@ -698,12 +689,12 @@ public class Sprite implements Drawable {
    */
   public boolean isTouchingEdge() {
     Image currentCostume = this.costumes.get(this.getCurrentCostumeIndex());
-    PApplet parent = Stage.parent;
+    PApplet parent = Applet.getInstance();
     float costumeWidth = currentCostume != null
-        ? currentCostume.getImage().width
+        ? currentCostume.getWidth()
         : this.pen.getSize();
     float costumeHeight = currentCostume != null
-        ? currentCostume.getImage().height
+        ? currentCostume.getHeight()
         : this.pen.getSize();
     float spriteWidth = this.show ? costumeWidth : this.pen.getSize();
     float spriteHeight = this.show ? costumeHeight : this.pen.getSize();
@@ -796,10 +787,10 @@ public class Sprite implements Drawable {
       currentCostume = this.costumes.get(this.getCurrentCostumeIndex());
     }
     float costumeWidth = currentCostume != null
-        ? currentCostume.getImage().width
+        ? currentCostume.getWidth()
         : this.pen.getSize();
     float costumeHeight = currentCostume != null
-        ? currentCostume.getImage().height
+        ? currentCostume.getHeight()
         : this.pen.getSize();
     float spriteWidth = this.show ? costumeWidth : this.pen.getSize();
     float spriteHeight = this.show ? costumeHeight : this.pen.getSize();
@@ -851,7 +842,8 @@ public class Sprite implements Drawable {
     xPoints[3] = Math.round(cornerBottomLeft[0]);
     yPoints[3] = Math.round(cornerBottomLeft[1]);
 
-    return new Hitbox(xPoints, yPoints);
+    Hitbox hitbox = new Hitbox(xPoints, yPoints);
+    return hitbox;
   }
 
   public boolean isTouchingSprite(Sprite sprite) {
@@ -861,7 +853,7 @@ public class Sprite implements Drawable {
   }
 
   public boolean isTouchingSprite(Class<? extends Sprite> c) {
-    for (Drawable d : Stage.getInstance().drawables) {
+    for (Drawable d : stage.drawables) {
       if (c.isInstance(d) && this.isTouchingSprite((Sprite) d)) {
         return true;
       }
@@ -870,7 +862,7 @@ public class Sprite implements Drawable {
   }
 
   public Sprite getTouchingSprite(Class<? extends Sprite> c) {
-    for (Drawable d : Stage.getInstance().drawables) {
+    for (Drawable d : stage.drawables) {
       if (c.isInstance(d) && this.isTouchingSprite((Sprite) d)) {
         return (Sprite) d;
       }
@@ -880,7 +872,7 @@ public class Sprite implements Drawable {
 
   public ArrayList<Sprite> getTouchingSprites(Class<? extends Sprite> c) {
     ArrayList<Sprite> sprites = new ArrayList<>();
-    for (Drawable d : Stage.getInstance().drawables) {
+    for (Drawable d : stage.drawables) {
       if (c.isInstance(d) && this.isTouchingSprite((Sprite) d)) {
         sprites.add((Sprite) d);
       }
@@ -894,7 +886,7 @@ public class Sprite implements Drawable {
    * @return x-position
    */
   public float getMouseX() {
-    return Stage.getInstance().getMouseX();
+    return stage.getMouseX();
   }
 
   /**
@@ -903,7 +895,7 @@ public class Sprite implements Drawable {
    * @return y-position
    */
   public float getMouseY() {
-    return Stage.getInstance().getMouseY();
+    return stage.getMouseY();
   }
 
   /**
@@ -912,7 +904,7 @@ public class Sprite implements Drawable {
    * @return mouse button down
    */
   public boolean isMouseDown() {
-    return Stage.getInstance().isMouseDown();
+    return stage.isMouseDown();
   }
 
   /**
@@ -922,7 +914,7 @@ public class Sprite implements Drawable {
    * @return key pressed
    */
   public boolean isKeyPressed(int keyCode) {
-    return Stage.getInstance().isKeyPressed(keyCode);
+    return stage.isKeyPressed(keyCode);
   }
 
   /**
@@ -931,7 +923,7 @@ public class Sprite implements Drawable {
    * @return current year
    */
   public int getCurrentYear() {
-    return Stage.getInstance().getCurrentYear();
+    return stage.getCurrentYear();
   }
 
   /**
@@ -940,7 +932,7 @@ public class Sprite implements Drawable {
    * @return current month
    */
   public int getCurrentMonth() {
-    return Stage.getInstance().getCurrentMonth();
+    return stage.getCurrentMonth();
   }
 
   /**
@@ -949,7 +941,7 @@ public class Sprite implements Drawable {
    * @return current day of the month
    */
   public int getCurrentDay() {
-    return Stage.getInstance().getCurrentDay();
+    return stage.getCurrentDay();
   }
 
   /**
@@ -958,7 +950,7 @@ public class Sprite implements Drawable {
    * @return current day of the week
    */
   public int getCurrentDayOfWeek() {
-    return Stage.getInstance().getCurrentDayOfWeek();
+    return stage.getCurrentDayOfWeek();
   }
 
   /**
@@ -967,7 +959,7 @@ public class Sprite implements Drawable {
    * @return current hour
    */
   public int getCurrentHour() {
-    return Stage.getInstance().getCurrentHour();
+    return stage.getCurrentHour();
   }
 
   /**
@@ -976,7 +968,7 @@ public class Sprite implements Drawable {
    * @return current minute
    */
   public int getCurrentMinute() {
-    return Stage.getInstance().getCurrentMinute();
+    return stage.getCurrentMinute();
   }
 
   /**
@@ -985,7 +977,7 @@ public class Sprite implements Drawable {
    * @return current second
    */
   public int getCurrentSecond() {
-    return Stage.getInstance().getCurrentSecond();
+    return stage.getCurrentSecond();
   }
 
   /**
@@ -994,7 +986,7 @@ public class Sprite implements Drawable {
    * @return current millisecond
    */
   public int getCurrentMillisecond() {
-    return Stage.getInstance().getCurrentMillisecond();
+    return stage.getCurrentMillisecond();
   }
 
   /**
@@ -1003,7 +995,7 @@ public class Sprite implements Drawable {
    * @return days since 2010/01/01
    */
   public int getDaysSince2000() {
-    return Stage.getInstance().getDaysSince2000();
+    return stage.getDaysSince2000();
   }
 
   public void keyEvent(KeyEvent e) {
@@ -1027,26 +1019,29 @@ public class Sprite implements Drawable {
   }
 
   public void goToFrontLayer() {
-    Stage.getInstance().goToFrontLayer(this);
+    stage.goToFrontLayer(this);
   }
 
   public void goToBackLayer() {
-    Stage.getInstance().goToBackLayer(this);
+    stage.goToBackLayer(this);
   }
 
   public void goLayersForwards(int number) {
-    Stage.getInstance().goLayersForwards(this, number);
+    stage.goLayersForwards(this, number);
   }
 
   public void goLayersBackwards(int number) {
-    Stage.getInstance().goLayersBackwards(this, number);
+    stage.goLayersBackwards(this, number);
   }
 
   public void whenBackdropSwitches(String name) {
   }
 
   public int pickRandom(int from, int to) {
-    return Stage.getInstance().pickRandom(from, to);
+    if (to < from) {
+      return to + (int) (Math.random() * (from - to));
+    }
+    return from + (int) (Math.random() * (to - from));
   }
 
   public void think(String text) {
@@ -1073,18 +1068,20 @@ public class Sprite implements Drawable {
    * Draws the sprite if it is not hidden.
    */
   public void draw() {
+    if (this.stage == null)
+      return;
     this.pen.draw();
     if (costumes.size() > 0 && this.show) {
       this.costumes.get(this.currentCostume)
           .draw(this.size, this.direction, this.x, this.y, this.rotationStyle);
     }
 
-    if (Stage.getInstance().isDebug()) {
+    if (Applet.getInstance().isDebug()) {
       this.getHitbox().draw();
     }
     this.text.setPosition(
         x + this.getWidth() * 0.9 / 2,
-        y - this.getHeight() * 0.90);
+        y - this.getHeight() * 1.1 / 2);
     this.text.draw();
     this.run();
   }

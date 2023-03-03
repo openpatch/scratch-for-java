@@ -16,17 +16,22 @@ public class Image implements Drawable {
     private Color tint = new Color();
     private float transparency = 255;
 
+    private int width = 0;
+    private int height = 0;
+
     private static final ConcurrentHashMap<String, PImage> originalImages = new ConcurrentHashMap<>();
 
     /**
      * Construct a ScratchImage object by a name and a path to an image.
      *
-     * @param name a    a name
+     * @param name      a a name
      * @param imagePath a path to an image
      */
     public Image(String name, String imagePath) {
         this.name = name;
         this.originalImage = Image.loadImage(imagePath);
+        this.width = this.originalImage.width;
+        this.height = this.originalImage.height;
         this.image = this.originalImage;
     }
 
@@ -34,6 +39,8 @@ public class Image implements Drawable {
         this.name = name;
         this.originalImage = Image.loadImage(spriteSheetPath, x, y, width, height);
         this.image = this.originalImage;
+        this.width = this.originalImage.width;
+        this.height = this.originalImage.height;
     }
 
     /**
@@ -47,23 +54,28 @@ public class Image implements Drawable {
         this.originalImage = i.originalImage;
         this.tint = new Color(i.tint);
         this.transparency = i.transparency;
+        this.width = i.width;
+        this.height = i.height;
     }
 
-    private static PImage loadImage(String path) {
+    public void addedToStage(Stage stage) {
+
+    }
+
+    public void removedFromStage(Stage stage) {
+    }
+
+    protected static PImage loadImage(String path) {
         PImage image = originalImages.get(path);
         if (image == null) {
-            image = Stage.parent.loadImage(path);
+            image = Applet.getInstance().loadImage(path);
             originalImages.put(path, image);
-        }
+        } 
         return image;
     }
 
-    private static PImage loadImage(String path, int x, int y, int width, int height) {
-        PImage image = originalImages.get(path);
-        if (image == null) {
-            image = Stage.parent.loadImage(path);
-            originalImages.put(path, image);
-        }
+    protected static PImage loadImage(String path, int x, int y, int width, int height) {
+        var image = Image.loadImage(path);
         return image.get(x, y, width, height);
     }
 
@@ -83,6 +95,18 @@ public class Image implements Drawable {
      */
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public int getPixel(int x, int y) {
+        return image.get(x, y);
     }
 
     /**
@@ -151,70 +175,57 @@ public class Image implements Drawable {
     }
 
     /**
-     * Returns the image
-     *
-     * @return the image
-     */
-    public PImage getImage() {
-        return this.image;
-    }
-
-    /**
      * Sets the image from a given path
      *
      * @param imagePath the path to the image
      */
     public void setImage(String imagePath) {
-        this.image = Stage.parent.loadImage(imagePath);
+        this.image = Applet.getInstance().loadImage(imagePath);
     }
 
     public void setSize(float percentage) {
-        int newWidth = Math.round(this.originalImage.width * percentage / 100);
-        int newHeight = Math.round(this.originalImage.height * percentage / 100);
-
-        if (newWidth != this.image.width || newHeight != this.image.height) {
-            this.image = this.originalImage.copy();
-            this.image.resize(newWidth, newHeight);
-        }
+        this.width = Math.round(this.originalImage.width * percentage / 100);
+        this.height = Math.round(this.originalImage.height * percentage / 100);
+        this.image = this.originalImage.copy();
+        this.image.resize(width, height);
     }
 
     /**
      * Draw the scaled image at a given position.
      *
      * @param size    a percentage value
-     * @param degrees direction 
+     * @param degrees direction
      * @param x       a x coordinate
      * @param y       a y coordinate
      */
     public void draw(float size, float degrees, float x, float y, RotationStyle style) {
-        this.setSize(size);
-        PApplet parent = Stage.parent;
-        parent.pushMatrix();
-        parent.translate(x, y);
+        Applet applet = Applet.getInstance();
+        applet.pushMatrix();
+        applet.translate(x, y);
         switch (style) {
             case DONT:
                 break;
             case ALL_AROUND:
-                parent.rotate(PApplet.radians(degrees));
+                applet.rotate(PApplet.radians(degrees));
                 break;
             case LEFT_RIGHT:
                 if (degrees > -90 && degrees < 90) {
-                    parent.scale(1, 1);
+                    applet.scale(1, 1);
                 } else {
-                    parent.scale(-1, 1);
+                    applet.scale(-1, 1);
                 }
                 break;
         }
-        parent.tint(this.tint.getRed(), this.tint.getGreen(), this.tint.getBlue(), this.transparency);
-        parent.image(this.image, 0, 0);
-        parent.noTint();
-        if (Stage.getInstance().isDebug()) {
-            parent.fill(Stage.DEBUG_COLOR[0], Stage.DEBUG_COLOR[1], Stage.DEBUG_COLOR[1]);
-            parent.textAlign(PConstants.CENTER);
-            parent.text("Direction: " + degrees, 0, -this.image.width / 2.0f - 10);
-            parent.text("(" + x + ", " + y + ")", 0, 0);
+        applet.tint(this.tint.getRed(), this.tint.getGreen(), this.tint.getBlue(), this.transparency);
+        applet.image(this.image, 0, 0);
+        applet.noTint();
+        if (applet.isDebug()) {
+            applet.fill(Window.DEBUG_COLOR[0], Window.DEBUG_COLOR[1], Window.DEBUG_COLOR[1]);
+            applet.textAlign(PConstants.CENTER);
+            applet.text("Direction: " + degrees, 0, -height / 2.0f - 10);
+            applet.text("(" + x + ", " + y + ")", 0, 0);
         }
-        parent.popMatrix();
+        applet.popMatrix();
 
     }
 
@@ -226,7 +237,7 @@ public class Image implements Drawable {
      * Draw the image.
      */
     public void draw() {
-        PApplet parent = Stage.parent;
+        PApplet parent = Applet.getInstance();
         parent.tint(this.tint.getRed(), this.tint.getGreen(), this.tint.getBlue(), this.transparency);
         parent.image(this.image, 0, 0);
         parent.noTint();
@@ -237,16 +248,9 @@ public class Image implements Drawable {
      * window size.
      */
     public void drawAsBackground() {
-        PApplet parent = Stage.parent;
-
-        int newWidth = parent.width;
-        int newHeight = parent.height;
-        if (newWidth != this.image.width || newHeight != this.image.height) {
-            this.image = this.originalImage.copy();
-            this.image.resize(newWidth, newHeight);
-        }
+        PApplet parent = Applet.getInstance();
         parent.tint(this.tint.getRed(), this.tint.getGreen(), this.tint.getBlue(), this.transparency);
-        parent.image(this.image, newWidth / 2, newHeight / 2);
+        parent.image(this.image, parent.width / 2, parent.height / 2);
         parent.noTint();
     }
 }

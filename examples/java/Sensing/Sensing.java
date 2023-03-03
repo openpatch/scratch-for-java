@@ -1,12 +1,13 @@
 import org.openpatch.scratch.Sprite;
 import org.openpatch.scratch.Stage;
+import org.openpatch.scratch.Window;
 
 public class Sensing extends Stage {
     public static Hero h, m;
 
     public Sensing() {
         super(800, 800);
-        this.setDebug(true);
+        Window.getInstance().setDebug(true);
         h = new Hero();
         m = new MovableHero();
         this.add(h);

@@ -1,5 +1,6 @@
 import org.openpatch.scratch.Stage;
 import org.openpatch.scratch.extensions.GifRecorder;
+import org.openpatch.scratch.Window;
 
 public class StageIsMouseDown {
     public StageIsMouseDown() {
@@ -11,7 +12,7 @@ public class StageIsMouseDown {
             myStage.display("Mouse down? " + myStage.isMouseDown());
         }
         recorder.stop();
-        System.exit(0);
+        Window.getInstance().exit();
     }
 
     public static void main(String[] args) {

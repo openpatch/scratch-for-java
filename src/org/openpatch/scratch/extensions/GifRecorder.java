@@ -1,7 +1,7 @@
 package org.openpatch.scratch.extensions;
 
+import org.openpatch.scratch.Applet;
 import org.openpatch.scratch.Color;
-import org.openpatch.scratch.Stage;
 import org.openpatch.scratch.internal.AnimatedGifEncoder;
 
 public class GifRecorder extends Recorder {
@@ -16,12 +16,17 @@ public class GifRecorder extends Recorder {
 
     @Override
     public void saveFrame() {
-        Stage.parent.loadPixels();
-        int[] pixels = Stage.parent.pixels;
-        if (pixels != null) {
-            this.gifEncoder.setFrameRate(Stage.parent.frameRate);
-            this.gifEncoder.setRepeat(0);
-            this.gifEncoder.addFrame(pixels, Stage.parent.pixelWidth, Stage.parent.pixelHeight);
+        try {
+        Applet applet = Applet.getInstance();
+            applet.loadPixels();
+            int[] pixels = applet.pixels;
+            if (pixels != null) {
+                this.gifEncoder.setFrameRate(applet.frameRate);
+                this.gifEncoder.setRepeat(0);
+                this.gifEncoder.addFrame(pixels, applet.pixelWidth, applet.pixelHeight);
+            }
+        } catch (NullPointerException e) {
+
         }
     }
 

@@ -1,5 +1,6 @@
 import org.openpatch.scratch.Stage;
 import org.openpatch.scratch.extensions.GifRecorder;
+import org.openpatch.scratch.Window;
 
 public class StageGetWidth {
     public StageGetWidth() {
@@ -9,7 +10,7 @@ public class StageGetWidth {
         myStage.display("Width: " + myStage.getWidth());
         myStage.wait(500);
         recorder.snapshot();
-        System.exit(0);
+        Window.getInstance().exit();
     }
 
     public static void main(String[] args) {

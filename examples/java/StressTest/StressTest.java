@@ -1,32 +1,30 @@
 import org.openpatch.scratch.KeyCode;
-import org.openpatch.scratch.Renderer;
 import org.openpatch.scratch.Stage;
+import org.openpatch.scratch.Window;
 
 public class StressTest extends Stage {
 
-    private static int dinos = 15;
-    private static int knights = 15;
-    private static int ninjas = 15;
-    public StressTest() {
-        super(1000, 1000, Renderer.OPENGL);
+    private static int dinos = 80;
+    private static int knights = 80;
+    private static int ninjas = 80;
 
+    public StressTest() {
         this.addBackdrop("outback", "assets/outback.png");
         this.addSound("outback", "assets/outback.wav");
 
-        for (int i = 0; i<dinos; i++) {
+        for (int i = 0; i < dinos; i++) {
             this.add(new Dino());
         }
-        for (int i = 0; i<knights; i++) {
+        for (int i = 0; i < knights; i++) {
             this.add(new Knight());
         }
-        for (int i = 0; i<ninjas; i++) {
+        for (int i = 0; i < ninjas; i++) {
             this.add(new Ninja());
         }
     }
 
     public void run() {
         this.playSound("outback");
-        this.display("Frame Rate: " + this.getFrameRate());
     }
 
     public void whenKeyPressed(int keyCode) {
@@ -39,7 +37,8 @@ public class StressTest extends Stage {
     }
 
     public static void main(String[] args) {
-        new StressTest();
+        Window myWindow = new Window(800, 800, "assets");
+        myWindow.addStage("main", new StressTest());
     }
 
 }

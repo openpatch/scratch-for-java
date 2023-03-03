@@ -1,10 +1,10 @@
 package org.openpatch.scratch;
 
 public class Timer {
-    private int startFrameEvery;
-    private int startFrameFor;
-    private int startFrameAfter;
-    private int startFrameInterval;
+    private int startMillisEvery;
+    private int startMillisFor;
+    private int startMillisAfter;
+    private int startMillisInterval;
     private int currentInterval;
 
     public Timer() {
@@ -12,43 +12,43 @@ public class Timer {
     }
 
     public void reset() {
-        this.startFrameEvery = -1;
-        this.startFrameFor = -1;
-        this.startFrameAfter = -1;
-        this.startFrameInterval = -1;
+        this.startMillisEvery = -1;
+        this.startMillisFor = -1;
+        this.startMillisAfter = -1;
+        this.startMillisInterval = -1;
         this.currentInterval = 0;
     }
 
-    public int getMillis() {
-        return Math.round(Stage.parent.frameCount / Stage.parent.frameRate * 1000);
+    private int millis() {
+        return Applet.getInstance().millis();
     }
 
     public boolean everyMillis(int millis) {
-        int frameSkip = this.getFrameFromMillis(millis);
-        if (startFrameEvery < 0) {
-            startFrameEvery = Stage.parent.frameCount;
+        int nowMillis = millis();
+        if (startMillisEvery < 0) {
+            startMillisEvery = nowMillis;
         }
-        if (Stage.parent.frameCount >= startFrameEvery + frameSkip) {
-            startFrameEvery = Stage.parent.frameCount;
+        if (nowMillis >= startMillisEvery + millis) {
+            startMillisEvery = nowMillis;
             return true;
         }
         return false;
     }
 
     public boolean forMillis(int millis) {
-        int frameDuration = this.getFrameFromMillis(millis);
-        if (startFrameFor < 0) {
-            startFrameFor = Stage.parent.frameCount;
+        int nowMillis = millis();
+        if (startMillisFor < 0) {
+            startMillisFor = nowMillis;
         }
-        return Stage.parent.frameCount < startFrameFor + frameDuration;
+        return nowMillis < startMillisFor + millis;
     }
 
     public boolean afterMillis(int millis) {
-        int frameDuration = this.getFrameFromMillis(millis);
-        if (startFrameAfter < 0) {
-            startFrameAfter = Stage.parent.frameCount;
+        int nowMillis = millis();
+        if (startMillisAfter < 0) {
+            startMillisAfter = nowMillis; 
         }
-        return Stage.parent.frameCount >= startFrameAfter + frameDuration;
+        return nowMillis >= startMillisAfter + millis;
     }
 
     public boolean intervalMillis(int millis) {
@@ -63,33 +63,28 @@ public class Timer {
         return this.intervalMillis(millis1, millis2, false);
     }
 
-    public boolean intervalMillis(int milli1, int millis2, boolean skipFirst) {
-        int frameDuration1 = this.getFrameFromMillis(milli1);
-        int frameDuration2 = this.getFrameFromMillis(millis2);
+    public boolean intervalMillis(int millis1, int millis2, boolean skipFirst) {
+        int nowMillis = millis();
 
-        if (startFrameInterval < 0) {
-            startFrameInterval = Stage.parent.frameCount;
+        if (startMillisInterval < 0) {
+            startMillisInterval = nowMillis;
             if (skipFirst) {
-                startFrameInterval -= frameDuration1;
+                startMillisInterval -= millis1;
             }
         }
 
-        if (currentInterval == 0 && Stage.parent.frameCount < startFrameInterval + frameDuration1) {
+        if (currentInterval == 0 && nowMillis < startMillisInterval + millis1) {
             return true;
         } else if (currentInterval == 0) {
             currentInterval = 1;
-            startFrameInterval = Stage.parent.frameCount;
+            startMillisInterval = nowMillis;
             return false;
-        } else if (currentInterval == 1 && Stage.parent.frameCount < startFrameInterval + frameDuration2) {
+        } else if (currentInterval == 1 && nowMillis < startMillisInterval + millis2) {
             return false;
         } else {
             currentInterval = 0;
-            startFrameInterval = Stage.parent.frameCount;
+            startMillisInterval = nowMillis;
             return true;
         }
-    }
-
-    private int getFrameFromMillis(int millis) {
-        return (int) Math.round(millis * Stage.parent.frameRate / 1000.0);
     }
 }

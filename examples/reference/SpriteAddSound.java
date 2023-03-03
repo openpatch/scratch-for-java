@@ -7,7 +7,7 @@ public class SpriteAddSound {
         Stage myStage = new Stage(254, 100);
         Sprite zeta = new Sprite("green", "assets/zeta_green_badge.png");
         zeta.addSound("bump", "assets/bump.wav");
-        System.exit(0);
+        Window.getInstance().exit();
     }
 
     public static void main(String[] args) {

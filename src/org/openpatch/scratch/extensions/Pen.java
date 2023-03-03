@@ -31,6 +31,7 @@ public class Pen implements Drawable {
     private float size = 1;
     private Stack<CopyOnWriteArrayList<Point>> pointsBuffer = new Stack<>();
     private boolean down = false;
+    private Stage stage;
 
     public Pen() {
     }
@@ -47,6 +48,14 @@ public class Pen implements Drawable {
         this.pointsBuffer = new Stack<>();
         this.pointsBuffer.add(new CopyOnWriteArrayList<>());
         this.down = p.down;
+    }
+
+    public void addedToStage(Stage stage) {
+        this.stage = stage;
+    }
+
+    public void removedFromStage(Stage stage) {
+        this.stage = null;
     }
 
     public float getColor() {
@@ -163,14 +172,17 @@ public class Pen implements Drawable {
 
     public void eraseAll() {
         this.pointsBuffer.clear();
-        Stage.getInstance().eraseAll();
+        if (stage != null) {
+            stage.eraseAll();
+        }
     }
 
     /**
      * Draw the line which the pen has drawn.
      */
     public void draw() {
-        PGraphics buffer = Stage.getInstance().getPenBuffer();
+        if (stage == null) return;
+        PGraphics buffer = stage.getPenBuffer();
         int pointsBufferSize = this.pointsBuffer.size();
         if (pointsBufferSize <= 0)
             return;

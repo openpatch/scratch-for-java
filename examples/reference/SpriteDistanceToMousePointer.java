@@ -1,6 +1,7 @@
 import org.openpatch.scratch.Sprite;
 import org.openpatch.scratch.Stage;
 import org.openpatch.scratch.extensions.GifRecorder;
+import org.openpatch.scratch.Window;
 
 public class SpriteDistanceToMousePointer {
     public SpriteDistanceToMousePointer() {
@@ -18,7 +19,7 @@ public class SpriteDistanceToMousePointer {
             myStage.wait(100);
         }
         recorder.stop();
-        System.exit(0);
+        Window.getInstance().exit();
     }
 
     public static void main(String[] args) {

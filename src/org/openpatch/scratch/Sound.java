@@ -9,7 +9,7 @@ public class Sound {
 
     public Sound(String name, String soundPath) {
         this.name = name;
-        this.sound = new SoundFile(Stage.parent, soundPath);
+        this.sound = new SoundFile(Applet.getInstance(), soundPath);
     }
 
     /**

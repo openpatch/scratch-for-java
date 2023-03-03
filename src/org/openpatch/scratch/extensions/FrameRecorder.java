@@ -1,6 +1,6 @@
 package org.openpatch.scratch.extensions;
 
-import org.openpatch.scratch.Stage;
+import org.openpatch.scratch.Applet;
 
 import java.nio.file.Paths;
 
@@ -15,10 +15,10 @@ public class FrameRecorder extends Recorder {
 
     @Override
     public void saveFrame() {
-        Stage.parent.saveFrame(Paths.get(this.outputFolder, "#######.png").toString());
+        Applet.getInstance().saveFrame(Paths.get(this.outputFolder, "#######.png").toString());
     }
 
     public void snapshot(String filename) {
-        Stage.parent.save(Paths.get(this.outputFolder, filename).toString());
+        Applet.getInstance().save(Paths.get(this.outputFolder, filename).toString());
     }
 }
