@@ -1,5 +1,6 @@
 package org.openpatch.scratch;
 
+import processing.core.PConstants;
 import processing.core.PGraphics;
 import processing.event.KeyEvent;
 import processing.event.MouseEvent;
@@ -48,6 +49,7 @@ public class Stage {
         }
         Applet applet = Applet.getInstance();
         this.penBuffer = applet.createGraphics(applet.width, applet.height, applet.sketchRenderer());
+        this.penBuffer.smooth(8);
         this.timer = new ConcurrentHashMap<>();
         this.timer.put("default", new Timer());
         this.display = new Text(null, 0, applet.height, true, TextStyle.BOX);
