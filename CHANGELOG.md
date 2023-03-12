@@ -3,6 +3,13 @@ name: Changelog
 index: 4
 ---
 
+## 3.2.2
+
+- 🎨 Visual: Improve Pen rendering
+- 🐎 Perf: Pen does not draw everything again, but only the last additions.
+- 🐛 Fix: isTouchingSprite threw an error, if a sprite did not have a costume.
+- 🐛 Fix: exit method not found for Window class.
+
 ## 3.2.1
 
 -  🐛 Fix: Pen only drawing dots

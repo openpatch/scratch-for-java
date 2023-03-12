@@ -673,9 +673,11 @@ public class Sprite implements Drawable {
       int relativeMouseX = Math.round(mouse[0] - topLeftCornerX);
       int relativeMouseY = Math.round(mouse[1] - topLeftCornerY);
 
-      int color = this.costumes.get(this.getCurrentCostumeIndex())
-          .getPixel(relativeMouseX, relativeMouseY);
-      return Applet.getInstance().alpha(color) != 0;
+      if (this.costumes.size() > this.getCurrentCostumeIndex()) {
+        int color = this.costumes.get(this.getCurrentCostumeIndex())
+            .getPixel(relativeMouseX, relativeMouseY);
+        return Applet.getInstance().alpha(color) != 0;
+      }
     }
 
     return false;
@@ -688,7 +690,10 @@ public class Sprite implements Drawable {
    * @return true if outside
    */
   public boolean isTouchingEdge() {
-    Image currentCostume = this.costumes.get(this.getCurrentCostumeIndex());
+    Image currentCostume = null;
+    if (this.costumes.size() > this.getCurrentCostumeIndex()) {
+      currentCostume = this.costumes.get(this.getCurrentCostumeIndex());
+    }
     PApplet parent = Applet.getInstance();
     float costumeWidth = currentCostume != null
         ? currentCostume.getWidth()

@@ -5,9 +5,10 @@ import org.openpatch.scratch.Drawable;
 import org.openpatch.scratch.Stage;
 import processing.core.PGraphics;
 
-import java.util.Stack;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class Pen implements Drawable {
     class Point {
@@ -29,8 +30,9 @@ public class Pen implements Drawable {
     private Color color = new Color(0);
     private float transparency = 255;
     private float size = 1;
-    private Stack<CopyOnWriteArrayList<Point>> pointsBuffer = new Stack<>();
+    private List<CopyOnWriteArrayList<Point>> pointsBuffer = new ArrayList<>();
     private boolean down = false;
+    private Point previousPoint = null;
     private Stage stage;
 
     public Pen() {
@@ -45,7 +47,7 @@ public class Pen implements Drawable {
         this.color = new Color(p.color);
         this.size = p.size;
         this.transparency = p.transparency;
-        this.pointsBuffer = new Stack<>();
+        this.pointsBuffer = new ArrayList<>();
         this.pointsBuffer.add(new CopyOnWriteArrayList<>());
         this.down = p.down;
     }
@@ -145,7 +147,7 @@ public class Pen implements Drawable {
      */
     public void setPosition(float x, float y) {
         if (this.down) {
-            if (this.pointsBuffer.empty()) {
+            if (this.pointsBuffer.isEmpty()) {
                 this.pointsBuffer.add(new CopyOnWriteArrayList<>());
             }
             this.pointsBuffer.get(this.pointsBuffer.size() - 1)
@@ -181,7 +183,8 @@ public class Pen implements Drawable {
      * Draw the line which the pen has drawn.
      */
     public void draw() {
-        if (stage == null) return;
+        if (stage == null)
+            return;
         PGraphics buffer = stage.getPenBuffer();
         int pointsBufferSize = this.pointsBuffer.size();
         if (pointsBufferSize <= 0)
@@ -195,15 +198,13 @@ public class Pen implements Drawable {
             CopyOnWriteArrayList<Point> points = pointsBufferIter.next();
             Iterator<Point> pointsIter = points.iterator();
 
-            Point previousPoint = null;
-            int pointsSize = points.size();
             while (pointsIter.hasNext()) {
                 Point point = pointsIter.next();
-                if (pointsSize > 1 && previousPoint != null) {
+                if (previousPoint != null) {
                     buffer.stroke(point.color.getRed(), point.color.getGreen(), point.color.getBlue(), point.opacity);
                     buffer.strokeWeight(point.size);
                     buffer.line(previousPoint.x, previousPoint.y, point.x, point.y);
-                } else if (pointsSize == 1) {
+                } else if (previousPoint == null && !this.down) {
                     buffer.stroke(point.color.getRed(), point.color.getGreen(), point.color.getBlue(), point.opacity);
                     buffer.fill(point.color.getRed(), point.color.getGreen(), point.color.getBlue(), point.opacity);
                     buffer.strokeWeight(point.size);
@@ -211,8 +212,11 @@ public class Pen implements Drawable {
                 }
                 previousPoint = point;
             }
-            if (!this.down) {
+            if (!this.down || pointsBufferIter.hasNext()) {
+                previousPoint = null;
                 pointsBufferIter.remove();
+            } else {
+                points.clear();
             }
         }
         buffer.endDraw();

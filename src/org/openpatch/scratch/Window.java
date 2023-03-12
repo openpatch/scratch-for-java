@@ -63,4 +63,8 @@ public class Window {
     Applet.getInstance().switchStage(name);
   }
 
+  public void exit() {
+    Applet.getInstance().exit();
+  }
+
 }
