@@ -3,6 +3,10 @@ name: Changelog
 index: 4
 ---
 
+## 3.2.1
+
+-  🐛 Fix: Pen only drawing dots
+
 ## 3.2.0
 
 - 🚀 Feat: Introducing the new class `Window`. Every Scratch for Java program can have on `Window`-object. A `Window`-object contains one stage object, which can be change during the runtime. This allows for using multiple stages in your program. For example, you could have one stage for the menu, one for the game and one for the credits.
