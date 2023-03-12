@@ -46,7 +46,7 @@ public class Timer {
     public boolean afterMillis(int millis) {
         int nowMillis = millis();
         if (startMillisAfter < 0) {
-            startMillisAfter = nowMillis; 
+            startMillisAfter = nowMillis;
         }
         return nowMillis >= startMillisAfter + millis;
     }

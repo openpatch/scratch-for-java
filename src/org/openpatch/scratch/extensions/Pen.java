@@ -211,7 +211,7 @@ public class Pen implements Drawable {
                 }
                 previousPoint = point;
             }
-            if (!this.down || pointsBufferSize > 0) {
+            if (!this.down) {
                 pointsBufferIter.remove();
             }
         }
