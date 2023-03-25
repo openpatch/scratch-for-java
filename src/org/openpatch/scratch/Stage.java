@@ -336,6 +336,32 @@ public class Stage {
     }
 
     /**
+     * Stops the playing of the sound with the given name
+     * 
+     * @param name Name of the sound
+     */
+    public void stopSound(String name) {
+        for (Sound sound : sounds) {
+            if (sound.getName().equals(name)) {
+                sound.stop();
+                break;
+            }
+        }
+    }
+
+    /**
+     * Returns true if the sound if playing
+     * @return playing
+     */
+    public boolean isSoundPlaying(String name) {
+        for(Sound sound : sounds) {
+            if (sound.getName().equals(name)) {
+            return sound.isPlaying()
+            }
+        }
+    }
+
+    /**
      * Returns the pen buffer
      *
      * @return the pen buffer

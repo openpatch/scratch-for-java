@@ -1,6 +1,8 @@
 template: class
 name: Window
 index: -1
+description: |
+  The Window class is the heart of your program.
 constructors:
   - Window()
   - Window(width, height)

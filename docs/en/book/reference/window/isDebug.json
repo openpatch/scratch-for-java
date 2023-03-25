@@ -1,0 +1,11 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "<is debug>",
+  "name": "isDebug()",
+  "class": "Window",
+  "description": "Returns true if the debug mode is activated.",
+  "syntax": [".isDebug()"],
+  "returns": "boolean"
+}
+

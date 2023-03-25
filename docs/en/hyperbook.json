@@ -1,7 +1,7 @@
 {
   "name": "Scratch for Java",
   "version": "0.0.0",
-  "description": "A library which which remodels Scratch in Java",
+  "description": "A library which remodels Scratch in Java",
   "author": {
     "name": "OpenPatch",
     "url": "https://openpatch.org"
