@@ -1,0 +1,11 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "(width)",
+  "name": "getWidth()",
+  "class": "Window",
+  "description": "Gets the width of the window.",
+  "syntax": [".getWidth()"],
+  "returns": "float"
+}
+

@@ -1,0 +1,18 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "set debug <>",
+  "name": "setDebug()",
+  "class": "Window",
+  "description": "Activates or deactives the debug mode.",
+  "syntax": [".setDebug(active)"],
+  "returns": "void",
+  "parameters": [
+    {
+      "name": "active",
+      "description": "If true the debug mode gets activated, else it will be disabled.",
+      "type": "boolean"
+    }
+  ]
+}
+
