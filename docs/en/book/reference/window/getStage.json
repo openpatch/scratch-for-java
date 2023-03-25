@@ -1,0 +1,19 @@
+{
+  "template": "method",
+  "related": [],
+  "name": "getStage()",
+  "scratchblock": "(stage (name))",
+  "class": "Window",
+  "description": "Gets the stage with the given name. If no stage with the given name can be found, null will be returned.",
+  "syntax": [
+    ".getStage(name)"
+  ],
+  "returns": "Stage",
+  "parameters": [
+    {
+      "name": "name",
+      "description": "The name of the stage.",
+      "type": "String"
+    }
+  ]
+}

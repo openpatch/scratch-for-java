@@ -1,0 +1,13 @@
+{
+  "template": "method",
+  "related": [],
+  "name": "getInstance()",
+  "scratchblock": "(window instance)",
+  "class": "Window",
+  "description": "Gets the instance of the Window.",
+  "syntax": [
+    ".getInstance"
+  ],
+  "returns": "Window"
+}
+

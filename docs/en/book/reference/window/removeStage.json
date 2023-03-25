@@ -1,0 +1,19 @@
+{
+  "template": "method",
+  "related": [],
+  "name": "removeStage()",
+  "scratchblock": "remove stage (name)",
+  "class": "Window",
+  "description": "Removes a stage form the window object.",
+  "syntax": [
+    ".removeStage(name)"
+  ],
+  "returns": "void",
+  "parameters": [
+    {
+      "name": "name",
+      "description": "A name for the stage.",
+      "type": "String"
+    }
+  ]
+}

@@ -3,6 +3,9 @@ name: {{ name }}
 {{#if index}}
 index: {{ index }}
 {{/if}}
+{{#if hide}}
+hide: true
+{{/if}}
 ---
 
 # {{ class }}::{{ name }}
@@ -21,7 +24,7 @@ index: {{ index }}
 {{#if lines}}
 {{{ rfile (concat "/examples/reference/" src) lines "" }}}
 {{else}}
-{{{ rfile (concat "/examples/reference" src) }}}
+{{{ rfile (concat "/examples/reference/" src) }}}
 {{/if}}
 ```
 
