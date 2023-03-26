@@ -7,6 +7,7 @@ public class Pipes extends Stage {
         this.addBackdrop("chalkBoard", "backdrops/chalk_board.jpg");
         this.setTint(60);
         this.add(new PenSprite());
+        this.addSound("bg", "sounds/bensound-enigmatic.wav");
     }
 
     public void whenKeyPressed(int keyCode) {
@@ -16,6 +17,7 @@ public class Pipes extends Stage {
     }
 
     public void run() {
+        this.playSound("bg");
         var pens = this.find(PenSprite.class);
         for (var pen : pens) {
             if (Math.random() < 0.05 && pens.size() < 15) {

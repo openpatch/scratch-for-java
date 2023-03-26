@@ -1,0 +1,17 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "(height)",
+  "name": "getHeight()",
+  "class": "Sprite",
+  "description": "Gibt die Höhe der Figur zurück.",
+  "syntax": [".getHeight()"],
+  "returns": "float",
+  "examples": [
+    {
+      "src": "SpriteGetHeight.java",
+      "preview": "SpriteGetHeight.gif",
+      "lines": "reg:[Rr]ecorder"
+    }
+  ]
+}

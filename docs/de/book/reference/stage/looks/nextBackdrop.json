@@ -1,0 +1,17 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "next backdrop",
+  "name": "nextBackdrop()",
+  "class": "Stage",
+  "description": "Wechselt den Hintergrund der Bühne zum nächsten in der Liste.",
+  "syntax": [".nextBackdrop()"],
+  "returns": "void",
+  "examples": [
+    {
+      "src": "StageNextBackdrop.java",
+      "preview": "StageNextBackdrop.gif",
+      "lines": "reg:[Rr]ecorder"
+    }
+  ]
+}

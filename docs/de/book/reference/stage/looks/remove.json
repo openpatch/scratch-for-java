@@ -1,0 +1,26 @@
+{
+  "template": "method",
+  "related": [],
+  "name": "remove()",
+  "scratchblock": "remove (sprite)",
+  "class": "Stage",
+  "description": "Entfernt ein Objekt der Klasse Drawable von der Bühne.",
+  "syntax": [
+    ".remove(sprite)"
+  ],
+  "returns": "void",
+  "examples": [
+    {
+      "src": "StageRemove.java",
+      "preview": "StageRemove.gif",
+      "lines": "reg:[Rr]ecorder"
+    }
+  ],
+  "parameters": [
+    {
+      "name": "sprite",
+      "description": "Eine Referenz zu einem Objekt der Klasse Drawable. Zum Beispiel einer Figur.",
+      "type": "Drawable"
+    }
+  ]
+}

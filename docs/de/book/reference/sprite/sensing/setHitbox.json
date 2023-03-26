@@ -1,0 +1,34 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "set hitbox (hitbox)",
+  "name": "setHitbox()",
+  "class": "Sprite",
+  "description": "Setzt die Hitbox von einem Sprite.",
+  "syntax": [".setHitbox(xcoordinates, ycoordinates)", ".setHitbox(hitbox)", ".setHitbox(...coordinates)"],
+  "returns": "boolean",
+  "examples": [
+    { "src": "SpriteSetHitbox.java", "preview": "SpriteSetHitbox.gif", "lines": "reg:[Rr]ecorder" }
+  ],
+  "parameters": [
+    {
+      "name": "xcoordinates",
+      "description": "Ein Array mit den x-Koordinaten",
+      "type": "int[]"
+    },
+    {
+      "name": "ycoordinates",
+      "description": "Ein Array mit den y-Koordinaten",
+      "type": "int[]"
+    },
+    {
+      "name": "hitbox",
+      "description": "Eine Hitbox",
+      "type": "Hitbox"
+    }, {
+      "name": "...coordinates",
+      "description": "Eine variable Liste von Parameter der Form x1, y1, x2, y2, x3, y3, ...",
+      "type": "int"
+    }
+  ]
+}

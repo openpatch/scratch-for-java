@@ -1,0 +1,14 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "current [day of week v]",
+  "name": "getCurrentDayOfWeek()",
+  "class": "Stage",
+  "description": "Gibt den aktuellen Tag in der Woche zurück.",
+  "syntax": [".getCurrentDayOfWeek()"],
+  "returns": "int",
+  "examples": [
+    { "src": "StageGetCurrentTime.java", "preview": "StageGetCurrentTime.gif", "lines": "reg:[Rr]ecorder" }
+  ]
+}
+

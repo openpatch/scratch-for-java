@@ -1,0 +1,14 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "(mouse x)",
+  "name": "getMouseX()",
+  "class": "Sprite",
+  "description": "Gibt die x-Koordinate des Mauszeigers zurück.",
+  "syntax": [".getMouseX()"],
+  "returns": "float",
+  "examples": [
+    { "src": "SpriteGetMouse.java", "preview": "SpriteGetMouse.gif", "lines": "reg:[Rr]ecorder" }
+  ]
+}
+

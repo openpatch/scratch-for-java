@@ -1,0 +1,13 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "stop all sounds",
+  "name": "stopAllSounds()",
+  "class": "Sprite",
+  "description": "Stoppt alle Klänge der Figur.",
+  "syntax": [".stopAllSounds()"],
+  "returns": "void",
+  "examples": [
+    { "src": "SpriteStopAllSounds.java", "preview": "SpriteStopAllSounds.gif", "lines": "reg:[Rr]ecorder"}
+  ]
+}

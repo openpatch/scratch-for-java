@@ -1,0 +1,13 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "mouse down?",
+  "name": "isMouseDown()",
+  "class": "Stage",
+  "description": "Gibt wahr zurück, wenn die linke Maustaste gedrückt ist.",
+  "syntax": [".isMouseDown()"],
+  "returns": "boolean",
+  "examples": [
+    { "src": "StageIsMouseDown.java", "preview": "StageIsMouseDown.gif", "lines": "reg:[Rr]ecorder" }
+  ]
+}

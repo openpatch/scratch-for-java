@@ -1,0 +1,17 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "(animation frame)",
+  "name": "getAnimationFrame()",
+  "class": "AnimatedSprite",
+  "description": "Gibt den aktuellen Animationsframe zurück.",
+  "syntax": [".getAnimationFrame()"],
+  "returns": "int",
+  "examples": [
+    {
+      "src": "AnimatedSpriteGetAnimationFrame.java",
+      "preview": "AnimatedSpriteGetAnimationFrame.gif",
+      "lines": "reg:[Rr]ecorder"
+    }
+  ]
+}

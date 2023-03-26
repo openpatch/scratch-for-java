@@ -1,0 +1,25 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "save (path) (obj)",
+  "name": "save()",
+  "class": "File",
+  "description": "Speichert die Attribute eines Objekts in eine JSON-Datei.",
+  "syntax": [".save(path, obj)"],
+  "examples": [
+    { "src": "FileSave.java" }
+  ],
+  "parameters": [
+    {
+      "name": "path",
+      "description": "Pfad zur JSON-Datei. Die Datei muss nicht existieren.",
+      "type": "String"
+    },
+    {
+      "name": "obj",
+      "description": "Das zu speichernde Objekt.",
+      "type": "Object"
+    }
+  ]
+}
+

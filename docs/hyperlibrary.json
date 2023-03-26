@@ -1,6 +1,7 @@
 {
-  "name": { "en": "Translations" },
+  "name": { "en": "Translations", "de": "Übersetzungen" },
   "library": [
-    { "src": "en", "name": "English", "basePath": "/", "icon": "🇬🇧" }
+    { "src": "en", "name": "English", "basePath": "/", "icon": "🇬🇧" },
+    { "src": "de", "name": "Deutsch", "basePath": "/de", "icon": "🇩🇪" }
   ]
 }

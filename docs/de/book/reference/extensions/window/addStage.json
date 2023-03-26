@@ -1,0 +1,25 @@
+{
+  "template": "method",
+  "related": [],
+  "name": "addStage()",
+  "scratchblock": "add stage (name) (stage)",
+  "class": "Window",
+  "description": "Fügt dem Fenster eine neue Bühne hinzu.",
+  "syntax": [
+    ".addStage(name, stage)"
+  ],
+  "returns": "void",
+  "parameters": [
+    {
+      "name": "name",
+      "description": "Der Name der Bühne",
+      "type": "String"
+    },
+    {
+      "name": "stage",
+      "description": "Eine Referenz zu einem Objekt der Klasse Bühne",
+      "type": "Stage"
+    }
+  ]
+}
+
