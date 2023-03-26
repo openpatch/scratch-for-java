@@ -351,14 +351,17 @@ public class Stage {
 
     /**
      * Returns true if the sound if playing
+     * 
      * @return playing
      */
     public boolean isSoundPlaying(String name) {
-        for(Sound sound : sounds) {
+        for (Sound sound : sounds) {
             if (sound.getName().equals(name)) {
-            return sound.isPlaying()
+                return sound.isPlaying();
             }
         }
+
+        return false;
     }
 
     /**
