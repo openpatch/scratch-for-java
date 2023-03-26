@@ -1,0 +1,25 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "set pen [transparency v] to (50)",
+  "name": "setTransparency()",
+  "class": "Pen",
+  "description": "Setzt die Transparenz des Stiftes in Prozent.",
+  "syntax": [".setTransparency(percentage)"],
+  "returns": "void",
+  "examples": [
+    {
+      "src": "PenSetTransparency.java",
+      "preview": "PenSetTransparency.gif",
+      "lines": "reg:[Rr]ecorder"
+    }
+  ],
+  "parameters": [
+    {
+      "name": "percentage",
+      "description": "Ein Prozentwert.",
+      "type": "float"
+    }
+  ]
+}
+

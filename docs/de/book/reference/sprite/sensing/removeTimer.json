@@ -1,0 +1,17 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "remove timer (name)",
+  "name": "removeTimer()",
+  "class": "Sprite",
+  "description": "Entfernt einen Timer.",
+  "syntax": [".removeTimer(name)"],
+  "returns": "void",
+  "parameters": [
+    {
+      "name": "name",
+      "description": "Der Name des Timers",
+      "type": "String"
+    }
+  ]
+}

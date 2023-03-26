@@ -1,0 +1,19 @@
+{
+  "template": "method",
+  "related": [],
+  "name": "switchStage()",
+  "scratchblock": "switch stage (name)",
+  "class": "Window",
+  "description": "Wechselt die Bühne.",
+  "syntax": [
+    ".switchStage(name)"
+  ],
+  "returns": "void",
+  "parameters": [
+    {
+      "name": "name",
+      "description": "Der Name der Bühne",
+      "type": "String"
+    }
+  ]
+}

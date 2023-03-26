@@ -11,4 +11,3 @@ An example with heavy use of the Pen.
 ## Source Code
 
 - Java: https://github.com/openpatch/scratch-for-java/tree/main/examples/java/Pipes
-- Processing: https://github.com/openpatch/scratch-for-java/tree/main/examples/processing/Pipes

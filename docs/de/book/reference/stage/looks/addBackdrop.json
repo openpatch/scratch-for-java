@@ -1,0 +1,32 @@
+{
+  "template": "method",
+  "related": [],
+  "name": "addBackdrop()",
+  "scratchblock": "add backdrop (name) (file path)",
+  "class": "Sprite",
+  "description": "Fügt einen Hintergrund hinzu.",
+  "syntax": [
+    ".addBackdrop(name, filePath)"
+  ],
+  "returns": "void",
+  "examples": [
+    {
+      "src": "StageAddBackdrop.java",
+      "preview": "StageAddBackdrop.gif",
+      "lines": "reg:[Rr]ecorder"
+    }
+  ],
+  "parameters": [
+    {
+      "name": "name",
+      "description": "Der Name des Hintergrunds",
+      "type": "String"
+    },
+    {
+      "name": "filePath",
+      "description": "Der Pfad zur Bilddatei",
+      "type": "String"
+    }
+  ]
+}
+

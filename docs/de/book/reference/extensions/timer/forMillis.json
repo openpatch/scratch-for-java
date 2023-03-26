@@ -1,0 +1,20 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "for () millis :: boolean",
+  "name": "forMillis()",
+  "class": "Timer",
+  "description": "Gibt für die Millisekunden wahr zurück.",
+  "syntax": [".forMillis(millis)"],
+  "returns": "boolean",
+  "examples": [
+    { "src": "TimerForMillis.java", "preview": "TimerForMillis.gif", "lines": "reg:[Rr]ecorder" }
+  ],
+  "parameters": [
+    {
+      "name": "millis",
+      "description": "Die Millisekunden",
+      "type": "boolean"
+    }
+  ]
+}

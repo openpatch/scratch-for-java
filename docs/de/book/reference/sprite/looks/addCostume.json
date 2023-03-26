@@ -1,0 +1,52 @@
+{
+  "template": "method",
+  "related": [],
+  "name": "addCostume()",
+  "scratchblock": "add costume (name) (file path)",
+  "class": "Sprite",
+  "description": "Füge ein neues Kostüm zur Figur hinzu. Das Kostüm kann entweder ein Bild sein oder ein Teil eines Spritesheets.",
+  "syntax": [
+    ".addCostume(name, filePath)",
+    ".addCostume(name, filePath, x, y, width, height)"
+  ],
+  "returns": "void",
+  "examples": [
+    {
+      "src": "SpriteAddCostume.java",
+      "preview": "SpriteAddCostume.gif",
+      "lines": "reg:[Rr]ecorder"
+    }
+  ],
+  "parameters": [
+    {
+      "name": "name",
+      "description": "Name des Kostümes",
+      "type": "String"
+    },
+    {
+      "name": "filePath",
+      "description": "Pfad zur Bilddatei.",
+      "type": "String"
+    },
+    {
+      "name": "x",
+      "description": "x-Koordinate im Spritesheet.",
+      "type": "int"
+    },
+    {
+      "name": "y",
+      "description": "y-Koordinate im Spritesheet.",
+      "type": "int"
+    },
+    {
+      "name": "width",
+      "description": "Breite des Bildausschnitts an der x- und y-Position.",
+      "type": "int"
+    },
+    {
+      "name": "height",
+      "description": "Höhe des Bildausschnitts an der x- und y-Position.",
+      "type": "int"
+    }
+  ]
+}

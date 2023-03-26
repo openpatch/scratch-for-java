@@ -1,0 +1,25 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "go to x () y ()",
+  "name": "setPosition()",
+  "class": "Sprite",
+  "description": "Setzt die Positon der Figur.",
+  "syntax": [".setPosition(x, y)"],
+  "returns": "void",
+  "examples": [
+    { "src": "SpriteSetPosition.java", "preview": "SpriteSetPosition.gif", "lines": "reg:[Rr]ecorder" }
+  ],
+  "parameters": [
+    {
+      "name": "x",
+      "description": "X-Koordinate",
+      "type": "float"
+    },
+    {
+      "name": "y",
+      "description": "Y-Koordinate",
+      "type": "float"
+    }
+  ]
+}

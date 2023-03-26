@@ -1,0 +1,24 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "change [color v] effect by (25)",
+  "name": "changeColor()",
+  "class": "Stage",
+  "description": "Verändert die Hintergrundfarbe um den übergebenen Wert.",
+  "syntax": [".changeColor(amount)"],
+  "returns": "void",
+  "examples": [
+    {
+      "src": "StageChangeColor.java",
+      "preview": "StageChangeColor.gif",
+      "lines": "reg:[Rr]ecorder"
+    }
+  ],
+  "parameters": [
+    {
+      "name": "amount",
+      "description": "Der Wert um den die Farbe verändert wird",
+      "type": "float"
+    }
+  ]
+}

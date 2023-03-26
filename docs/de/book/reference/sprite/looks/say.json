@@ -1,0 +1,29 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "say [Hi!]\nsay [Hi!] for (5) seconds",
+  "name": "say()",
+  "class": "Sprite",
+  "description": "Eine Sprechblase erscheint über der Figur und wird erst wieder verschwindent, wenn die Figur was anderes denkt oder sagt oder wenn sie nichts (null) mehr sagt.",
+  "syntax": [".say(text)", ".say(text, milliseconds)"],
+  "returns": "void",
+  "examples": [
+    {
+      "src": "SpriteSay.java",
+      "preview": "SpriteSay.gif",
+      "lines": "reg:[Rr]ecorder"
+    }
+  ],
+  "parameters": [
+    {
+      "name": "text",
+      "description": "Der Text der Sprechblase",
+      "type": "String"
+    },
+    {
+      "name": "milliseconds",
+      "description": "Die Zeit nach der die Sprechblase verschwinden soll.",
+      "type": "int"
+    }
+  ]
+}

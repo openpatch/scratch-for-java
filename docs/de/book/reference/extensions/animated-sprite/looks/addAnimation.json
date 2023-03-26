@@ -1,0 +1,54 @@
+{
+  "template": "method",
+  "related": [],
+  "name": "addAnimation()",
+  "scratchblock": "add animation (name) (pattern) (frames)",
+  "class": "AnimatedSprite",
+  "description": "Fügt eine Animation hinzu. Die Animation kann entweder eine Reihe von einzelnen Bildern oder ein Teil eines Spritesheets sein.",
+  "syntax": [
+    ".addAnimation(name, pattern, frames)",
+    ".addAnimation(name, path, frames, width, height)",
+    ".addAnimation(name, path, frames, width, height, int row)"
+  ],
+  "returns": "void",
+  "examples": [
+    {
+      "src": "AnimatedSpriteAddAnimation.java",
+      "preview": "AnimatedSpriteAddAnimation.gif",
+      "lines": "reg:[Rr]ecorder"
+    }
+  ],
+  "parameters": [
+    {
+      "name": "name",
+      "description": "Der Name der Animation",
+      "type": "String"
+    },
+    {
+      "name": "pattern",
+      "description": "Ein Muster für das Finden von Bilden, welche die einzelnen Frames der Animation repräsentieren.",
+      "type": "String"
+    },
+    {
+      "name": "frames",
+      "description": "Die Anzahl der Frames der Animation.",
+      "type": "int"
+    },
+    {
+      "name": "width",
+      "description": "Die Breite eines einzelnen Frames. (Das wird nur gebraucht, wenn die Bilder aus einem Spritesheet stammen)",
+      "type": "int"
+    },
+    {
+      "name": "height",
+      "description": "Die Höhe eines einzelnen Frames. (Das wird nur gebraucht, wenn die Bilder aus einem Spritesheet stammen)",
+      "type": "int"
+    },
+    {
+      "name": "row",
+      "description": "Die Zeile im Spritesheet. (Das wird nur gebraucht, wenn die Bilder aus einem Spritesheet stammen)",
+      "type": "int"
+    }
+  ]
+}
+

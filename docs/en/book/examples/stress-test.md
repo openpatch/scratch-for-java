@@ -13,5 +13,4 @@ It also shows how to animate a sprite.
 ## Source Code:
 
 - Java: https://github.com/openpatch/scratch-for-java/tree/main/examples/java/StressTest
-- Processing: https://github.com/openpatch/scratch-for-java/tree/main/examples/processing/StressTest
 

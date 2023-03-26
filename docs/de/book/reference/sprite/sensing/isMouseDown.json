@@ -1,0 +1,13 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "mouse down?",
+  "name": "isMouseDown()",
+  "class": "Sprite",
+  "description": "Gibt wahr zurück, wenn die linke Maustaste gedrückt ist.",
+  "syntax": [".isMouseDown()"],
+  "returns": "boolean",
+  "examples": [
+    { "src": "SpriteIsMouseDown.java", "preview": "SpriteIsMouseDown.gif", "lines": "reg:[Rr]ecorder" }
+  ]
+}
