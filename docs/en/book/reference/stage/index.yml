@@ -1,3 +1,11 @@
 template: "class"
 name: "Stage"
 index: 1
+description: >
+  Die Stage-Klasse kann entweder einzeln benutzt werden - wie es aus Scratch
+  bekannt ist. Oder es können mehrere Bühnen verwendet werden. Dazu muss dann
+  noch die Window-Klasse zum Einsatz kommen.
+constructors:
+  - Stage()
+  - Stage(width, height)
+  - Stage(width, height, debug)
