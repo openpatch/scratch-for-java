@@ -30,3 +30,5 @@ description: >
   besonders zu beachten! Der Drehpunkt bildet immer den Mittelpunkt der Figur
   und beeinflusst die Rotation. Wenn du das Verhalten verändern möchtest, kann
   die du Methode `setRotationStyle` verwenden.
+constructors:
+  - Sprite()
