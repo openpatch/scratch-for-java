@@ -1,0 +1,24 @@
+template: class
+name: Window
+index: -1
+description: |
+  Die Window-Klasse ist das Herz eines jeden Programms in Scratch for Java. Die
+  Klasse ist als Singelton implementiert. Das heißt, dass es nur ein Objekt der
+  Klasse Window geben kann. Dieses kann mit `Window.getInstance()` zu jeder Zeit
+  referenziert werden.
+
+
+  Die Breite und die Höhe des Fensters können über die ersten beiden Parameter
+  des Konstruktors festgelegt werden.
+
+
+  Der dritte Parameter des Konstruktors ermöglicht das Vorladen von Bild- und
+  Audiodateien. Dazu muss der dritte Parameter auf einen Pfad enthalten. Alle
+  Bild- und Audiodateien an dieser Stelle und in Unterordnern zu finden sind
+  werden automatische vorgeladen, sodass im späteren Verlauf keine Ladezeiten
+  entstehen sollten.
+constructors:
+  - Window()
+  - Window(width, height)
+  - Window(assets)
+  - Window(width, height, assets)

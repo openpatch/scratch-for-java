@@ -1,0 +1,20 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "turn left () degrees",
+  "name": "turnLeft()",
+  "class": "Sprite",
+  "description": "Dreht die Figur nach links.",
+  "syntax": [".turnLeft(degrees)"],
+  "returns": "void",
+  "examples": [
+    { "src": "SpriteTurnLeft.java", "preview": "SpriteTurnLeft.gif", "lines": "reg:[Rr]ecorder" }
+  ],
+  "parameters": [
+    {
+      "name": "degree",
+      "description": "Der Wert um den die Figur nach links gedreht wird.",
+      "type": "float"
+    }
+  ]
+}

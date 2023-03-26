@@ -1,0 +1,32 @@
+template: "class"
+name: "Sprite (Figur)"
+index: 2
+description: >
+  Objekte der Klasse Sprite sind die Figuren, wie du sie aus Scratch kennst.
+  Genau wie in Scratch kann eine Figur der Bühne hinzugefügt werden und sich auf
+  der Bühne bewegen, drehen und ihre Ebene ändern. 
+
+
+  Die Objekte der Klasse Sprite können verschiedene Klänge und Kostüme haben.
+  Auch können ihnen durch neue Attribute weitere Eigenschaften hinzugefügt
+  werden.
+
+
+  Meistens möchtest du wahrscheinlich ein Objekt der Klasse Sprite über die Bühne flitzen lassen. Dazu haben die Objekte veränderbare Werte u.a.:
+
+  - x-Position
+
+  - y-Position
+
+  - Richtung
+
+  - Drehmodus
+
+
+  Dies können mit Methoden der Kategorie Bewegung verändert werden.
+
+
+  Wenn man mit Rotation arbeiten will, ist es wichtig den Drehpunkt ganz
+  besonders zu beachten! Der Drehpunkt bildet immer den Mittelpunkt der Figur
+  und beeinflusst die Rotation. Wenn du das Verhalten verändern möchtest, kann
+  die du Methode `setRotationStyle` verwenden.

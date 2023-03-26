@@ -8,12 +8,7 @@ public class Character extends AnimatedSprite {
     boolean hasTouchedEdge = false;
 
     public Character(String pathBase, int idleAnimations, int runAnimations, int walkAnimations) {
-        // String pathBase = "assets/" + name + "/";
-        super();
         state = CharacterState.IDLE;
-
-        this.addSound("bump", "assets/bump.wav");
-        this.addSound("run", "assets/run.wav");
 
         this.addAnimation("idle", pathBase + "Idle (%d).png", idleAnimations);
         this.addAnimation("run", pathBase + "Run (%d).png", runAnimations);
@@ -37,7 +32,6 @@ public class Character extends AnimatedSprite {
         }
 
         if (isTouchingEdge() && !hasTouchedEdge) {
-            this.playSound("bump");
             hasTouchedEdge = true;
         } else if (!isTouchingEdge() && hasTouchedEdge) {
             hasTouchedEdge = false;

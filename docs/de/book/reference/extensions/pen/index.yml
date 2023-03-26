@@ -1,0 +1,6 @@
+template: "class"
+name: "Pen"
+description: >
+  Stifte funktionieren in Scratch for Java auch unabhängig von einer Figur
+  (Sprite). Dazu muss lediglich ein neues Objekt der Pen-Klasse erzeugt und der
+  Bühne (Stage) hinzugefügt werden.

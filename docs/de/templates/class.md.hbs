@@ -1,0 +1,50 @@
+---
+name: {{ name }}
+{{#if index}}
+index: {{ index }}
+{{/if}}
+{{#if hide}}
+hide: true
+{{/if}}
+---
+
+# {{ name }}
+
+{{ description }}
+
+{{#if examples}}
+## Beispiele
+
+{{#each examples}}
+{{#if preview}}
+![]({{ concat "/reference/" preview }})
+{{/if}}
+
+```java
+{{#if lines}}
+{{{ rfile (concat "/examples/reference/" src) lines "" }}}
+{{else}}
+{{{ rfile (concat "/examples/reference" src) }}}
+{{/if}}
+```
+
+[View on GitHub](https://github.com/openpatch/scratch-for-java/blob/main/examples/reference/{{ src }})
+{{/each}}
+{{/if}}
+
+{{#if constructors}}
+## Konstruktoren
+
+{{#each constructors}}
+- {{this}}
+{{/each}}
+{{/if}}
+
+{{#if related}}
+## Verwandt
+
+{{#each related}}
+- [{{ name }}](/reference/{{ href }})
+{{/each}}
+{{/if}}
+

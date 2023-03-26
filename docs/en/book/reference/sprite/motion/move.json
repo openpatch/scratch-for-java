@@ -1,10 +1,10 @@
 {
   "template": "method",
   "related": [],
-  "scratchblock": "change [color v] effect by (25)",
+  "scratchblock": "move (25) steps",
   "name": "move()",
   "class": "Sprite",
-  "description": "Change the tint by a given amount.",
+  "description": "Move the sprite x-steps in the current direction.",
   "syntax": [".move(steps)"],
   "returns": "void",
   "examples": [

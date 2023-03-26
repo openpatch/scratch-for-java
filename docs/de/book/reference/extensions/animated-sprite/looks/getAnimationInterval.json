@@ -1,0 +1,17 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "(animation interval)",
+  "name": "getAnimationInterval()",
+  "class": "AnimatedSprite",
+  "description": "Gibt das aktuelle Animationsintervall zurück. Das Animationsintervall bestimmt den zeitlichen Abstand zwischen zwei Frames.",
+  "syntax": [".getAnimationInterval()"],
+  "returns": "int",
+  "examples": [
+    {
+      "src": "AnimatedSpriteGetAnimationInterval.java",
+      "preview": "AnimatedSpriteGetAnimationInterval.gif",
+      "lines": "reg:[Rr]ecorder"
+    }
+  ]
+}

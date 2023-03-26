@@ -1,0 +1,21 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "after () millis :: boolean",
+  "name": "afterMillis()",
+  "class": "Timer",
+  "description": "Gibt nach den übergebenen Millisekunden wahr zurück.",
+  "syntax": [".afterMillis(millis)"],
+  "returns": "boolean",
+  "examples": [
+    { "src": "TimerAfterMillis.java", "preview": "TimerAfterMillis.gif", "lines": "reg:[Rr]ecorder" }
+  ],
+  "parameters": [
+    {
+      "name": "millis",
+      "description": "Die Millisekunden",
+      "type": "boolean"
+    }
+  ]
+}
+

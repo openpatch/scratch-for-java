@@ -1,0 +1,11 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "(height)",
+  "name": "getHeight()",
+  "class": "Window",
+  "description": "Gibt die Höhe des Fensters zurück.",
+  "syntax": [".getHeight()"],
+  "returns": "float"
+}
+

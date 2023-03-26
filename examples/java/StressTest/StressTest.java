@@ -4,14 +4,13 @@ import org.openpatch.scratch.Window;
 
 public class StressTest extends Stage {
 
-    private static int dinos = 80;
-    private static int knights = 80;
-    private static int ninjas = 80;
+    private static int dinos = 8;
+    private static int knights = 8;
+    private static int ninjas = 8;
 
     public StressTest() {
         this.addBackdrop("outback", "assets/outback.png");
-        this.addSound("outback", "assets/outback.wav");
-
+   
         for (int i = 0; i < dinos; i++) {
             this.add(new Dino());
         }
@@ -21,10 +20,6 @@ public class StressTest extends Stage {
         for (int i = 0; i < ninjas; i++) {
             this.add(new Ninja());
         }
-    }
-
-    public void run() {
-        this.playSound("outback");
     }
 
     public void whenKeyPressed(int keyCode) {
@@ -37,7 +32,7 @@ public class StressTest extends Stage {
     }
 
     public static void main(String[] args) {
-        Window myWindow = new Window(800, 800, "assets");
+        Window myWindow = new Window(1200, 800, "assets");
         myWindow.addStage("main", new StressTest());
     }
 

@@ -9,8 +9,13 @@ if [[ ! -d "$DIR" ]]; then DIR="$PWD"; fi
 
 . $DIR/.env
 
-cp ./CHANGELOG.md ./docs/en/book/changelog.md
-s4j_examples_copy_to_documentation
+LOCALES=("en" "de")
+
+for LOCALE in ${LOCALES[@]}
+do
+    cp ./CHANGELOG.md ./docs/$LOCALE/book/changelog.md
+    s4j_examples_copy_to_documentation $LOCALE
+done
 
 popd
 

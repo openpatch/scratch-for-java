@@ -1,0 +1,10 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "(pixels)",
+  "name": "getPixels()",
+  "class": "Sprite",
+  "description": "Gibt die Pixel des aktuellen Kostüms zurück.",
+  "syntax": [".getPixels()"],
+  "returns": "int[]"
+}

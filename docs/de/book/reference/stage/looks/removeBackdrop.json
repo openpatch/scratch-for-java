@@ -1,0 +1,27 @@
+{
+  "template": "method",
+  "related": [],
+  "name": "removeBackdrop()",
+  "scratchblock": "remove backdrop (name)",
+  "class": "Sprite",
+  "description": "Entfernt ein Hintergrundbild von der Bühne.",
+  "syntax": [
+    ".removeBackdrop(name)"
+  ],
+  "returns": "void",
+  "examples": [
+    {
+      "src": "StageRemoveBackdrop.java",
+      "preview": "StageRemoveBackdrop.gif",
+      "lines": "reg:[Rr]ecorder"
+    }
+  ],
+  "parameters": [
+    {
+      "name": "name",
+      "description": "Der Name des Hintergrunds",
+      "type": "String"
+    }
+  ]
+}
+

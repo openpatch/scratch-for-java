@@ -1,0 +1,20 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "(time [name v])",
+  "name": "getTimer()",
+  "class": "Stage",
+  "description": "Gibt den Timer mit dem entsprechenden Namen zurück. Wenn kein Name übergeben wird, dann wird der Standardtimer zurückgegeben. Für mehr Information schau dir die [Timer-Klasse](/reference/timer/forMillis) an.",
+  "syntax": [".getTimer()", ".getTimer(name)"],
+  "returns": "Timer",
+  "examples": [
+    { "src": "StageTimer.java", "preview": "StageTimer.gif", "lines": "reg:[Rr]ecorder" }
+  ],
+  "parameters": [
+    {
+      "name": "name",
+      "description": "Der Name des Timers",
+      "type": "String"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "stop all sounds",
+  "name": "stopAllSounds()",
+  "class": "Stage",
+  "description": "Stoppt alle Klänge der Figur.",
+  "syntax": [".stopAllSounds()"],
+  "returns": "void",
+  "examples": [
+    { "src": "StageStopAllSounds.java", "preview": "StageStopAllSounds.gif", "lines": "reg:[Rr]ecorder"}
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "template": "method",
+  "related": [],
+  "name": "add()",
+  "scratchblock": "add (sprite)",
+  "class": "Stage",
+  "description": "Fügt ein Objekt der Klasse Drawable zum Beispiel auch eine Figur der Bühne hinzu.",
+  "syntax": [
+    ".add(sprite)"
+  ],
+  "returns": "void",
+  "examples": [
+    {
+      "src": "StageAdd.java",
+      "preview": "StageAdd.gif",
+      "lines": "reg:[Rr]ecorder"
+    }
+  ],
+  "parameters": [
+    {
+      "name": "sprite",
+      "description": "Eine Referenz zu einem Objekt der Klasse Drawable",
+      "type": "Drawable"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "when [name v] key pressed",
+  "name": "whenKeyPressed(keyCode)",
+  "class": "Stage",
+  "description": "Diese Methode wird ausgeführt, wenn eine Taste gedrückt wird.",
+  "syntax": ["void whenKeyPressed(keyCode)"],
+  "returns": "void",
+  "examples": [
+    {
+      "src": "StageWhenKeyPressed.java",
+      "preview": "StageWhenKeyPressed.gif",
+      "lines": "reg:[Rr]ecorder"
+    }
+  ],
+  "parameters": [
+    {
+      "name": "keyCode",
+      "description": "Ein Tastencode. Du kannst das Enum KeyCode verwenden, um auf eine bestimmte Taste zu prüfen. Zum Beispiel KeyCode.VK_SPACE.",
+      "type": "int"
+    }
+  ]
+}
+

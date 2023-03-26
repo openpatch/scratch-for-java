@@ -35,7 +35,7 @@ public class Cat extends Sprite {
 
 - There is no Sprite library, you have to search the internet.
 - There is no Sound library, you have to search the internet.
-- There are not build-in editors, you have to use external tools like [GIMP](https://www.gimp.org/), [Inkscape](https://inkscape.org/), [Audacity](https://www.audacityteam.org/) and so on.
+- There are no built-in editors, you have to use external tools like [GIMP](https://www.gimp.org/), [Inkscape](https://inkscape.org/), [Audacity](https://www.audacityteam.org/) and so on.
 - If you want to share your project with others, you have to used external sharing platforms like Nextcloud, iCloud, Dropbox or better a code sharing platform like GitHub.
 - You **can not** use a forever loop. This will halt you program.
 
