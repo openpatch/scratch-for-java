@@ -3,6 +3,10 @@ name: Changelog
 index: 4
 ---
 
+## 3.3.0
+
+- 🚀 Feat: Added `isSoundPlaying` and `stopSound` to the Sprite and Stage Class.
+
 ## 3.2.2
 
 - 🎨 Visual: Improve Pen rendering
