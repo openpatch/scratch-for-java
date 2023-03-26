@@ -1,0 +1,16 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "stop Sound (name)",
+  "name": "stopSound()",
+  "class": "Stage",
+  "description": "Stop einen bestimmten Klang.",
+  "syntax": [".stopSound(name)"],
+  "parameters": [
+    {
+      "name": "name",
+      "description": "Der Name des Klangs.",
+      "type": "String"
+    }
+  ]
+}

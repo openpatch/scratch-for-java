@@ -1,0 +1,25 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "set [ghost v] effect to (50)",
+  "name": "setTransparency()",
+  "class": "Stage",
+  "description": "Setzt die Transparenz des Hintergrundbilds der Bühne.",
+  "syntax": [".setTransparency(percentage)"],
+  "returns": "void",
+  "examples": [
+    {
+      "src": "StageSetTransparency.java",
+      "preview": "StageSetTransparency.gif",
+      "lines": "reg:[Rr]ecorder"
+    }
+  ],
+  "parameters": [
+    {
+      "name": "percentage",
+      "description": "Ein Wert im Bereich 0 ... 255.",
+      "type": "float"
+    }
+  ]
+}
+

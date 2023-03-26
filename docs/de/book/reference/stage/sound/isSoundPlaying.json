@@ -1,0 +1,17 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "<is sound (name) playing>",
+  "name": "isSoundPlaying()",
+  "class": "Stage",
+  "description": "Gibt wahr zurück, wenn der Klang abgespielt wird.",
+  "syntax": [".isPlaying()"],
+  "returns": "boolean",
+  "parameters": [
+    {
+      "name": "name",
+      "description": "Der Name des Klangs.",
+      "type": "String"
+    }
+  ]
+}

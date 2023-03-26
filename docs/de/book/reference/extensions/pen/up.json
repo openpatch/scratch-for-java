@@ -1,0 +1,17 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "pen up",
+  "name": "up()",
+  "class": "Pen",
+  "description": "Hebt den Stift an. Danach kann nicht mehr gezeichnet werden.",
+  "syntax": [".up()"],
+  "returns": "void",
+  "examples": [
+    {
+      "src": "PenUp.java",
+      "preview": "PenUp.gif",
+      "lines": "reg:[Rr]ecorder"
+    }
+  ]
+}

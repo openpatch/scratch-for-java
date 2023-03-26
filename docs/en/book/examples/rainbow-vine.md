@@ -11,4 +11,3 @@ An example which makes use of mouse events and timers.
 ## Source Code:
 
 - Java: https://github.com/openpatch/scratch-for-java/tree/main/examples/java/RainbowVine
-- Processing: https://github.com/openpatch/scratch-for-java/tree/main/examples/processing/RainbowVine

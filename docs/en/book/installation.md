@@ -25,11 +25,9 @@ Create a directory called "+libs" inside your project. Copy the Scratch for Java
 
 Open the "Preferences" dialogue and select the "Libraries" tab. Then add the location where the Scratch for Java jar is located. Restart BlueJ - done. Scratch for Java will now be available in all of your projects that you open.
 
-You need to download the Jar file for your operating system and put it in the **+libs** folder for a local installation.
-
 ### System Wide
 
-You need to locate the "userlib" folder, found at `<bluej-dir>/lib/userlib`. Place the Scratch for Java jar into this folder. Restart BlueJ - done. Scratch for Java will now be available in alle projects for all users.
+You need to locate the "userlib" folder, found at `<bluej-dir>/lib/userlib`. Place the Scratch for Java jar into this folder. Restart BlueJ - done. Scratch for Java will now be available in all projects for all users.
 
 If you have installed BlueJ via the installer you probably find the "userlib" folder here:
 

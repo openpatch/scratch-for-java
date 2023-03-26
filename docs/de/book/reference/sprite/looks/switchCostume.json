@@ -1,0 +1,24 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "switch costume to [ v]",
+  "name": "switchCostume()",
+  "class": "Sprite",
+  "description": "Wechselt das Kostüm der Figur zu einem bestimmten.",
+  "syntax": [".switchCostume(name)"],
+  "returns": "void",
+  "examples": [
+    {
+      "src": "SpriteSwitchCostume.java",
+      "preview": "SpriteSwitchCostume.gif",
+      "lines": "reg:[Rr]ecorder"
+    }
+  ],
+  "parameters": [
+    {
+      "name": "name",
+      "description": "Name des Kostüms",
+      "type": "String"
+    }
+  ]
+}

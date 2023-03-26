@@ -1,0 +1,18 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "set debug <>",
+  "name": "setDebug()",
+  "class": "Window",
+  "description": "Setzt den Debug-Modus. Im Debug-Modus werden die Hitboxen der Figuren, die Koordinaten der Figuren und die Rotation der Figuren angezeigt.",
+  "syntax": [".setDebug(active)"],
+  "returns": "void",
+  "parameters": [
+    {
+      "name": "active",
+      "description": "Wenn wahr wird der Debug-Modus aktiviert, andernfalls wird er deaktiviert",
+      "type": "boolean"
+    }
+  ]
+}
+

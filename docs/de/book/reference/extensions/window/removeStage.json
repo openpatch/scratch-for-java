@@ -1,0 +1,19 @@
+{
+  "template": "method",
+  "related": [],
+  "name": "removeStage()",
+  "scratchblock": "remove stage (name)",
+  "class": "Window",
+  "description": "Entfernt eine Bühne vom Fenster.",
+  "syntax": [
+    ".removeStage(name)"
+  ],
+  "returns": "void",
+  "parameters": [
+    {
+      "name": "name",
+      "description": "Der Name der Bühne",
+      "type": "String"
+    }
+  ]
+}

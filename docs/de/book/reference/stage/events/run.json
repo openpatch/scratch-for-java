@@ -1,0 +1,18 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "run :: hat",
+  "name": "run()",
+  "class": "Stage",
+  "description": "Diese Methode wird in jedem Frame ausgeführt. Diese Methode funktioniert ähnlich zu einem 'wiederhole fortlaufend'-Block innerhalb des 'Wenn grüne Flagge angeklickt wird'-Blocks.",
+  "syntax": ["void run()"],
+  "returns": "void",
+  "examples": [
+    {
+      "src": "StageRun.java",
+      "preview": "StageRun.gif",
+      "lines": "reg:[Rr]ecorder"
+    }
+  ]
+}
+

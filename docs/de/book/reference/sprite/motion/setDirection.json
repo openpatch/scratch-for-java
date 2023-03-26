@@ -1,0 +1,20 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "point in direction ()",
+  "name": "setDirection()",
+  "class": "Sprite",
+  "description": "Setzt die Richtung der Figur.",
+  "syntax": [".setDirection(angle)"],
+  "returns": "void",
+  "examples": [
+    { "src": "SpriteSetDirection.java", "preview": "SpriteSetDirection.gif", "lines": "reg:[Rr]ecorder" }
+  ],
+  "parameters": [
+    {
+      "name": "angle",
+      "description": "Der Wert der Richtung. Die Initialerichtung ist 0 und bedeute, dass die Figur nach rechts schaut.",
+      "type": "float"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "(width)",
+  "name": "getWidth()",
+  "class": "Sprite",
+  "description": "Gibt die Breite der Figur zurück.",
+  "syntax": [".getWidth()"],
+  "returns": "float",
+  "examples": [
+    {
+      "src": "SpriteGetWidth.java",
+      "preview": "SpriteGetWidth.gif",
+      "lines": "reg:[Rr]ecorder"
+    }
+  ]
+}

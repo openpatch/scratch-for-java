@@ -11,5 +11,4 @@ An example with a simple one file setup.
 ## Source Code
 
 - Java: https://github.com/openpatch/scratch-for-java/tree/main/examples/java/Cat
-- Processing: https://github.com/openpatch/scratch-for-java/tree/main/examples/processing/Cat
 - Scratch: https://scratch.mit.edu/projects/339257357/

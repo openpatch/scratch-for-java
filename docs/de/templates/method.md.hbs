@@ -1,0 +1,72 @@
+---
+name: {{ name }}
+{{#if index}}
+index: {{ index }}
+{{/if}}
+{{#if hide}}
+hide: true
+{{/if}}
+---
+
+# {{ class }}::{{ name }}
+
+{{ description }}
+
+{{#if examples}}
+## Beispiele
+
+{{#each examples}}
+{{#if preview}}
+![]({{ concat "/reference/" preview }})
+{{/if}}
+
+```java
+{{#if lines}}
+{{{ rfile (concat "/examples/reference/" src) lines "" }}}
+{{else}}
+{{{ rfile (concat "/examples/reference/" src) }}}
+{{/if}}
+```
+
+[Auf GitHub anschauen](https://github.com/openpatch/scratch-for-java/blob/main/examples/reference/{{ src }})
+{{/each}}
+{{/if}}
+
+## Syntax
+
+### Java
+```java
+{{#each syntax}}
+{{{this}}}
+{{/each}}
+```
+
+{{#if scratchblock}}
+### Scratch
+
+:::scratchblock
+{{{scratchblock}}}
+:::
+{{/if}}
+
+{{#if parameters}}
+## Parameter
+
+| Name | Datentyp | Beschreibung          |
+| --------- | --------- | -------------------- |
+{{#each parameters}}
+| {{ name }}      |  {{ type }}    | {{ description }} |
+{{/each}}
+{{/if}}
+
+## Rückgabe
+
+{{ returns }}
+
+{{#if related}}
+## Verwandt
+
+{{#each related}}
+- [{{ name }}](/reference/{{ href }})
+{{/each}}
+{{/if}}

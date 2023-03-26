@@ -1,0 +1,20 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "set animation interval ()",
+  "name": "setAnimationInterval()",
+  "class": "AnimatedSprite",
+  "description": "Setzt das Animationsintervall. Das Animationsintervall bestimmt wie schnell die Animation abgespielt wird. Kleine Zahlen bedeuten eine höhere Abspielgeschwindigkeit.",
+  "syntax": [".setAnimationInterval(interval)"],
+  "returns": "void",
+  "examples": [
+    { "src": "AnimatedSpriteSetAnimationInterval.java", "preview": "AnimatedSpriteSetAnimationInterval.gif", "lines": "reg:[Rr]ecorder"}
+  ],
+  "parameters": [
+    {
+      "name": "interval",
+      "description": "Das Animationsintervall",
+      "type": "int"
+    }
+  ]
+}

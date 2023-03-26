@@ -1,0 +1,20 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "play sound (name) until done",
+  "name": "playSound()",
+  "class": "Stage",
+  "description": "Spielt einen Klang ab.",
+  "syntax": [".playSound(name)"],
+  "returns": "void",
+  "examples": [
+    { "src": "StagePlaySound.java", "preview": "StagePlaySound.gif", "lines": "reg:[Rr]ecorder"}
+  ],
+  "parameters": [
+    {
+      "name": "name",
+      "description": "Der Name des Klangs",
+      "type": "String"
+    }
+  ]
+}
