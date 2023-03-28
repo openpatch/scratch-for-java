@@ -49,7 +49,12 @@ public class Stage {
         }
         Applet applet = Applet.getInstance();
         this.penBuffer = applet.createGraphics(applet.width, applet.height, applet.sketchRenderer());
-        this.penBuffer.smooth(8);
+        /**
+        * Smooth does currently not work on Apple Silicon
+        * https://github.com/processing/processing4/issues/694
+        */
+        // this.penBuffer.smooth(8);
+
         this.timer = new ConcurrentHashMap<>();
         this.timer.put("default", new Timer());
         this.display = new Text(null, 0, applet.height, true, TextStyle.BOX);
@@ -337,7 +342,7 @@ public class Stage {
 
     /**
      * Stops the playing of the sound with the given name
-     * 
+     *
      * @param name Name of the sound
      */
     public void stopSound(String name) {
@@ -351,7 +356,7 @@ public class Stage {
 
     /**
      * Returns true if the sound if playing
-     * 
+     *
      * @return playing
      */
     public boolean isSoundPlaying(String name) {
