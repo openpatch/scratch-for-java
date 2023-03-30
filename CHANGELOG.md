@@ -3,6 +3,10 @@ name: Changelog
 index: 4
 ---
 
+## 3.5.0
+
+- 💻 OS: Added Linux ARM 32-bit and ARM 64-bit versions
+
 ## 3.4.0
 
 - 🧹 Chore: Update Processing core to version 4.2

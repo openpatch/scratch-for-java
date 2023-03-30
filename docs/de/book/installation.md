@@ -16,6 +16,10 @@ Als Erstes musst du dir die Scratch for Java jar-Datei für dein Betriebssystem 
 
 ::download[Linux - Intel 64-bit]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-linux-amd64.jar"}
 
+::download[Linux - ARM 32-bit]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-linux-arm.jar"}
+
+::download[Linux - ARM 64-bit]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-linux-aarch64.jar"}
+
 ::download[MacOS - Intel 64-bit]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-macos-x86_64.jar"}
 
 ::download[MacOS - Apple Silicon]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-macos-aarch64.jar"}
@@ -45,6 +49,10 @@ Du kannst die Jar-Datei auch deinme classpath hinzufügen und so unabhängig von
 ::download[Windows - Intel 64-bit]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-windows-amd64.jar"}
 
 ::download[Linux - Intel 64-bit]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-linux-amd64.jar"}
+
+::download[Linux - ARM 32-bit]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-linux-arm.jar"}
+
+::download[Linux - ARM 64-bit]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-linux-aarch64.jar"}
 
 ::download[MacOS - Intel 64-bit]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-macos-x86_64.jar"}
 
