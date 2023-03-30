@@ -12,11 +12,13 @@ Du kannst die Bibliothek auf drei verschiedene Arten installieren.
 
 Als Erstes musst du dir die Scratch for Java jar-Datei für dein Betriebssystem herunterladen.
 
-::download[Windows Jar]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-windows-amd64.jar"}
+::download[Windows - Intel 64-bit]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-windows-amd64.jar"}
 
-::download[Linux Jar]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-linux-amd64.jar"}
+::download[Linux - Intel 64-bit]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-linux-amd64.jar"}
 
-::download[MacOS Jar]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-macosx-universal.jar"}
+::download[MacOS - Intel 64-bit]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-macos-x86_64.jar"}
+
+::download[MacOS - Apple Silicon]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-macos-aarch64.jar"}
 
 ### Für ein einzelnes Projekt
 
@@ -40,8 +42,10 @@ Wenn du BlueJ installiert hast, findest du den "userlib"-Ordner hier:
 
 Du kannst die Jar-Datei auch deinme classpath hinzufügen und so unabhängig von BlueJ mit deinem Lieblingseditor verwenden
 
-::download[Windows Jar]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-windows-amd64.jar"}
+::download[Windows - Intel 64-bit]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-windows-amd64.jar"}
 
-::download[Linux Jar]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-linux-amd64.jar"}
+::download[Linux - Intel 64-bit]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-linux-amd64.jar"}
 
-::download[MacOS Jar]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-macosx-universal.jar"}
+::download[MacOS - Intel 64-bit]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-macos-x86_64.jar"}
+
+::download[MacOS - Apple Silicon]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-macos-aarch64.jar"}
