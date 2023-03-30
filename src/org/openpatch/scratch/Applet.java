@@ -14,6 +14,8 @@ import processing.event.KeyEvent;
 import processing.event.MouseEvent;
 import processing.sound.SoundFile;
 
+import java.awt.Toolkit;
+
 public class Applet extends PApplet {
     private final int INITIAL_HEIGHT;
     private boolean debug;
@@ -42,6 +44,7 @@ public class Applet extends PApplet {
         this.INITIAL_HEIGHT = height;
         this.INITIAL_WIDTH = width;
         this.assets = assets;
+        
         this.registerMethod("pre", this);
         this.registerMethod("mouseEvent", this);
         this.registerMethod("keyEvent", this);

@@ -53,7 +53,7 @@ public class Stage {
         * Smooth does currently not work on Apple Silicon
         * https://github.com/processing/processing4/issues/694
         */
-        // this.penBuffer.smooth(8);
+        this.penBuffer.smooth(8);
 
         this.timer = new ConcurrentHashMap<>();
         this.timer.put("default", new Timer());
