@@ -41,6 +41,7 @@
     </condition>
 
 
+
     <property name="project.jar.name" value="${project.name}" />
     <property name="project.src" location="src" />
     <property name="project.tmp" location="tmp" />
@@ -91,6 +92,8 @@
         <mkdir dir="${project.libs}/macos-x86_64" />
         <mkdir dir="${project.libs}/macos-aarch64" />
         <mkdir dir="${project.libs}/linux-amd64" />
+        <mkdir dir="${project.libs}/linux-arm" />
+        <mkdir dir="${project.libs}/linux-aarch64" />
     </target>
 
 
@@ -120,6 +123,20 @@
                 url="https://download.processing.org/jogl/v2.4.0-rc-20210111y/gluegen-rt-natives-linux-amd64.jar" />
             <url
                 url="https://download.processing.org/jogl/v2.4.0-rc-20210111y/jogl-all-natives-linux-amd64.jar" />
+        </get>
+
+        <get dest="${project.libs}/linux-arm" skipexisting="true" ignoreerrors="true">
+            <url
+                url="https://download.processing.org/jogl/v2.4.0-rc-20210111y/gluegen-rt-natives-linux-arm.jar" />
+            <url
+                url="https://download.processing.org/jogl/v2.4.0-rc-20210111y/jogl-all-natives-linux-arm.jar" />
+        </get>
+
+        <get dest="${project.libs}/linux-aarch64" skipexisting="true" ignoreerrors="true">
+            <url
+                url="https://download.processing.org/jogl/v2.4.0-rc-20210111y/gluegen-rt-natives-linux-aarch64.jar" />
+            <url
+                url="https://download.processing.org/jogl/v2.4.0-rc-20210111y/jogl-all-natives-linux-aarch64.jar" />
         </get>
 
         <get dest="${project.libs}/windows-amd64" skipexisting="true" ignoreerrors="true">
@@ -228,6 +245,28 @@
         </jar>
 
         <jar
+            jarfile="${project.tmp}/${project.name}/${folder}/${project.jar.name}-linux-arm.jar"
+            basedir="${project.bin}">
+            <fileset dir="${project.dist}/javadoc" />
+            <zipgroupfileset dir="${project.libs}" includes="*.jar" />
+            <zipgroupfileset dir="${project.libs}/linux-arm" includes="*.jar" />
+            <manifest>
+                <attribute name="Class-Path" value="${project.libs}" />
+            </manifest>
+        </jar>
+
+        <jar
+            jarfile="${project.tmp}/${project.name}/${folder}/${project.jar.name}-linux-aarch64.jar"
+            basedir="${project.bin}">
+            <fileset dir="${project.dist}/javadoc" />
+            <zipgroupfileset dir="${project.libs}" includes="*.jar" />
+            <zipgroupfileset dir="${project.libs}/linux-aarch64" includes="*.jar" />
+            <manifest>
+                <attribute name="Class-Path" value="${project.libs}" />
+            </manifest>
+        </jar>
+
+        <jar
             jarfile="${project.tmp}/${project.name}/${folder}/${project.jar.name}-windows-amd64.jar"
             basedir="${project.bin}">
             <zipgroupfileset dir="${project.libs}" includes="*.jar" />
@@ -297,6 +336,12 @@
             file="${project.dist.version}/tmp/${project.name}/library/${project.jar.name}-linux-amd64.jar"
             todir="${project.dist}" />
         <move
+            file="${project.dist.version}/tmp/${project.name}/library/${project.jar.name}-linux-arm.jar"
+            todir="${project.dist}" />
+        <move
+            file="${project.dist.version}/tmp/${project.name}/library/${project.jar.name}-linux-aarch64.jar"
+            todir="${project.dist}" />
+        <move
             file="${project.dist.version}/tmp/${project.name}/library/${project.jar.name}-macos-x86_64.jar"
             todir="${project.dist}" />
         <move
@@ -315,7 +360,6 @@
 
             ${line}
             Name ${project.name}
-            Version ${library.prettyVersion}
             Compiled ${project.compile}
             ${line}
             done, finished.
