@@ -3,6 +3,11 @@ name: Changelog
 index: 4
 ---
 
+## 3.4.0
+
+- 🧹 Chore: Update Processing core to version 4.2
+- 💻 OS: Added MacOS aarch64 version
+
 ## 3.3.0
 
 - 🚀 Feat: Added `isSoundPlaying` and `stopSound` to the Sprite and Stage Class.
