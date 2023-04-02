@@ -14,7 +14,7 @@ public class Window {
   }
 
   public Window(int width, int height) {
-    this(width, height, null);
+    this(width, height, "assets");
   }
 
   public Window(int width, int height, String assets) {

@@ -1,0 +1,16 @@
+{
+  "template": "method",
+  "related": [],
+  "name": "setTextSize()",
+  "class": "Text",
+  "description": "Setzt die Größe des Textes.",
+  "syntax": [".setTextSize(size)"],
+  "returns": "void",
+  "parameters": [
+    {
+      "name": "size",
+      "description": "Die Größe des Textes",
+      "type": "int"
+    }
+  ]
+}

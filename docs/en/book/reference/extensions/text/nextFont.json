@@ -1,0 +1,10 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "next font",
+  "name": "nextFont()",
+  "class": "Text",
+  "description": "Changes the text's font to the next one in the font list.",
+  "syntax": [".nextFont()"],
+  "returns": "void"
+}

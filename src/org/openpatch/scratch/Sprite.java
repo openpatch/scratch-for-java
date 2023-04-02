@@ -1077,6 +1077,10 @@ public class Sprite implements Drawable {
     return from + (int) (Math.random() * (to - from));
   }
 
+  public Text getText() {
+    return this.text;
+  }
+
   public void think(String text) {
     this.text.setStyle(TextStyle.THINK);
     this.text.showText(text);

@@ -1,0 +1,24 @@
+{
+  "template": "method",
+  "related": [],
+  "name": "addFont()",
+  "scratchblock": "add font (name) (file path)",
+  "class": "Text",
+  "description": "Fügt eine Schriftart dem Text hinzu.",
+  "syntax": [
+    ".addFont(name, filePath)"
+  ],
+  "returns": "void",
+  "parameters": [
+    {
+      "name": "name",
+      "description": "Der Name der Schriftart",
+      "type": "String"
+    },
+    {
+      "name": "filePath",
+      "description": "Der Pfad zur Schriftartdatei. Die Datei muss im ttf oder otf format vorliegen.",
+      "type": "String"
+    }
+  ]
+}
