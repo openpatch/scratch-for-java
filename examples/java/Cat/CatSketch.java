@@ -11,7 +11,6 @@ public class CatSketch {
         @Override
         public void run() {
             this.move(2);
-            this.think("Hallo wie geht es dir?");
         }
     }
 
