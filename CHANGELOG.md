@@ -3,6 +3,28 @@ name: Changelog
 index: 4
 ---
 
+## 3.6.0
+
+- 🚀 Feat: Add method `setTextSize` to the Text-class
+
+```java
+Text myText = new Text();
+myText.setTextSize(48);
+```
+
+- 🚀 Feat: Allow custom fonts for Text-objects. Custom fonts can be added like a costume for a Sprite-object. Each Text-object does have a default font named `default`.
+
+```java
+Text myText = new Text();
+myText.addFont("playful", "opensans.odt");
+myText.switchFont("playful");
+
+// get the text-object, which is used for the think and speak bubble
+Text spriteText = new Sprite().getText();
+```
+
+- 📝 Docs: Add example `Shakespeare` which shows the usage of the new methods of the Text-class
+
 ## 3.5.0
 
 - 💻 OS: Added Linux ARM 32-bit and ARM 64-bit versions

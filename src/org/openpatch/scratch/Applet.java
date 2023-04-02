@@ -8,13 +8,10 @@ import java.util.stream.Collectors;
 
 import processing.core.PApplet;
 import processing.core.PConstants;
-import processing.core.PFont;
 import processing.core.PImage;
 import processing.event.KeyEvent;
 import processing.event.MouseEvent;
 import processing.sound.SoundFile;
-
-import java.awt.Toolkit;
 
 public class Applet extends PApplet {
     private final int INITIAL_HEIGHT;
@@ -26,7 +23,6 @@ public class Applet extends PApplet {
     private PImage loading;
     private final int INITIAL_WIDTH;
     private String assets;
-    public static PFont mono;
     public CopyOnWriteArrayList<StageBox> stages = new CopyOnWriteArrayList<>();
     public int currentStage = -1;
 
@@ -44,7 +40,7 @@ public class Applet extends PApplet {
         this.INITIAL_HEIGHT = height;
         this.INITIAL_WIDTH = width;
         this.assets = assets;
-        
+
         this.registerMethod("pre", this);
         this.registerMethod("mouseEvent", this);
         this.registerMethod("keyEvent", this);
@@ -163,7 +159,7 @@ public class Applet extends PApplet {
     }
 
     public void loadAssets() {
-        mono = createFont("UbuntuMono-Regular.ttf", 16);
+        Font.loadFont(Font.defaultFontPath);
         if (this.assets != null) {
             try {
                 var imageFiles = Files.find(Paths.get(this.assets),
@@ -178,15 +174,26 @@ public class Applet extends PApplet {
                         .map(f -> f.toString())
                         .filter(f -> f.endsWith(".mp3") || f.endsWith(".wav"))
                         .collect(Collectors.toList());
+                var fontFiles = Files.find(Paths.get(this.assets),
+                        Integer.MAX_VALUE,
+                        (filePath, fileAttr) -> fileAttr.isRegularFile())
+                        .map(f -> f.toString())
+                        .filter(f -> f.endsWith(".ttf") || f.endsWith(".otf"))
+                        .collect(Collectors.toList());
                 numberAssets += imageFiles.size();
                 numberAssets += soundFiles.size();
+                numberAssets += fontFiles.size();
                 for (var file : imageFiles) {
-                    loadedAssets += 1;
                     Image.loadImage(file);
+                    loadedAssets += 1;
+                }
+                for (var file : fontFiles) {
+                    Font.loadFont(file);
+                    loadedAssets += 1;
                 }
                 for (var file : soundFiles) {
-                    loadedAssets += 1;
                     new SoundFile(this, file, true);
+                    loadedAssets += 1;
                 }
             } catch (IOException e) {
             }

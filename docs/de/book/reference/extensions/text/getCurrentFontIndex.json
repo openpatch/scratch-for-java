@@ -1,0 +1,10 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "font [number v]",
+  "name": "getCurrentFontIndex()",
+  "class": "Text",
+  "description": "Gibt den aktuellen index der Schriftart zurück.",
+  "syntax": [".getCurrentFontIndex()"],
+  "returns": "int"
+}
