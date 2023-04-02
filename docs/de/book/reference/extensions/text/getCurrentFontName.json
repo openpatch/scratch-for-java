@@ -1,0 +1,10 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "font [name v]",
+  "name": "getCurrentFontName()",
+  "class": "Text",
+  "description": "Gibt den Namen der aktuellen Schriftart zurück.",
+  "syntax": [".getCurrentFontName()"],
+  "returns": "String"
+}
