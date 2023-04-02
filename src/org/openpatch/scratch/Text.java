@@ -1,7 +1,9 @@
 package org.openpatch.scratch;
 
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import processing.core.PApplet;
 import processing.core.PConstants;
 
@@ -18,7 +20,11 @@ public class Text implements Drawable {
   private String originalText;
   private Stage stage;
 
-  private final int textSize;
+  private CopyOnWriteArrayList<Font> fonts = new CopyOnWriteArrayList<>();
+  private int currentFont = 0;
+
+  private String fontName;
+  private int textSize;
   private boolean show;
   private TextStyle style;
   private Color textColor;
@@ -40,6 +46,8 @@ public class Text implements Drawable {
     this.show = false;
     this.backgroundColor = new Color(255, 255, 255);
     this.textColor = new Color(120, 120, 120);
+    this.fontName = Font.defaultFontName;
+    this.addFont(Font.defaultFontName, Font.defaultFontPath);
   }
 
   public Text(String text, float x, float y, float width, TextStyle style) {
@@ -74,6 +82,10 @@ public class Text implements Drawable {
     this.textAlign = t.textAlign;
     this.backgroundColor = t.backgroundColor;
     this.stage = t.stage;
+    this.fonts = new CopyOnWriteArrayList<>();
+    for (Font font : t.fonts) {
+      this.fonts.add(new Font(font));
+    }
   }
 
   public void addedToStage(Stage stage) {
@@ -84,6 +96,42 @@ public class Text implements Drawable {
   }
 
   public void removedFromStage(Stage stage) {
+  }
+
+  public void addFont(String name, String path) {
+    for (Font font : this.fonts) {
+      if (font.getName().equals(name)) {
+        return;
+      }
+    }
+
+    Font font = new Font(name, path);
+    this.fonts.add(font);
+  }
+
+  public void switchFont(String name) {
+    for (int i = 0; i < fonts.size(); i++) {
+      Font font = fonts.get(i);
+      if (font.getName().equals(name)) {
+        this.currentFont = i;
+        return;
+      }
+    }
+  }
+
+  public void nextFont() {
+    this.currentFont = (this.currentFont + 1) % fonts.size();
+  }
+
+  public String getCurrentFontName() {
+    if (fonts.size() == 0) {
+      return null;
+    }
+    return this.fonts.get(this.currentFont).getName();
+  }
+
+  public int getCurrentFontIndex() {
+    return this.currentFont;
   }
 
   /**
@@ -301,6 +349,22 @@ public class Text implements Drawable {
     return cache.toString();
   } // wrap()
 
+  public void setFont(String name) {
+    this.fontName = name;
+  }
+
+  public String getFont() {
+    return this.fontName;
+  }
+
+  public void setTextSize(int size) {
+    this.textSize = size;
+  }
+
+  public int getTextSize() {
+    return this.textSize;
+  }
+
   public float getWidth() {
     return this.width;
   }
@@ -318,7 +382,6 @@ public class Text implements Drawable {
     var textBuffer = Applet.getInstance();
 
     textBuffer.push();
-    textBuffer.textSize(this.textSize);
     textBuffer.stroke(
         this.textColor.getRed(),
         this.textColor.getGreen(),
@@ -336,9 +399,8 @@ public class Text implements Drawable {
 
       textBuffer.textAlign(PApplet.LEFT, PApplet.TOP);
     }
-    if (Applet.mono != null) {
-      textBuffer.textFont(Applet.mono);
-    }
+    textBuffer.textFont(this.fonts.get(this.currentFont).getFont(textSize));
+    textBuffer.textSize(this.textSize);
 
     float cw = textBuffer.textWidth("w");
 
@@ -349,7 +411,11 @@ public class Text implements Drawable {
       maxWidth = Applet.getInstance().getWidth() - 16;
     }
     int lineLength = Math.round((maxWidth - 16) / cw);
-    this.text = wrap(originalText, lineLength, "\n", true, "-", " ");
+    if (this.style != TextStyle.PLAIN) {
+      this.text = wrap(originalText, lineLength, "\n", true, "-", " ");
+    } else {
+      this.text = originalText;
+    }
     String[] lines = this.text.split("\n");
 
     float width = 0;

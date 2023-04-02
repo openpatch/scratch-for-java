@@ -1,6 +1,5 @@
 package org.openpatch.scratch;
 
-import processing.core.PConstants;
 import processing.core.PGraphics;
 import processing.event.KeyEvent;
 import processing.event.MouseEvent;
@@ -41,6 +40,8 @@ public class Stage {
     }
 
     public Stage(int width, int height, boolean debug) {
+        this.drawables = new CopyOnWriteArrayList<>();
+        this.timer = new ConcurrentHashMap<>();
         if (Window.getInstance() == null) {
             new Window(width, height);
             Applet a = Applet.getInstance();
@@ -54,12 +55,9 @@ public class Stage {
         * https://github.com/processing/processing4/issues/694
         */
         this.penBuffer.smooth(8);
-
-        this.timer = new ConcurrentHashMap<>();
         this.timer.put("default", new Timer());
         this.display = new Text(null, 0, applet.height, true, TextStyle.BOX);
         this.display.addedToStage(this);
-        this.drawables = new CopyOnWriteArrayList<>();
 
     }
 
