@@ -1,5 +1,7 @@
 package org.openpatch.scratch;
 
+import org.openpatch.scratch.internal.Applet;
+
 public class Window {
 
   public static final int[] DEBUG_COLOR = { 255, 0, 0 };
@@ -14,7 +16,7 @@ public class Window {
   }
 
   public Window(int width, int height) {
-    this(width, height, "assets");
+    this(width, height, null);
   }
 
   public Window(int width, int height, String assets) {

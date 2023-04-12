@@ -1,0 +1,8 @@
+template: class
+name: Random
+description: |
+  The Random class has static method, which generate random numbers. Static
+  methods mean, that you do not have to intenziiate a new Object, but that you
+  can use the methods directly.
+
+  For example: `Random.randomInt(3);`

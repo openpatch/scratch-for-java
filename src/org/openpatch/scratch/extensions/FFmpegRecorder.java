@@ -6,7 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
-import org.openpatch.scratch.Applet;
+import org.openpatch.scratch.internal.Applet;
 
 public class FFmpegRecorder extends Recorder {
     private String tmpDir;

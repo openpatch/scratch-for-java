@@ -1,15 +1,29 @@
+// WARNING: This file is auto-generated and any changes to it will be overwritten
+import lang.stride.*;
 import org.openpatch.scratch.*;
 
-public class RobotSprite extends Sprite {
-  public RobotSprite() {
-    this.addCostume("robot", "sprites/robot.png");
-    this.setOnEdgeBounce(true);
-    this.setSize(20);
-    this.setDirection(65);
+/**
+ * 
+ */
+public class RobotSprite extends Sprite
+{
 
-  }
-  
-  public void run() {
-     this.move(2);
-  }
+    /**
+     * 
+     */
+    public RobotSprite()
+    {
+        this.addCostume("robot", "sprites/robot.png");
+        this.setSize(20);
+        this.changeY(20);
+    }
+
+    /**
+     * 
+     */
+    public void run()
+    {
+        this.move(2);
+        this.ifOnEdgeBounce();
+    }
 }

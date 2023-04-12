@@ -32,9 +32,7 @@ class Hero extends Sprite {
         this.setDirection(45);
         this.move(280);
 
-        int[] xHitbox = { 0, 300, 300, 0, 150 };
-        int[] yHitbox = { 0, 0, 570, 570, 275 };
-        this.setHitbox(xHitbox, yHitbox);
+        this.setHitbox(0, 0, 300, 0, 300, 570, 0, 570, 150, 275);
     }
 
     public void run() {

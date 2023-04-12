@@ -10,3 +10,9 @@ classes
 docs/en/public/reference
 docs/en/book/changelog.md
 
+
+# Ignore Gradle project-specific cache directory
+.gradle
+
+# Ignore Gradle build output directory
+build

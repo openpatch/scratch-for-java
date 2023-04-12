@@ -116,6 +116,8 @@
             <url url="https://github.com/java-native/jssc/releases/download/v2.9.4/jssc-2.9.4.jar" />
             <url url="https://repo1.maven.org/maven2/org/processing/serial/3.3.7/serial-3.3.7.jar" />
             <url url="https://repo1.maven.org/maven2/com/google/code/gson/gson/2.10.1/gson-2.10.1.jar" />
+            <url url="https://repo1.maven.org/maven2/com/github/davidmoten/word-wrap/0.1.12/word-wrap-0.1.12.jar" />
+            <url url="https://repo1.maven.org/maven2/com/github/davidmoten/guava-mini/0.1.6/guava-mini-0.1.6.jar" />
         </get>
 
         <get dest="${project.libs}/linux-amd64" skipexisting="true" ignoreerrors="true">

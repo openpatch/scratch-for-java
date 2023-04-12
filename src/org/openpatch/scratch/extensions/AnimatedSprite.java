@@ -1,6 +1,8 @@
-package org.openpatch.scratch;
+package org.openpatch.scratch.extensions;
 
 import java.util.concurrent.ConcurrentHashMap;
+
+import org.openpatch.scratch.Sprite;
 
 public class AnimatedSprite extends Sprite {
 

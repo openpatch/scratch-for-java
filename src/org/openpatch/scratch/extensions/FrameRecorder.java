@@ -1,8 +1,8 @@
 package org.openpatch.scratch.extensions;
 
-import org.openpatch.scratch.Applet;
-
 import java.nio.file.Paths;
+
+import org.openpatch.scratch.internal.Applet;
 
 public class FrameRecorder extends Recorder {
 

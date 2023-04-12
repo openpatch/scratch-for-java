@@ -13,6 +13,15 @@ import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import org.openpatch.scratch.extensions.Text;
+import org.openpatch.scratch.extensions.TextStyle;
+import org.openpatch.scratch.extensions.Timer;
+import org.openpatch.scratch.internal.Applet;
+import org.openpatch.scratch.internal.Color;
+import org.openpatch.scratch.internal.Drawable;
+import org.openpatch.scratch.internal.Image;
+import org.openpatch.scratch.internal.Sound;
+
 /**
  * Represents a scratch stage.
  */
@@ -56,7 +65,7 @@ public class Stage {
         */
         this.penBuffer.smooth(8);
         this.timer.put("default", new Timer());
-        this.display = new Text(null, 0, applet.height, true, TextStyle.BOX);
+        this.display = new Text(null, 0, applet.height, applet.width, TextStyle.BOX);
         this.display.addedToStage(this);
 
     }

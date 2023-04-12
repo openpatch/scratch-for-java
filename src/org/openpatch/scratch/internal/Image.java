@@ -1,10 +1,14 @@
-package org.openpatch.scratch;
+package org.openpatch.scratch.internal;
 
 import processing.core.PImage;
 import processing.core.PApplet;
 import processing.core.PConstants;
 
 import java.util.concurrent.ConcurrentHashMap;
+
+import org.openpatch.scratch.RotationStyle;
+import org.openpatch.scratch.Stage;
+import org.openpatch.scratch.Window;
 
 /**
  * The base class for representing scratch costumes and backdrops.
@@ -65,7 +69,7 @@ public class Image implements Drawable {
     public void removedFromStage(Stage stage) {
     }
 
-    protected static PImage loadImage(String path) {
+    public static PImage loadImage(String path) {
         PImage image = originalImages.get(path);
         if (image == null) {
             image = Applet.getInstance().loadImage(path);
@@ -74,7 +78,7 @@ public class Image implements Drawable {
         return image;
     }
 
-    protected static PImage loadImage(String path, int x, int y, int width, int height) {
+    public static PImage loadImage(String path, int x, int y, int width, int height) {
         var image = Image.loadImage(path);
         return image.get(x, y, width, height);
     }

@@ -124,7 +124,7 @@ public class AnimatedGifEncoder {
    * @param c
    *          Color to be treated as transparent on display.
    */
-  public void setTransparent(org.openpatch.scratch.Color c) {
+  public void setTransparent(org.openpatch.scratch.internal.Color c) {
     transparent = new Color(c.getRed() / 255.0f, c.getGreen() / 255.0f, c.getBlue() / 255.0f);
   }
 
@@ -350,9 +350,9 @@ public class AnimatedGifEncoder {
   protected int findClosest(Color c) {
     if (colorTab == null)
       return -1;
-    int r = c.getRed();
-    int g = c.getGreen();
-    int b = c.getBlue();
+    int r = (int) c.getRed();
+    int g = (int) c.getGreen();
+    int b = (int) c.getBlue();
     int minpos = 0;
     int dmin = 256 * 256 * 256;
     int len = colorTab.length;
