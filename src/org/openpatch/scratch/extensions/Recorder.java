@@ -1,6 +1,6 @@
 package org.openpatch.scratch.extensions;
 
-import org.openpatch.scratch.Applet;
+import org.openpatch.scratch.internal.Applet;
 
 public abstract class Recorder {
     protected String path;

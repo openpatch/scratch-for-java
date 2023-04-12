@@ -1,4 +1,4 @@
-package org.openpatch.scratch;
+package org.openpatch.scratch.extensions;
 
 public enum TextStyle {
     BOX,

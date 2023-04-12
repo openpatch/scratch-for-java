@@ -1,7 +1,5 @@
-import org.openpatch.scratch.Sprite;
-import org.openpatch.scratch.Stage;
-import org.openpatch.scratch.extensions.GifRecorder;
-import org.openpatch.scratch.Window;
+import org.openpatch.scratch.*;
+import org.openpatch.scratch.extensions.*;
 
 public class SpriteGoLayersBackwards {
     public SpriteGoLayersBackwards() {

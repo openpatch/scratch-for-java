@@ -1,4 +1,5 @@
 import org.openpatch.scratch.*;
+import org.openpatch.scratch.extensions.*;
 
 public class PenSprite extends Sprite {  
   
@@ -50,7 +51,7 @@ public class PenSprite extends Sprite {
     if (!this.finished) {
       this.move(1);
       if (Math.random() < 0.05) {
-        float newRotation = Math.round(Math.random() * 4) * 90;
+        float newRotation = Random.random(4) * 90;
         this.setDirection(newRotation);
       }
     }

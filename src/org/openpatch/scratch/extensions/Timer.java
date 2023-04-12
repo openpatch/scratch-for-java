@@ -1,4 +1,6 @@
-package org.openpatch.scratch;
+package org.openpatch.scratch.extensions;
+
+import org.openpatch.scratch.internal.Applet;
 
 public class Timer {
     private int startMillisEvery;

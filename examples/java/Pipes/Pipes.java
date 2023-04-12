@@ -1,5 +1,5 @@
-import org.openpatch.scratch.KeyCode;
-import org.openpatch.scratch.Stage;
+import org.openpatch.scratch.*;
+import org.openpatch.scratch.extensions.*;
 
 public class Pipes extends Stage {
     public Pipes() {
@@ -12,7 +12,7 @@ public class Pipes extends Stage {
 
     public void whenKeyPressed(int keyCode) {
         if (keyCode == KeyCode.VK_SPACE) {
-            PenSprite.setColor((float) Math.random() * 255);
+            PenSprite.setColor(Random.random(255));
         }
     }
 
@@ -20,10 +20,10 @@ public class Pipes extends Stage {
         this.playSound("bg");
         var pens = this.find(PenSprite.class);
         for (var pen : pens) {
-            if (Math.random() < 0.05 && pens.size() < 15) {
+            if (Random.random() < 0.05 && pens.size() < 15) {
                 this.add(new PenSprite((PenSprite) pen));
             }
-            if (Math.random() < 0.01 && pens.size() > 1) {
+            if (Random.random() < 0.01 && pens.size() > 1) {
                 this.remove(pen);
             }
         }

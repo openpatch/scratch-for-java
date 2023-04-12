@@ -1,0 +1,22 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "random",
+  "name": "random()",
+  "class": "Random",
+  "description": "Returns a random number. You can optionally choose the minimum and maximum of that number.",
+  "syntax": [".random()", ".random(max)", ".random(min, max)"],
+  "returns": "double",
+  "parameters": [
+    {
+      "name": "min",
+      "description": "Minimum value of the random number",
+      "type": "double"
+    },
+    {
+      "name": "max",
+      "description": "Maximum value of the random number",
+      "type": "double"
+    }
+  ]
+}

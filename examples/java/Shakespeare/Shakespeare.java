@@ -1,4 +1,6 @@
 import org.openpatch.scratch.*;
+import org.openpatch.scratch.extensions.Text;
+import org.openpatch.scratch.extensions.TextAlign;
 
 public class Shakespeare extends Stage {
 
