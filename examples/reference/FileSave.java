@@ -1,26 +1,31 @@
+import org.openpatch.scratch.extensions.*;
+
 public class FileSave {
 
-    class Settings {
-        private String name;
+  public FileSave() {
+    var settings = new Settings("Hi", 10);
+    File.save("settings", settings);
 
-        public Settings(String name) {
-            this.name = name;
-        }
+    Settings loadedSettings = File.load("settings", Settings.class);
+    System.out.println(loadedSettings.getName());
+  }
 
-        public String getName() {
-            return this.name;
-        }
-    }
+  public static void main(String[] args) {
+    new FileSave();
+  }
+}
 
-    public FileSave() {
-        var settings = new Settings("Hi", 10);
-        File.save("settings", settings);
+class Settings {
 
-        Settings loadedSettings = File.load("settings", Settings.class);
-        System.out.println(loadedSettings.getName());
-    }
+  private String name;
+  private int value;
 
-    public static void main(String[] args) {
-        new FileSave();
-    }
+  public Settings(String name, int value) {
+    this.name = name;
+    this.value = value;
+  }
+
+  public String getName() {
+    return this.name;
+  }
 }

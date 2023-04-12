@@ -3,6 +3,17 @@ name: Changelog
 index: 4
 ---
 
+## 3.7.0
+
+- 💥 BREAKING CHANGE: AnimatedSprite, Hitbox, Text and Timer were moved into the `org.openpatch.scratch.extensions` package. In the main package we only want the classes with emulate the current Scratch behavior. This should lead to a smoother transition. The extensions package should be used, we the normal functionality is not enough.
+- 🚀 Feat: New class Vector2. Sometimes it is easier to work with Vectors. Therefore, this class got introduced. The Sprite class was updated to make use of the Vector2 class. You can for example call the `move` and `setDirection` methods with a Vector2.
+- 🚀 Feat: New class Operators. This class has a number of simple methods for transforming data and working with mathematical operations - just like the Scratch operator blocks. For example mapping values, lerping between values or using sine and cosine.
+- 🚀 Feat: New class Random. This class contains a number of method for generating random numbers. This makes working with randomness outside a Sprite or Stage class easier.
+- 🚀 Feat: Introduce the method `ifOnEdgeBounce` for the class Sprite. This method works like the `if on edge, bounce`-block in Scratch in is an alternative to the `setOnEdgeBounce`-method.
+- 🚀 Feat: Introduce `pointTowardsMousePointer` and `pointTowardsSprite` methods for the class Sprite.
+- 🐛 Fix: Speak and Think- bubble rendering. Speak and Think-bubbles now behave like they do in Scratch. Meaning, they will never leave the Stage.
+- 📝 Docs: Add more documentation
+
 ## 3.6.0
 
 - 🚀 Feat: Add method `setTextSize` to the Text-class

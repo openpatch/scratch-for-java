@@ -5,7 +5,7 @@
   "name": "move()",
   "class": "Sprite",
   "description": "Move the sprite x-steps in the current direction.",
-  "syntax": [".move(steps)"],
+  "syntax": [".move(steps)", ".move(vector)"],
   "returns": "void",
   "examples": [
     { "src": "SpriteMove.java", "preview": "SpriteMove.gif", "lines": "reg:[Rr]ecorder" }
@@ -15,6 +15,11 @@
       "name": "steps",
       "description": "Steps to move in the current direction.",
       "type": "float"
+    },
+    {
+      "name": "vector",
+      "description": "Move in the direction of the vector.",
+      "type": "Vector2"
     }
   ]
 }

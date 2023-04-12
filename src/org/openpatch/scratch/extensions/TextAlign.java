@@ -1,4 +1,4 @@
-package org.openpatch.scratch;
+package org.openpatch.scratch.extensions;
 
 import processing.core.PApplet;
 

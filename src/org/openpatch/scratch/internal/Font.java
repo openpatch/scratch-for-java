@@ -1,4 +1,4 @@
-package org.openpatch.scratch;
+package org.openpatch.scratch.internal;
 
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -10,7 +10,7 @@ public class Font {
 
     public static String defaultFontName = "default";
     public static String defaultFontPath = "UbuntuMono-Regular.ttf";
-    private static int[] sizes = { 8, 12, 16, 20, 32, 48, 64, 128 };
+    private static int[] sizes = { 8, 12, 14, 16, 20, 32, 48, 64, 128 };
     private static final ConcurrentHashMap<String, ConcurrentHashMap<Integer, PFont>> fonts = new ConcurrentHashMap<>();
 
     public Font(String name, String path) {

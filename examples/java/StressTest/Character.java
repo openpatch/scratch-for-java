@@ -1,6 +1,6 @@
-import org.openpatch.scratch.AnimatedSprite;
 import org.openpatch.scratch.Stage;
 import org.openpatch.scratch.Window;
+import org.openpatch.scratch.extensions.AnimatedSprite;
 
 public class Character extends AnimatedSprite {
     public CharacterState state;
