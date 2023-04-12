@@ -1,8 +1,12 @@
-package org.openpatch.scratch;
+package org.openpatch.scratch.extensions;
 
 import java.awt.Point;
 import java.awt.Polygon;
 import java.awt.geom.Area;
+
+import org.openpatch.scratch.Stage;
+import org.openpatch.scratch.Window;
+import org.openpatch.scratch.internal.Applet;
 
 import processing.core.PConstants;
 

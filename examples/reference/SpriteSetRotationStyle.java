@@ -1,7 +1,7 @@
 import org.openpatch.scratch.RotationStyle;
 import org.openpatch.scratch.Sprite;
 import org.openpatch.scratch.Stage;
-import org.openpatch.scratch.extensions.GifRecorder;
+import org.openpatch.scratch.extensions.*;
 import org.openpatch.scratch.Window;
 
 public class SpriteSetRotationStyle {

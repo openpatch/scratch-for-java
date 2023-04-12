@@ -3,7 +3,19 @@ package org.openpatch.scratch;
 import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
+
+import org.openpatch.scratch.extensions.Hitbox;
 import org.openpatch.scratch.extensions.Pen;
+import org.openpatch.scratch.extensions.Text;
+import org.openpatch.scratch.extensions.TextStyle;
+import org.openpatch.scratch.extensions.Timer;
+import org.openpatch.scratch.extensions.Vector2;
+import org.openpatch.scratch.internal.Applet;
+import org.openpatch.scratch.internal.Color;
+import org.openpatch.scratch.internal.Drawable;
+import org.openpatch.scratch.internal.Image;
+import org.openpatch.scratch.internal.Sound;
+
 import processing.core.PApplet;
 import processing.event.KeyEvent;
 import processing.event.MouseEvent;
@@ -16,10 +28,10 @@ public class Sprite implements Drawable {
   private boolean show = true;
   private float size = 100;
   private boolean onEdgeBounce = false;
-  private float direction = 0;
   private RotationStyle rotationStyle = RotationStyle.ALL_AROUND;
   private float x = 0;
   private float y = 0;
+  private float direction = 0;
   private Stage stage;
   private final ConcurrentHashMap<String, Timer> timer;
   private final Pen pen;
@@ -29,7 +41,7 @@ public class Sprite implements Drawable {
   public Sprite() {
     this.pen = new Pen();
     this.timer = new ConcurrentHashMap<>();
-    this.text = new Text(null, x + this.getWidth() / 2, y - this.getHeight() / 2, 242);
+    this.text = new Text(this);
     this.x = Applet.getInstance().getWidth() / 2.0f;
     this.y = Applet.getInstance().getHeight() / 2.0f;
     this.timer.put("default", new Timer());
@@ -82,6 +94,12 @@ public class Sprite implements Drawable {
     Applet.getInstance().unregisterMethod("keyEvent", this);
     Applet.getInstance().unregisterMethod("mouseEvent", this);
     this.stage = null;
+  }
+
+  public void remove() {
+    if (this.stage != null) {
+      this.stage.remove(this);
+    }
   }
 
   public Stage getStage() {
@@ -223,7 +241,7 @@ public class Sprite implements Drawable {
 
   /**
    * Stops the playing of the sound with the given name
-   * 
+   *
    * @param name Name of the sound
    */
   public void stopSound(String name) {
@@ -237,7 +255,7 @@ public class Sprite implements Drawable {
 
   /**
    * Returns true if the sound if playing
-   * 
+   *
    * @return playing
    */
   public boolean isSoundPlaying(String name) {
@@ -360,7 +378,7 @@ public class Sprite implements Drawable {
   }
 
   /**
-   * Returns the size of the sprite
+   * Returns the size of the sprite.
    *
    * @return size in percentage
    */
@@ -369,7 +387,7 @@ public class Sprite implements Drawable {
   }
 
   /**
-   * Sets the size of the sprite
+   * Sets the size of the sprite.
    *
    * @param percentage a percentage [0...100]
    */
@@ -386,19 +404,54 @@ public class Sprite implements Drawable {
 
   /**
    *
-   * @param amount
+   * Changes the size of the sprite by a given percentage.
+   *
+   * @param amount a percentage [0...100]
    */
   public void changeSize(float amount) {
     this.size += amount;
   }
 
+  public void changeSize(double amount) {
+    this.changeSize((float) amount);
+  }
+
   /**
-   * Sets if the sprite should bounce when hitting the edge of the screen.
+   * Sets if the sprite should bounce when hitting the edge of the screen. This
+   * method is for making is attribute perment.
    *
    * @param b
    */
   public void setOnEdgeBounce(boolean b) {
     this.onEdgeBounce = b;
+  }
+
+  public void ifOnEdgeBounce() {
+    float newX = this.x;
+    float newY = this.y;
+    Image currentCostume = null;
+    if (this.costumes.size() > 0) {
+      currentCostume = this.costumes.get(this.currentCostume);
+    }
+    float costumeWidth = currentCostume != null
+        ? currentCostume.getWidth()
+        : this.pen.getSize();
+    float costumeHeight = currentCostume != null
+        ? currentCostume.getHeight()
+        : this.pen.getSize();
+
+    float spriteWidth = this.show ? costumeWidth : this.pen.getSize();
+    if (newX > Applet.getInstance().getWidth() - spriteWidth / 2 || newX < spriteWidth / 2) {
+      this.setDirection(
+          this.calculateAngleOfReflection(this.direction, false));
+    }
+
+    float spriteHeight = this.show ? costumeHeight : this.pen.getSize();
+    if (newY > Applet.getInstance().getHeight() - spriteHeight / 2 || newY < spriteHeight / 2) {
+      this.setDirection(
+          this.calculateAngleOfReflection(this.direction, true));
+    }
+    this.setPosition(newX, newY);
   }
 
   public void setRotationStyle(RotationStyle style) {
@@ -426,9 +479,19 @@ public class Sprite implements Drawable {
   }
 
   /**
+   *
+   * Sets the position of the sprite based on the coordinates of a given vector.
+   *
+   * @param v a vector
+   */
+  public void setPosition(Vector2 v) {
+    this.setPosition(v.getX(), v.getY());
+  }
+
+  /**
    * Rotates the sprite by a certain degrees to the left.
    *
-   * @param degrees
+   * @param degrees between 0 and 360
    */
   public void turnLeft(float degrees) {
     this.setDirection(this.direction - degrees);
@@ -437,7 +500,7 @@ public class Sprite implements Drawable {
   /**
    * Rotates the sprite by a certain degrees to the right.
    *
-   * @param degrees
+   * @param degrees between 0 and 360
    */
   public void turnRight(float degrees) {
     this.setDirection(this.direction + degrees);
@@ -447,17 +510,56 @@ public class Sprite implements Drawable {
    * Sets the direction of the sprite to a given degrees. When this value is 0 the
    * sprite move right, when it is 180 is moves to the left.
    *
-   * @param degrees
+   * @param degrees between 0 and 360
    */
   public void setDirection(float degrees) {
     this.direction = degrees;
     if (this.direction < 0) {
       this.direction += 360;
     }
+    this.direction %= 360;
   }
 
   public void setDirection(double degrees) {
     this.setDirection((float) degrees);
+  }
+
+  /**
+   *
+   * Sets the direction of the sprite to the direction of a given vector.
+   *
+   * @param v a vector
+   */
+  public void setDirection(Vector2 v) {
+    this.setDirection(v.angle());
+  }
+
+  public void pointInDirection(float degrees) {
+    this.setDirection(degrees);
+  }
+
+  public void pointInDirection(double degrees) {
+    this.setDirection(degrees);
+  }
+
+  public void pointInDirection(Vector2 v) {
+    this.setDirection(v);
+  }
+
+  public void pointTowardsMousePointer() {
+    float mx = this.getMouseX();
+    float my = this.getMouseY();
+
+    double angle = new Vector2(mx - this.x, my - this.y).angle();
+    this.setDirection(angle);
+  }
+
+  public void pointTowardsSprite(Sprite s) {
+    float mx = s.getX();
+    float my = s.getY();
+
+    double angle = new Vector2(mx - this.x, my - this.y).angle();
+    this.setDirection(angle);
   }
 
   /**
@@ -488,39 +590,30 @@ public class Sprite implements Drawable {
     float newX = steps * (float) Math.cos(this.direction * Math.PI / 180) + this.x;
     float newY = steps * (float) Math.sin(this.direction * Math.PI / 180) + this.y;
 
-    Image currentCostume = null;
-    if (this.costumes.size() > 0) {
-      currentCostume = this.costumes.get(this.currentCostume);
-    }
-    float costumeWidth = currentCostume != null
-        ? currentCostume.getWidth()
-        : this.pen.getSize();
-    float costumeHeight = currentCostume != null
-        ? currentCostume.getHeight()
-        : this.pen.getSize();
-
-    if (this.onEdgeBounce) {
-      float spriteWidth = this.show ? costumeWidth : this.pen.getSize();
-      if (newX > Applet.getInstance().getWidth() - spriteWidth / 2 || newX < spriteWidth / 2) {
-        this.setDirection(
-            this.calculateAngleOfReflection(this.direction, false));
-      }
-
-      float spriteHeight = this.show ? costumeHeight : this.pen.getSize();
-      if (newY > Applet.getInstance().getHeight() - spriteHeight / 2 || newY < spriteHeight / 2) {
-        this.setDirection(
-            this.calculateAngleOfReflection(this.direction, true));
-      }
-    }
-
     this.x = newX;
     this.y = newY;
+
+    if (this.onEdgeBounce) {
+      this.ifOnEdgeBounce();
+    }
 
     this.pen.setPosition(this.x, this.y);
   }
 
   public void move(double steps) {
     this.move((float) steps);
+  }
+
+  /**
+   *
+   * Moves the sprite in the direction of the given vector. The length of the
+   * vector determines how move the sprite will move in this direction.
+   *
+   * @param v a vector
+   */
+  public void move(Vector2 v) {
+    setDirection(v.angle());
+    move(v.length());
   }
 
   /**
@@ -577,6 +670,10 @@ public class Sprite implements Drawable {
   public void setY(float y) {
     this.y = y;
     this.pen.setPosition(this.x, this.y);
+  }
+
+  public void setY(double y) {
+    this.setY((float) y);
   }
 
   /**

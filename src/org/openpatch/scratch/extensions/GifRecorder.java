@@ -1,8 +1,8 @@
 package org.openpatch.scratch.extensions;
 
-import org.openpatch.scratch.Applet;
-import org.openpatch.scratch.Color;
 import org.openpatch.scratch.internal.AnimatedGifEncoder;
+import org.openpatch.scratch.internal.Applet;
+import org.openpatch.scratch.internal.Color;
 
 public class GifRecorder extends Recorder {
 

@@ -1,10 +1,12 @@
-package org.openpatch.scratch;
+package org.openpatch.scratch.internal;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
+
+import org.openpatch.scratch.Stage;
 
 import processing.core.PApplet;
 import processing.core.PConstants;

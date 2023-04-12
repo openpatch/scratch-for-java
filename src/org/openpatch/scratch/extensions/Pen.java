@@ -1,8 +1,9 @@
 package org.openpatch.scratch.extensions;
 
-import org.openpatch.scratch.Color;
-import org.openpatch.scratch.Drawable;
 import org.openpatch.scratch.Stage;
+import org.openpatch.scratch.internal.Color;
+import org.openpatch.scratch.internal.Drawable;
+
 import processing.core.PGraphics;
 
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -153,6 +154,14 @@ public class Pen implements Drawable {
             this.pointsBuffer.get(this.pointsBuffer.size() - 1)
                     .add(new Point(x, y, this.color, this.transparency, this.size));
         }
+    }
+
+    public void setPosition(double x, double y) {
+        this.setPosition((float) x, (float) y);
+    }
+
+    public void setPosition(Vector2 v) {
+        this.setPosition(v.getX(), v.getY());
     }
 
     /**

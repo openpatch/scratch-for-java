@@ -5,7 +5,7 @@
   "name": "setDirection()",
   "class": "Sprite",
   "description": "Sets the direction of the sprite.",
-  "syntax": [".setDirection(angle)"],
+  "syntax": [".setDirection(angle), .setDirection(vector)"],
   "returns": "void",
   "examples": [
     { "src": "SpriteSetDirection.java", "preview": "SpriteSetDirection.gif", "lines": "reg:[Rr]ecorder" }
@@ -15,6 +15,11 @@
       "name": "angle",
       "description": "Direction angle. Initial direction is 0 and facing to the right.",
       "type": "float"
+    },
+    {
+      "name": "vector",
+      "description": "Vector for setting the direction",
+      "type": "Vector2"
     }
   ]
 }

@@ -5,7 +5,7 @@
   "name": "setPosition()",
   "class": "Sprite",
   "description": "Sets position of the sprite.",
-  "syntax": [".setPosition(x, y)"],
+  "syntax": [".setPosition(x, y)", ".setPosition(vector)"],
   "returns": "void",
   "examples": [
     { "src": "SpriteSetPosition.java", "preview": "SpriteSetPosition.gif", "lines": "reg:[Rr]ecorder" }
@@ -20,6 +20,11 @@
       "name": "y",
       "description": "Y coordinate",
       "type": "float"
+    },
+    {
+      "name": "vector",
+      "description": "A vector representing the new position",
+      "type": "Vector2"
     }
   ]
 }
