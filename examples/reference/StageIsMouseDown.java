@@ -1,6 +1,5 @@
-import org.openpatch.scratch.Stage;
-import org.openpatch.scratch.extensions.*;
-import org.openpatch.scratch.Window;
+import org.openpatch.scratch.*;
+import org.openpatch.scratch.extensions.recorder.*;
 
 public class StageIsMouseDown {
     public StageIsMouseDown() {
@@ -8,7 +7,7 @@ public class StageIsMouseDown {
 
         GifRecorder recorder = new GifRecorder("" + this.getClass().getName() + ".gif");
         recorder.start();
-        while(myStage.getTimer().forMillis(3000)) {
+        while (myStage.getTimer().forMillis(3000)) {
             myStage.display("Mouse down? " + myStage.isMouseDown());
         }
         recorder.stop();

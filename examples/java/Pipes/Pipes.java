@@ -1,5 +1,5 @@
 import org.openpatch.scratch.*;
-import org.openpatch.scratch.extensions.*;
+import org.openpatch.scratch.extensions.math.*;
 
 public class Pipes extends Stage {
     public Pipes() {

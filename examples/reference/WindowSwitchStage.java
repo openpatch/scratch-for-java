@@ -1,7 +1,5 @@
-import org.openpatch.scratch.Stage;
-import org.openpatch.scratch.Sprite;
-import org.openpatch.scratch.Timer;
-import org.openpatch.scratch.Window;
+import org.openpatch.scratch.*;
+import org.openpatch.scratch.extensions.timer.Timer;
 
 public class WindowSwitchStage {
     public WindowSwitchStage() {
@@ -19,16 +17,17 @@ public class WindowSwitchStage {
 
         Timer switchTimer = new Timer();
 
-        while(switchTimer.forMillis(2000)) {
+        while (switchTimer.forMillis(2000)) {
             myWindow.switchStage("first");
         }
 
         switchTimer.reset();
 
-        while(switchTimer.forMillis(2000)) {
+        while (switchTimer.forMillis(2000)) {
             myWindow.switchStage("second");
         }
     }
+
     public static void main(String[] args) {
         new WindowSwitchStage();
     }

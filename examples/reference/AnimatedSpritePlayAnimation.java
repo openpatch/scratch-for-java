@@ -1,5 +1,6 @@
 import org.openpatch.scratch.*;
-import org.openpatch.scratch.extensions.*;
+import org.openpatch.scratch.extensions.animation.*;
+import org.openpatch.scratch.extensions.recorder.*;
 
 public class AnimatedSpritePlayAnimation {
     public AnimatedSpritePlayAnimation() {
@@ -16,7 +17,7 @@ public class AnimatedSpritePlayAnimation {
 
         Recorder recorder = new GifRecorder("" + this.getClass().getName());
         recorder.start();
-        while(myStage.getTimer().forMillis(3000)) {
+        while (myStage.getTimer().forMillis(3000)) {
             bee.playAnimation("idle", true);
             bee2.playAnimation("idle");
         }

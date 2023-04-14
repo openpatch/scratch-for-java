@@ -5,16 +5,25 @@
   "name": "setDirection()",
   "class": "Sprite",
   "description": "Setzt die Richtung der Figur.",
-  "syntax": [".setDirection(angle)"],
+  "syntax": [".setDirection(angle)", ".setDirection(vector)"],
   "returns": "void",
   "examples": [
-    { "src": "SpriteSetDirection.java", "preview": "SpriteSetDirection.gif", "lines": "reg:[Rr]ecorder" }
+    {
+      "src": "SpriteSetDirection.java",
+      "preview": "SpriteSetDirection.gif",
+      "lines": "reg:[Rr]ecorder"
+    }
   ],
   "parameters": [
     {
       "name": "angle",
       "description": "Der Wert der Richtung. Die Initialerichtung ist 0 und bedeute, dass die Figur nach rechts schaut.",
       "type": "float"
+    },
+    {
+      "name": "vector",
+      "description": "Ein Vektor",
+      "type": "Vector2"
     }
   ]
 }

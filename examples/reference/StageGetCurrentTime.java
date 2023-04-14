@@ -1,6 +1,5 @@
-import org.openpatch.scratch.Stage;
-import org.openpatch.scratch.extensions.*;
-import org.openpatch.scratch.Window;
+import org.openpatch.scratch.*;
+import org.openpatch.scratch.extensions.recorder.*;
 
 public class StageGetCurrentTime {
     public StageGetCurrentTime() {
@@ -18,7 +17,8 @@ public class StageGetCurrentTime {
             int second = myStage.getCurrentSecond();
             int millisecond = myStage.getCurrentMillisecond();
             int daysSince2000 = myStage.getDaysSince2000();
-            myStage.display(hour + ":" + minute + ":" + second + ":" + millisecond + " " + year + "-" + month + "-" + day + " (" + weekday + ")" + " " + daysSince2000);
+            myStage.display(hour + ":" + minute + ":" + second + ":" + millisecond + " " + year + "-" + month + "-"
+                    + day + " (" + weekday + ")" + " " + daysSince2000);
         }
         recorder.stop();
         Window.getInstance().exit();

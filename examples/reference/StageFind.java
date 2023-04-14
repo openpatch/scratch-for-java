@@ -1,8 +1,6 @@
-import org.openpatch.scratch.Sprite;
-import org.openpatch.scratch.Stage;
-import org.openpatch.scratch.extensions.*;
-import org.openpatch.scratch.Window;
-import org.openpatch.scratch.extensions.Pen;
+import org.openpatch.scratch.*;
+import org.openpatch.scratch.extensions.pen.*;
+import org.openpatch.scratch.extensions.recorder.*;
 
 public class StageFind {
     public StageFind() {

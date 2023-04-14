@@ -1,6 +1,6 @@
-import org.openpatch.scratch.Sprite;
-import org.openpatch.scratch.Window;
-import org.openpatch.scratch.extensions.File;
+package examples.Cat;
+
+import org.openpatch.scratch.extensions.fs.*;
 
 public class Saving {
 

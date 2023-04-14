@@ -1,0 +1,27 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "(noise)",
+  "name": "noise()",
+  "class": "Random",
+  "description": "Returns the Open Simplex noise value at specified coordinates.",
+  "syntax": [".noise(x)", ".noise(x, y)", ".noise(x, y, z)"],
+  "returns": "double",
+  "parameters": [
+    {
+      "name": "x",
+      "description": "x-coordinate",
+      "type": "double"
+    },
+    {
+      "name": "y",
+      "description": "y-coordinate",
+      "type": "double"
+    },
+    {
+      "name": "z",
+      "description": "z-coordinate",
+      "type": "double"
+    }
+  ]
+}

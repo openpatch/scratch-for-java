@@ -1,6 +1,6 @@
 import org.openpatch.scratch.Sprite;
 import org.openpatch.scratch.Stage;
-import org.openpatch.scratch.extensions.*;
+import org.openpatch.scratch.extensions.recorder.*;
 import org.openpatch.scratch.Window;
 
 public class SpriteTimer {
@@ -13,8 +13,8 @@ public class SpriteTimer {
 
         GifRecorder recorder = new GifRecorder("" + this.getClass().getName() + ".gif");
         recorder.start();
-        while(myStage.getTimer().forMillis(6000)) {
-            if(timeMe.getTimer("identityChange").everyMillis(1000)) {
+        while (myStage.getTimer().forMillis(6000)) {
+            if (timeMe.getTimer("identityChange").everyMillis(1000)) {
                 timeMe.nextCostume();
             }
         }

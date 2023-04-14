@@ -5,7 +5,7 @@
   "name": "setPosition()",
   "class": "Sprite",
   "description": "Setzt die Positon der Figur.",
-  "syntax": [".setPosition(x, y)"],
+  "syntax": [".setPosition(x, y)", ".setPosition(vector)"],
   "returns": "void",
   "examples": [
     { "src": "SpriteSetPosition.java", "preview": "SpriteSetPosition.gif", "lines": "reg:[Rr]ecorder" }
@@ -20,6 +20,11 @@
       "name": "y",
       "description": "Y-Koordinate",
       "type": "float"
+    },
+    {
+      "name": "vector",
+      "description": "Ein Vektor",
+      "type": "Vector2"
     }
   ]
 }

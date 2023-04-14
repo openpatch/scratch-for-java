@@ -1,11 +1,11 @@
 import org.openpatch.scratch.*;
-import org.openpatch.scratch.extensions.*;
+import org.openpatch.scratch.extensions.math.*;
 
-public class PenSprite extends Sprite {  
-  
+public class PenSprite extends Sprite {
+
   private boolean finished = false;
   private static float color;
-  
+
   public PenSprite() {
     super("pen", "sprites/pen.png");
     this.getPen().down();
@@ -15,11 +15,11 @@ public class PenSprite extends Sprite {
     this.setOnEdgeBounce(true);
     this.hide();
   }
-  
+
   public static void setColor(float color) {
     PenSprite.color = color;
   }
-  
+
   // when I start as a clone
   public PenSprite(PenSprite pen) {
     super(pen);
@@ -29,7 +29,7 @@ public class PenSprite extends Sprite {
       color += Math.random() * 10;
     }
   }
-  
+
   public void setFinished() {
     this.finished = true;
   }
@@ -39,14 +39,14 @@ public class PenSprite extends Sprite {
     if (keyCode != KeyCode.VK_H) {
       return;
     }
-    
-    if(this.isVisible()) {
+
+    if (this.isVisible()) {
       this.hide();
     } else {
       this.show();
     }
   }
-  
+
   public void run() {
     if (!this.finished) {
       this.move(1);

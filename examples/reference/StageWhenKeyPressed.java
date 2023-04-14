@@ -1,6 +1,5 @@
-import org.openpatch.scratch.Stage;
-import org.openpatch.scratch.Window;
-import org.openpatch.scratch.extensions.*;
+import org.openpatch.scratch.*;
+import org.openpatch.scratch.extensions.recorder.*;
 
 public class StageWhenKeyPressed {
 
@@ -19,7 +18,8 @@ class CustomStage extends Stage {
     super(254, 100);
     GifRecorder recorder = new GifRecorder("StageWhenKeyPressed.gif");
     recorder.start();
-    while (this.getTimer().forMillis(3000));
+    while (this.getTimer().forMillis(3000))
+      ;
     recorder.stop();
     Window.getInstance().exit();
   }

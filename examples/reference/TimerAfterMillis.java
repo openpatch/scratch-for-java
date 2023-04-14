@@ -1,7 +1,6 @@
-import org.openpatch.scratch.Stage;
-import org.openpatch.scratch.Timer;
-import org.openpatch.scratch.extensions.*;
-import org.openpatch.scratch.Window;
+import org.openpatch.scratch.*;
+import org.openpatch.scratch.extensions.recorder.*;
+import org.openpatch.scratch.extensions.timer.Timer;
 
 public class TimerAfterMillis {
 
@@ -19,6 +18,7 @@ public class TimerAfterMillis {
         recorder.stop();
         Window.getInstance().exit();
     }
+
     public static void main(String[] args) {
         new TimerAfterMillis();
     }

@@ -1,6 +1,5 @@
 import org.openpatch.scratch.*;
-import org.openpatch.scratch.extensions.Text;
-import org.openpatch.scratch.extensions.TextAlign;
+import org.openpatch.scratch.extensions.text.*;
 
 public class Shakespeare extends Stage {
 
@@ -57,7 +56,7 @@ public class Shakespeare extends Stage {
             statisticText += "Generations: " + population.getGeneration() + "\n";
             statisticText += "Average Fit: " + population.gibDurchschnittlichenFit() + "\n";
             statisticText += "Populationsize: " + populationsize + "\n";
-            statisticText += "Mutationrate: " + Math.round(mutationrate*100) + "%\n";
+            statisticText += "Mutationrate: " + Math.round(mutationrate * 100) + "%\n";
 
             this.statistics.showText(statisticText);
             this.bestPhrase.showText("Best Phrase:\n" + this.population.getBest());
