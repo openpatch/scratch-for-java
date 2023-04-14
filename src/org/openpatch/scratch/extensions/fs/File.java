@@ -19,16 +19,15 @@ public class File {
     }
     try (Writer writer = new FileWriter(path)) {
       writer.write(json);
-    } catch (IOException e) {}
+    } catch (IOException e) {
+    }
   }
 
   public static <T> T load(String path, Class<T> cls) {
-    Gson gson = new GsonBuilder()
-      .excludeFieldsWithModifiers(
-        Modifier.STATIC,
-        Modifier.TRANSIENT,
-        Modifier.VOLATILE
-      ).create();
+    Gson gson =
+        new GsonBuilder()
+            .excludeFieldsWithModifiers(Modifier.STATIC, Modifier.TRANSIENT, Modifier.VOLATILE)
+            .create();
     if (!path.endsWith(".json")) {
       path = path + ".json";
     }

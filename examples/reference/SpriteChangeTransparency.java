@@ -2,23 +2,23 @@ import org.openpatch.scratch.*;
 import org.openpatch.scratch.extensions.recorder.*;
 
 public class SpriteChangeTransparency {
-    public SpriteChangeTransparency() {
-        Stage myStage = new Stage(254, 100);
-        Sprite mySprite = new Sprite("zeta", "assets/zeta_green_badge.png");
-        myStage.add(mySprite);
+  public SpriteChangeTransparency() {
+    Stage myStage = new Stage(254, 100);
+    Sprite mySprite = new Sprite("zeta", "assets/zeta_green_badge.png");
+    myStage.add(mySprite);
 
-        GifRecorder recorder = new GifRecorder("" + this.getClass().getName() + ".gif");
-        recorder.start();
+    GifRecorder recorder = new GifRecorder("" + this.getClass().getName() + ".gif");
+    recorder.start();
 
-        myStage.wait(2000);
-        mySprite.changeTransparency(150);
-        myStage.wait(2000);
+    myStage.wait(2000);
+    mySprite.changeTransparency(150);
+    myStage.wait(2000);
 
-        recorder.stop();
-        Window.getInstance().exit();
-    }
+    recorder.stop();
+    Window.getInstance().exit();
+  }
 
-    public static void main(String[] args) {
-        new SpriteChangeTransparency();
-    }
+  public static void main(String[] args) {
+    new SpriteChangeTransparency();
+  }
 }
