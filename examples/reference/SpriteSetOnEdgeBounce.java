@@ -1,5 +1,5 @@
 import org.openpatch.scratch.*;
-import org.openpatch.scratch.extensions.*;
+import org.openpatch.scratch.extensions.recorder.*;
 
 public class SpriteSetOnEdgeBounce {
     public SpriteSetOnEdgeBounce() {
@@ -11,7 +11,7 @@ public class SpriteSetOnEdgeBounce {
 
         GifRecorder recorder = new GifRecorder("" + this.getClass().getName() + ".gif");
         recorder.start();
-        while(myStage.getTimer().forMillis(3000)) {
+        while (myStage.getTimer().forMillis(3000)) {
             mySprite.move(1);
             myStage.wait(20);
         }

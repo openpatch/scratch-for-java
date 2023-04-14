@@ -5,12 +5,13 @@ index: 4
 
 ## 3.7.0
 
-- 💥 BREAKING CHANGE: AnimatedSprite, Hitbox, Text and Timer were moved into the `org.openpatch.scratch.extensions` package. In the main package we only want the classes with emulate the current Scratch behavior. This should lead to a smoother transition. The extensions package should be used, we the normal functionality is not enough.
-- 🚀 Feat: New class Vector2. Sometimes it is easier to work with Vectors. Therefore, this class got introduced. The Sprite class was updated to make use of the Vector2 class. You can for example call the `move` and `setDirection` methods with a Vector2.
+- 💥 BREAKING CHANGE: AnimatedSprite, Hitbox, Text and Timer were moved into the `org.openpatch.scratch.extensions` package. Each extension got its own package. For example `org.openpatch.scratch.extensions.animation`. In the main package we only want the classes with emulate the current Scratch behavior. This should lead to a smoother transition. The extensions package should be used, we the normal functionality is not enough.
+- 🚀 Feat: New class Vector2 for the math extension. Sometimes it is easier to work with Vectors. Therefore, this class got introduced. The Sprite class was updated to make use of the Vector2 class. You can for example call the `move` and `setDirection` methods with a Vector2.
 - 🚀 Feat: New class Operators. This class has a number of simple methods for transforming data and working with mathematical operations - just like the Scratch operator blocks. For example mapping values, lerping between values or using sine and cosine.
-- 🚀 Feat: New class Random. This class contains a number of method for generating random numbers. This makes working with randomness outside a Sprite or Stage class easier.
+- 🚀 Feat: New class Random in the math extension. This class contains a number of method for generating random numbers. This makes working with randomness outside a Sprite or Stage class easier.
 - 🚀 Feat: Introduce the method `ifOnEdgeBounce` for the class Sprite. This method works like the `if on edge, bounce`-block in Scratch in is an alternative to the `setOnEdgeBounce`-method.
 - 🚀 Feat: Introduce `pointTowardsMousePointer` and `pointTowardsSprite` methods for the class Sprite.
+- 🐛 Fix: Jar files missing version information.
 - 🐛 Fix: Speak and Think- bubble rendering. Speak and Think-bubbles now behave like they do in Scratch. Meaning, they will never leave the Stage.
 - 📝 Docs: Add more documentation
 
@@ -58,7 +59,7 @@ Text spriteText = new Sprite().getText();
 
 ## 3.2.1
 
--  🐛 Fix: Pen only drawing dots
+- 🐛 Fix: Pen only drawing dots
 
 ## 3.2.0
 
@@ -79,8 +80,9 @@ public class Prog {
 ```
 
 - 🚀 Feat: The class Text became more usable as a standalone Drawable. You can now create a Text-object with the default constructor `new Text()`. The created Text-object will in `TextStyle.PLAIN`, meaning having nothing drawn around it and be freely placeable on the stage.
-    - The background color can now be set by passing a Color-object. `setBackgroundColor(Color c)`
-    - The text color can now be set by passing a Color-object. `setTextColor(Color c)`
+
+  - The background color can now be set by passing a Color-object. `setBackgroundColor(Color c)`
+  - The text color can now be set by passing a Color-object. `setTextColor(Color c)`
 
 - 🐎 Perf: Scratch for Java now used an OpenGL renderer, which increases the performance by many times.
 - 🐎 Perf: The collision detection got improved.
@@ -162,30 +164,30 @@ class AnimatedBee extends AnimatedSprite {
 
 ## 2.0.0
 
-* BREAKING CHANGE: Rename package to `org.openpatch.scratch`
+- BREAKING CHANGE: Rename package to `org.openpatch.scratch`
 
 ## 1.15.0
 
-* Add standalone version
+- Add standalone version
 
 ## 1.14.1
 
-* Improve Text rendering
+- Improve Text rendering
 
 ## 1.14.0
 
-* add think and say to Sprite
-* add display to Stage
-* add whenClicked to Sprite
-* add whenBackdropSwitches to Sprite
+- add think and say to Sprite
+- add display to Stage
+- add whenClicked to Sprite
+- add whenBackdropSwitches to Sprite
 
 ## 1.13.0
 
-* add stage.removeSprites
-* add stage.findSprites
-* use CopyOnWriteArrayList instead of ArrayList
+- add stage.removeSprites
+- add stage.findSprites
+- use CopyOnWriteArrayList instead of ArrayList
 
 ## 1.4.0
 
-* add more timer methods
-* add a timer example
+- add more timer methods
+- add a timer example

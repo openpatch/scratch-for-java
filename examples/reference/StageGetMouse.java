@@ -1,14 +1,13 @@
-import org.openpatch.scratch.Stage;
-import org.openpatch.scratch.extensions.*;
-import org.openpatch.scratch.Window;
+import org.openpatch.scratch.*;
+import org.openpatch.scratch.extensions.recorder.*;
 
 public class StageGetMouse {
     public StageGetMouse() {
-        Stage myStage = new Stage(254,100);
-        
+        Stage myStage = new Stage(254, 100);
+
         GifRecorder recorder = new GifRecorder("" + this.getClass().getName() + ".gif");
         recorder.start();
-        while(myStage.getTimer().forMillis(3000)) {
+        while (myStage.getTimer().forMillis(3000)) {
             float mouseX = myStage.getMouseX();
             float mouseY = myStage.getMouseY();
 

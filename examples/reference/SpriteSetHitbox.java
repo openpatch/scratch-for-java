@@ -1,5 +1,5 @@
 import org.openpatch.scratch.*;
-import org.openpatch.scratch.extensions.*;
+import org.openpatch.scratch.extensions.recorder.*;
 
 public class SpriteSetHitbox {
     public SpriteSetHitbox() {
@@ -17,6 +17,7 @@ public class SpriteSetHitbox {
         myStage.wait(2000);
         Window.getInstance().exit();
     }
+
     public static void main(String[] args) {
         new SpriteSetHitbox();
     }

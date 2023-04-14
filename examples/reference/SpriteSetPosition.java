@@ -1,6 +1,6 @@
 import org.openpatch.scratch.Sprite;
 import org.openpatch.scratch.Stage;
-import org.openpatch.scratch.extensions.*;
+import org.openpatch.scratch.extensions.recorder.*;
 import org.openpatch.scratch.Window;
 
 public class SpriteSetPosition {
@@ -11,7 +11,7 @@ public class SpriteSetPosition {
 
         GifRecorder recorder = new GifRecorder("" + this.getClass().getName() + ".gif");
         recorder.start();
-        while(myStage.getTimer().forMillis(3000)) {
+        while (myStage.getTimer().forMillis(3000)) {
             int x = myStage.pickRandom(0, myStage.getWidth());
             int y = myStage.pickRandom(0, myStage.getHeight());
 

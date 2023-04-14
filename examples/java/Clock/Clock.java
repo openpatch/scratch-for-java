@@ -1,4 +1,5 @@
-import org.openpatch.scratch.Stage;
+
+import org.openpatch.scratch.*;
 
 public class Clock {
     public Clock() {
