@@ -1,5 +1,6 @@
 import org.openpatch.scratch.*;
-import org.openpatch.scratch.extensions.*;
+import org.openpatch.scratch.extensions.animation.*;
+import org.openpatch.scratch.extensions.recorder.*;
 
 public class AnimatedSpriteGetAnimationInterval {
     public AnimatedSpriteGetAnimationInterval() {
@@ -11,13 +12,13 @@ public class AnimatedSpriteGetAnimationInterval {
 
         Recorder recorder = new GifRecorder("" + this.getClass().getName());
         recorder.start();
-        while(myStage.getTimer().forMillis(2000)) {
+        while (myStage.getTimer().forMillis(2000)) {
             bee.playAnimation("idle");
             bee.say("Interval: " + bee.getAnimationInterval());
         }
         bee.setAnimationInterval(20);
         myStage.getTimer().reset();
-        while(myStage.getTimer().forMillis(2000)) {
+        while (myStage.getTimer().forMillis(2000)) {
             bee.playAnimation("idle");
             bee.say("Interval: " + bee.getAnimationInterval());
         }

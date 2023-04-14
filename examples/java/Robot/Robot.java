@@ -1,4 +1,4 @@
-import org.openpatch.scratch.Stage;
+import org.openpatch.scratch.*;
 
 public class Robot extends Stage {
     public Robot() {
@@ -9,5 +9,5 @@ public class Robot extends Stage {
     public static void main(String[] args) {
         new Robot();
     }
-    
+
 }

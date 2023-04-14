@@ -13,9 +13,9 @@ import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import org.openpatch.scratch.extensions.Text;
-import org.openpatch.scratch.extensions.TextStyle;
-import org.openpatch.scratch.extensions.Timer;
+import org.openpatch.scratch.extensions.text.Text;
+import org.openpatch.scratch.extensions.text.TextStyle;
+import org.openpatch.scratch.extensions.timer.Timer;
 import org.openpatch.scratch.internal.Applet;
 import org.openpatch.scratch.internal.Color;
 import org.openpatch.scratch.internal.Drawable;

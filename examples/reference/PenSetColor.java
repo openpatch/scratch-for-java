@@ -1,5 +1,6 @@
 import org.openpatch.scratch.*;
-import org.openpatch.scratch.extensions.*;
+import org.openpatch.scratch.extensions.recorder.*;
+import org.openpatch.scratch.extensions.pen.*;
 
 public class PenSetColor {
     public PenSetColor() {

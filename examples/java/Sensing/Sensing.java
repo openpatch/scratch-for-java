@@ -1,6 +1,4 @@
-import org.openpatch.scratch.Sprite;
-import org.openpatch.scratch.Stage;
-import org.openpatch.scratch.Window;
+import org.openpatch.scratch.*;
 
 public class Sensing extends Stage {
     public static Hero h, m;

@@ -1,13 +1,12 @@
-import org.openpatch.scratch.Stage;
-import org.openpatch.scratch.extensions.*;
-import org.openpatch.scratch.Window;
+import org.openpatch.scratch.*;
+import org.openpatch.scratch.extensions.recorder.*;
 
 public class StagePickRandom {
     public StagePickRandom() {
         Stage myStage = new Stage(254, 100);
         GifRecorder recorder = new GifRecorder("" + this.getClass().getName() + ".gif");
         recorder.start();
-        while(myStage.getTimer().forMillis(3000)) {
+        while (myStage.getTimer().forMillis(3000)) {
             int random = myStage.pickRandom(0, 100);
             myStage.display("Random: " + random);
             myStage.wait(500);

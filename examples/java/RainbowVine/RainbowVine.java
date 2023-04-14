@@ -1,10 +1,9 @@
-import org.openpatch.scratch.Sprite;
-import org.openpatch.scratch.Stage;
+import org.openpatch.scratch.*;
 
 public class RainbowVine extends Stage {
     public RainbowVine() {
         super(800, 600);
-        this.setColor(0,0,0);
+        this.setColor(0, 0, 0);
         this.add(new VineSprite());
     }
 
@@ -25,7 +24,7 @@ class VineSprite extends Sprite {
         this.setPosition(this.getMouseX(), this.getMouseY());
         this.turnRight(5);
 
-        if(this.getTimer().everyMillis(60)) {
+        if (this.getTimer().everyMillis(60)) {
             this.getStage().add(new LeafSprite(this));
         }
     }

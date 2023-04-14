@@ -1,6 +1,5 @@
-import org.openpatch.scratch.Stage;
-import org.openpatch.scratch.extensions.*;
-import org.openpatch.scratch.Window;
+import org.openpatch.scratch.*;
+import org.openpatch.scratch.extensions.recorder.*;
 
 public class StageTimer {
     public StageTimer() {
@@ -9,8 +8,8 @@ public class StageTimer {
 
         GifRecorder recorder = new GifRecorder("" + this.getClass().getName() + ".gif");
         recorder.start();
-        while(myStage.getTimer().forMillis(6000)) {
-            if(myStage.getTimer("identityChange").everyMillis(1000)) {
+        while (myStage.getTimer().forMillis(6000)) {
+            if (myStage.getTimer("identityChange").everyMillis(1000)) {
                 myStage.changeColor(40);
             }
         }

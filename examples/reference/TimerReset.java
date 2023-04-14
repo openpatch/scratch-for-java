@@ -1,7 +1,6 @@
-import org.openpatch.scratch.Stage;
-import org.openpatch.scratch.Timer;
-import org.openpatch.scratch.extensions.*;
-import org.openpatch.scratch.Window;
+import org.openpatch.scratch.*;
+import org.openpatch.scratch.extensions.recorder.*;
+import org.openpatch.scratch.extensions.timer.Timer;
 
 public class TimerReset {
 
@@ -14,11 +13,13 @@ public class TimerReset {
         myStage.wait(500);
         while (myTimer.forMillis(1000)) {
             myStage.display("Running 1st...");
-        };
+        }
+        ;
         myTimer.reset();
         while (myTimer.forMillis(1000)) {
             myStage.display("Running 2nd...");
-        };
+        }
+        ;
         myStage.display("Stop!");
         myStage.wait(500);
         recorder.stop();

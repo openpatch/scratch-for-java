@@ -12,7 +12,7 @@ The FFmpeg recorder saves a video.
 
 ```java
 import org.openpatch.scratch.Stage;
-import org.openpatch.scratch.extensions.FFmpegRecorder;
+import org.openpatch.scratch.extensions.recorder.FFmpegRecorder;
 
 public class Animation {
     public Animation() {

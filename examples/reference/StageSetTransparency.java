@@ -1,6 +1,5 @@
-import org.openpatch.scratch.Stage;
-import org.openpatch.scratch.extensions.*;
-import org.openpatch.scratch.Window;
+import org.openpatch.scratch.*;
+import org.openpatch.scratch.extensions.recorder.*;
 
 public class StageSetTransparency {
     public StageSetTransparency() {
@@ -9,7 +8,8 @@ public class StageSetTransparency {
         GifRecorder recorder = new GifRecorder("" + this.getClass().getName() + ".gif");
         recorder.start();
         myStage.wait(2000);
-        myStage.setTransparency(50);;
+        myStage.setTransparency(50);
+        ;
         myStage.wait(2000);
         recorder.stop();
         Window.getInstance().exit();

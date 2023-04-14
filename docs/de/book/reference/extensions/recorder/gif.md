@@ -10,7 +10,7 @@ With the GIF recorder you can either record an animation or just a single snapsh
 
 ```java
 import org.openpatch.scratch.Stage;
-import org.openpatch.scratch.extensions.*;
+import org.openpatch.scratch.extensions.recorder.*;
 import org.openpatch.scratch.Window;
 
 public class Animation {
@@ -36,7 +36,7 @@ public class Animation {
 
 ```java
 import org.openpatch.scratch.Stage;
-import org.openpatch.scratch.extensions.*;
+import org.openpatch.scratch.extensions.recorder.*;
 import org.openpatch.scratch.Window;
 
 public class Snapshot {

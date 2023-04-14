@@ -1,5 +1,4 @@
-import org.openpatch.scratch.Sprite;
-import org.openpatch.scratch.Stage;
+import org.openpatch.scratch.*;
 
 public class CatSketch {
 
@@ -21,7 +20,6 @@ class CatSprite extends Sprite {
     this.setOnEdgeBounce(true);
   }
 
-  @Override
   public void run() {
     this.move(2);
   }

@@ -1,4 +1,4 @@
-import org.openpatch.scratch.extensions.*;
+import org.openpatch.scratch.extensions.fs.*;
 
 public class FileSave {
 
