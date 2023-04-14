@@ -1,3 +1,5 @@
 public enum CharacterState {
-    IDLE, RUN, WALK
+  IDLE,
+  RUN,
+  WALK
 }

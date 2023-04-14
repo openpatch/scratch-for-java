@@ -1,29 +1,28 @@
 import org.openpatch.scratch.Sprite;
 import org.openpatch.scratch.Stage;
-import org.openpatch.scratch.extensions.recorder.*;
 import org.openpatch.scratch.Window;
+import org.openpatch.scratch.extensions.recorder.*;
 
 public class SpriteSetPosition {
-    public SpriteSetPosition() {
-        Stage myStage = new Stage(254, 100);
-        Sprite mySprite = new Sprite("slime", "assets/slime.png");
-        myStage.add(mySprite);
+  public SpriteSetPosition() {
+    Stage myStage = new Stage(254, 100);
+    Sprite mySprite = new Sprite("slime", "assets/slime.png");
+    myStage.add(mySprite);
 
-        GifRecorder recorder = new GifRecorder("" + this.getClass().getName() + ".gif");
-        recorder.start();
-        while (myStage.getTimer().forMillis(3000)) {
-            int x = myStage.pickRandom(0, myStage.getWidth());
-            int y = myStage.pickRandom(0, myStage.getHeight());
+    GifRecorder recorder = new GifRecorder("" + this.getClass().getName() + ".gif");
+    recorder.start();
+    while (myStage.getTimer().forMillis(3000)) {
+      int x = myStage.pickRandom(0, myStage.getWidth());
+      int y = myStage.pickRandom(0, myStage.getHeight());
 
-            mySprite.setPosition(x, y);
-            myStage.wait(100);
-        }
-        recorder.stop();
-        Window.getInstance().exit();
-
+      mySprite.setPosition(x, y);
+      myStage.wait(100);
     }
+    recorder.stop();
+    Window.getInstance().exit();
+  }
 
-    public static void main(String[] args) {
-        new SpriteSetPosition();
-    }
+  public static void main(String[] args) {
+    new SpriteSetPosition();
+  }
 }

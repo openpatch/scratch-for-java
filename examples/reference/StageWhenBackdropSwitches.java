@@ -5,8 +5,7 @@ public class StageWhenBackdropSwitches {
 
   public StageWhenBackdropSwitches() {
     Stage myStage = new CustomStage();
-    GifRecorder recorder = new GifRecorder(
-        "" + this.getClass().getName() + ".gif");
+    GifRecorder recorder = new GifRecorder("" + this.getClass().getName() + ".gif");
     recorder.start();
     myStage.wait(1000);
     myStage.nextBackdrop();

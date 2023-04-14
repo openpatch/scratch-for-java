@@ -4,7 +4,7 @@ import org.openpatch.scratch.internal.Applet;
 
 public class Window {
 
-  public static final int[] DEBUG_COLOR = { 255, 0, 0 };
+  public static final int[] DEBUG_COLOR = {255, 0, 0};
   private static Window instance;
 
   public Window() {
@@ -68,5 +68,4 @@ public class Window {
   public void exit() {
     Applet.getInstance().exit();
   }
-
 }
