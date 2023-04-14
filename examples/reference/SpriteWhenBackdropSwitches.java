@@ -12,8 +12,7 @@ public class SpriteWhenBackdropSwitches {
     myStage.addTimer("backdrop");
     myStage.add(new CustomSprite());
 
-    GifRecorder recorder = new GifRecorder(
-        "" + this.getClass().getName() + ".gif");
+    GifRecorder recorder = new GifRecorder("" + this.getClass().getName() + ".gif");
     recorder.start();
     while (myStage.getTimer().forMillis(3000)) {
       if (myStage.getTimer("backdrop").intervalMillis(1000)) {

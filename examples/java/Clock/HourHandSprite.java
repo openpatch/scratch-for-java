@@ -1,4 +1,3 @@
-
 import org.openpatch.scratch.*;
 
 public class HourHandSprite extends Sprite {
