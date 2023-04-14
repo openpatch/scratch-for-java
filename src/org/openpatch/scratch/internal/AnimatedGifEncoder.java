@@ -1,13 +1,12 @@
 package org.openpatch.scratch.internal;
 
-import java.io.*;
 import java.awt.*;
 import java.awt.image.*;
+import java.io.*;
 
 /**
- * Class AnimatedGifEncoder - Encodes a GIF file consisting of one or more
- * frames.
- * 
+ * Class AnimatedGifEncoder - Encodes a GIF file consisting of one or more frames.
+ *
  * <pre>
  *  Example:
  *     AnimatedGifEncoder e = new AnimatedGifEncoder();
@@ -17,17 +16,14 @@ import java.awt.image.*;
  *     e.addFrame(image2);
  *     e.finish();
  * </pre>
- * 
- * No copyright asserted on the source code of this class. May be used for any
- * purpose, however, refer to the Unisys LZW patent for restrictions on use of
- * the associated LZWEncoder class. Please forward any corrections to
- * kweiner@fmsware.com.
- * 
+ *
+ * No copyright asserted on the source code of this class. May be used for any purpose, however,
+ * refer to the Unisys LZW patent for restrictions on use of the associated LZWEncoder class. Please
+ * forward any corrections to kweiner@fmsware.com.
+ *
  * @author Kevin Weiner, FM Software
  * @version 1.03 November 2003
- * 
  */
-
 public class AnimatedGifEncoder {
 
   protected int width; // image size
@@ -71,11 +67,10 @@ public class AnimatedGifEncoder {
   protected int sample = 10; // default sample interval for quantizer
 
   /**
-   * Sets the delay time between each frame, or changes it for subsequent frames
-   * (applies to last frame added).
-   * 
-   * @param ms
-   *           int delay time in milliseconds
+   * Sets the delay time between each frame, or changes it for subsequent frames (applies to last
+   * frame added).
+   *
+   * @param ms int delay time in milliseconds
    */
   public void setDelay(int ms) {
     delay = Math.round(ms / 10.0f);
@@ -86,12 +81,10 @@ public class AnimatedGifEncoder {
   }
 
   /**
-   * Sets the GIF frame disposal code for the last added frame and any
-   * subsequent frames. Default is 0 if no transparent color has been set,
-   * otherwise 2.
-   * 
-   * @param code
-   *             int disposal code.
+   * Sets the GIF frame disposal code for the last added frame and any subsequent frames. Default is
+   * 0 if no transparent color has been set, otherwise 2.
+   *
+   * @param code int disposal code.
    */
   public void setDispose(int code) {
     if (code >= 0) {
@@ -100,12 +93,10 @@ public class AnimatedGifEncoder {
   }
 
   /**
-   * Sets the number of times the set of GIF frames should be played. Default is
-   * 1; 0 means play indefinitely. Must be invoked before the first image is
-   * added.
-   * 
-   * @param iter
-   *             int number of iterations.
+   * Sets the number of times the set of GIF frames should be played. Default is 1; 0 means play
+   * indefinitely. Must be invoked before the first image is added.
+   *
+   * @param iter int number of iterations.
    * @return
    */
   public void setRepeat(int iter) {
@@ -115,14 +106,12 @@ public class AnimatedGifEncoder {
   }
 
   /**
-   * Sets the transparent color for the last added frame and any subsequent
-   * frames. Since all colors are subject to modification in the quantization
-   * process, the color in the final palette for each frame closest to the given
-   * color becomes the transparent color for that frame. May be set to null to
-   * indicate no transparent color.
-   * 
-   * @param c
-   *          Color to be treated as transparent on display.
+   * Sets the transparent color for the last added frame and any subsequent frames. Since all colors
+   * are subject to modification in the quantization process, the color in the final palette for
+   * each frame closest to the given color becomes the transparent color for that frame. May be set
+   * to null to indicate no transparent color.
+   *
+   * @param c Color to be treated as transparent on display.
    */
   public void setTransparent(org.openpatch.scratch.internal.Color c) {
     transparent = new Color(c.getRed() / 255.0f, c.getGreen() / 255.0f, c.getBlue() / 255.0f);
@@ -133,7 +122,7 @@ public class AnimatedGifEncoder {
 
     for (int y = 0; y < height; y++) {
       for (int x = 0; x < width; x++) {
-        image.setRGB(x, y, pixels[y*width+x]);
+        image.setRGB(x, y, pixels[y * width + x]);
       }
     }
 
@@ -141,14 +130,12 @@ public class AnimatedGifEncoder {
   }
 
   /**
-   * Adds next GIF frame. The frame is not written immediately, but is actually
-   * deferred until the next frame is received so that timing data can be
-   * inserted. Invoking <code>finish()</code> flushes all frames. If
-   * <code>setSize</code> was not invoked, the size of the first image is used
-   * for all subsequent frames.
-   * 
-   * @param im
-   *           BufferedImage containing frame to write.
+   * Adds next GIF frame. The frame is not written immediately, but is actually deferred until the
+   * next frame is received so that timing data can be inserted. Invoking <code>finish()</code>
+   * flushes all frames. If <code>setSize</code> was not invoked, the size of the first image is
+   * used for all subsequent frames.
+   *
+   * @param im BufferedImage containing frame to write.
    * @return true if successful.
    */
   public boolean addFrame(BufferedImage im) {
@@ -187,12 +174,11 @@ public class AnimatedGifEncoder {
   }
 
   /**
-   * Flushes any pending data and closes output file. If writing to an
-   * OutputStream, the stream is not closed.
+   * Flushes any pending data and closes output file. If writing to an OutputStream, the stream is
+   * not closed.
    */
   public boolean finish() {
-    if (!started)
-      return false;
+    if (!started) return false;
     boolean ok = true;
     started = false;
     try {
@@ -219,11 +205,9 @@ public class AnimatedGifEncoder {
   }
 
   /**
-   * Sets frame rate in frames per second. Equivalent to
-   * <code>setDelay(1000/fps)</code>.
-   * 
-   * @param fps
-   *            float frame rate (frames per second)
+   * Sets frame rate in frames per second. Equivalent to <code>setDelay(1000/fps)</code>.
+   *
+   * @param fps float frame rate (frames per second)
    */
   public void setFrameRate(float fps) {
     if (fps != 0f) {
@@ -232,54 +216,43 @@ public class AnimatedGifEncoder {
   }
 
   /**
-   * Sets quality of color quantization (conversion of images to the maximum 256
-   * colors allowed by the GIF specification). Lower values (minimum = 1)
-   * produce better colors, but slow processing significantly. 10 is the
-   * default, and produces good color mapping at reasonable speeds. Values
+   * Sets quality of color quantization (conversion of images to the maximum 256 colors allowed by
+   * the GIF specification). Lower values (minimum = 1) produce better colors, but slow processing
+   * significantly. 10 is the default, and produces good color mapping at reasonable speeds. Values
    * greater than 20 do not yield significant improvements in speed.
-   * 
-   * @param quality
-   *                int greater than 0.
+   *
+   * @param quality int greater than 0.
    * @return
    */
   public void setQuality(int quality) {
-    if (quality < 1)
-      quality = 1;
+    if (quality < 1) quality = 1;
     sample = quality;
   }
 
   /**
-   * Sets the GIF frame size. The default size is the size of the first frame
-   * added if this method is not invoked.
-   * 
-   * @param w
-   *          int frame width.
-   * @param h
-   *          int frame width.
+   * Sets the GIF frame size. The default size is the size of the first frame added if this method
+   * is not invoked.
+   *
+   * @param w int frame width.
+   * @param h int frame width.
    */
   public void setSize(int w, int h) {
-    if (started && !firstFrame)
-      return;
+    if (started && !firstFrame) return;
     width = w;
     height = h;
-    if (width < 1)
-      width = 320;
-    if (height < 1)
-      height = 240;
+    if (width < 1) width = 320;
+    if (height < 1) height = 240;
     sizeSet = true;
   }
 
   /**
-   * Initiates GIF file creation on the given stream. The stream is not closed
-   * automatically.
-   * 
-   * @param os
-   *           OutputStream on which GIF images are written.
+   * Initiates GIF file creation on the given stream. The stream is not closed automatically.
+   *
+   * @param os OutputStream on which GIF images are written.
    * @return false if initial write failed.
    */
   public boolean start(OutputStream os) {
-    if (os == null)
-      return false;
+    if (os == null) return false;
     boolean ok = true;
     closeStream = false;
     out = os;
@@ -293,9 +266,8 @@ public class AnimatedGifEncoder {
 
   /**
    * Initiates writing of a GIF file with the specified name.
-   * 
-   * @param file
-   *             String containing output file name.
+   *
+   * @param file String containing output file name.
    * @return false if open or initial write failed.
    */
   public boolean start(String file) {
@@ -310,9 +282,7 @@ public class AnimatedGifEncoder {
     return started = ok;
   }
 
-  /**
-   * Analyzes image colors and creates color map.
-   */
+  /** Analyzes image colors and creates color map. */
   protected void analyzePixels() {
     int len = pixels.length;
     int nPix = len / 3;
@@ -343,20 +313,16 @@ public class AnimatedGifEncoder {
     }
   }
 
-  /**
-   * Returns index of palette color closest to c
-   * 
-   */
+  /** Returns index of palette color closest to c */
   protected int findClosest(Color c) {
-    if (colorTab == null)
-      return -1;
+    if (colorTab == null) return -1;
     int r = (int) c.getRed();
     int g = (int) c.getGreen();
     int b = (int) c.getBlue();
     int minpos = 0;
     int dmin = 256 * 256 * 256;
     int len = colorTab.length;
-    for (int i = 0; i < len;) {
+    for (int i = 0; i < len; ) {
       int dr = r - (colorTab[i++] & 0xff);
       int dg = g - (colorTab[i++] & 0xff);
       int db = b - (colorTab[i] & 0xff);
@@ -371,9 +337,7 @@ public class AnimatedGifEncoder {
     return minpos;
   }
 
-  /**
-   * Extracts image pixels into byte array "pixels"
-   */
+  /** Extracts image pixels into byte array "pixels" */
   protected void getImagePixels() {
     int w = image.getWidth();
     int h = image.getHeight();
@@ -388,9 +352,7 @@ public class AnimatedGifEncoder {
     pixels = ((DataBufferByte) image.getRaster().getDataBuffer()).getData();
   }
 
-  /**
-   * Writes Graphic Control Extension
-   */
+  /** Writes Graphic Control Extension */
   protected void writeGraphicCtrlExt() throws IOException {
     out.write(0x21); // extension introducer
     out.write(0xf9); // GCE label
@@ -409,19 +371,18 @@ public class AnimatedGifEncoder {
     disp <<= 2;
 
     // packed fields
-    out.write(0 | // 1:3 reserved
-        disp | // 4:6 disposal
-        0 | // 7 user input - 0 = none
-        transp); // 8 transparency flag
+    out.write(
+        0 | // 1:3 reserved
+            disp | // 4:6 disposal
+            0 | // 7 user input - 0 = none
+            transp); // 8 transparency flag
 
     writeShort(delay); // delay x 1/100 sec
     out.write(transIndex); // transparent color index
     out.write(0); // block terminator
   }
 
-  /**
-   * Writes Image Descriptor
-   */
+  /** Writes Image Descriptor */
   protected void writeImageDesc() throws IOException {
     out.write(0x2c); // image separator
     writeShort(0); // image position x,y = 0,0
@@ -434,34 +395,32 @@ public class AnimatedGifEncoder {
       out.write(0);
     } else {
       // specify normal LCT
-      out.write(0x80 | // 1 local color table 1=yes
-          0 | // 2 interlace - 0=no
-          0 | // 3 sorted - 0=no
-          0 | // 4-5 reserved
-          palSize); // 6-8 size of color table
+      out.write(
+          0x80 | // 1 local color table 1=yes
+              0 | // 2 interlace - 0=no
+              0 | // 3 sorted - 0=no
+              0 | // 4-5 reserved
+              palSize); // 6-8 size of color table
     }
   }
 
-  /**
-   * Writes Logical Screen Descriptor
-   */
+  /** Writes Logical Screen Descriptor */
   protected void writeLSD() throws IOException {
     // logical screen size
     writeShort(width);
     writeShort(height);
     // packed fields
-    out.write((0x80 | // 1 : global color table flag = 1 (gct used)
-        0x70 | // 2-4 : color resolution = 7
-        0x00 | // 5 : gct sort flag = 0
-        palSize)); // 6-8 : gct size
+    out.write(
+        (0x80 | // 1 : global color table flag = 1 (gct used)
+            0x70 | // 2-4 : color resolution = 7
+            0x00 | // 5 : gct sort flag = 0
+            palSize)); // 6-8 : gct size
 
     out.write(0); // background color index
     out.write(0); // pixel aspect ratio - assume 1:1
   }
 
-  /**
-   * Writes Netscape application extension to define repeat count.
-   */
+  /** Writes Netscape application extension to define repeat count. */
   protected void writeNetscapeExt() throws IOException {
     out.write(0x21); // extension introducer
     out.write(0xff); // app extension label
@@ -473,9 +432,7 @@ public class AnimatedGifEncoder {
     out.write(0); // block terminator
   }
 
-  /**
-   * Writes color table
-   */
+  /** Writes color table */
   protected void writePalette() throws IOException {
     out.write(colorTab, 0, colorTab.length);
     int n = (3 * 256) - colorTab.length;
@@ -484,25 +441,19 @@ public class AnimatedGifEncoder {
     }
   }
 
-  /**
-   * Encodes and writes pixel data
-   */
+  /** Encodes and writes pixel data */
   protected void writePixels() throws IOException {
     LZWEncoder encoder = new LZWEncoder(width, height, indexedPixels, colorDepth);
     encoder.encode(out);
   }
 
-  /**
-   * Write 16-bit value to output stream, LSB first
-   */
+  /** Write 16-bit value to output stream, LSB first */
   protected void writeShort(int value) throws IOException {
     out.write(value & 0xff);
     out.write((value >> 8) & 0xff);
   }
 
-  /**
-   * Writes string to output stream
-   */
+  /** Writes string to output stream */
   protected void writeString(String s) throws IOException {
     for (int i = 0; i < s.length(); i++) {
       out.write((byte) s.charAt(i));
@@ -513,14 +464,14 @@ public class AnimatedGifEncoder {
 /*
  * NeuQuant Neural-Net Quantization Algorithm
  * ------------------------------------------
- * 
+ *
  * Copyright (c) 1994 Anthony Dekker
- * 
+ *
  * NEUQUANT Neural-Net quantization algorithm by Anthony Dekker, 1994. See
  * "Kohonen neural networks for optimal colour quantization" in "Network:
  * Computation in Neural Systems" Vol. 5 (1994) pp 351-367. for a discussion of
  * the algorithm.
- * 
+ *
  * Any party obtaining a copy of these files from the author, directly or
  * indirectly, is granted, free of charge, a full and unrestricted irrevocable,
  * world-wide, paid up, royalty-free, nonexclusive right and license to deal in
@@ -669,8 +620,7 @@ class NeuQuant {
   public byte[] colorMap() {
     byte[] map = new byte[3 * netsize];
     int[] index = new int[netsize];
-    for (int i = 0; i < netsize; i++)
-      index[network[i][3]] = i;
+    for (int i = 0; i < netsize; i++) index[network[i][3]] = i;
     int k = 0;
     for (int i = 0; i < netsize; i++) {
       int j = index[i];
@@ -703,7 +653,8 @@ class NeuQuant {
       /* find smallest in i..netsize-1 */
       for (j = i + 1; j < netsize; j++) {
         q = network[j];
-        if (q[1] < smallval) { /* index on g */
+        if (q[1] < smallval) {
+            /* index on g */
           smallpos = j;
           smallval = q[1]; /* index on g */
         }
@@ -727,15 +678,13 @@ class NeuQuant {
       /* smallval entry is now in position i */
       if (smallval != previouscol) {
         netindex[previouscol] = (startpos + i) >> 1;
-        for (j = previouscol + 1; j < smallval; j++)
-          netindex[j] = i;
+        for (j = previouscol + 1; j < smallval; j++) netindex[j] = i;
         previouscol = smallval;
         startpos = i;
       }
     }
     netindex[previouscol] = (startpos + maxnetpos) >> 1;
-    for (j = previouscol + 1; j < 256; j++)
-      netindex[j] = maxnetpos; /* really 256 */
+    for (j = previouscol + 1; j < 256; j++) netindex[j] = maxnetpos; /* really 256 */
   }
 
   /*
@@ -748,8 +697,7 @@ class NeuQuant {
     byte[] p;
     int pix, lim;
 
-    if (lengthcount < minpicturebytes)
-      samplefac = 1;
+    if (lengthcount < minpicturebytes) samplefac = 1;
     alphadec = 30 + ((samplefac - 1) / 3);
     p = thepicture;
     pix = 0;
@@ -760,25 +708,18 @@ class NeuQuant {
     radius = initradius;
 
     rad = radius >> radiusbiasshift;
-    if (rad <= 1)
-      rad = 0;
-    for (i = 0; i < rad; i++)
-      radpower[i] = alpha * (((rad * rad - i * i) * radbias) / (rad * rad));
+    if (rad <= 1) rad = 0;
+    for (i = 0; i < rad; i++) radpower[i] = alpha * (((rad * rad - i * i) * radbias) / (rad * rad));
 
     // fprintf(stderr,"beginning 1D learning: initial radius=%d\n", rad);
 
-    if (lengthcount < minpicturebytes)
-      step = 3;
-    else if ((lengthcount % prime1) != 0)
-      step = 3 * prime1;
+    if (lengthcount < minpicturebytes) step = 3;
+    else if ((lengthcount % prime1) != 0) step = 3 * prime1;
     else {
-      if ((lengthcount % prime2) != 0)
-        step = 3 * prime2;
+      if ((lengthcount % prime2) != 0) step = 3 * prime2;
       else {
-        if ((lengthcount % prime3) != 0)
-          step = 3 * prime3;
-        else
-          step = 3 * prime4;
+        if ((lengthcount % prime3) != 0) step = 3 * prime3;
+        else step = 3 * prime4;
       }
     }
 
@@ -790,22 +731,18 @@ class NeuQuant {
       j = contest(b, g, r);
 
       altersingle(alpha, j, b, g, r);
-      if (rad != 0)
-        alterneigh(rad, j, b, g, r); /* alter neighbours */
+      if (rad != 0) alterneigh(rad, j, b, g, r); /* alter neighbours */
 
       pix += step;
-      if (pix >= lim)
-        pix -= lengthcount;
+      if (pix >= lim) pix -= lengthcount;
 
       i++;
-      if (delta == 0)
-        delta = 1;
+      if (delta == 0) delta = 1;
       if (i % delta == 0) {
         alpha -= alpha / alphadec;
         radius -= radius / radiusdec;
         rad = radius >> radiusbiasshift;
-        if (rad <= 1)
-          rad = 0;
+        if (rad <= 1) rad = 0;
         for (j = 0; j < rad; j++)
           radpower[j] = alpha * (((rad * rad - j * j) * radbias) / (rad * rad));
       }
@@ -834,20 +771,16 @@ class NeuQuant {
       if (i < netsize) {
         p = network[i];
         dist = p[1] - g; /* inx key */
-        if (dist >= bestd)
-          i = netsize; /* stop iter */
+        if (dist >= bestd) i = netsize; /* stop iter */
         else {
           i++;
-          if (dist < 0)
-            dist = -dist;
+          if (dist < 0) dist = -dist;
           a = p[0] - b;
-          if (a < 0)
-            a = -a;
+          if (a < 0) a = -a;
           dist += a;
           if (dist < bestd) {
             a = p[2] - r;
-            if (a < 0)
-              a = -a;
+            if (a < 0) a = -a;
             dist += a;
             if (dist < bestd) {
               bestd = dist;
@@ -859,20 +792,16 @@ class NeuQuant {
       if (j >= 0) {
         p = network[j];
         dist = g - p[1]; /* inx key - reverse dif */
-        if (dist >= bestd)
-          j = -1; /* stop iter */
+        if (dist >= bestd) j = -1; /* stop iter */
         else {
           j--;
-          if (dist < 0)
-            dist = -dist;
+          if (dist < 0) dist = -dist;
           a = p[0] - b;
-          if (a < 0)
-            a = -a;
+          if (a < 0) a = -a;
           dist += a;
           if (dist < bestd) {
             a = p[2] - r;
-            if (a < 0)
-              a = -a;
+            if (a < 0) a = -a;
             dist += a;
             if (dist < bestd) {
               bestd = dist;
@@ -922,11 +851,9 @@ class NeuQuant {
     int[] p;
 
     lo = i - rad;
-    if (lo < -1)
-      lo = -1;
+    if (lo < -1) lo = -1;
     hi = i + rad;
-    if (hi > netsize)
-      hi = netsize;
+    if (hi > netsize) hi = netsize;
 
     j = i + 1;
     k = i - 1;
@@ -989,15 +916,12 @@ class NeuQuant {
     for (i = 0; i < netsize; i++) {
       n = network[i];
       dist = n[0] - b;
-      if (dist < 0)
-        dist = -dist;
+      if (dist < 0) dist = -dist;
       a = n[1] - g;
-      if (a < 0)
-        a = -a;
+      if (a < 0) a = -a;
       dist += a;
       a = n[2] - r;
-      if (a < 0)
-        a = -a;
+      if (a < 0) a = -a;
       dist += a;
       if (dist < bestd) {
         bestd = dist;
@@ -1115,8 +1039,10 @@ class LZWEncoder {
 
   int cur_bits = 0;
 
-  int masks[] = { 0x0000, 0x0001, 0x0003, 0x0007, 0x000F, 0x001F, 0x003F, 0x007F, 0x00FF, 0x01FF,
-      0x03FF, 0x07FF, 0x0FFF, 0x1FFF, 0x3FFF, 0x7FFF, 0xFFFF };
+  int masks[] = {
+    0x0000, 0x0001, 0x0003, 0x0007, 0x000F, 0x001F, 0x003F, 0x007F, 0x00FF, 0x01FF, 0x03FF, 0x07FF,
+    0x0FFF, 0x1FFF, 0x3FFF, 0x7FFF, 0xFFFF
+  };
 
   // Number of characters so far in this 'packet'
   int a_count;
@@ -1136,8 +1062,7 @@ class LZWEncoder {
   // characters, flush the packet to disk.
   void char_out(byte c, OutputStream outs) throws IOException {
     accum[a_count++] = c;
-    if (a_count >= 254)
-      flush_char(outs);
+    if (a_count >= 254) flush_char(outs);
   }
 
   // Clear out the hash table
@@ -1153,8 +1078,7 @@ class LZWEncoder {
 
   // reset code table
   void cl_hash(int hsize) {
-    for (int i = 0; i < hsize; ++i)
-      htab[i] = -1;
+    for (int i = 0; i < hsize; ++i) htab[i] = -1;
   }
 
   void compress(int init_bits, OutputStream outs) throws IOException {
@@ -1183,8 +1107,7 @@ class LZWEncoder {
     ent = nextPixel();
 
     hshift = 0;
-    for (fcode = hsize; fcode < 65536; fcode *= 2)
-      ++hshift;
+    for (fcode = hsize; fcode < 65536; fcode *= 2) ++hshift;
     hshift = 8 - hshift; // set hash code range bound
 
     hsize_reg = hsize;
@@ -1192,7 +1115,8 @@ class LZWEncoder {
 
     output(ClearCode, outs);
 
-    outer_loop: while ((c = nextPixel()) != EOF) {
+    outer_loop:
+    while ((c = nextPixel()) != EOF) {
       fcode = (c << maxbits) + ent;
       i = (c << hshift) ^ ent; // xor hashing
 
@@ -1202,11 +1126,9 @@ class LZWEncoder {
       } else if (htab[i] >= 0) // non-empty slot
       {
         disp = hsize_reg - i; // secondary hash (after G. Knott)
-        if (i == 0)
-          disp = 1;
+        if (i == 0) disp = 1;
         do {
-          if ((i -= disp) < 0)
-            i += hsize_reg;
+          if ((i -= disp) < 0) i += hsize_reg;
 
           if (htab[i] == fcode) {
             ent = codetab[i];
@@ -1219,8 +1141,7 @@ class LZWEncoder {
       if (free_ent < maxmaxcode) {
         codetab[i] = free_ent++; // code -> hashtable
         htab[i] = fcode;
-      } else
-        cl_block(outs);
+      } else cl_block(outs);
     }
     // Put out the final code.
     output(ent, outs);
@@ -1256,8 +1177,7 @@ class LZWEncoder {
   // Return the next pixel from the image
   // ----------------------------------------------------------------------------
   private int nextPixel() {
-    if (remaining == 0)
-      return EOF;
+    if (remaining == 0) return EOF;
 
     --remaining;
 
@@ -1269,10 +1189,8 @@ class LZWEncoder {
   void output(int code, OutputStream outs) throws IOException {
     cur_accum &= masks[cur_bits];
 
-    if (cur_bits > 0)
-      cur_accum |= (code << cur_bits);
-    else
-      cur_accum = code;
+    if (cur_bits > 0) cur_accum |= (code << cur_bits);
+    else cur_accum = code;
 
     cur_bits += n_bits;
 
@@ -1290,10 +1208,8 @@ class LZWEncoder {
         clear_flg = false;
       } else {
         ++n_bits;
-        if (n_bits == maxbits)
-          maxcode = maxmaxcode;
-        else
-          maxcode = MAXCODE(n_bits);
+        if (n_bits == maxbits) maxcode = maxmaxcode;
+        else maxcode = MAXCODE(n_bits);
       }
     }
 

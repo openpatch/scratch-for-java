@@ -1,4 +1,3 @@
-
 import org.openpatch.scratch.*;
 
 public class ClockSprite extends Sprite {

@@ -1,5 +1,3 @@
- 
-
 import org.openpatch.scratch.*;
 
 public class MinuteHandSprite extends Sprite {
