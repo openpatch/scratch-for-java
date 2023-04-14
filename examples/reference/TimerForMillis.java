@@ -1,7 +1,6 @@
-import org.openpatch.scratch.Stage;
-import org.openpatch.scratch.Timer;
-import org.openpatch.scratch.extensions.*;
-import org.openpatch.scratch.Window;
+import org.openpatch.scratch.*;
+import org.openpatch.scratch.extensions.recorder.*;
+import org.openpatch.scratch.extensions.timer.Timer;
 
 public class TimerForMillis {
 
@@ -14,7 +13,8 @@ public class TimerForMillis {
         myStage.wait(500);
         while (myTimer.forMillis(1000)) {
             myStage.display("Running...");
-        };
+        }
+        ;
         myStage.display("Stop!");
         myStage.wait(500);
         recorder.stop();

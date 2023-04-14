@@ -1,6 +1,5 @@
-import org.openpatch.scratch.Stage;
-import org.openpatch.scratch.extensions.*;
-import org.openpatch.scratch.Window;
+import org.openpatch.scratch.*;
+import org.openpatch.scratch.extensions.recorder.*;
 
 public class StageSetColor {
     public StageSetColor() {

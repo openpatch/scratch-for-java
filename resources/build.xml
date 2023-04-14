@@ -41,7 +41,6 @@
     </condition>
 
 
-
     <property name="project.jar.name" value="${project.name}" />
     <property name="project.src" location="src" />
     <property name="project.tmp" location="tmp" />
@@ -115,9 +114,12 @@
                 url="https://github.com/processing/processing-sound/releases/download/v2.3.1/sound.zip" />
             <url url="https://github.com/java-native/jssc/releases/download/v2.9.4/jssc-2.9.4.jar" />
             <url url="https://repo1.maven.org/maven2/org/processing/serial/3.3.7/serial-3.3.7.jar" />
-            <url url="https://repo1.maven.org/maven2/com/google/code/gson/gson/2.10.1/gson-2.10.1.jar" />
-            <url url="https://repo1.maven.org/maven2/com/github/davidmoten/word-wrap/0.1.12/word-wrap-0.1.12.jar" />
-            <url url="https://repo1.maven.org/maven2/com/github/davidmoten/guava-mini/0.1.6/guava-mini-0.1.6.jar" />
+            <url
+                url="https://repo1.maven.org/maven2/com/google/code/gson/gson/2.10.1/gson-2.10.1.jar" />
+            <url
+                url="https://repo1.maven.org/maven2/com/github/davidmoten/word-wrap/0.1.12/word-wrap-0.1.12.jar" />
+            <url
+                url="https://repo1.maven.org/maven2/com/github/davidmoten/guava-mini/0.1.6/guava-mini-0.1.6.jar" />
         </get>
 
         <get dest="${project.libs}/linux-amd64" skipexisting="true" ignoreerrors="true">
@@ -226,14 +228,25 @@
     </target>
 
     <target name="generate.jar">
-        <jar jarfile="${project.tmp}/${project.name}/${folder}/${project.jar.name}.jar"
-            basedir="${project.bin}" />
-
         <jar jarfile="${project.tmp}/${project.name}/${folder}/${project.jar.name}-javadoc.jar"
-            basedir="${project.dist}/javadoc" />
+            basedir="${project.dist}/javadoc">
+            <manifest>
+                <!-- Information about the program itself -->
+                <attribute name="Implementation-Vendor" value="${author.name}" />
+                <attribute name="Implementation-Title" value="${project.prettyName}" />
+                <attribute name="Implementation-Version" value="${library.version}" />
+            </manifest>
+        </jar>
 
         <jar jarfile="${project.tmp}/${project.name}/${folder}/${project.jar.name}-sources.jar"
-            basedir="${project.src}" />
+            basedir="${project.src}">
+            <manifest>
+                <!-- Information about the program itself -->
+                <attribute name="Implementation-Vendor" value="${author.name}" />
+                <attribute name="Implementation-Title" value="${project.prettyName}" />
+                <attribute name="Implementation-Version" value="${library.version}" />
+            </manifest>
+        </jar>
 
         <jar
             jarfile="${project.tmp}/${project.name}/${folder}/${project.jar.name}-linux-amd64.jar"
@@ -243,6 +256,10 @@
             <zipgroupfileset dir="${project.libs}/linux-amd64" includes="*.jar" />
             <manifest>
                 <attribute name="Class-Path" value="${project.libs}" />
+                <!-- Information about the program itself -->
+                <attribute name="Implementation-Vendor" value="${author.name}" />
+                <attribute name="Implementation-Title" value="${project.prettyName}" />
+                <attribute name="Implementation-Version" value="${library.version}" />
             </manifest>
         </jar>
 
@@ -254,6 +271,10 @@
             <zipgroupfileset dir="${project.libs}/linux-arm" includes="*.jar" />
             <manifest>
                 <attribute name="Class-Path" value="${project.libs}" />
+                <!-- Information about the program itself -->
+                <attribute name="Implementation-Vendor" value="${author.name}" />
+                <attribute name="Implementation-Title" value="${project.prettyName}" />
+                <attribute name="Implementation-Version" value="${library.version}" />
             </manifest>
         </jar>
 
@@ -265,6 +286,10 @@
             <zipgroupfileset dir="${project.libs}/linux-aarch64" includes="*.jar" />
             <manifest>
                 <attribute name="Class-Path" value="${project.libs}" />
+                <!-- Information about the program itself -->
+                <attribute name="Implementation-Vendor" value="${author.name}" />
+                <attribute name="Implementation-Title" value="${project.prettyName}" />
+                <attribute name="Implementation-Version" value="${library.version}" />
             </manifest>
         </jar>
 
@@ -275,6 +300,10 @@
             <zipgroupfileset dir="${project.libs}/windows-amd64" includes="*.jar" />
             <manifest>
                 <attribute name="Class-Path" value="${project.libs}" />
+                <!-- Information about the program itself -->
+                <attribute name="Implementation-Vendor" value="${author.name}" />
+                <attribute name="Implementation-Title" value="${project.prettyName}" />
+                <attribute name="Implementation-Version" value="${library.version}" />
             </manifest>
         </jar>
 
@@ -285,6 +314,10 @@
             <zipgroupfileset dir="${project.libs}/macos-x86_64" includes="*.jar" />
             <manifest>
                 <attribute name="Class-Path" value="${project.libs}" />
+                <!-- Information about the program itself -->
+                <attribute name="Implementation-Vendor" value="${author.name}" />
+                <attribute name="Implementation-Title" value="${project.prettyName}" />
+                <attribute name="Implementation-Version" value="${library.version}" />
             </manifest>
         </jar>
 
@@ -295,6 +328,10 @@
             <zipgroupfileset dir="${project.libs}/macos-aarch64" includes="*.jar" />
             <manifest>
                 <attribute name="Class-Path" value="${project.libs}" />
+                <!-- Information about the program itself -->
+                <attribute name="Implementation-Vendor" value="${author.name}" />
+                <attribute name="Implementation-Title" value="${project.prettyName}" />
+                <attribute name="Implementation-Version" value="${library.version}" />
             </manifest>
         </jar>
     </target>

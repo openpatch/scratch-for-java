@@ -1,7 +1,7 @@
 import org.openpatch.scratch.Sprite;
 import org.openpatch.scratch.Stage;
 import org.openpatch.scratch.Window;
-import org.openpatch.scratch.extensions.*;
+import org.openpatch.scratch.extensions.recorder.*;
 
 public class SpriteWhenMouseMoved {
 
@@ -9,10 +9,10 @@ public class SpriteWhenMouseMoved {
     Stage myStage = new Stage(254, 100);
     myStage.add(new CustomSprite());
     GifRecorder recorder = new GifRecorder(
-      "" + this.getClass().getName() + ".gif"
-    );
+        "" + this.getClass().getName() + ".gif");
     recorder.start();
-    while (myStage.getTimer().forMillis(3000));
+    while (myStage.getTimer().forMillis(3000))
+      ;
     recorder.stop();
     Window.getInstance().exit();
   }

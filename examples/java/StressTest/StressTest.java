@@ -1,6 +1,4 @@
-import org.openpatch.scratch.KeyCode;
-import org.openpatch.scratch.Stage;
-import org.openpatch.scratch.Window;
+import org.openpatch.scratch.*;
 
 public class StressTest extends Stage {
 
@@ -10,7 +8,7 @@ public class StressTest extends Stage {
 
     public StressTest() {
         this.addBackdrop("outback", "assets/outback.png");
-   
+
         for (int i = 0; i < dinos; i++) {
             this.add(new Dino());
         }

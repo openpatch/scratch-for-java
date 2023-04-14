@@ -1,5 +1,5 @@
 import org.openpatch.scratch.*;
-import org.openpatch.scratch.extensions.*;
+import org.openpatch.scratch.extensions.recorder.*;
 
 public class SpriteSay {
     public SpriteSay() {

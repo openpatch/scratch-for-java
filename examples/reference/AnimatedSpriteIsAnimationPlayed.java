@@ -1,5 +1,6 @@
 import org.openpatch.scratch.*;
-import org.openpatch.scratch.extensions.*;
+import org.openpatch.scratch.extensions.animation.*;
+import org.openpatch.scratch.extensions.recorder.*;
 
 public class AnimatedSpriteIsAnimationPlayed {
     public AnimatedSpriteIsAnimationPlayed() {

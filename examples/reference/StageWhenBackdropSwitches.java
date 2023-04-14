@@ -1,14 +1,12 @@
-import org.openpatch.scratch.Stage;
-import org.openpatch.scratch.Window;
-import org.openpatch.scratch.extensions.*;
+import org.openpatch.scratch.*;
+import org.openpatch.scratch.extensions.recorder.*;
 
 public class StageWhenBackdropSwitches {
 
   public StageWhenBackdropSwitches() {
     Stage myStage = new CustomStage();
     GifRecorder recorder = new GifRecorder(
-      "" + this.getClass().getName() + ".gif"
-    );
+        "" + this.getClass().getName() + ".gif");
     recorder.start();
     myStage.wait(1000);
     myStage.nextBackdrop();

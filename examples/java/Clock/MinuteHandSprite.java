@@ -1,4 +1,6 @@
-import org.openpatch.scratch.Sprite;
+ 
+
+import org.openpatch.scratch.*;
 
 public class MinuteHandSprite extends Sprite {
   public MinuteHandSprite() {
@@ -10,4 +12,3 @@ public class MinuteHandSprite extends Sprite {
     this.setDirection(minute / 60.0 * 360);
   }
 }
-

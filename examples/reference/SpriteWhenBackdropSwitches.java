@@ -1,7 +1,7 @@
 import org.openpatch.scratch.Sprite;
 import org.openpatch.scratch.Stage;
 import org.openpatch.scratch.Window;
-import org.openpatch.scratch.extensions.*;
+import org.openpatch.scratch.extensions.recorder.*;
 
 public class SpriteWhenBackdropSwitches {
 
@@ -13,8 +13,7 @@ public class SpriteWhenBackdropSwitches {
     myStage.add(new CustomSprite());
 
     GifRecorder recorder = new GifRecorder(
-      "" + this.getClass().getName() + ".gif"
-    );
+        "" + this.getClass().getName() + ".gif");
     recorder.start();
     while (myStage.getTimer().forMillis(3000)) {
       if (myStage.getTimer("backdrop").intervalMillis(1000)) {

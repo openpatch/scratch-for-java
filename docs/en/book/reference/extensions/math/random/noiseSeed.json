@@ -1,0 +1,17 @@
+{
+  "template": "method",
+  "related": [],
+  "scratchblock": "noise seed ()",
+  "name": "noiseSeed()",
+  "class": "Random",
+  "description": "Sets the seed for the noise method.",
+  "syntax": [".noiseSeed(seed)"],
+  "returns": "double",
+  "parameters": [
+    {
+      "name": "seed",
+      "description": "A seed",
+      "type": "long"
+    }
+  ]
+}
