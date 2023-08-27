@@ -1,11 +1,15 @@
 package org.openpatch.scratch.internal;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.nio.file.Path;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
+
+import org.openpatch.scratch.KeyCode;
 import org.openpatch.scratch.Stage;
+
 import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PImage;
@@ -15,28 +19,31 @@ import processing.sound.SoundFile;
 
 public class Applet extends PApplet {
   private final int INITIAL_HEIGHT;
+  private final int INITIAL_WIDTH;
+
   private boolean debug;
   private static Applet instance;
   private boolean isRunning = false;
   private long numberAssets;
   private long loadedAssets;
   private PImage loading;
-  private final int INITIAL_WIDTH;
-  private String assets;
+  private final String assets;
   public CopyOnWriteArrayList<StageBox> stages = new CopyOnWriteArrayList<>();
   public int currentStage = -1;
+
+  private String loadingText = "";
 
   private class StageBox {
     public Stage stage;
     public String name;
 
-    public StageBox(String name, Stage stage) {
+    public StageBox(final String name, final Stage stage) {
       this.name = name;
       this.stage = stage;
     }
   }
 
-  public Applet(int width, int height, String assets) {
+  public Applet(final int width, final int height, final String assets) {
     this.INITIAL_HEIGHT = height;
     this.INITIAL_WIDTH = width;
     this.assets = assets;
@@ -48,19 +55,19 @@ public class Applet extends PApplet {
       Applet.instance = this;
     }
     this.runSketch();
-    thread("loadAssets");
+    this.thread("loadAssets");
   }
 
   public static Applet getInstance() {
     return instance;
   }
 
-  public void setDebug(boolean debug) {
+  public void setDebug(final boolean debug) {
     this.debug = debug;
   }
 
   public boolean isDebug() {
-    return debug;
+    return this.debug;
   }
 
   public int getWidth() {
@@ -71,8 +78,8 @@ public class Applet extends PApplet {
     return this.height;
   }
 
-  public void addStage(String name, Stage stage) {
-    for (StageBox s : this.stages) {
+  public void addStage(final String name, final Stage stage) {
+    for (final StageBox s : this.stages) {
       if (s.name.equals(name)) {
         return;
       }
@@ -85,8 +92,8 @@ public class Applet extends PApplet {
     }
   }
 
-  public Stage getStage(String name) {
-    for (StageBox s : this.stages) {
+  public Stage getStage(final String name) {
+    for (final StageBox s : this.stages) {
       if (s.name.equals(name)) {
         return s.stage;
       }
@@ -94,13 +101,13 @@ public class Applet extends PApplet {
     return null;
   }
 
-  public void removeStage(String name) {
+  public void removeStage(final String name) {
     this.stages.removeIf(sb -> sb.name.equals(name));
   }
 
-  public void switchStage(String name) {
+  public void switchStage(final String name) {
     for (int i = 0; i < this.stages.size(); i++) {
-      StageBox stageBox = this.stages.get(i);
+      final StageBox stageBox = this.stages.get(i);
       if (stageBox.name.equals(name)) {
         this.currentStage = i;
         return;
@@ -136,10 +143,11 @@ public class Applet extends PApplet {
   }
 
   public void runSketch() {
-    if (!isRunning) {
+    if (!this.isRunning) {
       super.runSketch();
-      while (this.surface.isStopped()) {}
-      isRunning = true;
+      while (this.surface.isStopped()) {
+      }
+      this.isRunning = true;
     }
   }
 
@@ -147,96 +155,118 @@ public class Applet extends PApplet {
     this.windowTitle("Scratch for Java");
     this.imageMode(PConstants.CENTER);
     this.rectMode(PConstants.CENTER);
-    loading = this.requestImage("loading.png");
+    this.loading = this.loadImage("loading.png");
+    final var loadingScaleX = this.INITIAL_WIDTH / 480.0;
+    final var loadingScaleY = this.INITIAL_HEIGHT / (360.0 + 150); // normal height + padding for loading text
+    final var scale = Math.min(1, Math.min(loadingScaleX, loadingScaleY));
+    this.loading.resize((int) (this.loading.width * scale), (int)(this.loading.height * scale));
+  }
+
+  private void setLoadingText(final String type, final String path) {
+    this.loadingText = "Loading " + type + ": ";
+    if (path.length() > 40) {
+      this.loadingText += "..." + path.substring(path.length() - 40);
+    } else {
+      this.loadingText += path + " ".repeat(40 - path.length());
+    }
   }
 
   public void loadAssets() {
     Font.loadFont(Font.defaultFontPath);
     if (this.assets != null) {
       try {
-        var imageFiles =
-            Files.find(
-                    Paths.get(this.assets),
-                    Integer.MAX_VALUE,
-                    (filePath, fileAttr) -> fileAttr.isRegularFile())
-                .map(f -> f.toString())
-                .filter(f -> f.endsWith(".png") || f.endsWith(".jpg") || f.endsWith(".jpeg"))
-                .collect(Collectors.toList());
-        var soundFiles =
-            Files.find(
-                    Paths.get(this.assets),
-                    Integer.MAX_VALUE,
-                    (filePath, fileAttr) -> fileAttr.isRegularFile())
-                .map(f -> f.toString())
-                .filter(f -> f.endsWith(".mp3") || f.endsWith(".wav"))
-                .collect(Collectors.toList());
-        var fontFiles =
-            Files.find(
-                    Paths.get(this.assets),
-                    Integer.MAX_VALUE,
-                    (filePath, fileAttr) -> fileAttr.isRegularFile())
-                .map(f -> f.toString())
-                .filter(f -> f.endsWith(".ttf") || f.endsWith(".otf"))
-                .collect(Collectors.toList());
-        numberAssets += imageFiles.size();
-        numberAssets += soundFiles.size();
-        numberAssets += fontFiles.size();
-        for (var file : imageFiles) {
+        this.loadingText = "Finding files...";
+        final var p =Path.of(ClassLoader.getSystemResource(this.assets).toURI());
+        final var imageFiles = Files.find(
+            p,
+            Integer.MAX_VALUE,
+            (filePath, fileAttr) -> fileAttr.isRegularFile())
+            .map(f -> f.toString())
+            .filter(f -> f.endsWith(".png") || f.endsWith(".jpg") || f.endsWith(".jpeg"))
+            .collect(Collectors.toList());
+        final var soundFiles = Files.find(
+            p,
+            Integer.MAX_VALUE,
+            (filePath, fileAttr) -> fileAttr.isRegularFile())
+            .map(f -> f.toString())
+            .filter(f -> f.endsWith(".mp3") || f.endsWith(".wav"))
+            .collect(Collectors.toList());
+        final var fontFiles = Files.find(
+            p,
+            Integer.MAX_VALUE,
+            (filePath, fileAttr) -> fileAttr.isRegularFile())
+            .map(f -> f.toString())
+            .filter(f -> f.endsWith(".ttf") || f.endsWith(".otf"))
+            .collect(Collectors.toList());
+        this.numberAssets += imageFiles.size();
+        this.numberAssets += soundFiles.size();
+        this.numberAssets += fontFiles.size();
+        for (final var file : imageFiles) {
+          this.setLoadingText("Image", file);
           Image.loadImage(file);
-          loadedAssets += 1;
+          this.loadedAssets += 1;
         }
-        for (var file : fontFiles) {
+        for (final var file : fontFiles) {
+          this.setLoadingText("Font", file);
           Font.loadFont(file);
-          loadedAssets += 1;
+          this.loadedAssets += 1;
         }
-        for (var file : soundFiles) {
+        for (final var file : soundFiles) {
+          this.setLoadingText("Sound", file);
           new SoundFile(this, file, true);
-          loadedAssets += 1;
+          this.loadedAssets += 1;
         }
-      } catch (IOException e) {
+      } catch (final IOException | URISyntaxException e) {
       }
     }
   }
 
   private float loadingStatus() {
-    return numberAssets > 0 ? loadedAssets / (float) numberAssets : 1;
+    return this.numberAssets > 0 ? this.loadedAssets / (float) this.numberAssets : 1;
   }
 
   public void pre() {
-    if (loadingStatus() == 1 && this.stages.size() > 0) {
+    if (this.loadingStatus() == 1 && this.stages.size() > 0) {
       try {
-        StageBox box = stages.get(this.currentStage);
+        final StageBox box = this.stages.get(this.currentStage);
         box.stage.pre();
-      } catch (ArrayIndexOutOfBoundsException e) {
+      } catch (final ArrayIndexOutOfBoundsException e) {
       }
     }
   }
 
-  public void mouseEvent(MouseEvent e) {
-    if (loadingStatus() == 1 && this.stages.size() > 0) {
-      StageBox box = stages.get(this.currentStage);
+  public void mouseEvent(final MouseEvent e) {
+    if (this.loadingStatus() == 1 && this.stages.size() > 0) {
+      final StageBox box = this.stages.get(this.currentStage);
       box.stage.mouseEvent(e);
     }
   }
 
-  public void keyEvent(KeyEvent e) {
-    if (loadingStatus() == 1 && this.stages.size() > 0) {
-      StageBox box = stages.get(this.currentStage);
+  public void keyEvent(final KeyEvent e) {
+    if (this.loadingStatus() == 1 && this.stages.size() > 0) {
+      final StageBox box = this.stages.get(this.currentStage);
       box.stage.keyEvent(e);
+    }
+    if (e.getKeyCode() == KeyCode.VK_F11) {
+      this.debug = !this.debug;
     }
   }
 
   public void draw() {
-    int sizeStages = this.stages.size();
-    if (loadingStatus() < 1) {
-      background(0x222222);
-      image(loading, width / 2, height / 2);
-      // textSize(20);
-      // textAlign(CENTER);
-      // stroke(0xf58219);
-      // text(round(loadingStatus() * 100) + "%", width / 2, height / 2 +
-      // loading.height / 2 + 20);
-      // textSize(14);
+    final int sizeStages = this.stages.size();
+    if (this.loadingStatus() < 1) {
+      this.background(0x222222);
+      this.image(this.loading, this.width / 2, this.height / 2);
+      this.textAlign(CENTER);
+      this.stroke(0xf58219);
+      this.textSize(20);
+      this.textSize(14);
+      this.text(this.loadingText, this.width / 2, this.height / 2 +
+      this.loading.height / 2 + 20);
+      this.textSize(20);
+      this.text(round(this.loadingStatus() * 100) + "%", this.width / 2, this.height / 2 +
+      this.loading.height / 2 + 40);
+      this.textSize(14);
     } else if (sizeStages > 0) {
       if (this.currentStage > sizeStages - 1) {
         this.currentStage = sizeStages;
@@ -244,9 +274,9 @@ public class Applet extends PApplet {
         this.currentStage = 0;
       }
       try {
-        StageBox box = stages.get(this.currentStage);
+        final StageBox box = this.stages.get(this.currentStage);
         box.stage.draw();
-      } catch (ArrayIndexOutOfBoundsException e) {
+      } catch (final ArrayIndexOutOfBoundsException e) {
       }
     }
   }
