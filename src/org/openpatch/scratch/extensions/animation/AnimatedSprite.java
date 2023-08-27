@@ -25,18 +25,29 @@ public class AnimatedSprite extends Sprite {
     this.addAnimation(name, path, frames, width, height, 0);
   }
 
+  public void playAnimation(String name) {
+    this.playAnimation(name, false);
+  }
+
   public void addAnimation(String name, String path, int frames, int width, int height, int row) {
     String[] animation = new String[frames];
-    for (int i = 0; i < animation.length; i++) {
-      String costumeName = "_animation_" + name + "_" + i + "_" + row;
-      this.addCostume(costumeName, path, i * width, row * height, width, height);
-      animation[i] = costumeName;
+    for (int column = 0; column < animation.length; column++) {
+      String costumeName = "_animation_" + name + "_" + column + "_" + row;
+      this.addCostume(costumeName, path, column * width, row * height, width, height);
+      animation[column] = costumeName;
     }
     animations.put(name, animation);
   }
 
-  public void playAnimation(String name) {
-    this.playAnimation(name, false);
+  public void addAnimation(String name, String path, int frames, int width, int height, int column,
+      boolean useColumns) {
+    String[] animation = new String[frames];
+    for (int row = 0; row < animation.length; row++) {
+      String costumeName = "_animation_" + name + "_" + column + "_" + row;
+      this.addCostume(costumeName, path, column * width, row * height, width, height);
+      animation[row] = costumeName;
+    }
+    animations.put(name, animation);
   }
 
   public void playAnimation(String name, boolean once) {
