@@ -3,6 +3,11 @@ name: Changelog
 index: 4
 ---
 
+## 3.8.0
+
+- 🚀 Feat: Support for vertical spritesheets was added.
+- 🚀 feat: Loading Animation got improved. The loading screen now shows the percentage of files, which are already loaded.
+
 ## 3.7.0
 
 #scratch4j v3.7.0 got released:
