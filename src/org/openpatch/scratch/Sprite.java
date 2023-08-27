@@ -3,7 +3,6 @@ package org.openpatch.scratch;
 import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
-
 import org.openpatch.scratch.extensions.hitbox.Hitbox;
 import org.openpatch.scratch.extensions.math.Vector2;
 import org.openpatch.scratch.extensions.pen.Pen;
@@ -15,7 +14,6 @@ import org.openpatch.scratch.internal.Color;
 import org.openpatch.scratch.internal.Drawable;
 import org.openpatch.scratch.internal.Image;
 import org.openpatch.scratch.internal.Sound;
-
 import processing.core.PApplet;
 import processing.event.KeyEvent;
 import processing.event.MouseEvent;
@@ -106,10 +104,9 @@ public class Sprite implements Drawable {
   }
 
   /**
-   * Add a costume to the sprite. If a costume with the received name already
-   * exists do nothing.
+   * Add a costume to the sprite. If a costume with the received name already exists do nothing.
    *
-   * @param name      a unique name
+   * @param name a unique name
    * @param imagePath a image path
    */
   public void addCostume(final String name, final String imagePath) {
@@ -123,7 +120,13 @@ public class Sprite implements Drawable {
     this.costumes.add(costume);
   }
 
-  public void addCostume(final String name, final String spriteSheetPath, final int x, final int y, final int width, final int height) {
+  public void addCostume(
+      final String name,
+      final String spriteSheetPath,
+      final int x,
+      final int y,
+      final int width,
+      final int height) {
     for (final Image costume : this.costumes) {
       if (costume.getName().equals(name)) {
         return;
@@ -160,8 +163,7 @@ public class Sprite implements Drawable {
    * @return a costume name
    */
   public String getCurrentCostumeName() {
-    if (this.costumes.size() == 0)
-      return null;
+    if (this.costumes.size() == 0) return null;
 
     return this.costumes.get(this.currentCostume).getName();
   }
@@ -176,10 +178,9 @@ public class Sprite implements Drawable {
   }
 
   /**
-   * Add a sound to the sprite. If a sound with the received name already exists
-   * do nothing.
+   * Add a sound to the sprite. If a sound with the received name already exists do nothing.
    *
-   * @param name      a unique name
+   * @param name a unique name
    * @param soundPath a sound path
    */
   public void addSound(final String name, final String soundPath) {
@@ -270,8 +271,7 @@ public class Sprite implements Drawable {
    * @see Image#setTint(float, float, float)
    */
   public void setTint(final float r, final float g, final float b) {
-    if (this.costumes.size() == 0)
-      return;
+    if (this.costumes.size() == 0) return;
 
     for (final Image costume : this.costumes) {
       costume.setTint(r, g, b);
@@ -284,8 +284,7 @@ public class Sprite implements Drawable {
    * @see Image#setTint(float)
    */
   public void setTint(final float h) {
-    if (this.costumes.size() == 0)
-      return;
+    if (this.costumes.size() == 0) return;
 
     for (final Image costume : this.costumes) {
       costume.setTint(h);
@@ -298,8 +297,7 @@ public class Sprite implements Drawable {
    * @see Image#changeTint(float)
    */
   public void changeTint(final float step) {
-    if (this.costumes.size() == 0)
-      return;
+    if (this.costumes.size() == 0) return;
 
     for (final Image costume : this.costumes) {
       costume.changeTint(step);
@@ -317,8 +315,7 @@ public class Sprite implements Drawable {
    * @param transparency 0 full transparency, 255 no transparency
    */
   public void setTransparency(final float transparency) {
-    if (this.costumes.size() == 0)
-      return;
+    if (this.costumes.size() == 0) return;
 
     for (final Image costume : this.costumes) {
       costume.setTransparency(transparency);
@@ -331,8 +328,7 @@ public class Sprite implements Drawable {
    * @see Image#changeTransparency(float)
    */
   public void changeTransparency(final float step) {
-    if (this.costumes.size() == 0)
-      return;
+    if (this.costumes.size() == 0) return;
 
     for (final Image costume : this.costumes) {
       costume.changeTransparency(step);
@@ -401,8 +397,7 @@ public class Sprite implements Drawable {
   }
 
   /**
-   * Sets if the sprite should bounce when hitting the edge of the screen. This
-   * method is for making
+   * Sets if the sprite should bounce when hitting the edge of the screen. This method is for making
    * is attribute perment.
    *
    * @param b
@@ -418,8 +413,10 @@ public class Sprite implements Drawable {
     if (this.costumes.size() > 0) {
       currentCostume = this.costumes.get(this.currentCostume);
     }
-    final float costumeWidth = currentCostume != null ? currentCostume.getWidth() : this.pen.getSize();
-    final float costumeHeight = currentCostume != null ? currentCostume.getHeight() : this.pen.getSize();
+    final float costumeWidth =
+        currentCostume != null ? currentCostume.getWidth() : this.pen.getSize();
+    final float costumeHeight =
+        currentCostume != null ? currentCostume.getHeight() : this.pen.getSize();
 
     final float spriteWidth = this.show ? costumeWidth : this.pen.getSize();
     if (newX > Applet.getInstance().getWidth() - spriteWidth / 2 || newX < spriteWidth / 2) {
@@ -485,8 +482,7 @@ public class Sprite implements Drawable {
   }
 
   /**
-   * Sets the direction of the sprite to a given degrees. When this value is 0 the
-   * sprite move
+   * Sets the direction of the sprite to a given degrees. When this value is 0 the sprite move
    * right, when it is 180 is moves to the left.
    *
    * @param degrees between 0 and 360
@@ -583,8 +579,7 @@ public class Sprite implements Drawable {
   }
 
   /**
-   * Moves the sprite in the direction of the given vector. The length of the
-   * vector determines how
+   * Moves the sprite in the direction of the given vector. The length of the vector determines how
    * move the sprite will move in this direction.
    *
    * @param v a vector
@@ -669,27 +664,23 @@ public class Sprite implements Drawable {
   }
 
   /**
-   * Return the width of the current costume or the pen size, when no costume is
-   * available.
+   * Return the width of the current costume or the pen size, when no costume is available.
    *
    * @return the width of the sprite
    */
   public int getWidth() {
-    if (this.costumes.size() == 0)
-      return (int) this.getPen().getSize();
+    if (this.costumes.size() == 0) return (int) this.getPen().getSize();
 
     return this.costumes.get(this.currentCostume).getWidth();
   }
 
   /**
-   * Return the height of the current costume or the pen size, when no costume is
-   * available.
+   * Return the height of the current costume or the pen size, when no costume is available.
    *
    * @return the height of the sprite
    */
   public int getHeight() {
-    if (this.costumes.size() == 0)
-      return (int) this.getPen().getSize();
+    if (this.costumes.size() == 0) return (int) this.getPen().getSize();
 
     return this.costumes.get(this.currentCostume).getHeight();
   }
@@ -718,8 +709,7 @@ public class Sprite implements Drawable {
    * @param name the name of the timer
    */
   public void addTimer(final String name) {
-    if ("default".equals(name))
-      return;
+    if ("default".equals(name)) return;
 
     this.timer.put(name, new Timer());
   }
@@ -730,29 +720,26 @@ public class Sprite implements Drawable {
    * @param name the name of the timer
    */
   public void removeTimer(final String name) {
-    if ("default".equals(name))
-      return;
+    if ("default".equals(name)) return;
 
     this.timer.remove(name);
   }
 
-  private float calculateAngleOfReflection(final float angleOfIncidence, final boolean horizontalWall) {
+  private float calculateAngleOfReflection(
+      final float angleOfIncidence, final boolean horizontalWall) {
     if (horizontalWall) {
       float angleOfReflection = 360 - angleOfIncidence;
-      while (angleOfReflection < 0)
-        angleOfReflection += 360;
+      while (angleOfReflection < 0) angleOfReflection += 360;
       return angleOfReflection;
     } else {
       float angleOfReflection = 180 - angleOfIncidence;
-      while (angleOfReflection < 0)
-        angleOfReflection += 360;
+      while (angleOfReflection < 0) angleOfReflection += 360;
       return angleOfReflection;
     }
   }
 
   /**
-   * Returns true is the mouse pointer is touching a non transparent area of the
-   * sprite.
+   * Returns true is the mouse pointer is touching a non transparent area of the sprite.
    *
    * @return true if touching
    */
@@ -763,21 +750,24 @@ public class Sprite implements Drawable {
     final float bottomRightCornerX = this.x + this.getWidth() / 2.0f;
     final float bottomRightCornerY = this.y + this.getHeight() / 2.0f;
 
-    final float[] mouse = Stage.rotateXY(this.getMouseX(), this.getMouseY(), this.x, this.y, -this.direction);
+    final float[] mouse =
+        Stage.rotateXY(this.getMouseX(), this.getMouseY(), this.x, this.y, -this.direction);
 
-    final boolean touching = mouse[0] > topLeftCornerX
-        && mouse[1] > topLeftCornerY
-        && mouse[0] < bottomRightCornerX
-        && mouse[1] < bottomRightCornerY;
+    final boolean touching =
+        mouse[0] > topLeftCornerX
+            && mouse[1] > topLeftCornerY
+            && mouse[0] < bottomRightCornerX
+            && mouse[1] < bottomRightCornerY;
 
     if (touching) {
       final int relativeMouseX = Math.round(mouse[0] - topLeftCornerX);
       final int relativeMouseY = Math.round(mouse[1] - topLeftCornerY);
 
       if (this.costumes.size() > this.getCurrentCostumeIndex()) {
-        final int color = this.costumes
-            .get(this.getCurrentCostumeIndex())
-            .getPixel(relativeMouseX, relativeMouseY);
+        final int color =
+            this.costumes
+                .get(this.getCurrentCostumeIndex())
+                .getPixel(relativeMouseX, relativeMouseY);
         return Applet.getInstance().alpha(color) != 0;
       }
     }
@@ -786,8 +776,7 @@ public class Sprite implements Drawable {
   }
 
   /**
-   * Returns true if the rectangle which contains the image is outside of the
-   * stage
+   * Returns true if the rectangle which contains the image is outside of the stage
    *
    * @return true if outside
    */
@@ -797,18 +786,44 @@ public class Sprite implements Drawable {
       currentCostume = this.costumes.get(this.getCurrentCostumeIndex());
     }
     final PApplet parent = Applet.getInstance();
-    final float costumeWidth = currentCostume != null ? currentCostume.getWidth() : this.pen.getSize();
-    final float costumeHeight = currentCostume != null ? currentCostume.getHeight() : this.pen.getSize();
+    final float costumeWidth =
+        currentCostume != null ? currentCostume.getWidth() : this.pen.getSize();
+    final float costumeHeight =
+        currentCostume != null ? currentCostume.getHeight() : this.pen.getSize();
     final float spriteWidth = this.show ? costumeWidth : this.pen.getSize();
     final float spriteHeight = this.show ? costumeHeight : this.pen.getSize();
 
-    final float[] cornerTopLeft = Stage.rotateXY(this.x - spriteWidth / 2.0f, this.y - spriteHeight / 2.0f, this.x, this.y, this.direction);
-    final float[] cornerTopRight = Stage.rotateXY(this.x + spriteWidth / 2.0f, this.y - spriteHeight / 2.0f, this.x, this.y, this.direction);
-    final float[] cornerBottomLeft = Stage.rotateXY(this.x - spriteWidth / 2.0f, this.y + spriteHeight / 2.0f, this.x, this.y, this.direction);
-    final float[] cornerBottomRight = Stage.rotateXY(this.x + spriteWidth / 2.0f, this.y + spriteHeight / 2.0f, this.x, this.y, this.direction);
+    final float[] cornerTopLeft =
+        Stage.rotateXY(
+            this.x - spriteWidth / 2.0f,
+            this.y - spriteHeight / 2.0f,
+            this.x,
+            this.y,
+            this.direction);
+    final float[] cornerTopRight =
+        Stage.rotateXY(
+            this.x + spriteWidth / 2.0f,
+            this.y - spriteHeight / 2.0f,
+            this.x,
+            this.y,
+            this.direction);
+    final float[] cornerBottomLeft =
+        Stage.rotateXY(
+            this.x - spriteWidth / 2.0f,
+            this.y + spriteHeight / 2.0f,
+            this.x,
+            this.y,
+            this.direction);
+    final float[] cornerBottomRight =
+        Stage.rotateXY(
+            this.x + spriteWidth / 2.0f,
+            this.y + spriteHeight / 2.0f,
+            this.x,
+            this.y,
+            this.direction);
 
     final float[][] corners = {
-        cornerTopLeft, cornerTopRight, cornerBottomLeft, cornerBottomRight,
+      cornerTopLeft, cornerTopRight, cornerBottomLeft, cornerBottomRight,
     };
 
     for (final float[] corner : corners) {
@@ -866,21 +881,52 @@ public class Sprite implements Drawable {
     if (this.costumes.size() > this.getCurrentCostumeIndex()) {
       currentCostume = this.costumes.get(this.getCurrentCostumeIndex());
     }
-    final float costumeWidth = currentCostume != null ? currentCostume.getWidth() : this.pen.getSize();
-    final float costumeHeight = currentCostume != null ? currentCostume.getHeight() : this.pen.getSize();
+    final float costumeWidth =
+        currentCostume != null ? currentCostume.getWidth() : this.pen.getSize();
+    final float costumeHeight =
+        currentCostume != null ? currentCostume.getHeight() : this.pen.getSize();
     final float spriteWidth = this.show ? costumeWidth : this.pen.getSize();
     final float spriteHeight = this.show ? costumeHeight : this.pen.getSize();
 
     if (this.hitbox != null) {
       this.hitbox.translateAndRotateAndResize(
-          this.direction, this.x, this.y, this.x - spriteWidth / 2.0f, this.y - spriteHeight / 2.0f, this.size);
+          this.direction,
+          this.x,
+          this.y,
+          this.x - spriteWidth / 2.0f,
+          this.y - spriteHeight / 2.0f,
+          this.size);
       return this.hitbox;
     }
 
-    final float[] cornerTopLeft = Stage.rotateXY(this.x - spriteWidth / 2.0f, this.y - spriteHeight / 2.0f, this.x, this.y, this.direction);
-    final float[] cornerTopRight = Stage.rotateXY(this.x + spriteWidth / 2.0f, this.y - spriteHeight / 2.0f, this.x, this.y, this.direction);
-    final float[] cornerBottomLeft = Stage.rotateXY(this.x - spriteWidth / 2.0f, this.y + spriteHeight / 2.0f, this.x, this.y, this.direction);
-    final float[] cornerBottomRight = Stage.rotateXY(this.x + spriteWidth / 2.0f, this.y + spriteHeight / 2.0f, this.x, this.y, this.direction);
+    final float[] cornerTopLeft =
+        Stage.rotateXY(
+            this.x - spriteWidth / 2.0f,
+            this.y - spriteHeight / 2.0f,
+            this.x,
+            this.y,
+            this.direction);
+    final float[] cornerTopRight =
+        Stage.rotateXY(
+            this.x + spriteWidth / 2.0f,
+            this.y - spriteHeight / 2.0f,
+            this.x,
+            this.y,
+            this.direction);
+    final float[] cornerBottomLeft =
+        Stage.rotateXY(
+            this.x - spriteWidth / 2.0f,
+            this.y + spriteHeight / 2.0f,
+            this.x,
+            this.y,
+            this.direction);
+    final float[] cornerBottomRight =
+        Stage.rotateXY(
+            this.x + spriteWidth / 2.0f,
+            this.y + spriteHeight / 2.0f,
+            this.x,
+            this.y,
+            this.direction);
 
     final int[] xPoints = new int[4];
     final int[] yPoints = new int[4];
@@ -898,8 +944,7 @@ public class Sprite implements Drawable {
   }
 
   public boolean isTouchingSprite(final Sprite sprite) {
-    if (sprite == null || !sprite.show)
-      return false;
+    if (sprite == null || !sprite.show) return false;
     return this.getHitbox().intersects(sprite.getHitbox());
   }
 
@@ -1060,21 +1105,17 @@ public class Sprite implements Drawable {
     }
   }
 
-  public void whenKeyPressed(final int keyCode) {
-  }
+  public void whenKeyPressed(final int keyCode) {}
 
-  public void whenKeyReleased(final int keyCode) {
-  }
+  public void whenKeyReleased(final int keyCode) {}
 
   public void mouseEvent(final MouseEvent e) {
     this.whenMouseMoved(e.getX(), e.getY());
   }
 
-  public void whenMouseMoved(final float x, final float y) {
-  }
+  public void whenMouseMoved(final float x, final float y) {}
 
-  public void whenClicked() {
-  }
+  public void whenClicked() {}
 
   public void goToFrontLayer() {
     this.stage.goToFrontLayer(this);
@@ -1092,8 +1133,7 @@ public class Sprite implements Drawable {
     this.stage.goLayersBackwards(this, number);
   }
 
-  public void whenBackdropSwitches(final String name) {
-  }
+  public void whenBackdropSwitches(final String name) {}
 
   public int pickRandom(final int from, final int to) {
     if (to < from) {
@@ -1128,8 +1168,7 @@ public class Sprite implements Drawable {
 
   /** Draws the sprite if it is not hidden. */
   public void draw() {
-    if (this.stage == null)
-      return;
+    if (this.stage == null) return;
     this.pen.draw();
     if (this.costumes.size() > 0 && this.show) {
       this.costumes
@@ -1145,6 +1184,5 @@ public class Sprite implements Drawable {
     this.run();
   }
 
-  public void run() {
-  }
+  public void run() {}
 }

@@ -39,8 +39,8 @@ public class AnimatedSprite extends Sprite {
     animations.put(name, animation);
   }
 
-  public void addAnimation(String name, String path, int frames, int width, int height, int column,
-      boolean useColumns) {
+  public void addAnimation(
+      String name, String path, int frames, int width, int height, int column, boolean useColumns) {
     String[] animation = new String[frames];
     for (int row = 0; row < animation.length; row++) {
       String costumeName = "_animation_" + name + "_" + column + "_" + row;

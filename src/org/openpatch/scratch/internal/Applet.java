@@ -6,10 +6,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
-
 import org.openpatch.scratch.KeyCode;
 import org.openpatch.scratch.Stage;
-
 import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PImage;
@@ -145,8 +143,7 @@ public class Applet extends PApplet {
   public void runSketch() {
     if (!this.isRunning) {
       super.runSketch();
-      while (this.surface.isStopped()) {
-      }
+      while (this.surface.isStopped()) {}
       this.isRunning = true;
     }
   }
@@ -157,9 +154,10 @@ public class Applet extends PApplet {
     this.rectMode(PConstants.CENTER);
     this.loading = this.loadImage("loading.png");
     final var loadingScaleX = this.INITIAL_WIDTH / 480.0;
-    final var loadingScaleY = this.INITIAL_HEIGHT / (360.0 + 150); // normal height + padding for loading text
+    final var loadingScaleY =
+        this.INITIAL_HEIGHT / (360.0 + 150); // normal height + padding for loading text
     final var scale = Math.min(1, Math.min(loadingScaleX, loadingScaleY));
-    this.loading.resize((int) (this.loading.width * scale), (int)(this.loading.height * scale));
+    this.loading.resize((int) (this.loading.width * scale), (int) (this.loading.height * scale));
   }
 
   private void setLoadingText(final String type, final String path) {
@@ -176,28 +174,22 @@ public class Applet extends PApplet {
     if (this.assets != null) {
       try {
         this.loadingText = "Finding files...";
-        final var p =Path.of(ClassLoader.getSystemResource(this.assets).toURI());
-        final var imageFiles = Files.find(
-            p,
-            Integer.MAX_VALUE,
-            (filePath, fileAttr) -> fileAttr.isRegularFile())
-            .map(f -> f.toString())
-            .filter(f -> f.endsWith(".png") || f.endsWith(".jpg") || f.endsWith(".jpeg"))
-            .collect(Collectors.toList());
-        final var soundFiles = Files.find(
-            p,
-            Integer.MAX_VALUE,
-            (filePath, fileAttr) -> fileAttr.isRegularFile())
-            .map(f -> f.toString())
-            .filter(f -> f.endsWith(".mp3") || f.endsWith(".wav"))
-            .collect(Collectors.toList());
-        final var fontFiles = Files.find(
-            p,
-            Integer.MAX_VALUE,
-            (filePath, fileAttr) -> fileAttr.isRegularFile())
-            .map(f -> f.toString())
-            .filter(f -> f.endsWith(".ttf") || f.endsWith(".otf"))
-            .collect(Collectors.toList());
+        final var p = Path.of(ClassLoader.getSystemResource(this.assets).toURI());
+        final var imageFiles =
+            Files.find(p, Integer.MAX_VALUE, (filePath, fileAttr) -> fileAttr.isRegularFile())
+                .map(f -> f.toString())
+                .filter(f -> f.endsWith(".png") || f.endsWith(".jpg") || f.endsWith(".jpeg"))
+                .collect(Collectors.toList());
+        final var soundFiles =
+            Files.find(p, Integer.MAX_VALUE, (filePath, fileAttr) -> fileAttr.isRegularFile())
+                .map(f -> f.toString())
+                .filter(f -> f.endsWith(".mp3") || f.endsWith(".wav"))
+                .collect(Collectors.toList());
+        final var fontFiles =
+            Files.find(p, Integer.MAX_VALUE, (filePath, fileAttr) -> fileAttr.isRegularFile())
+                .map(f -> f.toString())
+                .filter(f -> f.endsWith(".ttf") || f.endsWith(".otf"))
+                .collect(Collectors.toList());
         this.numberAssets += imageFiles.size();
         this.numberAssets += soundFiles.size();
         this.numberAssets += fontFiles.size();
@@ -261,11 +253,12 @@ public class Applet extends PApplet {
       this.stroke(0xf58219);
       this.textSize(20);
       this.textSize(14);
-      this.text(this.loadingText, this.width / 2, this.height / 2 +
-      this.loading.height / 2 + 20);
+      this.text(this.loadingText, this.width / 2, this.height / 2 + this.loading.height / 2 + 20);
       this.textSize(20);
-      this.text(round(this.loadingStatus() * 100) + "%", this.width / 2, this.height / 2 +
-      this.loading.height / 2 + 40);
+      this.text(
+          round(this.loadingStatus() * 100) + "%",
+          this.width / 2,
+          this.height / 2 + this.loading.height / 2 + 40);
       this.textSize(14);
     } else if (sizeStages > 0) {
       if (this.currentStage > sizeStages - 1) {

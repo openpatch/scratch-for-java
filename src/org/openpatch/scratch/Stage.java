@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
-
 import org.openpatch.scratch.extensions.text.Text;
 import org.openpatch.scratch.extensions.text.TextStyle;
 import org.openpatch.scratch.extensions.timer.Timer;
@@ -17,7 +16,6 @@ import org.openpatch.scratch.internal.Color;
 import org.openpatch.scratch.internal.Drawable;
 import org.openpatch.scratch.internal.Image;
 import org.openpatch.scratch.internal.Sound;
-
 import processing.core.PGraphics;
 import processing.event.KeyEvent;
 import processing.event.MouseEvent;
@@ -93,11 +91,9 @@ public class Stage {
 
   public void goLayersBackwards(final Drawable drawable, final int number) {
     final int index = this.drawables.indexOf(drawable);
-    if (index == -1)
-      return;
+    if (index == -1) return;
     int newIndex = index - number;
-    if (newIndex < 0)
-      newIndex = 0;
+    if (newIndex < 0) newIndex = 0;
     newIndex = Math.min(newIndex, this.drawables.size() - 1);
     this.drawables.remove(index);
     this.drawables.add(newIndex, drawable);
@@ -105,11 +101,9 @@ public class Stage {
 
   public void goLayersForwards(final Drawable drawable, final int number) {
     final int index = this.drawables.indexOf(drawable);
-    if (index == -1)
-      return;
+    if (index == -1) return;
     int newIndex = index + number;
-    if (newIndex < 0)
-      newIndex = 0;
+    if (newIndex < 0) newIndex = 0;
     newIndex = Math.min(newIndex, this.drawables.size() - 1);
     this.drawables.remove(index);
     this.drawables.add(newIndex, drawable);
@@ -171,10 +165,9 @@ public class Stage {
   }
 
   /**
-   * Add a backdrop to the stage. If a backdrop with the received name already
-   * exists do nothing.
+   * Add a backdrop to the stage. If a backdrop with the received name already exists do nothing.
    *
-   * @param name      a unique name
+   * @param name a unique name
    * @param imagePath a image path
    */
   public void addBackdrop(final String name, final String imagePath) {
@@ -225,15 +218,14 @@ public class Stage {
     this.drawables.stream()
         .forEach(
             d -> {
-                if (d instanceof Sprite) {
-                  ((Sprite) d).whenBackdropSwitches(name);
-                }
+              if (d instanceof Sprite) {
+                ((Sprite) d).whenBackdropSwitches(name);
+              }
             });
     this.whenBackdropSwitches(name);
   }
 
-  public void whenBackdropSwitches(final String name) {
-  }
+  public void whenBackdropSwitches(final String name) {}
 
   /** Switch to the next backdrop. */
   public void nextBackdrop() {
@@ -281,10 +273,9 @@ public class Stage {
   }
 
   /**
-   * Add a sound to the stage. If a sound with the received name already exists do
-   * nothing.
+   * Add a sound to the stage. If a sound with the received name already exists do nothing.
    *
-   * @param name      a unique name
+   * @param name a unique name
    * @param soundPath a sound path
    */
   public void addSound(final String name, final String soundPath) {
@@ -414,8 +405,7 @@ public class Stage {
    * @see Image#setTint(float, float, float)
    */
   public void setTint(final int r, final int g, final int b) {
-    if (this.backdrops.size() == 0)
-      return;
+    if (this.backdrops.size() == 0) return;
     this.backdrops.get(this.currentBackdrop).setTint(r, g, b);
   }
 
@@ -425,8 +415,7 @@ public class Stage {
    * @see Image#setTint(float)
    */
   public void setTint(final float h) {
-    if (this.backdrops.size() == 0)
-      return;
+    if (this.backdrops.size() == 0) return;
     this.backdrops.get(this.currentBackdrop).setTint(h);
   }
 
@@ -436,8 +425,7 @@ public class Stage {
    * @see Image#changeTint(float)
    */
   public void changeTint(final float step) {
-    if (this.backdrops.size() == 0)
-      return;
+    if (this.backdrops.size() == 0) return;
 
     this.backdrops.get(this.currentBackdrop).changeTint(step);
   }
@@ -461,16 +449,14 @@ public class Stage {
    * @see Image#changeTransparency(float)
    */
   public void changeTransparency(final float step) {
-    if (this.backdrops.size() == 0)
-      return;
+    if (this.backdrops.size() == 0) return;
 
     this.backdrops.get(this.currentBackdrop).changeTransparency(step);
   }
 
   /**
-   * @deprecated since v3.2.0: Use Window.getInstance().getWidth() instead Return
-   *             the width of the
-   *             current costume or the pen size, when no costume is available.
+   * @deprecated since v3.2.0: Use Window.getInstance().getWidth() instead Return the width of the
+   *     current costume or the pen size, when no costume is available.
    * @return the width of the sprite
    */
   public int getWidth() {
@@ -478,9 +464,8 @@ public class Stage {
   }
 
   /**
-   * @deprecated since v3.2.0: Use Window.getInstance().getHeight() instead Return
-   *             the height of the
-   *             current costume or the pen size, when no costume is available.
+   * @deprecated since v3.2.0: Use Window.getInstance().getHeight() instead Return the height of the
+   *     current costume or the pen size, when no costume is available.
    * @return the height of the sprite
    */
   public int getHeight() {
@@ -512,8 +497,7 @@ public class Stage {
    * @param name the name of the timer
    */
   public void addTimer(final String name) {
-    if ("default".equals(name))
-      return;
+    if ("default".equals(name)) return;
 
     this.timer.put(name, new Timer());
   }
@@ -524,8 +508,7 @@ public class Stage {
    * @param name the name of the timer
    */
   public void removeTimer(final String name) {
-    if ("default".equals(name))
-      return;
+    if ("default".equals(name)) return;
 
     this.timer.remove(name);
   }
@@ -577,8 +560,7 @@ public class Stage {
     return this.mouseDown;
   }
 
-  public void whenKeyPressed(final int keyCode) {
-  }
+  public void whenKeyPressed(final int keyCode) {}
 
   public void keyEvent(final KeyEvent e) {
     switch (e.getAction()) {
@@ -716,8 +698,7 @@ public class Stage {
   /** Draws the current backdrop or if none a solid color */
   public void pre() {
     final Applet applet = Applet.getInstance();
-    if (applet == null)
-      return;
+    if (applet == null) return;
     // redraw background to clear screen
     applet.background(this.color.getRed(), this.color.getGreen(), this.color.getBlue());
 
@@ -747,13 +728,11 @@ public class Stage {
     }
   }
 
-  public void run() {
-  }
+  public void run() {}
 
   public void draw() {
     final Applet applet = Applet.getInstance();
-    if (applet == null)
-      return;
+    if (applet == null) return;
     for (final Drawable d : this.drawables) {
       d.draw();
     }
@@ -773,7 +752,8 @@ public class Stage {
     this.run();
   }
 
-  public static float[] rotateXY(float x, float y, final float originX, final float originY, final float degrees) {
+  public static float[] rotateXY(
+      float x, float y, final float originX, final float originY, final float degrees) {
     final float[] rotatedXY = new float[2];
 
     final double radians = degrees * Math.PI / 180.0;

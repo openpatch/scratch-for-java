@@ -4,7 +4,7 @@ import org.openpatch.scratch.internal.*;
 
 public class Window {
 
-  public static final int[] DEBUG_COLOR = { 255, 0, 0 };
+  public static final int[] DEBUG_COLOR = {255, 0, 0};
   private static Window instance;
 
   public Window() {
