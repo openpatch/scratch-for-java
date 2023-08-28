@@ -42,20 +42,20 @@ public class Stage {
     this(480, 360);
   }
 
-  public Stage(final int width, final int height) {
+  public Stage(int width, final int height) {
     this(width, height, false);
   }
 
-  public Stage(final int width, final int height, final boolean debug) {
+  public Stage(int width, final int height, final boolean debug) {
     this.drawables = new CopyOnWriteArrayList<>();
     this.timer = new ConcurrentHashMap<>();
     if (Window.getInstance() == null) {
       new Window(width, height);
-      final Applet a = Applet.getInstance();
+      Applet a = Applet.getInstance();
       a.setDebug(debug);
       a.addStage("main", this);
     }
-    final Applet applet = Applet.getInstance();
+    Applet applet = Applet.getInstance();
     this.penBuffer = applet.createGraphics(applet.width, applet.height, applet.sketchRenderer());
     /**
      * Smooth does currently not work on Apple Silicon
@@ -70,7 +70,7 @@ public class Stage {
   /**
    * @deprecated since v3.2.0: Use stage.getWindow().setDebug(debug) instead
    */
-  public void setDebug(final boolean debug) {
+  public void setDebug(boolean debug) {
     Applet.getInstance().setDebug(debug);
   }
 
@@ -86,13 +86,13 @@ public class Stage {
    *
    * @param drawable
    */
-  public void add(final Drawable drawable) {
+  public void add(Drawable drawable) {
     this.drawables.add(drawable);
     drawable.addedToStage(this);
   }
 
-  public void goLayersBackwards(final Drawable drawable, final int number) {
-    final int index = this.drawables.indexOf(drawable);
+  public void goLayersBackwards(Drawable drawable, final int number) {
+    int index = this.drawables.indexOf(drawable);
     if (index == -1)
       return;
     int newIndex = index - number;
@@ -103,8 +103,8 @@ public class Stage {
     this.drawables.add(newIndex, drawable);
   }
 
-  public void goLayersForwards(final Drawable drawable, final int number) {
-    final int index = this.drawables.indexOf(drawable);
+  public void goLayersForwards(Drawable drawable, final int number) {
+    int index = this.drawables.indexOf(drawable);
     if (index == -1)
       return;
     int newIndex = index + number;
@@ -115,12 +115,12 @@ public class Stage {
     this.drawables.add(newIndex, drawable);
   }
 
-  public void goToFrontLayer(final Drawable drawable) {
+  public void goToFrontLayer(Drawable drawable) {
     this.drawables.remove(drawable);
     this.drawables.add(drawable);
   }
 
-  public void goToBackLayer(final Drawable drawable) {
+  public void goToBackLayer(Drawable drawable) {
     this.drawables.remove(drawable);
     this.drawables.add(0, drawable);
   }
@@ -134,20 +134,20 @@ public class Stage {
    *
    * @param drawable
    */
-  public void remove(final Drawable drawable) {
+  public void remove(Drawable drawable) {
     this.drawables.remove(drawable);
     drawable.removedFromStage(this);
   }
 
   public void removeAll() {
-    for (final Drawable drawable : this.drawables) {
+    for (Drawable drawable : this.drawables) {
       drawable.removedFromStage(this);
     }
     this.drawables.clear();
   }
 
-  public void remove(final Class<? extends Drawable> c) {
-    for (final Drawable drawable : this.drawables) {
+  public void remove(Class<? extends Drawable> c) {
+    for (Drawable drawable : this.drawables) {
       if (c.isInstance(drawable)) {
         drawable.removedFromStage(this);
       }
@@ -160,9 +160,9 @@ public class Stage {
    *
    * @param c Class
    */
-  public List<Drawable> find(final Class<? extends Drawable> c) {
-    final ArrayList<Drawable> drawables = new ArrayList<>();
-    for (final Drawable d : this.drawables) {
+  public List<Drawable> find(Class<? extends Drawable> c) {
+    ArrayList<Drawable> drawables = new ArrayList<>();
+    for (Drawable d : this.drawables) {
       if (c.isInstance(d)) {
         drawables.add(d);
       }
@@ -177,13 +177,13 @@ public class Stage {
    * @param name      a unique name
    * @param imagePath a image path
    */
-  public void addBackdrop(final String name, final String imagePath) {
-    for (final Image backdrop : this.backdrops) {
+  public void addBackdrop(String name, final String imagePath) {
+    for (Image backdrop : this.backdrops) {
       if (backdrop.getName().equals(name)) {
         return;
       }
     }
-    final Image backdrop = new Image(name, imagePath);
+    Image backdrop = new Image(name, imagePath);
     this.backdrops.add(backdrop);
     backdrop.addedToStage(this);
   }
@@ -193,9 +193,9 @@ public class Stage {
    *
    * @param name of the backdrop
    */
-  public void removeBackdrop(final String name) {
+  public void removeBackdrop(String name) {
     for (int i = 0; i < this.backdrops.size(); i++) {
-      final Image backdrop = this.backdrops.get(i);
+      Image backdrop = this.backdrops.get(i);
       if (backdrop.getName().equals(name)) {
         this.backdrops.remove(i);
         return;
@@ -208,9 +208,9 @@ public class Stage {
    *
    * @param name the name of a backdrop
    */
-  public void switchBackdrop(final String name) {
+  public void switchBackdrop(String name) {
     for (int i = 0; i < this.backdrops.size(); i++) {
-      final Image backdrop = this.backdrops.get(i);
+      Image backdrop = this.backdrops.get(i);
       if (backdrop.getName().equals(name)) {
         this.currentBackdrop = i;
         this.emitBackdropSwitch();
@@ -220,19 +220,19 @@ public class Stage {
   }
 
   private void emitBackdropSwitch() {
-    final Image backdrop = this.backdrops.get(this.currentBackdrop);
-    final String name = backdrop.getName();
+    Image backdrop = this.backdrops.get(this.currentBackdrop);
+    String name = backdrop.getName();
     this.drawables.stream()
         .forEach(
             d -> {
-                if (d instanceof Sprite) {
-                  ((Sprite) d).whenBackdropSwitches(name);
-                }
+              if (d instanceof Sprite) {
+                ((Sprite) d).whenBackdropSwitches(name);
+              }
             });
     this.whenBackdropSwitches(name);
   }
 
-  public void whenBackdropSwitches(final String name) {
+  public void whenBackdropSwitches(String name) {
   }
 
   /** Switch to the next backdrop. */
@@ -249,7 +249,7 @@ public class Stage {
 
   /** Switch to a random backdrop. */
   public void randomBackdrop() {
-    final int size = this.backdrops.size();
+    int size = this.backdrops.size();
     this.currentBackdrop = this.pickRandom(0, size - 1) % size;
     this.emitBackdropSwitch();
   }
@@ -276,7 +276,7 @@ public class Stage {
   public void eraseAll() {
     try {
       this.penBuffer = Applet.getInstance().createGraphics(this.getWidth(), this.getHeight());
-    } catch (final Exception e) {
+    } catch (Exception e) {
     }
   }
 
@@ -287,14 +287,14 @@ public class Stage {
    * @param name      a unique name
    * @param soundPath a sound path
    */
-  public void addSound(final String name, final String soundPath) {
-    for (final Sound sound : this.sounds) {
+  public void addSound(String name, final String soundPath) {
+    for (Sound sound : this.sounds) {
       if (sound.getName().equals(name)) {
         return;
       }
     }
 
-    final Sound sound = new Sound(name, soundPath);
+    Sound sound = new Sound(name, soundPath);
     this.sounds.add(sound);
   }
 
@@ -303,9 +303,9 @@ public class Stage {
    *
    * @param name the sound name
    */
-  public void removeSound(final String name) {
+  public void removeSound(String name) {
     for (int i = 0; i < this.sounds.size(); i++) {
-      final Sound sound = this.sounds.get(i);
+      Sound sound = this.sounds.get(i);
       if (sound.getName().equals(name)) {
         this.sounds.remove(i);
         return;
@@ -318,8 +318,8 @@ public class Stage {
    *
    * @param name the sound name
    */
-  public void playSound(final String name) {
-    for (final Sound sound : this.sounds) {
+  public void playSound(String name) {
+    for (Sound sound : this.sounds) {
       if (sound.getName().equals(name) && !sound.isPlaying()) {
         sound.play();
       }
@@ -328,7 +328,7 @@ public class Stage {
 
   /** Stops the playing of all sounds of the stage. */
   public void stopAllSounds() {
-    for (final Sound sound : this.sounds) {
+    for (Sound sound : this.sounds) {
       sound.stop();
     }
   }
@@ -338,8 +338,8 @@ public class Stage {
    *
    * @param name Name of the sound
    */
-  public void stopSound(final String name) {
-    for (final Sound sound : this.sounds) {
+  public void stopSound(String name) {
+    for (Sound sound : this.sounds) {
       if (sound.getName().equals(name)) {
         sound.stop();
         break;
@@ -352,8 +352,8 @@ public class Stage {
    *
    * @return playing
    */
-  public boolean isSoundPlaying(final String name) {
-    for (final Sound sound : this.sounds) {
+  public boolean isSoundPlaying(String name) {
+    for (Sound sound : this.sounds) {
       if (sound.getName().equals(name)) {
         return sound.isPlaying();
       }
@@ -376,7 +376,7 @@ public class Stage {
    *
    * @param h a hue value [0...255]
    */
-  public void setColor(final float h) {
+  public void setColor(float h) {
     this.color.setHSB(h);
   }
 
@@ -387,11 +387,11 @@ public class Stage {
    * @param g a green value [0...255]
    * @param b a blue value [0...255]
    */
-  public void setColor(final float r, final float g, final float b) {
+  public void setColor(float r, final float g, final float b) {
     this.color.setRGB(r, g, b);
   }
 
-  public void setColor(final Color c) {
+  public void setColor(Color c) {
     this.color = c;
   }
 
@@ -400,11 +400,11 @@ public class Stage {
    *
    * @param h a step value
    */
-  public void changeColor(final float h) {
+  public void changeColor(float h) {
     this.color.changeColor(h);
   }
 
-  public void changeColor(final double h) {
+  public void changeColor(double h) {
     this.changeColor((float) h);
   }
 
@@ -413,7 +413,7 @@ public class Stage {
    *
    * @see Image#setTint(float, float, float)
    */
-  public void setTint(final int r, final int g, final int b) {
+  public void setTint(int r, final int g, final int b) {
     if (this.backdrops.size() == 0)
       return;
     this.backdrops.get(this.currentBackdrop).setTint(r, g, b);
@@ -424,7 +424,7 @@ public class Stage {
    *
    * @see Image#setTint(float)
    */
-  public void setTint(final float h) {
+  public void setTint(float h) {
     if (this.backdrops.size() == 0)
       return;
     this.backdrops.get(this.currentBackdrop).setTint(h);
@@ -435,7 +435,7 @@ public class Stage {
    *
    * @see Image#changeTint(float)
    */
-  public void changeTint(final float step) {
+  public void changeTint(float step) {
     if (this.backdrops.size() == 0)
       return;
 
@@ -447,11 +447,11 @@ public class Stage {
    *
    * @see Image#setTransparency(float)
    */
-  public void setTransparency(final float transparency) {
+  public void setTransparency(float transparency) {
     this.backdrops.get(this.currentBackdrop).setTransparency(transparency);
   }
 
-  public void setTransparency(final double transparency) {
+  public void setTransparency(double transparency) {
     this.setTransparency((float) transparency);
   }
 
@@ -460,7 +460,7 @@ public class Stage {
    *
    * @see Image#changeTransparency(float)
    */
-  public void changeTransparency(final float step) {
+  public void changeTransparency(float step) {
     if (this.backdrops.size() == 0)
       return;
 
@@ -502,7 +502,7 @@ public class Stage {
    * @param name a name
    * @return the timer
    */
-  public Timer getTimer(final String name) {
+  public Timer getTimer(String name) {
     return this.timer.get(name);
   }
 
@@ -511,7 +511,7 @@ public class Stage {
    *
    * @param name the name of the timer
    */
-  public void addTimer(final String name) {
+  public void addTimer(String name) {
     if ("default".equals(name))
       return;
 
@@ -523,14 +523,14 @@ public class Stage {
    *
    * @param name the name of the timer
    */
-  public void removeTimer(final String name) {
+  public void removeTimer(String name) {
     if ("default".equals(name))
       return;
 
     this.timer.remove(name);
   }
 
-  public void mouseEvent(final MouseEvent e) {
+  public void mouseEvent(MouseEvent e) {
     this.mouseX = e.getX();
     this.mouseY = e.getY();
     this.mouseDown = false;
@@ -577,10 +577,10 @@ public class Stage {
     return this.mouseDown;
   }
 
-  public void whenKeyPressed(final int keyCode) {
+  public void whenKeyPressed(int keyCode) {
   }
 
-  public void keyEvent(final KeyEvent e) {
+  public void keyEvent(KeyEvent e) {
     switch (e.getAction()) {
       case KeyEvent.PRESS:
         this.whenKeyPressed(e.getKeyCode());
@@ -598,8 +598,8 @@ public class Stage {
    * @param keyCode a key code
    * @return key pressed
    */
-  public boolean isKeyPressed(final int keyCode) {
-    final Boolean isPressed = this.keyCodePressed.get(keyCode);
+  public boolean isKeyPressed(int keyCode) {
+    Boolean isPressed = this.keyCodePressed.get(keyCode);
     if (isPressed == null) {
       return false;
     }
@@ -612,7 +612,7 @@ public class Stage {
    * @return current year
    */
   public int getCurrentYear() {
-    final LocalDateTime now = LocalDateTime.now();
+    LocalDateTime now = LocalDateTime.now();
     return now.getYear();
   }
 
@@ -622,7 +622,7 @@ public class Stage {
    * @return current month
    */
   public int getCurrentMonth() {
-    final LocalDateTime now = LocalDateTime.now();
+    LocalDateTime now = LocalDateTime.now();
     return now.getMonthValue();
   }
 
@@ -632,7 +632,7 @@ public class Stage {
    * @return current day of the week
    */
   public int getCurrentDayOfWeek() {
-    final LocalDateTime now = LocalDateTime.now();
+    LocalDateTime now = LocalDateTime.now();
     return now.getDayOfWeek().getValue();
   }
 
@@ -642,7 +642,7 @@ public class Stage {
    * @return current day of the month
    */
   public int getCurrentDay() {
-    final LocalDateTime now = LocalDateTime.now();
+    LocalDateTime now = LocalDateTime.now();
     return now.getDayOfMonth();
   }
 
@@ -652,7 +652,7 @@ public class Stage {
    * @return current hour
    */
   public int getCurrentHour() {
-    final LocalDateTime now = LocalDateTime.now();
+    LocalDateTime now = LocalDateTime.now();
     return now.getHour();
   }
 
@@ -662,7 +662,7 @@ public class Stage {
    * @return current minute
    */
   public int getCurrentMinute() {
-    final LocalDateTime now = LocalDateTime.now();
+    LocalDateTime now = LocalDateTime.now();
     return now.getMinute();
   }
 
@@ -672,7 +672,7 @@ public class Stage {
    * @return current second
    */
   public int getCurrentSecond() {
-    final LocalDateTime now = LocalDateTime.now();
+    LocalDateTime now = LocalDateTime.now();
     return now.getSecond();
   }
 
@@ -682,7 +682,7 @@ public class Stage {
    * @return current millisecond
    */
   public int getCurrentMillisecond() {
-    final LocalDateTime now = LocalDateTime.now();
+    LocalDateTime now = LocalDateTime.now();
     return (int) Math.round(now.getNano() / 1000000.0);
   }
 
@@ -692,30 +692,44 @@ public class Stage {
    * @return days since 2010/01/01
    */
   public int getDaysSince2000() {
-    final LocalDate now = LocalDate.now();
-    final LocalDate then = LocalDate.of(2000, Month.JANUARY, 1);
-    final long c = ChronoUnit.DAYS.between(then, now);
+    LocalDate now = LocalDate.now();
+    LocalDate then = LocalDate.of(2000, Month.JANUARY, 1);
+    long c = ChronoUnit.DAYS.between(then, now);
     return (int) c;
   }
 
-  public int pickRandom(final int from, final int to) {
+  public int pickRandom(int from, final int to) {
     if (to < from) {
       return to + (int) (Math.random() * (from - to));
     }
     return from + (int) (Math.random() * (to - from));
   }
 
-  public void display(final String text) {
+  public void display(String text) {
     this.display.showText(text);
   }
 
-  public void display(final String text, final int millis) {
+  public void display(String text, final int millis) {
     this.display.showText(text, millis);
+  }
+
+  public void broadcast(String message) {
+    this.drawables.stream()
+        .forEach(
+            d -> {
+              if (d instanceof Sprite) {
+                ((Sprite) d).whenIReceive(message);
+              }
+            });
+  }
+
+  public void whenIReceive(String message) {
+
   }
 
   /** Draws the current backdrop or if none a solid color */
   public void pre() {
-    final Applet applet = Applet.getInstance();
+    Applet applet = Applet.getInstance();
     if (applet == null)
       return;
     // redraw background to clear screen
@@ -730,7 +744,7 @@ public class Stage {
     } else {
       try {
         this.penBuffer.loadPixels();
-      } catch (final Exception e) {
+      } catch (Exception e) {
       }
     }
   }
@@ -740,10 +754,10 @@ public class Stage {
    *
    * @param millis Milliseconds
    */
-  public void wait(final int millis) {
+  public void wait(int millis) {
     try {
       Thread.sleep(millis);
-    } catch (final InterruptedException e) {
+    } catch (InterruptedException e) {
     }
   }
 
@@ -751,10 +765,10 @@ public class Stage {
   }
 
   public void draw() {
-    final Applet applet = Applet.getInstance();
+    Applet applet = Applet.getInstance();
     if (applet == null)
       return;
-    for (final Drawable d : this.drawables) {
+    for (Drawable d : this.drawables) {
       d.draw();
     }
     if (this.display != null) {
@@ -774,9 +788,9 @@ public class Stage {
   }
 
   public static float[] rotateXY(float x, float y, final float originX, final float originY, final float degrees) {
-    final float[] rotatedXY = new float[2];
+    float[] rotatedXY = new float[2];
 
-    final double radians = degrees * Math.PI / 180.0;
+    double radians = degrees * Math.PI / 180.0;
     x = x - originX;
     y = y - originY;
     rotatedXY[0] = (float) (x * Math.cos(radians) - y * Math.sin(radians)) + originX;
