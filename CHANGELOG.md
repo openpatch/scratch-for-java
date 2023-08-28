@@ -3,6 +3,10 @@ name: Changelog
 index: 4
 ---
 
+## 3.9.0
+
+- 🚀 Feat: Add support for broadcast and when i receive blocks to the Sprite and the Stage class.
+
 ## 3.8.0
 
 - 🚀 Feat: Support for vertical spritesheets was added.

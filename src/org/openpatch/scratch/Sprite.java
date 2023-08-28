@@ -47,9 +47,9 @@ public class Sprite implements Drawable {
     this.timer.put("default", new Timer());
   }
 
-  public Sprite(final String name, final String imagePath) {
+  public Sprite(String name, final String imagePath) {
     this();
-    final Image costume = new Image(name, imagePath);
+    Image costume = new Image(name, imagePath);
     this.costumes.add(costume);
   }
 
@@ -58,14 +58,14 @@ public class Sprite implements Drawable {
    *
    * @param s a Sprite object to copy
    */
-  public Sprite(final Sprite s) {
+  public Sprite(Sprite s) {
     this.costumes = new CopyOnWriteArrayList<>();
-    for (final Image costume : s.costumes) {
+    for (Image costume : s.costumes) {
       this.costumes.add(new Image(costume));
     }
     this.currentCostume = s.currentCostume;
     this.sounds = new CopyOnWriteArrayList<>();
-    for (final Sound sound : s.sounds) {
+    for (Sound sound : s.sounds) {
       this.sounds.add(new Sound(sound));
     }
     this.show = s.show;
@@ -80,7 +80,7 @@ public class Sprite implements Drawable {
     this.stage = s.stage;
   }
 
-  public void addedToStage(final Stage stage) {
+  public void addedToStage(Stage stage) {
     this.stage = stage;
     this.pen.addedToStage(stage);
     this.text.addedToStage(stage);
@@ -88,7 +88,7 @@ public class Sprite implements Drawable {
     Applet.getInstance().registerMethod("mouseEvent", this);
   }
 
-  public void removedFromStage(final Stage stage) {
+  public void removedFromStage(Stage stage) {
     this.pen.removedFromStage(stage);
     Applet.getInstance().unregisterMethod("keyEvent", this);
     Applet.getInstance().unregisterMethod("mouseEvent", this);
@@ -112,25 +112,26 @@ public class Sprite implements Drawable {
    * @param name      a unique name
    * @param imagePath a image path
    */
-  public void addCostume(final String name, final String imagePath) {
-    for (final Image costume : this.costumes) {
+  public void addCostume(String name, final String imagePath) {
+    for (Image costume : this.costumes) {
       if (costume.getName().equals(name)) {
         return;
       }
     }
 
-    final Image costume = new Image(name, imagePath);
+    Image costume = new Image(name, imagePath);
     this.costumes.add(costume);
   }
 
-  public void addCostume(final String name, final String spriteSheetPath, final int x, final int y, final int width, final int height) {
-    for (final Image costume : this.costumes) {
+  public void addCostume(String name, final String spriteSheetPath, final int x, final int y, final int width,
+      final int height) {
+    for (Image costume : this.costumes) {
       if (costume.getName().equals(name)) {
         return;
       }
     }
 
-    final Image costume = new Image(name, spriteSheetPath, x, y, width, height);
+    Image costume = new Image(name, spriteSheetPath, x, y, width, height);
     this.costumes.add(costume);
   }
 
@@ -139,9 +140,9 @@ public class Sprite implements Drawable {
    *
    * @param name the name of a costume
    */
-  public void switchCostume(final String name) {
+  public void switchCostume(String name) {
     for (int i = 0; i < this.costumes.size(); i++) {
-      final Image costume = this.costumes.get(i);
+      Image costume = this.costumes.get(i);
       if (costume.getName().equals(name)) {
         this.currentCostume = i;
         return;
@@ -182,14 +183,14 @@ public class Sprite implements Drawable {
    * @param name      a unique name
    * @param soundPath a sound path
    */
-  public void addSound(final String name, final String soundPath) {
-    for (final Sound sound : this.sounds) {
+  public void addSound(String name, final String soundPath) {
+    for (Sound sound : this.sounds) {
       if (sound.getName().equals(name)) {
         return;
       }
     }
 
-    final Sound sound = new Sound(name, soundPath);
+    Sound sound = new Sound(name, soundPath);
     this.sounds.add(sound);
   }
 
@@ -198,9 +199,9 @@ public class Sprite implements Drawable {
    *
    * @param name the sound name
    */
-  public void removeSound(final String name) {
+  public void removeSound(String name) {
     for (int i = 0; i < this.sounds.size(); i++) {
-      final Sound sound = this.sounds.get(i);
+      Sound sound = this.sounds.get(i);
       if (sound.getName().equals(name)) {
         this.sounds.remove(i);
         return;
@@ -213,8 +214,8 @@ public class Sprite implements Drawable {
    *
    * @param name the sound name
    */
-  public void playSound(final String name) {
-    for (final Sound sound : this.sounds) {
+  public void playSound(String name) {
+    for (Sound sound : this.sounds) {
       if (sound.getName().equals(name) && !sound.isPlaying()) {
         sound.play();
       }
@@ -223,7 +224,7 @@ public class Sprite implements Drawable {
 
   /** Stops the playing of all sounds of the sprite. */
   public void stopAllSounds() {
-    for (final Sound sound : this.sounds) {
+    for (Sound sound : this.sounds) {
       sound.stop();
     }
   }
@@ -233,8 +234,8 @@ public class Sprite implements Drawable {
    *
    * @param name Name of the sound
    */
-  public void stopSound(final String name) {
-    for (final Sound sound : this.sounds) {
+  public void stopSound(String name) {
+    for (Sound sound : this.sounds) {
       if (sound.getName().equals(name)) {
         sound.stop();
         break;
@@ -247,8 +248,8 @@ public class Sprite implements Drawable {
    *
    * @return playing
    */
-  public boolean isSoundPlaying(final String name) {
-    for (final Sound sound : this.sounds) {
+  public boolean isSoundPlaying(String name) {
+    for (Sound sound : this.sounds) {
       if (sound.getName().equals(name)) {
         return sound.isPlaying();
       }
@@ -256,11 +257,11 @@ public class Sprite implements Drawable {
     return false;
   }
 
-  public void setTint(final int r, final int g, final int b) {
+  public void setTint(int r, final int g, final int b) {
     this.setTint((float) b, (float) g, (float) b);
   }
 
-  public void setTint(final Color c) {
+  public void setTint(Color c) {
     this.setTint(c.getRed(), c.getGreen(), c.getBlue());
   }
 
@@ -269,11 +270,11 @@ public class Sprite implements Drawable {
    *
    * @see Image#setTint(float, float, float)
    */
-  public void setTint(final float r, final float g, final float b) {
+  public void setTint(float r, final float g, final float b) {
     if (this.costumes.size() == 0)
       return;
 
-    for (final Image costume : this.costumes) {
+    for (Image costume : this.costumes) {
       costume.setTint(r, g, b);
     }
   }
@@ -283,11 +284,11 @@ public class Sprite implements Drawable {
    *
    * @see Image#setTint(float)
    */
-  public void setTint(final float h) {
+  public void setTint(float h) {
     if (this.costumes.size() == 0)
       return;
 
-    for (final Image costume : this.costumes) {
+    for (Image costume : this.costumes) {
       costume.setTint(h);
     }
   }
@@ -297,16 +298,16 @@ public class Sprite implements Drawable {
    *
    * @see Image#changeTint(float)
    */
-  public void changeTint(final float step) {
+  public void changeTint(float step) {
     if (this.costumes.size() == 0)
       return;
 
-    for (final Image costume : this.costumes) {
+    for (Image costume : this.costumes) {
       costume.changeTint(step);
     }
   }
 
-  public void changeTint(final double step) {
+  public void changeTint(double step) {
     this.changeTint((float) step);
   }
 
@@ -316,11 +317,11 @@ public class Sprite implements Drawable {
    * @see Image#setTransparency(float)
    * @param transparency 0 full transparency, 255 no transparency
    */
-  public void setTransparency(final float transparency) {
+  public void setTransparency(float transparency) {
     if (this.costumes.size() == 0)
       return;
 
-    for (final Image costume : this.costumes) {
+    for (Image costume : this.costumes) {
       costume.setTransparency(transparency);
     }
   }
@@ -330,16 +331,16 @@ public class Sprite implements Drawable {
    *
    * @see Image#changeTransparency(float)
    */
-  public void changeTransparency(final float step) {
+  public void changeTransparency(float step) {
     if (this.costumes.size() == 0)
       return;
 
-    for (final Image costume : this.costumes) {
+    for (Image costume : this.costumes) {
       costume.changeTransparency(step);
     }
   }
 
-  public void changeTransparency(final double step) {
+  public void changeTransparency(double step) {
     this.changeTransparency((float) step);
   }
 
@@ -376,14 +377,14 @@ public class Sprite implements Drawable {
    *
    * @param percentage a percentage [0...100]
    */
-  public void setSize(final float percentage) {
+  public void setSize(float percentage) {
     this.size = percentage;
-    for (final Image costume : this.costumes) {
+    for (Image costume : this.costumes) {
       costume.setSize(percentage);
     }
   }
 
-  public void setSize(final double percentage) {
+  public void setSize(double percentage) {
     this.setSize((float) percentage);
   }
 
@@ -392,11 +393,11 @@ public class Sprite implements Drawable {
    *
    * @param amount a percentage [0...100]
    */
-  public void changeSize(final float amount) {
+  public void changeSize(float amount) {
     this.size += amount;
   }
 
-  public void changeSize(final double amount) {
+  public void changeSize(double amount) {
     this.changeSize((float) amount);
   }
 
@@ -407,33 +408,33 @@ public class Sprite implements Drawable {
    *
    * @param b
    */
-  public void setOnEdgeBounce(final boolean b) {
+  public void setOnEdgeBounce(boolean b) {
     this.onEdgeBounce = b;
   }
 
   public void ifOnEdgeBounce() {
-    final float newX = this.x;
-    final float newY = this.y;
+    float newX = this.x;
+    float newY = this.y;
     Image currentCostume = null;
     if (this.costumes.size() > 0) {
       currentCostume = this.costumes.get(this.currentCostume);
     }
-    final float costumeWidth = currentCostume != null ? currentCostume.getWidth() : this.pen.getSize();
-    final float costumeHeight = currentCostume != null ? currentCostume.getHeight() : this.pen.getSize();
+    float costumeWidth = currentCostume != null ? currentCostume.getWidth() : this.pen.getSize();
+    float costumeHeight = currentCostume != null ? currentCostume.getHeight() : this.pen.getSize();
 
-    final float spriteWidth = this.show ? costumeWidth : this.pen.getSize();
+    float spriteWidth = this.show ? costumeWidth : this.pen.getSize();
     if (newX > Applet.getInstance().getWidth() - spriteWidth / 2 || newX < spriteWidth / 2) {
       this.setDirection(this.calculateAngleOfReflection(this.direction, false));
     }
 
-    final float spriteHeight = this.show ? costumeHeight : this.pen.getSize();
+    float spriteHeight = this.show ? costumeHeight : this.pen.getSize();
     if (newY > Applet.getInstance().getHeight() - spriteHeight / 2 || newY < spriteHeight / 2) {
       this.setDirection(this.calculateAngleOfReflection(this.direction, true));
     }
     this.setPosition(newX, newY);
   }
 
-  public void setRotationStyle(final RotationStyle style) {
+  public void setRotationStyle(RotationStyle style) {
     this.rotationStyle = style;
   }
 
@@ -443,17 +444,17 @@ public class Sprite implements Drawable {
    * @param x a x coordinate
    * @param y a y coordinate
    */
-  public void setPosition(final int x, final int y) {
+  public void setPosition(int x, final int y) {
     this.x = x;
     this.y = y;
     this.getPen().setPosition(x, y);
   }
 
-  public void setPosition(final float x, final float y) {
+  public void setPosition(float x, final float y) {
     this.setPosition(Math.round(x), Math.round(y));
   }
 
-  public void setPosition(final double x, final double y) {
+  public void setPosition(double x, final double y) {
     this.setPosition((float) x, (float) y);
   }
 
@@ -462,7 +463,7 @@ public class Sprite implements Drawable {
    *
    * @param v a vector
    */
-  public void setPosition(final Vector2 v) {
+  public void setPosition(Vector2 v) {
     this.setPosition(v.getX(), v.getY());
   }
 
@@ -471,7 +472,7 @@ public class Sprite implements Drawable {
    *
    * @param degrees between 0 and 360
    */
-  public void turnLeft(final float degrees) {
+  public void turnLeft(float degrees) {
     this.setDirection(this.direction - degrees);
   }
 
@@ -480,7 +481,7 @@ public class Sprite implements Drawable {
    *
    * @param degrees between 0 and 360
    */
-  public void turnRight(final float degrees) {
+  public void turnRight(float degrees) {
     this.setDirection(this.direction + degrees);
   }
 
@@ -491,7 +492,7 @@ public class Sprite implements Drawable {
    *
    * @param degrees between 0 and 360
    */
-  public void setDirection(final float degrees) {
+  public void setDirection(float degrees) {
     this.direction = degrees;
     if (this.direction < 0) {
       this.direction += 360;
@@ -499,7 +500,7 @@ public class Sprite implements Drawable {
     this.direction %= 360;
   }
 
-  public void setDirection(final double degrees) {
+  public void setDirection(double degrees) {
     this.setDirection((float) degrees);
   }
 
@@ -508,35 +509,35 @@ public class Sprite implements Drawable {
    *
    * @param v a vector
    */
-  public void setDirection(final Vector2 v) {
+  public void setDirection(Vector2 v) {
     this.setDirection(v.angle());
   }
 
-  public void pointInDirection(final float degrees) {
+  public void pointInDirection(float degrees) {
     this.setDirection(degrees);
   }
 
-  public void pointInDirection(final double degrees) {
+  public void pointInDirection(double degrees) {
     this.setDirection(degrees);
   }
 
-  public void pointInDirection(final Vector2 v) {
+  public void pointInDirection(Vector2 v) {
     this.setDirection(v);
   }
 
   public void pointTowardsMousePointer() {
-    final float mx = this.getMouseX();
-    final float my = this.getMouseY();
+    float mx = this.getMouseX();
+    float my = this.getMouseY();
 
-    final double angle = new Vector2(mx - this.x, my - this.y).angle();
+    double angle = new Vector2(mx - this.x, my - this.y).angle();
     this.setDirection(angle);
   }
 
-  public void pointTowardsSprite(final Sprite s) {
-    final float mx = s.getX();
-    final float my = s.getY();
+  public void pointTowardsSprite(Sprite s) {
+    float mx = s.getX();
+    float my = s.getY();
 
-    final double angle = new Vector2(mx - this.x, my - this.y).angle();
+    double angle = new Vector2(mx - this.x, my - this.y).angle();
     this.setDirection(angle);
   }
 
@@ -563,10 +564,10 @@ public class Sprite implements Drawable {
    *
    * @param steps a number of pixels
    */
-  public void move(final float steps) {
+  public void move(float steps) {
     // convert degrees to radians
-    final float newX = steps * (float) Math.cos(this.direction * Math.PI / 180) + this.x;
-    final float newY = steps * (float) Math.sin(this.direction * Math.PI / 180) + this.y;
+    float newX = steps * (float) Math.cos(this.direction * Math.PI / 180) + this.x;
+    float newY = steps * (float) Math.sin(this.direction * Math.PI / 180) + this.y;
 
     this.x = newX;
     this.y = newY;
@@ -578,7 +579,7 @@ public class Sprite implements Drawable {
     this.pen.setPosition(this.x, this.y);
   }
 
-  public void move(final double steps) {
+  public void move(double steps) {
     this.move((float) steps);
   }
 
@@ -589,7 +590,7 @@ public class Sprite implements Drawable {
    *
    * @param v a vector
    */
-  public void move(final Vector2 v) {
+  public void move(Vector2 v) {
     this.setDirection(v.angle());
     this.move(v.length());
   }
@@ -608,12 +609,12 @@ public class Sprite implements Drawable {
    *
    * @param x a x coordinate
    */
-  public void setX(final float x) {
+  public void setX(float x) {
     this.x = x;
     this.pen.setPosition(this.x, this.y);
   }
 
-  public void setX(final double x) {
+  public void setX(double x) {
     this.setX((float) x);
   }
 
@@ -622,12 +623,12 @@ public class Sprite implements Drawable {
    *
    * @param x number in pixels
    */
-  public void changeX(final float x) {
+  public void changeX(float x) {
     this.x += x;
     this.pen.setPosition(this.x, this.y);
   }
 
-  public void changeX(final double x) {
+  public void changeX(double x) {
     this.changeX((float) x);
   }
 
@@ -645,12 +646,12 @@ public class Sprite implements Drawable {
    *
    * @param y a y coordinate
    */
-  public void setY(final float y) {
+  public void setY(float y) {
     this.y = y;
     this.pen.setPosition(this.x, this.y);
   }
 
-  public void setY(final double y) {
+  public void setY(double y) {
     this.setY((float) y);
   }
 
@@ -659,12 +660,12 @@ public class Sprite implements Drawable {
    *
    * @param y number in pixels
    */
-  public void changeY(final float y) {
+  public void changeY(float y) {
     this.y += y;
     this.pen.setPosition(this.x, this.y);
   }
 
-  public void changeY(final double y) {
+  public void changeY(double y) {
     this.changeY((float) y);
   }
 
@@ -708,7 +709,7 @@ public class Sprite implements Drawable {
    *
    * @return a timer
    */
-  public Timer getTimer(final String name) {
+  public Timer getTimer(String name) {
     return this.timer.get(name);
   }
 
@@ -717,7 +718,7 @@ public class Sprite implements Drawable {
    *
    * @param name the name of the timer
    */
-  public void addTimer(final String name) {
+  public void addTimer(String name) {
     if ("default".equals(name))
       return;
 
@@ -729,14 +730,14 @@ public class Sprite implements Drawable {
    *
    * @param name the name of the timer
    */
-  public void removeTimer(final String name) {
+  public void removeTimer(String name) {
     if ("default".equals(name))
       return;
 
     this.timer.remove(name);
   }
 
-  private float calculateAngleOfReflection(final float angleOfIncidence, final boolean horizontalWall) {
+  private float calculateAngleOfReflection(float angleOfIncidence, final boolean horizontalWall) {
     if (horizontalWall) {
       float angleOfReflection = 360 - angleOfIncidence;
       while (angleOfReflection < 0)
@@ -757,25 +758,25 @@ public class Sprite implements Drawable {
    * @return true if touching
    */
   public boolean isTouchingMousePointer() {
-    final float topLeftCornerX = this.x - this.getWidth() / 2.0f;
-    final float topLeftCornerY = this.y - this.getHeight() / 2.0f;
+    float topLeftCornerX = this.x - this.getWidth() / 2.0f;
+    float topLeftCornerY = this.y - this.getHeight() / 2.0f;
 
-    final float bottomRightCornerX = this.x + this.getWidth() / 2.0f;
-    final float bottomRightCornerY = this.y + this.getHeight() / 2.0f;
+    float bottomRightCornerX = this.x + this.getWidth() / 2.0f;
+    float bottomRightCornerY = this.y + this.getHeight() / 2.0f;
 
-    final float[] mouse = Stage.rotateXY(this.getMouseX(), this.getMouseY(), this.x, this.y, -this.direction);
+    float[] mouse = Stage.rotateXY(this.getMouseX(), this.getMouseY(), this.x, this.y, -this.direction);
 
-    final boolean touching = mouse[0] > topLeftCornerX
+    boolean touching = mouse[0] > topLeftCornerX
         && mouse[1] > topLeftCornerY
         && mouse[0] < bottomRightCornerX
         && mouse[1] < bottomRightCornerY;
 
     if (touching) {
-      final int relativeMouseX = Math.round(mouse[0] - topLeftCornerX);
-      final int relativeMouseY = Math.round(mouse[1] - topLeftCornerY);
+      int relativeMouseX = Math.round(mouse[0] - topLeftCornerX);
+      int relativeMouseY = Math.round(mouse[1] - topLeftCornerY);
 
       if (this.costumes.size() > this.getCurrentCostumeIndex()) {
-        final int color = this.costumes
+        int color = this.costumes
             .get(this.getCurrentCostumeIndex())
             .getPixel(relativeMouseX, relativeMouseY);
         return Applet.getInstance().alpha(color) != 0;
@@ -796,24 +797,28 @@ public class Sprite implements Drawable {
     if (this.costumes.size() > this.getCurrentCostumeIndex()) {
       currentCostume = this.costumes.get(this.getCurrentCostumeIndex());
     }
-    final PApplet parent = Applet.getInstance();
-    final float costumeWidth = currentCostume != null ? currentCostume.getWidth() : this.pen.getSize();
-    final float costumeHeight = currentCostume != null ? currentCostume.getHeight() : this.pen.getSize();
-    final float spriteWidth = this.show ? costumeWidth : this.pen.getSize();
-    final float spriteHeight = this.show ? costumeHeight : this.pen.getSize();
+    PApplet parent = Applet.getInstance();
+    float costumeWidth = currentCostume != null ? currentCostume.getWidth() : this.pen.getSize();
+    float costumeHeight = currentCostume != null ? currentCostume.getHeight() : this.pen.getSize();
+    float spriteWidth = this.show ? costumeWidth : this.pen.getSize();
+    float spriteHeight = this.show ? costumeHeight : this.pen.getSize();
 
-    final float[] cornerTopLeft = Stage.rotateXY(this.x - spriteWidth / 2.0f, this.y - spriteHeight / 2.0f, this.x, this.y, this.direction);
-    final float[] cornerTopRight = Stage.rotateXY(this.x + spriteWidth / 2.0f, this.y - spriteHeight / 2.0f, this.x, this.y, this.direction);
-    final float[] cornerBottomLeft = Stage.rotateXY(this.x - spriteWidth / 2.0f, this.y + spriteHeight / 2.0f, this.x, this.y, this.direction);
-    final float[] cornerBottomRight = Stage.rotateXY(this.x + spriteWidth / 2.0f, this.y + spriteHeight / 2.0f, this.x, this.y, this.direction);
+    float[] cornerTopLeft = Stage.rotateXY(this.x - spriteWidth / 2.0f, this.y - spriteHeight / 2.0f, this.x, this.y,
+        this.direction);
+    float[] cornerTopRight = Stage.rotateXY(this.x + spriteWidth / 2.0f, this.y - spriteHeight / 2.0f, this.x, this.y,
+        this.direction);
+    float[] cornerBottomLeft = Stage.rotateXY(this.x - spriteWidth / 2.0f, this.y + spriteHeight / 2.0f, this.x, this.y,
+        this.direction);
+    float[] cornerBottomRight = Stage.rotateXY(this.x + spriteWidth / 2.0f, this.y + spriteHeight / 2.0f, this.x,
+        this.y, this.direction);
 
-    final float[][] corners = {
+    float[][] corners = {
         cornerTopLeft, cornerTopRight, cornerBottomLeft, cornerBottomRight,
     };
 
-    for (final float[] corner : corners) {
-      final float cornerX = corner[0];
-      final float cornerY = corner[1];
+    for (float[] corner : corners) {
+      float cornerX = corner[0];
+      float cornerY = corner[1];
       if (cornerX > parent.width || cornerX < 0) {
         return true;
       }
@@ -827,25 +832,25 @@ public class Sprite implements Drawable {
   }
 
   public float distanceToMousePointer() {
-    final float x2 = this.getMouseX();
-    final float y2 = this.getMouseY();
-    final float x1 = this.getX();
-    final float y1 = this.getY();
+    float x2 = this.getMouseX();
+    float y2 = this.getMouseY();
+    float x1 = this.getX();
+    float y1 = this.getY();
     return (float) Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
   }
 
-  public float distanceToSprite(final Sprite sprite) {
-    final float x2 = sprite.getX();
-    final float y2 = sprite.getY();
-    final float x1 = this.getX();
-    final float y1 = this.getY();
+  public float distanceToSprite(Sprite sprite) {
+    float x2 = sprite.getX();
+    float y2 = sprite.getY();
+    float x1 = this.getX();
+    float y1 = this.getY();
     return (float) Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
   }
 
-  public void setHitbox(final int... points) {
-    final int l = points.length / 2;
-    final int[] xPoints = new int[l];
-    final int[] yPoints = new int[l];
+  public void setHitbox(int... points) {
+    int l = points.length / 2;
+    int[] xPoints = new int[l];
+    int[] yPoints = new int[l];
     for (int i = 0; i < points.length; i += 2) {
       xPoints[i / 2] = points[i];
       yPoints[i / 2] = points[i + 1];
@@ -853,11 +858,11 @@ public class Sprite implements Drawable {
     this.hitbox = new Hitbox(xPoints, yPoints);
   }
 
-  public void setHitbox(final int[] xPoints, final int[] yPoints) {
+  public void setHitbox(int[] xPoints, final int[] yPoints) {
     this.hitbox = new Hitbox(xPoints, yPoints);
   }
 
-  public void setHitbox(final Hitbox hitbox) {
+  public void setHitbox(Hitbox hitbox) {
     this.hitbox = hitbox;
   }
 
@@ -866,10 +871,10 @@ public class Sprite implements Drawable {
     if (this.costumes.size() > this.getCurrentCostumeIndex()) {
       currentCostume = this.costumes.get(this.getCurrentCostumeIndex());
     }
-    final float costumeWidth = currentCostume != null ? currentCostume.getWidth() : this.pen.getSize();
-    final float costumeHeight = currentCostume != null ? currentCostume.getHeight() : this.pen.getSize();
-    final float spriteWidth = this.show ? costumeWidth : this.pen.getSize();
-    final float spriteHeight = this.show ? costumeHeight : this.pen.getSize();
+    float costumeWidth = currentCostume != null ? currentCostume.getWidth() : this.pen.getSize();
+    float costumeHeight = currentCostume != null ? currentCostume.getHeight() : this.pen.getSize();
+    float spriteWidth = this.show ? costumeWidth : this.pen.getSize();
+    float spriteHeight = this.show ? costumeHeight : this.pen.getSize();
 
     if (this.hitbox != null) {
       this.hitbox.translateAndRotateAndResize(
@@ -877,13 +882,17 @@ public class Sprite implements Drawable {
       return this.hitbox;
     }
 
-    final float[] cornerTopLeft = Stage.rotateXY(this.x - spriteWidth / 2.0f, this.y - spriteHeight / 2.0f, this.x, this.y, this.direction);
-    final float[] cornerTopRight = Stage.rotateXY(this.x + spriteWidth / 2.0f, this.y - spriteHeight / 2.0f, this.x, this.y, this.direction);
-    final float[] cornerBottomLeft = Stage.rotateXY(this.x - spriteWidth / 2.0f, this.y + spriteHeight / 2.0f, this.x, this.y, this.direction);
-    final float[] cornerBottomRight = Stage.rotateXY(this.x + spriteWidth / 2.0f, this.y + spriteHeight / 2.0f, this.x, this.y, this.direction);
+    float[] cornerTopLeft = Stage.rotateXY(this.x - spriteWidth / 2.0f, this.y - spriteHeight / 2.0f, this.x, this.y,
+        this.direction);
+    float[] cornerTopRight = Stage.rotateXY(this.x + spriteWidth / 2.0f, this.y - spriteHeight / 2.0f, this.x, this.y,
+        this.direction);
+    float[] cornerBottomLeft = Stage.rotateXY(this.x - spriteWidth / 2.0f, this.y + spriteHeight / 2.0f, this.x, this.y,
+        this.direction);
+    float[] cornerBottomRight = Stage.rotateXY(this.x + spriteWidth / 2.0f, this.y + spriteHeight / 2.0f, this.x,
+        this.y, this.direction);
 
-    final int[] xPoints = new int[4];
-    final int[] yPoints = new int[4];
+    int[] xPoints = new int[4];
+    int[] yPoints = new int[4];
     xPoints[0] = Math.round(cornerTopLeft[0]);
     yPoints[0] = Math.round(cornerTopLeft[1]);
     xPoints[1] = Math.round(cornerTopRight[0]);
@@ -893,18 +902,18 @@ public class Sprite implements Drawable {
     xPoints[3] = Math.round(cornerBottomLeft[0]);
     yPoints[3] = Math.round(cornerBottomLeft[1]);
 
-    final Hitbox hitbox = new Hitbox(xPoints, yPoints);
+    Hitbox hitbox = new Hitbox(xPoints, yPoints);
     return hitbox;
   }
 
-  public boolean isTouchingSprite(final Sprite sprite) {
+  public boolean isTouchingSprite(Sprite sprite) {
     if (sprite == null || !sprite.show)
       return false;
     return this.getHitbox().intersects(sprite.getHitbox());
   }
 
-  public boolean isTouchingSprite(final Class<? extends Sprite> c) {
-    for (final Drawable d : this.stage.drawables) {
+  public boolean isTouchingSprite(Class<? extends Sprite> c) {
+    for (Drawable d : this.stage.drawables) {
       if (c.isInstance(d) && this.isTouchingSprite((Sprite) d)) {
         return true;
       }
@@ -912,8 +921,8 @@ public class Sprite implements Drawable {
     return false;
   }
 
-  public Sprite getTouchingSprite(final Class<? extends Sprite> c) {
-    for (final Drawable d : this.stage.drawables) {
+  public Sprite getTouchingSprite(Class<? extends Sprite> c) {
+    for (Drawable d : this.stage.drawables) {
       if (c.isInstance(d) && this.isTouchingSprite((Sprite) d)) {
         return (Sprite) d;
       }
@@ -921,9 +930,9 @@ public class Sprite implements Drawable {
     return null;
   }
 
-  public ArrayList<Sprite> getTouchingSprites(final Class<? extends Sprite> c) {
-    final ArrayList<Sprite> sprites = new ArrayList<>();
-    for (final Drawable d : this.stage.drawables) {
+  public ArrayList<Sprite> getTouchingSprites(Class<? extends Sprite> c) {
+    ArrayList<Sprite> sprites = new ArrayList<>();
+    for (Drawable d : this.stage.drawables) {
       if (c.isInstance(d) && this.isTouchingSprite((Sprite) d)) {
         sprites.add((Sprite) d);
       }
@@ -964,7 +973,7 @@ public class Sprite implements Drawable {
    * @param keyCode a key code
    * @return key pressed
    */
-  public boolean isKeyPressed(final int keyCode) {
+  public boolean isKeyPressed(int keyCode) {
     return this.stage.isKeyPressed(keyCode);
   }
 
@@ -1049,7 +1058,7 @@ public class Sprite implements Drawable {
     return this.stage.getDaysSince2000();
   }
 
-  public void keyEvent(final KeyEvent e) {
+  public void keyEvent(KeyEvent e) {
     switch (e.getAction()) {
       case KeyEvent.PRESS:
         this.whenKeyPressed(e.getKeyCode());
@@ -1060,17 +1069,17 @@ public class Sprite implements Drawable {
     }
   }
 
-  public void whenKeyPressed(final int keyCode) {
+  public void whenKeyPressed(int keyCode) {
   }
 
-  public void whenKeyReleased(final int keyCode) {
+  public void whenKeyReleased(int keyCode) {
   }
 
-  public void mouseEvent(final MouseEvent e) {
+  public void mouseEvent(MouseEvent e) {
     this.whenMouseMoved(e.getX(), e.getY());
   }
 
-  public void whenMouseMoved(final float x, final float y) {
+  public void whenMouseMoved(float x, final float y) {
   }
 
   public void whenClicked() {
@@ -1084,18 +1093,18 @@ public class Sprite implements Drawable {
     this.stage.goToBackLayer(this);
   }
 
-  public void goLayersForwards(final int number) {
+  public void goLayersForwards(int number) {
     this.stage.goLayersForwards(this, number);
   }
 
-  public void goLayersBackwards(final int number) {
+  public void goLayersBackwards(int number) {
     this.stage.goLayersBackwards(this, number);
   }
 
-  public void whenBackdropSwitches(final String name) {
+  public void whenBackdropSwitches(String name) {
   }
 
-  public int pickRandom(final int from, final int to) {
+  public int pickRandom(int from, final int to) {
     if (to < from) {
       return to + (int) (Math.random() * (from - to));
     }
@@ -1106,24 +1115,35 @@ public class Sprite implements Drawable {
     return this.text;
   }
 
-  public void think(final String text) {
+  public void think(String text) {
     this.text.setStyle(TextStyle.THINK);
     this.text.showText(text);
   }
 
-  public void think(final String text, final int millis) {
+  public void think(String text, final int millis) {
     this.text.setStyle(TextStyle.THINK);
     this.text.showText(text, millis);
   }
 
-  public void say(final String text) {
+  public void say(String text) {
     this.text.setStyle(TextStyle.SPEAK);
     this.text.showText(text);
   }
 
-  public void say(final String text, final int millis) {
+  public void say(String text, final int millis) {
     this.text.setStyle(TextStyle.SPEAK);
     this.text.showText(text, millis);
+  }
+
+  public void broadcast(String message) {
+    if (this.getStage() != null) {
+      this.getStage().broadcast(message);
+      this.getStage().whenIReceive(message);
+    }
+  }
+
+  public void whenIReceive(String message) {
+
   }
 
   /** Draws the sprite if it is not hidden. */

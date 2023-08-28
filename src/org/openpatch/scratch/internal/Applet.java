@@ -37,13 +37,13 @@ public class Applet extends PApplet {
     public Stage stage;
     public String name;
 
-    public StageBox(final String name, final Stage stage) {
+    public StageBox(String name, final Stage stage) {
       this.name = name;
       this.stage = stage;
     }
   }
 
-  public Applet(final int width, final int height, final String assets) {
+  public Applet(int width, final int height, final String assets) {
     this.INITIAL_HEIGHT = height;
     this.INITIAL_WIDTH = width;
     this.assets = assets;
@@ -62,7 +62,7 @@ public class Applet extends PApplet {
     return instance;
   }
 
-  public void setDebug(final boolean debug) {
+  public void setDebug(boolean debug) {
     this.debug = debug;
   }
 
@@ -78,8 +78,8 @@ public class Applet extends PApplet {
     return this.height;
   }
 
-  public void addStage(final String name, final Stage stage) {
-    for (final StageBox s : this.stages) {
+  public void addStage(String name, final Stage stage) {
+    for (StageBox s : this.stages) {
       if (s.name.equals(name)) {
         return;
       }
@@ -92,8 +92,8 @@ public class Applet extends PApplet {
     }
   }
 
-  public Stage getStage(final String name) {
-    for (final StageBox s : this.stages) {
+  public Stage getStage(String name) {
+    for (StageBox s : this.stages) {
       if (s.name.equals(name)) {
         return s.stage;
       }
@@ -101,13 +101,13 @@ public class Applet extends PApplet {
     return null;
   }
 
-  public void removeStage(final String name) {
+  public void removeStage(String name) {
     this.stages.removeIf(sb -> sb.name.equals(name));
   }
 
-  public void switchStage(final String name) {
+  public void switchStage(String name) {
     for (int i = 0; i < this.stages.size(); i++) {
-      final StageBox stageBox = this.stages.get(i);
+      StageBox stageBox = this.stages.get(i);
       if (stageBox.name.equals(name)) {
         this.currentStage = i;
         return;
@@ -156,13 +156,13 @@ public class Applet extends PApplet {
     this.imageMode(PConstants.CENTER);
     this.rectMode(PConstants.CENTER);
     this.loading = this.loadImage("loading.png");
-    final var loadingScaleX = this.INITIAL_WIDTH / 480.0;
-    final var loadingScaleY = this.INITIAL_HEIGHT / (360.0 + 150); // normal height + padding for loading text
-    final var scale = Math.min(1, Math.min(loadingScaleX, loadingScaleY));
-    this.loading.resize((int) (this.loading.width * scale), (int)(this.loading.height * scale));
+    var loadingScaleX = this.INITIAL_WIDTH / 480.0;
+    var loadingScaleY = this.INITIAL_HEIGHT / (360.0 + 150); // normal height + padding for loading text
+    var scale = Math.min(1, Math.min(loadingScaleX, loadingScaleY));
+    this.loading.resize((int) (this.loading.width * scale), (int) (this.loading.height * scale));
   }
 
-  private void setLoadingText(final String type, final String path) {
+  private void setLoadingText(String type, final String path) {
     this.loadingText = "Loading " + type + ": ";
     if (path.length() > 40) {
       this.loadingText += "..." + path.substring(path.length() - 40);
@@ -176,22 +176,22 @@ public class Applet extends PApplet {
     if (this.assets != null) {
       try {
         this.loadingText = "Finding files...";
-        final var p =Path.of(ClassLoader.getSystemResource(this.assets).toURI());
-        final var imageFiles = Files.find(
+        var p = Path.of(ClassLoader.getSystemResource(this.assets).toURI());
+        var imageFiles = Files.find(
             p,
             Integer.MAX_VALUE,
             (filePath, fileAttr) -> fileAttr.isRegularFile())
             .map(f -> f.toString())
             .filter(f -> f.endsWith(".png") || f.endsWith(".jpg") || f.endsWith(".jpeg"))
             .collect(Collectors.toList());
-        final var soundFiles = Files.find(
+        var soundFiles = Files.find(
             p,
             Integer.MAX_VALUE,
             (filePath, fileAttr) -> fileAttr.isRegularFile())
             .map(f -> f.toString())
             .filter(f -> f.endsWith(".mp3") || f.endsWith(".wav"))
             .collect(Collectors.toList());
-        final var fontFiles = Files.find(
+        var fontFiles = Files.find(
             p,
             Integer.MAX_VALUE,
             (filePath, fileAttr) -> fileAttr.isRegularFile())
@@ -201,22 +201,22 @@ public class Applet extends PApplet {
         this.numberAssets += imageFiles.size();
         this.numberAssets += soundFiles.size();
         this.numberAssets += fontFiles.size();
-        for (final var file : imageFiles) {
+        for (var file : imageFiles) {
           this.setLoadingText("Image", file);
           Image.loadImage(file);
           this.loadedAssets += 1;
         }
-        for (final var file : fontFiles) {
+        for (var file : fontFiles) {
           this.setLoadingText("Font", file);
           Font.loadFont(file);
           this.loadedAssets += 1;
         }
-        for (final var file : soundFiles) {
+        for (var file : soundFiles) {
           this.setLoadingText("Sound", file);
           new SoundFile(this, file, true);
           this.loadedAssets += 1;
         }
-      } catch (final IOException | URISyntaxException e) {
+      } catch (IOException | URISyntaxException e) {
       }
     }
   }
@@ -228,23 +228,23 @@ public class Applet extends PApplet {
   public void pre() {
     if (this.loadingStatus() == 1 && this.stages.size() > 0) {
       try {
-        final StageBox box = this.stages.get(this.currentStage);
+        StageBox box = this.stages.get(this.currentStage);
         box.stage.pre();
-      } catch (final ArrayIndexOutOfBoundsException e) {
+      } catch (ArrayIndexOutOfBoundsException e) {
       }
     }
   }
 
-  public void mouseEvent(final MouseEvent e) {
+  public void mouseEvent(MouseEvent e) {
     if (this.loadingStatus() == 1 && this.stages.size() > 0) {
-      final StageBox box = this.stages.get(this.currentStage);
+      StageBox box = this.stages.get(this.currentStage);
       box.stage.mouseEvent(e);
     }
   }
 
-  public void keyEvent(final KeyEvent e) {
+  public void keyEvent(KeyEvent e) {
     if (this.loadingStatus() == 1 && this.stages.size() > 0) {
-      final StageBox box = this.stages.get(this.currentStage);
+      StageBox box = this.stages.get(this.currentStage);
       box.stage.keyEvent(e);
     }
     if (e.getKeyCode() == KeyCode.VK_F11) {
@@ -253,7 +253,7 @@ public class Applet extends PApplet {
   }
 
   public void draw() {
-    final int sizeStages = this.stages.size();
+    int sizeStages = this.stages.size();
     if (this.loadingStatus() < 1) {
       this.background(0x222222);
       this.image(this.loading, this.width / 2, this.height / 2);
@@ -262,10 +262,10 @@ public class Applet extends PApplet {
       this.textSize(20);
       this.textSize(14);
       this.text(this.loadingText, this.width / 2, this.height / 2 +
-      this.loading.height / 2 + 20);
+          this.loading.height / 2 + 20);
       this.textSize(20);
       this.text(round(this.loadingStatus() * 100) + "%", this.width / 2, this.height / 2 +
-      this.loading.height / 2 + 40);
+          this.loading.height / 2 + 40);
       this.textSize(14);
     } else if (sizeStages > 0) {
       if (this.currentStage > sizeStages - 1) {
@@ -274,9 +274,9 @@ public class Applet extends PApplet {
         this.currentStage = 0;
       }
       try {
-        final StageBox box = this.stages.get(this.currentStage);
+        StageBox box = this.stages.get(this.currentStage);
         box.stage.draw();
-      } catch (final ArrayIndexOutOfBoundsException e) {
+      } catch (ArrayIndexOutOfBoundsException e) {
       }
     }
   }
