@@ -11,15 +11,15 @@ public class Window {
     this(480, 360);
   }
 
-  public Window(final String assets) {
+  public Window(String assets) {
     this(480, 360, assets);
   }
 
-  public Window(final int width, final int height) {
+  public Window(int width, final int height) {
     this(width, height, null);
   }
 
-  public Window(final int width, final int height, final String assets) {
+  public Window(int width, final int height, final String assets) {
     super();
     if (Window.instance != null) {
       throw new Error("You can only have one Window.");
@@ -37,7 +37,7 @@ public class Window {
     return Applet.getInstance().isDebug();
   }
 
-  public void setDebug(final boolean debug) {
+  public void setDebug(boolean debug) {
     Applet.getInstance().setDebug(debug);
   }
 
@@ -49,19 +49,19 @@ public class Window {
     return Applet.getInstance().getHeight();
   }
 
-  public void addStage(final String name, final Stage stage) {
+  public void addStage(String name, final Stage stage) {
     Applet.getInstance().addStage(name, stage);
   }
 
-  public Stage getStage(final String name) {
+  public Stage getStage(String name) {
     return Applet.getInstance().getStage(name);
   }
 
-  public void removeStage(final String name) {
+  public void removeStage(String name) {
     Applet.getInstance().removeStage(name);
   }
 
-  public void switchStage(final String name) {
+  public void switchStage(String name) {
     Applet.getInstance().switchStage(name);
   }
 
