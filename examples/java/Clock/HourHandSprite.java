@@ -1,4 +1,4 @@
-import org.openpatch.scratch.*;
+import org.openpatch.scratch.Sprite;
 
 public class HourHandSprite extends Sprite {
   public HourHandSprite() {
@@ -7,6 +7,6 @@ public class HourHandSprite extends Sprite {
 
   public void run() {
     int hour = this.getCurrentHour();
-    this.setDirection(hour / 12.0 * 360);
+    this.setDirection(90 + hour / 12.0 * 360);
   }
 }

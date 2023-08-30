@@ -1,9 +1,11 @@
-import org.openpatch.scratch.*;
+import org.openpatch.scratch.Sprite;
+import org.openpatch.scratch.Stage;
 
 public class CatSketch {
 
   public CatSketch() {
     Stage myStage = new Stage(800, 600);
+    myStage.setDebug(true);
     Sprite myCat = new CatSprite();
     myStage.add(myCat);
   }
@@ -18,6 +20,7 @@ class CatSprite extends Sprite {
   CatSprite() {
     this.addCostume("cat", "sprites/cat.png");
     this.setOnEdgeBounce(true);
+    this.setDirection(0);
   }
 
   public void run() {

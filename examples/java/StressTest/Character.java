@@ -17,8 +17,8 @@ public class Character extends AnimatedSprite {
 
     this.tintColor = (int) this.pickRandom(0, 256);
     this.setPosition(
-        this.pickRandom(200, Window.getInstance().getWidth() - 200),
-        this.pickRandom(200, Window.getInstance().getHeight() - 200));
+        this.pickRandom(-200, 200),
+        this.pickRandom(-200, 200));
     this.setDirection(this.pickRandom(0, 360));
   }
 

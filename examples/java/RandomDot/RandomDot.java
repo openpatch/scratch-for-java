@@ -1,4 +1,6 @@
-import org.openpatch.scratch.*;
+import org.openpatch.scratch.Sprite;
+import org.openpatch.scratch.Stage;
+import org.openpatch.scratch.extensions.math.Random;
 
 public class RandomDot extends Stage {
   public RandomDot() {
@@ -17,8 +19,8 @@ class RandomDotSprite extends Sprite {
       this.getPen().down();
       this.getPen().setSize(10);
       this.setPosition(
-          Math.random() * Window.getInstance().getWidth(),
-          Math.random() * Window.getInstance().getHeight());
+          Random.randomInt(-400, 400),
+          Random.randomInt(-300, 300));
       this.getPen().changeColor(2);
       this.getPen().up();
     }

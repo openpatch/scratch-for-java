@@ -72,7 +72,7 @@ public class Random {
    * @return a random integer
    */
   public static int randomInt(int max) {
-    return getRandom().nextInt() * max;
+    return getRandom().nextInt(max);
   }
 
   /**
@@ -102,8 +102,8 @@ public class Random {
    * @param max the maximum integer
    * @return a random integer
    */
-  public static double randomInt(int min, int max) {
-    return getRandom().nextInt() * (max - min) + min;
+  public static int randomInt(int min, int max) {
+    return getRandom().nextInt(max - min) + min;
   }
 
   /**

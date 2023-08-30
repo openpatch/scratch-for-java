@@ -3,6 +3,13 @@ name: Changelog
 index: 4
 ---
 
+## 4.0.0
+
+- 💥 BREAKING CHANGE: Move (0, 0) to the center of the stage to be in-line with Scratch.
+- 🚀 Feat: Add stamp method to the pen `pen.stamp()`.
+- 🚀 Feat: Unify constructors of Window and Stage.
+- 🐛 Fix: Random.randomInt did not work correct.
+
 ## 3.9.0
 
 - 🚀 Feat: Add support for broadcast and when i receive blocks to the Sprite and the Stage class.

@@ -3,9 +3,11 @@ package org.openpatch.scratch.extensions.hitbox;
 import java.awt.Point;
 import java.awt.Polygon;
 import java.awt.geom.Area;
+
 import org.openpatch.scratch.Stage;
 import org.openpatch.scratch.Window;
 import org.openpatch.scratch.internal.Applet;
+
 import processing.core.PConstants;
 
 public class Hitbox {
@@ -23,7 +25,7 @@ public class Hitbox {
   }
 
   public Polygon getPolygon() {
-    return polygon;
+    return this.polygon;
   }
 
   public void translateAndRotateAndResize(
@@ -95,19 +97,23 @@ public class Hitbox {
     applet.stroke(r, g, b);
     applet.strokeWeight(2);
     applet.noFill();
+    applet.push();
+    applet.translate(applet.width / 2, applet.height / 2);
     applet.beginShape();
     for (int i = 0; i < xPoints.length; i++) {
-      applet.vertex(xPoints[i], yPoints[i]);
+      applet.vertex(xPoints[i],
+          yPoints[i]);
     }
     applet.endShape(PConstants.CLOSE);
+    applet.pop();
   }
 
   public void draw() {
-    draw(polygon, Window.DEBUG_COLOR[0], Window.DEBUG_COLOR[1], Window.DEBUG_COLOR[2]);
+    this.draw(this.polygon, Window.DEBUG_COLOR[0], Window.DEBUG_COLOR[1], Window.DEBUG_COLOR[2]);
   }
 
   public boolean contains(float x, float y) {
-    return polygon.contains(new Point(Math.round(x), Math.round(y)));
+    return this.polygon.contains(new Point(Math.round(x), Math.round(y)));
   }
 
   public boolean intersects(Hitbox hitbox) {
