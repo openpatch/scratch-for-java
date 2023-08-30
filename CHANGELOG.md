@@ -8,6 +8,10 @@ index: 4
 - 💥 BREAKING CHANGE: Move (0, 0) to the center of the stage to be in-line with Scratch.
 - 🚀 Feat: Add stamp method to the pen `pen.stamp()`.
 - 🚀 Feat: Unify constructors of Window and Stage.
+- 🚀 Feat: Load all tiles from a sprite sheet as costumes with addCostumes.
+- 🚀 Feat: Add goToMousePointer to the sprite class.
+- 🚀 Feat: Add goToRandomPosition to the sprite class.
+- 🚀 Feat: switchCostumes now also accepts an integer for switching to a specific index.
 - 🐛 Fix: Random.randomInt did not work correct.
 
 ## 3.9.0
@@ -16,7 +20,7 @@ index: 4
 
 ## 3.8.0
 
-- 🚀 Feat: Support for vertical spritesheets was added.
+- 🚀 Feat: Support for vertical sprite sheets was added.
 - 🚀 feat: Loading Animation got improved. The loading screen now shows the percentage of files, which are already loaded.
 
 ## 3.7.0
