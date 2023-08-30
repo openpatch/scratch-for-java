@@ -2,9 +2,9 @@ import org.openpatch.scratch.*;
 
 public class StressTest extends Stage {
 
-  private static int dinos = 8;
-  private static int knights = 8;
-  private static int ninjas = 8;
+  private static int dinos = 180;
+  private static int knights = 180;
+  private static int ninjas = 180;
 
   public StressTest() {
     this.addBackdrop("outback", "assets/outback.png");

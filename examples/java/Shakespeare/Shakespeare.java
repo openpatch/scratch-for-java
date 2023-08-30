@@ -24,22 +24,22 @@ public class Shakespeare extends Stage {
 
     this.bestPhrase = new Text();
     this.bestPhrase.addFont("comic", "assets/Singkong.ttf");
-    this.bestPhrase.setPosition(10, 20);
+    this.bestPhrase.setPosition(-390, 250);
     this.bestPhrase.setAlign(TextAlign.LEFT);
     this.bestPhrase.setTextSize(20);
     this.bestPhrase.switchFont("comic");
     this.bestPhrase.setTextColor(200, 50, 50);
-    this.add(bestPhrase);
+    this.add(this.bestPhrase);
 
     this.allPhrases = new Text();
-    this.allPhrases.setPosition(450, 10);
+    this.allPhrases.setPosition(0, 250);
     this.allPhrases.setAlign(TextAlign.LEFT);
-    this.add(allPhrases);
+    this.add(this.allPhrases);
 
     this.statistics = new Text();
-    this.statistics.setPosition(10, 200);
+    this.statistics.setPosition(-390, 100);
     this.statistics.setAlign(TextAlign.LEFT);
-    this.add(statistics);
+    this.add(this.statistics);
   }
 
   public void run() {
@@ -53,10 +53,10 @@ public class Shakespeare extends Stage {
       this.population.evaluate();
 
       String statisticText = "";
-      statisticText += "Generations: " + population.getGeneration() + "\n";
-      statisticText += "Average Fit: " + population.gibDurchschnittlichenFit() + "\n";
-      statisticText += "Populationsize: " + populationsize + "\n";
-      statisticText += "Mutationrate: " + Math.round(mutationrate * 100) + "%\n";
+      statisticText += "Generations: " + this.population.getGeneration() + "\n";
+      statisticText += "Average Fit: " + this.population.gibDurchschnittlichenFit() + "\n";
+      statisticText += "Populationsize: " + this.populationsize + "\n";
+      statisticText += "Mutationrate: " + Math.round(this.mutationrate * 100) + "%\n";
 
       this.statistics.showText(statisticText);
       this.bestPhrase.showText("Best Phrase:\n" + this.population.getBest());

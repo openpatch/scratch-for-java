@@ -1,6 +1,7 @@
 package org.openpatch.scratch.extensions.text;
 
 import java.util.concurrent.CopyOnWriteArrayList;
+
 import org.davidmoten.text.utils.WordWrap;
 import org.openpatch.scratch.Sprite;
 import org.openpatch.scratch.Stage;
@@ -9,6 +10,7 @@ import org.openpatch.scratch.internal.Applet;
 import org.openpatch.scratch.internal.Color;
 import org.openpatch.scratch.internal.Drawable;
 import org.openpatch.scratch.internal.Font;
+
 import processing.core.PApplet;
 import processing.core.PConstants;
 
@@ -99,7 +101,8 @@ public class Text implements Drawable {
     this.stage = stage;
   }
 
-  public void removedFromStage(Stage stage) {}
+  public void removedFromStage(Stage stage) {
+  }
 
   public void addFont(String name, String path) {
     for (Font font : this.fonts) {
@@ -113,8 +116,8 @@ public class Text implements Drawable {
   }
 
   public void switchFont(String name) {
-    for (int i = 0; i < fonts.size(); i++) {
-      Font font = fonts.get(i);
+    for (int i = 0; i < this.fonts.size(); i++) {
+      Font font = this.fonts.get(i);
       if (font.getName().equals(name)) {
         this.currentFont = i;
         return;
@@ -123,11 +126,11 @@ public class Text implements Drawable {
   }
 
   public void nextFont() {
-    this.currentFont = (this.currentFont + 1) % fonts.size();
+    this.currentFont = (this.currentFont + 1) % this.fonts.size();
   }
 
   public String getCurrentFontName() {
-    if (fonts.size() == 0) {
+    if (this.fonts.size() == 0) {
       return null;
     }
     return this.fonts.get(this.currentFont).getName();
@@ -166,7 +169,7 @@ public class Text implements Drawable {
   }
 
   public void showText(String text, int millis) {
-    showText(text);
+    this.showText(text);
     this.hasLifetime = true;
     this.lifetime = System.currentTimeMillis() + millis;
   }
@@ -247,7 +250,7 @@ public class Text implements Drawable {
 
   private void drawBubble() {
     var applet = Applet.getInstance();
-    var lines = wrap(this.originalText, SPEAK_BUBBLE_MAX_LIMIT);
+    var lines = this.wrap(this.originalText, SPEAK_BUBBLE_MAX_LIMIT);
     var maxLineWidth = 0.0f;
     for (var line : lines) {
       var lineWidth = applet.textWidth(line);
@@ -260,8 +263,8 @@ public class Text implements Drawable {
       return;
     }
 
-    this.y = (float) (sprite.getY() - sprite.getHeight() * 1.1 / 2);
-    this.x = (float) (sprite.getX() + sprite.getWidth() * 0.9 / 2);
+    this.y = (float) (-this.sprite.getY() + applet.height / 2 - this.sprite.getHeight() * 1.1 / 2);
+    this.x = (float) (this.sprite.getX() + applet.width / 2 + this.sprite.getWidth() * 0.9 / 2);
 
     this.width = maxLineWidth + 16;
     this.text = String.join("\n", lines);
@@ -286,7 +289,7 @@ public class Text implements Drawable {
     }
 
     if (mirror) {
-      x = (float) (sprite.getX() - sprite.getWidth() * 0.9 / 2 - this.width);
+      x = (float) (this.sprite.getX() + applet.width / 2 - this.sprite.getWidth() * 0.9 / 2 - this.width);
       if (x < 0) {
         x = 0;
       }
@@ -308,10 +311,10 @@ public class Text implements Drawable {
           this.backgroundColor.getGreen(),
           this.backgroundColor.getBlue());
       if (mirror) {
-        applet.translate(this.width - 40, height);
+        applet.translate(this.width - 40, this.height);
         applet.triangle(20, 0, 0, 0, 20, 20);
       } else {
-        applet.translate(10, height);
+        applet.translate(10, this.height);
         applet.triangle(0, 20, 0, 0, 20, 0);
       }
       applet.stroke(
@@ -349,13 +352,13 @@ public class Text implements Drawable {
       this.width = applet.getWidth() - 16; // padding
     }
     if (this.width > 0) {
-      lines = wrap(this.originalText, this.width - 16); // padding
+      lines = this.wrap(this.originalText, this.width - 16); // padding
     }
     this.height = (this.textSize + 4) * lines.length + 16;
     this.text = String.join("\n", lines);
 
     applet.rectMode(PApplet.CORNER);
-    applet.translate(this.x, this.y - this.height);
+    applet.translate(this.x + applet.width / 2, -this.y + applet.height / 2 - this.height);
     applet.stroke(
         this.strokeColor.getRed(), this.strokeColor.getGreen(), this.strokeColor.getBlue());
     applet.fill(
@@ -374,25 +377,27 @@ public class Text implements Drawable {
     var applet = Applet.getInstance();
     var lines = this.originalText.split("\n");
     if (this.width > 0) {
-      lines = wrap(this.originalText, this.width);
+      lines = this.wrap(this.originalText, this.width);
     }
     if (applet.isDebug()) {
       applet.textSize(12);
       applet.fill(Window.DEBUG_COLOR[0], Window.DEBUG_COLOR[1], Window.DEBUG_COLOR[1]);
       applet.textAlign(PConstants.CENTER);
-      applet.text("(" + x + ", " + y + ")", 0, -20);
+      applet.text("(" + this.x + ", " + this.y + ")", 0, -20);
     }
     this.text = String.join("\n", lines);
 
-    applet.translate(this.x, this.y);
+    applet.translate(this.x + applet.width / 2, -this.y + applet.height / 2);
     applet.fill(this.textColor.getRed(), this.textColor.getGreen(), this.textColor.getBlue());
     applet.textLeading(this.textSize + 4);
     applet.text(this.text, 8, 8);
   }
 
   public void draw() {
-    if (this.stage == null) return;
-    if (!show || this.originalText == null) return;
+    if (this.stage == null)
+      return;
+    if (!this.show || this.originalText == null)
+      return;
 
     var applet = Applet.getInstance();
 
@@ -402,26 +407,23 @@ public class Text implements Drawable {
     } else {
       applet.textAlign(PApplet.LEFT, PApplet.TOP);
     }
-    applet.textFont(this.fonts.get(this.currentFont).getFont(textSize));
+    applet.textFont(this.fonts.get(this.currentFont).getFont(this.textSize));
     applet.textSize(this.textSize);
 
     switch (this.style) {
       case SPEAK:
-      case THINK:
-        {
-          drawBubble();
-          break;
-        }
-      case PLAIN:
-        {
-          drawPlain();
-          break;
-        }
-      case BOX:
-        {
-          drawBox();
-          break;
-        }
+      case THINK: {
+        this.drawBubble();
+        break;
+      }
+      case PLAIN: {
+        this.drawPlain();
+        break;
+      }
+      case BOX: {
+        this.drawBox();
+        break;
+      }
     }
     applet.pop();
 

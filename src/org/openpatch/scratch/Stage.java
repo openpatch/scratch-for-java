@@ -1,5 +1,6 @@
 package org.openpatch.scratch;
 
+import java.awt.Polygon;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -8,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
+
+import org.openpatch.scratch.extensions.hitbox.Hitbox;
 import org.openpatch.scratch.extensions.text.Text;
 import org.openpatch.scratch.extensions.text.TextStyle;
 import org.openpatch.scratch.extensions.timer.Timer;
@@ -16,6 +19,7 @@ import org.openpatch.scratch.internal.Color;
 import org.openpatch.scratch.internal.Drawable;
 import org.openpatch.scratch.internal.Image;
 import org.openpatch.scratch.internal.Sound;
+
 import processing.core.PGraphics;
 import processing.event.KeyEvent;
 import processing.event.MouseEvent;
@@ -36,21 +40,25 @@ public class Stage {
   private boolean mouseDown;
   private final ConcurrentHashMap<Integer, Boolean> keyCodePressed = new ConcurrentHashMap<>();
 
+  Hitbox leftBorder;
+  Hitbox rightBorder;
+  Hitbox topBorder;
+  Hitbox bottomBorder;
+
   public Stage() {
     this(480, 360);
   }
 
   public Stage(int width, final int height) {
-    this(width, height, false);
+    this(width, height, null);
   }
 
-  public Stage(int width, final int height, final boolean debug) {
+  public Stage(int width, final int height, String assets) {
     this.drawables = new CopyOnWriteArrayList<>();
     this.timer = new ConcurrentHashMap<>();
     if (Window.getInstance() == null) {
-      new Window(width, height);
+      new Window(width, height, assets);
       Applet a = Applet.getInstance();
-      a.setDebug(debug);
       a.addStage("main", this);
     }
     Applet applet = Applet.getInstance();
@@ -63,18 +71,40 @@ public class Stage {
     this.timer.put("default", new Timer());
     this.display = new Text(null, 0, applet.height, applet.width, TextStyle.BOX);
     this.display.addedToStage(this);
+
+    var p = new Polygon();
+    p.addPoint(-this.getWidth() / 2, this.getHeight() / 2);
+    p.addPoint(-this.getWidth() / 2 - 5, this.getHeight() / 2);
+    p.addPoint(-this.getWidth() / 2 - 5, -this.getHeight() / 2);
+    p.addPoint(-this.getWidth() / 2, -this.getHeight() / 2);
+    this.leftBorder = new Hitbox(p);
+
+    p = new Polygon();
+    p.addPoint(this.getWidth() / 2, this.getHeight() / 2);
+    p.addPoint(this.getWidth() / 2 + 5, this.getHeight() / 2);
+    p.addPoint(this.getWidth() / 2 + 5, -this.getHeight() / 2);
+    p.addPoint(this.getWidth() / 2, -this.getHeight() / 2);
+    this.rightBorder = new Hitbox(p);
+
+    p = new Polygon();
+    p.addPoint(-this.getWidth() / 2, this.getHeight() / 2);
+    p.addPoint(-this.getWidth() / 2, this.getHeight() / 2 + 5);
+    p.addPoint(this.getWidth() / 2, this.getHeight() / 2 + 5);
+    p.addPoint(this.getWidth() / 2, this.getHeight() / 2);
+    this.topBorder = new Hitbox(p);
+
+    p = new Polygon();
+    p.addPoint(-this.getWidth() / 2, -this.getHeight() / 2);
+    p.addPoint(-this.getWidth() / 2, -this.getHeight() / 2 - 5);
+    p.addPoint(this.getWidth() / 2, -this.getHeight() / 2 - 5);
+    p.addPoint(this.getWidth() / 2, -this.getHeight() / 2);
+    this.bottomBorder = new Hitbox(p);
   }
 
-  /**
-   * @deprecated since v3.2.0: Use stage.getWindow().setDebug(debug) instead
-   */
   public void setDebug(boolean debug) {
     Applet.getInstance().setDebug(debug);
   }
 
-  /**
-   * @deprecated since v3.2.0: Use stage.getWindow().isDebug() instead
-   */
   public boolean isDebug() {
     return Applet.getInstance().isDebug();
   }
@@ -91,9 +121,11 @@ public class Stage {
 
   public void goLayersBackwards(Drawable drawable, final int number) {
     int index = this.drawables.indexOf(drawable);
-    if (index == -1) return;
+    if (index == -1)
+      return;
     int newIndex = index - number;
-    if (newIndex < 0) newIndex = 0;
+    if (newIndex < 0)
+      newIndex = 0;
     newIndex = Math.min(newIndex, this.drawables.size() - 1);
     this.drawables.remove(index);
     this.drawables.add(newIndex, drawable);
@@ -101,9 +133,11 @@ public class Stage {
 
   public void goLayersForwards(Drawable drawable, final int number) {
     int index = this.drawables.indexOf(drawable);
-    if (index == -1) return;
+    if (index == -1)
+      return;
     int newIndex = index + number;
-    if (newIndex < 0) newIndex = 0;
+    if (newIndex < 0)
+      newIndex = 0;
     newIndex = Math.min(newIndex, this.drawables.size() - 1);
     this.drawables.remove(index);
     this.drawables.add(newIndex, drawable);
@@ -165,9 +199,10 @@ public class Stage {
   }
 
   /**
-   * Add a backdrop to the stage. If a backdrop with the received name already exists do nothing.
+   * Add a backdrop to the stage. If a backdrop with the received name already
+   * exists do nothing.
    *
-   * @param name a unique name
+   * @param name      a unique name
    * @param imagePath a image path
    */
   public void addBackdrop(String name, final String imagePath) {
@@ -225,7 +260,8 @@ public class Stage {
     this.whenBackdropSwitches(name);
   }
 
-  public void whenBackdropSwitches(String name) {}
+  public void whenBackdropSwitches(String name) {
+  }
 
   /** Switch to the next backdrop. */
   public void nextBackdrop() {
@@ -273,9 +309,10 @@ public class Stage {
   }
 
   /**
-   * Add a sound to the stage. If a sound with the received name already exists do nothing.
+   * Add a sound to the stage. If a sound with the received name already exists do
+   * nothing.
    *
-   * @param name a unique name
+   * @param name      a unique name
    * @param soundPath a sound path
    */
   public void addSound(String name, final String soundPath) {
@@ -405,7 +442,8 @@ public class Stage {
    * @see Image#setTint(float, float, float)
    */
   public void setTint(int r, final int g, final int b) {
-    if (this.backdrops.size() == 0) return;
+    if (this.backdrops.size() == 0)
+      return;
     this.backdrops.get(this.currentBackdrop).setTint(r, g, b);
   }
 
@@ -415,7 +453,8 @@ public class Stage {
    * @see Image#setTint(float)
    */
   public void setTint(float h) {
-    if (this.backdrops.size() == 0) return;
+    if (this.backdrops.size() == 0)
+      return;
     this.backdrops.get(this.currentBackdrop).setTint(h);
   }
 
@@ -425,7 +464,8 @@ public class Stage {
    * @see Image#changeTint(float)
    */
   public void changeTint(float step) {
-    if (this.backdrops.size() == 0) return;
+    if (this.backdrops.size() == 0)
+      return;
 
     this.backdrops.get(this.currentBackdrop).changeTint(step);
   }
@@ -449,14 +489,16 @@ public class Stage {
    * @see Image#changeTransparency(float)
    */
   public void changeTransparency(float step) {
-    if (this.backdrops.size() == 0) return;
+    if (this.backdrops.size() == 0)
+      return;
 
     this.backdrops.get(this.currentBackdrop).changeTransparency(step);
   }
 
   /**
-   * @deprecated since v3.2.0: Use Window.getInstance().getWidth() instead Return the width of the
-   *     current costume or the pen size, when no costume is available.
+   * Return the width of the
+   * current costume or the pen size, when no costume is available.
+   * 
    * @return the width of the sprite
    */
   public int getWidth() {
@@ -464,8 +506,9 @@ public class Stage {
   }
 
   /**
-   * @deprecated since v3.2.0: Use Window.getInstance().getHeight() instead Return the height of the
-   *     current costume or the pen size, when no costume is available.
+   * Return the height of the
+   * current costume or the pen size, when no costume is available.
+   * 
    * @return the height of the sprite
    */
   public int getHeight() {
@@ -497,7 +540,8 @@ public class Stage {
    * @param name the name of the timer
    */
   public void addTimer(String name) {
-    if ("default".equals(name)) return;
+    if ("default".equals(name))
+      return;
 
     this.timer.put(name, new Timer());
   }
@@ -508,14 +552,15 @@ public class Stage {
    * @param name the name of the timer
    */
   public void removeTimer(String name) {
-    if ("default".equals(name)) return;
+    if ("default".equals(name))
+      return;
 
     this.timer.remove(name);
   }
 
   public void mouseEvent(MouseEvent e) {
-    this.mouseX = e.getX();
-    this.mouseY = e.getY();
+    this.mouseX = e.getX() - this.getWidth() / 2;
+    this.mouseY = -(e.getY() - this.getHeight() / 2);
     this.mouseDown = false;
 
     if (e.getAction() == MouseEvent.PRESS) {
@@ -560,7 +605,8 @@ public class Stage {
     return this.mouseDown;
   }
 
-  public void whenKeyPressed(int keyCode) {}
+  public void whenKeyPressed(int keyCode) {
+  }
 
   public void keyEvent(KeyEvent e) {
     switch (e.getAction()) {
@@ -705,12 +751,14 @@ public class Stage {
             });
   }
 
-  public void whenIReceive(String message) {}
+  public void whenIReceive(String message) {
+  }
 
   /** Draws the current backdrop or if none a solid color */
   public void pre() {
     Applet applet = Applet.getInstance();
-    if (applet == null) return;
+    if (applet == null)
+      return;
     // redraw background to clear screen
     applet.background(this.color.getRed(), this.color.getGreen(), this.color.getBlue());
 
@@ -740,11 +788,13 @@ public class Stage {
     }
   }
 
-  public void run() {}
+  public void run() {
+  }
 
   public void draw() {
     Applet applet = Applet.getInstance();
-    if (applet == null) return;
+    if (applet == null)
+      return;
     for (Drawable d : this.drawables) {
       d.draw();
     }
@@ -756,9 +806,11 @@ public class Stage {
       applet.strokeWeight(1);
       applet.stroke(Window.DEBUG_COLOR[0], Window.DEBUG_COLOR[1], Window.DEBUG_COLOR[2]);
       applet.fill(Window.DEBUG_COLOR[0], Window.DEBUG_COLOR[1], Window.DEBUG_COLOR[2]);
-      applet.line(this.mouseX, 0, this.mouseX, applet.height);
-      applet.line(0, this.mouseY, applet.width, this.mouseY);
-      applet.text("(" + this.mouseX + ", " + this.mouseY + ")", this.mouseX, this.mouseY);
+      var w = this.getWidth() / 2;
+      var h = this.getHeight() / 2;
+      applet.line(this.mouseX + w, 0, this.mouseX + w, applet.height);
+      applet.line(0, -this.mouseY + h, applet.width, -this.mouseY + h);
+      applet.text("(" + this.mouseX + ", " + this.mouseY + ")", this.mouseX + w, -this.mouseY + h);
       applet.text("FPS: " + Math.round(applet.frameRate * 100) / 100, 20, 10);
     }
     this.run();
