@@ -1,4 +1,7 @@
-import org.openpatch.scratch.*;
+import org.openpatch.scratch.KeyCode;
+import org.openpatch.scratch.Sprite;
+import org.openpatch.scratch.Stage;
+import org.openpatch.scratch.Window;
 
 public class Sensing extends Stage {
   public static Hero h, m;
@@ -27,7 +30,7 @@ class Hero extends Sprite {
     this.addCostume("hero2", "sprites/hero2.png");
     this.setSize(50);
     this.setDirection(45);
-    this.move(280);
+    this.move(80);
 
     this.setHitbox(0, 0, 300, 0, 300, 570, 0, 570, 150, 275);
   }
@@ -44,28 +47,30 @@ class Hero extends Sprite {
 class MovableHero extends Hero {
   public MovableHero() {
     super();
-    this.setPosition(332, 578);
-    this.setDirection(270);
+    this.setPosition(-100, -100);
+    this.setDirection(0);
   }
 
   public void run() {
-    if (isKeyPressed(65)) {
-      this.changeX(-1);
-      ;
+    if (this.isKeyPressed(KeyCode.VK_SPACE)) {
+      this.move(1);
     }
-    if (isKeyPressed(68)) {
+    if (this.isKeyPressed(KeyCode.VK_A)) {
+      this.changeX(-1);
+    }
+    if (this.isKeyPressed(KeyCode.VK_D)) {
       this.changeX(1);
     }
-    if (isKeyPressed(87)) {
-      this.changeY(-1);
-    }
-    if (isKeyPressed(83)) {
+    if (this.isKeyPressed(KeyCode.VK_W)) {
       this.changeY(1);
     }
-    if (isKeyPressed(82)) {
+    if (this.isKeyPressed(KeyCode.VK_S)) {
+      this.changeY(-1);
+    }
+    if (this.isKeyPressed(82)) {
       this.turnRight(1);
     }
-    if (isTouchingSprite(Sensing.h)) {
+    if (this.isTouchingSprite(Sensing.h)) {
       this.say("Hit");
     } else {
       this.say(null);

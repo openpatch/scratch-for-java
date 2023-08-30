@@ -1,4 +1,4 @@
-import org.openpatch.scratch.*;
+import org.openpatch.scratch.Sprite;
 
 public class RobotSprite extends Sprite {
 
@@ -6,6 +6,7 @@ public class RobotSprite extends Sprite {
     this.addCostume("robot", "sprites/robot.png");
     this.setSize(20);
     this.changeY(20);
+    this.setDirection(45);
   }
 
   public void run() {

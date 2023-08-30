@@ -4,14 +4,20 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+
+import org.openpatch.scratch.Sprite;
 import org.openpatch.scratch.Stage;
+import org.openpatch.scratch.extensions.math.Random;
 import org.openpatch.scratch.extensions.math.Vector2;
 import org.openpatch.scratch.internal.Color;
 import org.openpatch.scratch.internal.Drawable;
+
 import processing.core.PGraphics;
 
 public class Pen implements Drawable {
+
   class Point {
+
     float x;
     float y;
     Color color;
@@ -34,8 +40,14 @@ public class Pen implements Drawable {
   private boolean down = false;
   private Point previousPoint = null;
   private Stage stage;
+  private Sprite sprite;
 
-  public Pen() {}
+  public Pen() {
+  }
+
+  public Pen(Sprite s) {
+    this.sprite = s;
+  }
 
   /**
    * Copies a Pen object.
@@ -49,6 +61,7 @@ public class Pen implements Drawable {
     this.pointsBuffer = new ArrayList<>();
     this.pointsBuffer.add(new CopyOnWriteArrayList<>());
     this.down = p.down;
+    this.sprite = p.sprite;
   }
 
   public void addedToStage(Stage stage) {
@@ -147,8 +160,7 @@ public class Pen implements Drawable {
       if (this.pointsBuffer.isEmpty()) {
         this.pointsBuffer.add(new CopyOnWriteArrayList<>());
       }
-      this.pointsBuffer
-          .get(this.pointsBuffer.size() - 1)
+      this.pointsBuffer.get(this.pointsBuffer.size() - 1)
           .add(new Point(x, y, this.color, this.transparency, this.size));
     }
   }
@@ -159,6 +171,15 @@ public class Pen implements Drawable {
 
   public void setPosition(Vector2 v) {
     this.setPosition(v.getX(), v.getY());
+  }
+
+  public void goToRandomPosition() {
+    this.setPosition(Random.randomInt(-this.stage.getWidth() / 2, this.stage.getWidth() / 2),
+        Random.randomInt(-this.stage.getHeight() / 2, this.stage.getHeight() / 2));
+  }
+
+  public void goToMousePointer() {
+    this.setPosition(this.stage.getMouseX(), this.stage.getMouseY());
   }
 
   /** Set the pen down. */
@@ -174,23 +195,32 @@ public class Pen implements Drawable {
     this.down = false;
   }
 
+  public void stamp() {
+    if (this.sprite != null) {
+      this.sprite.stamp();
+    }
+  }
+
   public void eraseAll() {
     this.pointsBuffer.clear();
-    if (stage != null) {
-      stage.eraseAll();
+    if (this.stage != null) {
+      this.stage.eraseAll();
     }
   }
 
   /** Draw the line which the pen has drawn. */
   public void draw() {
-    if (stage == null) return;
-    PGraphics buffer = stage.getPenBuffer();
+    if (this.stage == null)
+      return;
+    PGraphics buffer = this.stage.getPenBuffer();
     int pointsBufferSize = this.pointsBuffer.size();
-    if (pointsBufferSize <= 0) return;
+    if (pointsBufferSize <= 0)
+      return;
 
     Iterator<CopyOnWriteArrayList<Point>> pointsBufferIter = this.pointsBuffer.iterator();
 
     buffer.beginDraw();
+    buffer.translate(this.stage.getWidth() / 2, this.stage.getHeight() / 2);
 
     while (pointsBufferIter.hasNext()) {
       CopyOnWriteArrayList<Point> points = pointsBufferIter.next();
@@ -198,23 +228,32 @@ public class Pen implements Drawable {
 
       while (pointsIter.hasNext()) {
         Point point = pointsIter.next();
-        if (previousPoint != null) {
+        if (this.previousPoint != null) {
           buffer.stroke(
-              point.color.getRed(), point.color.getGreen(), point.color.getBlue(), point.opacity);
+              point.color.getRed(),
+              point.color.getGreen(),
+              point.color.getBlue(),
+              point.opacity);
           buffer.strokeWeight(point.size);
-          buffer.line(previousPoint.x, previousPoint.y, point.x, point.y);
-        } else if (previousPoint == null && !this.down) {
+          buffer.line(this.previousPoint.x, -this.previousPoint.y, point.x, -point.y);
+        } else if (this.previousPoint == null && !this.down) {
           buffer.stroke(
-              point.color.getRed(), point.color.getGreen(), point.color.getBlue(), point.opacity);
+              point.color.getRed(),
+              point.color.getGreen(),
+              point.color.getBlue(),
+              point.opacity);
           buffer.fill(
-              point.color.getRed(), point.color.getGreen(), point.color.getBlue(), point.opacity);
+              point.color.getRed(),
+              point.color.getGreen(),
+              point.color.getBlue(),
+              point.opacity);
           buffer.strokeWeight(point.size);
-          buffer.circle(point.x, point.y, point.size);
+          buffer.circle(point.x, -point.y, point.size);
         }
-        previousPoint = point;
+        this.previousPoint = point;
       }
       if (!this.down || pointsBufferIter.hasNext()) {
-        previousPoint = null;
+        this.previousPoint = null;
         pointsBufferIter.remove();
       } else {
         points.clear();

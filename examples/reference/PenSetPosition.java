@@ -1,6 +1,7 @@
-import org.openpatch.scratch.*;
-import org.openpatch.scratch.extensions.pen.*;
-import org.openpatch.scratch.extensions.recorder.*;
+import org.openpatch.scratch.Stage;
+import org.openpatch.scratch.Window;
+import org.openpatch.scratch.extensions.pen.Pen;
+import org.openpatch.scratch.extensions.recorder.GifRecorder;
 
 public class PenSetPosition {
   public PenSetPosition() {
@@ -13,7 +14,7 @@ public class PenSetPosition {
     while (myStage.getTimer().forMillis(3000)) {
       myPen.changeColor(10);
       myPen.down();
-      myPen.setPosition(myStage.pickRandom(0, myStage.getWidth()), 45);
+      myPen.setPosition(myStage.pickRandom(-myStage.getWidth() / 2, myStage.getWidth() / 2), 45);
       myPen.up();
       myStage.wait(200);
     }
