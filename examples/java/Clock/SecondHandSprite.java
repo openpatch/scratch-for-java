@@ -1,4 +1,5 @@
-import org.openpatch.scratch.*;
+import org.openpatch.scratch.KeyCode;
+import org.openpatch.scratch.Sprite;
 
 public class SecondHandSprite extends Sprite {
 
@@ -8,11 +9,11 @@ public class SecondHandSprite extends Sprite {
 
   public void run() {
     int second = this.getCurrentSecond();
-    if (isKeyPressed(32)) {
+    if (this.isKeyPressed(KeyCode.VK_SPACE)) {
       int millisecond = this.getCurrentMillisecond();
-      this.setDirection((second + millisecond / 1000.0) / 60.0 * 360);
+      this.setDirection(90 + (second + millisecond / 1000.0) / 60.0 * 360);
     } else {
-      this.setDirection(second / 60.0 * 360);
+      this.setDirection(90 + second / 60.0 * 360);
     }
   }
 }

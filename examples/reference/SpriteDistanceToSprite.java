@@ -1,15 +1,17 @@
-import org.openpatch.scratch.*;
-import org.openpatch.scratch.extensions.recorder.*;
+import org.openpatch.scratch.Sprite;
+import org.openpatch.scratch.Stage;
+import org.openpatch.scratch.Window;
+import org.openpatch.scratch.extensions.recorder.GifRecorder;
 
 public class SpriteDistanceToSprite {
   public SpriteDistanceToSprite() {
     Stage myStage = new Stage(254, 100);
 
     Sprite gamma = new Sprite("gamma", "assets/gamma_purple_badge.png");
-    gamma.setPosition(0, 50);
+    gamma.setPosition(-120, 50);
     myStage.add(gamma);
     Sprite zeta = new Sprite("zeta", "assets/zeta_green_badge.png");
-    zeta.setPosition(254, 50);
+    zeta.setPosition(100, 50);
     myStage.add(zeta);
 
     GifRecorder recorder = new GifRecorder("" + this.getClass().getName() + ".gif");

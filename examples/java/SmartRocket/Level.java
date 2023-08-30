@@ -16,41 +16,40 @@ public class Level extends Stage {
 
   public Level() {
     this.ziel = new Ziel();
-    this.ziel.setPosition(600, 20);
-    this.add(ziel);
-    this.population =
-        new Population(
-            this,
-            this.mutationsrate,
-            this.populationsgroesse,
-            new Vector2(Window.getInstance().getWidth() / 2, Window.getInstance().getHeight() - 20),
-            this.ziel,
-            this.lebenszeit);
+    this.ziel.setPosition(100, 20);
+    this.add(this.ziel);
+    this.population = new Population(
+        this,
+        this.mutationsrate,
+        this.populationsgroesse,
+        new Vector2(0, -this.getHeight() + 20),
+        this.ziel,
+        this.lebenszeit);
 
     this.statistiken = new Text();
-    this.statistiken.setPosition(10, 10);
+    this.statistiken.setPosition(-this.getWidth() / 2 + 10, this.getHeight() / 2 - 10);
     this.statistiken.setAlign(TextAlign.LEFT);
-    this.add(statistiken);
+    this.add(this.statistiken);
   }
 
   public void run() {
-    if (ziel != null && this.isMouseDown()) {
-      ziel.setPosition(this.getMouseX(), this.getMouseY());
+    if (this.ziel != null && this.isMouseDown()) {
+      this.ziel.setPosition(this.getMouseX(), this.getMouseY());
     }
-    if (population != null) {
-      if (zeit >= lebenszeit) {
-        zeit = 0;
+    if (this.population != null) {
+      if (this.zeit >= this.lebenszeit) {
+        this.zeit = 0;
         this.population.berechneFit();
         this.population.natuerlicheSelektion();
         this.population.neueGeneration();
       } else {
-        zeit++;
+        this.zeit++;
       }
       String statistikText = "";
-      statistikText += "Generationen: " + population.gibGenerationen() + "\n";
-      statistikText += "Lebenszeit: " + (lebenszeit - zeit) + "\n";
-      statistikText += "Populationsgröße: " + populationsgroesse + "\n";
-      statistikText += "Mutationsrate: " + Math.round(mutationsrate * 100) + "%\n";
+      statistikText += "Generationen: " + this.population.gibGenerationen() + "\n";
+      statistikText += "Lebenszeit: " + (this.lebenszeit - this.zeit) + "\n";
+      statistikText += "Populationsgröße: " + this.populationsgroesse + "\n";
+      statistikText += "Mutationsrate: " + Math.round(this.mutationsrate * 100) + "%\n";
 
       this.statistiken.showText(statistikText);
     }

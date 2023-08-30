@@ -1,5 +1,6 @@
-import org.openpatch.scratch.*;
-import org.openpatch.scratch.extensions.math.*;
+import org.openpatch.scratch.KeyCode;
+import org.openpatch.scratch.Sprite;
+import org.openpatch.scratch.extensions.math.Random;
 
 public class PenSprite extends Sprite {
 
@@ -51,7 +52,7 @@ public class PenSprite extends Sprite {
     if (!this.finished) {
       this.move(1);
       if (Math.random() < 0.05) {
-        float newRotation = Random.random(4) * 90;
+        int newRotation = Random.randomInt(4) * 90;
         this.setDirection(newRotation);
       }
     }
