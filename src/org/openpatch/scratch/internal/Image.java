@@ -223,6 +223,7 @@ public class Image implements Drawable {
     PGraphics g = applet.getGraphics();
     if (inPenBuffer) {
       g = applet.getStage().getPenBuffer();
+      g.beginDraw();
     }
     g.imageMode(PConstants.CENTER);
     g.push();
