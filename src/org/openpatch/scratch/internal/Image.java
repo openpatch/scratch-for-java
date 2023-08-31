@@ -24,6 +24,7 @@ public class Image implements Drawable {
   private int height = 0;
 
   private static final ConcurrentHashMap<String, PImage> originalImages = new ConcurrentHashMap<>();
+  private static final ConcurrentHashMap<String, PImage> originalImageTiles = new ConcurrentHashMap<>();
 
   /**
    * Construct a ScratchImage object by a name and a path to an image.
@@ -89,8 +90,14 @@ public class Image implements Drawable {
       int y,
       int width,
       int height) {
-    var image = Image.loadImage(path);
-    return image.get(x, y, width, height);
+    String key = path + "x" + x + "y" + y + "w" + width + "h" + height;
+    PImage image = originalImageTiles.get(key);
+    if (image == null) {
+      image = loadImage(path);
+      image = image.get(x, y, width, height);
+      originalImageTiles.put(key, image);
+    }
+    return image;
   }
 
   /**
@@ -225,8 +232,8 @@ public class Image implements Drawable {
       g = applet.getStage().getPenBuffer();
       g.beginDraw();
     }
-    g.imageMode(PConstants.CENTER);
     g.push();
+    g.imageMode(PConstants.CENTER);
     g.translate(x + Window.getInstance().getWidth() / 2, -y + Window.getInstance().getHeight() / 2);
     degrees -= 90;
     switch (style) {
