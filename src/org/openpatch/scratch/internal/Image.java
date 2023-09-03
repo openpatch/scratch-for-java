@@ -14,11 +14,11 @@ import processing.core.PImage;
 /** The base class for representing scratch costumes and backdrops. */
 public class Image implements Drawable {
 
-  private String name;
-  private PImage image;
-  private final PImage originalImage;
-  private Color tint = new Color();
-  private float transparency = 255;
+  String name;
+  PImage image;
+  final PImage originalImage;
+  Color tint = new Color();
+  float transparency = 255;
 
   private int width = 0;
   private int height = 0;
@@ -73,6 +73,14 @@ public class Image implements Drawable {
   }
 
   public void removedFromStage(Stage stage) {
+  }
+
+  public float getX() {
+    return 0;
+  }
+
+  public float getY() {
+    return 0;
   }
 
   public static PImage loadImage(String path) {
@@ -224,14 +232,9 @@ public class Image implements Drawable {
       float degrees,
       float x,
       float y,
-      RotationStyle style,
-      boolean inPenBuffer) {
+      RotationStyle style) {
     Applet applet = Applet.getInstance();
     PGraphics g = applet.getGraphics();
-    if (inPenBuffer) {
-      g = applet.getStage().getPenBuffer();
-      g.beginDraw();
-    }
     g.push();
     g.imageMode(PConstants.CENTER);
     g.translate(x + Window.getInstance().getWidth() / 2, -y + Window.getInstance().getHeight() / 2);
@@ -257,11 +260,8 @@ public class Image implements Drawable {
         this.transparency);
     g.image(this.image, 0, 0);
     g.noTint();
-    if (inPenBuffer) {
-      g.endDraw();
-    }
     g.pop();
-    if (!inPenBuffer && applet.isDebug()) {
+    if (applet.isDebug()) {
       applet.push();
       applet.translate(x + Window.getInstance().getWidth() / 2, -y + Window.getInstance().getHeight() / 2);
       applet.fill(
@@ -273,15 +273,6 @@ public class Image implements Drawable {
       applet.text("(" + x + ", " + y + ")", 0, 0);
       applet.pop();
     }
-  }
-
-  public void draw(
-      float size,
-      float degrees,
-      float x,
-      float y,
-      RotationStyle style) {
-    this.draw(size, degrees, x, y, style, false);
   }
 
   public void draw(float size, float degrees, float x, float y) {

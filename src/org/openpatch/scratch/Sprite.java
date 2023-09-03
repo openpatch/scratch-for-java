@@ -1,6 +1,6 @@
 package org.openpatch.scratch;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -16,6 +16,7 @@ import org.openpatch.scratch.internal.Color;
 import org.openpatch.scratch.internal.Drawable;
 import org.openpatch.scratch.internal.Image;
 import org.openpatch.scratch.internal.Sound;
+import org.openpatch.scratch.internal.Stamp;
 
 import processing.event.KeyEvent;
 import processing.event.MouseEvent;
@@ -36,6 +37,7 @@ public class Sprite implements Drawable {
   private final ConcurrentHashMap<String, Timer> timer;
   private final Pen pen;
   private Hitbox hitbox;
+  private boolean hitboxDisabled = false;
   private final Text text;
 
   public Sprite() {
@@ -78,6 +80,8 @@ public class Sprite implements Drawable {
     this.pen = new Pen(s.pen);
     this.text = new Text(s.text);
     this.stage = s.stage;
+    this.hitbox = s.hitbox;
+    this.hitboxDisabled = s.hitboxDisabled;
   }
 
   public void addedToStage(Stage stage) {
@@ -475,6 +479,9 @@ public class Sprite implements Drawable {
   }
 
   public void ifOnEdgeBounce() {
+    if (this.hitboxDisabled)
+      return;
+
     var h = this.getHitbox();
 
     if (h.intersects(this.stage.leftBorder)) {
@@ -798,6 +805,8 @@ public class Sprite implements Drawable {
    * @return true if touching
    */
   public boolean isTouchingMousePointer() {
+    if (this.hitboxDisabled)
+      return false;
 
     var bounds = this.getHitbox().getPolygon().getBounds();
     double topLeftCornerX = bounds.getMinX();
@@ -849,6 +858,8 @@ public class Sprite implements Drawable {
    * @return true if outside
    */
   public boolean isTouchingEdge() {
+    if (this.hitboxDisabled)
+      return false;
     var h = this.getHitbox();
     return h.intersects(this.stage.topBorder) || h.intersects(this.stage.bottomBorder)
         || h.intersects(this.stage.leftBorder) || h.intersects(this.stage.rightBorder);
@@ -887,6 +898,14 @@ public class Sprite implements Drawable {
 
   public void setHitbox(Hitbox hitbox) {
     this.hitbox = hitbox;
+  }
+
+  public void disableHitbox() {
+    this.hitboxDisabled = true;
+  }
+
+  public void enableHitbox() {
+    this.hitboxDisabled = false;
   }
 
   public Hitbox getHitbox() {
@@ -955,37 +974,23 @@ public class Sprite implements Drawable {
   }
 
   public boolean isTouchingSprite(Sprite sprite) {
-    if (sprite == null || !sprite.show)
+    if (sprite == null || !sprite.show || sprite.hitboxDisabled)
       return false;
     return this.getHitbox().intersects(sprite.getHitbox());
   }
 
   public boolean isTouchingSprite(Class<? extends Sprite> c) {
-    for (Drawable d : this.stage.drawables) {
-      if (c.isInstance(d) && this.isTouchingSprite((Sprite) d)) {
-        return true;
-      }
-    }
-    return false;
+    return this.stage.sprites.stream().filter(s -> c.isInstance(s) && this.isTouchingSprite(s)).findFirst().isPresent();
   }
 
-  public Sprite getTouchingSprite(Class<? extends Sprite> c) {
-    for (Drawable d : this.stage.drawables) {
-      if (c.isInstance(d) && this.isTouchingSprite((Sprite) d)) {
-        return (Sprite) d;
-      }
-    }
-    return null;
+  public <T extends Sprite> T getTouchingSprite(Class<T> c) {
+    return (T) this.stage.sprites.stream().filter(s -> c.isInstance(s) && this.isTouchingSprite(s)).findFirst()
+        .orElse(null);
   }
 
-  public ArrayList<Sprite> getTouchingSprites(Class<? extends Sprite> c) {
-    ArrayList<Sprite> sprites = new ArrayList<>();
-    for (Drawable d : this.stage.drawables) {
-      if (c.isInstance(d) && this.isTouchingSprite((Sprite) d)) {
-        sprites.add((Sprite) d);
-      }
-    }
-    return sprites;
+  public <T extends Sprite> List<T> getTouchingSprites(Class<T> c) {
+    return (List<T>) this.stage.sprites.stream().filter(s -> c.isInstance(s) && this.isTouchingSprite(s))
+        .toList();
   }
 
   /**
@@ -1212,16 +1217,25 @@ public class Sprite implements Drawable {
   public void whenIReceive(String message) {
   }
 
-  public void stamp() {
+  public void stampToBackground() {
     if (this.costumes.size() > 0) {
-      this.costumes.get(this.currentCostume)
-          .draw(
-              this.size,
-              this.direction,
-              this.x,
-              this.y,
-              this.rotationStyle,
-              true);
+      var stamp = new Stamp(this.costumes.get(this.currentCostume),
+          this.direction,
+          this.x,
+          this.y,
+          this.rotationStyle);
+      this.stage.backgroundStamps.add(stamp);
+    }
+  }
+
+  public void stampToForeground() {
+    if (this.costumes.size() > 0) {
+      var stamp = new Stamp(this.costumes.get(this.currentCostume),
+          this.direction,
+          this.x,
+          this.y,
+          this.rotationStyle);
+      this.stage.foregroundStamps.add(stamp);
     }
   }
 
@@ -1236,7 +1250,9 @@ public class Sprite implements Drawable {
     }
 
     if (Applet.getInstance().isDebug()) {
-      this.getHitbox().draw();
+      if (!this.hitboxDisabled) {
+        this.getHitbox().draw();
+      }
     }
     this.text.setPosition(
         this.x + this.getWidth() * 0.9 / 2,

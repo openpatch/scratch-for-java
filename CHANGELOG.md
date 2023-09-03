@@ -12,6 +12,7 @@ index: 4
 - 🚀 Feat: Add goToMousePointer to the sprite class.
 - 🚀 Feat: Add goToRandomPosition to the sprite class.
 - 🚀 Feat: switchCostumes now also accepts an integer for switching to a specific index.
+- 🚀 Feat: Allow for custom sorting of sprites by providing a Comparator via the `setSorter`-method of the stage.
 - 🐛 Fix: Random.randomInt did not work correct.
 
 ## 3.9.0
