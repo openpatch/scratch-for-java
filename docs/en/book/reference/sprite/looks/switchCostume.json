@@ -5,7 +5,7 @@
   "name": "switchCostume()",
   "class": "Sprite",
   "description": "Changes the sprite's costume to the specified one.",
-  "syntax": [".switchCostume(name)"],
+  "syntax": [".switchCostume(name)", ".switchCostume(index)"],
   "returns": "void",
   "examples": [
     {
@@ -19,6 +19,11 @@
       "name": "name",
       "description": "Name of the costume.",
       "type": "String"
+    },
+    {
+      "name": "index",
+      "description": "Index of the costume.",
+      "type": "int"
     }
   ]
 }
