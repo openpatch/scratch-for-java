@@ -5,7 +5,7 @@
   "name": "switchCostume()",
   "class": "Sprite",
   "description": "Wechselt das Kostüm der Figur zu einem bestimmten.",
-  "syntax": [".switchCostume(name)"],
+  "syntax": [".switchCostume(name)", ".switchCostume(index)"],
   "returns": "void",
   "examples": [
     {
@@ -19,6 +19,11 @@
       "name": "name",
       "description": "Name des Kostüms",
       "type": "String"
+    },
+    {
+      "name": "index",
+      "description": "Index des Kostüms",
+      "type": "int"
     }
   ]
 }
