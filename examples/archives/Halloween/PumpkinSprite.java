@@ -1,4 +1,4 @@
-import org.openpatch.scratch.extensions.animation.AnimatedSprite;;
+import org.openpatch.scratch.extensions.animation.AnimatedSprite;
 
 public class PumpkinSprite extends AnimatedSprite {
 
