@@ -4,7 +4,7 @@ index: 2
 description: >
   Objekte der Klasse Sprite sind die Figuren, wie du sie aus Scratch kennst.
   Genau wie in Scratch kann eine Figur der Bühne hinzugefügt werden und sich auf
-  der Bühne bewegen, drehen und ihre Ebene ändern. 
+  der Bühne bewegen, drehen und ihre Ebene ändern.
 
 
   Die Objekte der Klasse Sprite können verschiedene Klänge und Kostüme haben.
@@ -32,3 +32,4 @@ description: >
   die du Methode `setRotationStyle` verwenden.
 constructors:
   - Sprite()
+  - Sprite(costumeName, costumePath)
