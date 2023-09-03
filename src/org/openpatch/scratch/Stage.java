@@ -5,20 +5,22 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.openpatch.scratch.extensions.hitbox.Hitbox;
+import org.openpatch.scratch.extensions.pen.Pen;
 import org.openpatch.scratch.extensions.text.Text;
 import org.openpatch.scratch.extensions.text.TextStyle;
 import org.openpatch.scratch.extensions.timer.Timer;
 import org.openpatch.scratch.internal.Applet;
 import org.openpatch.scratch.internal.Color;
-import org.openpatch.scratch.internal.Drawable;
 import org.openpatch.scratch.internal.Image;
 import org.openpatch.scratch.internal.Sound;
+import org.openpatch.scratch.internal.Stamp;
 
 import processing.core.PGraphics;
 import processing.event.KeyEvent;
@@ -31,14 +33,25 @@ public class Stage {
   private Color color = new Color();
   private int currentBackdrop = 0;
   private final CopyOnWriteArrayList<Sound> sounds = new CopyOnWriteArrayList<>();
-  private PGraphics penBuffer;
+
+  ConcurrentLinkedQueue<Stamp> backgroundStamps;
+  private PGraphics backgroundBuffer;
+  private boolean eraseBackgroundBuffer;
+
+  ConcurrentLinkedQueue<Stamp> foregroundStamps;
+  private PGraphics foregroundBuffer;
+  private boolean eraseForegroundBuffer;
+
   private final Text display;
   private final ConcurrentHashMap<String, Timer> timer;
-  CopyOnWriteArrayList<Drawable> drawables;
+  CopyOnWriteArrayList<Text> texts;
+  CopyOnWriteArrayList<Pen> pens;
+  CopyOnWriteArrayList<Sprite> sprites;
   private float mouseX;
   private float mouseY;
   private boolean mouseDown;
   private final ConcurrentHashMap<Integer, Boolean> keyCodePressed = new ConcurrentHashMap<>();
+  private Comparator<? super Sprite> sorter;
 
   Hitbox leftBorder;
   Hitbox rightBorder;
@@ -54,7 +67,11 @@ public class Stage {
   }
 
   public Stage(int width, final int height, String assets) {
-    this.drawables = new CopyOnWriteArrayList<>();
+    this.texts = new CopyOnWriteArrayList<>();
+    this.pens = new CopyOnWriteArrayList<>();
+    this.sprites = new CopyOnWriteArrayList<>();
+    this.backgroundStamps = new ConcurrentLinkedQueue<>();
+    this.foregroundStamps = new ConcurrentLinkedQueue<>();
     this.timer = new ConcurrentHashMap<>();
     if (Window.getInstance() == null) {
       new Window(width, height, assets);
@@ -62,12 +79,14 @@ public class Stage {
       a.addStage("main", this);
     }
     Applet applet = Applet.getInstance();
-    this.penBuffer = applet.createGraphics(applet.width, applet.height, applet.sketchRenderer());
+    this.backgroundBuffer = applet.createGraphics(applet.width, applet.height, applet.sketchRenderer());
+    this.foregroundBuffer = applet.createGraphics(applet.width, applet.height, applet.sketchRenderer());
     /**
      * Smooth does currently not work on Apple Silicon
      * https://github.com/processing/processing4/issues/694
      */
-    this.penBuffer.smooth(8);
+    this.backgroundBuffer.smooth(4);
+    this.foregroundBuffer.smooth(4);
     this.timer.put("default", new Timer());
     this.display = new Text(null, 0, applet.height, applet.width, TextStyle.BOX);
     this.display.addedToStage(this);
@@ -114,47 +133,61 @@ public class Stage {
    *
    * @param drawable
    */
-  public void add(Drawable drawable) {
-    this.drawables.add(drawable);
-    drawable.addedToStage(this);
+  public void add(Sprite sprite) {
+    this.sprites.add(sprite);
+    sprite.addedToStage(this);
   }
 
-  public void goLayersBackwards(Drawable drawable, final int number) {
-    int index = this.drawables.indexOf(drawable);
+  public void add(Text text) {
+    this.texts.add(text);
+    text.addedToStage(this);
+  }
+
+  public void add(Pen pen) {
+    this.pens.add(pen);
+    pen.addedToStage(this);
+  }
+
+  public void goLayersBackwards(Sprite sprite, int number) {
+    int index = this.sprites.indexOf(sprite);
     if (index == -1)
       return;
     int newIndex = index - number;
     if (newIndex < 0)
       newIndex = 0;
-    newIndex = Math.min(newIndex, this.drawables.size() - 1);
-    this.drawables.remove(index);
-    this.drawables.add(newIndex, drawable);
+    newIndex = Math.min(newIndex, this.sprites.size() - 1);
+    this.sprites.remove(index);
+    this.sprites.add(newIndex, sprite);
   }
 
-  public void goLayersForwards(Drawable drawable, final int number) {
-    int index = this.drawables.indexOf(drawable);
+  public void goLayersForwards(Sprite sprite, int number) {
+    int index = this.sprites.indexOf(sprite);
     if (index == -1)
       return;
     int newIndex = index + number;
     if (newIndex < 0)
       newIndex = 0;
-    newIndex = Math.min(newIndex, this.drawables.size() - 1);
-    this.drawables.remove(index);
-    this.drawables.add(newIndex, drawable);
+    newIndex = Math.min(newIndex, this.sprites.size() - 1);
+    this.sprites.remove(index);
+    this.sprites.add(newIndex, sprite);
   }
 
-  public void goToFrontLayer(Drawable drawable) {
-    this.drawables.remove(drawable);
-    this.drawables.add(drawable);
+  public void goToFrontLayer(Sprite sprite) {
+    this.sprites.remove(sprite);
+    this.sprites.add(sprite);
   }
 
-  public void goToBackLayer(Drawable drawable) {
-    this.drawables.remove(drawable);
-    this.drawables.add(0, drawable);
+  public void goToBackLayer(Sprite sprite) {
+    this.sprites.remove(sprite);
+    this.sprites.add(0, sprite);
   }
 
-  public List<Drawable> getAll() {
-    return new ArrayList<>(this.drawables);
+  public void setSorter(Comparator<? super Sprite> sorter) {
+    this.sorter = sorter;
+  }
+
+  public Sprite[] getAll() {
+    return (Sprite[]) this.sprites.toArray();
   }
 
   /**
@@ -162,25 +195,55 @@ public class Stage {
    *
    * @param drawable
    */
-  public void remove(Drawable drawable) {
-    this.drawables.remove(drawable);
-    drawable.removedFromStage(this);
+  public void remove(Sprite sprite) {
+    this.sprites.remove(sprite);
+    sprite.removedFromStage(this);
+  }
+
+  public void remove(Pen pen) {
+    this.pens.remove(pen);
+    pen.removedFromStage(this);
+  }
+
+  public void remove(Text text) {
+    this.texts.remove(text);
+    text.removedFromStage(this);
   }
 
   public void removeAll() {
-    for (Drawable drawable : this.drawables) {
-      drawable.removedFromStage(this);
-    }
-    this.drawables.clear();
+    this.removeAllSprites();
+    this.removeAllTexts();
+    this.removeAllPens();
   }
 
-  public void remove(Class<? extends Drawable> c) {
-    for (Drawable drawable : this.drawables) {
-      if (c.isInstance(drawable)) {
-        drawable.removedFromStage(this);
+  public void removeAllSprites() {
+    for (Sprite sprite : this.sprites) {
+      sprite.removedFromStage(this);
+    }
+    this.sprites.clear();
+  }
+
+  public void removeAllTexts() {
+    for (Text text : this.texts) {
+      text.removedFromStage(this);
+    }
+    this.texts.clear();
+  }
+
+  public void removeAllPens() {
+    for (Pen pen : this.pens) {
+      pen.removedFromStage(this);
+    }
+    this.pens.clear();
+  }
+
+  public void remove(Class<? extends Sprite> c) {
+    for (Sprite sprite : this.sprites) {
+      if (c.isInstance(sprite)) {
+        sprite.removedFromStage(this);
       }
     }
-    this.drawables.removeIf(c::isInstance);
+    this.sprites.removeIf(c::isInstance);
   }
 
   /**
@@ -188,14 +251,8 @@ public class Stage {
    *
    * @param c Class
    */
-  public List<Drawable> find(Class<? extends Drawable> c) {
-    ArrayList<Drawable> drawables = new ArrayList<>();
-    for (Drawable d : this.drawables) {
-      if (c.isInstance(d)) {
-        drawables.add(d);
-      }
-    }
-    return drawables;
+  public <T extends Sprite> List<T> find(Class<T> c) {
+    return (List<T>) this.sprites.stream().filter(c::isInstance).toList();
   }
 
   /**
@@ -250,13 +307,7 @@ public class Stage {
   private void emitBackdropSwitch() {
     Image backdrop = this.backdrops.get(this.currentBackdrop);
     String name = backdrop.getName();
-    this.drawables.stream()
-        .forEach(
-            d -> {
-              if (d instanceof Sprite) {
-                ((Sprite) d).whenBackdropSwitches(name);
-              }
-            });
+    this.sprites.stream().forEach(s -> s.whenBackdropSwitches(name));
     this.whenBackdropSwitches(name);
   }
 
@@ -302,10 +353,16 @@ public class Stage {
 
   /** Erases all lines on the pen layer. */
   public void eraseAll() {
-    try {
-      this.penBuffer = Applet.getInstance().createGraphics(this.getWidth(), this.getHeight());
-    } catch (Exception e) {
-    }
+    this.eraseBackgroundBuffer = true;
+    this.eraseForegroundBuffer = true;
+  }
+
+  public void eraseBackground() {
+    this.eraseBackgroundBuffer = true;
+  }
+
+  public void eraseForeground() {
+    this.eraseForegroundBuffer = true;
   }
 
   /**
@@ -395,8 +452,12 @@ public class Stage {
    *
    * @return the pen buffer
    */
-  public PGraphics getPenBuffer() {
-    return this.penBuffer;
+  public PGraphics getBackgroundBuffer() {
+    return this.backgroundBuffer;
+  }
+
+  public PGraphics getForegroundBuffer() {
+    return this.foregroundBuffer;
   }
 
   /**
@@ -566,15 +627,11 @@ public class Stage {
     if (e.getAction() == MouseEvent.PRESS) {
       this.mouseDown = true;
     } else if (e.getAction() == MouseEvent.CLICK) {
-      this.drawables.stream()
-          .forEach(
-              d -> {
-                if (d instanceof Sprite) {
-                  if (((Sprite) d).isTouchingMousePointer()) {
-                    ((Sprite) d).whenClicked();
-                  }
-                }
-              });
+      this.sprites.stream().forEach(s -> {
+        if (s.isTouchingMousePointer()) {
+          s.whenClicked();
+        }
+      });
     }
   }
 
@@ -742,13 +799,7 @@ public class Stage {
   }
 
   public void broadcast(String message) {
-    this.drawables.stream()
-        .forEach(
-            d -> {
-              if (d instanceof Sprite) {
-                ((Sprite) d).whenIReceive(message);
-              }
-            });
+    this.sprites.stream().forEach(s -> s.whenIReceive(message));
   }
 
   public void whenIReceive(String message) {
@@ -766,14 +817,34 @@ public class Stage {
     if (this.backdrops.size() > 0) {
       this.backdrops.get(this.currentBackdrop).drawAsBackground();
     }
-    if (this.penBuffer.pixels != null) {
-      applet.image(this.penBuffer, applet.width / 2, applet.height / 2);
+    this.backgroundBuffer.beginDraw();
+    if (this.eraseBackgroundBuffer) {
+      this.backgroundBuffer.background(255);
+      this.eraseBackgroundBuffer = false;
+    }
+    this.pens.stream().forEach(p -> p.draw());
+    while (!this.backgroundStamps.isEmpty()) {
+      this.backgroundStamps.poll().draw(this.backgroundBuffer);
+    }
+    this.backgroundBuffer.endDraw();
+    if (this.backgroundBuffer.pixels != null) {
+      applet.image(this.backgroundBuffer, applet.width / 2, applet.height / 2);
     } else {
       try {
-        this.penBuffer.loadPixels();
+        this.backgroundBuffer.loadPixels();
       } catch (Exception e) {
       }
     }
+
+    this.foregroundBuffer.beginDraw();
+    if (this.eraseForegroundBuffer) {
+      this.foregroundBuffer.clear();
+      this.eraseForegroundBuffer = false;
+    }
+    while (!this.foregroundStamps.isEmpty()) {
+      this.foregroundStamps.poll().draw(this.foregroundBuffer);
+    }
+    this.foregroundBuffer.endDraw();
   }
 
   /**
@@ -795,11 +866,22 @@ public class Stage {
     Applet applet = Applet.getInstance();
     if (applet == null)
       return;
-    for (Drawable d : this.drawables) {
-      d.draw();
+    if (this.sorter != null) {
+      this.sprites.sort(this.sorter);
     }
+    this.sprites.stream().forEach(s -> s.draw());
+    this.texts.stream().forEach(t -> t.draw());
+
     if (this.display != null) {
       this.display.draw();
+    }
+    if (this.foregroundBuffer.pixels != null) {
+      applet.image(this.foregroundBuffer, applet.width / 2, applet.height / 2);
+    } else {
+      try {
+        this.foregroundBuffer.loadPixels();
+      } catch (Exception e) {
+      }
     }
 
     if (applet.isDebug()) {

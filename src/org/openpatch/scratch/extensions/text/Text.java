@@ -104,6 +104,14 @@ public class Text implements Drawable {
   public void removedFromStage(Stage stage) {
   }
 
+  public float getX() {
+    return this.x;
+  }
+
+  public float getY() {
+    return this.y;
+  }
+
   public void addFont(String name, String path) {
     for (Font font : this.fonts) {
       if (font.getName().equals(name)) {
