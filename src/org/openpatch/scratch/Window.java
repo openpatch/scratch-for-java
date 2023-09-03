@@ -49,6 +49,10 @@ public class Window {
     return Applet.getInstance().getHeight();
   }
 
+  public void setDefaultFont(String path) {
+    Font.defaultFontPath = path;
+  }
+
   public void addStage(String name, final Stage stage) {
     Applet.getInstance().addStage(name, stage);
   }

@@ -41,6 +41,7 @@ public class Pen implements Drawable {
   private Point previousPoint = null;
   private Stage stage;
   private Sprite sprite;
+  private boolean isForeground = false;
 
   public Pen() {
   }
@@ -113,6 +114,14 @@ public class Pen implements Drawable {
     this.color.changeColor((float) c);
   }
 
+  public void goToBackground() {
+    this.isForeground = false;
+  }
+
+  public void goToForeground() {
+    this.isForeground = true;
+  }
+
   /**
    * Set the size of the pen
    *
@@ -173,6 +182,14 @@ public class Pen implements Drawable {
     this.setPosition(v.getX(), v.getY());
   }
 
+  public float getX() {
+    return 0;
+  }
+
+  public float getY() {
+    return 0;
+  }
+
   public void goToRandomPosition() {
     this.setPosition(Random.randomInt(-this.stage.getWidth() / 2, this.stage.getWidth() / 2),
         Random.randomInt(-this.stage.getHeight() / 2, this.stage.getHeight() / 2));
@@ -197,14 +214,22 @@ public class Pen implements Drawable {
 
   public void stamp() {
     if (this.sprite != null) {
-      this.sprite.stamp();
+      if (this.isForeground) {
+        this.sprite.stampToForeground();
+      } else {
+        this.sprite.stampToBackground();
+      }
     }
   }
 
   public void eraseAll() {
     this.pointsBuffer.clear();
     if (this.stage != null) {
-      this.stage.eraseAll();
+      if (this.isForeground) {
+        this.stage.eraseForeground();
+      } else {
+        this.stage.eraseBackground();
+      }
     }
   }
 
@@ -212,7 +237,10 @@ public class Pen implements Drawable {
   public void draw() {
     if (this.stage == null)
       return;
-    PGraphics buffer = this.stage.getPenBuffer();
+    PGraphics buffer = this.stage.getBackgroundBuffer();
+    if (this.isForeground) {
+      buffer = this.stage.getForegroundBuffer();
+    }
     int pointsBufferSize = this.pointsBuffer.size();
     if (pointsBufferSize <= 0)
       return;
