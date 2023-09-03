@@ -88,8 +88,7 @@
         <mkdir dir="${project.bin}" />
         <mkdir dir="${project.libs}" />
         <mkdir dir="${project.libs}/windows-amd64" />
-        <mkdir dir="${project.libs}/macos-x86_64" />
-        <mkdir dir="${project.libs}/macos-aarch64" />
+        <mkdir dir="${project.libs}/macos-universal" />
         <mkdir dir="${project.libs}/linux-amd64" />
         <mkdir dir="${project.libs}/linux-arm" />
         <mkdir dir="${project.libs}/linux-aarch64" />
@@ -101,13 +100,12 @@
 
         <echo message="download dependencies ..." />
 
-
         <property name="jogl.url"
             value="https://download.processing.org/jogl/v2.4.0-rc-20210111y" />
 
         <get dest="${project.libs}" skipexisting="true" ignoreerrors="true">
             <url
-                url="https://github.com/micycle1/processing-core-4/releases/download/4.2/core-4.2.jar" />
+                url="https://github.com/micycle1/processing-core-4/releases/download/4.2.1/core-4.2.1.jar" />
             <url url="${jogl.url}/gluegen-rt.jar" />
             <url url="${jogl.url}/jogl-all.jar" />
             <url
@@ -123,45 +121,36 @@
         </get>
 
         <get dest="${project.libs}/linux-amd64" skipexisting="true" ignoreerrors="true">
-            <url
-                url="https://download.processing.org/jogl/v2.4.0-rc-20210111y/gluegen-rt-natives-linux-amd64.jar" />
-            <url
-                url="https://download.processing.org/jogl/v2.4.0-rc-20210111y/jogl-all-natives-linux-amd64.jar" />
+            <url url="${jogl.url}/gluegen-rt-natives-linux-amd64.jar" />
+            <url url="${jogl.url}/jogl-all-natives-linux-amd64.jar" />
         </get>
 
         <get dest="${project.libs}/linux-arm" skipexisting="true" ignoreerrors="true">
             <url
-                url="https://download.processing.org/jogl/v2.4.0-rc-20210111y/gluegen-rt-natives-linux-arm.jar" />
+                url="https://jogamp.org/deployment/v2.5.0/jar/gluegen-rt-natives-linux-armv6hf.jar" />
             <url
-                url="https://download.processing.org/jogl/v2.4.0-rc-20210111y/jogl-all-natives-linux-arm.jar" />
+                url="https://jogamp.org/deployment/v2.5.0/jar/jogl-all-natives-linux-armv6hf.jar" />
         </get>
 
         <get dest="${project.libs}/linux-aarch64" skipexisting="true" ignoreerrors="true">
             <url
-                url="https://download.processing.org/jogl/v2.4.0-rc-20210111y/gluegen-rt-natives-linux-aarch64.jar" />
+                url="https://jogamp.org/deployment/v2.5.0/jar/gluegen-rt-natives-linux-aarch64.jar" />
             <url
-                url="https://download.processing.org/jogl/v2.4.0-rc-20210111y/jogl-all-natives-linux-aarch64.jar" />
+                url="https://jogamp.org/deployment/v2.5.0/jar/jogl-all-natives-linux-aarch64.jar" />
         </get>
 
         <get dest="${project.libs}/windows-amd64" skipexisting="true" ignoreerrors="true">
             <url
-                url="https://download.processing.org/jogl/v2.4.0-rc-20210111y/gluegen-rt-natives-windows-amd64.jar" />
+                url="https://jogamp.org/deployment/v2.5.0/jar/gluegen-rt-natives-windows-amd64.jar" />
             <url
-                url="https://download.processing.org/jogl/v2.4.0-rc-20210111y/jogl-all-natives-windows-amd64.jar" />
+                url="https://jogamp.org/deployment/v2.5.0/jar/jogl-all-natives-windows-amd64.jar" />
         </get>
 
-        <get dest="${project.libs}/macos-x86_64" skipexisting="true" ignoreerrors="true">
+        <get dest="${project.libs}/macos-universal" skipexisting="true" ignoreerrors="true">
             <url
-                url="https://download.processing.org/jogl/v2.4.0-rc-20210111y/gluegen-rt-natives-macos-x86_64.jar" />
+                url="https://jogamp.org/deployment/v2.5.0/jar/gluegen-rt-natives-macosx-universal.jar" />
             <url
-                url="https://download.processing.org/jogl/v2.4.0-rc-20210111y/jogl-all-natives-macos-x86_64.jar" />
-        </get>
-
-        <get dest="${project.libs}/macos-aarch64" skipexisting="true" ignoreerrors="true">
-            <url
-                url="https://download.processing.org/jogl/v2.4.0-rc-20210111y/gluegen-rt-natives-macos-aarch64.jar" />
-            <url
-                url="https://download.processing.org/jogl/v2.4.0-rc-20210111y/jogl-all-natives-macos-aarch64.jar" />
+                url="https://jogamp.org/deployment/v2.5.0/jar/jogl-all-natives-macosx-universal.jar" />
         </get>
 
         <if>
@@ -308,24 +297,10 @@
         </jar>
 
         <jar
-            jarfile="${project.tmp}/${project.name}/${folder}/${project.jar.name}-macos-x86_64.jar"
+            jarfile="${project.tmp}/${project.name}/${folder}/${project.jar.name}-macos-universal.jar"
             basedir="${project.bin}">
             <zipgroupfileset dir="${project.libs}" includes="*.jar" />
-            <zipgroupfileset dir="${project.libs}/macos-x86_64" includes="*.jar" />
-            <manifest>
-                <attribute name="Class-Path" value="${project.libs}" />
-                <!-- Information about the program itself -->
-                <attribute name="Implementation-Vendor" value="${author.name}" />
-                <attribute name="Implementation-Title" value="${project.prettyName}" />
-                <attribute name="Implementation-Version" value="${library.version}" />
-            </manifest>
-        </jar>
-
-        <jar
-            jarfile="${project.tmp}/${project.name}/${folder}/${project.jar.name}-macos-aarch64.jar"
-            basedir="${project.bin}">
-            <zipgroupfileset dir="${project.libs}" includes="*.jar" />
-            <zipgroupfileset dir="${project.libs}/macos-aarch64" includes="*.jar" />
+            <zipgroupfileset dir="${project.libs}/macos-universal" includes="*.jar" />
             <manifest>
                 <attribute name="Class-Path" value="${project.libs}" />
                 <!-- Information about the program itself -->
@@ -381,10 +356,7 @@
             file="${project.dist.version}/tmp/${project.name}/library/${project.jar.name}-linux-aarch64.jar"
             todir="${project.dist}" />
         <move
-            file="${project.dist.version}/tmp/${project.name}/library/${project.jar.name}-macos-x86_64.jar"
-            todir="${project.dist}" />
-        <move
-            file="${project.dist.version}/tmp/${project.name}/library/${project.jar.name}-macos-aarch64.jar"
+            file="${project.dist.version}/tmp/${project.name}/library/${project.jar.name}-macos-universal.jar"
             todir="${project.dist}" />
 
         <copy file="resources/index.html" todir="${project.dist}" />
