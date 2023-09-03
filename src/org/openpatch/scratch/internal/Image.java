@@ -1,11 +1,9 @@
 package org.openpatch.scratch.internal;
 
 import java.util.concurrent.ConcurrentHashMap;
-
 import org.openpatch.scratch.RotationStyle;
 import org.openpatch.scratch.Stage;
 import org.openpatch.scratch.Window;
-
 import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PGraphics;
@@ -24,12 +22,13 @@ public class Image implements Drawable {
   private int height = 0;
 
   private static final ConcurrentHashMap<String, PImage> originalImages = new ConcurrentHashMap<>();
-  private static final ConcurrentHashMap<String, PImage> originalImageTiles = new ConcurrentHashMap<>();
+  private static final ConcurrentHashMap<String, PImage> originalImageTiles =
+      new ConcurrentHashMap<>();
 
   /**
    * Construct a ScratchImage object by a name and a path to an image.
    *
-   * @param name      a a name
+   * @param name a a name
    * @param imagePath a path to an image
    */
   public Image(String name, String imagePath) {
@@ -40,13 +39,7 @@ public class Image implements Drawable {
     this.image = this.originalImage;
   }
 
-  public Image(
-      String name,
-      String spriteSheetPath,
-      int x,
-      int y,
-      int width,
-      int height) {
+  public Image(String name, String spriteSheetPath, int x, int y, int width, int height) {
     this.name = name;
     this.originalImage = Image.loadImage(spriteSheetPath, x, y, width, height);
     this.image = this.originalImage;
@@ -69,11 +62,9 @@ public class Image implements Drawable {
     this.height = i.height;
   }
 
-  public void addedToStage(Stage stage) {
-  }
+  public void addedToStage(Stage stage) {}
 
-  public void removedFromStage(Stage stage) {
-  }
+  public void removedFromStage(Stage stage) {}
 
   public float getX() {
     return 0;
@@ -92,12 +83,7 @@ public class Image implements Drawable {
     return image;
   }
 
-  public static PImage loadImage(
-      String path,
-      int x,
-      int y,
-      int width,
-      int height) {
+  public static PImage loadImage(String path, int x, int y, int width, int height) {
     String key = path + "x" + x + "y" + y + "w" + width + "h" + height;
     PImage image = originalImageTiles.get(key);
     if (image == null) {
@@ -222,17 +208,12 @@ public class Image implements Drawable {
   /**
    * Draw the scaled image at a given position.
    *
-   * @param size    a percentage value
+   * @param size a percentage value
    * @param degrees direction
-   * @param x       a x coordinate
-   * @param y       a y coordinate
+   * @param x a x coordinate
+   * @param y a y coordinate
    */
-  public void draw(
-      float size,
-      float degrees,
-      float x,
-      float y,
-      RotationStyle style) {
+  public void draw(float size, float degrees, float x, float y, RotationStyle style) {
     Applet applet = Applet.getInstance();
     PGraphics g = applet.getGraphics();
     g.push();
@@ -253,21 +234,15 @@ public class Image implements Drawable {
         }
         break;
     }
-    g.tint(
-        this.tint.getRed(),
-        this.tint.getGreen(),
-        this.tint.getBlue(),
-        this.transparency);
+    g.tint(this.tint.getRed(), this.tint.getGreen(), this.tint.getBlue(), this.transparency);
     g.image(this.image, 0, 0);
     g.noTint();
     g.pop();
     if (applet.isDebug()) {
       applet.push();
-      applet.translate(x + Window.getInstance().getWidth() / 2, -y + Window.getInstance().getHeight() / 2);
-      applet.fill(
-          Window.DEBUG_COLOR[0],
-          Window.DEBUG_COLOR[1],
-          Window.DEBUG_COLOR[1]);
+      applet.translate(
+          x + Window.getInstance().getWidth() / 2, -y + Window.getInstance().getHeight() / 2);
+      applet.fill(Window.DEBUG_COLOR[0], Window.DEBUG_COLOR[1], Window.DEBUG_COLOR[1]);
       applet.textAlign(PConstants.CENTER);
       applet.text("Direction: " + (degrees + 90), 0, -this.height / 2.0f - 10);
       applet.text("(" + x + ", " + y + ")", 0, 0);
@@ -282,26 +257,15 @@ public class Image implements Drawable {
   /** Draw the image. */
   public void draw() {
     PApplet parent = Applet.getInstance();
-    parent.tint(
-        this.tint.getRed(),
-        this.tint.getGreen(),
-        this.tint.getBlue(),
-        this.transparency);
+    parent.tint(this.tint.getRed(), this.tint.getGreen(), this.tint.getBlue(), this.transparency);
     parent.image(this.image, 0, 0);
     parent.noTint();
   }
 
-  /**
-   * Draw the image as a background. The image is automatically scaled to fit the
-   * window size.
-   */
+  /** Draw the image as a background. The image is automatically scaled to fit the window size. */
   public void drawAsBackground() {
     PApplet parent = Applet.getInstance();
-    parent.tint(
-        this.tint.getRed(),
-        this.tint.getGreen(),
-        this.tint.getBlue(),
-        this.transparency);
+    parent.tint(this.tint.getRed(), this.tint.getGreen(), this.tint.getBlue(), this.transparency);
     parent.image(this.image, parent.width / 2, parent.height / 2);
     parent.noTint();
   }

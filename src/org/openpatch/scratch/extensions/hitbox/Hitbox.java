@@ -3,11 +3,9 @@ package org.openpatch.scratch.extensions.hitbox;
 import java.awt.Point;
 import java.awt.Polygon;
 import java.awt.geom.Area;
-
 import org.openpatch.scratch.Stage;
 import org.openpatch.scratch.Window;
 import org.openpatch.scratch.internal.Applet;
-
 import processing.core.PConstants;
 
 public class Hitbox {
@@ -101,8 +99,7 @@ public class Hitbox {
     applet.translate(applet.width / 2, applet.height / 2);
     applet.beginShape();
     for (int i = 0; i < xPoints.length; i++) {
-      applet.vertex(xPoints[i],
-          yPoints[i]);
+      applet.vertex(xPoints[i], yPoints[i]);
     }
     applet.endShape(PConstants.CLOSE);
     applet.pop();
