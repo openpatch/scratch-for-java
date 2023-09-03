@@ -18,13 +18,14 @@ public class Level extends Stage {
     this.ziel = new Ziel();
     this.ziel.setPosition(100, 20);
     this.add(this.ziel);
-    this.population = new Population(
-        this,
-        this.mutationsrate,
-        this.populationsgroesse,
-        new Vector2(0, -this.getHeight() + 20),
-        this.ziel,
-        this.lebenszeit);
+    this.population =
+        new Population(
+            this,
+            this.mutationsrate,
+            this.populationsgroesse,
+            new Vector2(0, -this.getHeight() + 20),
+            this.ziel,
+            this.lebenszeit);
 
     this.statistiken = new Text();
     this.statistiken.setPosition(-this.getWidth() / 2 + 10, this.getHeight() / 2 - 10);

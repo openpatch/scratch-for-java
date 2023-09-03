@@ -16,9 +16,7 @@ public class Character extends AnimatedSprite {
     this.setOnEdgeBounce(true);
 
     this.tintColor = (int) this.pickRandom(0, 256);
-    this.setPosition(
-        this.pickRandom(-200, 200),
-        this.pickRandom(-200, 200));
+    this.setPosition(this.pickRandom(-200, 200), this.pickRandom(-200, 200));
     this.setDirection(this.pickRandom(0, 360));
   }
 

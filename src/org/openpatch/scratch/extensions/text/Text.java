@@ -1,7 +1,6 @@
 package org.openpatch.scratch.extensions.text;
 
 import java.util.concurrent.CopyOnWriteArrayList;
-
 import org.davidmoten.text.utils.WordWrap;
 import org.openpatch.scratch.Sprite;
 import org.openpatch.scratch.Stage;
@@ -10,7 +9,6 @@ import org.openpatch.scratch.internal.Applet;
 import org.openpatch.scratch.internal.Color;
 import org.openpatch.scratch.internal.Drawable;
 import org.openpatch.scratch.internal.Font;
-
 import processing.core.PApplet;
 import processing.core.PConstants;
 
@@ -101,8 +99,7 @@ public class Text implements Drawable {
     this.stage = stage;
   }
 
-  public void removedFromStage(Stage stage) {
-  }
+  public void removedFromStage(Stage stage) {}
 
   public float getX() {
     return this.x;
@@ -297,7 +294,12 @@ public class Text implements Drawable {
     }
 
     if (mirror) {
-      x = (float) (this.sprite.getX() + applet.width / 2 - this.sprite.getWidth() * 0.9 / 2 - this.width);
+      x =
+          (float)
+              (this.sprite.getX()
+                  + applet.width / 2
+                  - this.sprite.getWidth() * 0.9 / 2
+                  - this.width);
       if (x < 0) {
         x = 0;
       }
@@ -402,10 +404,8 @@ public class Text implements Drawable {
   }
 
   public void draw() {
-    if (this.stage == null)
-      return;
-    if (!this.show || this.originalText == null)
-      return;
+    if (this.stage == null) return;
+    if (!this.show || this.originalText == null) return;
 
     var applet = Applet.getInstance();
 
@@ -420,18 +420,21 @@ public class Text implements Drawable {
 
     switch (this.style) {
       case SPEAK:
-      case THINK: {
-        this.drawBubble();
-        break;
-      }
-      case PLAIN: {
-        this.drawPlain();
-        break;
-      }
-      case BOX: {
-        this.drawBox();
-        break;
-      }
+      case THINK:
+        {
+          this.drawBubble();
+          break;
+        }
+      case PLAIN:
+        {
+          this.drawPlain();
+          break;
+        }
+      case BOX:
+        {
+          this.drawBox();
+          break;
+        }
     }
     applet.pop();
 
