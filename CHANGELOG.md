@@ -3,6 +3,10 @@ name: Changelog
 index: 4
 ---
 
+## 4.0.1
+
+- 🐛 Fix: Scratch for Java Window not creating on Windows
+
 ## 4.0.0
 
 - 💥 BREAKING CHANGE: Move (0, 0) to the center of the stage to be in-line with Scratch.
