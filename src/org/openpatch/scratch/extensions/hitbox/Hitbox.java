@@ -3,10 +3,12 @@ package org.openpatch.scratch.extensions.hitbox;
 import java.awt.Point;
 import java.awt.Polygon;
 import java.awt.geom.Area;
-import org.openpatch.scratch.Stage;
+
 import org.openpatch.scratch.Window;
-import org.openpatch.scratch.internal.Applet;
+import org.openpatch.scratch.extensions.math.Utils;
+
 import processing.core.PConstants;
+import processing.core.PGraphics;
 
 public class Hitbox {
   private final Polygon originalPolygon;
@@ -63,7 +65,7 @@ public class Hitbox {
     for (int i = 0; i < polygon.xpoints.length; i++) {
       int xPoint = polygon.xpoints[i];
       int yPoint = polygon.ypoints[i];
-      float[] rotatedXY = Stage.rotateXY(xPoint, yPoint, originX, originY, degrees);
+      float[] rotatedXY = Utils.rotateXY(xPoint, yPoint, originX, originY, degrees);
       xPoints[i] = Math.round(rotatedXY[0]);
       yPoints[i] = Math.round(rotatedXY[1]);
     }
@@ -88,25 +90,24 @@ public class Hitbox {
     return new Polygon(xPoints, yPoints, xPoints.length);
   }
 
-  private void draw(Polygon polygon, float r, float g, float b) {
-    int[] xPoints = polygon.xpoints;
-    int[] yPoints = polygon.ypoints;
-    Applet applet = Applet.getInstance();
-    applet.stroke(r, g, b);
-    applet.strokeWeight(2);
-    applet.noFill();
-    applet.push();
-    applet.translate(applet.width / 2, applet.height / 2);
-    applet.beginShape();
+  private void drawDebug(PGraphics buffer, float r, float g, float b) {
+    int[] xPoints = this.polygon.xpoints;
+    int[] yPoints = this.polygon.ypoints;
+    buffer.stroke(r, g, b);
+    buffer.strokeWeight(2);
+    buffer.noFill();
+    buffer.push();
+    buffer.translate(buffer.width / 2, buffer.height / 2);
+    buffer.beginShape();
     for (int i = 0; i < xPoints.length; i++) {
-      applet.vertex(xPoints[i], yPoints[i]);
+      buffer.vertex(xPoints[i], yPoints[i]);
     }
-    applet.endShape(PConstants.CLOSE);
-    applet.pop();
+    buffer.endShape(PConstants.CLOSE);
+    buffer.pop();
   }
 
-  public void draw() {
-    this.draw(this.polygon, Window.DEBUG_COLOR[0], Window.DEBUG_COLOR[1], Window.DEBUG_COLOR[2]);
+  public void drawDebug(PGraphics buffer) {
+    this.drawDebug(buffer, Window.DEBUG_COLOR[0], Window.DEBUG_COLOR[1], Window.DEBUG_COLOR[2]);
   }
 
   public boolean contains(float x, float y) {
