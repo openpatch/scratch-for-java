@@ -3,10 +3,8 @@ package org.openpatch.scratch.extensions.hitbox;
 import java.awt.Point;
 import java.awt.Polygon;
 import java.awt.geom.Area;
-
 import org.openpatch.scratch.Window;
 import org.openpatch.scratch.extensions.math.Utils;
-
 import processing.core.PConstants;
 import processing.core.PGraphics;
 
