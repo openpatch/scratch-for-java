@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.CopyOnWriteArrayList;
+
 import org.openpatch.scratch.extensions.hitbox.Hitbox;
 import org.openpatch.scratch.extensions.pen.Pen;
 import org.openpatch.scratch.extensions.text.Text;
@@ -20,6 +21,7 @@ import org.openpatch.scratch.internal.Color;
 import org.openpatch.scratch.internal.Image;
 import org.openpatch.scratch.internal.Sound;
 import org.openpatch.scratch.internal.Stamp;
+
 import processing.core.PGraphics;
 import processing.event.KeyEvent;
 import processing.event.MouseEvent;
@@ -39,6 +41,8 @@ public class Stage {
   ConcurrentLinkedQueue<Stamp> foregroundStamps;
   private PGraphics foregroundBuffer;
   private boolean eraseForegroundBuffer;
+
+  private PGraphics debugBuffer;
 
   private final Text display;
   private final ConcurrentHashMap<String, Timer> timer;
@@ -77,16 +81,16 @@ public class Stage {
       a.addStage("main", this);
     }
     Applet applet = Applet.getInstance();
-    this.backgroundBuffer =
-        applet.createGraphics(applet.width, applet.height, applet.sketchRenderer());
-    this.foregroundBuffer =
-        applet.createGraphics(applet.width, applet.height, applet.sketchRenderer());
+    this.backgroundBuffer = applet.createGraphics(applet.width, applet.height, applet.sketchRenderer());
+    this.foregroundBuffer = applet.createGraphics(applet.width, applet.height, applet.sketchRenderer());
+    this.debugBuffer = applet.createGraphics(applet.width, applet.height, applet.sketchRenderer());
     /**
      * Smooth does currently not work on Apple Silicon
      * https://github.com/processing/processing4/issues/694
      */
     this.backgroundBuffer.smooth(4);
     this.foregroundBuffer.smooth(4);
+    this.debugBuffer.smooth(4);
     this.timer.put("default", new Timer());
     this.display = new Text(null, 0, applet.height, applet.width, TextStyle.BOX);
     this.display.addedToStage(this);
@@ -150,9 +154,11 @@ public class Stage {
 
   public void goLayersBackwards(Sprite sprite, int number) {
     int index = this.sprites.indexOf(sprite);
-    if (index == -1) return;
+    if (index == -1)
+      return;
     int newIndex = index - number;
-    if (newIndex < 0) newIndex = 0;
+    if (newIndex < 0)
+      newIndex = 0;
     newIndex = Math.min(newIndex, this.sprites.size() - 1);
     this.sprites.remove(index);
     this.sprites.add(newIndex, sprite);
@@ -160,9 +166,11 @@ public class Stage {
 
   public void goLayersForwards(Sprite sprite, int number) {
     int index = this.sprites.indexOf(sprite);
-    if (index == -1) return;
+    if (index == -1)
+      return;
     int newIndex = index + number;
-    if (newIndex < 0) newIndex = 0;
+    if (newIndex < 0)
+      newIndex = 0;
     newIndex = Math.min(newIndex, this.sprites.size() - 1);
     this.sprites.remove(index);
     this.sprites.add(newIndex, sprite);
@@ -252,9 +260,10 @@ public class Stage {
   }
 
   /**
-   * Add a backdrop to the stage. If a backdrop with the received name already exists do nothing.
+   * Add a backdrop to the stage. If a backdrop with the received name already
+   * exists do nothing.
    *
-   * @param name a unique name
+   * @param name      a unique name
    * @param imagePath a image path
    */
   public void addBackdrop(String name, final String imagePath) {
@@ -306,7 +315,8 @@ public class Stage {
     this.whenBackdropSwitches(name);
   }
 
-  public void whenBackdropSwitches(String name) {}
+  public void whenBackdropSwitches(String name) {
+  }
 
   /** Switch to the next backdrop. */
   public void nextBackdrop() {
@@ -360,9 +370,10 @@ public class Stage {
   }
 
   /**
-   * Add a sound to the stage. If a sound with the received name already exists do nothing.
+   * Add a sound to the stage. If a sound with the received name already exists do
+   * nothing.
    *
-   * @param name a unique name
+   * @param name      a unique name
    * @param soundPath a sound path
    */
   public void addSound(String name, final String soundPath) {
@@ -453,6 +464,10 @@ public class Stage {
     return this.foregroundBuffer;
   }
 
+  public PGraphics getDebugBuffer() {
+    return this.debugBuffer;
+  }
+
   /**
    * Sets the background color via a hue value
    *
@@ -496,7 +511,8 @@ public class Stage {
    * @see Image#setTint(float, float, float)
    */
   public void setTint(int r, final int g, final int b) {
-    if (this.backdrops.size() == 0) return;
+    if (this.backdrops.size() == 0)
+      return;
     this.backdrops.get(this.currentBackdrop).setTint(r, g, b);
   }
 
@@ -506,7 +522,8 @@ public class Stage {
    * @see Image#setTint(float)
    */
   public void setTint(float h) {
-    if (this.backdrops.size() == 0) return;
+    if (this.backdrops.size() == 0)
+      return;
     this.backdrops.get(this.currentBackdrop).setTint(h);
   }
 
@@ -516,7 +533,8 @@ public class Stage {
    * @see Image#changeTint(float)
    */
   public void changeTint(float step) {
-    if (this.backdrops.size() == 0) return;
+    if (this.backdrops.size() == 0)
+      return;
 
     this.backdrops.get(this.currentBackdrop).changeTint(step);
   }
@@ -540,13 +558,15 @@ public class Stage {
    * @see Image#changeTransparency(float)
    */
   public void changeTransparency(float step) {
-    if (this.backdrops.size() == 0) return;
+    if (this.backdrops.size() == 0)
+      return;
 
     this.backdrops.get(this.currentBackdrop).changeTransparency(step);
   }
 
   /**
-   * Return the width of the current costume or the pen size, when no costume is available.
+   * Return the width of the current costume or the pen size, when no costume is
+   * available.
    *
    * @return the width of the sprite
    */
@@ -555,7 +575,8 @@ public class Stage {
   }
 
   /**
-   * Return the height of the current costume or the pen size, when no costume is available.
+   * Return the height of the current costume or the pen size, when no costume is
+   * available.
    *
    * @return the height of the sprite
    */
@@ -588,7 +609,8 @@ public class Stage {
    * @param name the name of the timer
    */
   public void addTimer(String name) {
-    if ("default".equals(name)) return;
+    if ("default".equals(name))
+      return;
 
     this.timer.put(name, new Timer());
   }
@@ -599,7 +621,8 @@ public class Stage {
    * @param name the name of the timer
    */
   public void removeTimer(String name) {
-    if ("default".equals(name)) return;
+    if ("default".equals(name))
+      return;
 
     this.timer.remove(name);
   }
@@ -649,7 +672,8 @@ public class Stage {
     return this.mouseDown;
   }
 
-  public void whenKeyPressed(int keyCode) {}
+  public void whenKeyPressed(int keyCode) {
+  }
 
   public void keyEvent(KeyEvent e) {
     switch (e.getAction()) {
@@ -788,12 +812,14 @@ public class Stage {
     this.sprites.stream().forEach(s -> s.whenIReceive(message));
   }
 
-  public void whenIReceive(String message) {}
+  public void whenIReceive(String message) {
+  }
 
   /** Draws the current backdrop or if none a solid color */
   public void pre() {
     Applet applet = Applet.getInstance();
-    if (applet == null) return;
+    if (applet == null)
+      return;
     // redraw background to clear screen
     applet.background(this.color.getRed(), this.color.getGreen(), this.color.getBlue());
 
@@ -843,11 +869,13 @@ public class Stage {
     }
   }
 
-  public void run() {}
+  public void run() {
+  }
 
   public void draw() {
     Applet applet = Applet.getInstance();
-    if (applet == null) return;
+    if (applet == null)
+      return;
     if (this.sorter != null) {
       this.sprites.sort(this.sorter);
     }
@@ -867,29 +895,20 @@ public class Stage {
     }
 
     if (applet.isDebug()) {
-      applet.strokeWeight(1);
-      applet.stroke(Window.DEBUG_COLOR[0], Window.DEBUG_COLOR[1], Window.DEBUG_COLOR[2]);
-      applet.fill(Window.DEBUG_COLOR[0], Window.DEBUG_COLOR[1], Window.DEBUG_COLOR[2]);
+      this.debugBuffer.beginDraw();
+      this.sprites.stream().forEach(s -> s.drawDebug());
+      this.debugBuffer.strokeWeight(1);
+      this.debugBuffer.stroke(Window.DEBUG_COLOR[0], Window.DEBUG_COLOR[1], Window.DEBUG_COLOR[2]);
+      this.debugBuffer.fill(Window.DEBUG_COLOR[0], Window.DEBUG_COLOR[1], Window.DEBUG_COLOR[2]);
       var w = this.getWidth() / 2;
       var h = this.getHeight() / 2;
-      applet.line(this.mouseX + w, 0, this.mouseX + w, applet.height);
-      applet.line(0, -this.mouseY + h, applet.width, -this.mouseY + h);
-      applet.text("(" + this.mouseX + ", " + this.mouseY + ")", this.mouseX + w, -this.mouseY + h);
-      applet.text("FPS: " + Math.round(applet.frameRate * 100) / 100, 20, 10);
+      this.debugBuffer.line(this.mouseX + w, 0, this.mouseX + w, applet.height);
+      this.debugBuffer.line(0, -this.mouseY + h, applet.width, -this.mouseY + h);
+      this.debugBuffer.text("(" + this.mouseX + ", " + this.mouseY + ")", this.mouseX + w, -this.mouseY + h);
+      this.debugBuffer.text("FPS: " + Math.round(applet.frameRate * 100) / 100, 20, 10);
+      this.debugBuffer.endDraw();
     }
     this.run();
   }
 
-  public static float[] rotateXY(
-      float x, float y, final float originX, final float originY, final float degrees) {
-    float[] rotatedXY = new float[2];
-
-    double radians = degrees * Math.PI / 180.0;
-    x = x - originX;
-    y = y - originY;
-    rotatedXY[0] = (float) (x * Math.cos(radians) - y * Math.sin(radians)) + originX;
-    rotatedXY[1] = (float) (x * Math.sin(radians) + y * Math.cos(radians)) + originY;
-
-    return rotatedXY;
-  }
 }

@@ -104,7 +104,7 @@
         <property name="jogl.url"
             value="https://download.processing.org/jogl/v2.4.0-rc-20210111y" />
 
-        <get dest="${project.libs}" skipexisting="true" ignoreerrors="true">
+        <get dest="${project.libs}" skipexisting="true">
             <url
                 url="https://github.com/micycle1/processing-core-4/releases/download/4.2.1/core-4.2.1.jar" />
             <url url="${jogl.url}/gluegen-rt.jar" />
@@ -121,40 +121,40 @@
                 url="https://repo1.maven.org/maven2/com/github/davidmoten/guava-mini/0.1.6/guava-mini-0.1.6.jar" />
         </get>
 
-        <get dest="${project.libs}/linux-amd64" skipexisting="true" ignoreerrors="true">
+        <get dest="${project.libs}/linux-amd64" skipexisting="true">
             <url url="${jogl.url}/gluegen-rt-natives-linux-amd64.jar" />
             <url url="${jogl.url}/jogl-all-natives-linux-amd64.jar" />
         </get>
 
-        <get dest="${project.libs}/linux-arm" skipexisting="true" ignoreerrors="true">
+        <get dest="${project.libs}/linux-arm" skipexisting="true">
             <url
-                url="${jogl.url}/gluegen-rt-natives-linux-armv6hf.jar" />
+                url="${jogl.url}/gluegen-rt-natives-linux-arm.jar" />
             <url
-                url="${jogl.url}jogl-all-natives-linux-armv6hf.jar" />
+                url="${jogl.url}/jogl-all-natives-linux-arm.jar" />
         </get>
 
-        <get dest="${project.libs}/linux-aarch64" skipexisting="true" ignoreerrors="true">
+        <get dest="${project.libs}/linux-aarch64" skipexisting="true">
             <url
                 url="${jogl.url}/gluegen-rt-natives-linux-aarch64.jar" />
             <url
                 url="${jogl.url}/jogl-all-natives-linux-aarch64.jar" />
         </get>
 
-        <get dest="${project.libs}/windows-amd64" skipexisting="true" ignoreerrors="true">
+        <get dest="${project.libs}/windows-amd64" skipexisting="true">
             <url
                 url="${jogl.url}/gluegen-rt-natives-windows-amd64.jar" />
             <url
                 url="${jogl.url}/jogl-all-natives-windows-amd64.jar" />
         </get>
 
-        <get dest="${project.libs}/macos-x86_64" skipexisting="true" ignoreerrors="true">
+        <get dest="${project.libs}/macos-x86_64" skipexisting="true">
             <url
-                url="${jogl.url}/gluegen-rt-natives-macosx-x86_64.jar" />
+                url="${jogl.url}/gluegen-rt-natives-macos-x86_64.jar" />
             <url
-                url="${jogl.url}/jogl-all-natives-macosx-x86_64.jar" />
+                url="${jogl.url}/jogl-all-natives-macos-x86_64.jar" />
         </get>
 
-        <get dest="${project.libs}/macos-aarch64" skipexisting="true" ignoreerrors="true">
+        <get dest="${project.libs}/macos-aarch64" skipexisting="true">
             <url
                 url="${jogl.url}/gluegen-rt-natives-macos-aarch64.jar" />
             <url
