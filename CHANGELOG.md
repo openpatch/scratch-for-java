@@ -3,6 +3,10 @@ name: Changelog
 index: 4
 ---
 
+## 4.0.2
+
+- 🐛 Fix: Missing stamp method on Sprite
+
 ## 4.0.1
 
 - 🐛 Fix: Scratch for Java Window not creating on Windows
@@ -10,7 +14,7 @@ index: 4
 ## 4.0.0
 
 - 💥 BREAKING CHANGE: Move (0, 0) to the center of the stage to be in-line with Scratch.
-- 🚀 Feat: Add stamp method to the pen `pen.stamp()`.
+- 🚀 Feat: Add stamp method to the pen `pen.stamp()`. This is also available on a Sprite with `stamp()`, `stampToForeground()` or `stampToBackground()`.
 - 🚀 Feat: Unify constructors of Window and Stage.
 - 🚀 Feat: Load all tiles from a sprite sheet as costumes with addCostumes.
 - 🚀 Feat: Add goToMousePointer to the sprite class.
