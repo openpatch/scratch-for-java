@@ -30,6 +30,7 @@ public class Applet extends PApplet {
   public CopyOnWriteArrayList<StageBox> stages = new CopyOnWriteArrayList<>();
   public int currentStage = -1;
 
+  private boolean hasLoaded = false;
   private String loadingText = "";
 
   private class StageBox {
@@ -221,6 +222,7 @@ public class Applet extends PApplet {
       } catch (IOException | URISyntaxException e) {
       }
     }
+    this.hasLoaded = true;
   }
 
   private float loadingStatus() {
@@ -256,7 +258,7 @@ public class Applet extends PApplet {
 
   public void draw() {
     int sizeStages = this.stages.size();
-    if (this.loadingStatus() < 1) {
+    if (!this.hasLoaded || this.loadingStatus() < 1) {
       this.background(0x222222);
       this.image(this.loading, this.width / 2, this.height / 2);
       this.textAlign(CENTER);
