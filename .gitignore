@@ -12,6 +12,7 @@ classes
 docs/en/public/reference
 docs/en/book/changelog.md
 
+natives
 
 # Ignore Gradle project-specific cache directory
 .gradle

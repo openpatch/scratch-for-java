@@ -1180,6 +1180,10 @@ public class Sprite implements Drawable {
 
   public void whenIReceive(String message) {}
 
+  public void stamp() {
+    this.stampToBackground();
+  }
+
   public void stampToBackground() {
     if (this.costumes.size() > 0) {
       var stamp =
