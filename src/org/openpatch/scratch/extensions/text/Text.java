@@ -7,12 +7,11 @@ import org.openpatch.scratch.Stage;
 import org.openpatch.scratch.Window;
 import org.openpatch.scratch.internal.Applet;
 import org.openpatch.scratch.internal.Color;
-import org.openpatch.scratch.internal.Drawable;
 import org.openpatch.scratch.internal.Font;
 import processing.core.PApplet;
 import processing.core.PConstants;
 
-public class Text implements Drawable {
+public class Text {
 
   private float x;
   private float y;

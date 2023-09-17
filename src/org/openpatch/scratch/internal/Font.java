@@ -1,17 +1,19 @@
 package org.openpatch.scratch.internal;
 
+import java.util.AbstractMap;
 import java.util.concurrent.ConcurrentHashMap;
 import processing.core.PFont;
 
 public class Font {
   private String name;
-  private ConcurrentHashMap<Integer, PFont> fontMap;
+  private AbstractMap<Integer, PFont> fontMap;
 
   public static String defaultFontName = "default";
   public static String defaultFontPath = "UbuntuMono-Regular.ttf";
   private static int[] sizes = {8, 12, 14, 16, 20, 32, 48, 64, 128};
-  private static final ConcurrentHashMap<String, ConcurrentHashMap<Integer, PFont>> fonts =
+  private static final AbstractMap<String, AbstractMap<Integer, PFont>> fonts =
       new ConcurrentHashMap<>();
+  public static PFont defaultFont;
 
   public Font(String name, String path) {
     this.name = name;
@@ -29,7 +31,14 @@ public class Font {
     return this.name;
   }
 
-  public static ConcurrentHashMap<Integer, PFont> loadFont(String path) {
+  public static PFont getDefaultFont() {
+    if (defaultFont == null) {
+      defaultFont = Applet.getInstance().createFont(defaultFontPath, 14);
+    }
+    return defaultFont;
+  }
+
+  public static AbstractMap<Integer, PFont> loadFont(String path) {
     var fontMap = fonts.getOrDefault(path, new ConcurrentHashMap<>());
     for (int size : sizes) {
       if (fontMap.containsKey(size)) {

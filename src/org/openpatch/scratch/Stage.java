@@ -5,11 +5,14 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.temporal.ChronoUnit;
+import java.util.AbstractMap;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Queue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.stream.Collectors;
 import org.openpatch.scratch.extensions.hitbox.Hitbox;
 import org.openpatch.scratch.extensions.pen.Pen;
 import org.openpatch.scratch.extensions.text.Text;
@@ -17,6 +20,7 @@ import org.openpatch.scratch.extensions.text.TextStyle;
 import org.openpatch.scratch.extensions.timer.Timer;
 import org.openpatch.scratch.internal.Applet;
 import org.openpatch.scratch.internal.Color;
+import org.openpatch.scratch.internal.Font;
 import org.openpatch.scratch.internal.Image;
 import org.openpatch.scratch.internal.Sound;
 import org.openpatch.scratch.internal.Stamp;
@@ -27,30 +31,30 @@ import processing.event.MouseEvent;
 /** Represents a scratch stage. */
 public class Stage {
 
-  private final CopyOnWriteArrayList<Image> backdrops = new CopyOnWriteArrayList<>();
+  private final List<Image> backdrops = new CopyOnWriteArrayList<>();
   private Color color = new Color();
   private int currentBackdrop = 0;
-  private final CopyOnWriteArrayList<Sound> sounds = new CopyOnWriteArrayList<>();
+  private final List<Sound> sounds = new CopyOnWriteArrayList<>();
 
-  ConcurrentLinkedQueue<Stamp> backgroundStamps;
+  public Queue<Stamp> backgroundStamps;
   private PGraphics backgroundBuffer;
   private boolean eraseBackgroundBuffer;
 
-  ConcurrentLinkedQueue<Stamp> foregroundStamps;
+  public Queue<Stamp> foregroundStamps;
   private PGraphics foregroundBuffer;
   private boolean eraseForegroundBuffer;
 
   private PGraphics debugBuffer;
 
   private final Text display;
-  private final ConcurrentHashMap<String, Timer> timer;
-  CopyOnWriteArrayList<Text> texts;
-  CopyOnWriteArrayList<Pen> pens;
-  CopyOnWriteArrayList<Sprite> sprites;
+  private final AbstractMap<String, Timer> timer;
+  List<Text> texts;
+  List<Pen> pens;
+  List<Sprite> sprites;
   private float mouseX;
   private float mouseY;
   private boolean mouseDown;
-  private final ConcurrentHashMap<Integer, Boolean> keyCodePressed = new ConcurrentHashMap<>();
+  private final AbstractMap<Integer, Boolean> keyCodePressed = new ConcurrentHashMap<>();
   private Comparator<? super Sprite> sorter;
 
   Hitbox leftBorder;
@@ -252,7 +256,7 @@ public class Stage {
    * @param c Class
    */
   public <T extends Sprite> List<T> find(Class<T> c) {
-    return (List<T>) this.sprites.stream().filter(c::isInstance).toList();
+    return this.sprites.stream().filter(c::isInstance).map(c::cast).collect(Collectors.toList());
   }
 
   /**
@@ -269,7 +273,6 @@ public class Stage {
     }
     Image backdrop = new Image(name, imagePath);
     this.backdrops.add(backdrop);
-    backdrop.addedToStage(this);
   }
 
   /**
@@ -837,6 +840,24 @@ public class Stage {
       this.foregroundStamps.poll().draw(this.foregroundBuffer);
     }
     this.foregroundBuffer.endDraw();
+
+    if (applet.isDebug()) {
+      this.debugBuffer.beginDraw();
+      this.debugBuffer.clear();
+      this.sprites.stream().forEach(s -> s.drawDebug());
+      this.debugBuffer.strokeWeight(1);
+      this.debugBuffer.stroke(Window.DEBUG_COLOR[0], Window.DEBUG_COLOR[1], Window.DEBUG_COLOR[2]);
+      this.debugBuffer.fill(Window.DEBUG_COLOR[0], Window.DEBUG_COLOR[1], Window.DEBUG_COLOR[2]);
+      var w = this.getWidth() / 2;
+      var h = this.getHeight() / 2;
+      this.debugBuffer.line(this.mouseX + w, 0, this.mouseX + w, applet.height);
+      this.debugBuffer.line(0, -this.mouseY + h, applet.width, -this.mouseY + h);
+      this.debugBuffer.textFont(Font.getDefaultFont());
+      this.debugBuffer.text(
+          "(" + this.mouseX + ", " + this.mouseY + ")", this.mouseX + w, -this.mouseY + h);
+      this.debugBuffer.text("FPS: " + Math.round(applet.frameRate * 100) / 100, 20, 10);
+      this.debugBuffer.endDraw();
+    }
   }
 
   /**
@@ -856,6 +877,7 @@ public class Stage {
   public void draw() {
     Applet applet = Applet.getInstance();
     if (applet == null) return;
+
     if (this.sorter != null) {
       this.sprites.sort(this.sorter);
     }
@@ -865,6 +887,7 @@ public class Stage {
     if (this.display != null) {
       this.display.draw();
     }
+
     if (this.foregroundBuffer.pixels != null) {
       applet.image(this.foregroundBuffer, applet.width / 2, applet.height / 2);
     } else {
@@ -874,21 +897,15 @@ public class Stage {
       }
     }
 
-    if (applet.isDebug()) {
-      this.debugBuffer.beginDraw();
-      this.sprites.stream().forEach(s -> s.drawDebug());
-      this.debugBuffer.strokeWeight(1);
-      this.debugBuffer.stroke(Window.DEBUG_COLOR[0], Window.DEBUG_COLOR[1], Window.DEBUG_COLOR[2]);
-      this.debugBuffer.fill(Window.DEBUG_COLOR[0], Window.DEBUG_COLOR[1], Window.DEBUG_COLOR[2]);
-      var w = this.getWidth() / 2;
-      var h = this.getHeight() / 2;
-      this.debugBuffer.line(this.mouseX + w, 0, this.mouseX + w, applet.height);
-      this.debugBuffer.line(0, -this.mouseY + h, applet.width, -this.mouseY + h);
-      this.debugBuffer.text(
-          "(" + this.mouseX + ", " + this.mouseY + ")", this.mouseX + w, -this.mouseY + h);
-      this.debugBuffer.text("FPS: " + Math.round(applet.frameRate * 100) / 100, 20, 10);
-      this.debugBuffer.endDraw();
+    if (applet.isDebug() && this.debugBuffer.pixels != null) {
+      applet.image(this.debugBuffer, applet.width / 2, applet.height / 2);
+    } else {
+      try {
+        this.debugBuffer.loadPixels();
+      } catch (Exception e) {
+      }
     }
+
     this.run();
   }
 }

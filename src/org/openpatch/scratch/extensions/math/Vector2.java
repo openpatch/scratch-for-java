@@ -229,6 +229,11 @@ public class Vector2 {
   }
 
   @Override
+  public int hashCode() {
+    return this.toString().hashCode();
+  }
+
+  @Override
   public String toString() {
     return "Vector2[" + x + ", " + y + "]";
   }

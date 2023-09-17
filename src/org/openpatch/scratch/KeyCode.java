@@ -258,6 +258,7 @@ public final class KeyCode {
    *
    * @deprecated use {@link #VK_SEPARATOR}
    */
+  @Deprecated
   public static final int VK_SEPARATER = 108;
 
   /**

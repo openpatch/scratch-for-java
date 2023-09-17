@@ -3,29 +3,29 @@ import org.openpatch.scratch.extensions.recorder.*;
 
 public class StageWhenKeyPressed {
 
-  public StageWhenKeyPressed() {
-    new CustomStage();
-  }
+	class CustomStage extends Stage {
 
-  public static void main(String[] args) {
-    new StageWhenKeyPressed();
-  }
-}
+		public CustomStage() {
+			super(254, 100);
+			GifRecorder recorder = new GifRecorder("StageWhenKeyPressed.gif");
+			recorder.start();
+			while (this.getTimer().forMillis(3000))
+				;
+			recorder.stop();
+			Window.getInstance().exit();
+		}
 
-class CustomStage extends Stage {
+		@Override
+		public void whenKeyPressed(int keyCode) {
+			this.display("Key Pressed: " + keyCode);
+		}
+	}
 
-  public CustomStage() {
-    super(254, 100);
-    GifRecorder recorder = new GifRecorder("StageWhenKeyPressed.gif");
-    recorder.start();
-    while (this.getTimer().forMillis(3000))
-      ;
-    recorder.stop();
-    Window.getInstance().exit();
-  }
+	public StageWhenKeyPressed() {
+		new CustomStage();
+	}
 
-  @Override
-  public void whenKeyPressed(int keyCode) {
-    this.display("Key Pressed: " + keyCode);
-  }
+	public static void main(String[] args) {
+		new StageWhenKeyPressed();
+	}
 }

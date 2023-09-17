@@ -1,8 +1,8 @@
 package org.openpatch.scratch.internal;
 
+import java.util.AbstractMap;
 import java.util.concurrent.ConcurrentHashMap;
 import org.openpatch.scratch.RotationStyle;
-import org.openpatch.scratch.Stage;
 import org.openpatch.scratch.Window;
 import processing.core.PApplet;
 import processing.core.PConstants;
@@ -10,7 +10,7 @@ import processing.core.PGraphics;
 import processing.core.PImage;
 
 /** The base class for representing scratch costumes and backdrops. */
-public class Image implements Drawable {
+public class Image {
 
   String name;
   PImage image;
@@ -21,8 +21,8 @@ public class Image implements Drawable {
   private int width = 0;
   private int height = 0;
 
-  private static final ConcurrentHashMap<String, PImage> originalImages = new ConcurrentHashMap<>();
-  private static final ConcurrentHashMap<String, PImage> originalImageTiles =
+  private static final AbstractMap<String, PImage> originalImages = new ConcurrentHashMap<>();
+  private static final AbstractMap<String, PImage> originalImageTiles =
       new ConcurrentHashMap<>();
 
   /**
@@ -60,18 +60,6 @@ public class Image implements Drawable {
     this.transparency = i.transparency;
     this.width = i.width;
     this.height = i.height;
-  }
-
-  public void addedToStage(Stage stage) {}
-
-  public void removedFromStage(Stage stage) {}
-
-  public float getX() {
-    return 0;
-  }
-
-  public float getY() {
-    return 0;
   }
 
   public static PImage loadImage(String path) {

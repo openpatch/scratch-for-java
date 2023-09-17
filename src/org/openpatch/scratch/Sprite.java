@@ -1,8 +1,10 @@
 package org.openpatch.scratch;
 
+import java.util.AbstractMap;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.stream.Collectors;
 import org.openpatch.scratch.extensions.hitbox.Hitbox;
 import org.openpatch.scratch.extensions.math.Random;
 import org.openpatch.scratch.extensions.math.Utils;
@@ -13,18 +15,17 @@ import org.openpatch.scratch.extensions.text.TextStyle;
 import org.openpatch.scratch.extensions.timer.Timer;
 import org.openpatch.scratch.internal.Applet;
 import org.openpatch.scratch.internal.Color;
-import org.openpatch.scratch.internal.Drawable;
 import org.openpatch.scratch.internal.Image;
 import org.openpatch.scratch.internal.Sound;
 import org.openpatch.scratch.internal.Stamp;
 import processing.event.KeyEvent;
 import processing.event.MouseEvent;
 
-public class Sprite implements Drawable {
+public class Sprite {
 
-  private CopyOnWriteArrayList<Image> costumes = new CopyOnWriteArrayList<>();
+  private List<Image> costumes = new CopyOnWriteArrayList<>();
   private int currentCostume = 0;
-  private CopyOnWriteArrayList<Sound> sounds = new CopyOnWriteArrayList<>();
+  private List<Sound> sounds = new CopyOnWriteArrayList<>();
   private boolean show = true;
   private float size = 100;
   private boolean onEdgeBounce = false;
@@ -33,7 +34,7 @@ public class Sprite implements Drawable {
   private float y = 0;
   private float direction = 90;
   private Stage stage;
-  private final ConcurrentHashMap<String, Timer> timer;
+  private final AbstractMap<String, Timer> timer;
   private final Pen pen;
   private Hitbox hitbox;
   private boolean hitboxDisabled = false;
@@ -195,7 +196,7 @@ public class Sprite implements Drawable {
   }
 
   public void switchCostume(float index) {
-    this.switchCostume((int) Math.round(index));
+    this.switchCostume(Math.round(index));
   }
 
   public void switchCostume(double index) {
@@ -775,42 +776,19 @@ public class Sprite implements Drawable {
   public boolean isTouchingMousePointer() {
     if (this.hitboxDisabled) return false;
 
-    var bounds = this.getHitbox().getPolygon().getBounds();
-    double topLeftCornerX = bounds.getMinX();
-    double topLeftCornerY = bounds.getMaxY();
-
-    double bottomRightCornerX = bounds.getMaxX();
-    double bottomRightCornerY = bounds.getMinY();
-
     var mx = this.getMouseX();
     var my = this.getMouseY();
 
-    boolean touching =
-        mx > topLeftCornerX
-            && my < topLeftCornerY
-            && mx < bottomRightCornerX
-            && my > bottomRightCornerY;
+    float[] mouse = Utils.rotateXY(mx, my, this.x, this.y, this.direction - 90);
 
-    if (touching) {
-      float[] mouse = Utils.rotateXY(mx, my, this.x, this.y, this.direction - 90);
 
-      int relativeMouseX = (int) Math.round(mouse[0] - (this.x - this.getWidth() / 2));
-      int relativeMouseY = (int) -Math.round(mouse[1] - (this.y + this.getHeight() / 2));
+    int relativeMouseX = Math.round(mouse[0] - this.x + this.getWidth() / 2);
+    int relativeMouseY = -Math.round(mouse[1] - this.y - this.getHeight() / 2);
 
-      var a = Applet.getInstance();
-      a.push();
-      a.stroke(255, 255, 0);
-      a.strokeWeight(10);
-      a.point(relativeMouseX, relativeMouseY);
-      a.pop();
-
-      if (this.costumes.size() > this.getCurrentCostumeIndex()) {
-        int color =
-            this.costumes
-                .get(this.getCurrentCostumeIndex())
-                .getPixel(relativeMouseX, relativeMouseY);
-        return Applet.getInstance().alpha(color) != 0;
-      }
+    if (this.costumes.size() > this.getCurrentCostumeIndex()) {
+      int color =
+          this.costumes.get(this.getCurrentCostumeIndex()).getPixel(relativeMouseX, relativeMouseY);
+      return Applet.getInstance().alpha(color) != 0;
     }
 
     return false;
@@ -951,18 +929,18 @@ public class Sprite implements Drawable {
   }
 
   public <T extends Sprite> T getTouchingSprite(Class<T> c) {
-    return (T)
-        this.stage.sprites.stream()
-            .filter(s -> c.isInstance(s) && this.isTouchingSprite(s))
-            .findFirst()
-            .orElse(null);
+    return this.stage.sprites.stream()
+        .filter(s -> c.isInstance(s) && this.isTouchingSprite(s))
+        .findFirst()
+        .map(c::cast)
+        .orElse(null);
   }
 
   public <T extends Sprite> List<T> getTouchingSprites(Class<T> c) {
-    return (List<T>)
-        this.stage.sprites.stream()
-            .filter(s -> c.isInstance(s) && this.isTouchingSprite(s))
-            .toList();
+    return this.stage.sprites.stream()
+        .filter(s -> c.isInstance(s) && this.isTouchingSprite(s))
+        .map(c::cast)
+        .collect(Collectors.toList());
   }
 
   /**

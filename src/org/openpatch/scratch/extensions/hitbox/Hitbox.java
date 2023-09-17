@@ -2,105 +2,56 @@ package org.openpatch.scratch.extensions.hitbox;
 
 import java.awt.Point;
 import java.awt.Polygon;
+import java.awt.Shape;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
+import java.awt.geom.PathIterator;
 import org.openpatch.scratch.Window;
 import org.openpatch.scratch.extensions.math.Utils;
 import processing.core.PConstants;
 import processing.core.PGraphics;
 
 public class Hitbox {
-  private final Polygon originalPolygon;
-  private Polygon polygon;
+  private final Shape originalShape;
+  private Shape shape;
 
-  public Hitbox(Polygon polygon) {
-    this.originalPolygon = polygon;
-    this.polygon = new Polygon(polygon.xpoints, polygon.ypoints, polygon.npoints);
+  public Hitbox(Shape shape) {
+    this.originalShape = shape;
+    this.shape = shape;
   }
 
   public Hitbox(int[] xPoints, int[] yPoints) {
-    this.originalPolygon = new Polygon(xPoints, yPoints, xPoints.length);
-    this.polygon = new Polygon(xPoints, yPoints, xPoints.length);
+    this.originalShape = new Polygon(xPoints, yPoints, xPoints.length);
+    this.shape = new Polygon(xPoints, yPoints, xPoints.length);
   }
 
-  public Polygon getPolygon() {
-    return this.polygon;
+  public Shape getShape() {
+    return this.shape;
   }
 
   public void translateAndRotateAndResize(
       float degrees, float originX, float originY, float translateX, float translateY, float size) {
-    Polygon polygon;
-    polygon = this.scale(size, this.originalPolygon);
-    polygon = this.translate(translateX, translateY, polygon);
-    polygon = this.rotate(degrees, originX, originY, polygon);
-    this.polygon = polygon;
-  }
 
-  /**
-   * @param size Percentage in 100
-   * @return the scaled polygon
-   */
-  private Polygon scale(float size, Polygon polygon) {
-    int[] xPoints = new int[polygon.xpoints.length];
-    int[] yPoints = new int[polygon.ypoints.length];
+    AffineTransform tx = new AffineTransform();
+    tx.scale(size / 100.0, size / 100.0);
+    this.shape = tx.createTransformedShape(this.originalShape);
 
-    for (int i = 0; i < polygon.xpoints.length; i++) {
-      int xPoint = polygon.xpoints[i];
-      int yPoint = polygon.ypoints[i];
+    tx = new AffineTransform();
+    tx.translate(translateX, translateY);
+    this.shape = tx.createTransformedShape(this.shape);
 
-      int scaledX = Math.round(xPoint);
-      int scaledY = Math.round(yPoint);
-
-      xPoints[i] = Math.round(scaledX * size / 100.0f);
-      yPoints[i] = Math.round(scaledY * size / 100.0f);
-    }
-    return new Polygon(xPoints, yPoints, xPoints.length);
-  }
-
-  private Polygon rotate(float degrees, float originX, float originY, Polygon polygon) {
-    int[] xPoints = new int[polygon.xpoints.length];
-    int[] yPoints = new int[polygon.ypoints.length];
-
-    for (int i = 0; i < polygon.xpoints.length; i++) {
-      int xPoint = polygon.xpoints[i];
-      int yPoint = polygon.ypoints[i];
-      float[] rotatedXY = Utils.rotateXY(xPoint, yPoint, originX, originY, degrees);
-      xPoints[i] = Math.round(rotatedXY[0]);
-      yPoints[i] = Math.round(rotatedXY[1]);
-    }
-
-    return new Polygon(xPoints, yPoints, xPoints.length);
-  }
-
-  private Polygon translate(float x, float y, Polygon polygon) {
-    int[] xPoints = new int[polygon.xpoints.length];
-    int[] yPoints = new int[polygon.ypoints.length];
-
-    for (int i = 0; i < polygon.xpoints.length; i++) {
-      int xPoint = polygon.xpoints[i];
-      int yPoint = polygon.ypoints[i];
-
-      int translatedX = Math.round(xPoint + x);
-      int translatedY = Math.round(yPoint + y);
-
-      xPoints[i] = translatedX;
-      yPoints[i] = translatedY;
-    }
-    return new Polygon(xPoints, yPoints, xPoints.length);
+    tx = new AffineTransform();
+    tx.rotate(Utils.degreesToRadians(degrees), originX, originY);
+    this.shape = tx.createTransformedShape(this.shape);
   }
 
   private void drawDebug(PGraphics buffer, float r, float g, float b) {
-    int[] xPoints = this.polygon.xpoints;
-    int[] yPoints = this.polygon.ypoints;
+    buffer.push();
     buffer.stroke(r, g, b);
     buffer.strokeWeight(2);
     buffer.noFill();
-    buffer.push();
     buffer.translate(buffer.width / 2, buffer.height / 2);
-    buffer.beginShape();
-    for (int i = 0; i < xPoints.length; i++) {
-      buffer.vertex(xPoints[i], yPoints[i]);
-    }
-    buffer.endShape(PConstants.CLOSE);
+    drawShape(buffer);
     buffer.pop();
   }
 
@@ -109,19 +60,50 @@ public class Hitbox {
   }
 
   public boolean contains(float x, float y) {
-    return this.polygon.contains(new Point(Math.round(x), Math.round(y)));
+    return this.shape.contains(new Point(Math.round(x), Math.round(y)));
   }
 
   public boolean intersects(Hitbox hitbox) {
-    if (this.getPolygon().getBounds().intersects(hitbox.getPolygon().getBounds())) {
+    if (this.getShape().getBounds().intersects(hitbox.getShape().getBounds())) {
 
-      Area a = new Area(this.getPolygon());
-      Area b = new Area(hitbox.getPolygon());
+      Area a = new Area(this.getShape());
+      Area b = new Area(hitbox.getShape());
 
       a.intersect(b);
 
       return !a.isEmpty();
     }
     return false;
+  }
+
+  public void drawShape(PGraphics buffer) {
+    if (shape == null) {
+      return;
+    }
+    PathIterator path = this.shape.getPathIterator(null, 1);
+    final float coord[] = new float[6];
+    boolean began = false;
+    while (!path.isDone()) {
+      final int code = path.currentSegment(coord);
+      if (code == PathIterator.SEG_MOVETO) {
+        buffer.beginShape();
+        began = true;
+        buffer.vertex(coord[0], coord[1]);
+      } else if (code == PathIterator.SEG_LINETO) {
+        buffer.vertex(coord[0], coord[1]);
+      } else if (code == PathIterator.SEG_CLOSE) {
+        buffer.endShape(PConstants.CLOSE);
+        began = false;
+      } else if (code == PathIterator.SEG_CUBICTO) {
+        buffer.vertex(coord[0], coord[1]);
+        buffer.bezierVertex(coord[0], coord[1], coord[2], coord[3], coord[4], coord[5]);
+      } else if (code == PathIterator.SEG_QUADTO) {
+        buffer.quadraticVertex(coord[0], coord[1], coord[2], coord[3]);
+      }
+      path.next();
+    }
+    if (began) {
+      buffer.endShape();
+    }
   }
 }
