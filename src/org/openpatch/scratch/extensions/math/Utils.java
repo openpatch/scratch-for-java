@@ -13,4 +13,12 @@ public abstract class Utils {
 
     return rotatedXY;
   }
+
+  public static double degreesToRadians(double degrees) {
+    return degrees * Math.PI / 180.0;
+  }
+
+  public static double radiansToDegrees(double radians) {
+    return radians * 180.0 / Math.PI;
+  }
 }

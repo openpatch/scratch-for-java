@@ -113,8 +113,15 @@
                 url="https://github.com/processing/processing-sound/releases/download/v2.3.1/sound.zip" />
             <url url="https://github.com/java-native/jssc/releases/download/v2.9.4/jssc-2.9.4.jar" />
             <url url="https://repo1.maven.org/maven2/org/processing/serial/3.3.7/serial-3.3.7.jar" />
-            <url
-                url="https://repo1.maven.org/maven2/com/google/code/gson/gson/2.10.1/gson-2.10.1.jar" />
+
+            <!-- Jackson for JSON and XML loading -->
+            <url url="https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-core/2.15.2/jackson-core-2.15.2.jar" />
+            <url url="https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-annotations/2.15.2/jackson-annotations-2.15.2.jar" />
+            <url url="https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-databind/2.15.2/jackson-databind-2.15.2.jar" />
+            <url url="https://repo1.maven.org/maven2/com/fasterxml/jackson/dataformat/jackson-dataformat-xml/2.15.2/jackson-dataformat-xml-2.15.2.jar" />
+            <url url="https://repo1.maven.org/maven2/com/fasterxml/woodstox/woodstox-core/6.5.1/woodstox-core-6.5.1.jar" />
+            <url url="https://repo1.maven.org/maven2/org/codehaus/woodstox/stax2-api/4.2.1/stax2-api-4.2.1.jar" />
+
             <url
                 url="https://repo1.maven.org/maven2/com/github/davidmoten/word-wrap/0.1.12/word-wrap-0.1.12.jar" />
             <url

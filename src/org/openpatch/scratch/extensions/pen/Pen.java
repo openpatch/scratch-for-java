@@ -9,10 +9,9 @@ import org.openpatch.scratch.Stage;
 import org.openpatch.scratch.extensions.math.Random;
 import org.openpatch.scratch.extensions.math.Vector2;
 import org.openpatch.scratch.internal.Color;
-import org.openpatch.scratch.internal.Drawable;
 import processing.core.PGraphics;
 
-public class Pen implements Drawable {
+public class Pen {
 
   class Point {
 

@@ -13,7 +13,6 @@ public class OpenSimplex2S {
   private static final long PRIME_Z = 0x5BCC226E9FA0BACBL;
   private static final long PRIME_W = 0x56CC5227E58F554BL;
   private static final long HASH_MULTIPLIER = 0x53A3F72DEEC546F5L;
-  private static final long SEED_FLIP_3D = -0x52D547B2E96ED629L;
 
   private static final double ROOT2OVER2 = 0.7071067811865476;
   private static final double SKEW_2D = 0.366025403784439;
