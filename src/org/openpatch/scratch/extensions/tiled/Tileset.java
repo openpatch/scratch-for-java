@@ -12,6 +12,7 @@ class Tileset {
   public int tilecount;
   public int tileheight;
   public int tilewidth;
+
   @JacksonXmlElementWrapper(useWrapping = false)
   public Tile[] tile;
 }

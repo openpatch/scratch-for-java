@@ -22,8 +22,7 @@ public class Image {
   private int height = 0;
 
   private static final AbstractMap<String, PImage> originalImages = new ConcurrentHashMap<>();
-  private static final AbstractMap<String, PImage> originalImageTiles =
-      new ConcurrentHashMap<>();
+  private static final AbstractMap<String, PImage> originalImageTiles = new ConcurrentHashMap<>();
 
   /**
    * Construct a ScratchImage object by a name and a path to an image.

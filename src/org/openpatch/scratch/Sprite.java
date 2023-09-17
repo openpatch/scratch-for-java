@@ -781,7 +781,6 @@ public class Sprite {
 
     float[] mouse = Utils.rotateXY(mx, my, this.x, this.y, this.direction - 90);
 
-
     int relativeMouseX = Math.round(mouse[0] - this.x + this.getWidth() / 2);
     int relativeMouseY = -Math.round(mouse[1] - this.y - this.getHeight() / 2);
 
