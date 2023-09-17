@@ -14,12 +14,16 @@ public class Stamp {
   private RotationStyle style;
   private float degrees;
 
-  public Stamp(Image image, float degrees, float x, float y, RotationStyle style) {
+  public Stamp(Image image, double x2, double y2) {
+    this(image, 0, x2, y2, RotationStyle.DONT);
+  }
+
+  public Stamp(Image image, double degrees, double x, double y, RotationStyle style) {
     this.image = image;
-    this.x = x;
-    this.y = y;
+    this.x = (float) x;
+    this.y = (float) y;
     this.style = style;
-    this.degrees = degrees;
+    this.degrees = (float) degrees;
   }
 
   public void draw(PGraphics g) {

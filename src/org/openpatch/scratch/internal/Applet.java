@@ -2,9 +2,11 @@ package org.openpatch.scratch.internal;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.nio.file.FileSystemNotFoundException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 import org.openpatch.scratch.KeyCode;
@@ -27,7 +29,7 @@ public class Applet extends PApplet {
   private long loadedAssets;
   private PImage loading;
   private final String assets;
-  public CopyOnWriteArrayList<StageBox> stages = new CopyOnWriteArrayList<>();
+  public List<StageBox> stages = new CopyOnWriteArrayList<>();
   public int currentStage = -1;
 
   private boolean hasLoaded = false;
@@ -183,7 +185,11 @@ public class Applet extends PApplet {
         var sr = ClassLoader.getSystemResource(this.assets);
         var p = Paths.get(this.assets);
         if (sr != null) {
-          p = Path.of(sr.toURI());
+          try {
+            p = Path.of(sr.toURI());
+          } catch (FileSystemNotFoundException e) {
+            p = Paths.get(this.assets);
+          }
         }
 
         var imageFiles =
@@ -263,10 +269,9 @@ public class Applet extends PApplet {
       this.image(this.loading, this.width / 2, this.height / 2);
       this.textAlign(CENTER);
       this.stroke(0xf58219);
-      this.textSize(20);
+      this.textFont(Font.getDefaultFont());
       this.textSize(14);
       this.text(this.loadingText, this.width / 2, this.height / 2 + this.loading.height / 2 + 20);
-      this.textSize(20);
       this.text(
           round(this.loadingStatus() * 100) + "%",
           this.width / 2,

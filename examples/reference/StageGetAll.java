@@ -10,7 +10,7 @@ public class StageGetAll {
     myStage.add(new Sprite());
 
     GifRecorder recorder = new GifRecorder("" + this.getClass().getName() + ".gif");
-    myStage.display("All: " + myStage.getAll().size());
+    myStage.display("All: " + myStage.getAll().length);
     myStage.wait(2000);
     recorder.snapshot();
     Window.getInstance().exit();

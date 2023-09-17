@@ -300,7 +300,7 @@ public class Operators {
    * @return the floor of that value
    */
   public static final double floorOf(double x) {
-    return (double) Math.floor(x);
+    return Math.floor(x);
   }
 
   /**
@@ -322,7 +322,7 @@ public class Operators {
    * @return the ceiling of that value
    */
   public static final double ceilingOf(double x) {
-    return (double) Math.ceil(x);
+    return Math.ceil(x);
   }
 
   /**
@@ -347,7 +347,7 @@ public class Operators {
    * @return the square root of the value
    */
   public static final double sqrtOf(double x) {
-    return (double) Math.sqrt(x);
+    return Math.sqrt(x);
   }
 
   /**
@@ -374,7 +374,7 @@ public class Operators {
    * @return the sin of the angle
    */
   public static final double sinOf(double x) {
-    return (double) Math.sin(x / 180.0 * Math.PI);
+    return Math.sin(x / 180.0 * Math.PI);
   }
 
   /**
@@ -399,7 +399,7 @@ public class Operators {
    * @return the cos of the angle
    */
   public static final double cosOf(double x) {
-    return (double) Math.cos(x / 180.0 * Math.PI);
+    return Math.cos(x / 180.0 * Math.PI);
   }
 
   /**
@@ -423,7 +423,7 @@ public class Operators {
    * @return the tan of the angle
    */
   public static final double tanOf(double x) {
-    return (double) Math.tan(x / 180.0 * Math.PI);
+    return Math.tan(x / 180.0 * Math.PI);
   }
 
   /**
@@ -447,7 +447,7 @@ public class Operators {
    * @return the angle of that value
    */
   public static final double asinOf(double x) {
-    return (double) Math.asin(x * 180.0 / Math.PI);
+    return Math.asin(x * 180.0 / Math.PI);
   }
 
   /**
@@ -471,7 +471,7 @@ public class Operators {
    * @return the angle of that value
    */
   public static final double acosOf(double x) {
-    return (double) Math.acos(x * 180.0 / Math.PI);
+    return Math.acos(x * 180.0 / Math.PI);
   }
 
   /**
@@ -495,7 +495,7 @@ public class Operators {
    * @return the angle of that value
    */
   public static final double atanOf(double x) {
-    return (double) Math.atan(x * 180.0 / Math.PI);
+    return Math.atan(x * 180.0 / Math.PI);
   }
 
   /**
@@ -519,7 +519,7 @@ public class Operators {
    * @return the ln of that value
    */
   public static final double lnOf(double x) {
-    return (double) Math.log(x);
+    return Math.log(x);
   }
 
   /**
@@ -543,7 +543,7 @@ public class Operators {
    * @return the log to base 10 of that value
    */
   public static final double logOf(double x) {
-    return (double) Math.log10(x);
+    return Math.log10(x);
   }
 
   /**
