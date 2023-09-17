@@ -3,11 +3,17 @@ import org.openpatch.scratch.extensions.fs.*;
 public class FileSave {
 
   public FileSave() {
-    var settings = new Settings("Hi", 10);
-    File.save("settings", settings);
+    var settings = new Settings();
+    settings.name = "Hi";
+    settings.value = 10;
+    File.saveXML("settings.xml", settings);
+    File.save("settings.json", settings);
 
-    Settings loadedSettings = File.load("settings", Settings.class);
-    System.out.println(loadedSettings.getName());
+    Settings loadedSettings = File.loadXML("settings.xml", Settings.class);
+    System.out.println(loadedSettings.name);
+
+    loadedSettings = File.load("settings.json", Settings.class);
+    System.out.println(loadedSettings.name);
   }
 
   public static void main(String[] args) {
@@ -17,15 +23,6 @@ public class FileSave {
 
 class Settings {
 
-  private String name;
-  private int value;
-
-  public Settings(String name, int value) {
-    this.name = name;
-    this.value = value;
-  }
-
-  public String getName() {
-    return this.name;
-  }
+  public String name;
+  public int value;
 }

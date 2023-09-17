@@ -3,6 +3,11 @@ name: Changelog
 index: 4
 ---
 
+## 4.1.0
+
+- 🚀 Feat: New extension tiled.
+- 🐛 Fix: Fix isTouchingMousePointer.
+
 ## 4.0.2
 
 - 🐛 Fix: Missing stamp method on Sprite

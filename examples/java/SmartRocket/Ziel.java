@@ -1,8 +1,8 @@
 import org.openpatch.scratch.*;
 
-public class Target extends Sprite {
+public class Ziel extends Sprite {
 
-  public Target() {
+  public Ziel() {
     this.addCostume("target", "assets/target.png");
     this.setHitbox(10, 38, 10, 10, 38, 10, 38, 38);
   }
