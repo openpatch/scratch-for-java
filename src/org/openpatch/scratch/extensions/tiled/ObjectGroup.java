@@ -13,6 +13,7 @@ class ObjectGroup {
   public double width;
   public double x;
   public double y;
+
   @JacksonXmlElementWrapper(useWrapping = false)
   @JsonProperty("object")
   public MapObject[] objects;
