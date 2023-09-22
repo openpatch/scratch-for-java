@@ -7,7 +7,7 @@ name: Multiple Approach Design
 Scratch for Java is build for supporting different approaches to teaching object-oriented programming and to structure the transition from Scratch to Java.
 
 ## Imperative Approach (aka. Classes-later)
- 
+
 When using the imperative approach you would only use the built-in classes Stage and Sprite. These are known to the students and have methods which resembles the Scratch blocks.
 
 Students can learn how to write simple Java programs, without the possible overload of having to deal with custom classes.
@@ -33,7 +33,7 @@ public class MyProgram {
 
 ## Object-oriented Approach (aka. Classes-first)
 
-This approach is the most similar to the Scratch model, but as you can see it introduces the concept of inheritance right away. Even though one could think that this might be too much for students, you can put Scratch and Java side-by-side and show the transition. 
+This approach is the most similar to the Scratch model, but as you can see it introduces the concept of inheritance right away. Even though one could think that this might be too much for students, you can put Scratch and Java side-by-side and show the transition.
 
 Here are a few comparisons you could draw:
 - In Scratch we prepared our project by clicking things. For example, we added a Sprite by clicking the cat icon, or we added a costume by clicking on the costume tabs and then uploaded/or drawn an image. In Java we prepare our project by using constructors. We write text (source code) which replaces our clicking, since we do not have an user interface anymore.
@@ -77,10 +77,9 @@ public class MyProject extends Window {
         Stage stage1 = new Stage();
         Stage stage2 = new Stage();
 
-        this.addStage("first", stage1);
-        this.addStage("second", stage2);
-
-        this.switchStage("second");
+        this.setStage(stage1);
+        // something triggers a stage change
+        this.setStage(stage2);
     }
 }
 ```

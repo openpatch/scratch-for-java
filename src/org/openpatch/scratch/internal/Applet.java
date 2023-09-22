@@ -29,21 +29,10 @@ public class Applet extends PApplet {
   private long loadedAssets;
   private PImage loading;
   private final String assets;
-  public List<StageBox> stages = new CopyOnWriteArrayList<>();
-  public int currentStage = -1;
+  private Stage stage;
 
   private boolean hasLoaded = false;
   private String loadingText = "";
-
-  private class StageBox {
-    public Stage stage;
-    public String name;
-
-    public StageBox(String name, final Stage stage) {
-      this.name = name;
-      this.stage = stage;
-    }
-  }
 
   public Applet(int width, final int height, final String assets) {
     this.INITIAL_HEIGHT = height;
@@ -80,45 +69,8 @@ public class Applet extends PApplet {
     return this.height;
   }
 
-  public void addStage(String name, final Stage stage) {
-    for (StageBox s : this.stages) {
-      if (s.name.equals(name)) {
-        return;
-      }
-    }
-
-    this.stages.add(new StageBox(name, stage));
-
-    if (this.currentStage == -1) {
-      this.currentStage = 0;
-    }
-  }
-
-  public Stage getStage() {
-    return this.stages.get(this.currentStage).stage;
-  }
-
-  public Stage getStage(String name) {
-    for (StageBox s : this.stages) {
-      if (s.name.equals(name)) {
-        return s.stage;
-      }
-    }
-    return null;
-  }
-
-  public void removeStage(String name) {
-    this.stages.removeIf(sb -> sb.name.equals(name));
-  }
-
-  public void switchStage(String name) {
-    for (int i = 0; i < this.stages.size(); i++) {
-      StageBox stageBox = this.stages.get(i);
-      if (stageBox.name.equals(name)) {
-        this.currentStage = i;
-        return;
-      }
-    }
+  public void setStage(Stage stage) {
+    this.stage = stage;
   }
 
   /**
@@ -236,26 +188,20 @@ public class Applet extends PApplet {
   }
 
   public void pre() {
-    if (this.loadingStatus() == 1 && this.stages.size() > 0) {
-      try {
-        StageBox box = this.stages.get(this.currentStage);
-        box.stage.pre();
-      } catch (ArrayIndexOutOfBoundsException e) {
-      }
+    if (this.hasLoaded && this.stage != null) {
+      this.stage.pre();
     }
   }
 
   public void mouseEvent(MouseEvent e) {
-    if (this.loadingStatus() == 1 && this.stages.size() > 0) {
-      StageBox box = this.stages.get(this.currentStage);
-      box.stage.mouseEvent(e);
+    if (this.hasLoaded && this.stage != null) {
+      this.stage.mouseEvent(e);
     }
   }
 
   public void keyEvent(KeyEvent e) {
-    if (this.loadingStatus() == 1 && this.stages.size() > 0) {
-      StageBox box = this.stages.get(this.currentStage);
-      box.stage.keyEvent(e);
+    if (this.hasLoaded && this.stage != null) {
+      this.stage.keyEvent(e);
     }
     if (e.getKeyCode() == KeyCode.VK_F11) {
       this.debug = !this.debug;
@@ -263,7 +209,6 @@ public class Applet extends PApplet {
   }
 
   public void draw() {
-    int sizeStages = this.stages.size();
     if (!this.hasLoaded || this.loadingStatus() < 1) {
       this.background(0x222222);
       this.image(this.loading, this.width / 2, this.height / 2);
@@ -277,17 +222,8 @@ public class Applet extends PApplet {
           this.width / 2,
           this.height / 2 + this.loading.height / 2 + 40);
       this.textSize(14);
-    } else if (sizeStages > 0) {
-      if (this.currentStage > sizeStages - 1) {
-        this.currentStage = sizeStages;
-      } else if (this.currentStage < 0) {
-        this.currentStage = 0;
-      }
-      try {
-        StageBox box = this.stages.get(this.currentStage);
-        box.stage.draw();
-      } catch (ArrayIndexOutOfBoundsException e) {
-      }
+    } else if (this.stage != null) {
+      this.stage.draw();
     }
   }
 }

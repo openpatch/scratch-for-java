@@ -80,7 +80,7 @@ public class Stage {
     if (Window.getInstance() == null) {
       new Window(width, height, assets);
       Applet a = Applet.getInstance();
-      a.addStage("main", this);
+      a.setStage(this);
     }
     Applet applet = Applet.getInstance();
     this.backgroundBuffer =
@@ -96,7 +96,8 @@ public class Stage {
     this.foregroundBuffer.smooth(4);
     this.debugBuffer.smooth(4);
     this.timer.put("default", new Timer());
-    this.display = new Text(null, 0, applet.height, applet.width, TextStyle.BOX);
+    this.display =
+        new Text(null, -applet.width / 2, -applet.height / 2, applet.width, TextStyle.BOX);
     this.display.addedToStage(this);
 
     var p = new Polygon();
@@ -626,6 +627,7 @@ public class Stage {
       this.sprites.stream()
           .forEach(
               s -> {
+                s.mouseEvent(e);
                 if (s.isTouchingMousePointer()) {
                   s.whenClicked();
                 }
@@ -672,6 +674,7 @@ public class Stage {
         this.keyCodePressed.put(e.getKeyCode(), false);
         break;
     }
+    this.sprites.stream().forEach(s -> s.keyEvent(e));
   }
 
   /**
@@ -814,7 +817,7 @@ public class Stage {
     }
     this.backgroundBuffer.beginDraw();
     if (this.eraseBackgroundBuffer) {
-      this.backgroundBuffer.background(255);
+      this.backgroundBuffer.clear();
       this.eraseBackgroundBuffer = false;
     }
     this.pens.stream().forEach(p -> p.draw());
@@ -840,24 +843,6 @@ public class Stage {
       this.foregroundStamps.poll().draw(this.foregroundBuffer);
     }
     this.foregroundBuffer.endDraw();
-
-    if (applet.isDebug()) {
-      this.debugBuffer.beginDraw();
-      this.debugBuffer.clear();
-      this.sprites.stream().forEach(s -> s.drawDebug());
-      this.debugBuffer.strokeWeight(1);
-      this.debugBuffer.stroke(Window.DEBUG_COLOR[0], Window.DEBUG_COLOR[1], Window.DEBUG_COLOR[2]);
-      this.debugBuffer.fill(Window.DEBUG_COLOR[0], Window.DEBUG_COLOR[1], Window.DEBUG_COLOR[2]);
-      var w = this.getWidth() / 2;
-      var h = this.getHeight() / 2;
-      this.debugBuffer.line(this.mouseX + w, 0, this.mouseX + w, applet.height);
-      this.debugBuffer.line(0, -this.mouseY + h, applet.width, -this.mouseY + h);
-      this.debugBuffer.textFont(Font.getDefaultFont());
-      this.debugBuffer.text(
-          "(" + this.mouseX + ", " + this.mouseY + ")", this.mouseX + w, -this.mouseY + h);
-      this.debugBuffer.text("FPS: " + Math.round(applet.frameRate * 100) / 100, 20, 10);
-      this.debugBuffer.endDraw();
-    }
   }
 
   /**
@@ -881,6 +866,10 @@ public class Stage {
     if (this.sorter != null) {
       this.sprites.sort(this.sorter);
     }
+
+    this.run();
+    this.sprites.stream().forEach(s -> s.run());
+
     this.sprites.stream().forEach(s -> s.draw());
     this.texts.stream().forEach(t -> t.draw());
 
@@ -897,15 +886,24 @@ public class Stage {
       }
     }
 
-    if (applet.isDebug() && this.debugBuffer.pixels != null) {
-      applet.image(this.debugBuffer, applet.width / 2, applet.height / 2);
-    } else {
-      try {
-        this.debugBuffer.loadPixels();
-      } catch (Exception e) {
-      }
-    }
+    if (applet.isDebug()) {
+      this.debugBuffer.beginDraw();
+      this.debugBuffer.clear();
+      this.sprites.stream().forEach(s -> s.drawDebug());
+      this.debugBuffer.strokeWeight(1);
+      this.debugBuffer.stroke(Window.DEBUG_COLOR[0], Window.DEBUG_COLOR[1], Window.DEBUG_COLOR[2]);
+      this.debugBuffer.fill(Window.DEBUG_COLOR[0], Window.DEBUG_COLOR[1], Window.DEBUG_COLOR[2]);
+      var w = this.getWidth() / 2;
+      var h = this.getHeight() / 2;
+      this.debugBuffer.line(this.mouseX + w, 0, this.mouseX + w, applet.height);
+      this.debugBuffer.line(0, -this.mouseY + h, applet.width, -this.mouseY + h);
+      this.debugBuffer.textFont(Font.getDefaultFont());
+      this.debugBuffer.text(
+          "(" + this.mouseX + ", " + this.mouseY + ")", this.mouseX + w, -this.mouseY + h);
+      this.debugBuffer.text("FPS: " + Math.round(applet.frameRate * 100) / 100, 20, 10);
+      this.debugBuffer.endDraw();
 
-    this.run();
+      applet.image(this.debugBuffer, applet.width / 2, applet.height / 2);
+    }
   }
 }
