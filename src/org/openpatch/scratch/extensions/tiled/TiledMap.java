@@ -81,8 +81,8 @@ public class TiledMap {
       var rx = tx + ox;
       var ry = -ty + oy;
 
-      var x = rx * map.tilewidth;
-      var y = ry * map.tileheight;
+      var x = rx * map.tilewidth + map.tilewidth / 2;
+      var y = ry * map.tileheight - map.tileheight / 2;
 
       var tile = tiles.get(layer.data[index]);
       if (tile == null) {
