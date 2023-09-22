@@ -10,7 +10,11 @@ public class Timer {
   private int currentInterval;
 
   public Timer() {
-    this.reset();
+    this.startMillisEvery = -1;
+    this.startMillisFor = -1;
+    this.startMillisAfter = -1;
+    this.startMillisInterval = -1;
+    this.currentInterval = 0;
   }
 
   public void reset() {

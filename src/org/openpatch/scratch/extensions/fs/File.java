@@ -57,7 +57,7 @@ public class File {
     try (Reader reader = new FileReader(path)) {
       return mapper.readValue(reader, cls);
     } catch (IOException e) {
-      System.out.println(e);
+      System.err.println(e);
       return null;
     }
   }

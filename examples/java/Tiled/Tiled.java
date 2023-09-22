@@ -1,14 +1,15 @@
 import org.openpatch.scratch.Window;
 
 public class Tiled extends Window {
-  public Tiled() {
-    super(800, 600, "assets");
+    public Tiled() {
+        super(800, 600, "assets");
 
-    this.setDebug(true);
-    this.addStage("level", new TiledLevel());
-  }
+        I18n.setup();
 
-  public static void main(String[] args) {
-    new Tiled();
-  }
+        this.setStage(new World());
+    }
+
+    public static void main(String[] args) {
+        new Tiled();
+    }
 }
