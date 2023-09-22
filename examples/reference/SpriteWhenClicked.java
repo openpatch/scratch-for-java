@@ -5,31 +5,31 @@ import org.openpatch.scratch.extensions.recorder.*;
 
 public class SpriteWhenClicked {
 
-	class CustomSprite extends Sprite {
+  class CustomSprite extends Sprite {
 
-		public CustomSprite() {
-			this.addCostume("zeta", "assets/zeta_green_badge.png");
-			this.addCostume("gamma", "assets/gamma_purple_badge.png");
-		}
+    public CustomSprite() {
+      this.addCostume("zeta", "assets/zeta_green_badge.png");
+      this.addCostume("gamma", "assets/gamma_purple_badge.png");
+    }
 
-		@Override
-		public void whenClicked() {
-			this.nextCostume();
-		}
-	}
+    @Override
+    public void whenClicked() {
+      this.nextCostume();
+    }
+  }
 
-	public SpriteWhenClicked() {
-		Stage myStage = new Stage(254, 100);
-		myStage.add(new CustomSprite());
-		GifRecorder recorder = new GifRecorder("" + this.getClass().getName() + ".gif");
-		recorder.start();
-		while (myStage.getTimer().forMillis(3000))
-			;
-		recorder.stop();
-		Window.getInstance().exit();
-	}
+  public SpriteWhenClicked() {
+    Stage myStage = new Stage(254, 100);
+    myStage.add(new CustomSprite());
+    GifRecorder recorder = new GifRecorder("" + this.getClass().getName() + ".gif");
+    recorder.start();
+    while (myStage.getTimer().forMillis(3000))
+      ;
+    recorder.stop();
+    Window.getInstance().exit();
+  }
 
-	public static void main(String[] args) {
-		new SpriteWhenClicked();
-	}
+  public static void main(String[] args) {
+    new SpriteWhenClicked();
+  }
 }

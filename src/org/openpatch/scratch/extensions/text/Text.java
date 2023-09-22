@@ -358,7 +358,6 @@ public class Text {
     var applet = Applet.getInstance();
     var lines = this.originalText.split("\n");
 
-
     if (this.width == 0) {
       this.width = applet.getWidth() - 16; // padding
     }
