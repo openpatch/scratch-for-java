@@ -13,5 +13,4 @@ public class Wall extends Sprite {
     this.setX(this.mapX - GameState.get().camX);
     this.setY(this.mapY - GameState.get().camY);
   }
-
 }
