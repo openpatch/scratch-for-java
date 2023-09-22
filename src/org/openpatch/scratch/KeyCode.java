@@ -1,919 +1,587 @@
 package org.openpatch.scratch;
 
-/** Copied from java.awt.event.KeyEvent for easy access. */
+/** Copied from com.jogamp.newt.event.KeyEvent for easy access. */
 public final class KeyCode {
-  /** The virtual key Enter, which will always map to '\n'. */
-  public static final int VK_ENTER = '\n';
+  /** This value, {@value}, is used to indicate that the keyCode is unknown. */
+  public static final short VK_UNDEFINED = (short) 0x0;
 
-  /** The virtual key Backspace, which will always map to '\b'. */
-  public static final int VK_BACK_SPACE = '\b';
+  static final short VK_FREE01 = (short) 0x01;
 
-  /** The virtual key Tab, which will always map to '\t'. */
-  public static final int VK_TAB = '\t';
+  /** Constant for the HOME function key. ASCII: Start Of Text. */
+  public static final short VK_HOME = (short) 0x02;
 
-  /** The virtual key Cancel. */
-  public static final int VK_CANCEL = 3;
+  /** Constant for the END function key. ASCII: End Of Text. */
+  public static final short VK_END = (short) 0x03;
 
-  /** The virtual key VK_CLEAR. */
-  public static final int VK_CLEAR = 12;
+  /** Constant for the END function key. ASCII: End Of Transmission. */
+  public static final short VK_FINAL = (short) 0x04;
 
-  /** The virtual key VK_SHIFT. */
-  public static final int VK_SHIFT = 16;
+  /** Constant for the PRINT function key. ASCII: Enquiry. */
+  public static final short VK_PRINTSCREEN = (short) 0x05;
 
-  /** The virtual key VK_CONTROL. */
-  public static final int VK_CONTROL = 17;
+  static final short VK_FREE06 = (short) 0x06;
+  static final short VK_FREE07 = (short) 0x07;
 
-  /** The virtual key VK_ALT. */
-  public static final int VK_ALT = 18;
+  /** Constant for the BACK SPACE key "\b", matching ASCII. Printable! */
+  public static final short VK_BACK_SPACE = (short) 0x08;
 
-  /** The virtual key VK_PAUSE. */
-  public static final int VK_PAUSE = 19;
+  /** Constant for the HORIZ TAB key "\t", matching ASCII. Printable! */
+  public static final short VK_TAB = (short) 0x09;
 
-  /** The virtual key VK_CAPS_LOCK. */
-  public static final int VK_CAPS_LOCK = 20;
+  /** LINE_FEED "\n", matching ASCII, n/a on keyboard. */
+  static final short VK_FREE0A = (short) 0x0A;
 
-  /** The virtual key VK_ESCAPE. */
-  public static final int VK_ESCAPE = 27;
+  /** Constant for the PAGE DOWN function key. ASCII: Vertical Tabulation. */
+  public static final short VK_PAGE_DOWN = (short) 0x0B;
 
-  /** The virtual key VK_SPACE. */
-  public static final int VK_SPACE = ' ';
+  /** Constant for the CLEAR key, i.e. FORM FEED, matching ASCII. */
+  public static final short VK_CLEAR = (short) 0x0C;
 
-  /** The virtual key VK_PAGE_UP. */
-  public static final int VK_PAGE_UP = 33;
+  /** Constant for the ENTER key, i.e. CARRIAGE RETURN, matching ASCII. Printable! */
+  public static final short VK_ENTER = (short) 0x0D;
 
-  /** The virtual key VK_PAGE_DOWN. */
-  public static final int VK_PAGE_DOWN = 34;
+  static final short VK_FREE0E = (short) 0x0E;
 
-  /** The virtual key VK_END. */
-  public static final int VK_END = 35;
+  /** Constant for the CTRL function key. ASCII: shift-in. */
+  public static final short VK_SHIFT = (short) 0x0F;
 
-  /** The virtual key VK_HOME. */
-  public static final int VK_HOME = 36;
+  /** Constant for the PAGE UP function key. ASCII: Data Link Escape. */
+  public static final short VK_PAGE_UP = (short) 0x10;
 
-  /**
-   * The virtual key for the non-numpad VK_LEFT.
-   *
-   * @see #VK_KP_LEFT
-   */
-  public static final int VK_LEFT = 37;
-
-  /**
-   * The virtual key for the non-numpad VK_UP.
-   *
-   * @see #VK_KP_UP
-   */
-  public static final int VK_UP = 38;
-
-  /**
-   * The virtual key for the non-numpad VK_RIGHT.
-   *
-   * @see #VK_KP_RIGHT
-   */
-  public static final int VK_RIGHT = 39;
-
-  /**
-   * The virtual key for the non-numpad VK_DOWN.
-   *
-   * @see #VK_KP_DOWN
-   */
-  public static final int VK_DOWN = 40;
+  /** Constant for the CTRL function key. ASCII: device-ctrl-one. */
+  public static final short VK_CONTROL = (short) 0x11;
 
-  /** The virtual key VK_COMMA. */
-  public static final int VK_COMMA = ',';
+  /** Constant for the left ALT function key. ASCII: device-ctrl-two. */
+  public static final short VK_ALT = (short) 0x12;
 
-  /**
-   * The virtual key VK_MINUS.
-   *
-   * @since 1.2
-   */
-  public static final int VK_MINUS = '-';
-
-  /** The virtual key VK_PERIOD. */
-  public static final int VK_PERIOD = '.';
+  /** Constant for the ALT_GRAPH function key, i.e. right ALT key. ASCII: device-ctrl-three. */
+  public static final short VK_ALT_GRAPH = (short) 0x13;
 
-  /** The virtual key VK_SLASH. */
-  public static final int VK_SLASH = '/';
+  /** Constant for the CAPS LOCK function key. ASCII: device-ctrl-four. */
+  public static final short VK_CAPS_LOCK = (short) 0x14;
 
-  /** The virtual key VK_0. */
-  public static final int VK_0 = '0';
+  static final short VK_FREE15 = (short) 0x15;
 
-  /** The virtual key VK_1. */
-  public static final int VK_1 = '1';
+  /** Constant for the PAUSE function key. ASCII: sync-idle. */
+  public static final short VK_PAUSE = (short) 0x16;
 
-  /** The virtual key VK_2. */
-  public static final int VK_2 = '2';
+  /** <b>scroll lock</b> key. ASCII: End Of Transmission Block. */
+  public static final short VK_SCROLL_LOCK = (short) 0x17;
 
-  /** The virtual key VK_3. */
-  public static final int VK_3 = '3';
+  /** Constant for the CANCEL function key. ASCII: Cancel. */
+  public static final short VK_CANCEL = (short) 0x18;
 
-  /** The virtual key VK_4. */
-  public static final int VK_4 = '4';
+  static final short VK_FREE19 = (short) 0x19;
 
-  /** The virtual key VK_5. */
-  public static final int VK_5 = '5';
+  /** Constant for the INSERT function key. ASCII: Substitute. */
+  public static final short VK_INSERT = (short) 0x1A;
 
-  /** The virtual key VK_6. */
-  public static final int VK_6 = '6';
+  /** Constant for the ESCAPE function key. ASCII: Escape. */
+  public static final short VK_ESCAPE = (short) 0x1B;
 
-  /** The virtual key VK_7. */
-  public static final int VK_7 = '7';
+  /** Constant for the Convert function key, Japanese "henkan". ASCII: File Separator. */
+  public static final short VK_CONVERT = (short) 0x1C;
 
-  /** The virtual key VK_8. */
-  public static final int VK_8 = '8';
+  /** Constant for the Don't Convert function key, Japanese "muhenkan". ASCII: Group Separator. */
+  public static final short VK_NONCONVERT = (short) 0x1D;
 
-  /** The virtual key VK_9. */
-  public static final int VK_9 = '9';
-
-  /** The virtual key VK_SEMICOLON. */
-  public static final int VK_SEMICOLON = ';';
+  /**
+   * Constant for the Accept or Commit function key, Japanese "kakutei". ASCII: Record Separator.
+   */
+  public static final short VK_ACCEPT = (short) 0x1E;
 
-  /** The virtual key VK_EQUALS. */
-  public static final int VK_EQUALS = '=';
+  /** Constant for the Mode Change (?). ASCII: Unit Separator. */
+  public static final short VK_MODECHANGE = (short) 0x1F;
 
-  /** The virtual key VK_A. */
-  public static final int VK_A = 'A';
+  //
+  // Unicode: Printable [0x20 - 0x7E]
+  // NOTE: Collision of 'a' - 'x' [0x61 .. 0x78], used for keyCode/keySym Fn function keys
+  //
 
-  /** The virtual key VK_B. */
-  public static final int VK_B = 'B';
+  /** Constant for the SPACE function key. ASCII: SPACE. */
+  public static final short VK_SPACE = (short) 0x20;
 
-  /** The virtual key VK_C. */
-  public static final int VK_C = 'C';
+  /** Constant for the "!" key. */
+  public static final short VK_EXCLAMATION_MARK = (short) 0x21;
 
-  /** The virtual key VK_D. */
-  public static final int VK_D = 'D';
+  /** Constant for the """ key. */
+  public static final short VK_QUOTEDBL = (short) 0x22;
 
-  /** The virtual key VK_E. */
-  public static final int VK_E = 'E';
+  /** Constant for the "#" key. */
+  public static final short VK_NUMBER_SIGN = (short) 0x23;
 
-  /** The virtual key VK_F. */
-  public static final int VK_F = 'F';
+  /** Constant for the "$" key. */
+  public static final short VK_DOLLAR = (short) 0x24;
 
-  /** The virtual key VK_G. */
-  public static final int VK_G = 'G';
+  /** Constant for the "%" key. */
+  public static final short VK_PERCENT = (short) 0x25;
 
-  /** The virtual key VK_H. */
-  public static final int VK_H = 'H';
+  /** Constant for the "&" key. */
+  public static final short VK_AMPERSAND = (short) 0x26;
 
-  /** The virtual key VK_I. */
-  public static final int VK_I = 'I';
+  /** Constant for the "'" key. */
+  public static final short VK_QUOTE = (short) 0x27;
 
-  /** The virtual key VK_J. */
-  public static final int VK_J = 'J';
+  /** Constant for the "(" key. */
+  public static final short VK_LEFT_PARENTHESIS = (short) 0x28;
 
-  /** The virtual key VK_K. */
-  public static final int VK_K = 'K';
+  /** Constant for the ")" key. */
+  public static final short VK_RIGHT_PARENTHESIS = (short) 0x29;
 
-  /** The virtual key VK_L. */
-  public static final int VK_L = 'L';
+  /** Constant for the "*" key */
+  public static final short VK_ASTERISK = (short) 0x2A;
 
-  /** The virtual key VK_M. */
-  public static final int VK_M = 'M';
+  /** Constant for the "+" key. */
+  public static final short VK_PLUS = (short) 0x2B;
 
-  /** The virtual key VK_N. */
-  public static final int VK_N = 'N';
+  /** Constant for the comma key, "," */
+  public static final short VK_COMMA = (short) 0x2C;
 
-  /** The virtual key VK_O. */
-  public static final int VK_O = 'O';
+  /** Constant for the minus key, "-" */
+  public static final short VK_MINUS = (short) 0x2D;
 
-  /** The virtual key VK_P. */
-  public static final int VK_P = 'P';
+  /** Constant for the period key, "." */
+  public static final short VK_PERIOD = (short) 0x2E;
 
-  /** The virtual key VK_Q. */
-  public static final int VK_Q = 'Q';
+  /** Constant for the forward slash key, "/" */
+  public static final short VK_SLASH = (short) 0x2F;
 
-  /** The virtual key VK_R. */
-  public static final int VK_R = 'R';
+  /** VK_0 thru VK_9 are the same as UTF16/ASCII '0' thru '9' [0x30 - 0x39] */
+  public static final short VK_0 = (short) 0x30;
 
-  /** The virtual key VK_S. */
-  public static final int VK_S = 'S';
+  /** See {@link #VK_0}. */
+  public static final short VK_1 = (short) 0x31;
 
-  /** The virtual key VK_T. */
-  public static final int VK_T = 'T';
+  /** See {@link #VK_0}. */
+  public static final short VK_2 = (short) 0x32;
 
-  /** The virtual key VK_U. */
-  public static final int VK_U = 'U';
+  /** See {@link #VK_0}. */
+  public static final short VK_3 = (short) 0x33;
 
-  /** The virtual key VK_V. */
-  public static final int VK_V = 'V';
+  /** See {@link #VK_0}. */
+  public static final short VK_4 = (short) 0x34;
 
-  /** The virtual key VK_W. */
-  public static final int VK_W = 'W';
+  /** See {@link #VK_0}. */
+  public static final short VK_5 = (short) 0x35;
 
-  /** The virtual key VK_X. */
-  public static final int VK_X = 'X';
+  /** See {@link #VK_0}. */
+  public static final short VK_6 = (short) 0x36;
 
-  /** The virtual key VK_Y. */
-  public static final int VK_Y = 'Y';
+  /** See {@link #VK_0}. */
+  public static final short VK_7 = (short) 0x37;
 
-  /** The virtual key VK_Z. */
-  public static final int VK_Z = 'Z';
+  /** See {@link #VK_0}. */
+  public static final short VK_8 = (short) 0x38;
 
-  /** The virtual key VK_OPEN_BRACKET. */
-  public static final int VK_OPEN_BRACKET = '[';
+  /** See {@link #VK_0}. */
+  public static final short VK_9 = (short) 0x39;
 
-  /** The virtual key VK_BACK_SLASH. */
-  public static final int VK_BACK_SLASH = '\\';
+  /** Constant for the ":" key. */
+  public static final short VK_COLON = (short) 0x3A;
 
-  /** The virtual key VK_CLOSE_BRACKET. */
-  public static final int VK_CLOSE_BRACKET = ']';
+  /** Constant for the semicolon key, ";" */
+  public static final short VK_SEMICOLON = (short) 0x3B;
 
-  /** The virtual key VK_NUMPAD0. */
-  public static final int VK_NUMPAD0 = 96;
+  /** Constant for the equals key, "<" */
+  public static final short VK_LESS = (short) 0x3C;
 
-  /** The virtual key VK_NUMPAD1. */
-  public static final int VK_NUMPAD1 = 97;
+  /** Constant for the equals key, "=" */
+  public static final short VK_EQUALS = (short) 0x3D;
 
-  /** The virtual key VK_NUMPAD2. */
-  public static final int VK_NUMPAD2 = 98;
+  /** Constant for the equals key, ">" */
+  public static final short VK_GREATER = (short) 0x3E;
 
-  /** The virtual key VK_NUMPAD3. */
-  public static final int VK_NUMPAD3 = 99;
+  /** Constant for the equals key, "?" */
+  public static final short VK_QUESTIONMARK = (short) 0x3F;
 
-  /** The virtual key VK_NUMPAD4. */
-  public static final int VK_NUMPAD4 = 100;
+  /** Constant for the equals key, "@" */
+  public static final short VK_AT = (short) 0x40;
 
-  /** The virtual key VK_NUMPAD5. */
-  public static final int VK_NUMPAD5 = 101;
+  /** VK_A thru VK_Z are the same as Capital UTF16/ASCII 'A' thru 'Z' (0x41 - 0x5A) */
+  public static final short VK_A = (short) 0x41;
 
-  /** The virtual key VK_NUMPAD6. */
-  public static final int VK_NUMPAD6 = 102;
+  /** See {@link #VK_A}. */
+  public static final short VK_B = (short) 0x42;
 
-  /** The virtual key VK_NUMPAD7. */
-  public static final int VK_NUMPAD7 = 103;
+  /** See {@link #VK_A}. */
+  public static final short VK_C = (short) 0x43;
 
-  /** The virtual key VK_NUMPAD8. */
-  public static final int VK_NUMPAD8 = 104;
+  /** See {@link #VK_A}. */
+  public static final short VK_D = (short) 0x44;
 
-  /** The virtual key VK_NUMPAD9. */
-  public static final int VK_NUMPAD9 = 105;
+  /** See {@link #VK_A}. */
+  public static final short VK_E = (short) 0x45;
 
-  /** The virtual key VK_MULTIPLY. */
-  public static final int VK_MULTIPLY = 106;
+  /** See {@link #VK_A}. */
+  public static final short VK_F = (short) 0x46;
 
-  /** The virtual key VK_ADD. */
-  public static final int VK_ADD = 107;
+  /** See {@link #VK_A}. */
+  public static final short VK_G = (short) 0x47;
 
-  /**
-   * The virtual key VK_SEPARATOR, handily mispelled for those who can't figure it out.
-   *
-   * @deprecated use {@link #VK_SEPARATOR}
-   */
-  @Deprecated
-  public static final int VK_SEPARATER = 108;
+  /** See {@link #VK_A}. */
+  public static final short VK_H = (short) 0x48;
 
-  /**
-   * The virtual key VK_SEPARATOR.
-   *
-   * @since 1.4
-   */
-  public static final int VK_SEPARATOR = 108;
+  /** See {@link #VK_A}. */
+  public static final short VK_I = (short) 0x49;
 
-  /** The virtual key VK_SUBTRACT. */
-  public static final int VK_SUBTRACT = 109;
+  /** See {@link #VK_A}. */
+  public static final short VK_J = (short) 0x4A;
 
-  /** The virtual key VK_DECIMAL. */
-  public static final int VK_DECIMAL = 110;
+  /** See {@link #VK_A}. */
+  public static final short VK_K = (short) 0x4B;
 
-  /** The virtual key VK_DIVIDE. */
-  public static final int VK_DIVIDE = 111;
+  /** See {@link #VK_A}. */
+  public static final short VK_L = (short) 0x4C;
 
-  /** The virtual key VK_DELETE. */
-  public static final int VK_DELETE = 127;
+  /** See {@link #VK_A}. */
+  public static final short VK_M = (short) 0x4D;
 
-  /** The virtual key VK_NUM_LOCK. */
-  public static final int VK_NUM_LOCK = 144;
+  /** See {@link #VK_A}. */
+  public static final short VK_N = (short) 0x4E;
 
-  /** The virtual key VK_SCROLL_LOCK. */
-  public static final int VK_SCROLL_LOCK = 145;
+  /** See {@link #VK_A}. */
+  public static final short VK_O = (short) 0x4F;
 
-  /** The virtual key VK_F1. */
-  public static final int VK_F1 = 112;
+  /** See {@link #VK_A}. */
+  public static final short VK_P = (short) 0x50;
 
-  /** The virtual key VK_F2. */
-  public static final int VK_F2 = 113;
+  /** See {@link #VK_A}. */
+  public static final short VK_Q = (short) 0x51;
 
-  /** The virtual key VK_F3. */
-  public static final int VK_F3 = 114;
+  /** See {@link #VK_A}. */
+  public static final short VK_R = (short) 0x52;
 
-  /** The virtual key VK_F4. */
-  public static final int VK_F4 = 115;
+  /** See {@link #VK_A}. */
+  public static final short VK_S = (short) 0x53;
 
-  /** The virtual key VK_F5. */
-  public static final int VK_F5 = 116;
+  /** See {@link #VK_A}. */
+  public static final short VK_T = (short) 0x54;
 
-  /** The virtual key VK_F6. */
-  public static final int VK_F6 = 117;
+  /** See {@link #VK_A}. */
+  public static final short VK_U = (short) 0x55;
 
-  /** The virtual key VK_F7. */
-  public static final int VK_F7 = 118;
+  /** See {@link #VK_A}. */
+  public static final short VK_V = (short) 0x56;
 
-  /** The virtual key VK_F8. */
-  public static final int VK_F8 = 119;
+  /** See {@link #VK_A}. */
+  public static final short VK_W = (short) 0x57;
 
-  /** The virtual key VK_F9. */
-  public static final int VK_F9 = 120;
+  /** See {@link #VK_A}. */
+  public static final short VK_X = (short) 0x58;
 
-  /** The virtual key VK_F10. */
-  public static final int VK_F10 = 121;
+  /** See {@link #VK_A}. */
+  public static final short VK_Y = (short) 0x59;
 
-  /** The virtual key VK_F11. */
-  public static final int VK_F11 = 122;
+  /** See {@link #VK_A}. */
+  public static final short VK_Z = (short) 0x5A;
 
-  /** The virtual key VK_F12. */
-  public static final int VK_F12 = 123;
+  /** Constant for the open bracket key, "[" */
+  public static final short VK_OPEN_BRACKET = (short) 0x5B;
 
-  /**
-   * The virtual key VK_F13.
-   *
-   * @since 1.2
-   */
-  public static final int VK_F13 = 61440;
+  /** Constant for the back slash key, "\" */
+  public static final short VK_BACK_SLASH = (short) 0x5C;
 
-  /**
-   * The virtual key VK_F14.
-   *
-   * @since 1.2
-   */
-  public static final int VK_F14 = 61441;
+  /** Constant for the close bracket key, "]" */
+  public static final short VK_CLOSE_BRACKET = (short) 0x5D;
 
-  /**
-   * The virtual key VK_F15.
-   *
-   * @since 1.2
-   */
-  public static final int VK_F15 = 61442;
+  /** Constant for the "^" key. */
+  public static final short VK_CIRCUMFLEX = (short) 0x5E;
 
-  /**
-   * The virtual key VK_F16.
-   *
-   * @since 1.2
-   */
-  public static final int VK_F16 = 61443;
+  /** Constant for the "_" key */
+  public static final short VK_UNDERSCORE = (short) 0x5F;
 
-  /**
-   * The virtual key VK_F17.
-   *
-   * @since 1.2
-   */
-  public static final int VK_F17 = 61444;
+  /** Constant for the "`" key */
+  public static final short VK_BACK_QUOTE = (short) 0x60;
 
-  /**
-   * The virtual key VK_F18.
-   *
-   * @since 1.2
-   */
-  public static final int VK_F18 = 61445;
+  /** Small UTF/ASCII 'a' thru 'z' (0x61 - 0x7a) - Not used for keyCode / keySym. */
 
   /**
-   * The virtual key VK_F19.
+   * Constant for the F<i>n</i> function keys.
    *
-   * @since 1.2
-   */
-  public static final int VK_F19 = 61446;
-
-  /**
-   * The virtual key VK_F20.
+   * <p>F1..F24, i.e. F<i>n</i>, are mapped from on <code>0x60+n</code> -> <code>[0x61 .. 0x78]
+   * </code>.
    *
-   * @since 1.2
+   * <p><b>Warning:</b> The F<i>n</i> function keys <b>do collide</b> with unicode characters small
+   * 'a' thru 'x'!<br>
+   * See <a href="#unicodeCollision">Unicode Collision</a> for details.
    */
-  public static final int VK_F20 = 61447;
+  public static final short VK_F1 = (short) (0x60 + 1);
 
-  /**
-   * The virtual key VK_F21.
-   *
-   * @since 1.2
-   */
-  public static final int VK_F21 = 61448;
+  /** Constant for the F2 function key. See {@link #VK_F1}. */
+  public static final short VK_F2 = (short) (0x60 + 2);
 
-  /**
-   * The virtual key VK_F22.
-   *
-   * @since 1.2
-   */
-  public static final int VK_F22 = 61449;
+  /** Constant for the F3 function key. See {@link #VK_F1}. */
+  public static final short VK_F3 = (short) (0x60 + 3);
 
-  /**
-   * The virtual key VK_F23.
-   *
-   * @since 1.2
-   */
-  public static final int VK_F23 = 61450;
+  /** Constant for the F4 function key. See {@link #VK_F1}. */
+  public static final short VK_F4 = (short) (0x60 + 4);
 
-  /**
-   * The virtual key VK_F24.
-   *
-   * @since 1.2
-   */
-  public static final int VK_F24 = 61451;
+  /** Constant for the F5 function key. See {@link #VK_F1}. */
+  public static final short VK_F5 = (short) (0x60 + 5);
 
-  /** The virtual key VK_PRINTSCREEN. */
-  public static final int VK_PRINTSCREEN = 154;
+  /** Constant for the F6 function key. See {@link #VK_F1}. */
+  public static final short VK_F6 = (short) (0x60 + 6);
 
-  /** The virtual key VK_INSERT. */
-  public static final int VK_INSERT = 155;
+  /** Constant for the F7 function key. See {@link #VK_F1}. */
+  public static final short VK_F7 = (short) (0x60 + 7);
 
-  /** The virtual key VK_HELP. */
-  public static final int VK_HELP = 156;
+  /** Constant for the F8 function key. See {@link #VK_F1}. */
+  public static final short VK_F8 = (short) (0x60 + 8);
 
-  /** The virtual key VK_META. */
-  public static final int VK_META = 157;
+  /** Constant for the F9 function key. See {@link #VK_F1}. */
+  public static final short VK_F9 = (short) (0x60 + 9);
 
-  /** The virtual key VK_BACK_QUOTE. */
-  public static final int VK_BACK_QUOTE = 192;
+  /** Constant for the F11 function key. See {@link #VK_F1}. */
+  public static final short VK_F10 = (short) (0x60 + 10);
 
-  /** The virtual key VK_QUOTE. */
-  public static final int VK_QUOTE = 222;
+  /** Constant for the F11 function key. See {@link #VK_F1}. */
+  public static final short VK_F11 = (short) (0x60 + 11);
 
-  /**
-   * The virtual key for the numpad VK_KP_UP.
-   *
-   * @see #VK_UP
-   * @since 1.2
-   */
-  public static final int VK_KP_UP = 224;
+  /** Constant for the F12 function key. See {@link #VK_F1}. */
+  public static final short VK_F12 = (short) (0x60 + 12);
 
-  /**
-   * The virtual key for the numpad VK_KP_DOWN.
-   *
-   * @see #VK_DOWN
-   * @since 1.2
-   */
-  public static final int VK_KP_DOWN = 225;
+  /** Constant for the F13 function key. See {@link #VK_F1}. */
+  public static final short VK_F13 = (short) (0x60 + 13);
 
-  /**
-   * The virtual key for the numpad VK_KP_LEFT.
-   *
-   * @see #VK_LEFT
-   * @since 1.2
-   */
-  public static final int VK_KP_LEFT = 226;
+  /** Constant for the F14 function key. See {@link #VK_F1}. */
+  public static final short VK_F14 = (short) (0x60 + 14);
 
-  /**
-   * The virtual key for the numpad VK_KP_RIGHT.
-   *
-   * @see #VK_RIGHT
-   * @since 1.2
-   */
-  public static final int VK_KP_RIGHT = 227;
+  /** Constant for the F15 function key. See {@link #VK_F1}. */
+  public static final short VK_F15 = (short) (0x60 + 15);
 
-  /**
-   * The virtual key VK_DEAD_GRAVE.
-   *
-   * @since 1.2
-   */
-  public static final int VK_DEAD_GRAVE = 128;
+  /** Constant for the F16 function key. See {@link #VK_F1}. */
+  public static final short VK_F16 = (short) (0x60 + 16);
 
-  /**
-   * The virtual key VK_DEAD_ACUTE.
-   *
-   * @since 1.2
-   */
-  public static final int VK_DEAD_ACUTE = 129;
+  /** Constant for the F17 function key. See {@link #VK_F1}. */
+  public static final short VK_F17 = (short) (0x60 + 17);
 
-  /**
-   * The virtual key VK_DEAD_CIRCUMFLEX.
-   *
-   * @since 1.2
-   */
-  public static final int VK_DEAD_CIRCUMFLEX = 130;
+  /** Constant for the F18 function key. See {@link #VK_F1}. */
+  public static final short VK_F18 = (short) (0x60 + 18);
 
-  /**
-   * The virtual key VK_DEAD_TILDE.
-   *
-   * @since 1.2
-   */
-  public static final int VK_DEAD_TILDE = 131;
+  /** Constant for the F19 function key. See {@link #VK_F1}. */
+  public static final short VK_F19 = (short) (0x60 + 19);
 
-  /**
-   * The virtual key VK_DEAD_MACRON.
-   *
-   * @since 1.2
-   */
-  public static final int VK_DEAD_MACRON = 132;
+  /** Constant for the F20 function key. See {@link #VK_F1}. */
+  public static final short VK_F20 = (short) (0x60 + 20);
 
-  /**
-   * The virtual key VK_DEAD_BREVE.
-   *
-   * @since 1.2
-   */
-  public static final int VK_DEAD_BREVE = 133;
+  /** Constant for the F21 function key. See {@link #VK_F1}. */
+  public static final short VK_F21 = (short) (0x60 + 21);
 
-  /**
-   * The virtual key VK_DEAD_ABOVEDOT.
-   *
-   * @since 1.2
-   */
-  public static final int VK_DEAD_ABOVEDOT = 134;
+  /** Constant for the F22 function key. See {@link #VK_F1}. */
+  public static final short VK_F22 = (short) (0x60 + 22);
 
-  /**
-   * The virtual key VK_DEAD_DIAERESIS.
-   *
-   * @since 1.2
-   */
-  public static final int VK_DEAD_DIAERESIS = 135;
+  /** Constant for the F23 function key. See {@link #VK_F1}. */
+  public static final short VK_F23 = (short) (0x60 + 23);
 
-  /**
-   * The virtual key VK_DEAD_ABOVERING.
-   *
-   * @since 1.2
-   */
-  public static final int VK_DEAD_ABOVERING = 136;
+  /** Constant for the F24 function key. See {@link #VK_F1}. */
+  public static final short VK_F24 = (short) (0x60 + 24);
 
-  /**
-   * The virtual key VK_DEAD_DOUBLEACUTE.
-   *
-   * @since 1.2
-   */
-  public static final int VK_DEAD_DOUBLEACUTE = 137;
+  /** Constant for the "{" key */
+  public static final short VK_LEFT_BRACE = (short) 0x7B;
 
-  /**
-   * The virtual key VK_DEAD_CARON.
-   *
-   * @since 1.2
-   */
-  public static final int VK_DEAD_CARON = 138;
+  /** Constant for the "|" key */
+  public static final short VK_PIPE = (short) 0x7C;
 
-  /**
-   * The virtual key VK_DEAD_CEDILLA.
-   *
-   * @since 1.2
-   */
-  public static final int VK_DEAD_CEDILLA = 139;
+  /** Constant for the "}" key */
+  public static final short VK_RIGHT_BRACE = (short) 0x7D;
 
-  /**
-   * The virtual key VK_DEAD_OGONEK.
-   *
-   * @since 1.2
-   */
-  public static final int VK_DEAD_OGONEK = 140;
+  /** Constant for the "~" key, matching ASCII */
+  public static final short VK_TILDE = (short) 0x7E;
 
-  /**
-   * The virtual key VK_DEAD_IOTA.
-   *
-   * @since 1.2
-   */
-  public static final int VK_DEAD_IOTA = 141;
+  //
+  // Unicode: Non printable controls: [0x7F - 0x9F]
+  //
+  // Numpad keys [0x7F - 0x8E] are printable
+  //
 
-  /**
-   * The virtual key VK_DEAD_VOICED_SOUND.
-   *
-   * @since 1.2
-   */
-  public static final int VK_DEAD_VOICED_SOUND = 142;
+  /** Numeric keypad <b>decimal separator</b> key. Non printable UTF control. */
+  public static final short VK_SEPARATOR = (short) 0x7F;
 
   /**
-   * The virtual key VK_DEAD_SEMIVOICED_SOUND.
-   *
-   * @since 1.2
+   * Numeric keypad VK_NUMPAD0 thru VK_NUMPAD9 are mapped to UTF control (0x80 - 0x89). Non
+   * printable UTF control.
    */
-  public static final int VK_DEAD_SEMIVOICED_SOUND = 143;
+  public static final short VK_NUMPAD0 = (short) 0x80;
 
-  /**
-   * The virtual key VK_AMPERSAND.
-   *
-   * @since 1.2
-   */
-  public static final int VK_AMPERSAND = 150;
+  /** See {@link #VK_NUMPAD0}. */
+  public static final short VK_NUMPAD1 = (short) 0x81;
 
-  /**
-   * The virtual key VK_ASTERISK.
-   *
-   * @since 1.2
-   */
-  public static final int VK_ASTERISK = 151;
+  /** See {@link #VK_NUMPAD0}. */
+  public static final short VK_NUMPAD2 = (short) 0x82;
 
-  /**
-   * The virtual key VK_QUOTEDBL.
-   *
-   * @since 1.2
-   */
-  public static final int VK_QUOTEDBL = 152;
+  /** See {@link #VK_NUMPAD0}. */
+  public static final short VK_NUMPAD3 = (short) 0x83;
 
-  /**
-   * The virtual key VK_LESS.
-   *
-   * @since 1.2
-   */
-  public static final int VK_LESS = 153;
+  /** See {@link #VK_NUMPAD0}. */
+  public static final short VK_NUMPAD4 = (short) 0x84;
 
-  /**
-   * The virtual key VK_GREATER.
-   *
-   * @since 1.2
-   */
-  public static final int VK_GREATER = 160;
+  /** See {@link #VK_NUMPAD0}. */
+  public static final short VK_NUMPAD5 = (short) 0x85;
 
-  /**
-   * The virtual key VK_BRACELEFT.
-   *
-   * @since 1.2
-   */
-  public static final int VK_BRACELEFT = 161;
+  /** See {@link #VK_NUMPAD0}. */
+  public static final short VK_NUMPAD6 = (short) 0x86;
 
-  /**
-   * The virtual key VK_BRACERIGHT.
-   *
-   * @since 1.2
-   */
-  public static final int VK_BRACERIGHT = 162;
+  /** See {@link #VK_NUMPAD0}. */
+  public static final short VK_NUMPAD7 = (short) 0x87;
 
-  /**
-   * The virtual key VK_AT.
-   *
-   * @since 1.2
-   */
-  public static final int VK_AT = 512;
+  /** See {@link #VK_NUMPAD0}. */
+  public static final short VK_NUMPAD8 = (short) 0x88;
 
-  /**
-   * The virtual key VK_COLON.
-   *
-   * @since 1.2
-   */
-  public static final int VK_COLON = 513;
+  /** See {@link #VK_NUMPAD0}. */
+  public static final short VK_NUMPAD9 = (short) 0x89;
 
-  /**
-   * The virtual key VK_CIRCUMFLEX.
-   *
-   * @since 1.2
-   */
-  public static final int VK_CIRCUMFLEX = 514;
+  /** Numeric keypad <b>decimal separator</b> key. Non printable UTF control. */
+  public static final short VK_DECIMAL = (short) 0x8A;
 
-  /**
-   * The virtual key VK_DOLLAR.
-   *
-   * @since 1.2
-   */
-  public static final int VK_DOLLAR = 515;
+  /** Numeric keypad <b>add</b> key. Non printable UTF control. */
+  public static final short VK_ADD = (short) 0x8B;
 
-  /**
-   * The virtual key VK_EURO_SIGN.
-   *
-   * @since 1.2
-   */
-  public static final int VK_EURO_SIGN = 516;
+  /** Numeric keypad <b>subtract</b> key. Non printable UTF control. */
+  public static final short VK_SUBTRACT = (short) 0x8C;
 
-  /**
-   * The virtual key VK_EXCLAMATION_MARK.
-   *
-   * @since 1.2
-   */
-  public static final int VK_EXCLAMATION_MARK = 517;
+  /** Numeric keypad <b>multiply</b> key. Non printable UTF control. */
+  public static final short VK_MULTIPLY = (short) 0x8D;
 
-  /**
-   * The virtual key VK_INVERTED_EXCLAMATION_MARK.
-   *
-   * @since 1.2
-   */
-  public static final int VK_INVERTED_EXCLAMATION_MARK = 518;
+  /** Numeric keypad <b>divide</b> key. Non printable UTF control. */
+  public static final short VK_DIVIDE = (short) 0x8E;
 
-  /**
-   * The virtual key VK_LEFT_PARENTHESIS.
-   *
-   * @since 1.2
-   */
-  public static final int VK_LEFT_PARENTHESIS = 519;
+  /** Constant for the DEL key, matching ASCII. Non printable UTF control. */
+  public static final short VK_DELETE = (short) 0x93;
 
-  /**
-   * The virtual key VK_NUMBER_SIGN.
-   *
-   * @since 1.2
-   */
-  public static final int VK_NUMBER_SIGN = 520;
+  /** Numeric keypad <b>num lock</b> key. Non printable UTF control. */
+  public static final short VK_NUM_LOCK = (short) 0x94;
 
-  /**
-   * The virtual key VK_PLUS.
-   *
-   * @since 1.2
-   */
-  public static final int VK_PLUS = 521;
+  /** Constant for the cursor- or numerical-pad <b>left</b> arrow key. Non printable UTF control. */
+  public static final short VK_LEFT = (short) 0x95;
 
-  /**
-   * The virtual key VK_RIGHT_PARENTHESIS.
-   *
-   * @since 1.2
-   */
-  public static final int VK_RIGHT_PARENTHESIS = 522;
+  /** Constant for the cursor- or numerical-pad <b>up</b> arrow key. Non printable UTF control. */
+  public static final short VK_UP = (short) 0x96;
 
   /**
-   * The virtual key VK_UNDERSCORE.
-   *
-   * @since 1.2
+   * Constant for the cursor- or numerical-pad <b>right</b> arrow key. Non printable UTF control.
    */
-  public static final int VK_UNDERSCORE = 523;
-
-  /** The virtual key VK_FINAL. */
-  public static final int VK_FINAL = 24;
-
-  /** The virtual key VK_CONVERT. */
-  public static final int VK_CONVERT = 28;
-
-  /** The virtual key VK_NONCONVERT. */
-  public static final int VK_NONCONVERT = 29;
+  public static final short VK_RIGHT = (short) 0x97;
 
-  /** The virtual key VK_ACCEPT. */
-  public static final int VK_ACCEPT = 30;
+  /** Constant for the cursor- or numerical pad <b>down</b> arrow key. Non printable UTF control. */
+  public static final short VK_DOWN = (short) 0x98;
 
-  /** The virtual key VK_MODECHANGE. */
-  public static final int VK_MODECHANGE = 31;
-
-  /** The virtual key VK_KANA. */
-  public static final int VK_KANA = 21;
-
-  /** The virtual key VK_KANJI. */
-  public static final int VK_KANJI = 25;
-
-  /**
-   * The virtual key VK_ALPHANUMERIC.
-   *
-   * @since 1.2
-   */
-  public static final int VK_ALPHANUMERIC = 240;
+  /** Constant for the Context Menu key. Non printable UTF control. */
+  public static final short VK_CONTEXT_MENU = (short) 0x99;
 
   /**
-   * The virtual key VK_KATAKANA.
-   *
-   * @since 1.2
+   * Constant for the MS "Windows" function key. It is used for both the left and right version of
+   * the key.
    */
-  public static final int VK_KATAKANA = 241;
+  public static final short VK_WINDOWS = (short) 0x9A;
 
-  /**
-   * The virtual key VK_HIRAGANA.
-   *
-   * @since 1.2
-   */
-  public static final int VK_HIRAGANA = 242;
+  /** Constant for the Meta function key. */
+  public static final short VK_META = (short) 0x9B;
 
-  /**
-   * The virtual key VK_FULL_WIDTH.
-   *
-   * @since 1.2
-   */
-  public static final int VK_FULL_WIDTH = 243;
+  /** Constant for the Help function key. */
+  public static final short VK_HELP = (short) 0x9C;
 
-  /**
-   * The virtual key VK_HALF_WIDTH.
-   *
-   * @since 1.2
-   */
-  public static final int VK_HALF_WIDTH = 244;
+  /** Constant for the Compose function key. */
+  public static final short VK_COMPOSE = (short) 0x9D;
 
-  /**
-   * The virtual key VK_ROMAN_CHARACTERS.
-   *
-   * @since 1.2
-   */
-  public static final int VK_ROMAN_CHARACTERS = 245;
+  /** Constant for the Begin function key. */
+  public static final short VK_BEGIN = (short) 0x9E;
 
-  /**
-   * The virtual key VK_ALL_CANDIDATES.
-   *
-   * @since 1.2
-   */
-  public static final int VK_ALL_CANDIDATES = 256;
+  /** Constant for the Stop function key. */
+  public static final short VK_STOP = (short) 0x9F;
 
-  /**
-   * The virtual key VK_PREVIOUS_CANDIDATE.
-   *
-   * @since 1.2
-   */
-  public static final int VK_PREVIOUS_CANDIDATE = 257;
+  //
+  // Unicode: Printable [0x00A0 - 0xDFFF]
+  //
 
-  /**
-   * The virtual key VK_CODE_INPUT.
-   *
-   * @since 1.2
-   */
-  public static final int VK_CODE_INPUT = 258;
+  /** Constant for the inverted exclamation mark key. */
+  public static final short VK_INVERTED_EXCLAMATION_MARK = (short) 0xA1;
 
-  /**
-   * The virtual key VK_JAPANESE_KATAKANA.
-   *
-   * @since 1.2
-   */
-  public static final int VK_JAPANESE_KATAKANA = 259;
+  /** Constant for the Euro currency sign key. */
+  public static final short VK_EURO_SIGN = (short) 0x20AC;
 
-  /**
-   * The virtual key VK_JAPANESE_HIRAGANA.
-   *
-   * @since 1.2
-   */
-  public static final int VK_JAPANESE_HIRAGANA = 260;
+  //
+  // Unicode: Private 0xE000 - 0xF8FF (Marked Non-Printable)
+  //
 
-  /**
-   * The virtual key VK_JAPANESE_ROMAN.
-   *
-   * @since 1.2
-   */
-  public static final int VK_JAPANESE_ROMAN = 261;
+  /* for Sun keyboards */
+  public static final short VK_CUT = (short) 0xF879;
+  public static final short VK_COPY = (short) 0xF87A;
+  public static final short VK_PASTE = (short) 0xF87B;
+  public static final short VK_UNDO = (short) 0xF87C;
+  public static final short VK_AGAIN = (short) 0xF87D;
+  public static final short VK_FIND = (short) 0xF87E;
+  public static final short VK_PROPS = (short) 0xF87F;
 
-  /**
-   * The virtual key VK_KANA_LOCK.
-   *
-   * @since 1.3
-   */
-  public static final int VK_KANA_LOCK = 262;
+  /* for input method support on Asian Keyboards */
 
-  /**
-   * The virtual key VK_INPUT_METHOD_ON_OFF.
-   *
-   * @since 1.3
-   */
-  public static final int VK_INPUT_METHOD_ON_OFF = 263;
+  /** Constant for the input method on/off key. */
+  /* Japanese PC 106 keyboard: kanji. Japanese Solaris keyboard: nihongo */
+  public static final short VK_INPUT_METHOD_ON_OFF = (short) 0xF890;
 
-  /**
-   * The virtual key VK_CUT.
-   *
-   * @since 1.2
-   */
-  public static final int VK_CUT = 65489;
+  /** Constant for the Code Input function key. */
+  /* Japanese PC 106 keyboard - VK_ALPHANUMERIC + ALT: kanji bangou */
+  public static final short VK_CODE_INPUT = (short) 0xF891;
 
-  /**
-   * The virtual key VK_COPY.
-   *
-   * @since 1.2
-   */
-  public static final int VK_COPY = 65485;
+  /** Constant for the Roman Characters function key. */
+  /* Japanese PC 106 keyboard: roumaji */
+  public static final short VK_ROMAN_CHARACTERS = (short) 0xF892;
 
-  /**
-   * The virtual key VK_PASTE.
-   *
-   * @since 1.2
-   */
-  public static final int VK_PASTE = 65487;
+  /** Constant for the All Candidates function key. */
+  /* Japanese PC 106 keyboard - VK_CONVERT + ALT: zenkouho */
+  public static final short VK_ALL_CANDIDATES = (short) 0xF893;
 
-  /**
-   * The virtual key VK_UNDO.
-   *
-   * @since 1.2
-   */
-  public static final int VK_UNDO = 65483;
+  /** Constant for the Previous Candidate function key. */
+  /* Japanese PC 106 keyboard - VK_CONVERT + SHIFT: maekouho */
+  public static final short VK_PREVIOUS_CANDIDATE = (short) 0xF894;
 
-  /**
-   * The virtual key VK_AGAIN.
-   *
-   * @since 1.2
-   */
-  public static final int VK_AGAIN = 65481;
+  /** Constant for the Alphanumeric function key. */
+  /* Japanese PC 106 keyboard: eisuu */
+  public static final short VK_ALPHANUMERIC = (short) 0xF895;
 
-  /**
-   * The virtual key VK_FIND.
-   *
-   * @since 1.2
-   */
-  public static final int VK_FIND = 65488;
+  /** Constant for the Katakana function key. */
+  /* Japanese PC 106 keyboard: katakana */
+  public static final short VK_KATAKANA = (short) 0xF896;
 
-  /**
-   * The virtual key VK_PROPS.
-   *
-   * @since 1.2
-   */
-  public static final int VK_PROPS = 65482;
+  /** Constant for the Hiragana function key. */
+  /* Japanese PC 106 keyboard: hiragana */
+  public static final short VK_HIRAGANA = (short) 0xF897;
 
-  /**
-   * The virtual key VK_STOP.
-   *
-   * @since 1.2
-   */
-  public static final int VK_STOP = 65480;
+  /** Constant for the Full-Width Characters function key. */
+  /* Japanese PC 106 keyboard: zenkaku */
+  public static final short VK_FULL_WIDTH = (short) 0xF898;
 
-  /**
-   * The virtual key VK_COMPOSE.
-   *
-   * @since 1.2
-   */
-  public static final int VK_COMPOSE = 65312;
+  /** Constant for the Half-Width Characters function key. */
+  /* Japanese PC 106 keyboard: hankaku */
+  public static final short VK_HALF_WIDTH = (short) 0xF89A;
 
   /**
-   * The virtual key VK_ALT_GRAPH.
-   *
-   * @since 1.2
+   * Constant for the Japanese-Katakana function key. This key switches to a Japanese input method
+   * and selects its Katakana input mode.
    */
-  public static final int VK_ALT_GRAPH = 65406;
+  /* Japanese Macintosh keyboard - VK_JAPANESE_HIRAGANA + SHIFT */
+  public static final short VK_JAPANESE_KATAKANA = (short) 0xF89B;
 
   /**
-   * The 'begin' key VK_BEGIN
-   *
-   * @since 1.5
+   * Constant for the Japanese-Hiragana function key. This key switches to a Japanese input method
+   * and selects its Hiragana input mode.
    */
-  public static final int VK_BEGIN = 65368;
+  /* Japanese Macintosh keyboard */
+  public static final short VK_JAPANESE_HIRAGANA = (short) 0xF89C;
 
   /**
-   * The context-menu key VK_CONTEXT_MENU
-   *
-   * @since 1.5
+   * Constant for the Japanese-Roman function key. This key switches to a Japanese input method and
+   * selects its Roman-Direct input mode.
    */
-  public static final int VK_CONTEXT_MENU = 525;
+  /* Japanese Macintosh keyboard */
+  public static final short VK_JAPANESE_ROMAN = (short) 0xF89D;
 
-  /**
-   * The 'Windows' key VK_WINDOWS
-   *
-   * @since 1.5
-   */
-  public static final int VK_WINDOWS = 524;
+  /** Constant for the locking Kana function key. This key locks the keyboard into a Kana layout. */
+  /* Japanese PC 106 keyboard with special Windows driver - eisuu + Control; Japanese Solaris keyboard: kana */
+  public static final short VK_KANA_LOCK = (short) 0xF89F;
 
   /**
-   * The virtual key VK_UNDEFINED. This is used for key typed events, which do not have a virtual
-   * key.
+   * Constant for Keyboard became invisible, e.g. Android's soft keyboard Back button hit while
+   * keyboard is visible.
    */
-  public static final int VK_UNDEFINED = 0;
+  public static final short VK_KEYBOARD_INVISIBLE = (short) 0xF8FF;
 }

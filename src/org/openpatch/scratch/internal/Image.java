@@ -22,8 +22,7 @@ public class Image {
   private int height = 0;
 
   private static final AbstractMap<String, PImage> originalImages = new ConcurrentHashMap<>();
-  private static final AbstractMap<String, PImage> originalImageTiles =
-      new ConcurrentHashMap<>();
+  private static final AbstractMap<String, PImage> originalImageTiles = new ConcurrentHashMap<>();
 
   /**
    * Construct a ScratchImage object by a name and a path to an image.
@@ -226,16 +225,18 @@ public class Image {
     g.image(this.image, 0, 0);
     g.noTint();
     g.pop();
-    if (applet.isDebug()) {
-      applet.push();
-      applet.translate(
-          x + Window.getInstance().getWidth() / 2, -y + Window.getInstance().getHeight() / 2);
-      applet.fill(Window.DEBUG_COLOR[0], Window.DEBUG_COLOR[1], Window.DEBUG_COLOR[1]);
-      applet.textAlign(PConstants.CENTER);
-      applet.text("Direction: " + (degrees + 90), 0, -this.height / 2.0f - 10);
-      applet.text("(" + x + ", " + y + ")", 0, 0);
-      applet.pop();
-    }
+  }
+
+  public void drawDebug(
+      PGraphics buffer, float size, float degrees, float x, float y, RotationStyle style) {
+    buffer.push();
+    buffer.translate(
+        x + Window.getInstance().getWidth() / 2, -y + Window.getInstance().getHeight() / 2);
+    buffer.fill(Window.DEBUG_COLOR[0], Window.DEBUG_COLOR[1], Window.DEBUG_COLOR[1]);
+    buffer.textAlign(PConstants.CENTER);
+    buffer.text("Direction: " + (degrees + 90), 0, -this.height / 2.0f - 10);
+    buffer.text("(" + x + ", " + y + ")", 0, 0);
+    buffer.pop();
   }
 
   public void draw(float size, float degrees, float x, float y) {

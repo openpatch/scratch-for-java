@@ -1,5 +1,6 @@
 package org.openpatch.scratch;
 
+import java.awt.Shape;
 import java.util.AbstractMap;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
@@ -88,16 +89,13 @@ public class Sprite {
     this.stage = stage;
     this.pen.addedToStage(stage);
     this.text.addedToStage(stage);
-    Applet.getInstance().registerMethod("keyEvent", this);
-    Applet.getInstance().registerMethod("mouseEvent", this);
     this.whenAddedToStage();
     this.whenAddedToStage(stage);
   }
 
   public void removedFromStage(Stage stage) {
     this.pen.removedFromStage(stage);
-    Applet.getInstance().unregisterMethod("keyEvent", this);
-    Applet.getInstance().unregisterMethod("mouseEvent", this);
+    this.text.removedFromStage(stage);
     this.stage = null;
     this.whenRemovedFromStage();
     this.whenRemovedFromStage(stage);
@@ -781,7 +779,6 @@ public class Sprite {
 
     float[] mouse = Utils.rotateXY(mx, my, this.x, this.y, this.direction - 90);
 
-
     int relativeMouseX = Math.round(mouse[0] - this.x + this.getWidth() / 2);
     int relativeMouseY = -Math.round(mouse[1] - this.y - this.getHeight() / 2);
 
@@ -841,6 +838,10 @@ public class Sprite {
 
   public void setHitbox(Hitbox hitbox) {
     this.hitbox = hitbox;
+  }
+
+  public void setHitbox(Shape shape) {
+    this.hitbox = new Hitbox(shape);
   }
 
   public void disableHitbox() {
@@ -917,11 +918,13 @@ public class Sprite {
   }
 
   public boolean isTouchingSprite(Sprite sprite) {
+    if (stage == null) return false;
     if (sprite == null || !sprite.show || sprite.hitboxDisabled) return false;
     return this.getHitbox().intersects(sprite.getHitbox());
   }
 
   public boolean isTouchingSprite(Class<? extends Sprite> c) {
+    if (stage == null) return false;
     return this.stage.sprites.stream()
         .filter(s -> c.isInstance(s) && this.isTouchingSprite(s))
         .findFirst()
@@ -929,6 +932,7 @@ public class Sprite {
   }
 
   public <T extends Sprite> T getTouchingSprite(Class<T> c) {
+    if (stage == null) return null;
     return this.stage.sprites.stream()
         .filter(s -> c.isInstance(s) && this.isTouchingSprite(s))
         .findFirst()
@@ -937,6 +941,7 @@ public class Sprite {
   }
 
   public <T extends Sprite> List<T> getTouchingSprites(Class<T> c) {
+    if (stage == null) return null;
     return this.stage.sprites.stream()
         .filter(s -> c.isInstance(s) && this.isTouchingSprite(s))
         .map(c::cast)
@@ -949,6 +954,7 @@ public class Sprite {
    * @return x-position
    */
   public float getMouseX() {
+    if (stage == null) return 0;
     return this.stage.getMouseX();
   }
 
@@ -989,6 +995,7 @@ public class Sprite {
    * @return current year
    */
   public int getCurrentYear() {
+    if (stage == null) return 0;
     return this.stage.getCurrentYear();
   }
 
@@ -998,6 +1005,7 @@ public class Sprite {
    * @return current month
    */
   public int getCurrentMonth() {
+    if (stage == null) return 0;
     return this.stage.getCurrentMonth();
   }
 
@@ -1007,6 +1015,7 @@ public class Sprite {
    * @return current day of the month
    */
   public int getCurrentDay() {
+    if (stage == null) return 0;
     return this.stage.getCurrentDay();
   }
 
@@ -1016,6 +1025,7 @@ public class Sprite {
    * @return current day of the week
    */
   public int getCurrentDayOfWeek() {
+    if (stage == null) return 0;
     return this.stage.getCurrentDayOfWeek();
   }
 
@@ -1025,6 +1035,7 @@ public class Sprite {
    * @return current hour
    */
   public int getCurrentHour() {
+    if (stage == null) return 0;
     return this.stage.getCurrentHour();
   }
 
@@ -1034,6 +1045,7 @@ public class Sprite {
    * @return current minute
    */
   public int getCurrentMinute() {
+    if (stage == null) return 0;
     return this.stage.getCurrentMinute();
   }
 
@@ -1043,6 +1055,7 @@ public class Sprite {
    * @return current second
    */
   public int getCurrentSecond() {
+    if (stage == null) return 0;
     return this.stage.getCurrentSecond();
   }
 
@@ -1052,6 +1065,7 @@ public class Sprite {
    * @return current millisecond
    */
   public int getCurrentMillisecond() {
+    if (stage == null) return 0;
     return this.stage.getCurrentMillisecond();
   }
 
@@ -1061,6 +1075,7 @@ public class Sprite {
    * @return days since 2010/01/01
    */
   public int getDaysSince2000() {
+    if (stage == null) return 0;
     return this.stage.getDaysSince2000();
   }
 
@@ -1101,18 +1116,22 @@ public class Sprite {
   }
 
   public void goToFrontLayer() {
+    if (stage == null) return;
     this.stage.goToFrontLayer(this);
   }
 
   public void goToBackLayer() {
+    if (stage == null) return;
     this.stage.goToBackLayer(this);
   }
 
   public void goLayersForwards(int number) {
+    if (stage == null) return;
     this.stage.goLayersForwards(this, number);
   }
 
   public void goLayersBackwards(int number) {
+    if (stage == null) return;
     this.stage.goLayersBackwards(this, number);
   }
 
@@ -1150,10 +1169,9 @@ public class Sprite {
   }
 
   public void broadcast(String message) {
-    if (this.getStage() != null) {
-      this.getStage().broadcast(message);
-      this.getStage().whenIReceive(message);
-    }
+    if (stage == null) return;
+    this.stage.broadcast(message);
+    this.stage.whenIReceive(message);
   }
 
   public void whenIReceive(String message) {}
@@ -1200,12 +1218,22 @@ public class Sprite {
 
     this.text.setPosition(this.x + this.getWidth() * 0.9 / 2, this.y - this.getHeight() * 1.1 / 2);
     this.text.draw();
-    this.run();
   }
 
   public void drawDebug() {
     if (!this.hitboxDisabled) {
       this.getHitbox().drawDebug(this.getStage().getDebugBuffer());
+    }
+    if (this.costumes.size() > 0 && this.show) {
+      this.costumes
+          .get(this.currentCostume)
+          .drawDebug(
+              this.getStage().getDebugBuffer(),
+              this.size,
+              this.direction,
+              this.x,
+              this.y,
+              this.rotationStyle);
     }
   }
 

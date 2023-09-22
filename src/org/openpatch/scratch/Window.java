@@ -53,20 +53,8 @@ public class Window {
     Font.defaultFontPath = path;
   }
 
-  public void addStage(String name, final Stage stage) {
-    Applet.getInstance().addStage(name, stage);
-  }
-
-  public Stage getStage(String name) {
-    return Applet.getInstance().getStage(name);
-  }
-
-  public void removeStage(String name) {
-    Applet.getInstance().removeStage(name);
-  }
-
-  public void switchStage(String name) {
-    Applet.getInstance().switchStage(name);
+  public void setStage(Stage stage) {
+    Applet.getInstance().setStage(stage);
   }
 
   public void exit() {

@@ -3,6 +3,11 @@ name: Changelog
 index: 4
 ---
 
+## 4.2.0
+
+- 💥 BREAKING CHANGE: Replace addStage, removeStage and getStage in favour of setStage, which simplifies the handling of multiple stages.
+- 🐛 Fix: First frame of an AnimatedSprite is skipped.
+
 ## 4.1.0
 
 - 🚀 Feat: New extension tiled.
