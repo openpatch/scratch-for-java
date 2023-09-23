@@ -1,6 +1,5 @@
 package org.openpatch.scratch.extensions.tiled;
 
-
 public class Polygon {
   public String points;
 
