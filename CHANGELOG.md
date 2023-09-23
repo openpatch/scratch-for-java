@@ -3,6 +3,10 @@ name: Changelog
 index: 4
 ---
 
+## 4.2.1
+
+- 🐛 Fix: AnimatedSprite throws an error, because the animationFrame is too high.
+
 ## 4.2.0
 
 - 💥 BREAKING CHANGE: Replace addStage, removeStage and getStage in favour of setStage, which simplifies the handling of multiple stages.
