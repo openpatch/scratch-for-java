@@ -8,7 +8,7 @@ lang: de
 Scratch for Java wurde so implementiert, dass mehrere didaktische Ansätze und Herangehensweisen an die Programmierung mit Java unterstützt werden. So kannst du den Ansatz wählen, der am besten zur dir und deiner Lerngruppe passt.
 
 ## Imperativer Ansatz (Klassen-später)
- 
+
 Der imperative Ansatz nutzt nur die Klassen Stage (Bühne) und Sprite (Figur) der Bibliothek. Diese beiden Klassen sind den Schüler:innen bereits durch Scratch bekannt. Die Methoden der beiden Klassen sind den Scratch-Blöcken nachempfungen, sodass auch hier die Schüler:innen viel von ihrem Wissen von Scratch nutzen können.
 
 So können die Schüler:innen ihr erstes einfaches Java-Programm schreiben, ohne mit eigenen Klassen arbeiten zu müssen und können auf algorithmische Muster, die ihnen von Scratch bekannt sind zurückgreifen.
@@ -40,7 +40,7 @@ Hier sind ein paar Vergleiche, die man verwenden könnte:
 - In Scratch haben wir und Projekt vorbereitet indem wir viel geklickt haben. Zum Beispiel haben wir für das Hinzufügen einer Figur das Katzen-Icon angeklickt oder wir haben ein neues Kostüm hinzugefügt, indem wir den Kostüm-Reiter ausgewählt haben und ein neues Bild hochgeladen haben. In Java bereiten wir unser Projekt vor, indem wir einen Konstruktor schreiben. Wir schreiben Text (Quelltext), welcher unser Geklicke ersetzt, da wir keine Benutzeroberfläche mehr haben.
 - In Scratch hat jede Figur und die Bühne eine Menge von vordefinierte n Blöcken, welche wir benutzen konnten. In Java haben wir normalerweise nichts vordefiniertes und müssen alles selbst implementieren. Aber mit der Vererbung können wir auch vordefinierte Methoden (Blöcke) benutzen.
 - In Scratch haben wir unseren Figuren Namen gegeben, aber wir haben die Namen gar nicht so viel benutzt. In Java sind Namen viel wichtiger, da wir nicht mit einer Figur oder der Bühne weiterarbeiten können, wenn wir keinen Namen vergeben hanbe. `Sprite cat = new Sprite();`
-- In Scratch haben wir eine Figur der Bühne hinzugefügt, indem wir eine erstellt haben. In Java müssen wir explizit sein und schreiben, dass wir eine bestimmte Figur der Bühne hinzufügen wollen. `myStage.add(mySprite);` 
+- In Scratch haben wir eine Figur der Bühne hinzugefügt, indem wir eine erstellt haben. In Java müssen wir explizit sein und schreiben, dass wir eine bestimmte Figur der Bühne hinzufügen wollen. `myStage.add(mySprite);`
 - In Scratch haben wir oft den warte-Block zum Pausieren der Ausführung eines Skripts von einer Figur benutzt. In Java können wir nicht mehr so einfach ein Skript pausieren. Außer wir wollen das gesamte Programm pausieren (`myStage.wait(100)`). Wenn wir so etwas ähnlich mit Scratch for Java erreichen wollen, dann müssen wir die Timer-Klasse verwenden.
 - In Scratch haben wir Nachrichten zu und von Figure geschickt, indem wir einen Block benutzt haben. In Java definieren wir eigene Methoden und rufen diese dann auf.
 
@@ -78,10 +78,9 @@ public class MyProject extends Window {
         Stage stage1 = new Stage();
         Stage stage2 = new Stage();
 
-        this.addStage("first", stage1);
-        this.addStage("second", stage2);
-
-        this.switchStage("second");
+        this.setStage(stage1);
+        // wechseln zu einer anderen Stage
+        this.setStage(stage2);
     }
 }
 ```
