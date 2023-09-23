@@ -57,6 +57,15 @@ public class Random {
   }
 
   /**
+   * Returns a random unit vector
+   *
+   * @return a random unit vector
+   */
+  public static Vector2 randomVector2() {
+    return new Vector2(random(), random()).unitVector();
+  }
+
+  /**
    * Returns a random double between 0 and 1.
    *
    * @return a random double

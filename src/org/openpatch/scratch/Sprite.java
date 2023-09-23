@@ -504,6 +504,10 @@ public class Sprite {
     this.setPosition(v.getX(), v.getY());
   }
 
+  public Vector2 getPosition() {
+    return new Vector2(x, y);
+  }
+
   /**
    * Rotates the sprite by a certain degrees to the left.
    *
@@ -918,6 +922,7 @@ public class Sprite {
   }
 
   public boolean isTouchingSprite(Sprite sprite) {
+    if (sprite == this) return false;
     if (stage == null) return false;
     if (sprite == null || !sprite.show || sprite.hitboxDisabled) return false;
     return this.getHitbox().intersects(sprite.getHitbox());
@@ -966,6 +971,10 @@ public class Sprite {
   public float getMouseY() {
     if (this.stage == null) return 0;
     return this.stage.getMouseY();
+  }
+
+  public Vector2 getMouse() {
+    return new Vector2(this.getMouseX(), this.getMouseY());
   }
 
   /**
