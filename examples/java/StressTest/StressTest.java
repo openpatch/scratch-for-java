@@ -8,6 +8,7 @@ public class StressTest extends Stage {
 
   public StressTest() {
     this.addBackdrop("outback", "assets/outback.png");
+    this.setDebug(true);
 
     for (int i = 0; i < dinos; i++) {
       this.add(new Dino());
@@ -31,6 +32,6 @@ public class StressTest extends Stage {
 
   public static void main(String[] args) {
     Window myWindow = new Window(1200, 800, "assets");
-    myWindow.addStage("main", new StressTest());
+    myWindow.setStage(new StressTest());
   }
 }
