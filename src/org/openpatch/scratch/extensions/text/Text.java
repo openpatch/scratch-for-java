@@ -240,7 +240,7 @@ public class Text {
 
   public void setWidth(double width) {
     this.width = (float) width;
-    }
+  }
 
   public void setAlign(int align) {
     this.textAlign = align;

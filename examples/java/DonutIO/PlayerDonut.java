@@ -10,6 +10,5 @@ public class PlayerDonut extends Donut {
     this.setMapPosition(this.mapPosition.add(v).multiply(this.speed));
 
     super.run();
-
   }
 }

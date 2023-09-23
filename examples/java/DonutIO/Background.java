@@ -10,5 +10,4 @@ public class Background extends Sprite {
     this.setX(-WorldStage.CAM.getX() % 20);
     this.setY(-WorldStage.CAM.getY() % 20);
   }
-
 }
