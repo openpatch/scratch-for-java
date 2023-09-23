@@ -14,6 +14,7 @@ public class Image {
 
   String name;
   PImage image;
+  AbstractMap<Float, PImage> imageResized = new ConcurrentHashMap<>();
   final PImage originalImage;
   Color tint = new Color();
   float transparency = 255;
@@ -188,8 +189,15 @@ public class Image {
   public void setSize(float percentage) {
     this.width = Math.round(this.originalImage.width * percentage / 100);
     this.height = Math.round(this.originalImage.height * percentage / 100);
-    this.image = this.originalImage.copy();
-    this.image.resize(this.width, this.height);
+
+    var imageResized = this.imageResized.get(percentage);
+    if (imageResized != null) {
+      this.image = imageResized;
+    } else {
+      imageResized = this.originalImage.copy();
+      imageResized.resize(this.width, this.height);
+      this.image = imageResized;
+    }
   }
 
   /**

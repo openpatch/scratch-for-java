@@ -3,6 +3,11 @@ name: Changelog
 index: 4
 ---
 
+## 4.3.0
+
+- 🚀 Feat: Random can now create a new random unit vector (Random.randomVector2()).
+- 🚀 Feat: You can now set the width of a text after calling the constructor (text.setWidth(40)).
+
 ## 4.2.1
 
 - 🐛 Fix: AnimatedSprite throws an error, because the animationFrame is too high.

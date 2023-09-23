@@ -238,6 +238,10 @@ public class Text {
     return this.width;
   }
 
+  public void setWidth(double width) {
+    this.width = (float) width;
+    }
+
   public void setAlign(int align) {
     this.textAlign = align;
   }
