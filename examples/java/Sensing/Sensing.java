@@ -1,3 +1,5 @@
+package Sensing;
+
 import java.awt.geom.Ellipse2D;
 import org.openpatch.scratch.KeyCode;
 import org.openpatch.scratch.Sprite;
@@ -28,8 +30,8 @@ public class Sensing extends Stage {
 
 class Hero extends Sprite {
   public Hero() {
-    super("hero", "sprites/hero.png");
-    this.addCostume("hero2", "sprites/hero2.png");
+    super("hero", "Sensing/sprites/hero.png");
+    this.addCostume("hero2", "Sensing/sprites/hero2.png");
     this.setSize(50);
     this.setDirection(45);
     this.move(80);

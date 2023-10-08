@@ -1,10 +1,12 @@
+package Clock;
+
 import org.openpatch.scratch.KeyCode;
 import org.openpatch.scratch.Sprite;
 
 public class SecondHandSprite extends Sprite {
 
   public SecondHandSprite() {
-    this.addCostume("hand", "sprites/second.png");
+    this.addCostume("hand", "Clock/sprites/second.png");
   }
 
   public void run() {

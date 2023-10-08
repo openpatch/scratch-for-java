@@ -1,3 +1,5 @@
+package StressTest;
+
 import org.openpatch.scratch.*;
 
 public class StressTest extends Stage {
@@ -7,7 +9,7 @@ public class StressTest extends Stage {
   private static int ninjas = 180;
 
   public StressTest() {
-    this.addBackdrop("outback", "assets/outback.png");
+    this.addBackdrop("outback", "StressTest/assets/outback.png");
     this.setDebug(true);
 
     for (int i = 0; i < dinos; i++) {

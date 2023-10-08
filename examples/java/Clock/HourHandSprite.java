@@ -1,8 +1,10 @@
+package Clock;
+
 import org.openpatch.scratch.Sprite;
 
 public class HourHandSprite extends Sprite {
   public HourHandSprite() {
-    this.addCostume("hand", "sprites/hour.png");
+    this.addCostume("hand", "Clock/sprites/hour.png");
   }
 
   public void run() {

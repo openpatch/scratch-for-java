@@ -1,3 +1,5 @@
+package Tiled;
+
 import org.openpatch.scratch.extensions.animation.*;
 
 public class Fireball extends AnimatedSprite {
@@ -11,7 +13,7 @@ public class Fireball extends AnimatedSprite {
     this.mapY = mapY;
     this.dir = dir;
 
-    this.addAnimation("default", "assets/Fireball.png", 4, 32, 32);
+    this.addAnimation("default", "Tiled/assets/Fireball.png", 4, 32, 32);
   }
 
   public void run() {

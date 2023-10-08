@@ -1,3 +1,5 @@
+package Pipes;
+
 import org.openpatch.scratch.KeyCode;
 import org.openpatch.scratch.Sprite;
 import org.openpatch.scratch.extensions.math.Random;
@@ -8,7 +10,7 @@ public class PenSprite extends Sprite {
   private static float color;
 
   public PenSprite() {
-    super("pen", "sprites/pen.png");
+    super("pen", "Pipes/sprites/pen.png");
     this.getPen().down();
     this.getPen().setSize(2);
     color = (float) Math.random() * 255;

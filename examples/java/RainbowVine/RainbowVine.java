@@ -1,3 +1,5 @@
+package RainbowVine;
+
 import org.openpatch.scratch.*;
 
 public class RainbowVine extends Stage {
