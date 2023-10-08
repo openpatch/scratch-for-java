@@ -1,3 +1,5 @@
+package Clock;
+
 import org.openpatch.scratch.*;
 
 public class Clock {

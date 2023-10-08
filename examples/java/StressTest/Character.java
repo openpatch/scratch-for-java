@@ -1,4 +1,5 @@
-import org.openpatch.scratch.*;
+package StressTest;
+
 import org.openpatch.scratch.extensions.animation.*;
 
 public class Character extends AnimatedSprite {

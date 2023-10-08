@@ -1,3 +1,5 @@
+package DonutIO;
+
 import org.openpatch.scratch.Window;
 
 public class Game extends Window {
@@ -5,7 +7,7 @@ public class Game extends Window {
   public static int LEVEL = 0;
 
   public Game() {
-    super(800, 600, "assets");
+    super(800, 600, "DonutIO/assets");
 
     this.setStage(new StartStage());
   }

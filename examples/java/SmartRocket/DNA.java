@@ -1,4 +1,5 @@
-import org.openpatch.scratch.*;
+package SmartRocket;
+
 import org.openpatch.scratch.extensions.math.*;
 
 public class DNA {

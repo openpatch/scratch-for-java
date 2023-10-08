@@ -1,3 +1,5 @@
+package DonutIO;
+
 import java.awt.geom.Ellipse2D;
 import org.openpatch.scratch.Sprite;
 import org.openpatch.scratch.extensions.math.Random;
@@ -14,7 +16,7 @@ public class Donut extends Sprite {
   }
 
   public Donut(double mapX, double mapY, int strength) {
-    this.addCostume("donut", "assets/donut.png");
+    this.addCostume("donut", "DonutIO/assets/donut.png");
     this.setHitbox(new Ellipse2D.Double(0, 0, 512, 480));
 
     this.setMapPosition(new Vector2(mapX, mapY));

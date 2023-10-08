@@ -1,3 +1,5 @@
+package Tiled;
+
 import org.openpatch.scratch.*;
 import org.openpatch.scratch.extensions.animation.*;
 
@@ -13,10 +15,10 @@ public class Player extends AnimatedSprite {
     this.mapX = mapX;
     this.mapY = mapY;
 
-    this.addAnimation("walk-down", "assets/Skeleton.png", 4, 32, 32, 0, true);
-    this.addAnimation("walk-up", "assets/Skeleton.png", 4, 32, 32, 1, true);
-    this.addAnimation("walk-left", "assets/Skeleton.png", 4, 32, 32, 2, true);
-    this.addAnimation("walk-right", "assets/Skeleton.png", 4, 32, 32, 3, true);
+    this.addAnimation("walk-down", "Tiled/assets/Skeleton.png", 4, 32, 32, 0, true);
+    this.addAnimation("walk-up", "Tiled/assets/Skeleton.png", 4, 32, 32, 1, true);
+    this.addAnimation("walk-left", "Tiled/assets/Skeleton.png", 4, 32, 32, 2, true);
+    this.addAnimation("walk-right", "Tiled/assets/Skeleton.png", 4, 32, 32, 3, true);
 
     this.setHitbox(1, 31, 1, 10, 30, 10, 30, 31);
   }
@@ -102,7 +104,7 @@ public class Player extends AnimatedSprite {
     }
 
     if (state.equals("idle")) {
-      this.setAnimationFrame(0);
+      this.resetAnimation();
     }
 
     this.playAnimation("walk-" + dir);
