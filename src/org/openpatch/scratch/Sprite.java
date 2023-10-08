@@ -74,15 +74,17 @@ public class Sprite {
     this.show = s.show;
     this.size = s.size;
     this.onEdgeBounce = s.onEdgeBounce;
-    this.direction = s.direction;
+    this.rotationStyle = s.rotationStyle;
     this.x = s.x;
     this.y = s.y;
-    this.timer = new ConcurrentHashMap<>();
-    this.pen = new Pen(s.pen);
-    this.text = new Text(s.text);
+    this.direction = s.direction;
     this.stage = s.stage;
+    this.timer = new ConcurrentHashMap<>();
+    this.timer.put("default", new Timer());
+    this.pen = new Pen(s.pen);
     this.hitbox = s.hitbox;
     this.hitboxDisabled = s.hitboxDisabled;
+    this.text = new Text(s.text);
   }
 
   public void addedToStage(Stage stage) {
