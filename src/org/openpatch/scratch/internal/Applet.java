@@ -28,6 +28,8 @@ public class Applet extends PApplet {
   private PImage loading;
   private final String assets;
   private Stage stage;
+  private int lastMillis;
+  private int deltaTime;
 
   private boolean hasLoaded = false;
   private String loadingText = "";
@@ -81,6 +83,10 @@ public class Applet extends PApplet {
    */
   public void settings() {
     this.size(this.INITIAL_WIDTH, this.INITIAL_HEIGHT, P2D);
+  }
+
+  public int getDeltaTime() {
+    return deltaTime;
   }
 
   /** Pauses the sketch. */
@@ -207,6 +213,9 @@ public class Applet extends PApplet {
   }
 
   public void draw() {
+    var currentMillis = millis();
+    deltaTime = currentMillis - lastMillis;
+    lastMillis = currentMillis;
     if (!this.hasLoaded || this.loadingStatus() < 1) {
       this.background(0x222222);
       this.image(this.loading, this.width / 2, this.height / 2);
