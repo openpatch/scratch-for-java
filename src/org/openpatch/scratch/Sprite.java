@@ -1000,6 +1000,10 @@ public class Sprite {
     return this.stage.isKeyPressed(keyCode);
   }
 
+  public int getDeltaTime() {
+    return Window.getInstance().getDeltaTime();
+  }
+
   /**
    * Returns the current year
    *
@@ -1187,10 +1191,17 @@ public class Sprite {
 
   public void whenIReceive(String message) {}
 
+  /**
+   * @see stampToBackground
+   */
   public void stamp() {
     this.stampToBackground();
   }
 
+  /**
+   * Stamps the current sprite to the background. A stamp is a non interactive
+   * version of the sprite.
+   */
   public void stampToBackground() {
     if (this.costumes.size() > 0) {
       var stamp =
@@ -1204,6 +1215,10 @@ public class Sprite {
     }
   }
 
+  /**
+   * Stamps the current sprite to the foreground. A stamp is a non interactive
+   * version of the sprite.
+   */
   public void stampToForeground() {
     if (this.costumes.size() > 0) {
       var stamp =
@@ -1248,5 +1263,9 @@ public class Sprite {
     }
   }
 
+  /**
+   * This method is called 60-times per second, if the sprite object was added
+   * to a stage object.
+   */
   public void run() {}
 }
