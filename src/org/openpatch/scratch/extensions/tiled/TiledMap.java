@@ -2,6 +2,8 @@ package org.openpatch.scratch.extensions.tiled;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.nio.file.Paths;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentHashMap;
 import org.openpatch.scratch.Stage;
@@ -20,7 +22,8 @@ public class TiledMap {
     this.map = File.loadXML(path, Map.class);
     this.tiles = new ConcurrentHashMap<>();
     for (var tileset : this.map.tilesets) {
-      var spriteSheetPath = tileset.image.source;
+      var dir = Paths.get(path).getParent();
+      var spriteSheetPath = Paths.get(dir.toString(), tileset.image.source).toString();
       var firstId = tileset.firstgid;
       for (int index = 0; index < tileset.tilecount; index++) {
         var x = index % tileset.columns;
