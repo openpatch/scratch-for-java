@@ -691,6 +691,10 @@ public class Stage {
     return isPressed;
   }
 
+  public int getDeltaTime() {
+    return Window.getInstance().getDeltaTime();
+  }
+
   /**
    * Returns the current year
    *
