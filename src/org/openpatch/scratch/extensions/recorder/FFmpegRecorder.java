@@ -30,13 +30,22 @@ public class FFmpegRecorder extends Recorder {
   public void stop() {
     super.stop();
     if (tmpDir != null) {
-      String cmd =
-          "ffmpeg -v warning -pattern_type glob -framerate "
-              + Applet.getInstance().frameRate
-              + " -i "
-              + this.tmpDir
-              + "/*.png -vcodec libx264 -y "
-              + Paths.get("", path).toAbsolutePath().toString();
+      String[] cmd = {
+        "ffmpeg",
+        "-v",
+        "warning",
+        "-pattern_type",
+        "glob",
+        "-framerate",
+        Float.toString(Applet.getInstance().frameRate),
+        "-i",
+        this.tmpDir,
+        "/*.png",
+        "-vcodec",
+        "libx264",
+        "-y",
+        Paths.get("", path).toAbsolutePath().toString()
+      };
       System.out.println("Converting video! Please wait.");
       String error = execCmd(cmd);
       if (error != null) {
@@ -45,7 +54,7 @@ public class FFmpegRecorder extends Recorder {
     }
   }
 
-  private static String execCmd(String cmd) {
+  private static String execCmd(String[] cmd) {
     String result = null;
     try (InputStream inputStream = Runtime.getRuntime().exec(cmd).getErrorStream();
         Scanner s = new Scanner(inputStream).useDelimiter("\\A")) {
