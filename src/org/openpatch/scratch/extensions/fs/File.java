@@ -9,6 +9,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
+import java.net.URISyntaxException;
+import java.nio.file.Paths;
 
 public class File {
 
@@ -37,6 +39,7 @@ public class File {
 
   private static <T> void save(String path, T obj, FileType type) {
     var mapper = getObjectMapper(type);
+    path = getPath(path);
     try (Writer writer = new FileWriter(path)) {
       var data = mapper.writeValueAsString(obj);
       writer.write(data);
@@ -52,8 +55,26 @@ public class File {
     return load(path, cls, FileType.XML);
   }
 
+  private static String getPath(String path) {
+
+    // add support for ~
+    path = path.replaceFirst("^~", System.getProperty("user.home"));
+    // if an absulte path is provied use this, otherwise try loading from classpath
+    try {
+      if (Paths.get(path).isAbsolute()) {
+        return path;
+      }
+      var systemPath = ClassLoader.getSystemResource("").toURI().getPath();
+      return Paths.get(systemPath, path).toString();
+    } catch (URISyntaxException e) {
+      e.printStackTrace();
+      return null;
+    }
+  }
+
   private static <T> T load(String path, Class<T> cls, FileType type) {
     var mapper = getObjectMapper(type);
+    path = getPath(path);
     try (Reader reader = new FileReader(path)) {
       return mapper.readValue(reader, cls);
     } catch (IOException e) {
