@@ -1,3 +1,5 @@
+package Tiled;
+
 import org.openpatch.scratch.*;
 
 public class Item extends Sprite {
@@ -7,8 +9,8 @@ public class Item extends Sprite {
 
   // Constructor for displaying the inventory
   public Item() {
-    this.addCostume("scroll-water", "assets/ScrollWater.png");
-    this.addCostume("scroll-fire", "assets/ScrollFire.png");
+    this.addCostume("scroll-water", "Tiled/assets/ScrollWater.png");
+    this.addCostume("scroll-fire", "Tiled/assets/ScrollFire.png");
     this.hide();
   }
 
@@ -29,7 +31,7 @@ public class Item extends Sprite {
   public void collect() {
     GameState.get().items.add(name);
     // auto-save when an item is collected
-    GameState.get().save();
+    GameState.save();
     this.hide();
     this.getStage().display(I18n.get("item-found", I18n.get(name)), 2000);
 

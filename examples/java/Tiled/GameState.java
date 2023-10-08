@@ -1,3 +1,5 @@
+package Tiled;
+
 import java.util.*;
 import org.openpatch.scratch.extensions.fs.File;
 
@@ -10,11 +12,11 @@ public class GameState {
   private static GameState instance;
 
   public static void save() {
-    File.save("save.json", GameState.get());
+    File.save("Tiled/save.json", GameState.get());
   }
 
   public static void load() {
-    instance = File.load("save.json", GameState.class);
+    instance = File.load("Tiled/save.json", GameState.class);
   }
 
   public static GameState get() {

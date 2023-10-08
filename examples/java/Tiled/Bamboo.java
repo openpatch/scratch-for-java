@@ -1,3 +1,5 @@
+package Tiled;
+
 public class Bamboo extends Enemy {
 
   protected double speed = 2.5;
@@ -5,10 +7,10 @@ public class Bamboo extends Enemy {
   public Bamboo(double mapX, double mapY) {
     super(mapX, mapY);
 
-    this.addAnimation("walk-down", "assets/Bamboo.png", 4, 32, 32, 0, true);
-    this.addAnimation("walk-up", "assets/Bamboo.png", 4, 32, 32, 1, true);
-    this.addAnimation("walk-left", "assets/Bamboo.png", 4, 32, 32, 2, true);
-    this.addAnimation("walk-right", "assets/Bamboo.png", 4, 32, 32, 3, true);
+    this.addAnimation("walk-down", "Tiled/assets/Bamboo.png", 4, 32, 32, 0, true);
+    this.addAnimation("walk-up", "Tiled/assets/Bamboo.png", 4, 32, 32, 1, true);
+    this.addAnimation("walk-left", "Tiled/assets/Bamboo.png", 4, 32, 32, 2, true);
+    this.addAnimation("walk-right", "Tiled/assets/Bamboo.png", 4, 32, 32, 3, true);
   }
 
   public void run() {

@@ -1,3 +1,5 @@
+package TimedDot;
+
 import org.openpatch.scratch.*;
 
 public class TimedDot extends Stage {

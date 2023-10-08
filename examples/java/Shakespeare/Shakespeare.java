@@ -1,3 +1,5 @@
+package Shakespeare;
+
 import org.openpatch.scratch.*;
 import org.openpatch.scratch.extensions.text.*;
 
@@ -23,7 +25,7 @@ public class Shakespeare extends Stage {
     this.population = new Population(this.target, this.mutationrate, this.populationsize);
 
     this.bestPhrase = new Text();
-    this.bestPhrase.addFont("comic", "assets/Singkong.ttf");
+    this.bestPhrase.addFont("comic", "Shakespeare/assets/Singkong.ttf");
     this.bestPhrase.setPosition(-390, 250);
     this.bestPhrase.setAlign(TextAlign.LEFT);
     this.bestPhrase.setTextSize(20);

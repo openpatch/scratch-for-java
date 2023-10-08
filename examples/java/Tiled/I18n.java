@@ -1,3 +1,5 @@
+package Tiled;
+
 import java.text.MessageFormat;
 import java.util.HashMap;
 
@@ -46,6 +48,6 @@ public class I18n {
 
   public static String get(String key, String... args) {
     var message = messages.get(locale).getOrDefault(key, "NOT_FOUND");
-    return MessageFormat.format(message, args);
+    return MessageFormat.format(message, (Object[]) args);
   }
 }

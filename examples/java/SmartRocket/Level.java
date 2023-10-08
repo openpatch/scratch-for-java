@@ -1,3 +1,5 @@
+package SmartRocket;
+
 import org.openpatch.scratch.*;
 import org.openpatch.scratch.extensions.math.*;
 import org.openpatch.scratch.extensions.text.*;

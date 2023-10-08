@@ -1,3 +1,5 @@
+package DonutIO;
+
 import org.openpatch.scratch.Stage;
 import org.openpatch.scratch.Window;
 import org.openpatch.scratch.extensions.math.Random;

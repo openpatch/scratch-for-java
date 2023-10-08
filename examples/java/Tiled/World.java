@@ -1,3 +1,5 @@
+package Tiled;
+
 import org.openpatch.scratch.KeyCode;
 import org.openpatch.scratch.Stage;
 import org.openpatch.scratch.extensions.tiled.TiledMap;
@@ -26,7 +28,7 @@ public class World extends Stage {
   public void loadMap(String mapFile) {
     this.removeAll();
     this.eraseAll();
-    map = new TiledMap(mapFile + ".tmx", this);
+    map = new TiledMap("Tiled/" + mapFile + ".tmx", this);
     for (var object : map.getObjectsFromLayer("Objects")) {
       // Spawn Points should only have an effect, if there was no PLAYER object. Meaning the first
       // time a map is loading.

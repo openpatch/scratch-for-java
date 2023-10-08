@@ -1,3 +1,5 @@
+package DonutIO;
+
 import org.openpatch.scratch.KeyCode;
 import org.openpatch.scratch.Stage;
 import org.openpatch.scratch.Window;

@@ -1,13 +1,15 @@
+package Pipes;
+
 import org.openpatch.scratch.*;
 import org.openpatch.scratch.extensions.math.*;
 
 public class Pipes extends Stage {
   public Pipes() {
     super(1280, 800);
-    this.addBackdrop("chalkBoard", "backdrops/chalk_board.jpg");
+    this.addBackdrop("chalkBoard", "Pipes/backdrops/chalk_board.jpg");
     this.setTint(60);
     this.add(new PenSprite());
-    this.addSound("bg", "sounds/bensound-enigmatic.wav");
+    this.addSound("bg", "Pipes/sounds/bensound-enigmatic.wav");
   }
 
   public void whenKeyPressed(int keyCode) {

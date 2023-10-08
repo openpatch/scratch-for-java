@@ -1,3 +1,5 @@
+package Robot;
+
 import org.openpatch.scratch.*;
 
 public class Robot extends Stage {

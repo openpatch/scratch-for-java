@@ -1,3 +1,5 @@
+package Saving;
+
 import org.openpatch.scratch.extensions.fs.*;
 
 public class Saving {
@@ -6,9 +8,9 @@ public class Saving {
     var settings = new ExampleSettings();
     settings.name = "Hi";
     settings.groesse = 10;
-    File.save("settings.json", settings);
+    File.save("Saving/settings.json", settings);
 
-    var loadedSettings = File.load("settings.json", ExampleSettings.class);
+    var loadedSettings = File.load("Saving/settings.json", ExampleSettings.class);
     System.out.println(loadedSettings.name);
   }
 

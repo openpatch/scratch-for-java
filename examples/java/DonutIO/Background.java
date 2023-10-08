@@ -1,9 +1,11 @@
+package DonutIO;
+
 import org.openpatch.scratch.Sprite;
 
 public class Background extends Sprite {
 
   public Background() {
-    this.addCostume("grid", "assets/grid.png");
+    this.addCostume("grid", "DonutIO/assets/grid.png");
   }
 
   public void run() {
