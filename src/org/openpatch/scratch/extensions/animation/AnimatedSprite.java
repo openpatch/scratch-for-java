@@ -54,8 +54,9 @@ public class AnimatedSprite extends Sprite {
     if (this.getTimer("animation") == null) {
       this.addTimer("animation");
     }
+    String[] animation = animations.get(name);
+    this.switchCostume(animation[animationFrame]);
     if (this.getTimer("animation").everyMillis(animationInterval)) {
-      String[] animation = animations.get(name);
       if (!animationPlayed && animationFrame != animation.length - 1 || !once) {
         if (animationFrame >= animation.length) {
           animationFrame = 0;
