@@ -3,7 +3,7 @@ import org.openpatch.scratch.*;
 public class SpriteRemoveSound {
 
   public SpriteRemoveSound() {
-    Stage myStage = new Stage(254, 100);
+    new Stage(254, 100);
     Sprite zeta = new Sprite("green", "assets/zeta_green_badge.png");
     zeta.addSound("bump", "assets/bump.wav");
     zeta.removeSound("bump");
