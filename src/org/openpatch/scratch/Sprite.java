@@ -572,7 +572,7 @@ public class Sprite {
     float my = this.getMouseY();
 
     double angle = new Vector2(mx - this.x, my - this.y).angle();
-    this.setDirection(angle);
+    this.setDirection(90 - angle);
   }
 
   public void pointTowardsSprite(Sprite s) {
