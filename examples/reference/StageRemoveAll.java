@@ -10,7 +10,8 @@ public class StageRemoveAll {
     Sprite zeta = new Sprite("zeta", "assets/zeta_green_badge.png");
     zeta.changeX(-20);
     myStage.add(zeta);
-    GifRecorder recorder = new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
+    GifRecorder recorder =
+        new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
     recorder.start();
     myStage.wait(2000);
     myStage.removeAll();

@@ -8,7 +8,8 @@ public class SpriteMove {
     myStage.add(gamma);
     gamma.turnLeft(20);
 
-    GifRecorder recorder = new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
+    GifRecorder recorder =
+        new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
     recorder.start();
     while (myStage.getTimer().forMillis(3000)) {
       gamma.move(5);

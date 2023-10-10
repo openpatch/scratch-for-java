@@ -6,7 +6,8 @@ public class StageTimer {
     Stage myStage = new Stage(600, 240);
     myStage.addTimer("identityChange");
 
-    GifRecorder recorder = new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
+    GifRecorder recorder =
+        new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
     recorder.start();
     while (myStage.getTimer().forMillis(6000)) {
       if (myStage.getTimer("identityChange").everyMillis(1000)) {

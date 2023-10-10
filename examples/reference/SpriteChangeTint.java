@@ -6,7 +6,8 @@ public class SpriteChangeTint {
     Stage myStage = new Stage(600, 240);
     Sprite mySprite = new Sprite("zeta", "assets/zeta_green_badge.png");
 
-    GifRecorder recorder = new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
+    GifRecorder recorder =
+        new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
     recorder.start();
 
     myStage.add(mySprite);

@@ -8,7 +8,8 @@ public class SpriteSetPosition {
     Sprite mySprite = new Sprite("slime", "assets/slime.png");
     myStage.add(mySprite);
 
-    GifRecorder recorder = new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
+    GifRecorder recorder =
+        new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
     recorder.start();
     while (myStage.getTimer().forMillis(3000)) {
       int x = myStage.pickRandom(-myStage.getWidth() / 2, myStage.getWidth() / 2);
