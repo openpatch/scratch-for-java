@@ -8,7 +8,8 @@ public class SpriteGetMouse {
     mySprite.changeY(30);
     mySprite.changeX(-100);
     myStage.add(mySprite);
-    GifRecorder recorder = new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
+    GifRecorder recorder =
+        new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
     recorder.start();
     while (myStage.getTimer().forMillis(3000)) {
       mySprite.say("X: " + mySprite.getMouseX() + " Y: " + mySprite.getMouseY());

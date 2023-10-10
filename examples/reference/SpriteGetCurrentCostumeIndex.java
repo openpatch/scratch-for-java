@@ -10,7 +10,8 @@ public class SpriteGetCurrentCostumeIndex {
     myStage.add(mySprite);
     mySprite.think("Index: " + mySprite.getCurrentCostumeIndex());
 
-    GifRecorder recorder = new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
+    GifRecorder recorder =
+        new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
     recorder.start();
 
     myStage.wait(2000);

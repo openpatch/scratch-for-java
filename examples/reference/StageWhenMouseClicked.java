@@ -7,7 +7,7 @@ public class StageWhenMouseClicked {
 
     public CustomStage() {
       super(600, 240);
-    GifRecorder recorder = new GifRecorder("examples/reference/StageWhenMouseClicked.gif");
+      GifRecorder recorder = new GifRecorder("examples/reference/StageWhenMouseClicked.gif");
       recorder.start();
       while (this.getTimer().forMillis(3000))
         ;

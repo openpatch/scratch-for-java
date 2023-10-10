@@ -11,9 +11,7 @@ public class CatSketch {
     myStage.add(myCat);
   }
 
-  public void run() {
-
-  }
+  public void run() {}
 
   public static void main(String[] args) {
     new CatSketch();

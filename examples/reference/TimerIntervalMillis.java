@@ -7,7 +7,8 @@ public class TimerIntervalMillis {
   public TimerIntervalMillis() {
     Stage myStage = new Stage(600, 240);
     Timer myTimer = new Timer();
-    GifRecorder recorder = new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
+    GifRecorder recorder =
+        new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
     recorder.start();
     while (myStage.getTimer().forMillis(3000)) {
       if (myTimer.intervalMillis(500)) {

@@ -7,7 +7,8 @@ public class SpritePickRandom {
     Sprite zeta = new Sprite("green", "assets/zeta_green_badge.png");
     myStage.add(zeta);
 
-    GifRecorder recorder = new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
+    GifRecorder recorder =
+        new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
     recorder.start();
     while (myStage.getTimer().forMillis(3000)) {
       int random = zeta.pickRandom(0, 100);

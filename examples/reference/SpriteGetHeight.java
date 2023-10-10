@@ -8,7 +8,8 @@ public class SpriteGetHeight {
     mySprite.changeY(30);
     myStage.add(mySprite);
     mySprite.say("Height: " + mySprite.getHeight());
-    GifRecorder recorder = new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
+    GifRecorder recorder =
+        new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
     recorder.start();
     myStage.wait(1000);
     recorder.stop();

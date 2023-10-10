@@ -9,7 +9,8 @@ public class SpriteGetDirection {
     mySprite.changeX(-80);
     mySprite.changeY(30);
     mySprite.setDirection(45);
-    GifRecorder recorder = new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
+    GifRecorder recorder =
+        new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
     mySprite.say("Direction: " + mySprite.getDirection());
     recorder.start();
     myStage.wait(3000);
