@@ -80,6 +80,9 @@ public class Applet extends PApplet {
    */
   public void addStage(String name, Stage stage) {
     this.stages.put(name, stage);
+    if (this.stage == null) {
+      this.stage = stage;
+    }
   }
 
   /**
