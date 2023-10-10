@@ -9,7 +9,8 @@ public class SpriteSetSize {
     myStage.add(mySprite);
     mySprite.changeX(-80);
     mySprite.changeY(30);
-    GifRecorder recorder = new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
+    GifRecorder recorder =
+        new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
     recorder.start();
     mySprite.say("Size: " + mySprite.getSize());
     myStage.wait(2000);

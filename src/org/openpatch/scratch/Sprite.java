@@ -998,6 +998,7 @@ public class Sprite {
 
   /**
    * Gets the seconds passed since the last frame.
+   *
    * @return seconds since last frame
    */
   public float getDeltaTime() {
@@ -1109,8 +1110,7 @@ public class Sprite {
 
   public void whenKeyReleased(int keyCode) {}
 
-  public void mouseEvent(MouseEvent e) {
-  }
+  public void mouseEvent(MouseEvent e) {}
 
   public void whenMouseMoved(float x, final float y) {}
 
@@ -1198,8 +1198,8 @@ public class Sprite {
   }
 
   /**
-   * Stamps the current sprite to the background. A stamp is a non interactive
-   * version of the sprite.
+   * Stamps the current sprite to the background. A stamp is a non interactive version of the
+   * sprite.
    */
   public void stampToBackground() {
     if (this.costumes.size() > 0) {
@@ -1215,8 +1215,8 @@ public class Sprite {
   }
 
   /**
-   * Stamps the current sprite to the foreground. A stamp is a non interactive
-   * version of the sprite.
+   * Stamps the current sprite to the foreground. A stamp is a non interactive version of the
+   * sprite.
    */
   public void stampToForeground() {
     if (this.costumes.size() > 0) {
@@ -1262,8 +1262,7 @@ public class Sprite {
   }
 
   /**
-   * This method is called 60-times per second, if the sprite object was added
-   * to a stage object.
+   * This method is called 60-times per second, if the sprite object was added to a stage object.
    */
   public void run() {}
 }

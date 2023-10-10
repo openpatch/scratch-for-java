@@ -13,7 +13,8 @@ public class SpriteGoToFrontLayer {
     myStage.add(new Sprite("zeta", "assets/zeta_green_badge.png"));
     myStage.add(new Sprite("zeta", "assets/zeta_green_badge.png"));
 
-    GifRecorder recorder = new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
+    GifRecorder recorder =
+        new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
     recorder.start();
     myStage.wait(1000);
     gamma.goToFrontLayer();

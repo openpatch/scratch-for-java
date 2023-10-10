@@ -5,7 +5,8 @@ public class StageAddBackdrop {
   public StageAddBackdrop() {
     Stage myStage = new Stage(600, 240);
     myStage.addBackdrop("forest", "assets/background_forest.png", true);
-    GifRecorder recorder = new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
+    GifRecorder recorder =
+        new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
     myStage.wait(1000);
     recorder.snapshot();
     myStage.exit();

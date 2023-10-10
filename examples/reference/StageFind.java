@@ -9,7 +9,8 @@ public class StageFind {
     myStage.add(new CustomSprite());
     myStage.add(new Sprite());
 
-    GifRecorder recorder = new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
+    GifRecorder recorder =
+        new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
     recorder.start();
     myStage.display("Sprites: " + myStage.find(CustomSprite.class).size());
     myStage.wait(2000);

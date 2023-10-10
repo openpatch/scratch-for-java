@@ -10,7 +10,8 @@ public class SpriteTimer {
     timeMe.addTimer("identityChange");
     myStage.add(timeMe);
 
-    GifRecorder recorder = new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
+    GifRecorder recorder =
+        new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
     recorder.start();
     while (myStage.getTimer().forMillis(6000)) {
       if (timeMe.getTimer("identityChange").everyMillis(1000)) {

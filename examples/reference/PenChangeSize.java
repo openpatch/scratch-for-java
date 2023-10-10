@@ -7,7 +7,8 @@ public class PenChangeSize {
     Stage myStage = new Stage(600, 240);
     Pen myPen = new Pen();
     myStage.add(myPen);
-    GifRecorder recorder = new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
+    GifRecorder recorder =
+        new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
     recorder.start();
     while (myStage.getTimer().forMillis(3000)) {
       myPen.changeSize(1);
