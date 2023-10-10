@@ -28,6 +28,10 @@ public class Pen {
       this.opacity = opacity;
       this.size = size;
     }
+
+    public String toString() {
+      return "(" + x + ", " + y +  ") at " + size;
+    }
   }
 
   private Color color = new Color(0);
@@ -118,6 +122,10 @@ public class Pen {
     this.isForeground = true;
   }
 
+  public boolean isInBackground() {
+    return !this.isForeground;
+  }
+
   /**
    * Set the size of the pen
    *
@@ -179,14 +187,6 @@ public class Pen {
     this.setPosition(v.getX(), v.getY());
   }
 
-  public float getX() {
-    return 0;
-  }
-
-  public float getY() {
-    return 0;
-  }
-
   public void goToRandomPosition() {
     this.setPosition(
         Random.randomInt(-this.stage.getWidth() / 2, this.stage.getWidth() / 2),
@@ -235,7 +235,7 @@ public class Pen {
   public void draw() {
     if (this.stage == null) return;
     PGraphics buffer = this.stage.getBackgroundBuffer();
-    if (this.isForeground) {
+    if (!this.isInBackground()) {
       buffer = this.stage.getForegroundBuffer();
     }
     int pointsBufferSize = this.pointsBuffer.size();
@@ -243,7 +243,7 @@ public class Pen {
 
     Iterator<CopyOnWriteArrayList<Point>> pointsBufferIter = this.pointsBuffer.iterator();
 
-    buffer.beginDraw();
+    buffer.push();
     buffer.translate(this.stage.getWidth() / 2, this.stage.getHeight() / 2);
 
     while (pointsBufferIter.hasNext()) {
@@ -274,6 +274,6 @@ public class Pen {
         points.clear();
       }
     }
-    buffer.endDraw();
+    buffer.pop();
   }
 }
