@@ -6,6 +6,8 @@ import java.nio.file.FileSystemNotFoundException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 import org.openpatch.scratch.KeyCode;
 import org.openpatch.scratch.Stage;
@@ -28,9 +30,9 @@ public class Applet extends PApplet {
   private PImage loading;
   private final String assets;
   private Stage stage;
+  private Map<String, Stage> stages;
   private int lastMillis;
   private float deltaTime;
-
   private boolean hasLoaded = false;
   private String loadingText = "";
 
@@ -38,6 +40,8 @@ public class Applet extends PApplet {
     this.INITIAL_HEIGHT = height;
     this.INITIAL_WIDTH = width;
     this.assets = assets;
+
+    this.stages = new ConcurrentHashMap<>();
 
     this.registerMethod("pre", this);
     this.registerMethod("mouseEvent", this);
@@ -67,6 +71,35 @@ public class Applet extends PApplet {
 
   public int getHeight() {
     return this.height;
+  }
+
+  /**
+   * @deprecated since 4.0.0. Use setStage instead.
+   * @param name Name of the stage
+   * @param stage A stage object
+   */
+  public void addStage(String name, Stage stage) {
+    this.stages.put(name, stage);
+  }
+
+  /**
+   * @deprecated since 4.0.0. Use setStage instead.
+   * @param name Name of the stage
+   */
+  public void switchStage(String name) {
+    this.stage = this.stages.getOrDefault(name, this.stage);
+  }
+
+  /**
+   * @deprecated since 4.0.0. Use setStage instead.
+   * @param name Name of the stage
+   */
+  public void removeStage(String name) {
+    this.stages.remove(name);
+  }
+
+  public Stage getStage() {
+    return this.stage;
   }
 
   public void setStage(Stage stage) {
