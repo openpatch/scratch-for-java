@@ -12,7 +12,7 @@ import org.openpatch.scratch.extensions.recorder.FrameRecorder;
 
 public class Animation {
     public Animation() {
-        Stage myStage = new Stage(254, 100);
+        Stage myStage = new Stage(600, 240);
 
         FrameRecorder recorder = new FrameRecorder("output");
         recorder.start();

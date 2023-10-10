@@ -3,20 +3,20 @@ import org.openpatch.scratch.extensions.recorder.*;
 
 public class SpriteSetOnEdgeBounce {
   public SpriteSetOnEdgeBounce() {
-    Stage myStage = new Stage(254, 100);
+    Stage myStage = new Stage(600, 240);
     Sprite mySprite = new Sprite("slime", "assets/slime.png");
     myStage.add(mySprite);
     mySprite.setOnEdgeBounce(true);
     mySprite.setRotationStyle(RotationStyle.LEFT_RIGHT);
 
-    GifRecorder recorder = new GifRecorder("" + this.getClass().getName() + ".gif");
+    GifRecorder recorder = new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
     recorder.start();
     while (myStage.getTimer().forMillis(3000)) {
       mySprite.move(1);
       myStage.wait(20);
     }
     recorder.stop();
-    Window.getInstance().exit();
+    myStage.exit();
   }
 
   public static void main(String[] args) {

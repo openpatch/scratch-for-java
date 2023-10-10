@@ -4,7 +4,7 @@ import org.openpatch.scratch.extensions.recorder.*;
 public class StageRun {
   class CustomStage extends Stage {
     public CustomStage() {
-      super(254, 100);
+      super(600, 240);
       this.setColor(255, 0, 0);
     }
 
@@ -15,12 +15,12 @@ public class StageRun {
 
   public StageRun() {
     Stage myStage = new CustomStage();
-    GifRecorder recorder = new GifRecorder("" + this.getClass().getName() + ".gif");
+    GifRecorder recorder = new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
     recorder.start();
     while (myStage.getTimer().forMillis(3000))
       ;
     recorder.stop();
-    Window.getInstance().exit();
+    myStage.exit();
   }
 
   public static void main(String[] args) {

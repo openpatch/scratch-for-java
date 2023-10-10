@@ -3,10 +3,10 @@ import org.openpatch.scratch.extensions.recorder.*;
 
 public class SpriteIsVisible {
   public SpriteIsVisible() {
-    Stage myStage = new Stage(254, 100);
+    Stage myStage = new Stage(600, 240);
     Sprite gamma = new Sprite("gamma", "assets/gamma_purple_badge.png");
     myStage.add(gamma);
-    GifRecorder recorder = new GifRecorder("" + this.getClass().getName() + ".gif");
+    GifRecorder recorder = new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
     recorder.start();
     myStage.display("Gamma Visible? " + gamma.isVisible());
     myStage.wait(2000);
@@ -14,7 +14,7 @@ public class SpriteIsVisible {
     myStage.display("Gamma Visible? " + gamma.isVisible());
     myStage.wait(2000);
     recorder.stop();
-    Window.getInstance().exit();
+    myStage.exit();
   }
 
   public static void main(String[] args) {

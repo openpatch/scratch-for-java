@@ -7,11 +7,11 @@ public class SpriteBroadcast {
     Stage myStage = new ReceiveStage();
     myStage.add(new BroadcastSprite());
     myStage.add(new ReceiveSprite());
-    GifRecorder recorder = new GifRecorder("" + this.getClass().getName() + ".gif");
+    GifRecorder recorder = new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
     recorder.start();
     while (myStage.getTimer().forMillis(3000)) {}
     recorder.stop();
-    Window.getInstance().exit();
+    myStage.exit();
   }
 
   public static void main(String[] args) {
@@ -21,7 +21,7 @@ public class SpriteBroadcast {
 
 class ReceiveStage extends Stage {
   public ReceiveStage() {
-    super(254, 100);
+    super(600, 240);
   }
 
   public void whenIReceive(String message) {

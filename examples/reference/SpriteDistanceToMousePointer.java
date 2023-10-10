@@ -3,13 +3,13 @@ import org.openpatch.scratch.extensions.recorder.*;
 
 public class SpriteDistanceToMousePointer {
   public SpriteDistanceToMousePointer() {
-    Stage myStage = new Stage(254, 100);
+    Stage myStage = new Stage(600, 240);
 
     Sprite gamma = new Sprite("gamma", "assets/gamma_purple_badge.png");
     gamma.setPosition(0, 50);
     myStage.add(gamma);
 
-    GifRecorder recorder = new GifRecorder("" + this.getClass().getName() + ".gif");
+    GifRecorder recorder = new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
     recorder.start();
     while (myStage.getTimer().forMillis(3000)) {
       gamma.changeX(5);
@@ -17,7 +17,7 @@ public class SpriteDistanceToMousePointer {
       myStage.wait(100);
     }
     recorder.stop();
-    Window.getInstance().exit();
+    myStage.exit();
   }
 
   public static void main(String[] args) {

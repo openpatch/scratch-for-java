@@ -4,13 +4,13 @@ import org.openpatch.scratch.extensions.recorder.*;
 
 public class AnimatedSpriteGetAnimationInterval {
   public AnimatedSpriteGetAnimationInterval() {
-    Stage myStage = new Stage(254, 100);
+    Stage myStage = new Stage(600, 240);
     AnimatedSprite bee = new AnimatedSprite();
     bee.addAnimation("idle", "assets/bee_idle.png", 6, 36, 34);
     myStage.add(bee);
     bee.changeY(30);
 
-    Recorder recorder = new GifRecorder("" + this.getClass().getName());
+    Recorder recorder = new GifRecorder("examples/reference/" + this.getClass().getName());
     recorder.start();
     while (myStage.getTimer().forMillis(2000)) {
       bee.playAnimation("idle");
@@ -23,7 +23,7 @@ public class AnimatedSpriteGetAnimationInterval {
       bee.say("Interval: " + bee.getAnimationInterval());
     }
     recorder.stop();
-    Window.getInstance().exit();
+    myStage.exit();
   }
 
   public static void main(String[] args) {

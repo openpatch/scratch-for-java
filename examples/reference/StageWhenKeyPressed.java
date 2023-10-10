@@ -6,13 +6,13 @@ public class StageWhenKeyPressed {
   class CustomStage extends Stage {
 
     public CustomStage() {
-      super(254, 100);
-      GifRecorder recorder = new GifRecorder("StageWhenKeyPressed.gif");
+      super(600, 240);
+      GifRecorder recorder = new GifRecorder("examples/reference/StageWhenKeyPressed.gif");
       recorder.start();
       while (this.getTimer().forMillis(3000))
         ;
       recorder.stop();
-      Window.getInstance().exit();
+      this.exit();
     }
 
     @Override

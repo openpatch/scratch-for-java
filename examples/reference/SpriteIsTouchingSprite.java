@@ -1,11 +1,10 @@
 import org.openpatch.scratch.Sprite;
 import org.openpatch.scratch.Stage;
-import org.openpatch.scratch.Window;
 import org.openpatch.scratch.extensions.recorder.GifRecorder;
 
 public class SpriteIsTouchingSprite {
   public SpriteIsTouchingSprite() {
-    Stage myStage = new Stage(254, 100);
+    Stage myStage = new Stage(600, 240);
 
     Sprite gamma = new Sprite("gamma", "assets/gamma_purple_badge.png");
     gamma.setPosition(-120, 50);
@@ -14,7 +13,7 @@ public class SpriteIsTouchingSprite {
     zeta.setPosition(120, 50);
     myStage.add(zeta);
 
-    GifRecorder recorder = new GifRecorder("" + this.getClass().getName() + ".gif");
+    GifRecorder recorder = new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
     recorder.start();
     while (!gamma.isTouchingSprite(zeta)) {
       gamma.changeX(5);
@@ -22,7 +21,7 @@ public class SpriteIsTouchingSprite {
       myStage.wait(100);
     }
     recorder.stop();
-    Window.getInstance().exit();
+    myStage.exit();
   }
 
   public static void main(String[] args) {

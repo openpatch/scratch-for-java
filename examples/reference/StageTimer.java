@@ -3,10 +3,10 @@ import org.openpatch.scratch.extensions.recorder.*;
 
 public class StageTimer {
   public StageTimer() {
-    Stage myStage = new Stage(254, 100);
+    Stage myStage = new Stage(600, 240);
     myStage.addTimer("identityChange");
 
-    GifRecorder recorder = new GifRecorder("" + this.getClass().getName() + ".gif");
+    GifRecorder recorder = new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
     recorder.start();
     while (myStage.getTimer().forMillis(6000)) {
       if (myStage.getTimer("identityChange").everyMillis(1000)) {
@@ -14,7 +14,7 @@ public class StageTimer {
       }
     }
     recorder.stop();
-    Window.getInstance().exit();
+    myStage.exit();
   }
 
   public static void main(String[] args) {

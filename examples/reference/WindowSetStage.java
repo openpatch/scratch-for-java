@@ -1,9 +1,10 @@
 import org.openpatch.scratch.*;
+import org.openpatch.scratch.extensions.recorder.GifRecorder;
 import org.openpatch.scratch.extensions.timer.Timer;
 
 public class WindowSetStage {
   public WindowSetStage() {
-    Window myWindow = new Window();
+    Window myWindow = new Window(500, 200);
 
     Stage firstLevel = new Stage();
     Sprite gamma = new Sprite("gamma", "assets/gamma_purple_badge.png");
@@ -14,6 +15,8 @@ public class WindowSetStage {
     secondLevel.add(zeta);
 
     Timer switchTimer = new Timer();
+    GifRecorder recorder = new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
+    recorder.start();
 
     while (switchTimer.forMillis(2000)) {
       myWindow.setStage(secondLevel);
@@ -24,6 +27,7 @@ public class WindowSetStage {
     while (switchTimer.forMillis(2000)) {
       myWindow.setStage(firstLevel);
     }
+    recorder.stop();
 
     myWindow.exit();
   }
