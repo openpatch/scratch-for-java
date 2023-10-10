@@ -8,7 +8,8 @@ public class SpriteSwitchCostume {
     Sprite zeta = new Sprite("green", "assets/zeta_green_badge.png");
     zeta.addCostume("yellow", "assets/zeta_yellow_badge.png");
     myStage.add(zeta);
-    GifRecorder recorder = new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
+    GifRecorder recorder =
+        new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
     recorder.start();
     myStage.wait(3000);
     zeta.switchCostume("yellow");

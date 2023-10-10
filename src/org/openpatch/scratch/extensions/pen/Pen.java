@@ -30,7 +30,7 @@ public class Pen {
     }
 
     public String toString() {
-      return "(" + x + ", " + y +  ") at " + size;
+      return "(" + x + ", " + y + ") at " + size;
     }
   }
 

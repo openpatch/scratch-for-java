@@ -6,7 +6,8 @@ public class SpriteIsVisible {
     Stage myStage = new Stage(600, 240);
     Sprite gamma = new Sprite("gamma", "assets/gamma_purple_badge.png");
     myStage.add(gamma);
-    GifRecorder recorder = new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
+    GifRecorder recorder =
+        new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
     recorder.start();
     myStage.display("Gamma Visible? " + gamma.isVisible());
     myStage.wait(2000);

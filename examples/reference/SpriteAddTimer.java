@@ -8,7 +8,8 @@ public class SpriteAddTimer {
     zeta.addCostume("yellow", "assets/zeta_yellow_badge.png");
     zeta.addTimer("costumeChange");
     myStage.add(zeta);
-    GifRecorder recorder = new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
+    GifRecorder recorder =
+        new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
     recorder.start();
     while (myStage.getTimer().forMillis(3000)) {
       if (zeta.getTimer("costumeChange").everyMillis(500)) {

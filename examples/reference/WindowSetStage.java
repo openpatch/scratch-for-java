@@ -15,7 +15,8 @@ public class WindowSetStage {
     secondLevel.add(zeta);
 
     Timer switchTimer = new Timer();
-    GifRecorder recorder = new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
+    GifRecorder recorder =
+        new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
     recorder.start();
 
     while (switchTimer.forMillis(2000)) {

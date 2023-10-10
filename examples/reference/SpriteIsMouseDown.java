@@ -9,7 +9,8 @@ public class SpriteIsMouseDown {
     mySprite.changeY(30);
     myStage.add(mySprite);
 
-    GifRecorder recorder = new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
+    GifRecorder recorder =
+        new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
     recorder.start();
     while (myStage.getTimer().forMillis(3000)) {
       mySprite.say("Mouse down? " + mySprite.isMouseDown());

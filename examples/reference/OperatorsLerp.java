@@ -12,7 +12,8 @@ public class OperatorsLerp {
 
     int startMillis = Timer.millis();
 
-    GifRecorder recorder = new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
+    GifRecorder recorder =
+        new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
     recorder.start();
     for (int currentMillis = Timer.millis();
         currentMillis - startMillis < 3000;

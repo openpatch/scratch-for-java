@@ -13,7 +13,8 @@ public class SpriteIsTouchingSprite {
     zeta.setPosition(120, 50);
     myStage.add(zeta);
 
-    GifRecorder recorder = new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
+    GifRecorder recorder =
+        new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
     recorder.start();
     while (!gamma.isTouchingSprite(zeta)) {
       gamma.changeX(5);
