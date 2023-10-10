@@ -33,7 +33,11 @@ public class Window {
     return instance;
   }
 
-  public int getDeltaTime() {
+  /**
+   * Gets the seconds passed since the last frame.
+   * @return seconds since last frame
+   */
+  public float getDeltaTime() {
     return Applet.getInstance().getDeltaTime();
   }
 
@@ -62,6 +66,11 @@ public class Window {
   }
 
   public void exit() {
+    this.whenExits();
     Applet.getInstance().exit();
+  }
+
+  public void whenExits() {
+
   }
 }
