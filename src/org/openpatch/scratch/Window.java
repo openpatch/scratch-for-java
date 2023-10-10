@@ -4,7 +4,7 @@ import org.openpatch.scratch.internal.*;
 
 public class Window {
 
-  public static final int[] DEBUG_COLOR = { 255, 0, 0 };
+  public static final int[] DEBUG_COLOR = {255, 0, 0};
   private static Window instance;
 
   public Window() {
@@ -34,12 +34,12 @@ public class Window {
   }
 
   /**
-   * Gets the seconds passed since the last frame.
-<<<<<<< HEAD
-   * 
-=======
+   * Gets the seconds passed since the last frame. <<<<<<< HEAD
    *
->>>>>>> c0eac5706fdcd98090dbc99a6d5b478a5c0bd3b3
+   * <p>=======
+   *
+   * <p>>>>>>>> c0eac5706fdcd98090dbc99a6d5b478a5c0bd3b3
+   *
    * @return seconds since last frame
    */
   public float getDeltaTime() {
@@ -72,7 +72,7 @@ public class Window {
 
   /**
    * @deprecated since 4.0.0. Use setStage instead.
-   * @param name  Name of the stage
+   * @param name Name of the stage
    * @param stage A stage object
    */
   public void addStage(String name, Stage stage) {
