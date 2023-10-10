@@ -220,7 +220,9 @@
     <target name="compile">
         <javac srcdir="${project.tmp}/${project.name}/src" destdir="${project.bin}"
             source="${java.target.version}"
-            target="${java.target.version}" includeantruntime="false">
+            target="${java.target.version}" includeantruntime="false"
+            excludes="examples/**"
+            >
             <classpath>
                 <path refid="classpath" />
             </classpath>
