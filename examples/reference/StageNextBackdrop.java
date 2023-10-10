@@ -7,7 +7,8 @@ public class StageNextBackdrop {
     myStage.addBackdrop("forest", "assets/background_forest.png");
     myStage.addBackdrop("sea", "assets/background_sea.png");
 
-    GifRecorder recorder = new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
+    GifRecorder recorder =
+        new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
     recorder.start();
     myStage.wait(2000);
     myStage.nextBackdrop();

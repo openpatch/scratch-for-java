@@ -7,7 +7,8 @@ public class StageGetCurrentBackdropName {
     myStage.addBackdrop("forest", "assets/background_forest.png");
     myStage.addBackdrop("sea", "assets/background_sea.png");
     myStage.display("Name: " + myStage.getCurrentBackdropName());
-    GifRecorder recorder = new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
+    GifRecorder recorder =
+        new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
     recorder.start();
     myStage.wait(2000);
     myStage.nextBackdrop();
