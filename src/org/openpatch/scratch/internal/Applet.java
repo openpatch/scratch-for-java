@@ -29,7 +29,7 @@ public class Applet extends PApplet {
   private final String assets;
   private Stage stage;
   private int lastMillis;
-  private int deltaTime;
+  private float deltaTime;
 
   private boolean hasLoaded = false;
   private String loadingText = "";
@@ -85,7 +85,7 @@ public class Applet extends PApplet {
     this.size(this.INITIAL_WIDTH, this.INITIAL_HEIGHT, P2D);
   }
 
-  public int getDeltaTime() {
+  public float getDeltaTime() {
     return deltaTime;
   }
 
@@ -107,7 +107,8 @@ public class Applet extends PApplet {
   public void runSketch() {
     if (!this.isRunning) {
       super.runSketch();
-      while (this.surface.isStopped()) {}
+      while (this.surface.isStopped()) {
+      }
       this.isRunning = true;
     }
   }
@@ -118,8 +119,7 @@ public class Applet extends PApplet {
     this.rectMode(PConstants.CENTER);
     this.loading = this.loadImage("loading.png");
     var loadingScaleX = this.INITIAL_WIDTH / 480.0;
-    var loadingScaleY =
-        this.INITIAL_HEIGHT / (360.0 + 150); // normal height + padding for loading text
+    var loadingScaleY = this.INITIAL_HEIGHT / (360.0 + 150); // normal height + padding for loading text
     var scale = Math.min(1, Math.min(loadingScaleX, loadingScaleY));
     this.loading.resize((int) (this.loading.width * scale), (int) (this.loading.height * scale));
   }
@@ -148,21 +148,18 @@ public class Applet extends PApplet {
           }
         }
 
-        var imageFiles =
-            Files.find(p, Integer.MAX_VALUE, (filePath, fileAttr) -> fileAttr.isRegularFile())
-                .map(f -> f.toString())
-                .filter(f -> f.endsWith(".png") || f.endsWith(".jpg") || f.endsWith(".jpeg"))
-                .collect(Collectors.toList());
-        var soundFiles =
-            Files.find(p, Integer.MAX_VALUE, (filePath, fileAttr) -> fileAttr.isRegularFile())
-                .map(f -> f.toString())
-                .filter(f -> f.endsWith(".mp3") || f.endsWith(".wav"))
-                .collect(Collectors.toList());
-        var fontFiles =
-            Files.find(p, Integer.MAX_VALUE, (filePath, fileAttr) -> fileAttr.isRegularFile())
-                .map(f -> f.toString())
-                .filter(f -> f.endsWith(".ttf") || f.endsWith(".otf"))
-                .collect(Collectors.toList());
+        var imageFiles = Files.find(p, Integer.MAX_VALUE, (filePath, fileAttr) -> fileAttr.isRegularFile())
+            .map(f -> f.toString())
+            .filter(f -> f.endsWith(".png") || f.endsWith(".jpg") || f.endsWith(".jpeg"))
+            .collect(Collectors.toList());
+        var soundFiles = Files.find(p, Integer.MAX_VALUE, (filePath, fileAttr) -> fileAttr.isRegularFile())
+            .map(f -> f.toString())
+            .filter(f -> f.endsWith(".mp3") || f.endsWith(".wav"))
+            .collect(Collectors.toList());
+        var fontFiles = Files.find(p, Integer.MAX_VALUE, (filePath, fileAttr) -> fileAttr.isRegularFile())
+            .map(f -> f.toString())
+            .filter(f -> f.endsWith(".ttf") || f.endsWith(".otf"))
+            .collect(Collectors.toList());
         this.numberAssets += imageFiles.size();
         this.numberAssets += soundFiles.size();
         this.numberAssets += fontFiles.size();
@@ -214,7 +211,10 @@ public class Applet extends PApplet {
 
   public void draw() {
     var currentMillis = millis();
-    deltaTime = currentMillis - lastMillis;
+    if (lastMillis == 0) {
+      lastMillis = currentMillis;
+    }
+    deltaTime = (currentMillis - lastMillis) / 1000.0f;
     lastMillis = currentMillis;
     if (!this.hasLoaded || this.loadingStatus() < 1) {
       this.background(0x222222);
