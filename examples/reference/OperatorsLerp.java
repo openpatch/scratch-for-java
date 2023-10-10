@@ -12,7 +12,7 @@ public class OperatorsLerp {
 
     int startMillis = Timer.millis();
 
-    GifRecorder recorder = new GifRecorder("" + this.getClass().getName() + ".gif");
+    GifRecorder recorder = new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
     recorder.start();
     for (int currentMillis = Timer.millis();
         currentMillis - startMillis < 3000;
@@ -26,7 +26,7 @@ public class OperatorsLerp {
       myPen.setPosition(x, y);
     }
     recorder.stop();
-    Window.getInstance().exit();
+    myStage.exit();
   }
 
   public static void main(String[] args) {

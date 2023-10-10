@@ -3,13 +3,13 @@ import org.openpatch.scratch.extensions.recorder.*;
 
 public class StageGetHeight {
   public StageGetHeight() {
-    Stage myStage = new Stage(254, 100);
+    Stage myStage = new Stage(600, 240);
 
-    GifRecorder recorder = new GifRecorder("" + this.getClass().getName() + ".gif");
+    GifRecorder recorder = new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
     myStage.display("Height: " + myStage.getHeight());
     myStage.wait(500);
     recorder.snapshot();
-    Window.getInstance().exit();
+    myStage.exit();
   }
 
   public static void main(String[] args) {

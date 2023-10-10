@@ -8,7 +8,7 @@
   "syntax": [
     ".addAnimation(name, pattern, frames)",
     ".addAnimation(name, path, frames, width, height)",
-    ".addAnimation(name, path, frames, width, height, int row)"
+    ".addAnimation(name, path, frames, width, height, row)"
   ],
   "returns": "void",
   "examples": [

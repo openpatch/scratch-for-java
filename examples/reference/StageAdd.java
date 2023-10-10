@@ -5,12 +5,13 @@ import org.openpatch.scratch.extensions.recorder.*;
 
 public class StageAdd {
   public StageAdd() {
-    Stage myStage = new Stage(254, 100);
-    GifRecorder recorder = new GifRecorder("" + this.getClass().getName() + ".gif");
+    Stage myStage = new Stage(600, 240);
+    GifRecorder recorder = new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
     myStage.add(new Sprite("cat", "assets/slime.png"));
+    recorder.start();
     myStage.wait(2000);
-    recorder.snapshot();
-    Window.getInstance().exit();
+    recorder.stop();
+    myStage.exit();
   }
 
   public static void main(String[] args) {

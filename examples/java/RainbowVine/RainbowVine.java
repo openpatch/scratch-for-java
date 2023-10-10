@@ -49,7 +49,7 @@ class LeafSprite extends Sprite {
     this.move(5);
     this.getPen().changeSize(1);
     if (this.getTimer().afterMillis(200)) {
-      this.getStage().remove(this);
+    this.remove();
     }
   }
 }

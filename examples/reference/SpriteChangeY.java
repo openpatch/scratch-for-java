@@ -3,11 +3,11 @@ import org.openpatch.scratch.extensions.recorder.*;
 
 public class SpriteChangeY {
   public SpriteChangeY() {
-    Stage myStage = new Stage(254, 100);
+    Stage myStage = new Stage(600, 240);
     Sprite mySprite = new Sprite("zeta", "assets/zeta_green_badge.png");
     myStage.add(mySprite);
 
-    GifRecorder recorder = new GifRecorder("" + this.getClass().getName() + ".gif");
+    GifRecorder recorder = new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
     recorder.start();
     myStage.wait(1000);
     mySprite.changeY(-20);
@@ -16,7 +16,7 @@ public class SpriteChangeY {
     myStage.wait(1000);
 
     recorder.stop();
-    Window.getInstance().exit();
+    myStage.exit();
   }
 
   public static void main(String[] args) {

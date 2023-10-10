@@ -6,7 +6,8 @@
   "class": "Sprite",
   "description": "Fügt einen Hintergrund hinzu.",
   "syntax": [
-    ".addBackdrop(name, filePath)"
+    ".addBackdrop(name, filePath)",
+    ".addBackdrop(name, filePath, stretch)"
   ],
   "returns": "void",
   "examples": [
@@ -26,6 +27,11 @@
       "name": "filePath",
       "description": "Der Pfad zur Bilddatei",
       "type": "String"
+    },
+    {
+      "name": "stretch",
+      "description": "Strecke das Bild, sodass es genau ins Fenster passt",
+      "type": "boolean"
     }
   ]
 }
