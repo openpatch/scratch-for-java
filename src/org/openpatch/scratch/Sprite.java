@@ -483,17 +483,13 @@ public class Sprite {
    * @param x a x coordinate
    * @param y a y coordinate
    */
-  public void setPosition(int x, final int y) {
+  public void setPosition(float x, float y) {
     this.x = x;
     this.y = y;
     this.getPen().setPosition(x, y);
   }
 
-  public void setPosition(float x, final float y) {
-    this.setPosition(Math.round(x), Math.round(y));
-  }
-
-  public void setPosition(double x, final double y) {
+  public void setPosition(double x, double y) {
     this.setPosition((float) x, (float) y);
   }
 
@@ -1000,7 +996,11 @@ public class Sprite {
     return this.stage.isKeyPressed(keyCode);
   }
 
-  public int getDeltaTime() {
+  /**
+   * Gets the seconds passed since the last frame.
+   * @return seconds since last frame
+   */
+  public float getDeltaTime() {
     return Window.getInstance().getDeltaTime();
   }
 
@@ -1110,7 +1110,6 @@ public class Sprite {
   public void whenKeyReleased(int keyCode) {}
 
   public void mouseEvent(MouseEvent e) {
-    this.whenMouseMoved(e.getX(), e.getY());
   }
 
   public void whenMouseMoved(float x, final float y) {}
@@ -1235,7 +1234,6 @@ public class Sprite {
   /** Draws the sprite if it is not hidden. */
   public void draw() {
     if (this.stage == null) return;
-    this.pen.draw();
     if (this.costumes.size() > 0 && this.show) {
       this.costumes
           .get(this.currentCostume)

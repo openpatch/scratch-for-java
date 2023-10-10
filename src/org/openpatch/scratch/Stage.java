@@ -24,6 +24,8 @@ import org.openpatch.scratch.internal.Font;
 import org.openpatch.scratch.internal.Image;
 import org.openpatch.scratch.internal.Sound;
 import org.openpatch.scratch.internal.Stamp;
+
+import processing.core.PConstants;
 import processing.core.PGraphics;
 import processing.event.KeyEvent;
 import processing.event.MouseEvent;
@@ -83,10 +85,8 @@ public class Stage {
       a.setStage(this);
     }
     Applet applet = Applet.getInstance();
-    this.backgroundBuffer =
-        applet.createGraphics(applet.width, applet.height, applet.sketchRenderer());
-    this.foregroundBuffer =
-        applet.createGraphics(applet.width, applet.height, applet.sketchRenderer());
+    this.backgroundBuffer = applet.createGraphics(applet.width, applet.height, applet.sketchRenderer());
+    this.foregroundBuffer = applet.createGraphics(applet.width, applet.height, applet.sketchRenderer());
     this.debugBuffer = applet.createGraphics(applet.width, applet.height, applet.sketchRenderer());
     /**
      * Smooth does currently not work on Apple Silicon
@@ -96,8 +96,7 @@ public class Stage {
     this.foregroundBuffer.smooth(4);
     this.debugBuffer.smooth(4);
     this.timer.put("default", new Timer());
-    this.display =
-        new Text(null, -applet.width / 2, -applet.height / 2, applet.width, TextStyle.BOX);
+    this.display = new Text(null, -applet.width / 2, -applet.height / 2, applet.width, TextStyle.BOX);
     this.display.addedToStage(this);
 
     var p = new Polygon();
@@ -159,9 +158,11 @@ public class Stage {
 
   public void goLayersBackwards(Sprite sprite, int number) {
     int index = this.sprites.indexOf(sprite);
-    if (index == -1) return;
+    if (index == -1)
+      return;
     int newIndex = index - number;
-    if (newIndex < 0) newIndex = 0;
+    if (newIndex < 0)
+      newIndex = 0;
     newIndex = Math.min(newIndex, this.sprites.size() - 1);
     this.sprites.remove(index);
     this.sprites.add(newIndex, sprite);
@@ -169,9 +170,11 @@ public class Stage {
 
   public void goLayersForwards(Sprite sprite, int number) {
     int index = this.sprites.indexOf(sprite);
-    if (index == -1) return;
+    if (index == -1)
+      return;
     int newIndex = index + number;
-    if (newIndex < 0) newIndex = 0;
+    if (newIndex < 0)
+      newIndex = 0;
     newIndex = Math.min(newIndex, this.sprites.size() - 1);
     this.sprites.remove(index);
     this.sprites.add(newIndex, sprite);
@@ -191,8 +194,8 @@ public class Stage {
     this.sorter = sorter;
   }
 
-  public Sprite[] getAll() {
-    return (Sprite[]) this.sprites.toArray();
+  public List<Sprite> getAll() {
+    return new CopyOnWriteArrayList<>(this.sprites);
   }
 
   /**
@@ -260,20 +263,76 @@ public class Stage {
     return this.sprites.stream().filter(c::isInstance).map(c::cast).collect(Collectors.toList());
   }
 
+  public <T extends Sprite> List<T> findSpritesOf(Class<T> c) {
+    return this.find(c);
+  }
+
+  public <T extends Text> List<T> findTextsOf(Class<T> c) {
+    return this.texts.stream().filter(c::isInstance).map(c::cast).collect(Collectors.toList());
+  }
+  
+  public <T extends Pen> List<T> findPensOf(Class<T> c) {
+    return this.pens.stream().filter(c::isInstance).map(c::cast).collect(Collectors.toList());
+  }
+
+  public <T extends Sprite> long count(Class<T> c) {
+    return this.sprites.stream().filter(c::isInstance).count();
+  }
+
+  public long countSprites() {
+    return this.sprites.size();
+  }
+
+  public <T extends Sprite> long countSpritesOf(Class<T> c) {
+    return this.count(c);
+  }
+
+  public long countTexts() {
+    return this.texts.size();
+  }
+
+  public <T extends Text> long countTextsOf(Class<T> c) {
+    return this.texts.stream().filter(c::isInstance).count();
+  }
+
+  public long countPens() {
+    return this.pens.size();
+  }
+
+  public <T extends Pen> long countPensOf(Class<T> c) {
+    return this.pens.stream().filter(c::isInstance).count();
+  }
+
   /**
-   * Add a backdrop to the stage. If a backdrop with the received name already exists do nothing.
+   * Add a backdrop to the stage. If a backdrop with the received name already
+   * exists do nothing.
    *
-   * @param name a unique name
+   * @param name      a unique name
    * @param imagePath a image path
+   * @param stretch   stretch image to window size
    */
-  public void addBackdrop(String name, final String imagePath) {
+  public void addBackdrop(String name, final String imagePath, boolean stretch) {
     for (Image backdrop : this.backdrops) {
       if (backdrop.getName().equals(name)) {
         return;
       }
     }
     Image backdrop = new Image(name, imagePath);
+    if (stretch) {
+      backdrop.setSize(this.getWidth(), this.getHeight());
+    }
     this.backdrops.add(backdrop);
+  }
+
+  /**
+   * Add a backdrop to the stage. If a backdrop with the received name already
+   * exists do nothing.
+   *
+   * @param name      a unique name
+   * @param imagePath a image path
+   */
+  public void addBackdrop(String name, final String imagePath) {
+    this.addBackdrop(name, imagePath, false);
   }
 
   /**
@@ -314,7 +373,8 @@ public class Stage {
     this.whenBackdropSwitches(name);
   }
 
-  public void whenBackdropSwitches(String name) {}
+  public void whenBackdropSwitches(String name) {
+  }
 
   /** Switch to the next backdrop. */
   public void nextBackdrop() {
@@ -368,9 +428,10 @@ public class Stage {
   }
 
   /**
-   * Add a sound to the stage. If a sound with the received name already exists do nothing.
+   * Add a sound to the stage. If a sound with the received name already exists do
+   * nothing.
    *
-   * @param name a unique name
+   * @param name      a unique name
    * @param soundPath a sound path
    */
   public void addSound(String name, final String soundPath) {
@@ -508,7 +569,8 @@ public class Stage {
    * @see Image#setTint(float, float, float)
    */
   public void setTint(int r, final int g, final int b) {
-    if (this.backdrops.size() == 0) return;
+    if (this.backdrops.size() == 0)
+      return;
     this.backdrops.get(this.currentBackdrop).setTint(r, g, b);
   }
 
@@ -518,7 +580,8 @@ public class Stage {
    * @see Image#setTint(float)
    */
   public void setTint(float h) {
-    if (this.backdrops.size() == 0) return;
+    if (this.backdrops.size() == 0)
+      return;
     this.backdrops.get(this.currentBackdrop).setTint(h);
   }
 
@@ -528,7 +591,8 @@ public class Stage {
    * @see Image#changeTint(float)
    */
   public void changeTint(float step) {
-    if (this.backdrops.size() == 0) return;
+    if (this.backdrops.size() == 0)
+      return;
 
     this.backdrops.get(this.currentBackdrop).changeTint(step);
   }
@@ -552,13 +616,15 @@ public class Stage {
    * @see Image#changeTransparency(float)
    */
   public void changeTransparency(float step) {
-    if (this.backdrops.size() == 0) return;
+    if (this.backdrops.size() == 0)
+      return;
 
     this.backdrops.get(this.currentBackdrop).changeTransparency(step);
   }
 
   /**
-   * Return the width of the current costume or the pen size, when no costume is available.
+   * Return the width of the current costume or the pen size, when no costume is
+   * available.
    *
    * @return the width of the sprite
    */
@@ -567,7 +633,8 @@ public class Stage {
   }
 
   /**
-   * Return the height of the current costume or the pen size, when no costume is available.
+   * Return the height of the current costume or the pen size, when no costume is
+   * available.
    *
    * @return the height of the sprite
    */
@@ -600,7 +667,8 @@ public class Stage {
    * @param name the name of the timer
    */
   public void addTimer(String name) {
-    if ("default".equals(name)) return;
+    if ("default".equals(name))
+      return;
 
     this.timer.put(name, new Timer());
   }
@@ -611,7 +679,8 @@ public class Stage {
    * @param name the name of the timer
    */
   public void removeTimer(String name) {
-    if ("default".equals(name)) return;
+    if ("default".equals(name))
+      return;
 
     this.timer.remove(name);
   }
@@ -624,6 +693,13 @@ public class Stage {
     if (e.getAction() == MouseEvent.PRESS) {
       this.mouseDown = true;
     } else if (e.getAction() == MouseEvent.CLICK) {
+      if (e.getButton() == PConstants.LEFT) {
+        whenMouseClicked(MouseCode.LEFT);
+      } else if (e.getButton() == PConstants.RIGHT) {
+        whenMouseClicked(MouseCode.RIGHT);
+      } else if (e.getButton() == PConstants.CENTER) {
+        whenMouseClicked(MouseCode.CENTER);
+      }
       this.sprites.stream()
           .forEach(
               s -> {
@@ -632,7 +708,18 @@ public class Stage {
                   s.whenClicked();
                 }
               });
+    } else if (e.getAction() == MouseEvent.MOVE) {
+      this.sprites.stream().forEach(s -> s.whenMouseMoved(this.mouseX, this.mouseY));
+    } else if (e.getAction() == MouseEvent.WHEEL) {
+      this.whenMouseWheelMoved(e.getCount());
     }
+  }
+
+  public void whenMouseClicked(MouseCode mouseEvent) {
+  }
+
+  public void whenMouseWheelMoved(int steps) {
+
   }
 
   /**
@@ -662,7 +749,8 @@ public class Stage {
     return this.mouseDown;
   }
 
-  public void whenKeyPressed(int keyCode) {}
+  public void whenKeyPressed(int keyCode) {
+  }
 
   public void keyEvent(KeyEvent e) {
     switch (e.getAction()) {
@@ -691,7 +779,12 @@ public class Stage {
     return isPressed;
   }
 
-  public int getDeltaTime() {
+  /**
+   * Gets the seconds passed since the last frame.
+   * 
+   * @return secons since last frame
+   */
+  public float getDeltaTime() {
     return Window.getInstance().getDeltaTime();
   }
 
@@ -806,12 +899,14 @@ public class Stage {
     this.sprites.stream().forEach(s -> s.whenIReceive(message));
   }
 
-  public void whenIReceive(String message) {}
+  public void whenIReceive(String message) {
+  }
 
   /** Draws the current backdrop or if none a solid color */
   public void pre() {
     Applet applet = Applet.getInstance();
-    if (applet == null) return;
+    if (applet == null)
+      return;
     // redraw background to clear screen
     applet.background(this.color.getRed(), this.color.getGreen(), this.color.getBlue());
 
@@ -824,7 +919,8 @@ public class Stage {
       this.backgroundBuffer.clear();
       this.eraseBackgroundBuffer = false;
     }
-    this.pens.stream().forEach(p -> p.draw());
+    this.pens.stream().filter(p -> p.isInBackground()).forEach(p -> p.draw());
+    this.sprites.stream().forEach(s -> s.getPen().draw());
     while (!this.backgroundStamps.isEmpty()) {
       this.backgroundStamps.poll().draw(this.backgroundBuffer);
     }
@@ -843,6 +939,7 @@ public class Stage {
       this.foregroundBuffer.clear();
       this.eraseForegroundBuffer = false;
     }
+    this.pens.stream().filter(p -> !p.isInBackground()).forEach(p -> p.draw());
     while (!this.foregroundStamps.isEmpty()) {
       this.foregroundStamps.poll().draw(this.foregroundBuffer);
     }
@@ -861,11 +958,20 @@ public class Stage {
     }
   }
 
-  public void run() {}
+  public void run() {
+  }
+
+  /**
+   * Close the window and therefore the whole application.
+   */
+  public void exit() {
+    Window.getInstance().exit();
+  }
 
   public void draw() {
     Applet applet = Applet.getInstance();
-    if (applet == null) return;
+    if (applet == null)
+      return;
 
     if (this.sorter != null) {
       this.sprites.sort(this.sorter);
@@ -873,7 +979,6 @@ public class Stage {
 
     this.run();
     this.sprites.stream().forEach(s -> s.run());
-
     this.sprites.stream().forEach(s -> s.draw());
     this.texts.stream().forEach(t -> t.draw());
 
