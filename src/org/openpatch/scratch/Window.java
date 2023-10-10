@@ -4,7 +4,7 @@ import org.openpatch.scratch.internal.*;
 
 public class Window {
 
-  public static final int[] DEBUG_COLOR = {255, 0, 0} ;
+  public static final int[] DEBUG_COLOR = { 255, 0, 0 };
   private static Window instance;
 
   public Window() {
@@ -35,6 +35,7 @@ public class Window {
 
   /**
    * Gets the seconds passed since the last frame.
+   * 
    * @return seconds since last frame
    */
   public float getDeltaTime() {
@@ -63,6 +64,35 @@ public class Window {
 
   public void setStage(Stage stage) {
     Applet.getInstance().setStage(stage);
+  }
+
+  /**
+   * @deprecated since 4.0.0. Use setStage instead.
+   * @param name  Name of the stage
+   * @param stage A stage object
+   */
+  public void addStage(String name, Stage stage) {
+    Applet.getInstance().addStage(name, stage);
+  }
+
+  /**
+   * @deprecated since 4.0.0. Use setStage instead.
+   * @param name Name of the stage
+   */
+  public void switchStage(String name) {
+    Applet.getInstance().switchStage(name);
+  }
+
+  /**
+   * @deprecated since 4.0.0. Use setStage instead.
+   * @param name Name of the stage
+   */
+  public void removeStage(String name) {
+    Applet.getInstance().removeStage(name);
+  }
+
+  public Stage getStage() {
+    return Applet.getInstance().getStage();
   }
 
   public void exit() {
