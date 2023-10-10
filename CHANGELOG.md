@@ -3,6 +3,16 @@ name: Changelog
 index: 4
 ---
 
+## 4.4.0
+
+- 🚀 Feat: Add methods for counting sprites (countSprites, countSpritesOf), pens (countPens, countPensOf) and texts (countTexts, countTextsOf).
+- 🚀 Feat: Add more methods for finding sprites (findSpritesOf), pens (findPensOf) and texts (findTextsOf) of a given class.
+- 🚀 Feat: Add exit to Stage for easier access.
+- 🚀 Feat: Add getDeltaTime to the Sprite and Stage class.
+- 🚀 Feat: You can now stretch a backdrop to the window size by using `addBackdrop("name", "path", true)`.
+- 🐛 Fix: Path resolution of assets
+- 🐛 Fix: whenMouseMoved not working
+
 ## 4.3.0
 
 - 🚀 Feat: Random can now create a new random unit vector (Random.randomVector2()).
