@@ -5,6 +5,7 @@ index: 4
 
 ## 4.4.0
 
+- 🚀 Feat: Revert BREAKING CHANGE and add addStage, removeStage and getStage again.
 - 🚀 Feat: Add methods for counting sprites (countSprites, countSpritesOf), pens (countPens, countPensOf) and texts (countTexts, countTextsOf).
 - 🚀 Feat: Add more methods for finding sprites (findSpritesOf), pens (findPensOf) and texts (findTextsOf) of a given class.
 - 🚀 Feat: Add exit to Stage for easier access.
