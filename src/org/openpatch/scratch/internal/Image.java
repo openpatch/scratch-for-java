@@ -202,6 +202,12 @@ public class Image {
     }
   }
 
+  public void setSize(int width, int height) {
+    var imageResized = this.originalImage.copy();
+    imageResized.resize(width, height);
+    this.image = imageResized;
+  }
+
   /**
    * Draw the scaled image at a given position.
    *
