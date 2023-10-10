@@ -14,7 +14,8 @@ public class SpriteGoLayersBackwards {
     gamma.changeX(10);
     myStage.add(gamma);
 
-    GifRecorder recorder = new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
+    GifRecorder recorder =
+        new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
     recorder.start();
     myStage.wait(1000);
     gamma.goLayersBackwards(2);

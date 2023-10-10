@@ -9,7 +9,8 @@ public class StageGetAll {
     myStage.add(new Sprite());
     myStage.add(new Sprite());
 
-    GifRecorder recorder = new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
+    GifRecorder recorder =
+        new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
     myStage.display("All: " + myStage.getAll().size());
     myStage.wait(2000);
     recorder.snapshot();

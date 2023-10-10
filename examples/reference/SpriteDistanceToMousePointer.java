@@ -9,7 +9,8 @@ public class SpriteDistanceToMousePointer {
     gamma.setPosition(0, 50);
     myStage.add(gamma);
 
-    GifRecorder recorder = new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
+    GifRecorder recorder =
+        new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
     recorder.start();
     while (myStage.getTimer().forMillis(3000)) {
       gamma.changeX(5);

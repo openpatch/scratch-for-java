@@ -4,7 +4,7 @@ import org.openpatch.scratch.internal.*;
 
 public class Window {
 
-  public static final int[] DEBUG_COLOR = {255, 0, 0} ;
+  public static final int[] DEBUG_COLOR = {255, 0, 0};
   private static Window instance;
 
   public Window() {
@@ -35,6 +35,7 @@ public class Window {
 
   /**
    * Gets the seconds passed since the last frame.
+   *
    * @return seconds since last frame
    */
   public float getDeltaTime() {
@@ -70,7 +71,5 @@ public class Window {
     Applet.getInstance().exit();
   }
 
-  public void whenExits() {
-
-  }
+  public void whenExits() {}
 }

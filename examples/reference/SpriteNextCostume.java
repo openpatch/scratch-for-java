@@ -8,7 +8,8 @@ public class SpriteNextCostume {
     zeta.addCostume("yellow", "assets/zeta_yellow_badge.png");
     myStage.add(zeta);
 
-    GifRecorder recorder = new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
+    GifRecorder recorder =
+        new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
     recorder.start();
     myStage.wait(2000);
     zeta.nextCostume();

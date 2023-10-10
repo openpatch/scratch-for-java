@@ -8,7 +8,8 @@ public class SpriteIfOnEdgeBounce {
     myStage.add(mySprite);
     mySprite.setRotationStyle(RotationStyle.LEFT_RIGHT);
 
-    GifRecorder recorder = new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
+    GifRecorder recorder =
+        new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
     recorder.start();
     while (myStage.getTimer().forMillis(3000)) {
       mySprite.move(5);

@@ -8,7 +8,8 @@ public class SpriteGetCurrentCostumeName {
     mySprite.addCostume("gamma", "assets/gamma_purple_badge.png");
     myStage.add(mySprite);
 
-    GifRecorder recorder = new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
+    GifRecorder recorder =
+        new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
     recorder.start();
 
     mySprite.think("Name: " + mySprite.getCurrentCostumeName());

@@ -9,7 +9,8 @@ public class SpriteGetY {
     mySprite.changeX(-80);
     mySprite.changeY(30);
     mySprite.say("Y: " + mySprite.getY());
-    GifRecorder recorder = new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
+    GifRecorder recorder =
+        new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
     recorder.start();
     myStage.wait(3000);
     recorder.stop();

@@ -10,7 +10,8 @@ public class SpriteSetRotationStyle {
     myStage.add(mySprite);
     mySprite.changeX(-80);
     mySprite.changeY(30);
-    GifRecorder recorder = new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
+    GifRecorder recorder =
+        new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
     recorder.start();
     mySprite.say("Rotation: " + mySprite.getDirection());
     myStage.wait(1000);
