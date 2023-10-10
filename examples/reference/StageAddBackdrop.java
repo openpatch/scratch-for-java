@@ -1,15 +1,14 @@
 import org.openpatch.scratch.Stage;
-import org.openpatch.scratch.Window;
 import org.openpatch.scratch.extensions.recorder.*;
 
 public class StageAddBackdrop {
   public StageAddBackdrop() {
-    Stage myStage = new Stage(254, 100);
-    myStage.addBackdrop("forest", "assets/background_forest.png");
-    GifRecorder recorder = new GifRecorder("" + this.getClass().getName() + ".gif");
+    Stage myStage = new Stage(600, 240);
+    myStage.addBackdrop("forest", "assets/background_forest.png", true);
+    GifRecorder recorder = new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
     myStage.wait(1000);
     recorder.snapshot();
-    Window.getInstance().exit();
+    myStage.exit();
   }
 
   public static void main(String[] args) {

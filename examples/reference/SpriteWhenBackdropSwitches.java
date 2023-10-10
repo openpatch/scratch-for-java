@@ -1,18 +1,17 @@
 import org.openpatch.scratch.Sprite;
 import org.openpatch.scratch.Stage;
-import org.openpatch.scratch.Window;
 import org.openpatch.scratch.extensions.recorder.*;
 
 public class SpriteWhenBackdropSwitches {
 
   public SpriteWhenBackdropSwitches() {
-    Stage myStage = new Stage(254, 100);
+    Stage myStage = new Stage(600, 240);
     myStage.addBackdrop("forest", "assets/background_forest.png");
     myStage.addBackdrop("sea", "assets/background_sea.png");
     myStage.addTimer("backdrop");
     myStage.add(new CustomSprite());
 
-    GifRecorder recorder = new GifRecorder("" + this.getClass().getName() + ".gif");
+    GifRecorder recorder = new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
     recorder.start();
     while (myStage.getTimer().forMillis(3000)) {
       if (myStage.getTimer("backdrop").intervalMillis(1000)) {
@@ -22,7 +21,7 @@ public class SpriteWhenBackdropSwitches {
       }
     }
     recorder.stop();
-    Window.getInstance().exit();
+    myStage.exit();
   }
 
   public static void main(String[] args) {

@@ -11,6 +11,7 @@ classes
 *.ctxt
 *.zip
 docs/en/public/reference
+docs/de/public/reference
 docs/en/book/changelog.md
 
 natives

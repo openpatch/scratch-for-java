@@ -3,7 +3,7 @@ import org.openpatch.scratch.*;
 public class SpritePlaySound {
 
   public SpritePlaySound() {
-    Stage myStage = new Stage(254, 100);
+    Stage myStage = new Stage(600, 240);
     Sprite zeta = new Sprite("green", "assets/zeta_green_badge.png");
     zeta.addSound("bump", "assets/bump.wav");
     myStage.add(zeta);
@@ -12,7 +12,7 @@ public class SpritePlaySound {
       zeta.playSound("bump");
       myStage.wait(500);
     }
-    Window.getInstance().exit();
+    myStage.exit();
   }
 
   public static void main(String[] args) {

@@ -15,7 +15,7 @@ import org.openpatch.scratch.Window;
 
 public class Animation {
     public Animation() {
-        Stage myStage = new Stage(254, 100);
+        Stage myStage = new Stage(600, 240);
 
         GifRecorder recorder = new GifRecorder("output.gif");
         recorder.start();
@@ -41,7 +41,7 @@ import org.openpatch.scratch.Window;
 
 public class Snapshot {
     public Snapshot() {
-        Stage myStage = new Stage(254, 100);
+        Stage myStage = new Stage(600, 240);
         GifRecorder recorder = new GifRecorder("snapshot.gif");
         // do stuff
         recorder.snapshot();

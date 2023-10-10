@@ -6,7 +6,8 @@
   "class": "Sprite",
   "description": "Add a backdrop to the stage.",
   "syntax": [
-    ".addBackdrop(name, filePath)"
+    ".addBackdrop(name, filePath)",
+    ".addBackdrop(name, filePath, stretch)"
   ],
   "returns": "void",
   "examples": [
@@ -26,6 +27,11 @@
       "name": "filePath",
       "description": "Path to an image file.",
       "type": "String"
+    },
+    {
+      "name": "stretch",
+      "description": "Stretch the image to fill the window.",
+      "type": "boolean"
     }
   ]
 }

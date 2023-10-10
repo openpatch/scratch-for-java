@@ -3,11 +3,11 @@ import org.openpatch.scratch.*;
 public class SpriteRemoveSound {
 
   public SpriteRemoveSound() {
-    new Stage(254, 100);
+    var myStage = new Stage(600, 240);
     Sprite zeta = new Sprite("green", "assets/zeta_green_badge.png");
     zeta.addSound("bump", "assets/bump.wav");
     zeta.removeSound("bump");
-    Window.getInstance().exit();
+    myStage.exit();
   }
 
   public static void main(String[] args) {

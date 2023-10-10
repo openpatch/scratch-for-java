@@ -3,14 +3,14 @@ import org.openpatch.scratch.*;
 public class StageStopAllSounds {
 
   public StageStopAllSounds() {
-    Stage myStage = new Stage(254, 100);
+    Stage myStage = new Stage(600, 240);
     myStage.addSound("bump", "assets/bump.wav");
     myStage.addSound("music", "assets/music.mp3");
     myStage.playSound("bump");
     myStage.playSound("music");
     myStage.wait(300);
     myStage.stopAllSounds();
-    Window.getInstance().exit();
+    myStage.exit();
   }
 
   public static void main(String[] args) {

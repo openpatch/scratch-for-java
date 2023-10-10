@@ -3,14 +3,14 @@ import org.openpatch.scratch.extensions.recorder.*;
 
 public class SpriteGetCurrentCostumeIndex {
   public SpriteGetCurrentCostumeIndex() {
-    Stage myStage = new Stage(256, 100);
+    Stage myStage = new Stage(600, 240);
     Sprite mySprite = new Sprite("zeta", "assets/zeta_green_badge.png");
     mySprite.addCostume("gamma", "assets/gamma_purple_badge.png");
     mySprite.changeY(20);
     myStage.add(mySprite);
     mySprite.think("Index: " + mySprite.getCurrentCostumeIndex());
 
-    GifRecorder recorder = new GifRecorder("" + this.getClass().getName() + ".gif");
+    GifRecorder recorder = new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
     recorder.start();
 
     myStage.wait(2000);
@@ -19,7 +19,7 @@ public class SpriteGetCurrentCostumeIndex {
     myStage.wait(2000);
 
     recorder.stop();
-    Window.getInstance().exit();
+    myStage.exit();
   }
 
   public static void main(String[] args) {

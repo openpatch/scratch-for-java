@@ -4,7 +4,7 @@ import org.openpatch.scratch.Sprite;
 public class SpriteStopAllSounds {
 
   public SpriteStopAllSounds() {
-    Stage myStage = new Stage(254, 100);
+    Stage myStage = new Stage(600, 240);
     Sprite zeta = new Sprite("green", "assets/zeta_green_badge.png");
     zeta.addSound("bump", "assets/bump.wav");
     zeta.addSound("music", "assets/music.mp3");
@@ -12,7 +12,7 @@ public class SpriteStopAllSounds {
     zeta.playSound("music");
     myStage.wait(300);
     zeta.stopAllSounds();
-    Window.getInstance().exit();
+    myStage.exit();
   }
 
   public static void main(String[] args) {

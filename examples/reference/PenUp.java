@@ -2,22 +2,37 @@ import org.openpatch.scratch.*;
 import org.openpatch.scratch.extensions.pen.*;
 import org.openpatch.scratch.extensions.recorder.*;
 
-public class PenUp {
+public class PenUp extends Window {
+
+  private Recorder recorder;
+
   public PenUp() {
-    Stage myStage = new Stage(254, 100);
-    Pen myPen = new Pen();
-    myStage.add(myPen);
-    GifRecorder recorder = new GifRecorder("" + this.getClass().getName() + ".gif");
-    myPen.down();
-    myPen.setSize(10);
-    myPen.setPosition(120, 45);
-    myPen.setColor(0, 255, 0);
-    myPen.setPosition(50, 45);
-    myPen.up();
-    myPen.setPosition(50, 0);
-    myStage.wait(500);
-    recorder.snapshot();
-    Window.getInstance().exit();
+    super(600, 240);
+    this.setStage(new MyStage());
+    recorder = new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
+    recorder.start();
+  }
+
+  public void whenExits() {
+    recorder.stop();
+  }
+
+  class MyStage extends Stage {
+    private Pen myPen;
+
+    public MyStage() {
+      super(600, 240);
+      myPen = new Pen();
+      this.add(myPen);
+      myPen.down();
+    }
+
+    public void run() {
+      myPen.setPosition(this.getMouseX(), this.getMouseY());
+      if (this.getTimer().afterMillis(3000)) {
+        this.exit();
+      }
+    }
   }
 
   public static void main(String[] args) {

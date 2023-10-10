@@ -16,7 +16,7 @@ import org.openpatch.scratch.extensions.recorder.FFmpegRecorder;
 
 public class Animation {
     public Animation() {
-        Stage myStage = new Stage(254, 100);
+        Stage myStage = new Stage(600, 240);
 
         FFmpegRecorder recorder = new FFmpegRecorder("output.mp4");
         recorder.start();

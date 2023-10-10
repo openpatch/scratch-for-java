@@ -1,7 +1,6 @@
 import org.openpatch.scratch.KeyCode;
 import org.openpatch.scratch.Sprite;
 import org.openpatch.scratch.Stage;
-import org.openpatch.scratch.Window;
 import org.openpatch.scratch.extensions.recorder.*;
 
 public class SpriteWhenKeyPressed {
@@ -15,27 +14,27 @@ public class SpriteWhenKeyPressed {
 
     @Override
     public void whenKeyPressed(int keyCode) {
-      if (keyCode == KeyCode.VK_UP) {
-        this.changeY(-2);
-      } else if (keyCode == KeyCode.VK_DOWN) {
-        this.changeY(2);
-      } else if (keyCode == KeyCode.VK_LEFT) {
-        this.changeX(-2);
-      } else if (keyCode == KeyCode.VK_RIGHT) {
-        this.changeX(2);
+      if (keyCode == KeyCode.VK_W) {
+        this.changeY(20);
+      } else if (keyCode == KeyCode.VK_S) {
+        this.changeY(-20);
+      } else if (keyCode == KeyCode.VK_A) {
+        this.changeX(-20);
+      } else if (keyCode == KeyCode.VK_D) {
+        this.changeX(20);
       }
     }
   }
 
   public SpriteWhenKeyPressed() {
-    Stage myStage = new Stage(254, 100);
+    Stage myStage = new Stage(600, 240);
     myStage.add(new CustomSprite());
-    GifRecorder recorder = new GifRecorder("" + this.getClass().getName() + ".gif");
+    GifRecorder recorder = new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
     recorder.start();
     while (myStage.getTimer().forMillis(3000))
       ;
     recorder.stop();
-    Window.getInstance().exit();
+    myStage.exit();
   }
 
   public static void main(String[] args) {
