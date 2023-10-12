@@ -235,7 +235,7 @@ public class Text {
   }
 
   public void setWidth(double width) {
-    this.width = (double) width;
+    this.width = width;
   }
 
   public void setAlign(int align) {
@@ -267,8 +267,8 @@ public class Text {
       return;
     }
 
-    this.y = (double) (-this.sprite.getY() + applet.height / 2 - this.sprite.getHeight() * 1.1 / 2);
-    this.x = (double) (this.sprite.getX() + applet.width / 2 + this.sprite.getWidth() * 0.9 / 2);
+    this.y = -this.sprite.getY() + applet.height / 2 - this.sprite.getHeight() * 1.1 / 2;
+    this.x = this.sprite.getX() + applet.width / 2 + this.sprite.getWidth() * 0.9 / 2;
 
     this.width = maxLineWidth + 16;
     this.text = String.join("\n", lines);
