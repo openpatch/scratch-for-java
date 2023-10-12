@@ -39,8 +39,8 @@ public class Operators {
 
   /**
    * Determines the smallest value in a sequence of numbers, and then returns that value.
-   * <b>min()</b> accepts either two or three <b>double</b> or <b>int</b> values as parameters, or an
-   * array of any length.
+   * <b>min()</b> accepts either two or three <b>double</b> or <b>int</b> values as parameters, or
+   * an array of any length.
    *
    * @param v values
    * @return the minimum
@@ -57,8 +57,8 @@ public class Operators {
 
   /**
    * Determines the largest value in a sequence of numbers, and then returns that value.
-   * <b>max()</b> accepts either two or three <b>double</b> or <b>int</b> values as parameters, or an
-   * array of any length.
+   * <b>max()</b> accepts either two or three <b>double</b> or <b>int</b> values as parameters, or
+   * an array of any length.
    *
    * @param v values
    * @return the maximum
@@ -75,8 +75,8 @@ public class Operators {
 
   /**
    * Determines the smallest value in a sequence of numbers, and then returns that value.
-   * <b>min()</b> accepts either two or three <b>double</b> or <b>int</b> values as parameters, or an
-   * array of any length.
+   * <b>min()</b> accepts either two or three <b>double</b> or <b>int</b> values as parameters, or
+   * an array of any length.
    *
    * @param v values
    * @return the minimum
@@ -93,8 +93,8 @@ public class Operators {
 
   /**
    * Determines the largest value in a sequence of numbers, and then returns that value.
-   * <b>max()</b> accepts either two or three <b>double</b> or <b>int</b> values as parameters, or an
-   * array of any length.
+   * <b>max()</b> accepts either two or three <b>double</b> or <b>int</b> values as parameters, or
+   * an array of any length.
    *
    * @param v values
    * @return the maximum
