@@ -10,7 +10,6 @@ public class StressTest extends Stage {
 
   public StressTest() {
     this.addBackdrop("outback", "StressTest/assets/outback.png");
-    this.setDebug(true);
 
     for (int i = 0; i < dinos; i++) {
       this.add(new Dino());

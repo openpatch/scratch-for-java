@@ -65,7 +65,10 @@ public class File {
         return path;
       }
       var systemPath = ClassLoader.getSystemResource("").toURI().getPath();
-      return Paths.get(systemPath, path).toString();
+      if (systemPath != null) {
+        return Paths.get(systemPath, path).toString();
+      }
+      return path;
     } catch (URISyntaxException e) {
       e.printStackTrace();
       return null;

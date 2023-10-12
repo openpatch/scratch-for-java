@@ -24,6 +24,7 @@ import org.openpatch.scratch.internal.Font;
 import org.openpatch.scratch.internal.Image;
 import org.openpatch.scratch.internal.Sound;
 import org.openpatch.scratch.internal.Stamp;
+import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PGraphics;
 import processing.event.KeyEvent;
@@ -955,6 +956,7 @@ public class Stage {
 
     this.run();
     this.sprites.stream().forEach(s -> s.run());
+
     this.sprites.stream().forEach(s -> s.draw());
     this.texts.stream().forEach(t -> t.draw());
 
