@@ -7,7 +7,7 @@ public class CatSketch {
 
   public CatSketch() {
     Stage myStage = new Stage(800, 600);
-    Sprite myCat = new Sprite();
+    Sprite myCat = new CatSprite();
     myStage.add(myCat);
   }
 
