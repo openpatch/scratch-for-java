@@ -1,6 +1,5 @@
 package org.openpatch.scratch.internal;
 
-
 public class Color {
 
   private double r = 255;

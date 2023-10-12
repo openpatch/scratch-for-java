@@ -30,7 +30,12 @@ public class Hitbox {
   }
 
   public void translateAndRotateAndResize(
-      double degrees, double originX, double originY, double translateX, double translateY, double size) {
+      double degrees,
+      double originX,
+      double originY,
+      double translateX,
+      double translateY,
+      double size) {
 
     AffineTransform tx = new AffineTransform();
     tx.scale(size / 100.0, size / 100.0);
