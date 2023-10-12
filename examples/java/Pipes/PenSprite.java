@@ -7,19 +7,19 @@ import org.openpatch.scratch.extensions.math.Random;
 public class PenSprite extends Sprite {
 
   private boolean finished = false;
-  private static float color;
+  private static double color;
 
   public PenSprite() {
     super("pen", "Pipes/sprites/pen.png");
     this.getPen().down();
     this.getPen().setSize(2);
-    color = (float) Math.random() * 255;
+    color = Random.random(255);
     this.getPen().setColor(color);
     this.setOnEdgeBounce(true);
     this.hide();
   }
 
-  public static void setColor(float color) {
+  public static void setColor(double color) {
     PenSprite.color = color;
   }
 

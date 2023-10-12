@@ -28,12 +28,12 @@ public class Sprite {
   private int currentCostume = 0;
   private List<Sound> sounds = new CopyOnWriteArrayList<>();
   private boolean show = true;
-  private float size = 100;
+  private double size = 100;
   private boolean onEdgeBounce = false;
   private RotationStyle rotationStyle = RotationStyle.ALL_AROUND;
-  private float x = 0;
-  private float y = 0;
-  private float direction = 90;
+  private double x = 0;
+  private double y = 0;
+  private double direction = 90;
   private Stage stage;
   private final AbstractMap<String, Timer> timer;
   private final Pen pen;
@@ -191,16 +191,8 @@ public class Sprite {
     }
   }
 
-  public void switchCostume(int index) {
-    this.currentCostume = index % this.costumes.size();
-  }
-
-  public void switchCostume(float index) {
-    this.switchCostume(Math.round(index));
-  }
-
   public void switchCostume(double index) {
-    this.switchCostume((int) Math.round(index));
+    this.currentCostume = (int) index % this.costumes.size();
   }
 
   /** Switch to the next costume. */
@@ -308,10 +300,6 @@ public class Sprite {
     return false;
   }
 
-  public void setTint(int r, final int g, final int b) {
-    this.setTint((float) b, (float) g, (float) b);
-  }
-
   public void setTint(Color c) {
     this.setTint(c.getRed(), c.getGreen(), c.getBlue());
   }
@@ -319,9 +307,9 @@ public class Sprite {
   /**
    * Sets the tint for the sprite with rgb.
    *
-   * @see Image#setTint(float, float, float)
+   * @see Image#setTint(double, double, double)
    */
-  public void setTint(float r, final float g, final float b) {
+  public void setTint(double r, double g, double b) {
     if (this.costumes.size() == 0) return;
 
     for (Image costume : this.costumes) {
@@ -332,9 +320,9 @@ public class Sprite {
   /**
    * Sets the tint for the sprite with a hue.
    *
-   * @see Image#setTint(float)
+   * @see Image#setTint(double)
    */
-  public void setTint(float h) {
+  public void setTint(double h) {
     if (this.costumes.size() == 0) return;
 
     for (Image costume : this.costumes) {
@@ -345,9 +333,9 @@ public class Sprite {
   /**
    * Changes the tint for the sprite.
    *
-   * @see Image#changeTint(float)
+   * @see Image#changeTint(double)
    */
-  public void changeTint(float step) {
+  public void changeTint(double step) {
     if (this.costumes.size() == 0) return;
 
     for (Image costume : this.costumes) {
@@ -355,17 +343,13 @@ public class Sprite {
     }
   }
 
-  public void changeTint(double step) {
-    this.changeTint((float) step);
-  }
-
   /**
    * Sets the transparency of the sprite.
    *
-   * @see Image#setTransparency(float)
+   * @see Image#setTransparency(double)
    * @param transparency 0 full transparency, 255 no transparency
    */
-  public void setTransparency(float transparency) {
+  public void setTransparency(double transparency) {
     if (this.costumes.size() == 0) return;
 
     for (Image costume : this.costumes) {
@@ -376,18 +360,14 @@ public class Sprite {
   /**
    * Changes the transparency for the sprite.
    *
-   * @see Image#changeTransparency(float)
+   * @see Image#changeTransparency(double)
    */
-  public void changeTransparency(float step) {
+  public void changeTransparency(double step) {
     if (this.costumes.size() == 0) return;
 
     for (Image costume : this.costumes) {
       costume.changeTransparency(step);
     }
-  }
-
-  public void changeTransparency(double step) {
-    this.changeTransparency((float) step);
   }
 
   /** Hides the sprite. The pen is not effected. */
@@ -414,7 +394,7 @@ public class Sprite {
    *
    * @return size in percentage
    */
-  public float getSize() {
+  public double getSize() {
     return this.size;
   }
 
@@ -423,15 +403,11 @@ public class Sprite {
    *
    * @param percentage a percentage [0...100]
    */
-  public void setSize(float percentage) {
+  public void setSize(double percentage) {
     this.size = percentage;
     for (Image costume : this.costumes) {
       costume.setSize(percentage);
     }
-  }
-
-  public void setSize(double percentage) {
-    this.setSize((float) percentage);
   }
 
   /**
@@ -439,12 +415,8 @@ public class Sprite {
    *
    * @param amount a percentage [0...100]
    */
-  public void changeSize(float amount) {
-    this.setSize(this.size + amount);
-  }
-
   public void changeSize(double amount) {
-    this.changeSize((float) amount);
+    this.setSize(this.size + amount);
   }
 
   /**
@@ -483,14 +455,10 @@ public class Sprite {
    * @param x a x coordinate
    * @param y a y coordinate
    */
-  public void setPosition(float x, float y) {
+  public void setPosition(double x, double y) {
     this.x = x;
     this.y = y;
     this.getPen().setPosition(x, y);
-  }
-
-  public void setPosition(double x, double y) {
-    this.setPosition((float) x, (float) y);
   }
 
   /**
@@ -511,7 +479,7 @@ public class Sprite {
    *
    * @param degrees between 0 and 360
    */
-  public void turnLeft(float degrees) {
+  public void turnLeft(double degrees) {
     this.setDirection(this.direction - degrees);
   }
 
@@ -520,7 +488,7 @@ public class Sprite {
    *
    * @param degrees between 0 and 360
    */
-  public void turnRight(float degrees) {
+  public void turnRight(double degrees) {
     this.setDirection(this.direction + degrees);
   }
 
@@ -530,16 +498,12 @@ public class Sprite {
    *
    * @param degrees between 0 and 360
    */
-  public void setDirection(float degrees) {
+  public void setDirection(double degrees) {
     this.direction = degrees;
     if (this.direction < 0) {
       this.direction += 360;
     }
     this.direction %= 360;
-  }
-
-  public void setDirection(double degrees) {
-    this.setDirection((float) degrees);
   }
 
   /**
@@ -551,10 +515,6 @@ public class Sprite {
     this.setDirection(v.angle());
   }
 
-  public void pointInDirection(float degrees) {
-    this.setDirection(degrees);
-  }
-
   public void pointInDirection(double degrees) {
     this.setDirection(degrees);
   }
@@ -564,16 +524,16 @@ public class Sprite {
   }
 
   public void pointTowardsMousePointer() {
-    float mx = this.getMouseX();
-    float my = this.getMouseY();
+    var mx = this.getMouseX();
+    var my = this.getMouseY();
 
     double angle = new Vector2(mx - this.x, my - this.y).angle();
     this.setDirection(90 - angle);
   }
 
   public void pointTowardsSprite(Sprite s) {
-    float mx = s.getX();
-    float my = s.getY();
+    var mx = s.getX();
+    var my = s.getY();
 
     double angle = new Vector2(mx - this.x, my - this.y).angle();
     this.setDirection(angle);
@@ -584,7 +544,7 @@ public class Sprite {
    *
    * @return the direction [0...360]
    */
-  public float getDirection() {
+  public double getDirection() {
     return this.direction;
   }
 
@@ -602,10 +562,10 @@ public class Sprite {
    *
    * @param steps a number of pixels
    */
-  public void move(float steps) {
+  public void move(double steps) {
     // convert degrees to radians
-    float newX = steps * (float) Math.cos((this.direction - 90) * Math.PI / 180) + this.x;
-    float newY = steps * (float) -Math.sin((this.direction - 90) * Math.PI / 180) + this.y;
+    var newX = steps * Math.cos((this.direction - 90) * Math.PI / 180) + this.x;
+    var newY = steps * -Math.sin((this.direction - 90) * Math.PI / 180) + this.y;
 
     this.x = newX;
     this.y = newY;
@@ -615,10 +575,6 @@ public class Sprite {
     }
 
     this.pen.setPosition(this.x, this.y);
-  }
-
-  public void move(double steps) {
-    this.move((float) steps);
   }
 
   /**
@@ -637,7 +593,7 @@ public class Sprite {
    *
    * @return a x coordinate
    */
-  public float getX() {
+  public double getX() {
     return this.x;
   }
 
@@ -646,13 +602,9 @@ public class Sprite {
    *
    * @param x a x coordinate
    */
-  public void setX(float x) {
+  public void setX(double x) {
     this.x = x;
     this.pen.setPosition(this.x, this.y);
-  }
-
-  public void setX(double x) {
-    this.setX((float) x);
   }
 
   /**
@@ -660,13 +612,9 @@ public class Sprite {
    *
    * @param x number in pixels
    */
-  public void changeX(float x) {
+  public void changeX(double x) {
     this.x += x;
     this.pen.setPosition(this.x, this.y);
-  }
-
-  public void changeX(double x) {
-    this.changeX((float) x);
   }
 
   /**
@@ -674,7 +622,7 @@ public class Sprite {
    *
    * @return a y coordinate
    */
-  public float getY() {
+  public double getY() {
     return this.y;
   }
 
@@ -683,13 +631,9 @@ public class Sprite {
    *
    * @param y a y coordinate
    */
-  public void setY(float y) {
+  public void setY(double y) {
     this.y = y;
     this.pen.setPosition(this.x, this.y);
-  }
-
-  public void setY(double y) {
-    this.setY((float) y);
   }
 
   /**
@@ -697,13 +641,9 @@ public class Sprite {
    *
    * @param y number in pixels
    */
-  public void changeY(float y) {
+  public void changeY(double y) {
     this.y += y;
     this.pen.setPosition(this.x, this.y);
-  }
-
-  public void changeY(double y) {
-    this.changeY((float) y);
   }
 
   /**
@@ -779,10 +719,10 @@ public class Sprite {
     var mx = this.getMouseX();
     var my = this.getMouseY();
 
-    float[] mouse = Utils.rotateXY(mx, my, this.x, this.y, this.direction - 90);
+    double[] mouse = Utils.rotateXY(mx, my, this.x, this.y, this.direction - 90);
 
-    int relativeMouseX = Math.round(mouse[0] - this.x + this.getWidth() / 2);
-    int relativeMouseY = -Math.round(mouse[1] - this.y - this.getHeight() / 2);
+    var relativeMouseX = (int) Math.round(mouse[0] - this.x + this.getWidth() / 2);
+    var relativeMouseY = (int) -Math.round(mouse[1] - this.y - this.getHeight() / 2);
 
     if (this.costumes.size() > this.getCurrentCostumeIndex()) {
       int color =
@@ -807,20 +747,20 @@ public class Sprite {
         || h.intersects(this.stage.rightBorder);
   }
 
-  public float distanceToMousePointer() {
-    float x2 = this.getMouseX();
-    float y2 = this.getMouseY();
-    float x1 = this.getX();
-    float y1 = this.getY();
-    return (float) Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
+  public double distanceToMousePointer() {
+    var x2 = this.getMouseX();
+    var y2 = this.getMouseY();
+    var x1 = this.getX();
+    var y1 = this.getY();
+    return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
   }
 
-  public float distanceToSprite(Sprite sprite) {
-    float x2 = sprite.getX();
-    float y2 = sprite.getY();
-    float x1 = this.getX();
-    float y1 = this.getY();
-    return (float) Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
+  public double distanceToSprite(Sprite sprite) {
+    var x2 = sprite.getX();
+    var y2 = sprite.getY();
+    var x1 = this.getX();
+    var y1 = this.getY();
+    return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
   }
 
   public void setHitbox(int... points) {
@@ -859,10 +799,10 @@ public class Sprite {
     if (this.costumes.size() > this.getCurrentCostumeIndex()) {
       currentCostume = this.costumes.get(this.getCurrentCostumeIndex());
     }
-    float costumeWidth = currentCostume != null ? currentCostume.getWidth() : this.pen.getSize();
-    float costumeHeight = currentCostume != null ? currentCostume.getHeight() : this.pen.getSize();
-    float spriteWidth = this.show ? costumeWidth : this.pen.getSize();
-    float spriteHeight = this.show ? costumeHeight : this.pen.getSize();
+    var costumeWidth = currentCostume != null ? currentCostume.getWidth() : this.pen.getSize();
+    var costumeHeight = currentCostume != null ? currentCostume.getHeight() : this.pen.getSize();
+    var spriteWidth = this.show ? costumeWidth : this.pen.getSize();
+    var spriteHeight = this.show ? costumeHeight : this.pen.getSize();
 
     if (this.hitbox != null) {
       this.hitbox.translateAndRotateAndResize(
@@ -875,28 +815,28 @@ public class Sprite {
       return this.hitbox;
     }
 
-    float[] cornerTopLeft =
+    var cornerTopLeft =
         Utils.rotateXY(
             this.x - spriteWidth / 2.0f,
             -this.y - spriteHeight / 2.0f,
             this.x,
             -this.y,
             this.direction - 90);
-    float[] cornerTopRight =
+    var cornerTopRight =
         Utils.rotateXY(
             this.x + spriteWidth / 2.0f,
             -this.y - spriteHeight / 2.0f,
             this.x,
             -this.y,
             this.direction - 90);
-    float[] cornerBottomLeft =
+    var cornerBottomLeft =
         Utils.rotateXY(
             this.x - spriteWidth / 2.0f,
             -this.y + spriteHeight / 2.0f,
             this.x,
             -this.y,
             this.direction - 90);
-    float[] cornerBottomRight =
+    var cornerBottomRight =
         Utils.rotateXY(
             this.x + spriteWidth / 2.0f,
             -this.y + spriteHeight / 2.0f,
@@ -906,14 +846,14 @@ public class Sprite {
 
     int[] xPoints = new int[4];
     int[] yPoints = new int[4];
-    xPoints[0] = Math.round(cornerTopLeft[0]);
-    yPoints[0] = Math.round(cornerTopLeft[1]);
-    xPoints[1] = Math.round(cornerTopRight[0]);
-    yPoints[1] = Math.round(cornerTopRight[1]);
-    xPoints[2] = Math.round(cornerBottomRight[0]);
-    yPoints[2] = Math.round(cornerBottomRight[1]);
-    xPoints[3] = Math.round(cornerBottomLeft[0]);
-    yPoints[3] = Math.round(cornerBottomLeft[1]);
+    xPoints[0] = (int) Math.round(cornerTopLeft[0]);
+    yPoints[0] = (int) Math.round(cornerTopLeft[1]);
+    xPoints[1] = (int) Math.round(cornerTopRight[0]);
+    yPoints[1] = (int) Math.round(cornerTopRight[1]);
+    xPoints[2] = (int) Math.round(cornerBottomRight[0]);
+    yPoints[2] = (int) Math.round(cornerBottomRight[1]);
+    xPoints[3] = (int) Math.round(cornerBottomLeft[0]);
+    yPoints[3] = (int) Math.round(cornerBottomLeft[1]);
 
     Hitbox hitbox = new Hitbox(xPoints, yPoints);
     return hitbox;
@@ -956,7 +896,7 @@ public class Sprite {
    *
    * @return x-position
    */
-  public float getMouseX() {
+  public double getMouseX() {
     if (stage == null) return 0;
     return this.stage.getMouseX();
   }
@@ -966,7 +906,7 @@ public class Sprite {
    *
    * @return y-position
    */
-  public float getMouseY() {
+  public double getMouseY() {
     if (this.stage == null) return 0;
     return this.stage.getMouseY();
   }
@@ -1001,7 +941,7 @@ public class Sprite {
    *
    * @return seconds since last frame
    */
-  public float getDeltaTime() {
+  public double getDeltaTime() {
     return Window.getInstance().getDeltaTime();
   }
 
@@ -1112,7 +1052,7 @@ public class Sprite {
 
   public void mouseEvent(MouseEvent e) {}
 
-  public void whenMouseMoved(float x, final float y) {}
+  public void whenMouseMoved(double x, double y) {}
 
   public void whenClicked() {}
 

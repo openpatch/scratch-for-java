@@ -32,7 +32,7 @@ public class Applet extends PApplet {
   private Stage stage;
   private Map<String, Stage> stages;
   private int lastMillis;
-  private float deltaTime;
+  private double deltaTime;
   private boolean hasLoaded = false;
   private String loadingText = "";
 
@@ -78,6 +78,7 @@ public class Applet extends PApplet {
    * @param name Name of the stage
    * @param stage A stage object
    */
+  @Deprecated(since = "4.0.0")
   public void addStage(String name, Stage stage) {
     this.stages.put(name, stage);
     if (this.stage == null) {
@@ -89,6 +90,7 @@ public class Applet extends PApplet {
    * @deprecated since 4.0.0. Use setStage instead.
    * @param name Name of the stage
    */
+  @Deprecated(since = "4.0.0")
   public void switchStage(String name) {
     this.stage = this.stages.getOrDefault(name, this.stage);
   }
@@ -97,6 +99,7 @@ public class Applet extends PApplet {
    * @deprecated since 4.0.0. Use setStage instead.
    * @param name Name of the stage
    */
+  @Deprecated(since = "4.0.0")
   public void removeStage(String name) {
     this.stages.remove(name);
   }
@@ -121,7 +124,7 @@ public class Applet extends PApplet {
     this.size(this.INITIAL_WIDTH, this.INITIAL_HEIGHT, P2D);
   }
 
-  public float getDeltaTime() {
+  public double getDeltaTime() {
     return deltaTime;
   }
 
@@ -253,7 +256,7 @@ public class Applet extends PApplet {
     if (lastMillis == 0) {
       lastMillis = currentMillis;
     }
-    deltaTime = (currentMillis - lastMillis) / 1000.0f;
+    deltaTime = (currentMillis - lastMillis) / 1000.0;
     lastMillis = currentMillis;
     if (!this.hasLoaded || this.loadingStatus() < 1) {
       this.background(0x222222);

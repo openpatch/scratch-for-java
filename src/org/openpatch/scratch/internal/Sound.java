@@ -5,7 +5,7 @@ import processing.sound.*;
 public class Sound {
   private String name;
   private SoundFile sound;
-  private float volume;
+  private double volume;
 
   public Sound(String name, String soundPath) {
     this.name = name;
@@ -69,10 +69,10 @@ public class Sound {
    *
    * @param amp A volume [0...1]
    */
-  public void setVolume(float amp) {
+  public void setVolume(double amp) {
     this.volume = amp;
     if (amp <= 1 && amp >= 0) {
-      this.sound.amp(amp);
+      this.sound.amp((float) amp);
     }
   }
 
@@ -81,8 +81,8 @@ public class Sound {
    *
    * @param step
    */
-  public void changeVolume(float step) {
-    float newVolume = this.volume + step;
+  public void changeVolume(double step) {
+    var newVolume = this.volume + step;
     if (newVolume <= 1 && newVolume >= 0) {
       this.volume = newVolume;
     }
@@ -93,7 +93,7 @@ public class Sound {
    *
    * @return the volume
    */
-  public float getVolume() {
+  public double getVolume() {
     return this.volume;
   }
 }

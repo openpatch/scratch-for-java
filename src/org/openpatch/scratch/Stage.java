@@ -24,7 +24,6 @@ import org.openpatch.scratch.internal.Font;
 import org.openpatch.scratch.internal.Image;
 import org.openpatch.scratch.internal.Sound;
 import org.openpatch.scratch.internal.Stamp;
-import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PGraphics;
 import processing.event.KeyEvent;
@@ -53,8 +52,8 @@ public class Stage {
   List<Text> texts;
   List<Pen> pens;
   List<Sprite> sprites;
-  private float mouseX;
-  private float mouseY;
+  private double mouseX;
+  private double mouseY;
   private boolean mouseDown;
   private final AbstractMap<Integer, Boolean> keyCodePressed = new ConcurrentHashMap<>();
   private Comparator<? super Sprite> sorter;
@@ -526,7 +525,7 @@ public class Stage {
    *
    * @param h a hue value [0...255]
    */
-  public void setColor(float h) {
+  public void setColor(double h) {
     this.color.setHSB(h);
   }
 
@@ -537,7 +536,7 @@ public class Stage {
    * @param g a green value [0...255]
    * @param b a blue value [0...255]
    */
-  public void setColor(float r, final float g, final float b) {
+  public void setColor(double r, double g, double b) {
     this.color.setRGB(r, g, b);
   }
 
@@ -550,20 +549,16 @@ public class Stage {
    *
    * @param h a step value
    */
-  public void changeColor(float h) {
-    this.color.changeColor(h);
-  }
-
   public void changeColor(double h) {
-    this.changeColor((float) h);
+    this.color.changeColor(h);
   }
 
   /**
    * Sets the tint for the current backdrop with rgb.
    *
-   * @see Image#setTint(float, float, float)
+   * @see Image#setTint(double, double, double)
    */
-  public void setTint(int r, final int g, final int b) {
+  public void setTint(double r, double g, double b) {
     if (this.backdrops.size() == 0) return;
     this.backdrops.get(this.currentBackdrop).setTint(r, g, b);
   }
@@ -571,9 +566,9 @@ public class Stage {
   /**
    * Sets the tint for the current backdrop with a hue.
    *
-   * @see Image#setTint(float)
+   * @see Image#setTint(double)
    */
-  public void setTint(float h) {
+  public void setTint(double h) {
     if (this.backdrops.size() == 0) return;
     this.backdrops.get(this.currentBackdrop).setTint(h);
   }
@@ -581,9 +576,9 @@ public class Stage {
   /**
    * Changes the tint for the current backdrop
    *
-   * @see Image#changeTint(float)
+   * @see Image#changeTint(double)
    */
-  public void changeTint(float step) {
+  public void changeTint(double step) {
     if (this.backdrops.size() == 0) return;
 
     this.backdrops.get(this.currentBackdrop).changeTint(step);
@@ -592,22 +587,18 @@ public class Stage {
   /**
    * Sets the transparency of the current backdrop.
    *
-   * @see Image#setTransparency(float)
+   * @see Image#setTransparency(double)
    */
-  public void setTransparency(float transparency) {
-    this.backdrops.get(this.currentBackdrop).setTransparency(transparency);
-  }
-
   public void setTransparency(double transparency) {
-    this.setTransparency((float) transparency);
+    this.backdrops.get(this.currentBackdrop).setTransparency(transparency);
   }
 
   /**
    * Changes the transparency for the current costume.
    *
-   * @see Image#changeTransparency(float)
+   * @see Image#changeTransparency(double)
    */
-  public void changeTransparency(float step) {
+  public void changeTransparency(double step) {
     if (this.backdrops.size() == 0) return;
 
     this.backdrops.get(this.currentBackdrop).changeTransparency(step);
@@ -711,7 +702,7 @@ public class Stage {
    *
    * @return x-position
    */
-  public float getMouseX() {
+  public double getMouseX() {
     return this.mouseX;
   }
 
@@ -720,7 +711,7 @@ public class Stage {
    *
    * @return y-position
    */
-  public float getMouseY() {
+  public double getMouseY() {
     return this.mouseY;
   }
 
@@ -767,7 +758,7 @@ public class Stage {
    *
    * @return secons since last frame
    */
-  public float getDeltaTime() {
+  public double getDeltaTime() {
     return Window.getInstance().getDeltaTime();
   }
 
@@ -889,7 +880,8 @@ public class Stage {
     Applet applet = Applet.getInstance();
     if (applet == null) return;
     // redraw background to clear screen
-    applet.background(this.color.getRed(), this.color.getGreen(), this.color.getBlue());
+    applet.background(
+        (float) this.color.getRed(), (float) this.color.getGreen(), (float) this.color.getBlue());
 
     // draw current backdrop
     if (this.backdrops.size() > 0) {
@@ -982,11 +974,14 @@ public class Stage {
       this.debugBuffer.fill(Window.DEBUG_COLOR[0], Window.DEBUG_COLOR[1], Window.DEBUG_COLOR[2]);
       var w = this.getWidth() / 2;
       var h = this.getHeight() / 2;
-      this.debugBuffer.line(this.mouseX + w, 0, this.mouseX + w, applet.height);
-      this.debugBuffer.line(0, -this.mouseY + h, applet.width, -this.mouseY + h);
+      this.debugBuffer.line((float) (this.mouseX + w), 0, (float) (this.mouseX + w), applet.height);
+      this.debugBuffer.line(
+          0, (float) (-this.mouseY + h), applet.width, (float) (-this.mouseY + h));
       this.debugBuffer.textFont(Font.getDefaultFont());
       this.debugBuffer.text(
-          "(" + this.mouseX + ", " + this.mouseY + ")", this.mouseX + w, -this.mouseY + h);
+          "(" + this.mouseX + ", " + this.mouseY + ")",
+          (float) (this.mouseX + w),
+          (float) (-this.mouseY + h));
       this.debugBuffer.text("FPS: " + Math.round(applet.frameRate * 100) / 100, 20, 10);
       this.debugBuffer.endDraw();
 
