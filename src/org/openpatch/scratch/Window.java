@@ -15,11 +15,11 @@ public class Window {
     this(480, 360, assets);
   }
 
-  public Window(int width, final int height) {
+  public Window(int width, int height) {
     this(width, height, null);
   }
 
-  public Window(int width, final int height, final String assets) {
+  public Window(int width, int height, String assets) {
     super();
     if (Window.instance != null) {
       throw new Error("You can only have one Window.");
@@ -34,15 +34,11 @@ public class Window {
   }
 
   /**
-   * Gets the seconds passed since the last frame. <<<<<<< HEAD
-   *
-   * <p>=======
-   *
-   * <p>>>>>>>> c0eac5706fdcd98090dbc99a6d5b478a5c0bd3b3
+   * Gets the seconds passed since the last frame.
    *
    * @return seconds since last frame
    */
-  public float getDeltaTime() {
+  public double getDeltaTime() {
     return Applet.getInstance().getDeltaTime();
   }
 
@@ -75,6 +71,7 @@ public class Window {
    * @param name Name of the stage
    * @param stage A stage object
    */
+  @Deprecated(since = "4.0.0")
   public void addStage(String name, Stage stage) {
     Applet.getInstance().addStage(name, stage);
   }
@@ -83,6 +80,7 @@ public class Window {
    * @deprecated since 4.0.0. Use setStage instead.
    * @param name Name of the stage
    */
+  @Deprecated(since = "4.0.0")
   public void switchStage(String name) {
     Applet.getInstance().switchStage(name);
   }
@@ -91,6 +89,7 @@ public class Window {
    * @deprecated since 4.0.0. Use setStage instead.
    * @param name Name of the stage
    */
+  @Deprecated(since = "4.0.0")
   public void removeStage(String name) {
     Applet.getInstance().removeStage(name);
   }

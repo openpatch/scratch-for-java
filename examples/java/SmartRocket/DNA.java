@@ -22,7 +22,7 @@ public class DNA {
   public DNA crossover(DNA partner) {
     Vector2[] geneKind = new Vector2[gene.length];
 
-    float cutoff = Random.random(gene.length);
+    var cutoff = Random.random(gene.length);
 
     for (int i = 0; i < gene.length; i++) {
       if (i > cutoff) {

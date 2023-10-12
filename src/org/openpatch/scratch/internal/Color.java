@@ -1,22 +1,23 @@
 package org.openpatch.scratch.internal;
 
+
 public class Color {
 
-  private float r = 255;
-  private float g = 255;
-  private float b = 255;
+  private double r = 255;
+  private double g = 255;
+  private double b = 255;
 
-  private float h = 255;
-  private float s = 255;
-  private float l = 255;
+  private double h = 255;
+  private double s = 255;
+  private double l = 255;
 
   public Color() {}
 
-  public Color(float h) {
+  public Color(double h) {
     this.setHSB(h);
   }
 
-  public Color(float r, float g, float b) {
+  public Color(double r, double g, double b) {
     this.setRGB(r, g, g);
   }
 
@@ -40,7 +41,7 @@ public class Color {
    *
    * @return hue value [0...255]
    */
-  public float getHSB() {
+  public double getHSB() {
     return this.h;
   }
 
@@ -49,7 +50,7 @@ public class Color {
    *
    * @param h A hue value [0...255]
    */
-  public void setHSB(float h) {
+  public void setHSB(double h) {
     this.setHSB(h, this.s, this.l);
   }
 
@@ -60,7 +61,7 @@ public class Color {
    * @param s A saturation value [0...255]
    * @param l A luminosity value [0...255]
    */
-  public void setHSB(float h, float s, float l) {
+  public void setHSB(double h, double s, double l) {
     while (h > 255) {
       h -= 255;
     }
@@ -79,7 +80,7 @@ public class Color {
     s = s / 255.0f;
     l = l / 255.0f;
 
-    float[] rgb = Color.HSBtoRGB(h, s, l);
+    double[] rgb = Color.HSBtoRGB(h, s, l);
     this.r = rgb[0];
     this.g = rgb[1];
     this.b = rgb[2];
@@ -92,12 +93,12 @@ public class Color {
    * @param g A green value [0...255]
    * @param b A blue value [0...255]
    */
-  public void setRGB(float r, float g, float b) {
+  public void setRGB(double r, double g, double b) {
     this.r = r;
     this.g = g;
     this.b = b;
 
-    float[] hsb = Color.RGBtoHSB(r, g, b);
+    double[] hsb = Color.RGBtoHSB(r, g, b);
 
     this.h = hsb[0] * 255;
     this.s = hsb[1] * 255;
@@ -110,8 +111,8 @@ public class Color {
    *
    * @param h A hue value. Could be any positive or negative number.
    */
-  public void changeColor(float h) {
-    float newH = this.getHSB() + h;
+  public void changeColor(double h) {
+    double newH = this.getHSB() + h;
     this.setHSB(newH);
   }
 
@@ -123,9 +124,12 @@ public class Color {
    * @param b A blue value [0...255]
    * @return hsb values
    */
-  private static float[] RGBtoHSB(float r, float g, float b) {
-    float[] hsb = java.awt.Color.RGBtoHSB(Math.round(r), Math.round(g), Math.round(b), null);
-    return hsb;
+  private static double[] RGBtoHSB(double r, double g, double b) {
+    var hsb =
+        java.awt.Color.RGBtoHSB(
+            Math.round((float) r), Math.round((float) g), Math.round((float) b), null);
+    double[] hsbd = {hsb[0], hsb[1], hsb[2]};
+    return hsbd;
   }
 
   /**
@@ -136,9 +140,10 @@ public class Color {
    * @param l A luminosity value [0...1]
    * @return rgb values
    */
-  private static float[] HSBtoRGB(float h, float s, float l) {
-    java.awt.Color colorRgb = new java.awt.Color(java.awt.Color.HSBtoRGB(h, s, l));
-    float[] rgb = new float[3];
+  private static double[] HSBtoRGB(double h, double s, double l) {
+    java.awt.Color colorRgb =
+        new java.awt.Color(java.awt.Color.HSBtoRGB((float) h, (float) s, (float) l));
+    double[] rgb = new double[3];
     rgb[0] = colorRgb.getRed();
     rgb[1] = colorRgb.getGreen();
     rgb[2] = colorRgb.getBlue();
@@ -151,7 +156,7 @@ public class Color {
    *
    * @return red value [0...255]
    */
-  public float getRed() {
+  public double getRed() {
     return this.r;
   }
 
@@ -160,7 +165,7 @@ public class Color {
    *
    * @return green value [0...255]
    */
-  public float getGreen() {
+  public double getGreen() {
     return this.g;
   }
 
@@ -169,19 +174,19 @@ public class Color {
    *
    * @return blue value [0...255]
    */
-  public float getBlue() {
+  public double getBlue() {
     return this.b;
   }
 
-  public float getH() {
+  public double getH() {
     return h;
   }
 
-  public float getS() {
+  public double getS() {
     return s;
   }
 
-  public float getL() {
+  public double getL() {
     return l;
   }
 }

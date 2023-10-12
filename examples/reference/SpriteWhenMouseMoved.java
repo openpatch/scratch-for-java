@@ -12,7 +12,7 @@ public class SpriteWhenMouseMoved {
     }
 
     @Override
-    public void whenMouseMoved(float x, float y) {
+    public void whenMouseMoved(double x, double y) {
       this.setPosition(x, y);
     }
   }

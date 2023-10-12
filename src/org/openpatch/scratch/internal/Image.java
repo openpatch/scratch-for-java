@@ -17,7 +17,7 @@ public class Image {
   AbstractMap<Float, PImage> imageResized = new ConcurrentHashMap<>();
   final PImage originalImage;
   Color tint = new Color();
-  float transparency = 255;
+  double transparency = 255;
 
   private int width = 0;
   private int height = 0;
@@ -121,7 +121,7 @@ public class Image {
    * @param g a green value [0...255]
    * @param b a blue value [0...255]
    */
-  public void setTint(float r, float g, float b) {
+  public void setTint(double r, double g, double b) {
     this.tint.setRGB(r, g, b);
   }
 
@@ -130,7 +130,7 @@ public class Image {
    *
    * @param h a hue value [0...255]
    */
-  public void setTint(float h) {
+  public void setTint(double h) {
     this.tint.setHSB(h);
   }
 
@@ -139,7 +139,7 @@ public class Image {
    *
    * @param h a hue value [0...255]
    */
-  public void changeTint(float h) {
+  public void changeTint(double h) {
     this.tint.changeColor(h);
   }
 
@@ -148,7 +148,7 @@ public class Image {
    *
    * @return a hue value [0...255]
    */
-  public float getTint() {
+  public double getTint() {
     return this.tint.getHSB();
   }
 
@@ -157,7 +157,7 @@ public class Image {
    *
    * @param transparency [0...255]
    */
-  public void setTransparency(float transparency) {
+  public void setTransparency(double transparency) {
     this.transparency = transparency;
   }
 
@@ -166,7 +166,7 @@ public class Image {
    *
    * @param step a step value
    */
-  public void changeTransparency(float step) {
+  public void changeTransparency(double step) {
     this.setTransparency((this.transparency + step) % 255);
   }
 
@@ -175,7 +175,7 @@ public class Image {
    *
    * @return the transparency [0...255]
    */
-  public float getTransparency() {
+  public double getTransparency() {
     return this.transparency;
   }
 
@@ -188,9 +188,9 @@ public class Image {
     this.image = Applet.getInstance().loadImage(imagePath);
   }
 
-  public void setSize(float percentage) {
-    this.width = Math.round(this.originalImage.width * percentage / 100);
-    this.height = Math.round(this.originalImage.height * percentage / 100);
+  public void setSize(double percentage) {
+    this.width = (int) Math.round(this.originalImage.width * percentage / 100);
+    this.height = (int) Math.round(this.originalImage.height * percentage / 100);
 
     var imageResized = this.imageResized.get(percentage);
     if (imageResized != null) {
@@ -216,18 +216,20 @@ public class Image {
    * @param x a x coordinate
    * @param y a y coordinate
    */
-  public void draw(float size, float degrees, float x, float y, RotationStyle style) {
+  public void draw(double size, double degrees, double x, double y, RotationStyle style) {
     Applet applet = Applet.getInstance();
     PGraphics g = applet.getGraphics();
     g.push();
     g.imageMode(PConstants.CENTER);
-    g.translate(x + Window.getInstance().getWidth() / 2, -y + Window.getInstance().getHeight() / 2);
+    g.translate(
+        (float) x + Window.getInstance().getWidth() / 2,
+        (float) -y + Window.getInstance().getHeight() / 2);
     degrees -= 90;
     switch (style) {
       case DONT:
         break;
       case ALL_AROUND:
-        g.rotate(PApplet.radians(degrees));
+        g.rotate(PApplet.radians((float) degrees));
         break;
       case LEFT_RIGHT:
         if (degrees > -90 && degrees < 90) {
@@ -237,17 +239,22 @@ public class Image {
         }
         break;
     }
-    g.tint(this.tint.getRed(), this.tint.getGreen(), this.tint.getBlue(), this.transparency);
+    g.tint(
+        (float) this.tint.getRed(),
+        (float) this.tint.getGreen(),
+        (float) this.tint.getBlue(),
+        (float) this.transparency);
     g.image(this.image, 0, 0);
     g.noTint();
     g.pop();
   }
 
   public void drawDebug(
-      PGraphics buffer, float size, float degrees, float x, float y, RotationStyle style) {
+      PGraphics buffer, double size, double degrees, double x, double y, RotationStyle style) {
     buffer.push();
     buffer.translate(
-        x + Window.getInstance().getWidth() / 2, -y + Window.getInstance().getHeight() / 2);
+        (float) x + Window.getInstance().getWidth() / 2,
+        (float) -y + Window.getInstance().getHeight() / 2);
     buffer.fill(Window.DEBUG_COLOR[0], Window.DEBUG_COLOR[1], Window.DEBUG_COLOR[1]);
     buffer.textAlign(PConstants.CENTER);
     buffer.text("Direction: " + (degrees + 90), 0, -this.height / 2.0f - 10);
@@ -262,7 +269,11 @@ public class Image {
   /** Draw the image. */
   public void draw() {
     PApplet parent = Applet.getInstance();
-    parent.tint(this.tint.getRed(), this.tint.getGreen(), this.tint.getBlue(), this.transparency);
+    parent.tint(
+        (float) this.tint.getRed(),
+        (float) this.tint.getGreen(),
+        (float) this.tint.getBlue(),
+        (float) this.transparency);
     parent.image(this.image, 0, 0);
     parent.noTint();
   }
@@ -270,7 +281,11 @@ public class Image {
   /** Draw the image as a background. The image is automatically scaled to fit the window size. */
   public void drawAsBackground() {
     PApplet parent = Applet.getInstance();
-    parent.tint(this.tint.getRed(), this.tint.getGreen(), this.tint.getBlue(), this.transparency);
+    parent.tint(
+        (float) this.tint.getRed(),
+        (float) this.tint.getGreen(),
+        (float) this.tint.getBlue(),
+        (float) this.transparency);
     parent.image(this.image, parent.width / 2, parent.height / 2);
     parent.noTint();
   }

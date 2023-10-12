@@ -95,16 +95,6 @@ public class Random {
   }
 
   /**
-   * Returns a random float between 0 and max.
-   *
-   * @param max the maximum float
-   * @return a random float
-   */
-  public static float random(float max) {
-    return getRandom().nextFloat() * max;
-  }
-
-  /**
    * Returns a random integer between min and max.
    *
    * @param min the minimum integer
@@ -124,17 +114,6 @@ public class Random {
    */
   public static double random(double min, double max) {
     return getRandom().nextDouble() * (max - min) + min;
-  }
-
-  /**
-   * Returns a random float between min and max.
-   *
-   * @param min the minimum float
-   * @param max the maximum float
-   * @return a random float
-   */
-  public static float random(float min, float max) {
-    return getRandom().nextFloat() * (max - min) + min;
   }
 
   private static java.util.Random getRandom() {

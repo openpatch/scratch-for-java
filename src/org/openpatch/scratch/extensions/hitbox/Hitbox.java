@@ -30,7 +30,7 @@ public class Hitbox {
   }
 
   public void translateAndRotateAndResize(
-      float degrees, float originX, float originY, float translateX, float translateY, float size) {
+      double degrees, double originX, double originY, double translateX, double translateY, double size) {
 
     AffineTransform tx = new AffineTransform();
     tx.scale(size / 100.0, size / 100.0);
@@ -45,9 +45,9 @@ public class Hitbox {
     this.shape = tx.createTransformedShape(this.shape);
   }
 
-  private void drawDebug(PGraphics buffer, float r, float g, float b) {
+  private void drawDebug(PGraphics buffer, double r, double g, double b) {
     buffer.push();
-    buffer.stroke(r, g, b);
+    buffer.stroke((float) r, (float) g, (float) b);
     buffer.strokeWeight(2);
     buffer.noFill();
     buffer.translate(buffer.width / 2, buffer.height / 2);
@@ -59,8 +59,8 @@ public class Hitbox {
     this.drawDebug(buffer, Window.DEBUG_COLOR[0], Window.DEBUG_COLOR[1], Window.DEBUG_COLOR[2]);
   }
 
-  public boolean contains(float x, float y) {
-    return this.shape.contains(new Point(Math.round(x), Math.round(y)));
+  public boolean contains(double x, double y) {
+    return this.shape.contains(new Point((int) Math.round(x), (int) Math.round(y)));
   }
 
   public boolean intersects(Hitbox hitbox) {

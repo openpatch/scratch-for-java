@@ -15,13 +15,13 @@ public class Pen {
 
   class Point {
 
-    float x;
-    float y;
+    double x;
+    double y;
     Color color;
-    float opacity;
-    float size;
+    double opacity;
+    double size;
 
-    Point(float x, float y, Color color, float opacity, float size) {
+    Point(double x, double y, Color color, double opacity, double size) {
       this.x = x;
       this.y = y;
       this.color = new Color(color);
@@ -35,8 +35,8 @@ public class Pen {
   }
 
   private Color color = new Color(0);
-  private float transparency = 255;
-  private float size = 1;
+  private double transparency = 255;
+  private double size = 1;
   private List<CopyOnWriteArrayList<Point>> pointsBuffer = new ArrayList<>();
   private boolean down = false;
   private Point previousPoint = null;
@@ -73,7 +73,7 @@ public class Pen {
     this.stage = null;
   }
 
-  public float getColor() {
+  public double getColor() {
     return this.color.getHSB();
   }
 
@@ -82,12 +82,8 @@ public class Pen {
    *
    * @param h a hue value [0...255]
    */
-  public void setColor(float h) {
-    this.color.setHSB(h);
-  }
-
   public void setColor(double h) {
-    this.setColor((float) h);
+    this.color.setHSB(h);
   }
 
   /**
@@ -97,7 +93,7 @@ public class Pen {
    * @param g a green value [0...255]
    * @param b a blue value [0...255]
    */
-  public void setColor(float r, float g, float b) {
+  public void setColor(double r, double g, double b) {
     this.color.setRGB(r, g, b);
   }
 
@@ -106,12 +102,8 @@ public class Pen {
    *
    * @param c a hue value [0...255]
    */
-  public void changeColor(float c) {
-    this.color.changeColor(c);
-  }
-
   public void changeColor(double c) {
-    this.color.changeColor((float) c);
+    this.color.changeColor(c);
   }
 
   public void goToBackground() {
@@ -131,7 +123,7 @@ public class Pen {
    *
    * @param size size of the pen
    */
-  public void setSize(float size) {
+  public void setSize(double size) {
     this.size = size;
   }
 
@@ -140,12 +132,12 @@ public class Pen {
    *
    * @return the size of the pen
    */
-  public float getSize() {
+  public double getSize() {
     return this.size;
   }
 
   /** Changes the size of the pen */
-  public void changeSize(float size) {
+  public void changeSize(double size) {
     this.size += size;
   }
 
@@ -154,11 +146,11 @@ public class Pen {
    *
    * @param transparency transparency of the pen
    */
-  public void setTransparency(float transparency) {
+  public void setTransparency(double transparency) {
     this.transparency = transparency;
   }
 
-  public void changeTransparency(float step) {
+  public void changeTransparency(double step) {
     this.setTransparency((this.transparency + step) % 255);
   }
 
@@ -168,7 +160,7 @@ public class Pen {
    * @param x x coordinate
    * @param y y coordinate
    */
-  public void setPosition(float x, float y) {
+  public void setPosition(double x, double y) {
     if (this.down) {
       if (this.pointsBuffer.isEmpty()) {
         this.pointsBuffer.add(new CopyOnWriteArrayList<>());
@@ -177,10 +169,6 @@ public class Pen {
           .get(this.pointsBuffer.size() - 1)
           .add(new Point(x, y, this.color, this.transparency, this.size));
     }
-  }
-
-  public void setPosition(double x, double y) {
-    this.setPosition((float) x, (float) y);
   }
 
   public void setPosition(Vector2 v) {
@@ -254,16 +242,29 @@ public class Pen {
         Point point = pointsIter.next();
         if (this.previousPoint != null) {
           buffer.stroke(
-              point.color.getRed(), point.color.getGreen(), point.color.getBlue(), point.opacity);
-          buffer.strokeWeight(point.size);
-          buffer.line(this.previousPoint.x, -this.previousPoint.y, point.x, -point.y);
+              (float) point.color.getRed(),
+              (float) point.color.getGreen(),
+              (float) point.color.getBlue(),
+              (float) point.opacity);
+          buffer.strokeWeight((float) point.size);
+          buffer.line(
+              (float) this.previousPoint.x,
+              (float) -this.previousPoint.y,
+              (float) point.x,
+              (float) -point.y);
         } else if (this.previousPoint == null && !this.down) {
           buffer.stroke(
-              point.color.getRed(), point.color.getGreen(), point.color.getBlue(), point.opacity);
+              (float) point.color.getRed(),
+              (float) point.color.getGreen(),
+              (float) point.color.getBlue(),
+              (float) point.opacity);
           buffer.fill(
-              point.color.getRed(), point.color.getGreen(), point.color.getBlue(), point.opacity);
-          buffer.strokeWeight(point.size);
-          buffer.circle(point.x, -point.y, point.size);
+              (float) point.color.getRed(),
+              (float) point.color.getGreen(),
+              (float) point.color.getBlue(),
+              (float) point.opacity);
+          buffer.strokeWeight((float) point.size);
+          buffer.circle((float) point.x, (float) -point.y, (float) point.size);
         }
         this.previousPoint = point;
       }

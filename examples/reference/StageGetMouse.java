@@ -9,8 +9,8 @@ public class StageGetMouse {
         new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
     recorder.start();
     while (myStage.getTimer().forMillis(3000)) {
-      float mouseX = myStage.getMouseX();
-      float mouseY = myStage.getMouseY();
+      var mouseX = myStage.getMouseX();
+      var mouseY = myStage.getMouseY();
 
       myStage.display("X: " + mouseX + " Y: " + mouseY);
     }

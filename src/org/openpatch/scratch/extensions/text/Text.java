@@ -13,10 +13,10 @@ import processing.core.PConstants;
 
 public class Text {
 
-  private float x;
-  private float y;
-  private float width;
-  private float height;
+  private double x;
+  private double y;
+  private double width;
+  private double height;
   private long lifetime;
   private boolean hasLifetime;
   private String text;
@@ -52,7 +52,7 @@ public class Text {
     this.style = TextStyle.SPEAK;
   }
 
-  public Text(String text, float x, float y, float width) {
+  public Text(String text, double x, double y, double width) {
     this.x = x;
     this.y = y;
     this.textSize = DEFAULT_TEXT_SIZE;
@@ -66,7 +66,7 @@ public class Text {
     this.addFont(Font.defaultFontName, Font.defaultFontPath);
   }
 
-  public Text(String text, float x, float y, float width, TextStyle style) {
+  public Text(String text, double x, double y, double width, TextStyle style) {
     this(text, x, y, width);
     this.style = style;
   }
@@ -100,11 +100,11 @@ public class Text {
 
   public void removedFromStage(Stage stage) {}
 
-  public float getX() {
+  public double getX() {
     return this.x;
   }
 
-  public float getY() {
+  public double getY() {
     return this.y;
   }
 
@@ -155,12 +155,8 @@ public class Text {
     this.y = y;
   }
 
-  public void setPosition(float x, float y) {
-    this.setPosition(Math.round(x), Math.round(y));
-  }
-
   public void setPosition(double x, double y) {
-    this.setPosition((float) x, (float) y);
+    this.setPosition((int) Math.round(x), (int) Math.round(y));
   }
 
   public void showText(String text) {
@@ -186,7 +182,7 @@ public class Text {
     this.backgroundColor = new Color(r, g, b);
   }
 
-  public void setBackgroundColor(float h) {
+  public void setBackgroundColor(double h) {
     this.backgroundColor = new Color(h);
   }
 
@@ -198,7 +194,7 @@ public class Text {
     this.textColor = new Color(r, g, b);
   }
 
-  public void setTextColor(float h) {
+  public void setTextColor(double h) {
     this.textColor = new Color(h);
   }
 
@@ -210,7 +206,7 @@ public class Text {
     this.strokeColor = new Color(r, g, b);
   }
 
-  public void setStrokeColor(float h) {
+  public void setStrokeColor(double h) {
     this.strokeColor = new Color(h);
   }
 
@@ -234,19 +230,19 @@ public class Text {
     return this.textSize;
   }
 
-  public float getWidth() {
+  public double getWidth() {
     return this.width;
   }
 
   public void setWidth(double width) {
-    this.width = (float) width;
+    this.width = (double) width;
   }
 
   public void setAlign(int align) {
     this.textAlign = align;
   }
 
-  private String[] wrap(String text, float maxWidth) {
+  private String[] wrap(String text, double maxWidth) {
     var applet = Applet.getInstance();
     return WordWrap.from(text)
         .maxWidth(maxWidth)
@@ -271,8 +267,8 @@ public class Text {
       return;
     }
 
-    this.y = (float) (-this.sprite.getY() + applet.height / 2 - this.sprite.getHeight() * 1.1 / 2);
-    this.x = (float) (this.sprite.getX() + applet.width / 2 + this.sprite.getWidth() * 0.9 / 2);
+    this.y = (double) (-this.sprite.getY() + applet.height / 2 - this.sprite.getHeight() * 1.1 / 2);
+    this.x = (double) (this.sprite.getX() + applet.width / 2 + this.sprite.getWidth() * 0.9 / 2);
 
     this.width = maxLineWidth + 16;
     this.text = String.join("\n", lines);
@@ -297,63 +293,63 @@ public class Text {
     }
 
     if (mirror) {
-      x =
-          (float)
-              (this.sprite.getX()
-                  + applet.width / 2
-                  - this.sprite.getWidth() * 0.9 / 2
-                  - this.width);
+      x = (this.sprite.getX() + applet.width / 2 - this.sprite.getWidth() * 0.9 / 2 - this.width);
       if (x < 0) {
         x = 0;
       }
-      applet.translate(x, y);
+      applet.translate((float) x, (float) y);
     } else {
-      applet.translate(x, y);
+      applet.translate((float) x, (float) y);
     }
     applet.stroke(
-        this.strokeColor.getRed(), this.strokeColor.getGreen(), this.strokeColor.getBlue());
+        (float) this.strokeColor.getRed(),
+        (float) this.strokeColor.getGreen(),
+        (float) this.strokeColor.getBlue());
     applet.fill(
-        this.backgroundColor.getRed(),
-        this.backgroundColor.getGreen(),
-        this.backgroundColor.getBlue());
-    applet.rect(0, 0, this.width, this.height, 16, 16, 16, 16);
+        (float) this.backgroundColor.getRed(),
+        (float) this.backgroundColor.getGreen(),
+        (float) this.backgroundColor.getBlue());
+    applet.rect(0, 0, (float) this.width, (float) this.height, 16, 16, 16, 16);
     if (this.style == TextStyle.SPEAK) {
       applet.push();
       applet.fill(
-          this.backgroundColor.getRed(),
-          this.backgroundColor.getGreen(),
-          this.backgroundColor.getBlue());
+          (float) this.backgroundColor.getRed(),
+          (float) this.backgroundColor.getGreen(),
+          (float) this.backgroundColor.getBlue());
       if (mirror) {
-        applet.translate(this.width - 40, this.height);
+        applet.translate((float) this.width - 40, (float) this.height);
         applet.triangle(20, 0, 0, 0, 20, 20);
       } else {
-        applet.translate(10, this.height);
+        applet.translate(10, (float) this.height);
         applet.triangle(0, 20, 0, 0, 20, 0);
       }
       applet.stroke(
-          this.backgroundColor.getRed(),
-          this.backgroundColor.getGreen(),
-          this.backgroundColor.getBlue());
+          (float) this.backgroundColor.getRed(),
+          (float) this.backgroundColor.getGreen(),
+          (float) this.backgroundColor.getBlue());
       applet.strokeWeight(3);
       applet.line(2, 0, 16, 0);
       applet.pop();
     } else if (this.style == TextStyle.THINK) {
       applet.push();
       if (mirror) {
-        applet.translate(this.width - 10, 0);
-        applet.circle(-20, this.height, 10);
-        applet.circle(-7, this.height + 7, 6);
-        applet.circle(0, this.height + 10, 4);
+        applet.translate((float) this.width - 10, 0);
+        applet.circle(-20, (float) this.height, 10);
+        applet.circle(-7, (float) this.height + 7, 6);
+        applet.circle(0, (float) this.height + 10, 4);
       } else {
-        applet.circle(20, this.height, 10);
-        applet.circle(7, this.height + 7, 6);
-        applet.circle(0, this.height + 10, 4);
+        applet.circle(20, (float) this.height, 10);
+        applet.circle(7, (float) this.height + 7, 6);
+        applet.circle(0, (float) this.height + 10, 4);
       }
       applet.pop();
     }
 
     // draw text
-    applet.fill(this.textColor.getRed(), this.textColor.getGreen(), this.textColor.getBlue());
+    applet.fill(
+        (float) this.textColor.getRed(),
+        (float) this.textColor.getGreen(),
+        (float) this.textColor.getBlue());
     applet.textLeading(this.textSize + 4);
     applet.text(this.text, 8, 8);
   }
@@ -372,17 +368,23 @@ public class Text {
     this.text = String.join("\n", lines);
 
     applet.rectMode(PApplet.CORNER);
-    applet.translate(this.x + applet.width / 2, -this.y + applet.height / 2 - this.height);
+    applet.translate(
+        (float) (this.x + applet.width / 2), (float) (-this.y + applet.height / 2 - this.height));
     applet.stroke(
-        this.strokeColor.getRed(), this.strokeColor.getGreen(), this.strokeColor.getBlue());
+        (float) this.strokeColor.getRed(),
+        (float) this.strokeColor.getGreen(),
+        (float) this.strokeColor.getBlue());
     applet.fill(
-        this.backgroundColor.getRed(),
-        this.backgroundColor.getGreen(),
-        this.backgroundColor.getBlue());
+        (float) this.backgroundColor.getRed(),
+        (float) this.backgroundColor.getGreen(),
+        (float) this.backgroundColor.getBlue());
     applet.strokeWeight(2);
-    applet.rect(0, 0, this.width, this.height, 16, 16, 0, 0);
+    applet.rect(0, 0, (float) this.width, (float) this.height, 16, 16, 0, 0);
 
-    applet.fill(this.textColor.getRed(), this.textColor.getGreen(), this.textColor.getBlue());
+    applet.fill(
+        (float) this.textColor.getRed(),
+        (float) this.textColor.getGreen(),
+        (float) this.textColor.getBlue());
     applet.textLeading(this.textSize + 4);
     applet.text(this.text, 8, 8);
   }
@@ -401,8 +403,11 @@ public class Text {
     }
     this.text = String.join("\n", lines);
 
-    applet.translate(this.x + applet.width / 2, -this.y + applet.height / 2);
-    applet.fill(this.textColor.getRed(), this.textColor.getGreen(), this.textColor.getBlue());
+    applet.translate((float) (this.x + applet.width / 2), (float) (-this.y + applet.height / 2));
+    applet.fill(
+        (float) this.textColor.getRed(),
+        (float) this.textColor.getGreen(),
+        (float) this.textColor.getBlue());
     applet.textLeading(this.textSize + 4);
     applet.text(this.text, 8, 8);
   }
