@@ -43,7 +43,6 @@ public class Applet extends PApplet {
 
     this.stages = new ConcurrentHashMap<>();
 
-    this.registerMethod("pre", this);
     this.registerMethod("mouseEvent", this);
     this.registerMethod("keyEvent", this);
     if (Applet.instance == null) {
@@ -153,8 +152,11 @@ public class Applet extends PApplet {
 
   public void setup() {
     this.windowTitle("Scratch for Java");
+    this.windowResizable(false);
+
     this.imageMode(PConstants.CENTER);
     this.rectMode(PConstants.CENTER);
+
     this.loading = this.loadImage("loading.png");
     var loadingScaleX = this.INITIAL_WIDTH / 480.0;
     var loadingScaleY =
@@ -230,12 +232,6 @@ public class Applet extends PApplet {
     return this.numberAssets > 0 ? this.loadedAssets / (float) this.numberAssets : 1;
   }
 
-  public void pre() {
-    if (this.hasLoaded && this.stage != null) {
-      this.stage.pre();
-    }
-  }
-
   public void mouseEvent(MouseEvent e) {
     if (this.hasLoaded && this.stage != null) {
       this.stage.mouseEvent(e);
@@ -258,18 +254,19 @@ public class Applet extends PApplet {
     }
     deltaTime = (currentMillis - lastMillis) / 1000.0;
     lastMillis = currentMillis;
+    this.translate(this.width / 2, this.height / 2);
     if (!this.hasLoaded || this.loadingStatus() < 1) {
       this.background(0x222222);
-      this.image(this.loading, this.width / 2, this.height / 2);
+      this.image(this.loading, 0, 0);
       this.textAlign(CENTER);
       this.stroke(0xf58219);
       this.textFont(Font.getDefaultFont());
       this.textSize(14);
-      this.text(this.loadingText, this.width / 2, this.height / 2 + this.loading.height / 2 + 20);
+      this.text(this.loadingText, 0, this.loading.height / 2 + 20);
       this.text(
           round(this.loadingStatus() * 100) + "%",
-          this.width / 2,
-          this.height / 2 + this.loading.height / 2 + 40);
+          0,
+          this.loading.height / 2 + 40);
       this.textSize(14);
     } else if (this.stage != null) {
       this.stage.draw();

@@ -47,6 +47,9 @@ public class Stage {
 
   private PGraphics debugBuffer;
 
+  private String cursor;
+  private int cursorActiveSpotX;
+  private int cursorActiveSpotY;
   private final Text display;
   private final AbstractMap<String, Timer> timer;
   List<Text> texts;
@@ -72,6 +75,7 @@ public class Stage {
   }
 
   public Stage(int width, final int height, String assets) {
+    this.cursor = null;
     this.texts = new CopyOnWriteArrayList<>();
     this.pens = new CopyOnWriteArrayList<>();
     this.sprites = new CopyOnWriteArrayList<>();
@@ -875,48 +879,16 @@ public class Stage {
 
   public void whenIReceive(String message) {}
 
-  /** Draws the current backdrop or if none a solid color */
-  public void pre() {
-    Applet applet = Applet.getInstance();
-    if (applet == null) return;
-    // redraw background to clear screen
-    applet.background(
-        (float) this.color.getRed(), (float) this.color.getGreen(), (float) this.color.getBlue());
+  public void setCursor(String path) {
+    this.cursor = path;
+    this.cursorActiveSpotX = 0;
+    this.cursorActiveSpotY = 0;
+  }
 
-    // draw current backdrop
-    if (this.backdrops.size() > 0) {
-      this.backdrops.get(this.currentBackdrop).drawAsBackground();
-    }
-    this.backgroundBuffer.beginDraw();
-    if (this.eraseBackgroundBuffer) {
-      this.backgroundBuffer.clear();
-      this.eraseBackgroundBuffer = false;
-    }
-    this.pens.stream().filter(p -> p.isInBackground()).forEach(p -> p.draw());
-    this.sprites.stream().forEach(s -> s.getPen().draw());
-    while (!this.backgroundStamps.isEmpty()) {
-      this.backgroundStamps.poll().draw(this.backgroundBuffer);
-    }
-    this.backgroundBuffer.endDraw();
-    if (this.backgroundBuffer.pixels != null) {
-      applet.image(this.backgroundBuffer, applet.width / 2, applet.height / 2);
-    } else {
-      try {
-        this.backgroundBuffer.loadPixels();
-      } catch (Exception e) {
-      }
-    }
-
-    this.foregroundBuffer.beginDraw();
-    if (this.eraseForegroundBuffer) {
-      this.foregroundBuffer.clear();
-      this.eraseForegroundBuffer = false;
-    }
-    this.pens.stream().filter(p -> !p.isInBackground()).forEach(p -> p.draw());
-    while (!this.foregroundStamps.isEmpty()) {
-      this.foregroundStamps.poll().draw(this.foregroundBuffer);
-    }
-    this.foregroundBuffer.endDraw();
+  public void setCursor(String path, int x, int y) {
+    this.cursor = path;
+    this.cursorActiveSpotX = x;
+    this.cursorActiveSpotY = y;
   }
 
   /**
@@ -941,9 +913,41 @@ public class Stage {
   public void draw() {
     Applet applet = Applet.getInstance();
     if (applet == null) return;
+    // redraw background to clear screen
+    applet.background(
+        (float) this.color.getRed(), (float) this.color.getGreen(), (float) this.color.getBlue());
+
+    // draw current backdrop
+    if (this.backdrops.size() > 0) {
+      this.backdrops.get(this.currentBackdrop).drawAsBackground();
+    }
+    this.backgroundBuffer.beginDraw();
+    this.backgroundBuffer.translate(this.getWidth() / 2, this.getHeight() / 2);
+    if (this.eraseBackgroundBuffer) {
+      this.backgroundBuffer.clear();
+      this.eraseBackgroundBuffer = false;
+    }
+    this.pens.stream().filter(p -> p.isInBackground()).forEach(p -> p.draw());
+    this.sprites.stream().filter(s -> s.getPen().isInBackground()).forEach(s -> s.getPen().draw());
+    while (!this.backgroundStamps.isEmpty()) {
+      this.backgroundStamps.poll().draw(this.backgroundBuffer);
+    }
+    this.backgroundBuffer.endDraw();
+    if (this.backgroundBuffer.pixels != null) {
+      applet.image(this.backgroundBuffer, 0, 0);
+    } else {
+      try {
+        this.backgroundBuffer.loadPixels();
+      } catch (Exception e) {
+      }
+    }
 
     if (this.sorter != null) {
       this.sprites.sort(this.sorter);
+    }
+
+    if (this.cursor != null) {
+      applet.cursor(Image.loadImage(this.cursor), this.cursorActiveSpotX, this.cursorActiveSpotY);
     }
 
     this.run();
@@ -956,8 +960,22 @@ public class Stage {
       this.display.draw();
     }
 
+    // draw foreground
+    this.foregroundBuffer.beginDraw();
+    this.foregroundBuffer.translate(this.getWidth() / 2, this.getHeight() / 2);
+    if (this.eraseForegroundBuffer) {
+      this.foregroundBuffer.clear();
+      this.eraseForegroundBuffer = false;
+    }
+    this.pens.stream().filter(p -> !p.isInBackground()).forEach(p -> p.draw());
+    this.sprites.stream().filter(s -> !s.getPen().isInBackground()).forEach(s -> s.getPen().draw());
+    while (!this.foregroundStamps.isEmpty()) {
+      this.foregroundStamps.poll().draw(this.foregroundBuffer);
+    }
+    this.foregroundBuffer.endDraw();
+
     if (this.foregroundBuffer.pixels != null) {
-      applet.image(this.foregroundBuffer, applet.width / 2, applet.height / 2);
+      applet.image(this.foregroundBuffer, 0, 0);
     } else {
       try {
         this.foregroundBuffer.loadPixels();
@@ -967,25 +985,26 @@ public class Stage {
 
     if (applet.isDebug()) {
       this.debugBuffer.beginDraw();
+      this.debugBuffer.translate(this.getWidth() / 2, this.getHeight() / 2);
       this.debugBuffer.clear();
       this.sprites.stream().forEach(s -> s.drawDebug());
       this.debugBuffer.strokeWeight(1);
       this.debugBuffer.stroke(Window.DEBUG_COLOR[0], Window.DEBUG_COLOR[1], Window.DEBUG_COLOR[2]);
       this.debugBuffer.fill(Window.DEBUG_COLOR[0], Window.DEBUG_COLOR[1], Window.DEBUG_COLOR[2]);
-      var w = this.getWidth() / 2;
-      var h = this.getHeight() / 2;
-      this.debugBuffer.line((float) (this.mouseX + w), 0, (float) (this.mouseX + w), applet.height);
       this.debugBuffer.line(
-          0, (float) (-this.mouseY + h), applet.width, (float) (-this.mouseY + h));
+          (float) this.mouseX, -applet.height / 2, (float) this.mouseX, applet.height);
+      this.debugBuffer.line(
+          -applet.width / 2, (float) -this.mouseY, applet.width, (float) -this.mouseY);
       this.debugBuffer.textFont(Font.getDefaultFont());
       this.debugBuffer.text(
-          "(" + this.mouseX + ", " + this.mouseY + ")",
-          (float) (this.mouseX + w),
-          (float) (-this.mouseY + h));
+          "(" + this.mouseX + ", " + this.mouseY + ")", (float) this.mouseX, (float) -this.mouseY);
+      this.debugBuffer.pushMatrix();
+      this.debugBuffer.translate(-this.getWidth() / 2, -this.getHeight() / 2);
       this.debugBuffer.text("FPS: " + Math.round(applet.frameRate * 100) / 100, 20, 10);
+      this.debugBuffer.popMatrix();
       this.debugBuffer.endDraw();
 
-      applet.image(this.debugBuffer, applet.width / 2, applet.height / 2);
+      applet.image(this.debugBuffer, 0, 0);
     }
   }
 }

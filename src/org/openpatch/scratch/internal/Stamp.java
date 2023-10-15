@@ -30,8 +30,8 @@ public class Stamp {
     g.push();
     g.imageMode(PConstants.CENTER);
     g.translate(
-        (float) (this.x + Window.getInstance().getWidth() / 2),
-        (float) (-this.y + Window.getInstance().getHeight() / 2));
+        (float) this.x,
+        (float) -this.y);
     this.degrees -= 90;
     switch (this.style) {
       case DONT:
