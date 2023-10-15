@@ -7,8 +7,9 @@ import org.openpatch.scratch.extensions.text.Text;
 
 public class StartStage extends Stage {
   public StartStage() {
-
-    this.add(new Background());
+    var bg = new Background();
+    bg.setTransparency(50);
+    this.add(bg);
 
     var text = new Text();
     text.setTextSize(48);

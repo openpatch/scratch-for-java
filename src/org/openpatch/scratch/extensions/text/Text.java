@@ -23,6 +23,7 @@ public class Text {
   private String originalText;
   private Stage stage;
   private Sprite sprite;
+  private boolean isUI;
 
   private CopyOnWriteArrayList<Font> fonts = new CopyOnWriteArrayList<>();
   private int currentFont = 0;
@@ -240,6 +241,14 @@ public class Text {
 
   public void setAlign(int align) {
     this.textAlign = align;
+  }
+
+  public void setIsUI(boolean isUI) {
+    this.isUI = isUI;
+  }
+
+  public boolean isUI() {
+    return this.isUI;
   }
 
   private String[] wrap(String text, double maxWidth) {

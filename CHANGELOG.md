@@ -6,6 +6,7 @@ index: 4
 ## 4.6.0
 
 - 🚀 Feat: Add setCursor method to the stage class.
+- 🚀 Feat (EXPERIMENTAL): Add extension camera. The camera object allows you to move the view of the stage without manipulating the coordinates of e.g. sprites.
 
 ## 4.5.0
 

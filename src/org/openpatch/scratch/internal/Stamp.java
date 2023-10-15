@@ -1,7 +1,6 @@
 package org.openpatch.scratch.internal;
 
 import org.openpatch.scratch.RotationStyle;
-import org.openpatch.scratch.Window;
 import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PGraphics;
