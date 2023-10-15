@@ -3,6 +3,10 @@ name: Changelog
 index: 4
 ---
 
+## 4.6.0
+
+- 🚀 Feat: Add setCursor method to the stage class.
+
 ## 4.5.0
 
 - 💥 BREAKING CHANGE: Only use double for methods instead of supporting both float and doubles. This was unnecessary and cluttered the BlueJ interface with "duplicated" methods. This could potentially break your project if you were using floats, just replace them with doubles, and you are good to go.
