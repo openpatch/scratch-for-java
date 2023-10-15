@@ -7,6 +7,7 @@ public class RainbowVine extends Stage {
     super(800, 600);
     this.setColor(0, 0, 0);
     this.add(new VineSprite());
+    this.getCamera().setPosition(-400, -300);
   }
 
   public static void main(String[] args) {

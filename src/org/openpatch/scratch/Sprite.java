@@ -40,6 +40,7 @@ public class Sprite {
   private Hitbox hitbox;
   private boolean hitboxDisabled = false;
   private final Text text;
+  private boolean isUI;
 
   public Sprite() {
     this.pen = new Pen(this);
@@ -158,6 +159,7 @@ public class Sprite {
   /**
    * Adds all tiles from a spritesheet as costumes. The costumes will be name by the prefix and the
    * index in the spritesheet.
+   *
    * @param prefix a prefix for all generated costumes
    * @param spriteSheet a path to a sprite sheet
    * @param tileWidth the width of a single tile
@@ -1160,15 +1162,30 @@ public class Sprite {
    */
   public void stampToBackground() {
     if (this.costumes.size() > 0) {
-      var stamp =
-          new Stamp(
-              this.costumes.get(this.currentCostume),
-              this.direction,
-              this.x,
-              this.y,
-              this.rotationStyle);
-      this.stage.backgroundStamps.add(stamp);
+      this.stage.backgroundStamps.add(this.getStamp());
     }
+  }
+
+  /**
+   * Stamps the current sprite to the ui. A stamp is a non interactive version of the
+   * sprite.
+   */
+  public void stampToUI() {
+    if (this.costumes.size() > 0) {
+      this.stage.uiStamps.add(this.getStamp());
+    }
+  }
+
+  private Stamp getStamp() {
+    var stamp =
+        new Stamp(
+            this.costumes.get(this.currentCostume),
+            this.direction,
+            this.x,
+            this.y,
+            this.rotationStyle);
+
+    return stamp;
   }
 
   /**
@@ -1177,15 +1194,16 @@ public class Sprite {
    */
   public void stampToForeground() {
     if (this.costumes.size() > 0) {
-      var stamp =
-          new Stamp(
-              this.costumes.get(this.currentCostume),
-              this.direction,
-              this.x,
-              this.y,
-              this.rotationStyle);
-      this.stage.foregroundStamps.add(stamp);
+      this.stage.foregroundStamps.add(this.getStamp());
     }
+  }
+
+  public void isUI(boolean isUI) {
+    this.isUI = isUI;
+  }
+
+  public boolean isUI() {
+    return this.isUI;
   }
 
   /** Draws the sprite if it is not hidden. */

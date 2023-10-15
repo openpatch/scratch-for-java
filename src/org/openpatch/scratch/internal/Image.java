@@ -221,9 +221,7 @@ public class Image {
     PGraphics g = applet.getGraphics();
     g.push();
     g.imageMode(PConstants.CENTER);
-    g.translate(
-        (float) x,
-        (float) -y);
+    g.translate((float) x, (float) -y);
     degrees -= 90;
     switch (style) {
       case DONT:
@@ -252,13 +250,12 @@ public class Image {
   public void drawDebug(
       PGraphics buffer, double size, double degrees, double x, double y, RotationStyle style) {
     buffer.push();
-    buffer.translate(
-        (float) x,
-        (float) -y);
+    buffer.translate((float) x, (float) -y);
     buffer.fill(Window.DEBUG_COLOR[0], Window.DEBUG_COLOR[1], Window.DEBUG_COLOR[1]);
     buffer.textAlign(PConstants.CENTER);
-    buffer.text("Direction: " + (degrees + 90), 0, -this.height / 2.0f - 10);
-    buffer.text("(" + x + ", " + y + ")", 0, 0);
+    buffer.text("Direction: " + Math.round((degrees) * 100) / 100.0, 0, -this.height / 2.0f - 10);
+    buffer.text(
+        "(" + Math.round(x * 100) / 100.0 + ", " + Math.round(y * 100) / 100.0 + ")", 0, 0);
     buffer.pop();
   }
 

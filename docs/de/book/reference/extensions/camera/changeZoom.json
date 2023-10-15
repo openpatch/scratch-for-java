@@ -1,0 +1,5 @@
+{
+  "template": "construction",
+  "class": "Camera",
+  "name": "changeZoom"
+}

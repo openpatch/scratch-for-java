@@ -9,7 +9,8 @@ public class Background extends Sprite {
   }
 
   public void run() {
-    this.setX(-WorldStage.CAM.getX() % 20);
-    this.setY(-WorldStage.CAM.getY() % 20);
+    this.getPen().eraseAll();
+    this.setX(this.getStage().getCamera().getX() - this.getStage().getCamera().getX() % 40);
+    this.setY(this.getStage().getCamera().getY() - this.getStage().getCamera().getY() % 40);
   }
 }

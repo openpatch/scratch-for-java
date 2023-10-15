@@ -254,8 +254,8 @@ public class Applet extends PApplet {
     }
     deltaTime = (currentMillis - lastMillis) / 1000.0;
     lastMillis = currentMillis;
-    this.translate(this.width / 2, this.height / 2);
     if (!this.hasLoaded || this.loadingStatus() < 1) {
+      this.translate(this.width / 2, this.height / 2);
       this.background(0x222222);
       this.image(this.loading, 0, 0);
       this.textAlign(CENTER);
@@ -269,6 +269,7 @@ public class Applet extends PApplet {
           this.loading.height / 2 + 40);
       this.textSize(14);
     } else if (this.stage != null) {
+      this.stage.pre();
       this.stage.draw();
     }
   }

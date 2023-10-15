@@ -1,7 +1,7 @@
 {
-  "items" : [ "scroll-water", "scroll-fire" ],
-  "camX" : 111.0,
-  "camY" : -544.0,
-  "map" : "Level1",
+  "items" : [ "scroll-fire", "scroll-water" ],
+  "playerX" : 103.0,
+  "playerY" : -124.0,
+  "map" : "Level2",
   "locale" : "de"
 }

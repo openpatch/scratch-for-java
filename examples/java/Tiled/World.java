@@ -12,6 +12,7 @@ public class World extends Stage {
 
   public World() {
     GameState.load();
+    this.setDebug(true);
     I18n.select(GameState.get().locale);
     this.loadMap(GameState.get().map);
   }
@@ -33,11 +34,11 @@ public class World extends Stage {
       // Spawn Points should only have an effect, if there was no PLAYER object. Meaning the first
       // time a map is loading.
       if ("spawn-point".equals(object.type) && PLAYER == null) {
-        var camX = GameState.get().camX;
-        // check camX and camY are not saved in GameState
-        if (camX == Double.MAX_VALUE) {
-          GameState.get().camX = object.x;
-          GameState.get().camY = object.y;
+        var playerX = GameState.get().playerX;
+        // check playerX and playerY are not saved in GameState
+        if (playerX == Double.MAX_VALUE) {
+          GameState.get().playerX = object.x;
+          GameState.get().playerY = object.y;
         }
       } else if ("warp".equals(object.type)) {
         var x = object.getPropertyInt("to_x");
@@ -71,7 +72,8 @@ public class World extends Stage {
     }
 
     if (PLAYER == null) {
-      PLAYER = new Player(GameState.get().camX, GameState.get().camY);
+      PLAYER = new Player(GameState.get().playerX, GameState.get().playerY);
+      this.getCamera().setPosition(PLAYER.getX(), PLAYER.getY());
     }
     if (PLAYER != null) {
       this.add(PLAYER);
@@ -79,24 +81,33 @@ public class World extends Stage {
 
     GameState.get().map = mapFile;
     inventory = new Item();
+    inventory.isUI(true);
     this.add(inventory);
   }
 
   public void run() {
     this.eraseAll();
     this.setColor(0, 0, 0);
-    var camX = GameState.get().camX;
-    var camY = GameState.get().camY;
-    this.map.stampLayerToBackground("Floor", -camX, -camY);
-    this.map.stampLayerToBackground("FloorObjects", -camX, -camY);
-    this.map.stampLayerToBackground("Walls", -camX, -camY);
+
+    this.getCamera().setPosition(PLAYER.getPosition());
+
+    this.map.stampLayerToBackground("Floor");
+    this.map.stampLayerToBackground("FloorObjects");
+    this.map.stampLayerToBackground("Walls");
+
+    if (this.isKeyPressed(KeyCode.VK_1)) {
+      this.getCamera().changeZoom(1);
+    }
+    if (this.isKeyPressed(KeyCode.VK_0)) {
+      this.getCamera().changeZoom(-1);
+    }
 
     var items = GameState.get().items;
     for (int i = 0; i < items.size(); i++) {
       inventory.setX(-this.getWidth() / 2 + 30);
       inventory.setY(this.getHeight() / 2 - 30 - i * 36);
       inventory.switchCostume(items.get(i));
-      inventory.stampToForeground();
+      inventory.stampToUI();
     }
   }
 }

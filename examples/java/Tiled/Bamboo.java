@@ -4,8 +4,8 @@ public class Bamboo extends Enemy {
 
   protected double speed = 2.5;
 
-  public Bamboo(double mapX, double mapY) {
-    super(mapX, mapY);
+  public Bamboo(double x, double y) {
+    super(x, y);
 
     this.addAnimation("walk-down", "Tiled/assets/Bamboo.png", 4, 32, 32, 0, true);
     this.addAnimation("walk-up", "Tiled/assets/Bamboo.png", 4, 32, 32, 1, true);
@@ -16,19 +16,19 @@ public class Bamboo extends Enemy {
   public void run() {
     state = "walk";
 
-    this.changeMapX(this.speed);
+    this.changeX(this.speed);
 
     if (this.speed > 0) {
       dir = "right";
     } else {
       dir = "left";
     }
-    this.changeMapY(0);
+    this.changeY(0);
     if (this.isTouchingSprite(Wall.class)) {
       state = "idle";
-      this.changeMapX(-this.speed);
+      this.changeX(-this.speed);
       this.speed *= -1;
-      this.changeMapY(0);
+      this.changeY(0);
     }
 
     if (this.isTouchingSprite(Fireball.class)) {

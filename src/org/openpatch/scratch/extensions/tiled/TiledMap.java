@@ -71,20 +71,15 @@ public class TiledMap {
     return null;
   }
 
-  private void stampLayer(String name, double offsetX, double offsetY, Queue<Stamp> stamps) {
+  private void stampLayer(String name, Queue<Stamp> stamps) {
     var layer = this.getLayer(name);
-    var ox = offsetX / map.tilewidth;
-    var oy = offsetY / map.tileheight;
 
     for (int index = 0; index < layer.data.length; index++) {
       var tx = index % layer.width;
       var ty = index / layer.width;
 
-      var rx = tx + ox;
-      var ry = -ty + oy;
-
-      var x = rx * map.tilewidth + map.tilewidth / 2;
-      var y = ry * map.tileheight - map.tileheight / 2;
+      var x = tx * map.tilewidth + map.tilewidth / 2;
+      var y = -ty * map.tileheight - map.tileheight / 2;
 
       var tile = tiles.get(layer.data[index]);
       if (tile == null) {
@@ -95,12 +90,12 @@ public class TiledMap {
     }
   }
 
-  public void stampLayerToForeground(String name, double offsetX, double offsetY) {
-    stampLayer(name, offsetX, offsetY, stage.foregroundStamps);
+  public void stampLayerToForeground(String name) {
+    stampLayer(name, stage.foregroundStamps);
   }
 
-  public void stampLayerToBackground(String name, double offsetX, double offsetY) {
-    stampLayer(name, offsetX, offsetY, stage.backgroundStamps);
+  public void stampLayerToBackground(String name) {
+    stampLayer(name, stage.backgroundStamps);
   }
 
   public String toString() {
