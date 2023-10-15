@@ -158,6 +158,10 @@ public class Sprite {
   /**
    * Adds all tiles from a spritesheet as costumes. The costumes will be name by the prefix and the
    * index in the spritesheet.
+   * @param prefix a prefix for all generated costumes
+   * @param spriteSheet a path to a sprite sheet
+   * @param tileWidth the width of a single tile
+   * @param tileHeight the height of a single tile
    */
   public void addCostumes(String prefix, String spriteSheet, int tileWidth, int tileHeight) {
     var image = Image.loadImage(spriteSheet);
@@ -289,6 +293,7 @@ public class Sprite {
   /**
    * Returns true if the sound if playing
    *
+   * @param name Name of the sound
    * @return playing
    */
   public boolean isSoundPlaying(String name) {
@@ -300,6 +305,12 @@ public class Sprite {
     return false;
   }
 
+  /**
+   * Sets the tint for the sprite with an color object.
+   *
+   * @see Color
+   * @param c a color object
+   */
   public void setTint(Color c) {
     this.setTint(c.getRed(), c.getGreen(), c.getBlue());
   }
@@ -308,6 +319,9 @@ public class Sprite {
    * Sets the tint for the sprite with rgb.
    *
    * @see Image#setTint(double, double, double)
+   * @param r a red value [0...255]
+   * @param g a green value [0...255]
+   * @param b a blue value [0...255]
    */
   public void setTint(double r, double g, double b) {
     if (this.costumes.size() == 0) return;
@@ -321,6 +335,7 @@ public class Sprite {
    * Sets the tint for the sprite with a hue.
    *
    * @see Image#setTint(double)
+   * @param h a hue value [0...255]
    */
   public void setTint(double h) {
     if (this.costumes.size() == 0) return;
@@ -334,6 +349,7 @@ public class Sprite {
    * Changes the tint for the sprite.
    *
    * @see Image#changeTint(double)
+   * @param h a hue value [0...255]
    */
   public void changeTint(double step) {
     if (this.costumes.size() == 0) return;
@@ -361,6 +377,7 @@ public class Sprite {
    * Changes the transparency for the sprite.
    *
    * @see Image#changeTransparency(double)
+   * @param step a step value
    */
   public void changeTransparency(double step) {
     if (this.costumes.size() == 0) return;
@@ -423,7 +440,7 @@ public class Sprite {
    * Sets if the sprite should bounce when hitting the edge of the screen. This method is for making
    * is attribute perment.
    *
-   * @param b
+   * @param b true if the sprite should bounce
    */
   public void setOnEdgeBounce(boolean b) {
     this.onEdgeBounce = b;
