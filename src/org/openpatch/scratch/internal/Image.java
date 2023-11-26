@@ -221,9 +221,7 @@ public class Image {
     PGraphics g = applet.getGraphics();
     g.push();
     g.imageMode(PConstants.CENTER);
-    g.translate(
-        (float) x + Window.getInstance().getWidth() / 2,
-        (float) -y + Window.getInstance().getHeight() / 2);
+    g.translate((float) x, (float) -y);
     degrees -= 90;
     switch (style) {
       case DONT:
@@ -252,13 +250,12 @@ public class Image {
   public void drawDebug(
       PGraphics buffer, double size, double degrees, double x, double y, RotationStyle style) {
     buffer.push();
-    buffer.translate(
-        (float) x + Window.getInstance().getWidth() / 2,
-        (float) -y + Window.getInstance().getHeight() / 2);
+    buffer.translate((float) x, (float) -y);
     buffer.fill(Window.DEBUG_COLOR[0], Window.DEBUG_COLOR[1], Window.DEBUG_COLOR[1]);
     buffer.textAlign(PConstants.CENTER);
-    buffer.text("Direction: " + (degrees + 90), 0, -this.height / 2.0f - 10);
-    buffer.text("(" + x + ", " + y + ")", 0, 0);
+    buffer.text("Direction: " + Math.round((degrees) * 100) / 100.0, 0, -this.height / 2.0f - 10);
+    buffer.text(
+        "(" + Math.round(x * 100) / 100.0 + ", " + Math.round(y * 100) / 100.0 + ")", 0, 0);
     buffer.pop();
   }
 
@@ -280,13 +277,13 @@ public class Image {
 
   /** Draw the image as a background. The image is automatically scaled to fit the window size. */
   public void drawAsBackground() {
-    PApplet parent = Applet.getInstance();
-    parent.tint(
+    PApplet applet = Applet.getInstance();
+    applet.tint(
         (float) this.tint.getRed(),
         (float) this.tint.getGreen(),
         (float) this.tint.getBlue(),
         (float) this.transparency);
-    parent.image(this.image, parent.width / 2, parent.height / 2);
-    parent.noTint();
+    applet.image(this.image, 0, 0);
+    applet.noTint();
   }
 }

@@ -23,6 +23,7 @@ public class Text {
   private String originalText;
   private Stage stage;
   private Sprite sprite;
+  private boolean isUI;
 
   private CopyOnWriteArrayList<Font> fonts = new CopyOnWriteArrayList<>();
   private int currentFont = 0;
@@ -242,6 +243,14 @@ public class Text {
     this.textAlign = align;
   }
 
+  public void setIsUI(boolean isUI) {
+    this.isUI = isUI;
+  }
+
+  public boolean isUI() {
+    return this.isUI;
+  }
+
   private String[] wrap(String text, double maxWidth) {
     var applet = Applet.getInstance();
     return WordWrap.from(text)
@@ -267,8 +276,8 @@ public class Text {
       return;
     }
 
-    this.y = -this.sprite.getY() + applet.height / 2 - this.sprite.getHeight() * 1.1 / 2;
-    this.x = this.sprite.getX() + applet.width / 2 + this.sprite.getWidth() * 0.9 / 2;
+    this.y = this.sprite.getY() + this.sprite.getHeight() * 1.1 / 2;
+    this.x = this.sprite.getX() + this.sprite.getWidth() * 0.9 / 2.0;
 
     this.width = maxLineWidth + 16;
     this.text = String.join("\n", lines);
@@ -276,30 +285,30 @@ public class Text {
     applet.rectMode(PApplet.CORNER);
 
     // bound for top
-    var y = Math.max(0, this.y - this.height);
+    var y = Math.min(applet.getHeight() / 2.0, this.y + this.height);
 
     // bound for bottom
-    if (y + this.height > applet.getHeight()) {
-      y = applet.getHeight() - this.height;
+    if (y - this.height < -applet.getHeight() / 2.0) {
+      y = -applet.getHeight() / 2.0 + this.height;
     }
 
-    // bound for left side
-    var x = Math.max(0, this.x);
-
     // bound for right side
+    var x = Math.min(applet.getWidth() / 2.0 - this.width, this.x + this.width);
+
+    // bound for left side
     var mirror = false;
-    if (x + this.width > applet.getWidth()) {
+    if (x - this.width < -applet.getWidth() / 2.0) {
       mirror = true;
     }
 
     if (mirror) {
-      x = (this.sprite.getX() + applet.width / 2 - this.sprite.getWidth() * 0.9 / 2 - this.width);
+      x = (this.sprite.getX() - this.sprite.getWidth() * 0.9 / 2 - this.width);
       if (x < 0) {
         x = 0;
       }
-      applet.translate((float) x, (float) y);
+      applet.translate((float) x, (float) -y);
     } else {
-      applet.translate((float) x, (float) y);
+      applet.translate((float) x, (float) -y);
     }
     applet.stroke(
         (float) this.strokeColor.getRed(),
@@ -368,8 +377,7 @@ public class Text {
     this.text = String.join("\n", lines);
 
     applet.rectMode(PApplet.CORNER);
-    applet.translate(
-        (float) (this.x + applet.width / 2), (float) (-this.y + applet.height / 2 - this.height));
+    applet.translate((float) this.x, (float) (-this.y - this.height));
     applet.stroke(
         (float) this.strokeColor.getRed(),
         (float) this.strokeColor.getGreen(),
@@ -403,7 +411,7 @@ public class Text {
     }
     this.text = String.join("\n", lines);
 
-    applet.translate((float) (this.x + applet.width / 2), (float) (-this.y + applet.height / 2));
+    applet.translate((float) this.x, (float) -this.y);
     applet.fill(
         (float) this.textColor.getRed(),
         (float) this.textColor.getGreen(),

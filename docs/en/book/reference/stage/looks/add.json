@@ -4,9 +4,11 @@
   "name": "add()",
   "scratchblock": "add (sprite)",
   "class": "Stage",
-  "description": "Add a drawable for example a sprite to the stage",
+  "description": "Add a sprite, text or pen to the stage",
   "syntax": [
-    ".add(sprite)"
+    ".add(sprite)",
+    ".add(pen)",
+    ".add(text)"
   ],
   "returns": "void",
   "examples": [
@@ -19,8 +21,18 @@
   "parameters": [
     {
       "name": "sprite",
-      "description": "A reference to a drawable. For example a sprite.",
-      "type": "Drawable"
+      "description": "A reference to a sprite.",
+      "type": "Sprite"
+    },
+    {
+      "name": "text",
+      "description": "A reference to a text.",
+      "type": "Text"
+    },
+    {
+      "name": "pen",
+      "description": "A reference to a pen.",
+      "type": "Pen"
     }
   ]
 }

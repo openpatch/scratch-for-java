@@ -4,6 +4,7 @@ import org.openpatch.scratch.Stage;
 import org.openpatch.scratch.Window;
 import org.openpatch.scratch.extensions.math.Random;
 import org.openpatch.scratch.extensions.math.Vector2;
+import org.openpatch.scratch.KeyCode;
 
 public class WorldStage extends Stage {
 
@@ -25,7 +26,7 @@ public class WorldStage extends Stage {
         var x = Random.random(-2000, 2000);
         var y = Random.random(-3000, 3000);
         var v = new Vector2(x, y);
-        m.setMapPosition(v);
+        m.setPosition(v);
       } while (m.isTouchingSprite(player));
     }
   }
@@ -42,18 +43,29 @@ public class WorldStage extends Stage {
         // only spawn food around the player
         v = v.add(CAM);
 
-        food.setMapPosition(v);
+        food.setPosition(v);
       } while (food.isTouchingSprite(player));
     }
 
-    if (this.find(FollowDonut.class).size() == 0) {
+    if (this.count(FollowDonut.class) == 0) {
       Window.getInstance().setStage(new WinStage());
     }
 
-    if (this.find(PlayerDonut.class).size() == 0) {
+    if (this.count(PlayerDonut.class) == 0) {
       Window.getInstance().setStage(new GameOverStage());
     }
 
-    CAM = player.mapPosition;
+    if (this.isKeyPressed(KeyCode.VK_1)) {
+      this.getCamera().changeZoom(1);
+    }
+    if (this.isKeyPressed(KeyCode.VK_0)) {
+      this.getCamera().changeZoom(-1);
+    }
+    if (this.isKeyPressed(KeyCode.VK_R)) {
+      this.getCamera().resetZoom();
+    }
+
+    this.getCamera().setZoom(10 / player.getStrength() * 100);
+    this.getCamera().setPosition(player.getPosition());
   }
 }

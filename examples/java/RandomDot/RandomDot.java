@@ -20,7 +20,7 @@ class RandomDotSprite extends Sprite {
     if (this.getTimer().everyMillis(100)) {
       this.getPen().down();
       this.getPen().setSize(10);
-      this.setPosition(Random.randomInt(-400, 400), Random.randomInt(-300, 300));
+      this.goToRandomPosition();
       this.getPen().changeColor(2);
       this.getPen().up();
     }

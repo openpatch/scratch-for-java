@@ -7,8 +7,9 @@ import org.openpatch.scratch.extensions.text.Text;
 
 public class GameOverStage extends Stage {
   public GameOverStage() {
-
-    this.add(new Background());
+    var bg = new Background();
+    bg.setTransparency(50);
+    this.add(bg);
 
     var text = new Text();
     text.setTextSize(48);
