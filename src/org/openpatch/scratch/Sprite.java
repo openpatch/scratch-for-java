@@ -429,6 +429,7 @@ public class Sprite {
     }
   }
 
+
   /**
    * Changes the size of the sprite by a given percentage.
    *
@@ -437,6 +438,7 @@ public class Sprite {
   public void changeSize(double amount) {
     this.setSize(this.size + amount);
   }
+
 
   /**
    * Sets if the sprite should bounce when hitting the edge of the screen. This method is for making
@@ -539,7 +541,8 @@ public class Sprite {
   }
 
   public void pointInDirection(Vector2 v) {
-    this.setDirection(v);
+    double angle = v.sub(this.getPosition()).angle();
+    this.setDirection(90 - angle);
   }
 
   public void pointTowardsMousePointer() {
@@ -823,9 +826,14 @@ public class Sprite {
     var spriteWidth = this.show ? costumeWidth : this.pen.getSize();
     var spriteHeight = this.show ? costumeHeight : this.pen.getSize();
 
+    var rotation = this.direction - 90;
+    if (this.rotationStyle == RotationStyle.DONT || this.rotationStyle == RotationStyle.LEFT_RIGHT) {
+      rotation = 0;
+    }
+
     if (this.hitbox != null) {
       this.hitbox.translateAndRotateAndResize(
-          this.direction - 90,
+          rotation,
           this.x,
           -this.y,
           this.x - spriteWidth / 2.0f,
@@ -840,28 +848,28 @@ public class Sprite {
             -this.y - spriteHeight / 2.0f,
             this.x,
             -this.y,
-            this.direction - 90);
+            rotation);
     var cornerTopRight =
         Utils.rotateXY(
             this.x + spriteWidth / 2.0f,
             -this.y - spriteHeight / 2.0f,
             this.x,
             -this.y,
-            this.direction - 90);
+            rotation);
     var cornerBottomLeft =
         Utils.rotateXY(
             this.x - spriteWidth / 2.0f,
             -this.y + spriteHeight / 2.0f,
             this.x,
             -this.y,
-            this.direction - 90);
+            rotation);
     var cornerBottomRight =
         Utils.rotateXY(
             this.x + spriteWidth / 2.0f,
             -this.y + spriteHeight / 2.0f,
             this.x,
             -this.y,
-            this.direction - 90);
+            rotation);
 
     int[] xPoints = new int[4];
     int[] yPoints = new int[4];
@@ -1072,6 +1080,8 @@ public class Sprite {
   public void mouseEvent(MouseEvent e) {}
 
   public void whenMouseMoved(double x, double y) {}
+
+  public void whenMouseClicked(MouseCode mouseCode) {}
 
   public void whenClicked() {}
 

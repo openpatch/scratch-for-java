@@ -1,4 +1,4 @@
-package Tiled;
+ 
 
 import org.openpatch.scratch.*;
 

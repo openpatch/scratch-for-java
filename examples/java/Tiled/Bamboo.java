@@ -1,4 +1,4 @@
-package Tiled;
+ 
 
 public class Bamboo extends Enemy {
 

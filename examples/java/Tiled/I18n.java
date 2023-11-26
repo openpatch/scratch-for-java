@@ -1,4 +1,4 @@
-package Tiled;
+ 
 
 import java.text.MessageFormat;
 import java.util.HashMap;

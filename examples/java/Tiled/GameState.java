@@ -1,4 +1,4 @@
-package Tiled;
+ 
 
 import java.util.*;
 import org.openpatch.scratch.extensions.fs.File;
