@@ -102,8 +102,7 @@ public class Stage {
         applet.createGraphics(applet.width, applet.height, applet.sketchRenderer());
     this.foregroundBuffer =
         applet.createGraphics(applet.width, applet.height, applet.sketchRenderer());
-    this.uiBuffer =
-        applet.createGraphics(applet.width, applet.height, applet.sketchRenderer());
+    this.uiBuffer = applet.createGraphics(applet.width, applet.height, applet.sketchRenderer());
     this.debugBuffer = applet.createGraphics(applet.width, applet.height, applet.sketchRenderer());
     /**
      * Smooth does currently not work on Apple Silicon
@@ -696,26 +695,33 @@ public class Stage {
   public void mouseEvent(MouseEvent e) {
     this.mouseX = e.getX() - this.getWidth() / 2;
     this.mouseY = -(e.getY() - this.getHeight() / 2);
-    this.mouseX = this.mouseX * this.getCamera().getZoom() / 100;
-    this.mouseY = this.mouseY * this.getCamera().getZoom() / 100;
+    this.mouseX = this.getCamera().toLocalX(this.mouseX);
+    this.mouseY = this.getCamera().toLocalY(this.mouseY);
     this.mouseDown = false;
 
     if (e.getAction() == MouseEvent.PRESS) {
       this.mouseDown = true;
     } else if (e.getAction() == MouseEvent.CLICK) {
+      final MouseCode me;
       if (e.getButton() == PConstants.LEFT) {
-        whenMouseClicked(MouseCode.LEFT);
+        me = MouseCode.LEFT;
       } else if (e.getButton() == PConstants.RIGHT) {
-        whenMouseClicked(MouseCode.RIGHT);
+        me = MouseCode.RIGHT;
       } else if (e.getButton() == PConstants.CENTER) {
-        whenMouseClicked(MouseCode.CENTER);
+        me = MouseCode.CENTER;
+      } else {
+        me = null;
       }
+      whenMouseClicked(me);
       this.sprites.stream()
           .forEach(
               s -> {
                 s.mouseEvent(e);
                 if (s.isTouchingMousePointer()) {
                   s.whenClicked();
+                }
+                if (me != null) {
+                  s.whenMouseClicked(me);
                 }
               });
     } else if (e.getAction() == MouseEvent.MOVE) {
@@ -960,7 +966,7 @@ public class Stage {
 
     // draw current backdrop
     applet.push();
-    applet.translate(this.getWidth() / 2, this.getHeight() / 2);
+    applet.translate(this.getWidth() / 2.0f, this.getHeight() / 2.0f);
     applet.scale((float) this.camera.getZoom() / 100.0f);
     applet.translate((float) -this.camera.getX(), (float) this.camera.getY());
     if (this.backdrops.size() > 0) {
@@ -968,7 +974,7 @@ public class Stage {
     }
     applet.pop();
     this.backgroundBuffer.beginDraw();
-    this.backgroundBuffer.translate(this.getWidth() / 2, this.getHeight() / 2);
+    this.backgroundBuffer.translate(this.getWidth() / 2.0f, this.getHeight() / 2.0f);
     this.backgroundBuffer.scale((float) this.camera.getZoom() / 100.0f);
     this.backgroundBuffer.translate((float) -this.camera.getX(), (float) this.camera.getY());
     if (this.eraseBackgroundBuffer) {
@@ -982,7 +988,7 @@ public class Stage {
     }
     this.backgroundBuffer.endDraw();
     if (this.backgroundBuffer.pixels != null) {
-      applet.image(this.backgroundBuffer, applet.width / 2, applet.height / 2);
+      applet.image(this.backgroundBuffer, applet.width / 2.0f, applet.height / 2.0f);
     } else {
       try {
         this.backgroundBuffer.loadPixels();
@@ -999,7 +1005,7 @@ public class Stage {
     }
 
     applet.push();
-    applet.translate(this.getWidth() / 2, this.getHeight() / 2);
+    applet.translate(this.getWidth() / 2.0f, this.getHeight() / 2.0f);
     applet.scale((float) this.camera.getZoom() / 100.0f);
     applet.translate((float) -this.camera.getX(), (float) this.camera.getY());
 
@@ -1009,7 +1015,7 @@ public class Stage {
 
     // draw foreground
     this.foregroundBuffer.beginDraw();
-    this.foregroundBuffer.translate(this.getWidth() / 2, this.getHeight() / 2);
+    this.foregroundBuffer.translate(this.getWidth() / 2.0f, this.getHeight() / 2.0f);
     this.foregroundBuffer.scale((float) this.camera.getZoom() / 100.0f);
     this.foregroundBuffer.translate((float) -this.camera.getX(), (float) this.camera.getY());
     if (this.eraseForegroundBuffer) {
@@ -1024,7 +1030,7 @@ public class Stage {
     this.foregroundBuffer.endDraw();
 
     if (this.foregroundBuffer.pixels != null) {
-      applet.image(this.foregroundBuffer, applet.width / 2, applet.height / 2);
+      applet.image(this.foregroundBuffer, applet.width / 2.0f, applet.height / 2.0f);
     } else {
       try {
         this.foregroundBuffer.loadPixels();
@@ -1033,7 +1039,7 @@ public class Stage {
     }
 
     applet.push();
-    applet.translate(this.getWidth() / 2, this.getHeight() / 2);
+    applet.translate(this.getWidth() / 2.0f, this.getHeight() / 2.0f);
     if (this.display != null) {
       this.display.draw();
     }
@@ -1044,7 +1050,7 @@ public class Stage {
 
     // draw ui
     this.uiBuffer.beginDraw();
-    this.uiBuffer.translate(this.getWidth() / 2, this.getHeight() / 2);
+    this.uiBuffer.translate(this.getWidth() / 2.0f, this.getHeight() / 2.0f);
     if (this.eraseUIBuffer) {
       this.uiBuffer.clear();
       this.eraseUIBuffer = false;
@@ -1056,7 +1062,7 @@ public class Stage {
     this.uiBuffer.endDraw();
 
     if (this.uiBuffer.pixels != null) {
-      applet.image(this.uiBuffer, applet.width / 2, applet.height / 2);
+      applet.image(this.uiBuffer, applet.width / 2.0f, applet.height / 2.0f);
     } else {
       try {
         this.uiBuffer.loadPixels();
@@ -1066,7 +1072,7 @@ public class Stage {
 
     if (applet.isDebug()) {
       this.debugBuffer.beginDraw();
-      this.debugBuffer.translate(this.getWidth() / 2, this.getHeight() / 2);
+      this.debugBuffer.translate(this.getWidth() / 2.0f, this.getHeight() / 2.0f);
       this.debugBuffer.pushMatrix();
       this.debugBuffer.scale((float) this.camera.getZoom() / 100.0f);
       this.debugBuffer.translate((float) -this.camera.getX(), (float) this.camera.getY());
@@ -1076,26 +1082,29 @@ public class Stage {
       this.debugBuffer.strokeWeight(1);
       this.debugBuffer.stroke(Window.DEBUG_COLOR[0], Window.DEBUG_COLOR[1], Window.DEBUG_COLOR[2]);
       this.debugBuffer.fill(Window.DEBUG_COLOR[0], Window.DEBUG_COLOR[1], Window.DEBUG_COLOR[2]);
+      var globalMouseX = this.getCamera().toGlobalX(this.mouseX);
+      var globalMouseY = this.getCamera().toGlobalY(this.mouseY);
       this.debugBuffer.line(
-          (float) this.mouseX, -applet.height / 2, (float) this.mouseX, applet.height);
+          (float) globalMouseX, -applet.height / 2, (float) globalMouseX, applet.height);
       this.debugBuffer.line(
-          -applet.width / 2, (float) -this.mouseY, applet.width, (float) -this.mouseY);
+          -applet.width / 2, (float) -globalMouseY, applet.width, (float) -globalMouseY);
       this.debugBuffer.textFont(Font.getDefaultFont());
       this.debugBuffer.text(
           "("
-              + Math.round(this.mouseX + this.camera.getX() * 100) / 100.0
+              + Math.round(this.mouseX * 100) / 100.0
               + ", "
-              + Math.round(this.mouseY + this.camera.getY() * 100) / 100.0
+              + Math.round(this.mouseY * 100) / 100.0
               + ")",
-          (float) this.mouseX,
-          (float) -this.mouseY);
+          (float) globalMouseX,
+          (float) -globalMouseY);
       this.debugBuffer.pushMatrix();
-      this.debugBuffer.translate(-applet.width / 2, -applet.height / 2);
+      this.debugBuffer.translate(-applet.width / 2.0f, -applet.height / 2.0f);
       this.debugBuffer.text("FPS: " + Math.round(applet.frameRate * 100) / 100, 20, 20);
+      this.debugBuffer.text("Camera: (" + this.camera.getX() + ", " + this.camera.getY() + ") " + Math.round(this.camera.getZoom() * 100) / 100, 20, 40);
       this.debugBuffer.popMatrix();
       this.debugBuffer.endDraw();
 
-      applet.image(this.debugBuffer, applet.width / 2, applet.height / 2);
+      applet.image(this.debugBuffer, applet.width / 2.0f, applet.height / 2.0f);
     }
   }
 }

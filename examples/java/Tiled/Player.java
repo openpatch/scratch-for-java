@@ -1,5 +1,3 @@
-package Tiled;
-
 import org.openpatch.scratch.*;
 import org.openpatch.scratch.extensions.animation.*;
 

@@ -41,6 +41,34 @@ public class Camera {
     return new Vector2(x, y);
   }
 
+  public Vector2 toLocalPosition(Vector2 v) {
+    return new Vector2(
+        (v.getX() + this.getX()) / (this.getZoom() / 100.0),
+        (v.getY() + this.getY()) / (this.getZoom() / 100.0));
+  }
+
+  public double toLocalX(double x) {
+    return toLocalPosition(new Vector2(x, 0)).getX();
+  }
+
+  public double toLocalY(double y) {
+    return toLocalPosition(new Vector2(0, y)).getY();
+  }
+
+  public Vector2 toGlobalPosition(Vector2 v) {
+    return new Vector2(
+        (v.getX() - this.getX()) * (this.getZoom() / 100.0),
+        (v.getY() - this.getY()) * (this.getZoom() / 100.0));
+  }
+
+  public double toGlobalX(double x) {
+    return this.toGlobalPosition(new Vector2(x, 0)).getX();
+  }
+
+  public double toGlobalY(double y) {
+    return this.toGlobalPosition(new Vector2(0, y)).getY();
+  }
+
   /**
    * Returns the x coordinate of the sprite
    *

@@ -36,6 +36,7 @@ public class TiledMap {
                 y * tileset.tileheight,
                 tileset.tilewidth,
                 tileset.tileheight);
+        image.setSize(tileset.tilewidth + 1, tileset.tileheight + 1);
         tiles.put(firstId + index, image);
       }
     }
@@ -86,7 +87,7 @@ public class TiledMap {
         continue;
       }
 
-      stamps.add(new Stamp(tile, x, y));
+      stamps.add(new Stamp(tile, x - 0.5, y - 0.5));
     }
   }
 
