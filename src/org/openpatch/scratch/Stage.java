@@ -155,15 +155,20 @@ public class Stage {
   }
 
   /**
-   * Add a sprite, text, pen or image to the stage.
+   * Add a sprite object to the stage
    *
-   * @param drawable
+   * @param sprite a sprite
    */
   public void add(Sprite sprite) {
     this.sprites.add(sprite);
     sprite.addedToStage(this);
   }
 
+  /**
+   * Add a text object to the stage
+   *
+   * @param text a text
+   */
   public void add(Text text) {
     this.texts.add(text);
     text.addedToStage(this);
@@ -216,11 +221,6 @@ public class Stage {
     return new CopyOnWriteArrayList<>(this.sprites);
   }
 
-  /**
-   * Rise a sprite, text, pen or image.
-   *
-   * @param drawable
-   */
   public void remove(Sprite sprite) {
     this.sprites.remove(sprite);
     sprite.removedFromStage(this);
@@ -768,6 +768,8 @@ public class Stage {
 
   public void whenKeyPressed(int keyCode) {}
 
+  public void whenKeyReleased(int keyCode) {}
+
   public void keyEvent(KeyEvent e) {
     switch (e.getAction()) {
       case KeyEvent.PRESS:
@@ -775,6 +777,7 @@ public class Stage {
         this.keyCodePressed.put(e.getKeyCode(), true);
         break;
       case KeyEvent.RELEASE:
+        this.whenKeyReleased(e.getKeyCode());
         this.keyCodePressed.put(e.getKeyCode(), false);
         break;
     }
@@ -1100,7 +1103,15 @@ public class Stage {
       this.debugBuffer.pushMatrix();
       this.debugBuffer.translate(-applet.width / 2.0f, -applet.height / 2.0f);
       this.debugBuffer.text("FPS: " + Math.round(applet.frameRate * 100) / 100, 20, 20);
-      this.debugBuffer.text("Camera: (" + this.camera.getX() + ", " + this.camera.getY() + ") " + Math.round(this.camera.getZoom() * 100) / 100, 20, 40);
+      this.debugBuffer.text(
+          "Camera: ("
+              + this.camera.getX()
+              + ", "
+              + this.camera.getY()
+              + ") "
+              + Math.round(this.camera.getZoom() * 100) / 100,
+          20,
+          40);
       this.debugBuffer.popMatrix();
       this.debugBuffer.endDraw();
 

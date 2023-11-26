@@ -429,7 +429,6 @@ public class Sprite {
     }
   }
 
-
   /**
    * Changes the size of the sprite by a given percentage.
    *
@@ -438,7 +437,6 @@ public class Sprite {
   public void changeSize(double amount) {
     this.setSize(this.size + amount);
   }
-
 
   /**
    * Sets if the sprite should bounce when hitting the edge of the screen. This method is for making
@@ -827,7 +825,8 @@ public class Sprite {
     var spriteHeight = this.show ? costumeHeight : this.pen.getSize();
 
     var rotation = this.direction - 90;
-    if (this.rotationStyle == RotationStyle.DONT || this.rotationStyle == RotationStyle.LEFT_RIGHT) {
+    if (this.rotationStyle == RotationStyle.DONT
+        || this.rotationStyle == RotationStyle.LEFT_RIGHT) {
       rotation = 0;
     }
 
@@ -844,32 +843,16 @@ public class Sprite {
 
     var cornerTopLeft =
         Utils.rotateXY(
-            this.x - spriteWidth / 2.0f,
-            -this.y - spriteHeight / 2.0f,
-            this.x,
-            -this.y,
-            rotation);
+            this.x - spriteWidth / 2.0f, -this.y - spriteHeight / 2.0f, this.x, -this.y, rotation);
     var cornerTopRight =
         Utils.rotateXY(
-            this.x + spriteWidth / 2.0f,
-            -this.y - spriteHeight / 2.0f,
-            this.x,
-            -this.y,
-            rotation);
+            this.x + spriteWidth / 2.0f, -this.y - spriteHeight / 2.0f, this.x, -this.y, rotation);
     var cornerBottomLeft =
         Utils.rotateXY(
-            this.x - spriteWidth / 2.0f,
-            -this.y + spriteHeight / 2.0f,
-            this.x,
-            -this.y,
-            rotation);
+            this.x - spriteWidth / 2.0f, -this.y + spriteHeight / 2.0f, this.x, -this.y, rotation);
     var cornerBottomRight =
         Utils.rotateXY(
-            this.x + spriteWidth / 2.0f,
-            -this.y + spriteHeight / 2.0f,
-            this.x,
-            -this.y,
-            rotation);
+            this.x + spriteWidth / 2.0f, -this.y + spriteHeight / 2.0f, this.x, -this.y, rotation);
 
     int[] xPoints = new int[4];
     int[] yPoints = new int[4];
@@ -1086,8 +1069,9 @@ public class Sprite {
   public void whenClicked() {}
 
   public void goToRandomPosition() {
-    this.setX(Random.randomInt(-this.stage.getWidth() / 2, this.stage.getWidth() / 2));
-    this.setY(Random.randomInt(-this.stage.getHeight() / 2, this.stage.getHeight() / 2));
+    this.setPosition(
+        Random.randomInt(-this.stage.getWidth() / 2, this.stage.getWidth() / 2),
+        Random.randomInt(-this.stage.getHeight() / 2, this.stage.getHeight() / 2));
   }
 
   public void goToMousePointer() {
@@ -1176,10 +1160,7 @@ public class Sprite {
     }
   }
 
-  /**
-   * Stamps the current sprite to the ui. A stamp is a non interactive version of the
-   * sprite.
-   */
+  /** Stamps the current sprite to the ui. A stamp is a non interactive version of the sprite. */
   public void stampToUI() {
     if (this.costumes.size() > 0) {
       this.stage.uiStamps.add(this.getStamp());
