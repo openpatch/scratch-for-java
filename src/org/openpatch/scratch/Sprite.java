@@ -449,7 +449,7 @@ public class Sprite {
   }
 
   public void ifOnEdgeBounce() {
-    if (this.hitboxDisabled) return;
+    if (this.hitboxDisabled || this.isUI) return;
 
     var h = this.getHitbox();
 
@@ -739,6 +739,11 @@ public class Sprite {
     var mx = this.getMouseX();
     var my = this.getMouseY();
 
+    if (isUI && this.stage != null) {
+      mx = this.stage.getCamera().toGlobalX(mx);
+      my = this.stage.getCamera().toGlobalY(my);
+    }
+
     double[] mouse = Utils.rotateXY(mx, my, this.x, this.y, this.direction - 90);
 
     var relativeMouseX = (int) Math.round(mouse[0] - this.x + this.getWidth() / 2);
@@ -879,6 +884,7 @@ public class Sprite {
   public boolean isTouchingSprite(Class<? extends Sprite> c) {
     if (stage == null) return false;
     return this.stage.sprites.stream()
+        .filter(s -> !s.isUI())
         .filter(s -> c.isInstance(s) && this.isTouchingSprite(s))
         .findFirst()
         .isPresent();
@@ -887,6 +893,7 @@ public class Sprite {
   public <T extends Sprite> T getTouchingSprite(Class<T> c) {
     if (stage == null) return null;
     return this.stage.sprites.stream()
+        .filter(s -> !s.isUI())
         .filter(s -> c.isInstance(s) && this.isTouchingSprite(s))
         .findFirst()
         .map(c::cast)
@@ -896,6 +903,7 @@ public class Sprite {
   public <T extends Sprite> List<T> getTouchingSprites(Class<T> c) {
     if (stage == null) return null;
     return this.stage.sprites.stream()
+        .filter(s -> !s.isUI())
         .filter(s -> c.isInstance(s) && this.isTouchingSprite(s))
         .map(c::cast)
         .collect(Collectors.toList());
@@ -1211,7 +1219,7 @@ public class Sprite {
   }
 
   public void drawDebug() {
-    if (!this.hitboxDisabled) {
+    if (!this.hitboxDisabled && !this.isUI) {
       this.getHitbox().drawDebug(this.getStage().getDebugBuffer());
     }
     if (this.costumes.size() > 0 && this.show) {

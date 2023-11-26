@@ -17,6 +17,11 @@ public class Sensing extends Stage {
     m = new MovableHero();
     this.add(h);
     this.add(m);
+
+    var uiH = new Hero();
+    uiH.isUI(true);
+    uiH.setPosition(300, 300);
+    this.add(uiH);
   }
 
   public void run() {
@@ -84,7 +89,7 @@ class MovableHero extends Hero {
     if (this.isKeyPressed(82)) {
       this.turnRight(1);
     }
-    if (this.isTouchingSprite(Sensing.h)) {
+    if (this.isTouchingSprite(Hero.class)) {
       this.say("Hit");
     } else {
       this.say(null);
