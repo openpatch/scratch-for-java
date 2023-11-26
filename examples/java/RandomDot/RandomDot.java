@@ -2,7 +2,6 @@ package RandomDot;
 
 import org.openpatch.scratch.Sprite;
 import org.openpatch.scratch.Stage;
-import org.openpatch.scratch.extensions.math.Random;
 
 public class RandomDot extends Stage {
   public RandomDot() {

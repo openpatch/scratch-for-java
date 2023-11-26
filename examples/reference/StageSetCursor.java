@@ -8,7 +8,7 @@ public class StageSetCursor {
     GifRecorder recorder =
         new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
     recorder.start();
-    while(myStage.getTimer().forMillis(5000)) {
+    while (myStage.getTimer().forMillis(5000)) {
       if (myStage.getMouseX() < 0) {
         myStage.setCursor("assets/cursor_hand.png");
       } else {

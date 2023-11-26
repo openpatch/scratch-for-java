@@ -1,5 +1,3 @@
- 
-
 import org.openpatch.scratch.Window;
 
 public class Tiled extends Window {
