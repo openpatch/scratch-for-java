@@ -6,7 +6,20 @@ index: 4
 ## 4.6.0
 
 - 🚀 Feat: Add setCursor method to the stage class.
-- 🚀 Feat (EXPERIMENTAL): Add extension camera. The camera object allows you to move the view of the stage without manipulating the coordinates of e.g. sprites.
+- 🚀 Feat: Add extension camera. The camera object allows you to move the view of the stage without manipulating the coordinates of e.g. sprites.
+
+You can now get the camera from a stage object.
+
+```java
+var myStage = new Stage();
+Camera myCamera = myStage.getCamera();
+```
+
+The three main abilities of the camera are:
+
+1. Set the position of the camera (setX, setY, changeX, changeY, setPosition)
+2. Set the zoom of the camera (setZoom, resetZoo, changeZoom, setZoomLimit)
+3. Transform coordinates from local (Camera-Space) to global (Window-Space) (toLocalPosition, toLocalX, toLocalY, toGlobalPosition, toGlobalX, toGlobalY)
 
 ## 4.5.0
 
