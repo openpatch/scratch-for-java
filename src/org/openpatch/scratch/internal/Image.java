@@ -254,8 +254,7 @@ public class Image {
     buffer.fill(Window.DEBUG_COLOR[0], Window.DEBUG_COLOR[1], Window.DEBUG_COLOR[1]);
     buffer.textAlign(PConstants.CENTER);
     buffer.text("Direction: " + Math.round((degrees) * 100) / 100.0, 0, -this.height / 2.0f - 10);
-    buffer.text(
-        "(" + Math.round(x * 100) / 100.0 + ", " + Math.round(y * 100) / 100.0 + ")", 0, 0);
+    buffer.text("(" + Math.round(x * 100) / 100.0 + ", " + Math.round(y * 100) / 100.0 + ")", 0, 0);
     buffer.pop();
   }
 

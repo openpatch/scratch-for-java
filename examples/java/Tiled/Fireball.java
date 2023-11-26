@@ -1,5 +1,3 @@
- 
-
 import org.openpatch.scratch.extensions.animation.*;
 
 public class Fireball extends AnimatedSprite {

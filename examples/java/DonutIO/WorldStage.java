@@ -1,10 +1,10 @@
 package DonutIO;
 
+import org.openpatch.scratch.KeyCode;
 import org.openpatch.scratch.Stage;
 import org.openpatch.scratch.Window;
 import org.openpatch.scratch.extensions.math.Random;
 import org.openpatch.scratch.extensions.math.Vector2;
-import org.openpatch.scratch.KeyCode;
 
 public class WorldStage extends Stage {
 

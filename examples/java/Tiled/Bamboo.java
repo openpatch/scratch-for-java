@@ -1,5 +1,3 @@
- 
-
 public class Bamboo extends Enemy {
 
   protected double speed = 2.5;
