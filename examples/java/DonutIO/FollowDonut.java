@@ -9,10 +9,8 @@ public class FollowDonut extends Donut {
   }
 
   public void run() {
-    var v = player.mapPosition.sub(this.mapPosition).unitVector();
-
-    this.setMapPosition(this.mapPosition.add(v).multiply(this.speed));
-
+    var v = player.getPosition().sub(this.getPosition()).unitVector();
+    this.setPosition(this.getPosition().add(v).multiply(this.speed));
     super.run();
   }
 }

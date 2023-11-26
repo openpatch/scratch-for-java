@@ -55,7 +55,6 @@ public class Hitbox {
     buffer.stroke((float) r, (float) g, (float) b);
     buffer.strokeWeight(2);
     buffer.noFill();
-    buffer.translate(buffer.width / 2, buffer.height / 2);
     drawShape(buffer);
     buffer.pop();
   }

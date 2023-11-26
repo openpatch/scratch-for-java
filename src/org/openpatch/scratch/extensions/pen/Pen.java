@@ -232,7 +232,6 @@ public class Pen {
     Iterator<CopyOnWriteArrayList<Point>> pointsBufferIter = this.pointsBuffer.iterator();
 
     buffer.push();
-    buffer.translate(this.stage.getWidth() / 2, this.stage.getHeight() / 2);
 
     while (pointsBufferIter.hasNext()) {
       CopyOnWriteArrayList<Point> points = pointsBufferIter.next();

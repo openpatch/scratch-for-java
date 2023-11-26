@@ -1,16 +1,14 @@
-package Tiled;
+ 
 
 import org.openpatch.scratch.extensions.animation.*;
 
 public class Fireball extends AnimatedSprite {
-  private double mapX;
-  private double mapY;
   private String dir;
   private double speed = 3;
 
-  public Fireball(double mapX, double mapY, String dir) {
-    this.mapX = mapX;
-    this.mapY = mapY;
+  public Fireball(double x, double y, String dir) {
+    this.setX(x);
+    this.setY(y);
     this.dir = dir;
 
     this.addAnimation("default", "Tiled/assets/Fireball.png", 4, 32, 32);
@@ -22,17 +20,15 @@ public class Fireball extends AnimatedSprite {
     }
 
     if (dir == "left") {
-      this.mapX -= speed;
+      this.changeX(-speed);
     } else if (dir == "right") {
-      this.mapX += speed;
+      this.changeX(speed);
     } else if (dir == "up") {
-      this.mapY += speed;
+      this.changeY(speed);
     } else if (dir == "down") {
-      this.mapY -= speed;
+      this.changeY(-speed);
     }
 
-    this.setX(this.mapX - GameState.get().camX);
-    this.setY(this.mapY - GameState.get().camY);
     this.playAnimation("default");
   }
 }

@@ -1,10 +1,8 @@
-package Tiled;
+ 
 
 import org.openpatch.scratch.*;
 
 public class Item extends Sprite {
-  private double mapX;
-  private double mapY;
   private String name;
 
   // Constructor for displaying the inventory
@@ -15,13 +13,14 @@ public class Item extends Sprite {
   }
 
   // Constructor for displaying an item on the map
-  public Item(String name, double mapX, double mapY) {
+  public Item(String name, double x, double y) {
     this();
 
     this.show();
     this.name = name;
-    this.mapX = mapX;
-    this.mapY = mapY;
+
+    this.setX(x);
+    this.setY(y);
 
     this.run();
 
@@ -42,10 +41,5 @@ public class Item extends Sprite {
 
   public String getName() {
     return name;
-  }
-
-  public void run() {
-    this.setX(this.mapX - GameState.get().camX);
-    this.setY(this.mapY - GameState.get().camY);
   }
 }

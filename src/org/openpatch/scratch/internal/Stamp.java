@@ -1,7 +1,6 @@
 package org.openpatch.scratch.internal;
 
 import org.openpatch.scratch.RotationStyle;
-import org.openpatch.scratch.Window;
 import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PGraphics;
@@ -30,8 +29,8 @@ public class Stamp {
     g.push();
     g.imageMode(PConstants.CENTER);
     g.translate(
-        (float) (this.x + Window.getInstance().getWidth() / 2),
-        (float) (-this.y + Window.getInstance().getHeight() / 2));
+        (float) this.x,
+        (float) -this.y);
     this.degrees -= 90;
     switch (this.style) {
       case DONT:

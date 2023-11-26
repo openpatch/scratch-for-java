@@ -40,6 +40,7 @@ public class Sprite {
   private Hitbox hitbox;
   private boolean hitboxDisabled = false;
   private final Text text;
+  private boolean isUI;
 
   public Sprite() {
     this.pen = new Pen(this);
@@ -158,6 +159,11 @@ public class Sprite {
   /**
    * Adds all tiles from a spritesheet as costumes. The costumes will be name by the prefix and the
    * index in the spritesheet.
+   *
+   * @param prefix a prefix for all generated costumes
+   * @param spriteSheet a path to a sprite sheet
+   * @param tileWidth the width of a single tile
+   * @param tileHeight the height of a single tile
    */
   public void addCostumes(String prefix, String spriteSheet, int tileWidth, int tileHeight) {
     var image = Image.loadImage(spriteSheet);
@@ -289,6 +295,7 @@ public class Sprite {
   /**
    * Returns true if the sound if playing
    *
+   * @param name Name of the sound
    * @return playing
    */
   public boolean isSoundPlaying(String name) {
@@ -300,6 +307,12 @@ public class Sprite {
     return false;
   }
 
+  /**
+   * Sets the tint for the sprite with an color object.
+   *
+   * @see Color
+   * @param c a color object
+   */
   public void setTint(Color c) {
     this.setTint(c.getRed(), c.getGreen(), c.getBlue());
   }
@@ -308,6 +321,9 @@ public class Sprite {
    * Sets the tint for the sprite with rgb.
    *
    * @see Image#setTint(double, double, double)
+   * @param r a red value [0...255]
+   * @param g a green value [0...255]
+   * @param b a blue value [0...255]
    */
   public void setTint(double r, double g, double b) {
     if (this.costumes.size() == 0) return;
@@ -321,6 +337,7 @@ public class Sprite {
    * Sets the tint for the sprite with a hue.
    *
    * @see Image#setTint(double)
+   * @param h a hue value [0...255]
    */
   public void setTint(double h) {
     if (this.costumes.size() == 0) return;
@@ -334,6 +351,7 @@ public class Sprite {
    * Changes the tint for the sprite.
    *
    * @see Image#changeTint(double)
+   * @param h a hue value [0...255]
    */
   public void changeTint(double step) {
     if (this.costumes.size() == 0) return;
@@ -361,6 +379,7 @@ public class Sprite {
    * Changes the transparency for the sprite.
    *
    * @see Image#changeTransparency(double)
+   * @param step a step value
    */
   public void changeTransparency(double step) {
     if (this.costumes.size() == 0) return;
@@ -423,14 +442,14 @@ public class Sprite {
    * Sets if the sprite should bounce when hitting the edge of the screen. This method is for making
    * is attribute perment.
    *
-   * @param b
+   * @param b true if the sprite should bounce
    */
   public void setOnEdgeBounce(boolean b) {
     this.onEdgeBounce = b;
   }
 
   public void ifOnEdgeBounce() {
-    if (this.hitboxDisabled) return;
+    if (this.hitboxDisabled || this.isUI) return;
 
     var h = this.getHitbox();
 
@@ -520,7 +539,8 @@ public class Sprite {
   }
 
   public void pointInDirection(Vector2 v) {
-    this.setDirection(v);
+    double angle = v.sub(this.getPosition()).angle();
+    this.setDirection(90 - angle);
   }
 
   public void pointTowardsMousePointer() {
@@ -719,6 +739,11 @@ public class Sprite {
     var mx = this.getMouseX();
     var my = this.getMouseY();
 
+    if (isUI && this.stage != null) {
+      mx = this.stage.getCamera().toGlobalX(mx);
+      my = this.stage.getCamera().toGlobalY(my);
+    }
+
     double[] mouse = Utils.rotateXY(mx, my, this.x, this.y, this.direction - 90);
 
     var relativeMouseX = (int) Math.round(mouse[0] - this.x + this.getWidth() / 2);
@@ -804,9 +829,15 @@ public class Sprite {
     var spriteWidth = this.show ? costumeWidth : this.pen.getSize();
     var spriteHeight = this.show ? costumeHeight : this.pen.getSize();
 
+    var rotation = this.direction - 90;
+    if (this.rotationStyle == RotationStyle.DONT
+        || this.rotationStyle == RotationStyle.LEFT_RIGHT) {
+      rotation = 0;
+    }
+
     if (this.hitbox != null) {
       this.hitbox.translateAndRotateAndResize(
-          this.direction - 90,
+          rotation,
           this.x,
           -this.y,
           this.x - spriteWidth / 2.0f,
@@ -817,32 +848,16 @@ public class Sprite {
 
     var cornerTopLeft =
         Utils.rotateXY(
-            this.x - spriteWidth / 2.0f,
-            -this.y - spriteHeight / 2.0f,
-            this.x,
-            -this.y,
-            this.direction - 90);
+            this.x - spriteWidth / 2.0f, -this.y - spriteHeight / 2.0f, this.x, -this.y, rotation);
     var cornerTopRight =
         Utils.rotateXY(
-            this.x + spriteWidth / 2.0f,
-            -this.y - spriteHeight / 2.0f,
-            this.x,
-            -this.y,
-            this.direction - 90);
+            this.x + spriteWidth / 2.0f, -this.y - spriteHeight / 2.0f, this.x, -this.y, rotation);
     var cornerBottomLeft =
         Utils.rotateXY(
-            this.x - spriteWidth / 2.0f,
-            -this.y + spriteHeight / 2.0f,
-            this.x,
-            -this.y,
-            this.direction - 90);
+            this.x - spriteWidth / 2.0f, -this.y + spriteHeight / 2.0f, this.x, -this.y, rotation);
     var cornerBottomRight =
         Utils.rotateXY(
-            this.x + spriteWidth / 2.0f,
-            -this.y + spriteHeight / 2.0f,
-            this.x,
-            -this.y,
-            this.direction - 90);
+            this.x + spriteWidth / 2.0f, -this.y + spriteHeight / 2.0f, this.x, -this.y, rotation);
 
     int[] xPoints = new int[4];
     int[] yPoints = new int[4];
@@ -869,6 +884,7 @@ public class Sprite {
   public boolean isTouchingSprite(Class<? extends Sprite> c) {
     if (stage == null) return false;
     return this.stage.sprites.stream()
+        .filter(s -> !s.isUI())
         .filter(s -> c.isInstance(s) && this.isTouchingSprite(s))
         .findFirst()
         .isPresent();
@@ -877,6 +893,7 @@ public class Sprite {
   public <T extends Sprite> T getTouchingSprite(Class<T> c) {
     if (stage == null) return null;
     return this.stage.sprites.stream()
+        .filter(s -> !s.isUI())
         .filter(s -> c.isInstance(s) && this.isTouchingSprite(s))
         .findFirst()
         .map(c::cast)
@@ -886,6 +903,7 @@ public class Sprite {
   public <T extends Sprite> List<T> getTouchingSprites(Class<T> c) {
     if (stage == null) return null;
     return this.stage.sprites.stream()
+        .filter(s -> !s.isUI())
         .filter(s -> c.isInstance(s) && this.isTouchingSprite(s))
         .map(c::cast)
         .collect(Collectors.toList());
@@ -1054,11 +1072,14 @@ public class Sprite {
 
   public void whenMouseMoved(double x, double y) {}
 
+  public void whenMouseClicked(MouseCode mouseCode) {}
+
   public void whenClicked() {}
 
   public void goToRandomPosition() {
-    this.setX(Random.randomInt(-this.stage.getWidth() / 2, this.stage.getWidth() / 2));
-    this.setY(Random.randomInt(-this.stage.getHeight() / 2, this.stage.getHeight() / 2));
+    this.setPosition(
+        Random.randomInt(-this.stage.getWidth() / 2, this.stage.getWidth() / 2),
+        Random.randomInt(-this.stage.getHeight() / 2, this.stage.getHeight() / 2));
   }
 
   public void goToMousePointer() {
@@ -1143,15 +1164,27 @@ public class Sprite {
    */
   public void stampToBackground() {
     if (this.costumes.size() > 0) {
-      var stamp =
-          new Stamp(
-              this.costumes.get(this.currentCostume),
-              this.direction,
-              this.x,
-              this.y,
-              this.rotationStyle);
-      this.stage.backgroundStamps.add(stamp);
+      this.stage.backgroundStamps.add(this.getStamp());
     }
+  }
+
+  /** Stamps the current sprite to the ui. A stamp is a non interactive version of the sprite. */
+  public void stampToUI() {
+    if (this.costumes.size() > 0) {
+      this.stage.uiStamps.add(this.getStamp());
+    }
+  }
+
+  private Stamp getStamp() {
+    var stamp =
+        new Stamp(
+            this.costumes.get(this.currentCostume),
+            this.direction,
+            this.x,
+            this.y,
+            this.rotationStyle);
+
+    return stamp;
   }
 
   /**
@@ -1160,15 +1193,16 @@ public class Sprite {
    */
   public void stampToForeground() {
     if (this.costumes.size() > 0) {
-      var stamp =
-          new Stamp(
-              this.costumes.get(this.currentCostume),
-              this.direction,
-              this.x,
-              this.y,
-              this.rotationStyle);
-      this.stage.foregroundStamps.add(stamp);
+      this.stage.foregroundStamps.add(this.getStamp());
     }
+  }
+
+  public void isUI(boolean isUI) {
+    this.isUI = isUI;
+  }
+
+  public boolean isUI() {
+    return this.isUI;
   }
 
   /** Draws the sprite if it is not hidden. */
@@ -1185,7 +1219,7 @@ public class Sprite {
   }
 
   public void drawDebug() {
-    if (!this.hitboxDisabled) {
+    if (!this.hitboxDisabled && !this.isUI) {
       this.getHitbox().drawDebug(this.getStage().getDebugBuffer());
     }
     if (this.costumes.size() > 0 && this.show) {
