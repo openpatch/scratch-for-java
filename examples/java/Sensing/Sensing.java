@@ -27,7 +27,7 @@ public class Sensing extends Stage {
   public void run() {
     this.display("Move the hero with WASD and rotate him with R");
 
-    if(isKeyPressed(KeyCode.VK_0)) {
+    if (isKeyPressed(KeyCode.VK_0)) {
       this.getCamera().changeZoom(-1);
     }
     if (isKeyPressed(KeyCode.VK_1)) {

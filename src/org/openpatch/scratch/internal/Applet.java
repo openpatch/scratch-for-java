@@ -263,10 +263,7 @@ public class Applet extends PApplet {
       this.textFont(Font.getDefaultFont());
       this.textSize(14);
       this.text(this.loadingText, 0, this.loading.height / 2 + 20);
-      this.text(
-          round(this.loadingStatus() * 100) + "%",
-          0,
-          this.loading.height / 2 + 40);
+      this.text(round(this.loadingStatus() * 100) + "%", 0, this.loading.height / 2 + 40);
       this.textSize(14);
     } else if (this.stage != null) {
       this.stage.pre();
