@@ -10,7 +10,6 @@ public class World extends Stage {
 
   public World() {
     GameState.load();
-    this.setDebug(true);
     I18n.select(GameState.get().locale);
     this.loadMap(GameState.get().map);
   }

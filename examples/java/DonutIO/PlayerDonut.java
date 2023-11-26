@@ -7,11 +7,9 @@ public class PlayerDonut extends Donut {
   }
 
   public void run() {
-    var v = this.getMouse().unitVector();
+    var v = this.getMouse();
     this.setPosition(
-        this.getPosition()
-            .add(v)
-            .multiply(this.speed));
+        v.sub(this.getPosition()).unitVector().multiply(this.speed).add(this.getPosition()));
 
     super.run();
   }
