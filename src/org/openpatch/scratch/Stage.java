@@ -1080,8 +1080,9 @@ public class Stage {
       this.debugBuffer.scale((float) this.camera.getZoom() / 100.0f);
       this.debugBuffer.translate((float) -this.camera.getX(), (float) this.camera.getY());
       this.debugBuffer.clear();
-      this.sprites.stream().forEach(s -> s.drawDebug());
+      this.sprites.stream().filter(s -> !s.isUI()).forEach(s -> s.drawDebug());
       this.debugBuffer.popMatrix();
+      this.sprites.stream().filter(s -> s.isUI()).forEach(s -> s.drawDebug());
       this.debugBuffer.strokeWeight(1);
       this.debugBuffer.stroke(Window.DEBUG_COLOR[0], Window.DEBUG_COLOR[1], Window.DEBUG_COLOR[2]);
       this.debugBuffer.fill(Window.DEBUG_COLOR[0], Window.DEBUG_COLOR[1], Window.DEBUG_COLOR[2]);
