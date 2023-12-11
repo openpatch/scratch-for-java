@@ -3,6 +3,10 @@ name: Changelog
 index: 4
 ---
 
+## 4.7.0
+
+- Feat: Update sound library to add support for mp3 and ogg files
+
 ## 4.6.0
 
 - 🚀 Feat: Add setCursor method to the stage class.

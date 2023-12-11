@@ -4,7 +4,7 @@
   "scratchblock": "add sound (name) (file path)",
   "name": "addSound()",
   "class": "Sprite",
-  "description": "Fügt einen Klang hinzu.",
+  "description": "Fügt einen Klang hinzu. Die Datei muss im mp3, wav oder ogg Format vorliegen.",
   "syntax": [".addSound(name, filePath)"],
   "returns": "void",
   "examples": [
