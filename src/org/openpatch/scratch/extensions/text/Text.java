@@ -5,6 +5,7 @@ import org.davidmoten.text.utils.WordWrap;
 import org.openpatch.scratch.Sprite;
 import org.openpatch.scratch.Stage;
 import org.openpatch.scratch.Window;
+import org.openpatch.scratch.extensions.math.Vector2;
 import org.openpatch.scratch.internal.Applet;
 import org.openpatch.scratch.internal.Color;
 import org.openpatch.scratch.internal.Font;
@@ -97,16 +98,32 @@ public class Text {
 
   public void addedToStage(Stage stage) {
     this.stage = stage;
+    this.whenAddedToStage();
+    this.whenAddedToStage(stage);
   }
 
-  public void removedFromStage(Stage stage) {}
-
-  public double getX() {
-    return this.x;
+  public void removedFromStage(Stage stage) {
+    this.stage = null;
+    this.whenRemovedFromStage();
+    this.whenRemovedFromStage(stage);
   }
 
-  public double getY() {
-    return this.y;
+  public void whenAddedToStage() {}
+
+  public void whenAddedToStage(Stage stage) {}
+
+  public void whenRemovedFromStage() {}
+
+  public void whenRemovedFromStage(Stage stage) {}
+
+  public void remove() {
+    if (this.stage != null) {
+      this.stage.remove(this);
+    }
+  }
+
+  public Stage getStage() {
+    return this.stage;
   }
 
   public void addFont(String name, String path) {
@@ -151,13 +168,33 @@ public class Text {
    * @param x a x coordinate
    * @param y a y coordinate
    */
-  public void setPosition(int x, int y) {
+  public void setPosition(double x, double y) {
     this.x = x;
     this.y = y;
   }
 
-  public void setPosition(double x, double y) {
-    this.setPosition((int) Math.round(x), (int) Math.round(y));
+  public void setPosition(Vector2 v) {
+    this.setPosition(v.getX(), v.getY());
+  }
+
+  public Vector2 getPosition() {
+    return new Vector2(x, y);
+  }
+
+  public void setX(double x) {
+    this.x = x;
+  }
+
+  public double getX() {
+    return this.x;
+  }
+
+  public void setY(double y) {
+    this.y = y;
+  }
+
+  public double getY() {
+    return this.y;
   }
 
   public void showText(String text) {
