@@ -5,7 +5,9 @@ index: 4
 
 ## 4.7.0
 
-- Feat: Update sound library to add support for mp3 and ogg files
+- 🚀 Feat: Add methods to the text class to be more consistent with the sprite class in regard to positioning.
+- 🚀 Feat: Update sound library to add support for mp3 and ogg files
+- 🐛 Fix: Think- and say-bubble were not at the right place
 
 ## 4.6.0
 

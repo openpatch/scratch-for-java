@@ -1213,9 +1213,6 @@ public class Sprite {
           .get(this.currentCostume)
           .draw(this.size, this.direction, this.x, this.y, this.rotationStyle);
     }
-
-    this.text.setPosition(this.x + this.getWidth() * 0.9 / 2, this.y - this.getHeight() * 1.1 / 2);
-    this.text.draw();
   }
 
   public void drawDebug() {

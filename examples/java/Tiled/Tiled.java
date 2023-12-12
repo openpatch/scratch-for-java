@@ -4,6 +4,8 @@ public class Tiled extends Window {
   public Tiled() {
     super(800, 600, "Tiled/assets");
 
+    this.setDebug(true);
+
     I18n.setup();
 
     this.setStage(new World());
