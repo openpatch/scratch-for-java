@@ -1014,6 +1014,7 @@ public class Stage {
 
     this.sprites.stream().filter(s -> !s.isUI()).forEach(s -> s.draw());
     this.texts.stream().filter(t -> !t.isUI()).forEach(t -> t.draw());
+    this.sprites.stream().filter(s -> !s.isUI()).forEach(s -> s.getText().draw());
     applet.pop();
 
     // draw foreground
@@ -1049,6 +1050,7 @@ public class Stage {
 
     this.sprites.stream().filter(s -> s.isUI()).forEach(s -> s.draw());
     this.texts.stream().filter(t -> t.isUI()).forEach(t -> t.draw());
+    this.sprites.stream().filter(s -> s.isUI()).forEach(s -> s.getText().draw());
     applet.pop();
 
     // draw ui
