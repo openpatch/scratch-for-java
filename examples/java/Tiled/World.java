@@ -1,3 +1,5 @@
+package Tiled;
+
 import org.openpatch.scratch.KeyCode;
 import org.openpatch.scratch.Stage;
 import org.openpatch.scratch.extensions.tiled.TiledMap;

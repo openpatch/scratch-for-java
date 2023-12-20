@@ -1,3 +1,5 @@
+package Tiled;
+
 import org.openpatch.scratch.extensions.animation.*;
 
 public class Enemy extends AnimatedSprite {
