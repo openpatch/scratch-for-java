@@ -1,3 +1,5 @@
+package Tiled;
+
 import org.openpatch.scratch.*;
 
 public class Wall extends Sprite {
