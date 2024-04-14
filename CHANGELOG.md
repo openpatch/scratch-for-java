@@ -3,6 +3,12 @@ name: Changelog
 index: 4
 ---
 
+## 4.8.0
+
+- 💥 BREAKING CHANGE: Pen behavior was changed to work more similar to the behavior of the scratch pen. 
+    - You should double the size of your pen in your sketches to get the same visuals as in the previous versions. 
+    - You should also put the pen down after you have set the initial position, since the pen now draws an initial point, when it is put down.
+
 ## 4.7.0
 
 - 🚀 Feat: Add methods to the text class to be more consistent with the sprite class in regard to positioning.

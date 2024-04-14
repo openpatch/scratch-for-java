@@ -34,20 +34,40 @@ public class Pen {
     }
   }
 
+  class Path {
+    private CopyOnWriteArrayList<Point> points;
+    private boolean closed;
+    private Point lastPoint;
+
+    Path() {
+      this.points = new CopyOnWriteArrayList<>();
+      closed = false;
+    }
+
+    void add(Point point) {
+      this.points.add(point);
+    }
+  }
+
   private Color color = new Color(0);
   private double transparency = 255;
   private double size = 1;
-  private List<CopyOnWriteArrayList<Point>> pointsBuffer = new ArrayList<>();
+  private List<Path> pathsBuffer = new ArrayList<>();
   private boolean down = false;
-  private Point previousPoint = null;
+  private Path currentPath = null;
   private Stage stage;
   private Sprite sprite;
   private boolean isForeground = false;
+  private double x;
+  private double y;
 
-  public Pen() {}
+  public Pen() {
+  }
 
   public Pen(Sprite s) {
     this.sprite = s;
+    this.x = s.getX();
+    this.y = s.getY();
   }
 
   /**
@@ -59,8 +79,7 @@ public class Pen {
     this.color = new Color(p.color);
     this.size = p.size;
     this.transparency = p.transparency;
-    this.pointsBuffer = new ArrayList<>();
-    this.pointsBuffer.add(new CopyOnWriteArrayList<>());
+    this.pathsBuffer = new ArrayList<>();
     this.down = p.down;
     this.sprite = p.sprite;
   }
@@ -161,13 +180,10 @@ public class Pen {
    * @param y y coordinate
    */
   public void setPosition(double x, double y) {
-    if (this.down) {
-      if (this.pointsBuffer.isEmpty()) {
-        this.pointsBuffer.add(new CopyOnWriteArrayList<>());
-      }
-      this.pointsBuffer
-          .get(this.pointsBuffer.size() - 1)
-          .add(new Point(x, y, this.color, this.transparency, this.size));
+      this.x = x;
+      this.y = y;
+      if (this.down) {
+      this.currentPath.add(new Point(x, y, this.color, this.transparency, this.size));
     }
   }
 
@@ -187,15 +203,21 @@ public class Pen {
 
   /** Set the pen down. */
   public void down() {
-    if (!this.down) {
-      this.pointsBuffer.add(new CopyOnWriteArrayList<>());
-    }
     this.down = true;
+    if (this.currentPath == null || this.currentPath.closed) {
+      this.currentPath = new Path();
+      this.currentPath.add(new Point(this.x, this.y, this.color, this.transparency, this.size));
+      this.pathsBuffer.add(currentPath);
+    }
   }
 
   /** Move the pen up. */
   public void up() {
     this.down = false;
+    if (this.currentPath != null) {
+      this.currentPath.closed = true;
+      this.currentPath = null;
+    }
   }
 
   public void stamp() {
@@ -209,7 +231,7 @@ public class Pen {
   }
 
   public void eraseAll() {
-    this.pointsBuffer.clear();
+    this.pathsBuffer.clear();
     if (this.stage != null) {
       if (this.isForeground) {
         this.stage.eraseForeground();
@@ -221,25 +243,41 @@ public class Pen {
 
   /** Draw the line which the pen has drawn. */
   public void draw() {
-    if (this.stage == null) return;
+    if (this.stage == null)
+      return;
     PGraphics buffer = this.stage.getBackgroundBuffer();
     if (!this.isInBackground()) {
       buffer = this.stage.getForegroundBuffer();
     }
-    int pointsBufferSize = this.pointsBuffer.size();
-    if (pointsBufferSize <= 0) return;
+    int pointsBufferSize = this.pathsBuffer.size();
+    if (pointsBufferSize <= 0)
+      return;
 
-    Iterator<CopyOnWriteArrayList<Point>> pointsBufferIter = this.pointsBuffer.iterator();
+    Iterator<Path> pathsBufferIter = this.pathsBuffer.iterator();
 
     buffer.push();
 
-    while (pointsBufferIter.hasNext()) {
-      CopyOnWriteArrayList<Point> points = pointsBufferIter.next();
-      Iterator<Point> pointsIter = points.iterator();
+    while (pathsBufferIter.hasNext()) {
+      var path = pathsBufferIter.next();
+      var points = path.points;
+      var pointsIter = points.iterator();
 
       while (pointsIter.hasNext()) {
         Point point = pointsIter.next();
-        if (this.previousPoint != null) {
+        buffer.stroke(
+            (float) point.color.getRed(),
+            (float) point.color.getGreen(),
+            (float) point.color.getBlue(),
+            (float) point.opacity);
+        buffer.fill(
+            (float) point.color.getRed(),
+            (float) point.color.getGreen(),
+            (float) point.color.getBlue(),
+            (float) point.opacity);
+        buffer.strokeWeight(0);
+        buffer.circle((float) point.x, (float) -point.y, (float) point.size / 2.0f);
+
+        if (path.lastPoint != null) {
           buffer.stroke(
               (float) point.color.getRed(),
               (float) point.color.getGreen(),
@@ -247,29 +285,15 @@ public class Pen {
               (float) point.opacity);
           buffer.strokeWeight((float) point.size);
           buffer.line(
-              (float) this.previousPoint.x,
-              (float) -this.previousPoint.y,
+              (float) path.lastPoint.x,
+              (float) -path.lastPoint.y,
               (float) point.x,
               (float) -point.y);
-        } else if (this.previousPoint == null && !this.down) {
-          buffer.stroke(
-              (float) point.color.getRed(),
-              (float) point.color.getGreen(),
-              (float) point.color.getBlue(),
-              (float) point.opacity);
-          buffer.fill(
-              (float) point.color.getRed(),
-              (float) point.color.getGreen(),
-              (float) point.color.getBlue(),
-              (float) point.opacity);
-          buffer.strokeWeight((float) point.size);
-          buffer.circle((float) point.x, (float) -point.y, (float) point.size);
         }
-        this.previousPoint = point;
+        path.lastPoint = point;
       }
-      if (!this.down || pointsBufferIter.hasNext()) {
-        this.previousPoint = null;
-        pointsBufferIter.remove();
+      if (path.closed) {
+        pathsBufferIter.remove();
       } else {
         points.clear();
       }

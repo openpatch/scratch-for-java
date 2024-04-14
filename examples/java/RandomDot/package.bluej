@@ -1,0 +1,27 @@
+#BlueJ package file
+objectbench.height=93
+objectbench.width=776
+package.divider.horizontal=0.6
+package.divider.vertical=0.7995991983967936
+package.editor.height=392
+package.editor.width=654
+package.editor.x=494
+package.editor.y=151
+package.frame.height=600
+package.frame.width=800
+package.numDependencies=0
+package.numTargets=1
+package.showExtends=true
+package.showUses=true
+readme.height=60
+readme.name=@README
+readme.width=49
+readme.x=10
+readme.y=10
+target1.height=70
+target1.name=RandomDot
+target1.showInterface=false
+target1.type=ClassTarget
+target1.width=120
+target1.x=10
+target1.y=110

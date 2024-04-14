@@ -37,12 +37,12 @@ class LeafSprite extends Sprite {
 
   public LeafSprite(VineSprite vine) {
     this.vine = vine;
-    this.getPen().down();
     this.getPen().setSize(2);
     this.setDirection(vine.getDirection());
     this.getPen().setColor(vine.getPen().getColor());
     vine.getPen().changeColor(2);
     this.setPosition(vine.getX(), vine.getY());
+    this.getPen().down();
   }
 
   public void run() {
