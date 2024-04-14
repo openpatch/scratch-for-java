@@ -61,8 +61,7 @@ public class Pen {
   private double x;
   private double y;
 
-  public Pen() {
-  }
+  public Pen() {}
 
   public Pen(Sprite s) {
     this.sprite = s;
@@ -180,9 +179,9 @@ public class Pen {
    * @param y y coordinate
    */
   public void setPosition(double x, double y) {
-      this.x = x;
-      this.y = y;
-      if (this.down) {
+    this.x = x;
+    this.y = y;
+    if (this.down) {
       this.currentPath.add(new Point(x, y, this.color, this.transparency, this.size));
     }
   }
@@ -243,15 +242,13 @@ public class Pen {
 
   /** Draw the line which the pen has drawn. */
   public void draw() {
-    if (this.stage == null)
-      return;
+    if (this.stage == null) return;
     PGraphics buffer = this.stage.getBackgroundBuffer();
     if (!this.isInBackground()) {
       buffer = this.stage.getForegroundBuffer();
     }
     int pointsBufferSize = this.pathsBuffer.size();
-    if (pointsBufferSize <= 0)
-      return;
+    if (pointsBufferSize <= 0) return;
 
     Iterator<Path> pathsBufferIter = this.pathsBuffer.iterator();
 
