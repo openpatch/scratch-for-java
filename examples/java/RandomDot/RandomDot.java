@@ -17,11 +17,11 @@ public class RandomDot extends Stage {
 class RandomDotSprite extends Sprite {
   public void run() {
     if (this.getTimer().everyMillis(100)) {
-      this.getPen().down();
-      this.getPen().setSize(10);
+      this.getPen().up();
+      this.getPen().setSize(20);
       this.goToRandomPosition();
       this.getPen().changeColor(2);
-      this.getPen().up();
+      this.getPen().down();
     }
   }
 }

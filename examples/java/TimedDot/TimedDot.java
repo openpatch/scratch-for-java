@@ -24,22 +24,22 @@ class DotSprite extends Sprite {
     super();
     this.addTimer("timer2");
     this.addTimer("timer1");
-    this.getPen().setSize(20);
+    this.getPen().setSize(40);
     this.setOnEdgeBounce(true);
     this.setDirection(65);
   }
 
   public void run() {
     if (this.getTimer("timer2").everyMillis(600)) {
-      this.getPen().down();
       this.getPen().setColor(200);
       this.move(20);
+      this.getPen().down();
       this.getPen().up();
     }
     if (this.getTimer("timer1").everyMillis(1200)) {
-      this.getPen().down();
       this.getPen().setColor(100);
       this.move(20);
+      this.getPen().down();
       this.getPen().up();
     }
   }
