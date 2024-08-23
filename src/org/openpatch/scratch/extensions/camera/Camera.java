@@ -43,7 +43,7 @@ public class Camera {
 
   /**
    * Converts screen coordinates to local camera coordinates
-   * 
+   *
    * @param v screen coordinates
    * @return local coordinates
    */
@@ -63,7 +63,7 @@ public class Camera {
 
   /**
    * Converts local camera coordinates to screen coordinates
-   * 
+   *
    * @param v local camera coordinates
    * @return screen coordinates
    */
