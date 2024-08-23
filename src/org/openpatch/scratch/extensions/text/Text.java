@@ -416,10 +416,12 @@ public class Text {
       lines = this.wrap(this.originalText, this.width);
     }
     if (applet.isDebug()) {
+      var textSize = applet.getTextSize();
       applet.textSize(12);
       applet.fill(Window.DEBUG_COLOR[0], Window.DEBUG_COLOR[1], Window.DEBUG_COLOR[1]);
       applet.textAlign(PConstants.CENTER);
       applet.text("(" + this.x + ", " + this.y + ")", 0, -20);
+      applet.textSize((float) textSize);
     }
     this.text = String.join("\n", lines);
 
