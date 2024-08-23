@@ -9,11 +9,14 @@ import org.openpatch.scratch.extensions.math.Vector2;
 public class WorldStage extends Stage {
 
   public static Vector2 CAM = new Vector2(0, 0);
+  public boolean manualZoom;
 
   public PlayerDonut player;
 
   public WorldStage() {
     this.add(new Background());
+
+    manualZoom = false;
 
     player = new PlayerDonut();
     this.add(player);
@@ -57,15 +60,20 @@ public class WorldStage extends Stage {
 
     if (this.isKeyPressed(KeyCode.VK_1)) {
       this.getCamera().changeZoom(1);
+      manualZoom = true;
     }
     if (this.isKeyPressed(KeyCode.VK_0)) {
       this.getCamera().changeZoom(-1);
+      manualZoom = true;
     }
     if (this.isKeyPressed(KeyCode.VK_R)) {
       this.getCamera().resetZoom();
+      manualZoom = false;
     }
 
-    this.getCamera().setZoom(10 / player.getStrength() * 100);
+    if (!manualZoom) {
+      this.getCamera().setZoom(10 / player.getStrength() * 100);
+    }
     this.getCamera().setPosition(player.getPosition());
   }
 }
