@@ -361,6 +361,11 @@ public class Sprite {
     }
   }
 
+  public double getTint() {
+    if (this.costumes.size() == 0) return 0;
+    return this.costumes.get(currentCostume).getTint();
+  }
+
   /**
    * Sets the transparency of the sprite.
    *
