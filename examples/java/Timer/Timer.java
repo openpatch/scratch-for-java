@@ -5,7 +5,7 @@ import org.openpatch.scratch.Stage;
 
 public class Timer extends Stage {
   public Timer() {
-    super(1800, 400);
+    super(1800, 360);
     this.add(new TimerSprite());
   }
 
@@ -15,7 +15,7 @@ public class Timer extends Stage {
 }
 
 class TimerSprite extends Sprite {
-  int x = -1800;
+  int x = -900;
 
   public TimerSprite() {
     super();
@@ -34,49 +34,49 @@ class TimerSprite extends Sprite {
     int y = -140;
     this.x += 20;
     if (this.getTimer("every").everyMillis(600)) {
-      this.getPen().setColor(20);
+      this.getPen().setColor(20); // Orange
       this.setPosition(this.x, y);
       this.getPen().down();
       this.getPen().up();
     }
     y += 40;
     if (this.getTimer("for").forMillis(600)) {
-      this.getPen().setColor(60);
+      this.getPen().setColor(60); // Hellgrün
       this.setPosition(this.x, y);
       this.getPen().down();
       this.getPen().up();
     }
     y += 40;
     if (this.getTimer("after").afterMillis(600)) {
-      this.getPen().setColor(100);
+      this.getPen().setColor(100); // Grün
       this.setPosition(this.x, y);
       this.getPen().down();
       this.getPen().up();
     }
     y += 40;
     if (this.getTimer("interval1").intervalMillis(600)) {
-      this.getPen().setColor(140);
+      this.getPen().setColor(140); // Hellblau
       this.setPosition(this.x, y);
       this.getPen().down();
       this.getPen().up();
     }
     y += 40;
     if (this.getTimer("interval2").intervalMillis(600, true)) {
-      this.getPen().setColor(180);
+      this.getPen().setColor(180); // Blau
       this.setPosition(this.x, y);
       this.getPen().down();
       this.getPen().up();
     }
     y += 40;
     if (this.getTimer("interval3").intervalMillis(600, 300)) {
-      this.getPen().setColor(220);
+      this.getPen().setColor(220); // Pink
       this.setPosition(this.x, y);
       this.getPen().down();
       this.getPen().up();
     }
     y += 40;
     if (this.getTimer("interval4").intervalMillis(600, 300, true)) {
-      this.getPen().setColor(255);
+      this.getPen().setColor(255); // Rot
       this.setPosition(this.x, y);
       this.getPen().down();
       this.getPen().up();
