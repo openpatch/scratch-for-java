@@ -41,10 +41,16 @@ public class Camera {
     return new Vector2(x, y);
   }
 
+  /**
+   * Converts screen coordinates to local camera coordinates
+   * 
+   * @param v screen coordinates
+   * @return local coordinates
+   */
   public Vector2 toLocalPosition(Vector2 v) {
     return new Vector2(
-        (v.getX() + this.getX()) / (this.getZoom() / 100.0),
-        (v.getY() + this.getY()) / (this.getZoom() / 100.0));
+        v.getX() / (this.getZoom() / 100.0) + this.getX(),
+        v.getY() / (this.getZoom() / 100.0) + this.getY());
   }
 
   public double toLocalX(double x) {
@@ -55,6 +61,12 @@ public class Camera {
     return toLocalPosition(new Vector2(0, y)).getY();
   }
 
+  /**
+   * Converts local camera coordinates to screen coordinates
+   * 
+   * @param v local camera coordinates
+   * @return screen coordinates
+   */
   public Vector2 toGlobalPosition(Vector2 v) {
     return new Vector2(
         (v.getX() - this.getX()) * (this.getZoom() / 100.0),

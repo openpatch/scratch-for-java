@@ -693,10 +693,6 @@ public class Stage {
   }
 
   public void mouseEvent(MouseEvent e) {
-    this.mouseX = e.getX() - this.getWidth() / 2;
-    this.mouseY = -(e.getY() - this.getHeight() / 2);
-    this.mouseX = this.getCamera().toLocalX(this.mouseX);
-    this.mouseY = this.getCamera().toLocalY(this.mouseY);
     this.mouseDown = false;
 
     if (e.getAction() == MouseEvent.PRESS) {
@@ -951,6 +947,13 @@ public class Stage {
   public void run() {}
 
   public void pre() {
+    Applet applet = Applet.getInstance();
+    if (applet == null) return;
+    var globalMouseX = applet.mouseX - this.getWidth() / 2;
+    var globalMouseY = -(applet.mouseY - this.getHeight() / 2);
+    this.mouseX = this.getCamera().toLocalX(globalMouseX);
+    this.mouseY = this.getCamera().toLocalY(globalMouseY);
+
     this.run();
     this.sprites.stream().forEach(s -> s.run());
   }
@@ -1108,9 +1111,9 @@ public class Stage {
       this.debugBuffer.text("FPS: " + Math.round(applet.frameRate * 100) / 100, 20, 20);
       this.debugBuffer.text(
           "Camera: ("
-              + this.camera.getX()
+              + Math.round(this.camera.getX() * 100) / 100.0
               + ", "
-              + this.camera.getY()
+              + Math.round(this.camera.getY() * 100) / 100.0
               + ") "
               + Math.round(this.camera.getZoom() * 100) / 100,
           20,
