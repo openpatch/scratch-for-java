@@ -32,7 +32,7 @@ public class StressTest extends Stage {
   }
 
   public static void main(String[] args) {
-    Window myWindow = new Window(1200, 800, "assets");
+    Window myWindow = new Window(1200, 800, "StressTest/assets");
     myWindow.setStage(new StressTest());
   }
 }
