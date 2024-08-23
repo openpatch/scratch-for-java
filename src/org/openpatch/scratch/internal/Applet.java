@@ -72,6 +72,10 @@ public class Applet extends PApplet {
     return this.height;
   }
 
+  public double getTextSize() {
+    return this.g.textSize;
+  }
+
   /**
    * @deprecated since 4.0.0. Use setStage instead.
    * @param name Name of the stage
