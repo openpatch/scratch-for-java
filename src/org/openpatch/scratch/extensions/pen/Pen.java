@@ -79,8 +79,12 @@ public class Pen {
     this.size = p.size;
     this.transparency = p.transparency;
     this.pathsBuffer = new ArrayList<>();
-    this.down = p.down;
     this.sprite = p.sprite;
+    this.x = p.x;
+    this.y = p.y;
+    if (p.down) {
+      this.down();
+    }
   }
 
   public void addedToStage(Stage stage) {
@@ -181,7 +185,7 @@ public class Pen {
   public void setPosition(double x, double y) {
     this.x = x;
     this.y = y;
-    if (this.down) {
+    if (this.down && this.currentPath != null) {
       this.currentPath.add(new Point(x, y, this.color, this.transparency, this.size));
     }
   }
