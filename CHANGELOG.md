@@ -3,6 +3,11 @@ name: Changelog
 index: 4
 ---
 
+## 4.8.1
+
+- 🐛 Fix: Debug text influencing text size of other texts.
+- 🐛 Fix: Mouse tracking not working correctly when zooming in and out.
+
 ## 4.8.0
 
 - 💥 BREAKING CHANGE: Pen behavior was changed to work more similar to the behavior of the scratch pen. 
