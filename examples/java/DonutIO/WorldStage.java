@@ -10,6 +10,8 @@ public class WorldStage extends Stage {
 
   public static Vector2 CAM = new Vector2(0, 0);
   public boolean manualZoom;
+  public double zoomInc = 0.1;
+  public double targetZoom;
 
   public PlayerDonut player;
 
@@ -35,7 +37,7 @@ public class WorldStage extends Stage {
   }
 
   public void run() {
-    if (this.getTimer().everyMillis(5000)) {
+    if (this.getTimer().everyMillis(1000)) {
       var food = new Donut();
       food.setStrength(Random.randomInt(2, 5));
       this.add(food);
@@ -71,8 +73,10 @@ public class WorldStage extends Stage {
       manualZoom = false;
     }
 
-    if (!manualZoom) {
-      this.getCamera().setZoom(10 / player.getStrength() * 100);
+    targetZoom = 10 / player.getStrength() * 100;
+
+    if (!manualZoom && this.getCamera().getZoom() > targetZoom) {
+      this.getCamera().changeZoom(-zoomInc);
     }
     this.getCamera().setPosition(player.getPosition());
   }
