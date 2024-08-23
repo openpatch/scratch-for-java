@@ -192,7 +192,7 @@ public class Image {
     this.width = (int) Math.round(this.originalImage.width * percentage / 100);
     this.height = (int) Math.round(this.originalImage.height * percentage / 100);
 
-    var imageResized = this.imageResized.get(percentage);
+    var imageResized = this.imageResized.get((float) percentage);
     if (imageResized != null) {
       this.image = imageResized;
     } else {
