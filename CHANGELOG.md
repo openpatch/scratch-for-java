@@ -3,6 +3,10 @@ name: Changelog
 index: 4
 ---
 
+## 4.8.2
+
+- 🐛 Fix: Pen position and state when using the copy-constructor.
+
 ## 4.8.1
 
 - 🐛 Fix: Debug text influencing text size of other texts.
