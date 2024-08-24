@@ -3,6 +3,10 @@ name: Changelog
 index: 4
 ---
 
+## 4.8.3
+
+- 🐛 Fix: pointTowardsSprite pointing to the opposite direction 
+
 ## 4.8.2
 
 - 🐛 Fix: Pen position and state when using the copy-constructor.
