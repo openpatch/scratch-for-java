@@ -3,6 +3,10 @@ name: Changelog
 index: 4
 ---
 
+## 4.8.4
+
+- 🐛 Fix: keyCodes for some keys were off.
+
 ## 4.8.3
 
 - 🐛 Fix: pointTowardsSprite pointing to the opposite direction 
