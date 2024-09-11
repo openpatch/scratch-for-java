@@ -10,10 +10,9 @@
 	<classpathentry kind="lib" path="libs/jackson-core-2.15.2.jar"/>
 	<classpathentry kind="lib" path="libs/jackson-databind-2.15.2.jar"/>
 	<classpathentry kind="lib" path="libs/jackson-dataformat-xml-2.15.2.jar"/>
-	<classpathentry kind="lib" path="libs/javamp3-1.0.4.jar"/>
 	<classpathentry kind="lib" path="libs/jogl-all.jar"/>
 	<classpathentry kind="lib" path="libs/jssc-2.9.4.jar"/>
-	<classpathentry kind="lib" path="libs/jsyn-20171016.jar"/>
+	<classpathentry kind="lib" path="libs/jsyn-17.1.0.jar"/>
 	<classpathentry kind="lib" path="libs/serial-3.3.7.jar"/>
 	<classpathentry kind="lib" path="libs/sound.jar"/>
 	<classpathentry kind="lib" path="libs/stax2-api-4.2.1.jar"/>
