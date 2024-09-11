@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
 import java.net.URISyntaxException;
-import java.nio.file.Paths;
+import java.nio.file.Path;
 
 public class File {
 
@@ -61,12 +61,12 @@ public class File {
     path = path.replaceFirst("^~", System.getProperty("user.home"));
     // if an absulte path is provied use this, otherwise try loading from classpath
     try {
-      if (Paths.get(path).isAbsolute()) {
+      if (Path.of(path).isAbsolute()) {
         return path;
       }
-      var systemPath = ClassLoader.getSystemResource("").toURI().getPath();
+      var systemPath = ClassLoader.getSystemResource("").toURI().resolve(path);
       if (systemPath != null) {
-        return Paths.get(systemPath, path).toString();
+        return Path.of(systemPath).toString();
       }
       return path;
     } catch (URISyntaxException e) {
@@ -80,7 +80,7 @@ public class File {
     path = getPath(path);
     try (Reader reader = new FileReader(path)) {
       return mapper.readValue(reader, cls);
-    } catch (IOException e) {
+    } catch (Exception e) {
       System.err.println(e);
       return null;
     }
