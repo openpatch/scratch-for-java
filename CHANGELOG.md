@@ -3,9 +3,17 @@ name: Changelog
 index: 4
 ---
 
-## 4.8.4
+## 4.9.0
+
+- 🚀 Feat: Add fullscreen mode. You can now define in the constructor of your window, if you want to operate in fullscreen mode.
+
+```java
+new Window(true); // fullscreen
+new Window(true, assets) // fullscreen with assets loading
+```
 
 - 🐛 Fix: keyCodes for some keys were off.
+- 🐛 Fix: File extension not working on Windows.
 
 ## 4.8.3
 

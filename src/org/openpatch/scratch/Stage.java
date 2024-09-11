@@ -82,7 +82,19 @@ public class Stage {
     this(width, height, null);
   }
 
-  public Stage(int width, final int height, String assets) {
+  public Stage(int width, int height, String assets) {
+    this(width, height, false, assets);
+  }
+
+  public Stage(boolean fullScreen) {
+    this(480, 360, fullScreen, null);
+  }
+
+  public Stage(boolean fullScreen, String assets) {
+    this(480, 360, fullScreen, assets);
+  }
+
+  public Stage(int width, final int height, boolean fullScreen, String assets) {
     this.cursor = null;
     this.camera = new Camera();
     this.texts = new CopyOnWriteArrayList<>();
@@ -93,7 +105,11 @@ public class Stage {
     this.uiStamps = new ConcurrentLinkedQueue<>();
     this.timer = new ConcurrentHashMap<>();
     if (Window.getInstance() == null) {
-      new Window(width, height, assets);
+      if (fullScreen) {
+        new Window(fullScreen, assets);
+      } else {
+        new Window(width, height, assets);
+      }
       Applet a = Applet.getInstance();
       a.setStage(this);
     }

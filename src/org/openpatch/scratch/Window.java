@@ -26,7 +26,20 @@ public class Window {
     }
 
     Window.instance = this;
-    new Applet(width, height, assets);
+    new Applet(width, height, false, assets);
+  }
+
+  public Window(boolean fullScreen) {
+    this(fullScreen, null);
+  }
+
+  public Window(boolean fullScreen, String assets) {
+    if (Window.instance != null) {
+      throw new Error("You can only have one Window.");
+    }
+
+    Window.instance = this;
+    new Applet(480, 360, fullScreen, assets);
   }
 
   public static Window getInstance() {
