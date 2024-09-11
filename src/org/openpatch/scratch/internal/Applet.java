@@ -21,6 +21,7 @@ import processing.sound.SoundFile;
 public class Applet extends PApplet {
   private final int INITIAL_HEIGHT;
   private final int INITIAL_WIDTH;
+  private final boolean FULLSCREEN;
 
   private boolean debug;
   private static Applet instance;
@@ -36,9 +37,10 @@ public class Applet extends PApplet {
   private boolean hasLoaded = false;
   private String loadingText = "";
 
-  public Applet(int width, final int height, final String assets) {
+  public Applet(int width, final int height, final boolean fullscreen, final String assets) {
     this.INITIAL_HEIGHT = height;
     this.INITIAL_WIDTH = width;
+    this.FULLSCREEN = fullscreen;
     this.assets = assets;
 
     this.stages = new ConcurrentHashMap<>();
@@ -124,7 +126,11 @@ public class Applet extends PApplet {
    * @see PApplet#smooth()
    */
   public void settings() {
-    this.size(this.INITIAL_WIDTH, this.INITIAL_HEIGHT, P2D);
+    if (this.FULLSCREEN) {
+      this.fullScreen(P2D);
+    } else {
+      this.size(this.INITIAL_WIDTH, this.INITIAL_HEIGHT, P2D);
+    }
   }
 
   public double getDeltaTime() {
