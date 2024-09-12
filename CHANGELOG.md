@@ -13,6 +13,9 @@ Random.randomX();
 Random.randomY();
 ```
 
+- 🐛 Fix: setSize not caching the new image, which lead to low framerates.
+
+
 ## 4.9.0
 
 - 🚀 Feat: Add fullscreen mode. You can now define in the constructor of your window, if you want to operate in fullscreen mode.
