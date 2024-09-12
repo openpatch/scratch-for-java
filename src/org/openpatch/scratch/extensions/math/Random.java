@@ -67,26 +67,28 @@ public class Random {
   }
 
   /**
-   * Return a random x coordinate with respect to the width of the window. 
-   * 
+   * Return a random x coordinate with respect to the width of the window.
+   *
    * @return a random x coordinate
    */
   public static double randomX() {
-    return Random.random(-Applet.getInstance().getWidth() / 2.0, Applet.getInstance().getWidth() / 2.0);
+    return Random.random(
+        -Applet.getInstance().getWidth() / 2.0, Applet.getInstance().getWidth() / 2.0);
   }
 
   /**
-   * Return a random y coordinate with respect to the width of the window. 
-   * 
+   * Return a random y coordinate with respect to the width of the window.
+   *
    * @return a random y coordinate
    */
   public static double randomY() {
-    return Random.random(-Applet.getInstance().getHeight() / 2.0, Applet.getInstance().getHeight() / 2.0);
+    return Random.random(
+        -Applet.getInstance().getHeight() / 2.0, Applet.getInstance().getHeight() / 2.0);
   }
 
   /**
-   * Returns a random position with respect to the width of the window. 
-   * 
+   * Returns a random position with respect to the width of the window.
+   *
    * @return a random position vector
    */
   public static Vector2 randomPosition() {
