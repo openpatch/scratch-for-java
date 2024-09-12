@@ -14,7 +14,7 @@ public class Image {
 
   String name;
   PImage image;
-  AbstractMap<Float, PImage> imageResized = new ConcurrentHashMap<>();
+  AbstractMap<String, PImage> imageResized = new ConcurrentHashMap<>();
   final PImage originalImage;
   Color tint = new Color();
   double transparency = 255;
@@ -28,7 +28,7 @@ public class Image {
   /**
    * Construct a ScratchImage object by a name and a path to an image.
    *
-   * @param name a a name
+   * @param name      a a name
    * @param imagePath a path to an image
    */
   public Image(String name, String imagePath) {
@@ -191,30 +191,29 @@ public class Image {
   public void setSize(double percentage) {
     this.width = (int) Math.round(this.originalImage.width * percentage / 100);
     this.height = (int) Math.round(this.originalImage.height * percentage / 100);
+    this.setSize(width, height);
+  }
 
-    var imageResized = this.imageResized.get((float) percentage);
+  public void setSize(int width, int height) {
+    var key = width + "x" + height;
+    var imageResized = this.imageResized.get(key);
     if (imageResized != null) {
       this.image = imageResized;
     } else {
       imageResized = this.originalImage.copy();
-      imageResized.resize(this.width, this.height);
+      imageResized.resize(width, height);
+      this.imageResized.put(key, imageResized);
       this.image = imageResized;
     }
-  }
-
-  public void setSize(int width, int height) {
-    var imageResized = this.originalImage.copy();
-    imageResized.resize(width, height);
-    this.image = imageResized;
   }
 
   /**
    * Draw the scaled image at a given position.
    *
-   * @param size a percentage value
+   * @param size    a percentage value
    * @param degrees direction
-   * @param x a x coordinate
-   * @param y a y coordinate
+   * @param x       a x coordinate
+   * @param y       a y coordinate
    */
   public void draw(double size, double degrees, double x, double y, RotationStyle style) {
     Applet applet = Applet.getInstance();
@@ -274,7 +273,10 @@ public class Image {
     parent.noTint();
   }
 
-  /** Draw the image as a background. The image is automatically scaled to fit the window size. */
+  /**
+   * Draw the image as a background. The image is automatically scaled to fit the
+   * window size.
+   */
   public void drawAsBackground() {
     PApplet applet = Applet.getInstance();
     applet.tint(
