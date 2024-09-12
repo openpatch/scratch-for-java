@@ -1,5 +1,6 @@
 package org.openpatch.scratch.extensions.math;
 
+import org.openpatch.scratch.internal.Applet;
 import org.openpatch.scratch.internal.OpenSimplex2S;
 
 public class Random {
@@ -63,6 +64,33 @@ public class Random {
    */
   public static Vector2 randomVector2() {
     return new Vector2(random(), random()).unitVector();
+  }
+
+  /**
+   * Return a random x coordinate with respect to the width of the window. 
+   * 
+   * @return a random x coordinate
+   */
+  public static double randomX() {
+    return Random.random(-Applet.getInstance().getWidth() / 2.0, Applet.getInstance().getWidth() / 2.0);
+  }
+
+  /**
+   * Return a random y coordinate with respect to the width of the window. 
+   * 
+   * @return a random y coordinate
+   */
+  public static double randomY() {
+    return Random.random(-Applet.getInstance().getHeight() / 2.0, Applet.getInstance().getHeight() / 2.0);
+  }
+
+  /**
+   * Returns a random position with respect to the width of the window. 
+   * 
+   * @return a random position vector
+   */
+  public static Vector2 randomPosition() {
+    return new Vector2(randomX(), randomY());
   }
 
   /**

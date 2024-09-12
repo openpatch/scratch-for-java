@@ -3,6 +3,16 @@ name: Changelog
 index: 4
 ---
 
+## 4.10.0
+
+- 🚀 Feat: Add new random methods for get a random position with respect to the window size.
+
+```java
+Random.randomPosition();
+Random.randomX();
+Random.randomY();
+```
+
 ## 4.9.0
 
 - 🚀 Feat: Add fullscreen mode. You can now define in the constructor of your window, if you want to operate in fullscreen mode.
