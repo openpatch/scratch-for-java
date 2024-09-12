@@ -28,7 +28,7 @@ public class Image {
   /**
    * Construct a ScratchImage object by a name and a path to an image.
    *
-   * @param name      a a name
+   * @param name a a name
    * @param imagePath a path to an image
    */
   public Image(String name, String imagePath) {
@@ -210,10 +210,10 @@ public class Image {
   /**
    * Draw the scaled image at a given position.
    *
-   * @param size    a percentage value
+   * @param size a percentage value
    * @param degrees direction
-   * @param x       a x coordinate
-   * @param y       a y coordinate
+   * @param x a x coordinate
+   * @param y a y coordinate
    */
   public void draw(double size, double degrees, double x, double y, RotationStyle style) {
     Applet applet = Applet.getInstance();
@@ -273,10 +273,7 @@ public class Image {
     parent.noTint();
   }
 
-  /**
-   * Draw the image as a background. The image is automatically scaled to fit the
-   * window size.
-   */
+  /** Draw the image as a background. The image is automatically scaled to fit the window size. */
   public void drawAsBackground() {
     PApplet applet = Applet.getInstance();
     applet.tint(
