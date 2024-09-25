@@ -1,7 +1,24 @@
 ---
 name: Changelog
 index: 4
+lang: en
 ---
+
+## 4.11.0
+
+- 🚀 Feat: A broadcast and whenIReceive methods for the Object-class, which makes it possible to send anything as a broadcast.
+
+```java
+sprite1.broadcast(new Event());
+
+class AnotherSprite extends Sprite {
+    public void whenIReceive(Object message) {
+        if (message instanceof Event) {
+            // ...
+        }
+    }
+}
+```
 
 ## 4.10.0
 

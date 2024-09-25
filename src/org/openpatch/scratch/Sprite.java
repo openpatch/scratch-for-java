@@ -104,13 +104,17 @@ public class Sprite {
     this.whenRemovedFromStage(stage);
   }
 
-  public void whenAddedToStage() {}
+  public void whenAddedToStage() {
+  }
 
-  public void whenAddedToStage(Stage stage) {}
+  public void whenAddedToStage(Stage stage) {
+  }
 
-  public void whenRemovedFromStage() {}
+  public void whenRemovedFromStage() {
+  }
 
-  public void whenRemovedFromStage(Stage stage) {}
+  public void whenRemovedFromStage(Stage stage) {
+  }
 
   public void remove() {
     if (this.stage != null) {
@@ -123,9 +127,10 @@ public class Sprite {
   }
 
   /**
-   * Add a costume to the sprite. If a costume with the received name already exists do nothing.
+   * Add a costume to the sprite. If a costume with the received name already
+   * exists do nothing.
    *
-   * @param name a unique name
+   * @param name      a unique name
    * @param imagePath a image path
    */
   public void addCostume(String name, final String imagePath) {
@@ -157,13 +162,14 @@ public class Sprite {
   }
 
   /**
-   * Adds all tiles from a spritesheet as costumes. The costumes will be name by the prefix and the
+   * Adds all tiles from a spritesheet as costumes. The costumes will be name by
+   * the prefix and the
    * index in the spritesheet.
    *
-   * @param prefix a prefix for all generated costumes
+   * @param prefix      a prefix for all generated costumes
    * @param spriteSheet a path to a sprite sheet
-   * @param tileWidth the width of a single tile
-   * @param tileHeight the height of a single tile
+   * @param tileWidth   the width of a single tile
+   * @param tileHeight  the height of a single tile
    */
   public void addCostumes(String prefix, String spriteSheet, int tileWidth, int tileHeight) {
     var image = Image.loadImage(spriteSheet);
@@ -174,9 +180,8 @@ public class Sprite {
     for (var y = 0; y < ny; y += 1) {
       for (var x = 0; x < nx; x += 1) {
         var index = x * nx + y;
-        Image costume =
-            new Image(
-                prefix + index, spriteSheet, x * tileWidth, y * tileHeight, tileWidth, tileHeight);
+        Image costume = new Image(
+            prefix + index, spriteSheet, x * tileWidth, y * tileHeight, tileWidth, tileHeight);
         this.costumes.add(costume);
       }
     }
@@ -212,7 +217,8 @@ public class Sprite {
    * @return a costume name
    */
   public String getCurrentCostumeName() {
-    if (this.costumes.size() == 0) return null;
+    if (this.costumes.size() == 0)
+      return null;
 
     return this.costumes.get(this.currentCostume).getName();
   }
@@ -227,9 +233,10 @@ public class Sprite {
   }
 
   /**
-   * Add a sound to the sprite. If a sound with the received name already exists do nothing.
+   * Add a sound to the sprite. If a sound with the received name already exists
+   * do nothing.
    *
-   * @param name a unique name
+   * @param name      a unique name
    * @param soundPath a sound path
    */
   public void addSound(String name, final String soundPath) {
@@ -326,7 +333,8 @@ public class Sprite {
    * @param b a blue value [0...255]
    */
   public void setTint(double r, double g, double b) {
-    if (this.costumes.size() == 0) return;
+    if (this.costumes.size() == 0)
+      return;
 
     for (Image costume : this.costumes) {
       costume.setTint(r, g, b);
@@ -340,7 +348,8 @@ public class Sprite {
    * @param h a hue value [0...255]
    */
   public void setTint(double h) {
-    if (this.costumes.size() == 0) return;
+    if (this.costumes.size() == 0)
+      return;
 
     for (Image costume : this.costumes) {
       costume.setTint(h);
@@ -354,7 +363,8 @@ public class Sprite {
    * @param h a hue value [0...255]
    */
   public void changeTint(double step) {
-    if (this.costumes.size() == 0) return;
+    if (this.costumes.size() == 0)
+      return;
 
     for (Image costume : this.costumes) {
       costume.changeTint(step);
@@ -362,7 +372,8 @@ public class Sprite {
   }
 
   public double getTint() {
-    if (this.costumes.size() == 0) return 0;
+    if (this.costumes.size() == 0)
+      return 0;
     return this.costumes.get(currentCostume).getTint();
   }
 
@@ -373,7 +384,8 @@ public class Sprite {
    * @param transparency 0 full transparency, 255 no transparency
    */
   public void setTransparency(double transparency) {
-    if (this.costumes.size() == 0) return;
+    if (this.costumes.size() == 0)
+      return;
 
     for (Image costume : this.costumes) {
       costume.setTransparency(transparency);
@@ -387,7 +399,8 @@ public class Sprite {
    * @param step a step value
    */
   public void changeTransparency(double step) {
-    if (this.costumes.size() == 0) return;
+    if (this.costumes.size() == 0)
+      return;
 
     for (Image costume : this.costumes) {
       costume.changeTransparency(step);
@@ -444,7 +457,8 @@ public class Sprite {
   }
 
   /**
-   * Sets if the sprite should bounce when hitting the edge of the screen. This method is for making
+   * Sets if the sprite should bounce when hitting the edge of the screen. This
+   * method is for making
    * is attribute perment.
    *
    * @param b true if the sprite should bounce
@@ -454,7 +468,8 @@ public class Sprite {
   }
 
   public void ifOnEdgeBounce() {
-    if (this.hitboxDisabled || this.isUI) return;
+    if (this.hitboxDisabled || this.isUI)
+      return;
 
     var h = this.getHitbox();
 
@@ -517,7 +532,8 @@ public class Sprite {
   }
 
   /**
-   * Sets the direction of the sprite to a given degrees. When this value is 0 the sprite move
+   * Sets the direction of the sprite to a given degrees. When this value is 0 the
+   * sprite move
    * right, when it is 180 is moves to the left.
    *
    * @param degrees between 0 and 360
@@ -603,7 +619,8 @@ public class Sprite {
   }
 
   /**
-   * Moves the sprite in the direction of the given vector. The length of the vector determines how
+   * Moves the sprite in the direction of the given vector. The length of the
+   * vector determines how
    * move the sprite will move in this direction.
    *
    * @param v a vector
@@ -672,23 +689,27 @@ public class Sprite {
   }
 
   /**
-   * Return the width of the current costume or the pen size, when no costume is available.
+   * Return the width of the current costume or the pen size, when no costume is
+   * available.
    *
    * @return the width of the sprite
    */
   public int getWidth() {
-    if (this.costumes.size() == 0) return (int) this.getPen().getSize();
+    if (this.costumes.size() == 0)
+      return (int) this.getPen().getSize();
 
     return this.costumes.get(this.currentCostume).getWidth();
   }
 
   /**
-   * Return the height of the current costume or the pen size, when no costume is available.
+   * Return the height of the current costume or the pen size, when no costume is
+   * available.
    *
    * @return the height of the sprite
    */
   public int getHeight() {
-    if (this.costumes.size() == 0) return (int) this.getPen().getSize();
+    if (this.costumes.size() == 0)
+      return (int) this.getPen().getSize();
 
     return this.costumes.get(this.currentCostume).getHeight();
   }
@@ -717,7 +738,8 @@ public class Sprite {
    * @param name the name of the timer
    */
   public void addTimer(String name) {
-    if ("default".equals(name)) return;
+    if ("default".equals(name))
+      return;
 
     this.timer.put(name, new Timer());
   }
@@ -728,18 +750,21 @@ public class Sprite {
    * @param name the name of the timer
    */
   public void removeTimer(String name) {
-    if ("default".equals(name)) return;
+    if ("default".equals(name))
+      return;
 
     this.timer.remove(name);
   }
 
   /**
-   * Returns true is the mouse pointer is touching a non transparent area of the sprite.
+   * Returns true is the mouse pointer is touching a non transparent area of the
+   * sprite.
    *
    * @return true if touching
    */
   public boolean isTouchingMousePointer() {
-    if (this.hitboxDisabled) return false;
+    if (this.hitboxDisabled)
+      return false;
 
     var mx = this.getMouseX();
     var my = this.getMouseY();
@@ -755,8 +780,7 @@ public class Sprite {
     var relativeMouseY = (int) -Math.round(mouse[1] - this.y - this.getHeight() / 2);
 
     if (this.costumes.size() > this.getCurrentCostumeIndex()) {
-      int color =
-          this.costumes.get(this.getCurrentCostumeIndex()).getPixel(relativeMouseX, relativeMouseY);
+      int color = this.costumes.get(this.getCurrentCostumeIndex()).getPixel(relativeMouseX, relativeMouseY);
       return Applet.getInstance().alpha(color) != 0;
     }
 
@@ -764,12 +788,14 @@ public class Sprite {
   }
 
   /**
-   * Returns true if the rectangle which contains the image is outside of the stage
+   * Returns true if the rectangle which contains the image is outside of the
+   * stage
    *
    * @return true if outside
    */
   public boolean isTouchingEdge() {
-    if (this.hitboxDisabled) return false;
+    if (this.hitboxDisabled)
+      return false;
     var h = this.getHitbox();
     return h.intersects(this.stage.topBorder)
         || h.intersects(this.stage.bottomBorder)
@@ -851,18 +877,14 @@ public class Sprite {
       return this.hitbox;
     }
 
-    var cornerTopLeft =
-        Utils.rotateXY(
-            this.x - spriteWidth / 2.0f, -this.y - spriteHeight / 2.0f, this.x, -this.y, rotation);
-    var cornerTopRight =
-        Utils.rotateXY(
-            this.x + spriteWidth / 2.0f, -this.y - spriteHeight / 2.0f, this.x, -this.y, rotation);
-    var cornerBottomLeft =
-        Utils.rotateXY(
-            this.x - spriteWidth / 2.0f, -this.y + spriteHeight / 2.0f, this.x, -this.y, rotation);
-    var cornerBottomRight =
-        Utils.rotateXY(
-            this.x + spriteWidth / 2.0f, -this.y + spriteHeight / 2.0f, this.x, -this.y, rotation);
+    var cornerTopLeft = Utils.rotateXY(
+        this.x - spriteWidth / 2.0f, -this.y - spriteHeight / 2.0f, this.x, -this.y, rotation);
+    var cornerTopRight = Utils.rotateXY(
+        this.x + spriteWidth / 2.0f, -this.y - spriteHeight / 2.0f, this.x, -this.y, rotation);
+    var cornerBottomLeft = Utils.rotateXY(
+        this.x - spriteWidth / 2.0f, -this.y + spriteHeight / 2.0f, this.x, -this.y, rotation);
+    var cornerBottomRight = Utils.rotateXY(
+        this.x + spriteWidth / 2.0f, -this.y + spriteHeight / 2.0f, this.x, -this.y, rotation);
 
     int[] xPoints = new int[4];
     int[] yPoints = new int[4];
@@ -880,14 +902,18 @@ public class Sprite {
   }
 
   public boolean isTouchingSprite(Sprite sprite) {
-    if (sprite == this) return false;
-    if (stage == null) return false;
-    if (sprite == null || !sprite.show || sprite.hitboxDisabled) return false;
+    if (sprite == this)
+      return false;
+    if (stage == null)
+      return false;
+    if (sprite == null || !sprite.show || sprite.hitboxDisabled)
+      return false;
     return this.getHitbox().intersects(sprite.getHitbox());
   }
 
   public boolean isTouchingSprite(Class<? extends Sprite> c) {
-    if (stage == null) return false;
+    if (stage == null)
+      return false;
     return this.stage.sprites.stream()
         .filter(s -> !s.isUI())
         .filter(s -> c.isInstance(s) && this.isTouchingSprite(s))
@@ -896,7 +922,8 @@ public class Sprite {
   }
 
   public <T extends Sprite> T getTouchingSprite(Class<T> c) {
-    if (stage == null) return null;
+    if (stage == null)
+      return null;
     return this.stage.sprites.stream()
         .filter(s -> !s.isUI())
         .filter(s -> c.isInstance(s) && this.isTouchingSprite(s))
@@ -906,7 +933,8 @@ public class Sprite {
   }
 
   public <T extends Sprite> List<T> getTouchingSprites(Class<T> c) {
-    if (stage == null) return null;
+    if (stage == null)
+      return null;
     return this.stage.sprites.stream()
         .filter(s -> !s.isUI())
         .filter(s -> c.isInstance(s) && this.isTouchingSprite(s))
@@ -920,7 +948,8 @@ public class Sprite {
    * @return x-position
    */
   public double getMouseX() {
-    if (stage == null) return 0;
+    if (stage == null)
+      return 0;
     return this.stage.getMouseX();
   }
 
@@ -930,7 +959,8 @@ public class Sprite {
    * @return y-position
    */
   public double getMouseY() {
-    if (this.stage == null) return 0;
+    if (this.stage == null)
+      return 0;
     return this.stage.getMouseY();
   }
 
@@ -944,7 +974,8 @@ public class Sprite {
    * @return mouse button down
    */
   public boolean isMouseDown() {
-    if (this.stage == null) return false;
+    if (this.stage == null)
+      return false;
     return this.stage.isMouseDown();
   }
 
@@ -955,7 +986,8 @@ public class Sprite {
    * @return key pressed
    */
   public boolean isKeyPressed(int keyCode) {
-    if (this.stage == null) return false;
+    if (this.stage == null)
+      return false;
     return this.stage.isKeyPressed(keyCode);
   }
 
@@ -974,7 +1006,8 @@ public class Sprite {
    * @return current year
    */
   public int getCurrentYear() {
-    if (stage == null) return 0;
+    if (stage == null)
+      return 0;
     return this.stage.getCurrentYear();
   }
 
@@ -984,7 +1017,8 @@ public class Sprite {
    * @return current month
    */
   public int getCurrentMonth() {
-    if (stage == null) return 0;
+    if (stage == null)
+      return 0;
     return this.stage.getCurrentMonth();
   }
 
@@ -994,7 +1028,8 @@ public class Sprite {
    * @return current day of the month
    */
   public int getCurrentDay() {
-    if (stage == null) return 0;
+    if (stage == null)
+      return 0;
     return this.stage.getCurrentDay();
   }
 
@@ -1004,7 +1039,8 @@ public class Sprite {
    * @return current day of the week
    */
   public int getCurrentDayOfWeek() {
-    if (stage == null) return 0;
+    if (stage == null)
+      return 0;
     return this.stage.getCurrentDayOfWeek();
   }
 
@@ -1014,7 +1050,8 @@ public class Sprite {
    * @return current hour
    */
   public int getCurrentHour() {
-    if (stage == null) return 0;
+    if (stage == null)
+      return 0;
     return this.stage.getCurrentHour();
   }
 
@@ -1024,7 +1061,8 @@ public class Sprite {
    * @return current minute
    */
   public int getCurrentMinute() {
-    if (stage == null) return 0;
+    if (stage == null)
+      return 0;
     return this.stage.getCurrentMinute();
   }
 
@@ -1034,7 +1072,8 @@ public class Sprite {
    * @return current second
    */
   public int getCurrentSecond() {
-    if (stage == null) return 0;
+    if (stage == null)
+      return 0;
     return this.stage.getCurrentSecond();
   }
 
@@ -1044,7 +1083,8 @@ public class Sprite {
    * @return current millisecond
    */
   public int getCurrentMillisecond() {
-    if (stage == null) return 0;
+    if (stage == null)
+      return 0;
     return this.stage.getCurrentMillisecond();
   }
 
@@ -1054,7 +1094,8 @@ public class Sprite {
    * @return days since 2010/01/01
    */
   public int getDaysSince2000() {
-    if (stage == null) return 0;
+    if (stage == null)
+      return 0;
     return this.stage.getDaysSince2000();
   }
 
@@ -1069,17 +1110,23 @@ public class Sprite {
     }
   }
 
-  public void whenKeyPressed(int keyCode) {}
+  public void whenKeyPressed(int keyCode) {
+  }
 
-  public void whenKeyReleased(int keyCode) {}
+  public void whenKeyReleased(int keyCode) {
+  }
 
-  public void mouseEvent(MouseEvent e) {}
+  public void mouseEvent(MouseEvent e) {
+  }
 
-  public void whenMouseMoved(double x, double y) {}
+  public void whenMouseMoved(double x, double y) {
+  }
 
-  public void whenMouseClicked(MouseCode mouseCode) {}
+  public void whenMouseClicked(MouseCode mouseCode) {
+  }
 
-  public void whenClicked() {}
+  public void whenClicked() {
+  }
 
   public void goToRandomPosition() {
     this.setPosition(
@@ -1096,26 +1143,31 @@ public class Sprite {
   }
 
   public void goToFrontLayer() {
-    if (stage == null) return;
+    if (stage == null)
+      return;
     this.stage.goToFrontLayer(this);
   }
 
   public void goToBackLayer() {
-    if (stage == null) return;
+    if (stage == null)
+      return;
     this.stage.goToBackLayer(this);
   }
 
   public void goLayersForwards(int number) {
-    if (stage == null) return;
+    if (stage == null)
+      return;
     this.stage.goLayersForwards(this, number);
   }
 
   public void goLayersBackwards(int number) {
-    if (stage == null) return;
+    if (stage == null)
+      return;
     this.stage.goLayersBackwards(this, number);
   }
 
-  public void whenBackdropSwitches(String name) {}
+  public void whenBackdropSwitches(String name) {
+  }
 
   public int pickRandom(int from, final int to) {
     if (to < from) {
@@ -1149,12 +1201,28 @@ public class Sprite {
   }
 
   public void broadcast(String message) {
-    if (stage == null) return;
-    this.stage.broadcast(message);
+    if (stage == null)
+      return;
+    this.stage.sprites.stream()
+      .filter(s -> s != this)
+      .forEach(s -> s.whenIReceive(message));
     this.stage.whenIReceive(message);
   }
 
-  public void whenIReceive(String message) {}
+  public void broadcast(Object message) {
+    if (stage == null)
+      return;
+    this.stage.sprites.stream()
+      .filter(s -> s != this)
+      .forEach(s -> s.whenIReceive(message));
+    this.stage.whenIReceive(message);
+  }
+
+  public void whenIReceive(String message) {
+  }
+
+  public void whenIReceive(Object message) {
+  }
 
   /**
    * @see stampToBackground
@@ -1164,7 +1232,8 @@ public class Sprite {
   }
 
   /**
-   * Stamps the current sprite to the background. A stamp is a non interactive version of the
+   * Stamps the current sprite to the background. A stamp is a non interactive
+   * version of the
    * sprite.
    */
   public void stampToBackground() {
@@ -1173,7 +1242,10 @@ public class Sprite {
     }
   }
 
-  /** Stamps the current sprite to the ui. A stamp is a non interactive version of the sprite. */
+  /**
+   * Stamps the current sprite to the ui. A stamp is a non interactive version of
+   * the sprite.
+   */
   public void stampToUI() {
     if (this.costumes.size() > 0) {
       this.stage.uiStamps.add(this.getStamp());
@@ -1181,19 +1253,19 @@ public class Sprite {
   }
 
   private Stamp getStamp() {
-    var stamp =
-        new Stamp(
-            this.costumes.get(this.currentCostume),
-            this.direction,
-            this.x,
-            this.y,
-            this.rotationStyle);
+    var stamp = new Stamp(
+        this.costumes.get(this.currentCostume),
+        this.direction,
+        this.x,
+        this.y,
+        this.rotationStyle);
 
     return stamp;
   }
 
   /**
-   * Stamps the current sprite to the foreground. A stamp is a non interactive version of the
+   * Stamps the current sprite to the foreground. A stamp is a non interactive
+   * version of the
    * sprite.
    */
   public void stampToForeground() {
@@ -1212,7 +1284,8 @@ public class Sprite {
 
   /** Draws the sprite if it is not hidden. */
   public void draw() {
-    if (this.stage == null) return;
+    if (this.stage == null)
+      return;
     if (this.costumes.size() > 0 && this.show) {
       this.costumes
           .get(this.currentCostume)
@@ -1238,7 +1311,9 @@ public class Sprite {
   }
 
   /**
-   * This method is called 60-times per second, if the sprite object was added to a stage object.
+   * This method is called 60-times per second, if the sprite object was added to
+   * a stage object.
    */
-  public void run() {}
+  public void run() {
+  }
 }

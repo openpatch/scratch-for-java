@@ -2,6 +2,7 @@ import org.openpatch.scratch.KeyCode;
 import org.openpatch.scratch.Sprite;
 import org.openpatch.scratch.Stage;
 import org.openpatch.scratch.extensions.recorder.*;
+import java.awt.event.*;
 
 public class SpriteWhenKeyPressed {
 
@@ -14,13 +15,13 @@ public class SpriteWhenKeyPressed {
 
     @Override
     public void whenKeyPressed(int keyCode) {
-      if (keyCode == KeyCode.VK_W) {
+      if (keyCode == KeyCode.VK_UP) {
         this.changeY(20);
-      } else if (keyCode == KeyCode.VK_S) {
+      } else if (keyCode == KeyCode.VK_DOWN) {
         this.changeY(-20);
-      } else if (keyCode == KeyCode.VK_A) {
+      } else if (keyCode == KeyCode.VK_LEFT) {
         this.changeX(-20);
-      } else if (keyCode == KeyCode.VK_D) {
+      } else if (keyCode == KeyCode.VK_RIGHT) {
         this.changeX(20);
       }
     }

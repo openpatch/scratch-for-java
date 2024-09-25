@@ -930,7 +930,12 @@ public class Stage {
     this.sprites.stream().forEach(s -> s.whenIReceive(message));
   }
 
+  public void broadcast(Object message) {
+    this.sprites.stream().forEach(s -> s.whenIReceive(message));
+  }
+
   public void whenIReceive(String message) {}
+  public void whenIReceive(Object message) {}
 
   public void setCursor(String path) {
     this.cursor = path;
