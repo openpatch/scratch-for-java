@@ -1,6 +1,7 @@
 {
   "name": "Scratch for Java",
   "version": "0.0.0",
+  "qrcode": true,
   "description": "A library which remodels Scratch in Java",
   "author": {
     "name": "OpenPatch",
