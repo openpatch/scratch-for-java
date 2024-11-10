@@ -1,6 +1,7 @@
 {
   "name": "Scratch für Java",
   "version": "0.0.0",
+  "qrcode": true,
   "description": "Eine Java-Bibliothek, die Scratch in Java nachbildet.",
   "author": {
     "name": "OpenPatch",
