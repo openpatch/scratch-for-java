@@ -1,8 +1,8 @@
+import java.awt.event.*;
 import org.openpatch.scratch.KeyCode;
 import org.openpatch.scratch.Sprite;
 import org.openpatch.scratch.Stage;
 import org.openpatch.scratch.extensions.recorder.*;
-import java.awt.event.*;
 
 public class SpriteWhenKeyPressed {
 

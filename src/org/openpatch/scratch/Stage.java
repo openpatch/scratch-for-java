@@ -935,6 +935,7 @@ public class Stage {
   }
 
   public void whenIReceive(String message) {}
+
   public void whenIReceive(Object message) {}
 
   public void setCursor(String path) {
