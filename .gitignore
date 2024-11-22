@@ -1,4 +1,5 @@
 .vscode
+!examples/**/.vscode
 .idea
 .settings
 bin

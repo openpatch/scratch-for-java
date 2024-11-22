@@ -1,6 +1,7 @@
 ---
 name: Getting Started
 index: 0
+lang: de
 ---
 
 # Erste Schritte mit Scratch4j
@@ -23,7 +24,7 @@ Damit du Scratch4j nutzen kannst, müssen wir die Einstellungen von BlueJ anpass
 
 Um zu überprüfen, ob alles gut gelaufen ist, kannst du das Katzen-Projekt herunterladen. Anschließend musst du die Zip-Datei entpacken. Danach kannst du das Projekt mit BlueJ öffnen. Jetzt kannst du mit einem Rechtsklick auf die Karte "CatSketch" ein Menü aufrufen. Dort klickst du auf "new CatSketch()" und schon sollte sich ein Fenster öffnen und eine Katze sollte zu sehen sein.
 
-:archive[Katzen-Projekt]{#cat}
+:archive[Katzen-Projekt]{name="cat"}
 
 ## Projektvorlagen
 
