@@ -39,6 +39,16 @@ public class Image {
     this.image = this.originalImage;
   }
 
+  /**
+   * Construct a ScratchImage object by a name and a path to a sprite sheet.
+   *
+   * @param name a name
+   * @param spriteSheetPath a path to a sprite sheet
+   * @param x the x coordinate of the tile
+   * @param y the y coordinate of the tile
+   * @param width the width of the tile
+   * @param height the height of the tile
+   */
   public Image(String name, String spriteSheetPath, int x, int y, int width, int height) {
     this.name = name;
     this.originalImage = Image.loadImage(spriteSheetPath, x, y, width, height);
@@ -62,6 +72,12 @@ public class Image {
     this.height = i.height;
   }
 
+  /**
+   * Loads an image from a given path and returns it.
+   *
+   * @param path the path to the image
+   * @return the image
+   */
   public static PImage loadImage(String path) {
     PImage image = originalImages.get(path);
     if (image == null) {
@@ -73,6 +89,16 @@ public class Image {
     return image;
   }
 
+  /**
+   * Loads an image from a given path and returns a tile of the image.
+   *
+   * @param path the path to the image
+   * @param x the x coordinate of the tile
+   * @param y the y coordinate of the tile
+   * @param width the width of the tile
+   * @param height the height of the tile
+   * @return a tile of the image
+   */
   public static PImage loadImage(String path, int x, int y, int width, int height) {
     String key = path + "x" + x + "y" + y + "w" + width + "h" + height;
     PImage image = originalImageTiles.get(key);
@@ -102,14 +128,31 @@ public class Image {
     this.name = name;
   }
 
+  /**
+   * Returns the width
+   *
+   * @return the width
+   */
   public int getWidth() {
     return this.width;
   }
 
+  /**
+   * Returns the height
+   *
+   * @return the height
+   */
   public int getHeight() {
     return this.height;
   }
 
+  /**
+   * Returns the pixel at the given position
+   *
+   * @param x a x coordinate
+   * @param y a y coordinate
+   * @return the pixel at the given position
+   */
   public int getPixel(int x, int y) {
     return this.image.get(x, y);
   }
@@ -188,12 +231,25 @@ public class Image {
     this.image = Applet.getInstance().loadImage(imagePath);
   }
 
+  /**
+   * Sets the size of the image to the specified percentage of the original size.
+   * @param percentage The desired size as a percentage of the original size
+   */
   public void setSize(double percentage) {
     this.width = (int) Math.round(this.originalImage.width * percentage / 100);
     this.height = (int) Math.round(this.originalImage.height * percentage / 100);
     this.setSize(width, height);
   }
 
+  /**
+   * Sets the size of the image to the specified width and height.
+   * If a resized version with the requested dimensions already exists in cache,
+   * it will use that version. Otherwise, it creates a new resized copy from
+   * the original image and caches it for future use.
+   *
+   * @param width The desired width of the image in pixels
+   * @param height The desired height of the image in pixels
+   */
   public void setSize(int width, int height) {
     var key = width + "x" + height;
     var imageResized = this.imageResized.get(key);
@@ -246,6 +302,14 @@ public class Image {
     g.pop();
   }
 
+  /**
+   * Draw the scaled image at a given position.
+   *
+   * @param size a percentage value
+   * @param degrees direction
+   * @param x a x coordinate
+   * @param y a y coordinate
+   */
   public void drawDebug(
       PGraphics buffer, double size, double degrees, double x, double y, RotationStyle style) {
     buffer.push();
@@ -257,6 +321,14 @@ public class Image {
     buffer.pop();
   }
 
+  /**
+   * Draw the scaled image at a given position.
+   *
+   * @param size a percentage value
+   * @param degrees direction
+   * @param x a x coordinate
+   * @param y a y coordinate
+   */
   public void draw(float size, float degrees, float x, float y) {
     this.draw(size, degrees, x, y, RotationStyle.ALL_AROUND);
   }

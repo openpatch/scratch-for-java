@@ -12,6 +12,22 @@ import org.openpatch.scratch.internal.Font;
 import processing.core.PApplet;
 import processing.core.PConstants;
 
+/**
+ * The Text class represents a text object that can be displayed on the stage.
+ * It provides methods to set the text content, position, size, style, and alignment.
+ * The text can be displayed in various styles such as plain, speech bubble, or box.
+ * The text can be associated with a sprite and displayed relative to the sprite's position.
+ * Example usage:
+ * 
+ * <pre>{@code
+ * Text text = new Text("Hello, World!", 100, 100, 200);
+ * text.setStyle(TextStyle.SPEAK);
+ * text.setBackgroundColor(255, 255, 255);
+ * text.setTextColor(0, 0, 0);
+ * text.setStrokeColor(0, 0, 0);
+ * }</pre>
+ * 
+ */
 public class Text {
 
   private double x;
@@ -42,18 +58,37 @@ public class Text {
   private static int SPEAK_BUBBLE_MIN_LIMIT = 80;
   private static int DEFAULT_TEXT_SIZE = 14;
 
+  /**
+   * Constructs a new Text object with default values.
+   * The text is initialized to an empty string, positioned at (0, 0),
+   * with a default size of 0. The text style is set to plain and
+   * the text alignment is set to center.
+   */
   public Text() {
     this("", 0, 0, 0);
     this.style = TextStyle.PLAIN;
     this.textAlign = TextAlign.CENTER;
   }
 
+  /**
+   * Constructs a new Text object associated with a given Sprite.
+   *
+   * @param s the Sprite to associate with this Text object
+   */
   public Text(Sprite s) {
     this(null, 0, 0, 0);
     this.sprite = s;
     this.style = TextStyle.SPEAK;
   }
 
+  /**
+   * Constructs a new Text object with the specified text, position, and width.
+   *
+   * @param text  the text to be displayed
+   * @param x     the x-coordinate of the text's position
+   * @param y     the y-coordinate of the text's position
+   * @param width the width of the text
+   */
   public Text(String text, double x, double y, double width) {
     this.x = x;
     this.y = y;
@@ -68,11 +103,26 @@ public class Text {
     this.addFont(Font.defaultFontName, Font.defaultFontPath);
   }
 
+  /**
+   * Constructs a new Text object with the specified text, position, width, and style.
+   *
+   * @param text  the text content to be displayed
+   * @param x     the x-coordinate of the text's position
+   * @param y     the y-coordinate of the text's position
+   * @param width the width of the text area
+   * @param style the style to be applied to the text
+   */
   public Text(String text, double x, double y, double width, TextStyle style) {
     this(text, x, y, width);
     this.style = style;
   }
 
+  /**
+   * Copy constructor for the Text class.
+   * Creates a new Text object by copying the properties of the given Text object.
+   *
+   * @param t the Text object to copy
+   */
   public Text(Text t) {
     this.width = t.width;
     this.originalText = t.originalText;
@@ -108,24 +158,61 @@ public class Text {
     this.whenRemovedFromStage(stage);
   }
 
+  /**
+   * This method is called when the object is added to the stage.
+   * Override this method to define custom behavior when the object
+   * is added to the stage.
+   */
   public void whenAddedToStage() {}
 
+  /**
+   * This method is called when the text is added to the stage.
+   * Override this method to define custom behavior when the text.
+   *
+   * @param stage The stage to which the text is added.
+   */
   public void whenAddedToStage(Stage stage) {}
 
+  /**
+   * This method is called when the object is removed from the stage.
+   * Override this method to define custom behavior that should occur
+   * when the object is no longer part of the stage.
+   */
   public void whenRemovedFromStage() {}
 
+  /**
+   * This method is called when the text is removed from the stage.
+   * Override this method to define custom behavior that should occur.
+   *
+   * @param stage The stage from which the text is removed.
+   */
   public void whenRemovedFromStage(Stage stage) {}
 
+  /**
+   * Removes this object from its current stage if it is associated with one.
+   * If the object is not associated with any stage, this method does nothing.
+   */
   public void remove() {
     if (this.stage != null) {
       this.stage.remove(this);
     }
   }
 
+  /**
+   * Retrieves the current stage associated with this object.
+   *
+   * @return the current stage
+   */
   public Stage getStage() {
     return this.stage;
   }
 
+  /**
+   * Adds a new font to the list of fonts if it does not already exist.
+   *
+   * @param name the name of the font to be added
+   * @param path the path to the font file
+   */
   public void addFont(String name, String path) {
     for (Font font : this.fonts) {
       if (font.getName().equals(name)) {
@@ -137,6 +224,11 @@ public class Text {
     this.fonts.add(font);
   }
 
+  /**
+   * Switches the current font to the font with the specified name.
+   *
+   * @param name the name of the font to switch to
+   */
   public void switchFont(String name) {
     for (int i = 0; i < this.fonts.size(); i++) {
       Font font = this.fonts.get(i);
@@ -147,10 +239,20 @@ public class Text {
     }
   }
 
+  /**
+   * Advances to the next font in the list of available fonts.
+   * The current font index is incremented by one and wraps around
+   * to the beginning of the list if it exceeds the number of available fonts.
+   */
   public void nextFont() {
     this.currentFont = (this.currentFont + 1) % this.fonts.size();
   }
 
+  /**
+   * Retrieves the name of the current font.
+   *
+   * @return the name of the current font, or {@code null} if no fonts are available.
+   */
   public String getCurrentFontName() {
     if (this.fonts.size() == 0) {
       return null;
@@ -158,6 +260,11 @@ public class Text {
     return this.fonts.get(this.currentFont).getName();
   }
 
+  /**
+   * Returns the index of the current font.
+   *
+   * @return the index of the current font
+   */
   public int getCurrentFontIndex() {
     return this.currentFont;
   }
@@ -173,30 +280,66 @@ public class Text {
     this.y = y;
   }
 
+  /**
+   * Sets the position of the text object using a Vector2 object.
+   *
+   * @param v the Vector2 object containing the x and y coordinates
+   */
   public void setPosition(Vector2 v) {
     this.setPosition(v.getX(), v.getY());
   }
 
+  /**
+   * Retrieves the current position as a Vector2 object.
+   *
+   * @return a Vector2 object representing the current x and y coordinates.
+   */
   public Vector2 getPosition() {
     return new Vector2(x, y);
   }
 
+  /**
+   * Sets the x-coordinate for this object.
+   *
+   * @param x the new x-coordinate value
+   */
   public void setX(double x) {
     this.x = x;
   }
 
+  /**
+   * Returns the x-coordinate of this object.
+   *
+   * @return the x-coordinate as a double
+   */
   public double getX() {
     return this.x;
   }
 
+  /**
+   * Sets the Y coordinate of the text.
+   *
+   * @param y the new Y coordinate value
+   */
   public void setY(double y) {
     this.y = y;
   }
 
+  /**
+   * Returns the y-coordinate of this object.
+   *
+   * @return the y-coordinate as a double
+   */
   public double getY() {
     return this.y;
   }
 
+  /**
+   * Displays the specified text.
+   * 
+   * @param text The text to be displayed. If the text is null or empty, 
+   *             the text will be set to null.
+   */
   public void showText(String text) {
     this.show = true;
     this.hasLifetime = false;
@@ -206,84 +349,192 @@ public class Text {
     this.originalText = text;
   }
 
+  /**
+   * Displays the specified text for a given duration.
+   *
+   * @param text The text to be displayed.
+   * @param millis The duration in milliseconds for which the text should be displayed.
+   */
   public void showText(String text, int millis) {
     this.showText(text);
     this.hasLifetime = true;
     this.lifetime = System.currentTimeMillis() + millis;
   }
 
+  /**
+   * Sets the style of the text.
+   *
+   * @param style the TextStyle to be applied to the text
+   */
   public void setStyle(TextStyle style) {
     this.style = style;
   }
 
+  /**
+   * Sets the background color using the specified RGB values.
+   *
+   * @param r the red component of the color (0-255)
+   * @param g the green component of the color (0-255)
+   * @param b the blue component of the color (0-255)
+   */
   public void setBackgroundColor(int r, int g, int b) {
     this.backgroundColor = new Color(r, g, b);
   }
 
+  /**
+   * Sets the background color using the specified hue value.
+   *
+   * @param h the hue value for the background color
+   */
   public void setBackgroundColor(double h) {
     this.backgroundColor = new Color(h);
   }
 
+  /**
+   * Sets the background color of the text.
+   *
+   * @param c the new background color to be set
+   */
   public void setBackgroundColor(Color c) {
     this.backgroundColor = c;
   }
 
+  /**
+   * Sets the text color using RGB values.
+   *
+   * @param r the red component of the color (0-255)
+   * @param g the green component of the color (0-255)
+   * @param b the blue component of the color (0-255)
+   */
   public void setTextColor(int r, int g, int b) {
     this.textColor = new Color(r, g, b);
   }
 
+  /**
+   * Sets the text color using the specified hue value.
+   *
+   * @param h the hue value for the text color
+   */
   public void setTextColor(double h) {
     this.textColor = new Color(h);
   }
 
+  /**
+   * Sets the color of the text.
+   *
+   * @param c the new color to be set for the text
+   */
   public void setTextColor(Color c) {
     this.textColor = c;
   }
 
+  /**
+   * Sets the stroke color using the specified RGB values.
+   *
+   * @param r the red component of the color (0-255)
+   * @param g the green component of the color (0-255)
+   * @param b the blue component of the color (0-255)
+   */
   public void setStrokeColor(int r, int g, int b) {
     this.strokeColor = new Color(r, g, b);
   }
 
+  /**
+   * Sets the stroke color using the specified hue value.
+   *
+   * @param h the hue value for the stroke color
+   */
   public void setStrokeColor(double h) {
     this.strokeColor = new Color(h);
   }
 
+  /**
+   * Sets the stroke color for the text.
+   *
+   * @param c the color to set as the stroke color
+   */
   public void setStrokeColor(Color c) {
     this.strokeColor = c;
   }
 
+  /**
+   * Sets the font name for the text.
+   *
+   * @param name the name of the font to be set
+   */
   public void setFont(String name) {
     this.fontName = name;
   }
 
+  /**
+   * Retrieves the name of the font.
+   *
+   * @return the name of the font as a String.
+   */
   public String getFont() {
     return this.fontName;
   }
 
+  /**
+   * Sets the size of the text.
+   *
+   * @param size the new size of the text
+   */
   public void setTextSize(int size) {
     this.textSize = size;
   }
 
+  /**
+   * Returns the size of the text.
+   *
+   * @return the size of the text as an integer
+   */
   public int getTextSize() {
     return this.textSize;
   }
 
+  /**
+   * Returns the width of the text.
+   *
+   * @return the width of the text as a double
+   */
   public double getWidth() {
     return this.width;
   }
 
+  /**
+   * Sets the width of the text.
+   *
+   * @param width the new width to set
+   */
   public void setWidth(double width) {
     this.width = width;
   }
 
+  /**
+   * Sets the alignment of the text.
+   *
+   * @param align the alignment value to set. This could be a constant representing
+   *              left, center, or right alignment.
+   */
   public void setAlign(int align) {
     this.textAlign = align;
   }
 
+  /**
+   * Sets the UI status of this object.
+   *
+   * @param isUI a boolean indicating whether this object is part of the UI
+   */
   public void setIsUI(boolean isUI) {
     this.isUI = isUI;
   }
 
+  /**
+   * Checks if the current instance is a UI element.
+   *
+   * @return {@code true} if this instance is a UI element, {@code false} otherwise.
+   */
   public boolean isUI() {
     return this.isUI;
   }

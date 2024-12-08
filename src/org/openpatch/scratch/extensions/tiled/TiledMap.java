@@ -10,12 +10,37 @@ import org.openpatch.scratch.extensions.fs.File;
 import org.openpatch.scratch.internal.Image;
 import org.openpatch.scratch.internal.Stamp;
 
+/**
+ * The TiledMap class represents a map created using the Tiled map editor.
+ * It provides methods to load the map from an XML file, retrieve objects from layers,
+ * and stamp layers onto the foreground or background of a stage.
+ * 
+ * Example usage:
+ * <pre>{@code
+ * TiledMap map = new TiledMap("assets/map.tmx", stage);
+ * map.stampLayerToForeground("foreground");
+ * 
+ * for (MapObject object : map.getObjectsFromLayer("objects")) {
+ *  if (object.type.equals("player")) {
+ *   Player p = new Player(object.x, object.y);
+ *   stage.addSprite(p);
+ *  }
+ * }
+ * 
+ * }</pre>
+ */
 public class TiledMap {
 
   private Map map;
   private Stage stage;
   private ConcurrentHashMap<Integer, Image> tiles;
 
+  /**
+   * Constructs a new TiledMap object.
+   *
+   * @param path  the file path to the Tiled map XML file
+   * @param stage the stage to which this Tiled map belongs
+   */
   public TiledMap(String path, Stage stage) {
     this.stage = stage;
     this.map = File.loadXML(path, Map.class);
@@ -60,6 +85,12 @@ public class TiledMap {
     return null;
   }
 
+  /**
+   * Retrieves the objects from a specified layer in the tiled map.
+   *
+   * @param name the name of the layer from which to retrieve objects
+   * @return an array of MapObject from the specified layer, or null if the layer does not exist
+   */
   public MapObject[] getObjectsFromLayer(String name) {
     var og = getObjectGroup(name);
     if (og != null) {
@@ -91,10 +122,20 @@ public class TiledMap {
     }
   }
 
+  /**
+   * Stamps the specified layer to the foreground.
+   *
+   * @param name the name of the layer to be stamped to the foreground
+   */
   public void stampLayerToForeground(String name) {
     stampLayer(name, stage.foregroundStamps);
   }
 
+  /**
+   * Stamps a specified layer onto the background.
+   *
+   * @param name the name of the layer to be stamped onto the background
+   */
   public void stampLayerToBackground(String name) {
     stampLayer(name, stage.backgroundStamps);
   }

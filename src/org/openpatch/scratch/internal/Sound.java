@@ -2,11 +2,29 @@ package org.openpatch.scratch.internal;
 
 import processing.sound.*;
 
+/**
+ * The Sound class represents a sound object in Scratch.
+ * It includes fields for the name of the sound and the sound file.
+ *
+ * <p>Example usage:
+ * <pre>
+ * {@code
+ * Sound s = new Sound("mySound", "path/to/sound.wav");
+ * s.play();
+ * }
+ * </pre>
+ */
 public class Sound {
   private String name;
   private SoundFile sound;
   private double volume;
 
+  /**
+   * Creates a new ScratchSound object.
+   *
+   * @param name The name of the sound
+   * @param soundPath The path to the sound file
+   */
   public Sound(String name, String soundPath) {
     this.name = name;
     this.sound = new SoundFile(Applet.getInstance(), soundPath);
@@ -79,7 +97,7 @@ public class Sound {
   /**
    * Changes the volume by a step
    *
-   * @param step
+   * @param step The step to change the volume by
    */
   public void changeVolume(double step) {
     var newVolume = this.volume + step;

@@ -3,9 +3,37 @@ package org.openpatch.scratch.extensions.math;
 import org.openpatch.scratch.internal.Applet;
 import org.openpatch.scratch.internal.OpenSimplex2S;
 
+/**
+ * The Random class provides various methods for generating random values and noise.
+ * It includes methods for generating Open Simplex noise, random vectors, random coordinates,
+ * and random numbers within specified ranges.
+ * 
+ * <p>Methods in this class are static and can be accessed directly without creating an instance of the class.</p>
+ * 
+ * <p>Example usage:</p>
+ * <pre>
+ * {@code
+ * double noiseValue = Random.noise(10.0);
+ * Vector2 randomVector = Random.randomVector2();
+ * double randomX = Random.randomX();
+ * double randomY = Random.randomY();
+ * Vector2 randomPosition = Random.randomPosition();
+ * double randomDouble = Random.random();
+ * int randomInt = Random.randomInt(100);
+ * double randomDoubleInRange = Random.random(5.0, 10.0);
+ * }
+ * </pre>
+ * 
+ * <p>Note: The noise methods use Open Simplex noise, and the random methods use java.util.Random.</p>
+ * 
+ * @see java.util.Random
+ * @see OpenSimplex2S
+ */
 public class Random {
   private static java.util.Random internalRandom;
   private static long noiseSeed = 1L;
+
+  private Random() {}
 
   /*
    *
@@ -18,31 +46,24 @@ public class Random {
     return OpenSimplex2S.noise2(noiseSeed, x, x);
   }
 
-  /*
-   *
+  /**
    * Returns the Open Simplex noise value at specified coordinates
    *
    * @param x x-coordinate
-   *
    * @param y y-coordinate
-   *
+   * @return the noise value
    */
   public static double noise(double x, double y) {
     return OpenSimplex2S.noise2(noiseSeed, x, y);
   }
 
-  /*
-   *
+  /**
    * Returns the Open Simplex noise value at specified coordinates
    *
    * @param x x-coordinate
-   *
    * @param y y-coordinate
-   *
    * @param z z-coordinate
-   *
-   * @see Random#noiseSeed(long)
-   *
+   * @return the noise value
    */
   public static double noise(double x, double y, double z) {
     return OpenSimplex2S.noise3_ImproveXY(noiseSeed, x, y, z);

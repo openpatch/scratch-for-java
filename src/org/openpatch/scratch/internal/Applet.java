@@ -18,6 +18,10 @@ import processing.event.KeyEvent;
 import processing.event.MouseEvent;
 import processing.sound.SoundFile;
 
+/**
+ * The Applet class represents the main application window. It is responsible for loading assets,
+ * managing stages, and handling mouse and keyboard events.
+ */
 public class Applet extends PApplet {
   private final int INITIAL_HEIGHT;
   private final int INITIAL_WIDTH;
@@ -37,6 +41,14 @@ public class Applet extends PApplet {
   private boolean hasLoaded = false;
   private String loadingText = "";
 
+  /**
+   * Constructs an Applet with the specified width, height, fullscreen mode, and assets path.
+   *
+   * @param width the width of the window
+   * @param height the height of the window
+   * @param fullscreen whether the window should be fullscreen
+   * @param assets the path to the assets directory
+   */
   public Applet(int width, final int height, final boolean fullscreen, final String assets) {
     this.INITIAL_HEIGHT = height;
     this.INITIAL_WIDTH = width;
@@ -54,26 +66,56 @@ public class Applet extends PApplet {
     this.thread("loadAssets");
   }
 
+  /**
+   * Returns the instance of the application.
+   *
+   * @return the instance of the application
+   */
   public static Applet getInstance() {
     return instance;
   }
 
+  /**
+   * Enables or disables the debug mode for the application.
+   *
+   * @param debug a boolean value where {@code true} enables debug mode and {@code false} disables it.
+   */
   public void setDebug(boolean debug) {
     this.debug = debug;
   }
 
+  /**
+   * Checks if the application is in debug mode.
+   *
+   * @return true if the application is in debug mode, false otherwise.
+   */
   public boolean isDebug() {
     return this.debug;
   }
 
+  /**
+   * Returns the width of the current window.
+   *
+   * @return the width of the window in pixels
+   */
   public int getWidth() {
     return this.width;
   }
 
+  /**
+   * Returns the height of the current window.
+   *
+   * @return the height of the window in pixels
+   */
   public int getHeight() {
     return this.height;
   }
 
+  /**
+   * Returns the current text size.
+   *
+   * @return the current text size
+   */
   public double getTextSize() {
     return this.g.textSize;
   }
@@ -109,10 +151,20 @@ public class Applet extends PApplet {
     this.stages.remove(name);
   }
 
+  /**
+   * Returns the current stage of the application.
+   *
+   * @return the current stage
+   */
   public Stage getStage() {
     return this.stage;
   }
 
+  /**
+   * Sets the current stage of the application.
+   *
+   * @param stage the new stage to be set
+   */
   public void setStage(Stage stage) {
     this.stage = stage;
   }
@@ -133,6 +185,11 @@ public class Applet extends PApplet {
     }
   }
 
+  /**
+   * Returns the time since the last frame in seconds.
+   *
+   * @return the time since the last frame in seconds
+   */
   public double getDeltaTime() {
     return deltaTime;
   }
@@ -160,6 +217,9 @@ public class Applet extends PApplet {
     }
   }
 
+  /**
+   * Sets up the application window.
+   */
   public void setup() {
     this.windowTitle("Scratch for Java");
     this.windowResizable(false);
@@ -184,6 +244,9 @@ public class Applet extends PApplet {
     }
   }
 
+  /**
+   * Loads assets from the specified directory.
+   */
   public void loadAssets() {
     Font.loadFont(Font.defaultFontPath);
     if (this.assets != null) {
@@ -242,12 +305,22 @@ public class Applet extends PApplet {
     return this.numberAssets > 0 ? this.loadedAssets / (float) this.numberAssets : 1;
   }
 
+  /**
+   * Handles mouse events.
+   *
+   * @param e the MouseEvent object
+   */
   public void mouseEvent(MouseEvent e) {
     if (this.hasLoaded && this.stage != null) {
       this.stage.mouseEvent(e);
     }
   }
 
+  /**
+   * Handles keyboard events.
+   *
+   * @param e the KeyEvent object
+   */
   public void keyEvent(KeyEvent e) {
     if (this.hasLoaded && this.stage != null) {
       this.stage.keyEvent(e);
@@ -257,6 +330,9 @@ public class Applet extends PApplet {
     }
   }
 
+  /**
+   * Draws the application window.
+   */
   public void draw() {
     var currentMillis = millis();
     if (lastMillis == 0) {

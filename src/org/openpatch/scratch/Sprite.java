@@ -22,6 +22,47 @@ import org.openpatch.scratch.internal.Stamp;
 import processing.event.KeyEvent;
 import processing.event.MouseEvent;
 
+/**
+ * The `Sprite` class represents a graphical object that can be displayed on a stage.
+ * It supports various functionalities such as costumes, sounds, movement, rotation,
+ * collision detection, and interaction with the mouse and keyboard.
+ * 
+ * <p>Key features include:
+ * <ul>
+ *   <li>Adding and switching costumes</li>
+ *   <li>Adding and playing sounds</li>
+ *   <li>Movement and rotation</li>
+ *   <li>Collision detection with other sprites and the stage edges</li>
+ *   <li>Interaction with the mouse and keyboard</li>
+ *   <li>Displaying text and thought bubbles</li>
+ *   <li>Broadcasting and receiving messages</li>
+ * </ul>
+ * 
+ * <p>Usage example:
+ * <pre>
+ * {@code
+ * Sprite sprite = new Sprite();
+ * sprite.addCostume("costume1", "path/to/image.png");
+ * sprite.addSound("sound1", "path/to/sound.wav");
+ * sprite.setPosition(100, 200);
+ * sprite.move(10);
+ * sprite.turnRight(90);
+ * sprite.say("Hello, world!");
+ * }
+ * </pre>
+ * 
+ * <p>Note: This class is designed to be used within a stage, and many methods require
+ * the sprite to be added to a stage to function correctly.
+ * 
+ * @see Stage
+ * @see Image
+ * @see Sound
+ * @see Pen
+ * @see Text
+ * @see Timer
+ * @see Hitbox
+ * @see RotationStyle
+ */
 public class Sprite {
 
   private List<Image> costumes = new CopyOnWriteArrayList<>();
@@ -104,20 +145,50 @@ public class Sprite {
     this.whenRemovedFromStage(stage);
   }
 
+  /**
+   * This method is called when the sprite is added to the stage.
+   * Override this method to define custom behavior when the sprite
+   * is added to the stage.
+   */
   public void whenAddedToStage() {}
 
+  /**
+   * This method is called when the sprite is added to the stage.
+   * Override this method to define custom behavior when the sprite
+   * is added to the stage.
+   *
+   * @param stage The stage to which the sprite is added.
+   */
   public void whenAddedToStage(Stage stage) {}
 
+  /**
+   * This method is called when the sprite is removed from the stage.
+   * Override this method to define custom behavior when the sprite is removed.
+   */
   public void whenRemovedFromStage() {}
 
+  /**
+   * This method is called when the sprite is removed from the stage.
+   * Override this method to define custom behavior when the sprite is removed.
+   *
+   * @param stage The stage from which the sprite is removed from.
+   */
   public void whenRemovedFromStage(Stage stage) {}
 
+  /**
+   * Removes this sprite from its current stage.
+   */
   public void remove() {
     if (this.stage != null) {
       this.stage.remove(this);
     }
   }
 
+  /**
+   * Retrieves the current stage associated with this sprite.
+   *
+   * @return the stage associated with this sprite
+   */
   public Stage getStage() {
     return this.stage;
   }
@@ -139,6 +210,16 @@ public class Sprite {
     this.costumes.add(costume);
   }
 
+  /**
+   * Adds a new costume to the sprite if a costume with the same name does not already exist.
+   *
+   * @param name The name of the costume.
+   * @param spriteSheetPath The path to the sprite sheet image file.
+   * @param x The x-coordinate of the top-left corner of the costume in the sprite sheet.
+   * @param y The y-coordinate of the top-left corner of the costume in the sprite sheet.
+   * @param width The width of the costume in the sprite sheet.
+   * @param height The height of the costume in the sprite sheet.
+   */
   public void addCostume(
       String name,
       final String spriteSheetPath,
@@ -197,6 +278,11 @@ public class Sprite {
     }
   }
 
+  /**
+   * Switches the current costume of the sprite to the costume at the specified index.
+   *
+   * @param index The index of the costume to switch to.
+   */
   public void switchCostume(double index) {
     this.currentCostume = (int) index % this.costumes.size();
   }
@@ -348,10 +434,8 @@ public class Sprite {
   }
 
   /**
-   * Changes the tint for the sprite.
-   *
-   * @see Image#changeTint(double)
-   * @param h a hue value [0...255]
+   * Changes the tint for the sprite by a step.
+   * @param step a step value
    */
   public void changeTint(double step) {
     if (this.costumes.size() == 0) return;
@@ -361,6 +445,11 @@ public class Sprite {
     }
   }
 
+  /**
+   * Retrieves the tint value of the current costume.
+   *
+   * @return the tint value of the current costume, or 0 if there are no costumes.
+   */
   public double getTint() {
     if (this.costumes.size() == 0) return 0;
     return this.costumes.get(currentCostume).getTint();
@@ -453,6 +542,12 @@ public class Sprite {
     this.onEdgeBounce = b;
   }
 
+  /**
+   * Checks if the sprite is on the edge of the stage and bounces it back if it is.
+   * The sprite's direction is reversed when it hits the left or right border,
+   * and it is reversed and rotated by 180 degrees when it hits the top or bottom border.
+   * The method does nothing if the hitbox is disabled or if the sprite is a UI element.
+   */
   public void ifOnEdgeBounce() {
     if (this.hitboxDisabled || this.isUI) return;
 
@@ -469,6 +564,13 @@ public class Sprite {
     }
   }
 
+  /**
+   * Sets the rotation style for the sprite.
+   *
+   * @see RotationStyle
+   * @param style the rotation style to be set
+   * 
+   */
   public void setRotationStyle(RotationStyle style) {
     this.rotationStyle = style;
   }
@@ -494,6 +596,11 @@ public class Sprite {
     this.setPosition(v.getX(), v.getY());
   }
 
+  /**
+   * Retrieves the current position of the sprite.
+   *
+   * @return A {@link Vector2} object representing the x and y coordinates of the sprite.
+   */
   public Vector2 getPosition() {
     return new Vector2(x, y);
   }
@@ -539,15 +646,33 @@ public class Sprite {
     this.setDirection(v.angle());
   }
 
+  /**
+   * Points the sprite in the specified direction.
+   *
+   * @param degrees The direction in degrees to point the sprite. 
+   *                0 degrees is to the right, 90 degrees is up, 
+   *                180 degrees is to the left, and 270 degrees is down.
+   */
   public void pointInDirection(double degrees) {
     this.setDirection(degrees);
   }
 
+  /**
+   * Points the sprite in the direction of the given vector.
+   *
+   * @param v the target vector to point towards
+   */
   public void pointInDirection(Vector2 v) {
     double angle = v.sub(this.getPosition()).angle();
     this.setDirection(90 - angle);
   }
 
+  /**
+   * Points the sprite towards the current position of the mouse pointer.
+   * This method calculates the angle between the sprite's current position
+   * and the mouse pointer's position, then sets the sprite's direction
+   * accordingly.
+   */
   public void pointTowardsMousePointer() {
     var mx = this.getMouseX();
     var my = this.getMouseY();
@@ -556,6 +681,11 @@ public class Sprite {
     this.setDirection(90 - angle);
   }
 
+  /**
+   * Points the current sprite towards the specified sprite.
+   *
+   * @param s the sprite to point towards
+   */
   public void pointTowardsSprite(Sprite s) {
     var mx = s.getX();
     var my = s.getY();
@@ -777,6 +907,11 @@ public class Sprite {
         || h.intersects(this.stage.rightBorder);
   }
 
+  /**
+   * Calculates the distance from the current sprite to the mouse pointer.
+   *
+   * @return the distance to the mouse pointer as a double.
+   */
   public double distanceToMousePointer() {
     var x2 = this.getMouseX();
     var y2 = this.getMouseY();
@@ -785,6 +920,12 @@ public class Sprite {
     return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
   }
 
+  /**
+   * Calculates the Euclidean distance between this sprite and another sprite.
+   *
+   * @param sprite the other sprite to which the distance is calculated
+   * @return the distance between this sprite and the specified sprite
+   */
   public double distanceToSprite(Sprite sprite) {
     var x2 = sprite.getX();
     var y2 = sprite.getY();
@@ -793,6 +934,14 @@ public class Sprite {
     return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
   }
 
+  /**
+   * Sets the hitbox for the sprite using the provided points.
+   * The points should be provided in pairs representing the x and y coordinates.
+   * 
+   * @param points an array of integers representing the x and y coordinates of the hitbox vertices.
+   *               The length of the array should be even, with each pair of integers representing
+   *               a point (x, y).
+   */
   public void setHitbox(int... points) {
     int l = points.length / 2;
     int[] xPoints = new int[l];
@@ -804,26 +953,58 @@ public class Sprite {
     this.hitbox = new Hitbox(xPoints, yPoints);
   }
 
+  /**
+   * Sets the hitbox for the sprite using the provided x and y coordinates.
+   *
+   * @param xPoints an array of x coordinates for the hitbox
+   * @param yPoints an array of y coordinates for the hitbox
+   */
   public void setHitbox(int[] xPoints, final int[] yPoints) {
     this.hitbox = new Hitbox(xPoints, yPoints);
   }
 
+  /**
+   * Sets the hitbox for the sprite using the provided Hitbox object.
+   *
+   * @param hitbox the Hitbox object to set
+   */
   public void setHitbox(Hitbox hitbox) {
     this.hitbox = hitbox;
   }
 
+  /**
+   * Sets the hitbox for the sprite using the specified shape.
+   *
+   * @param shape the shape to be used for the hitbox
+   */
   public void setHitbox(Shape shape) {
     this.hitbox = new Hitbox(shape);
   }
 
+  /**
+   * Disables the hitbox for the sprite.
+   * Once the hitbox is disabled, the sprite will no longer
+   * detect collisions with other objects.
+   */
   public void disableHitbox() {
     this.hitboxDisabled = true;
   }
 
+  /**
+   * Enables the hitbox for the sprite.
+   * This method sets the hitboxDisabled flag to false, allowing the sprite to interact with other objects.
+   */
   public void enableHitbox() {
     this.hitboxDisabled = false;
   }
 
+  /**
+   * Returns the hitbox of the sprite based on its current costume, position, and rotation.
+   * If the sprite has a hitbox already defined, it updates and returns it.
+   * Otherwise, it calculates a new hitbox based on the sprite's dimensions and rotation.
+   *
+   * @return the hitbox of the sprite
+   */
   public Hitbox getHitbox() {
     Image currentCostume = null;
     if (this.costumes.size() > this.getCurrentCostumeIndex()) {
@@ -879,6 +1060,15 @@ public class Sprite {
     return hitbox;
   }
 
+  /**
+   * Checks if this sprite is touching another sprite.
+   *
+   * @param sprite The sprite to check for collision with.
+   * @return true if this sprite is touching the specified sprite, false otherwise.
+   *         Returns false if the specified sprite is the same as this sprite,
+   *         if the stage is null, if the specified sprite is null, not shown,
+   *         or has its hitbox disabled.
+   */
   public boolean isTouchingSprite(Sprite sprite) {
     if (sprite == this) return false;
     if (stage == null) return false;
@@ -886,6 +1076,12 @@ public class Sprite {
     return this.getHitbox().intersects(sprite.getHitbox());
   }
 
+  /**
+   * Checks if this sprite is touching any sprite of the specified class type.
+   *
+   * @param c the class type of the sprite to check for collision
+   * @return true if this sprite is touching any sprite of the specified class type, false otherwise
+   */
   public boolean isTouchingSprite(Class<? extends Sprite> c) {
     if (stage == null) return false;
     return this.stage.sprites.stream()
@@ -895,6 +1091,13 @@ public class Sprite {
         .isPresent();
   }
 
+  /**
+   * Returns the first sprite of the specified type that is currently touching this sprite.
+   *
+   * @param <T> the type of the sprite to check for
+   * @param c the class object of the type of sprite to check for
+   * @return the first sprite of the specified type that is touching this sprite, or null if no such sprite is found
+   */
   public <T extends Sprite> T getTouchingSprite(Class<T> c) {
     if (stage == null) return null;
     return this.stage.sprites.stream()
@@ -905,6 +1108,13 @@ public class Sprite {
         .orElse(null);
   }
 
+  /**
+   * Returns a list of sprites of the specified type that are currently touching this sprite.
+   *
+   * @param <T> the type of sprites to return
+   * @param c the class of the type of sprites to return
+   * @return a list of sprites of the specified type that are touching this sprite, or null if the stage is not set
+   */
   public <T extends Sprite> List<T> getTouchingSprites(Class<T> c) {
     if (stage == null) return null;
     return this.stage.sprites.stream()
@@ -934,6 +1144,14 @@ public class Sprite {
     return this.stage.getMouseY();
   }
 
+  /**
+   * Retrieves the current position of the mouse cursor.
+   *
+   * @see Vector2
+   * @return a Vector2 object representing the current mouse cursor position,
+   *         with the x-coordinate obtained from getMouseX() and the y-coordinate
+   *         obtained from getMouseY().
+   */
   public Vector2 getMouse() {
     return new Vector2(this.getMouseX(), this.getMouseY());
   }
@@ -1069,99 +1287,239 @@ public class Sprite {
     }
   }
 
+  /**
+   * This method is called when a key is pressed.
+   * Override this method to define custom behavior.
+   *
+   * @see KeyCode
+   * @param keyCode the code of the key that was pressed
+   */
   public void whenKeyPressed(int keyCode) {}
 
+  /**
+   * This method is called when a key is released.
+   * Override this method to define custom behavior.
+   *
+   * @see KeyCode
+   * @param keyCode the code of the key that was released
+   */
   public void whenKeyReleased(int keyCode) {}
 
+  /**
+   * Handles mouse events.
+   * Override this method to define custom behavior.
+   *
+   * @param e the MouseEvent object containing details about the mouse event
+   */
   public void mouseEvent(MouseEvent e) {}
 
+  /**
+   * This method is called when the mouse is moved.
+   * Override this method to define custom behavior.
+   *
+   * @param x The x-coordinate of the mouse pointer.
+   * @param y The y-coordinate of the mouse pointer.
+   */
   public void whenMouseMoved(double x, double y) {}
 
+  /**
+   * This method is called when a mouse click event occurs.
+   * Override this method to define custom behavior.
+   *
+   * @param mouseCode The code representing the mouse button that was clicked.
+   */
   public void whenMouseClicked(MouseCode mouseCode) {}
 
+  /**
+   * This method is called when the sprite is clicked.
+   * Override this method to define custom behavior for the sprite when it is clicked.
+   */
   public void whenClicked() {}
 
+  /**
+   * Moves the sprite to a random position within the boundaries of the stage.
+   * The new position is determined by generating random coordinates within the
+   * width and height of the stage.
+   */
   public void goToRandomPosition() {
     this.setPosition(
         Random.randomInt(-this.stage.getWidth() / 2, this.stage.getWidth() / 2),
         Random.randomInt(-this.stage.getHeight() / 2, this.stage.getHeight() / 2));
   }
 
+  /**
+   * Moves the sprite to the current position of the mouse pointer.
+   * This method updates the sprite's position to the coordinates
+   * of the mouse cursor.
+   */
   public void goToMousePointer() {
     this.setPosition(this.getMouseX(), this.getMouseY());
   }
 
+  /**
+   * Moves this sprite to the position of the specified sprite.
+   *
+   * @param sprite the sprite to move to
+   */
   public void goToSprite(Sprite sprite) {
     this.setPosition(sprite.getX(), sprite.getY());
   }
 
+  /**
+   * Moves this sprite to the front layer of the stage.
+   * If the sprite is not part of any stage, the method does nothing.
+   */
   public void goToFrontLayer() {
     if (stage == null) return;
     this.stage.goToFrontLayer(this);
   }
 
+  /**
+   * Moves the sprite to the back layer of the stage.
+   * If the sprite is not associated with any stage, the method returns without performing any action.
+   */
   public void goToBackLayer() {
     if (stage == null) return;
     this.stage.goToBackLayer(this);
   }
 
+  /**
+   * Moves the sprite forward by a specified number of layers within its stage.
+   *
+   * @param number the number of layers to move the sprite forward
+   */
   public void goLayersForwards(int number) {
     if (stage == null) return;
     this.stage.goLayersForwards(this, number);
   }
 
+  /**
+   * Moves the sprite backwards by a specified number of layers in the stage.
+   * If the sprite is not part of a stage, the method does nothing.
+   *
+   * @param number the number of layers to move the sprite backwards
+   */
   public void goLayersBackwards(int number) {
     if (stage == null) return;
     this.stage.goLayersBackwards(this, number);
   }
 
+  /**
+   * This method is called when the backdrop switches to the specified name.
+   * Override this method to define custom behavior.
+   *
+   * @param name the name of the backdrop to switch to
+   */
   public void whenBackdropSwitches(String name) {}
 
+  /**
+   * Returns a random integer between the specified range.
+   *
+   * @param from the lower bound of the range (inclusive)
+   * @param to the upper bound of the range (exclusive)
+   * @return a random integer between the specified range
+   */
   public int pickRandom(int from, final int to) {
-    if (to < from) {
-      return to + (int) (Math.random() * (from - to));
+    if (from == to) {
+      return from;
     }
-    return from + (int) (Math.random() * (to - from));
+    if (to < from) {
+      return to + (int) (Math.random() * (from - to + 1));
+    }
+    return from + (int) (Math.random() * (to - from + 1));
   }
 
+  /**
+   * Retrieves the text associated with this sprite.
+   *
+   * @return the text associated with this sprite
+   */
   public Text getText() {
     return this.text;
   }
 
+  /**
+   * Displays a thought bubble with the specified text.
+   *
+   * @param text The text to be displayed in the thought bubble.
+   */
   public void think(String text) {
     this.text.setStyle(TextStyle.THINK);
     this.text.showText(text);
   }
 
+  /**
+   * Displays a thought bubble with the specified text for a given duration.
+   *
+   * @param text The text to be displayed in the thought bubble.
+   * @param millis The duration in milliseconds for which the thought bubble will be displayed.
+   */
   public void think(String text, final int millis) {
     this.text.setStyle(TextStyle.THINK);
     this.text.showText(text, millis);
   }
 
+  /**
+   * Makes the sprite display a speech bubble with the specified text.
+   *
+   * @param text The text to be displayed in the speech bubble.
+   */
   public void say(String text) {
     this.text.setStyle(TextStyle.SPEAK);
     this.text.showText(text);
   }
 
+  /**
+   * Displays a text message for a specified duration.
+   *
+   * @param text The message to be displayed.
+   * @param millis The duration in milliseconds for which the message will be displayed.
+   */
   public void say(String text, final int millis) {
     this.text.setStyle(TextStyle.SPEAK);
     this.text.showText(text, millis);
   }
 
+  /**
+   * Broadcasts a message to all sprites in the stage except the current sprite.
+   * If the stage is not set, the method returns immediately.
+   *
+   * @param message The message to broadcast to other sprites.
+   */
   public void broadcast(String message) {
     if (stage == null) return;
     this.stage.sprites.stream().filter(s -> s != this).forEach(s -> s.whenIReceive(message));
     this.stage.whenIReceive(message);
   }
 
+  /**
+   * Broadcasts a message to all sprites in the stage except the current sprite,
+   * and also to the stage itself.
+   *
+   * @param message The message to be broadcasted. It can be any object.
+   */
   public void broadcast(Object message) {
     if (stage == null) return;
     this.stage.sprites.stream().filter(s -> s != this).forEach(s -> s.whenIReceive(message));
     this.stage.whenIReceive(message);
   }
 
+  /**
+   * This method is called when a message is received.
+   * Override this method to define custom behavior.
+   *
+   * @see Sprite#broadcast(String)
+   * @param message The message that is received.
+   */
   public void whenIReceive(String message) {}
 
+  /**
+   * This method is called when a message is received.
+   * Override this method to define custom behavior.
+   *
+   * @see Sprite#broadcast(String)
+   * @param message The message that is received.
+   */
   public void whenIReceive(Object message) {}
 
   /**
@@ -1210,10 +1568,20 @@ public class Sprite {
     }
   }
 
+  /**
+   * Sets the UI status of the sprite.
+   *
+   * @param isUI A boolean value indicating whether the sprite is part of the UI.
+   */
   public void isUI(boolean isUI) {
     this.isUI = isUI;
   }
 
+  /**
+   * Checks if the sprite is part of the user interface.
+   *
+   * @return true if the sprite is part of the user interface, false otherwise.
+   */
   public boolean isUI() {
     return this.isUI;
   }
@@ -1228,6 +1596,11 @@ public class Sprite {
     }
   }
 
+  /**
+   * Draws debug information for the sprite. This includes the hitbox and the current costume.
+   * The hitbox is drawn if it is not disabled and the sprite is not a UI element.
+   * The current costume is drawn if there are costumes available and the sprite is set to be shown.
+   */
   public void drawDebug() {
     if (!this.hitboxDisabled && !this.isUI) {
       this.getHitbox().drawDebug(this.getStage().getDebugBuffer());
@@ -1246,7 +1619,10 @@ public class Sprite {
   }
 
   /**
-   * This method is called 60-times per second, if the sprite object was added to a stage object.
+   * This method is intended to be overridden by subclasses to define the behavior
+   * of the sprite when it is run. By default, this method does nothing.
+   * 
+   * It is called every frame.
    */
   public void run() {}
 }

@@ -31,7 +31,10 @@ import processing.core.PGraphics;
 import processing.event.KeyEvent;
 import processing.event.MouseEvent;
 
-/** Represents a scratch stage. */
+/**
+ * The Stage class represents a stage where various elements such as sprites, texts, pens, and backdrops can be added and manipulated.
+ * It provides methods to manage these elements, handle events, and control the stage's appearance and behavior.
+ */
 public class Stage {
 
   private final List<Image> backdrops = new CopyOnWriteArrayList<>();
@@ -74,26 +77,62 @@ public class Stage {
 
   private Camera camera;
 
+  /**
+   * Constructs a new Stage with default dimensions.
+   * The default width is 480 pixels and the default height is 360 pixels.
+   */
   public Stage() {
     this(480, 360);
   }
 
+  /**
+   * Constructs a new Stage with the specified width and height.
+   *
+   * @param width  the width of the stage
+   * @param height the height of the stage
+   */
   public Stage(int width, final int height) {
     this(width, height, null);
   }
 
+  /**
+   * Constructs a new Stage with the specified width, height, and assets path.
+   *
+   * @param width  the width of the stage
+   * @param height the height of the stage
+   * @param assets the path to the assets directory
+   */
   public Stage(int width, int height, String assets) {
     this(width, height, false, assets);
   }
 
+  /**
+   * Constructs a new Stage.
+   *
+   * @param fullScreen a boolean indicating whether the stage should be in full screen mode.
+   */
   public Stage(boolean fullScreen) {
     this(480, 360, fullScreen, null);
   }
 
+  /**
+   * Constructs a new Stage with the specified fullscreen mode and assets path.
+   *
+   * @param fullScreen a boolean indicating whether the stage should be in fullscreen mode
+   * @param assets the path to the assets directory
+   */
   public Stage(boolean fullScreen, String assets) {
     this(480, 360, fullScreen, assets);
   }
 
+  /**
+   * Constructs a new Stage with the specified parameters.
+   *
+   * @param width the width of the stage
+   * @param height the height of the stage
+   * @param fullScreen whether the stage should be in full screen mode
+   * @param assets the path to the assets directory
+   */
   public Stage(int width, final int height, boolean fullScreen, String assets) {
     this.cursor = null;
     this.camera = new Camera();
@@ -162,10 +201,20 @@ public class Stage {
     this.bottomBorder = new Hitbox(p);
   }
 
+  /**
+   * Enables or disables the debug mode for the application.
+   *
+   * @param debug a boolean value where {@code true} enables debug mode and {@code false} disables it.
+   */
   public void setDebug(boolean debug) {
     Applet.getInstance().setDebug(debug);
   }
 
+  /**
+   * Checks if the application is in debug mode.
+   *
+   * @return true if the application is in debug mode, false otherwise.
+   */
   public boolean isDebug() {
     return Applet.getInstance().isDebug();
   }
@@ -190,11 +239,24 @@ public class Stage {
     text.addedToStage(this);
   }
 
+  /**
+   * Adds a Pen object to the stage.
+   *
+   * @param pen the Pen object to be added to the stage
+   */
   public void add(Pen pen) {
     this.pens.add(pen);
     pen.addedToStage(this);
   }
 
+  /**
+   * Moves the specified sprite backwards by a given number of layers in the sprite list.
+   * If the resulting position is less than zero, the sprite is moved to the first position.
+   * If the resulting position is greater than the last index, the sprite is moved to the last position.
+   *
+   * @param sprite the sprite to be moved backwards in the layer order
+   * @param number the number of layers to move the sprite backwards
+   */
   public void goLayersBackwards(Sprite sprite, int number) {
     int index = this.sprites.indexOf(sprite);
     if (index == -1) return;
@@ -205,6 +267,13 @@ public class Stage {
     this.sprites.add(newIndex, sprite);
   }
 
+  /**
+   * Moves the specified sprite forward by a given number of layers in the sprite list.
+   * If the resulting position is out of bounds, it will be adjusted to the nearest valid position.
+   *
+   * @param sprite the sprite to be moved forward in the layer order
+   * @param number the number of layers to move the sprite forward
+   */
   public void goLayersForwards(Sprite sprite, int number) {
     int index = this.sprites.indexOf(sprite);
     if (index == -1) return;
@@ -215,49 +284,95 @@ public class Stage {
     this.sprites.add(newIndex, sprite);
   }
 
+  /**
+   * Moves the specified sprite to the front layer.
+   *
+   * @param sprite the sprite to be moved to the front layer
+   */
   public void goToFrontLayer(Sprite sprite) {
     this.sprites.remove(sprite);
     this.sprites.add(sprite);
   }
 
+  /**
+   * Moves the specified sprite to the back layer of the stage.
+   *
+   * @param sprite the sprite to be moved to the back layer
+   */
   public void goToBackLayer(Sprite sprite) {
     this.sprites.remove(sprite);
     this.sprites.add(0, sprite);
   }
 
+  /**
+   * Moves the specified sprite to the UI layer by removing it from the current list of sprites.
+   *
+   * @param sprite the sprite to be moved to the UI layer
+   */
   public void goToUILayer(Sprite sprite) {
     this.sprites.remove(sprite);
   }
 
+  /**
+   * Sets the sorter for the sprites.
+   *
+   * @param sorter the comparator used to sort the sprites
+   */
   public void setSorter(Comparator<? super Sprite> sorter) {
     this.sorter = sorter;
   }
 
+  /**
+   * Retrieves a list of all sprites in the current stage.
+   * 
+   * @return a list containing all sp
+   */
   public List<Sprite> getAll() {
     return new CopyOnWriteArrayList<>(this.sprites);
   }
 
+  /**
+   * Removes the specified sprite from the stage.
+   * 
+   * @param sprite the sprite to be removed
+   */
   public void remove(Sprite sprite) {
     this.sprites.remove(sprite);
     sprite.removedFromStage(this);
   }
 
+  /**
+   * Removes the specified pen from the stage.
+   *
+   * @param pen the pen to be removed
+   */
   public void remove(Pen pen) {
     this.pens.remove(pen);
     pen.removedFromStage(this);
   }
 
+  /**
+   * Removes the specified text from the stage.
+   *
+   * @param text the text to be removed
+   */
   public void remove(Text text) {
     this.texts.remove(text);
     text.removedFromStage(this);
   }
 
+  /**
+   * Removes all elements from the stage.
+   */
   public void removeAll() {
     this.removeAllSprites();
     this.removeAllTexts();
     this.removeAllPens();
   }
 
+  /**
+   * Removes all sprites from the stage.
+   */
   public void removeAllSprites() {
     for (Sprite sprite : this.sprites) {
       sprite.removedFromStage(this);
@@ -265,6 +380,9 @@ public class Stage {
     this.sprites.clear();
   }
 
+  /**
+   * Removes all texts from the stage.
+   */
   public void removeAllTexts() {
     for (Text text : this.texts) {
       text.removedFromStage(this);
@@ -272,6 +390,9 @@ public class Stage {
     this.texts.clear();
   }
 
+  /**
+   * Removes all pens from the stage.
+   */
   public void removeAllPens() {
     for (Pen pen : this.pens) {
       pen.removedFromStage(this);
@@ -279,6 +400,11 @@ public class Stage {
     this.pens.clear();
   }
 
+  /**
+   * Removes all sprites of the specified class from the stage.
+   *
+   * @param c the class of the sprites to remove
+   */
   public void remove(Class<? extends Sprite> c) {
     for (Sprite sprite : this.sprites) {
       if (c.isInstance(sprite)) {
@@ -297,42 +423,92 @@ public class Stage {
     return this.sprites.stream().filter(c::isInstance).map(c::cast).collect(Collectors.toList());
   }
 
+  /**
+   * Find sprites of a given class.
+   *
+   * @param c Class
+   */
   public <T extends Sprite> List<T> findSpritesOf(Class<T> c) {
     return this.find(c);
   }
 
+  /**
+   * Find texts of a given class.
+   *
+   * @param c Class
+   */
   public <T extends Text> List<T> findTextsOf(Class<T> c) {
     return this.texts.stream().filter(c::isInstance).map(c::cast).collect(Collectors.toList());
   }
 
+  /**
+   * Find texts of a given class.
+   *
+   * @param c Class
+   */
   public <T extends Pen> List<T> findPensOf(Class<T> c) {
     return this.pens.stream().filter(c::isInstance).map(c::cast).collect(Collectors.toList());
   }
 
+  /**
+   * Returns the number of sprites of the specified class.
+   *
+   * @param c the class of the sprites to count
+   * @return the number of sprites of the specified class
+   */
   public <T extends Sprite> long count(Class<T> c) {
     return this.sprites.stream().filter(c::isInstance).count();
   }
 
+  /**
+   * Returns the number of sprites in the stage.
+   *
+   * @return the number of sprites
+   */
   public long countSprites() {
     return this.sprites.size();
   }
 
+  /**
+   * Returns the number of sprites of the specified class.
+   *
+   * @param c the class of the sprites to count
+   * @return the number of sprites of the specified class
+   */
   public <T extends Sprite> long countSpritesOf(Class<T> c) {
     return this.count(c);
   }
 
+  /**
+   * Returns the number of texts in the stage.
+   * @return the number of texts
+   */
   public long countTexts() {
     return this.texts.size();
   }
 
+  /**
+   * Returns the number of texts of the specified class.
+   * @param c the class of the texts to count
+   */
   public <T extends Text> long countTextsOf(Class<T> c) {
     return this.texts.stream().filter(c::isInstance).count();
   }
 
+  /**
+   * Returns the number of pens
+   *
+   * @return the number of pens
+   */
   public long countPens() {
     return this.pens.size();
   }
 
+  /**
+   * Returns the number of pens of the specified class.
+   * 
+   * @param c the class of the pens to count
+   */
   public <T extends Pen> long countPensOf(Class<T> c) {
     return this.pens.stream().filter(c::isInstance).count();
   }
@@ -398,6 +574,7 @@ public class Stage {
     }
   }
 
+
   private void emitBackdropSwitch() {
     Image backdrop = this.backdrops.get(this.currentBackdrop);
     String name = backdrop.getName();
@@ -405,6 +582,12 @@ public class Stage {
     this.whenBackdropSwitches(name);
   }
 
+  /**
+   * This method is called when the backdrop switches to the specified name.
+   * Override this method to add custom behavior.
+   *
+   * @param name the name of the backdrop to switch to
+   */
   public void whenBackdropSwitches(String name) {}
 
   /** Switch to the next backdrop. */
@@ -451,14 +634,23 @@ public class Stage {
     this.eraseUIBuffer = true;
   }
 
+  /**
+   * When this method is called, the background buffer will be erased.
+   */
   public void eraseBackground() {
     this.eraseBackgroundBuffer = true;
   }
 
+  /**
+   * When this method is called, the foreground buffer will be erased.
+   */
   public void eraseForeground() {
     this.eraseForegroundBuffer = true;
   }
 
+  /**
+   * This method marks the UI buffer to be erased, which will be processed in the next update cycle.
+   */
   public void eraseUI() {
     this.eraseUIBuffer = true;
   }
@@ -512,6 +704,7 @@ public class Stage {
   public void stopAllSounds() {
     for (Sound sound : this.sounds) {
       sound.stop();
+
     }
   }
 
@@ -553,14 +746,29 @@ public class Stage {
     return this.backgroundBuffer;
   }
 
+  /**
+   * Returns the foreground buffer.
+   *
+   * @return the PGraphics object representing the foreground buffer.
+   */
   public PGraphics getForegroundBuffer() {
     return this.foregroundBuffer;
   }
 
+  /**
+   * Returns the PGraphics object representing the UI buffer.
+   *
+   * @return the PGraphics object used for the UI buffer.
+   */
   public PGraphics getUIBuffer() {
     return this.uiBuffer;
   }
 
+  /**
+   * Returns the debug buffer.
+   *
+   * @return the PGraphics object representing the debug buffer.
+   */
   public PGraphics getDebugBuffer() {
     return this.debugBuffer;
   }
@@ -585,6 +793,12 @@ public class Stage {
     this.color.setRGB(r, g, b);
   }
 
+  /**
+   * Sets the color of the stage.
+   *
+   * @see org.openpatch.scratch.internal.Color
+   * @param c the new color to be set
+   */
   public void setColor(Color c) {
     this.color = c;
   }
@@ -602,6 +816,10 @@ public class Stage {
    * Sets the tint for the current backdrop with rgb.
    *
    * @see Image#setTint(double, double, double)
+   * 
+   * @param r a red value [0...255]
+   * @param g a green value [0...255]
+   * @param b a blue value [0...255]
    */
   public void setTint(double r, double g, double b) {
     if (this.backdrops.size() == 0) return;
@@ -622,6 +840,8 @@ public class Stage {
    * Changes the tint for the current backdrop
    *
    * @see Image#changeTint(double)
+   * 
+   * @param step a step value
    */
   public void changeTint(double step) {
     if (this.backdrops.size() == 0) return;
@@ -633,6 +853,8 @@ public class Stage {
    * Sets the transparency of the current backdrop.
    *
    * @see Image#setTransparency(double)
+   * 
+   * @param transparency a transparency value [0...1]
    */
   public void setTransparency(double transparency) {
     this.backdrops.get(this.currentBackdrop).setTransparency(transparency);
@@ -642,6 +864,8 @@ public class Stage {
    * Changes the transparency for the current costume.
    *
    * @see Image#changeTransparency(double)
+   * 
+   * @param step a step value
    */
   public void changeTransparency(double step) {
     if (this.backdrops.size() == 0) return;
@@ -743,8 +967,21 @@ public class Stage {
     }
   }
 
+  /**
+   * This method is called when a mouse click event occurs.
+   * Overwrite this method to add custom behavior.
+   *
+   * @param mouseEvent The mouse event that triggered this method.
+   */
   public void whenMouseClicked(MouseCode mouseEvent) {}
 
+  /**
+   * This method is called when the mouse wheel is moved.
+   * Overwrite this method to add custom behavior.
+   *
+   * @param steps the number of steps the mouse wheel has moved. Positive values indicate movement away from the user, 
+   *              while negative values indicate movement towards the user.
+   */
   public void whenMouseWheelMoved(int steps) {}
 
   /**
@@ -778,8 +1015,20 @@ public class Stage {
     return this.mouseDown;
   }
 
+  /**
+   * This method is called when a key is pressed.
+   * Override this method to add custom behavior.
+   *
+   * @param keyCode the code of the key that was pressed
+   */
   public void whenKeyPressed(int keyCode) {}
 
+  /**
+   * This method is called when a key is released.
+   * Override this method to add custom behavior.
+   *
+   * @param keyCode the code of the key that was released
+   */
   public void whenKeyReleased(int keyCode) {}
 
   public void keyEvent(KeyEvent e) {
@@ -911,45 +1160,103 @@ public class Stage {
     return (int) c;
   }
 
+  /**
+   * Returns a random integer between the specified range (inclusive).
+   *
+   * @param from the lower bound of the range (inclusive)
+   * @param to the upper bound of the range (inclusive)
+   * @return a random integer between {@code from} and {@code to} (inclusive)
+   */
   public int pickRandom(int from, final int to) {
     if (to < from) {
-      return to + (int) (Math.random() * (from - to));
+      return from + (int) (Math.random() * (to - from + 1));
     }
-    return from + (int) (Math.random() * (to - from));
+    return from + (int) (Math.random() * (to - from + 1));
   }
 
+  /**
+   * Displays the given text on the stage.
+   *
+   * @param text the text to be displayed
+   */
   public void display(String text) {
     this.display.showText(text);
   }
 
+  /**
+   * Displays the given text on the screen for a specified duration.
+   *
+   * @param text The text to be displayed.
+   * @param millis The duration in milliseconds for which the text will be displayed.
+   */
   public void display(String text, final int millis) {
     this.display.showText(text, millis);
   }
 
+  /**
+   * Broadcasts a message to all sprites in the stage.
+   * Each sprite will execute its `whenIReceive` method with the given message.
+   *
+   * @param message The message to broadcast to all sprites.
+   */
   public void broadcast(String message) {
     this.sprites.stream().forEach(s -> s.whenIReceive(message));
   }
 
+  /**
+   * Broadcasts a message to all sprites in the stage.
+   * Each sprite will execute its `whenIReceive` method with the given message.
+   * 
+   * @param message The message to broadcast to all sprites.
+   */
   public void broadcast(Object message) {
     this.sprites.stream().forEach(s -> s.whenIReceive(message));
   }
 
+  /**
+   * This method is called when a specific message is received.
+   * Override this method to add custom behavior.
+   *
+   * @param message The message that triggers this method.
+   */
   public void whenIReceive(String message) {}
 
+  /**
+   * This method is called when a message is received.
+   *
+   * @param message The message object that is received.
+   */
   public void whenIReceive(Object message) {}
 
+  /**
+   * Sets the cursor image for the stage.
+   *
+   * @param path the file path to the cursor image
+   */
   public void setCursor(String path) {
     this.cursor = path;
     this.cursorActiveSpotX = 0;
     this.cursorActiveSpotY = 0;
   }
 
+  /**
+   * Sets the cursor image and its active spot coordinates.
+   *
+   * @param path the file path to the cursor image
+   * @param x the x-coordinate of the cursor's active spot
+   * @param y the y-coordinate of the cursor's active spot
+   */
   public void setCursor(String path, int x, int y) {
     this.cursor = path;
     this.cursorActiveSpotX = x;
     this.cursorActiveSpotY = y;
   }
 
+  /**
+   * Retrieves the current camera instance associated with this stage.
+   *
+   * @return the current Camera object.
+   */
   public Camera getCamera() {
     return this.camera;
   }
@@ -966,6 +1273,10 @@ public class Stage {
     }
   }
 
+  /**
+   * Executes the main logic of the stage. This method should be overridden
+   * by subclasses to define the specific behavior of the stage.
+   */
   public void run() {}
 
   public void pre() {
