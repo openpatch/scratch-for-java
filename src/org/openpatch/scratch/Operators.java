@@ -1,6 +1,16 @@
 package org.openpatch.scratch;
 
+/**
+ * The Operators class provides a collection of static methods for performing various mathematical operations.
+ * These operations include interpolation, constraint, finding minimum and maximum values, mapping ranges,
+ * rounding, modulo, absolute value, floor, ceiling, square root, trigonometric functions, inverse trigonometric
+ * functions, logarithms, and exponentiation.
+ * 
+ * <p>Each method is designed to be a utility function that can be used without instantiating the Operators class.
+ * The methods cover operations for both double and int data types where applicable.</p>
+ */
 public class Operators {
+  private Operators(){}
   /**
    * Calculates a number between two numbers at a specific increment. The <b>amt</b> parameter is
    * the amount to interpolate between the two values where 0.0 equal to the first point, 0.1 is
@@ -10,6 +20,8 @@ public class Operators {
    * @param start first value
    * @param stop second value
    * @param amt double between 0.0 and 1.0
+   * 
+   * @return the interpolated value
    */
   public static final double lerp(double start, double stop, double amt) {
     return start + (stop - start) * amt;
@@ -123,6 +135,8 @@ public class Operators {
    * @param stop1 upper bound of the value's current range
    * @param start2 lower bound of the value's target range
    * @param stop2 upper bound of the value's target range
+   * 
+   * @return the value mapped to the new range
    */
   public static final double map(
       double value, double start1, double stop1, double start2, double stop2) {

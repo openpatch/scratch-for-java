@@ -44,7 +44,11 @@ public class OpenSimplex2S {
    * Noise Evaluators
    */
 
-  /** 2D OpenSimplex2S/SuperSimplex noise, standard lattice orientation. */
+  /** 2D OpenSimplex2S/SuperSimplex noise, standard lattice orientation. 
+   * @param seed the seed
+   * @param x the x coordinate
+   * @param y the y coordinate
+   */
   public static float noise2(long seed, double x, double y) {
 
     // Get points for A2* lattice
@@ -59,6 +63,9 @@ public class OpenSimplex2S {
    * for a 2D sandbox style game, where Y is vertical. Probably slightly less optimal for heightmaps
    * or continent maps, unless your map is centered around an equator. It's a slight difference, but
    * the option is here to make it easy.
+   * @param seed the seed
+   * @param x the x coordinate
+   * @param y the y coordinate
    */
   public static float noise2_ImproveX(long seed, double x, double y) {
 
@@ -175,6 +182,10 @@ public class OpenSimplex2S {
    * coordinate in whatever your use case is. If Y is vertical in world coordinates, call
    * noise3_ImproveXZ(x, z, Y) or use noise3_XZBeforeY. If Z is vertical in world coordinates, call
    * noise3_ImproveXZ(x, y, Z). For a time varied animation, call noise3_ImproveXY(x, y, T).
+   * @param seed the seed
+   * @param x the x coordinate
+   * @param y the y coordinate
+   * @param z the z coordinate
    */
   public static float noise3_ImproveXY(long seed, double x, double y, double z) {
 
@@ -199,6 +210,11 @@ public class OpenSimplex2S {
    * noise3_ImproveXZ(x, Y, z). If Z is vertical in world coordinates, call noise3_ImproveXZ(x, Z,
    * y) or use noise3_ImproveXY. For a time varied animation, call noise3_ImproveXZ(x, T, y) or use
    * noise3_ImproveXY.
+   * 
+   * @param seed the seed
+   * @param x the x coordinate
+   * @param y the y coordinate
+   * @param z the z coordinate
    */
   public static float noise3_ImproveXZ(long seed, double x, double y, double z) {
 
@@ -220,6 +236,11 @@ public class OpenSimplex2S {
    * 3D OpenSimplex2S/SuperSimplex noise, fallback rotation option Use noise3_ImproveXY or
    * noise3_ImproveXZ instead, wherever appropriate. They have less diagonal bias. This function's
    * best use is as a fallback.
+   * 
+   * @param seed the seed
+   * @param x the x coordinate
+   * @param y the y coordinate
+   * @param z the z coordinate
    */
   public static float noise3_Fallback(long seed, double x, double y, double z) {
 
@@ -521,6 +542,12 @@ public class OpenSimplex2S {
    * 4D SuperSimplex noise, with XYZ oriented like noise3_ImproveXY and W for an extra degree of
    * freedom. W repeats eventually. Recommended for time-varied animations which texture a 3D object
    * (W=time) in a space where Z is vertical
+   * 
+   * @param seed the seed
+   * @param x the x coordinate
+   * @param y the y coordinate
+   * @param z the z coordinate
+   * @param w the w coordinate
    */
   public static float noise4_ImproveXYZ_ImproveXY(
       long seed, double x, double y, double z, double w) {
@@ -539,6 +566,11 @@ public class OpenSimplex2S {
    * 4D SuperSimplex noise, with XYZ oriented like noise3_ImproveXZ and W for an extra degree of
    * freedom. W repeats eventually. Recommended for time-varied animations which texture a 3D object
    * (W=time) in a space where Y is vertical
+   * @param seed the seed
+   * @param x the x coordinate
+   * @param y the y coordinate
+   * @param z the z coordinate
+   * @param w the w coordinate
    */
   public static float noise4_ImproveXYZ_ImproveXZ(
       long seed, double x, double y, double z, double w) {
@@ -557,6 +589,11 @@ public class OpenSimplex2S {
    * 4D SuperSimplex noise, with XYZ oriented like noise3_Fallback and W for an extra degree of
    * freedom. W repeats eventually. Recommended for time-varied animations which texture a 3D object
    * (W=time) where there isn't a clear distinction between horizontal and vertical
+   * @param seed the seed
+   * @param x the x coordinate
+   * @param y the y coordinate
+   * @param z the z coordinate
+   * @param w the w coordinate
    */
   public static float noise4_ImproveXYZ(long seed, double x, double y, double z, double w) {
     double xyz = x + y + z;
@@ -571,6 +608,11 @@ public class OpenSimplex2S {
    * 4D SuperSimplex noise, with XY and ZW forming orthogonal triangular-based planes. Recommended
    * for 3D terrain, where X and Y (or Z and W) are horizontal. Recommended for noise(x, y,
    * sin(time), cos(time)) trick.
+   * @param seed the seed
+   * @param x the x coordinate
+   * @param y the y coordinate
+   * @param z the z coordinate
+   * @param w the w coordinate
    */
   public static float noise4_ImproveXY_ImproveZW(
       long seed, double x, double y, double z, double w) {
@@ -582,7 +624,14 @@ public class OpenSimplex2S {
     return noise4_UnskewedBase(seed, xs, ys, zs, ws);
   }
 
-  /** 4D SuperSimplex noise, fallback lattice orientation. */
+  /** 4D SuperSimplex noise, fallback lattice orientation.
+   * 
+   * @param seed the seed
+   * @param x the x coordinate
+   * @param y the y coordinate
+   * @param z the z coordinate
+   * @param w the w coordinate
+   */
   public static float noise4_Fallback(long seed, double x, double y, double z, double w) {
 
     // Get points for A4 lattice
