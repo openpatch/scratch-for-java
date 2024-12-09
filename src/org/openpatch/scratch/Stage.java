@@ -32,8 +32,9 @@ import processing.event.KeyEvent;
 import processing.event.MouseEvent;
 
 /**
- * The Stage class represents a stage where various elements such as sprites, texts, pens, and backdrops can be added and manipulated.
- * It provides methods to manage these elements, handle events, and control the stage's appearance and behavior.
+ * The Stage class represents a stage where various elements such as sprites, texts, pens, and
+ * backdrops can be added and manipulated. It provides methods to manage these elements, handle
+ * events, and control the stage's appearance and behavior.
  */
 public class Stage {
 
@@ -78,8 +79,8 @@ public class Stage {
   private Camera camera;
 
   /**
-   * Constructs a new Stage with default dimensions.
-   * The default width is 480 pixels and the default height is 360 pixels.
+   * Constructs a new Stage with default dimensions. The default width is 480 pixels and the default
+   * height is 360 pixels.
    */
   public Stage() {
     this(480, 360);
@@ -88,7 +89,7 @@ public class Stage {
   /**
    * Constructs a new Stage with the specified width and height.
    *
-   * @param width  the width of the stage
+   * @param width the width of the stage
    * @param height the height of the stage
    */
   public Stage(int width, final int height) {
@@ -98,7 +99,7 @@ public class Stage {
   /**
    * Constructs a new Stage with the specified width, height, and assets path.
    *
-   * @param width  the width of the stage
+   * @param width the width of the stage
    * @param height the height of the stage
    * @param assets the path to the assets directory
    */
@@ -204,7 +205,8 @@ public class Stage {
   /**
    * Enables or disables the debug mode for the application.
    *
-   * @param debug a boolean value where {@code true} enables debug mode and {@code false} disables it.
+   * @param debug a boolean value where {@code true} enables debug mode and {@code false} disables
+   *     it.
    */
   public void setDebug(boolean debug) {
     Applet.getInstance().setDebug(debug);
@@ -250,9 +252,9 @@ public class Stage {
   }
 
   /**
-   * Moves the specified sprite backwards by a given number of layers in the sprite list.
-   * If the resulting position is less than zero, the sprite is moved to the first position.
-   * If the resulting position is greater than the last index, the sprite is moved to the last position.
+   * Moves the specified sprite backwards by a given number of layers in the sprite list. If the
+   * resulting position is less than zero, the sprite is moved to the first position. If the
+   * resulting position is greater than the last index, the sprite is moved to the last position.
    *
    * @param sprite the sprite to be moved backwards in the layer order
    * @param number the number of layers to move the sprite backwards
@@ -268,8 +270,8 @@ public class Stage {
   }
 
   /**
-   * Moves the specified sprite forward by a given number of layers in the sprite list.
-   * If the resulting position is out of bounds, it will be adjusted to the nearest valid position.
+   * Moves the specified sprite forward by a given number of layers in the sprite list. If the
+   * resulting position is out of bounds, it will be adjusted to the nearest valid position.
    *
    * @param sprite the sprite to be moved forward in the layer order
    * @param number the number of layers to move the sprite forward
@@ -324,7 +326,7 @@ public class Stage {
 
   /**
    * Retrieves a list of all sprites in the current stage.
-   * 
+   *
    * @return a list containing all sp
    */
   public List<Sprite> getAll() {
@@ -333,7 +335,7 @@ public class Stage {
 
   /**
    * Removes the specified sprite from the stage.
-   * 
+   *
    * @param sprite the sprite to be removed
    */
   public void remove(Sprite sprite) {
@@ -361,18 +363,14 @@ public class Stage {
     text.removedFromStage(this);
   }
 
-  /**
-   * Removes all elements from the stage.
-   */
+  /** Removes all elements from the stage. */
   public void removeAll() {
     this.removeAllSprites();
     this.removeAllTexts();
     this.removeAllPens();
   }
 
-  /**
-   * Removes all sprites from the stage.
-   */
+  /** Removes all sprites from the stage. */
   public void removeAllSprites() {
     for (Sprite sprite : this.sprites) {
       sprite.removedFromStage(this);
@@ -380,9 +378,7 @@ public class Stage {
     this.sprites.clear();
   }
 
-  /**
-   * Removes all texts from the stage.
-   */
+  /** Removes all texts from the stage. */
   public void removeAllTexts() {
     for (Text text : this.texts) {
       text.removedFromStage(this);
@@ -390,9 +386,7 @@ public class Stage {
     this.texts.clear();
   }
 
-  /**
-   * Removes all pens from the stage.
-   */
+  /** Removes all pens from the stage. */
   public void removeAllPens() {
     for (Pen pen : this.pens) {
       pen.removedFromStage(this);
@@ -481,6 +475,7 @@ public class Stage {
 
   /**
    * Returns the number of texts in the stage.
+   *
    * @return the number of texts
    */
   public long countTexts() {
@@ -489,6 +484,7 @@ public class Stage {
 
   /**
    * Returns the number of texts of the specified class.
+   *
    * @param c the class of the texts to count
    */
   public <T extends Text> long countTextsOf(Class<T> c) {
@@ -506,7 +502,7 @@ public class Stage {
 
   /**
    * Returns the number of pens of the specified class.
-   * 
+   *
    * @param c the class of the pens to count
    */
   public <T extends Pen> long countPensOf(Class<T> c) {
@@ -574,7 +570,6 @@ public class Stage {
     }
   }
 
-
   private void emitBackdropSwitch() {
     Image backdrop = this.backdrops.get(this.currentBackdrop);
     String name = backdrop.getName();
@@ -583,8 +578,8 @@ public class Stage {
   }
 
   /**
-   * This method is called when the backdrop switches to the specified name.
-   * Override this method to add custom behavior.
+   * This method is called when the backdrop switches to the specified name. Override this method to
+   * add custom behavior.
    *
    * @param name the name of the backdrop to switch to
    */
@@ -634,16 +629,12 @@ public class Stage {
     this.eraseUIBuffer = true;
   }
 
-  /**
-   * When this method is called, the background buffer will be erased.
-   */
+  /** When this method is called, the background buffer will be erased. */
   public void eraseBackground() {
     this.eraseBackgroundBuffer = true;
   }
 
-  /**
-   * When this method is called, the foreground buffer will be erased.
-   */
+  /** When this method is called, the foreground buffer will be erased. */
   public void eraseForeground() {
     this.eraseForegroundBuffer = true;
   }
@@ -704,7 +695,6 @@ public class Stage {
   public void stopAllSounds() {
     for (Sound sound : this.sounds) {
       sound.stop();
-
     }
   }
 
@@ -816,7 +806,6 @@ public class Stage {
    * Sets the tint for the current backdrop with rgb.
    *
    * @see Image#setTint(double, double, double)
-   * 
    * @param r a red value [0...255]
    * @param g a green value [0...255]
    * @param b a blue value [0...255]
@@ -840,7 +829,6 @@ public class Stage {
    * Changes the tint for the current backdrop
    *
    * @see Image#changeTint(double)
-   * 
    * @param step a step value
    */
   public void changeTint(double step) {
@@ -853,7 +841,6 @@ public class Stage {
    * Sets the transparency of the current backdrop.
    *
    * @see Image#setTransparency(double)
-   * 
    * @param transparency a transparency value [0...1]
    */
   public void setTransparency(double transparency) {
@@ -864,7 +851,6 @@ public class Stage {
    * Changes the transparency for the current costume.
    *
    * @see Image#changeTransparency(double)
-   * 
    * @param step a step value
    */
   public void changeTransparency(double step) {
@@ -968,19 +954,19 @@ public class Stage {
   }
 
   /**
-   * This method is called when a mouse click event occurs.
-   * Overwrite this method to add custom behavior.
+   * This method is called when a mouse click event occurs. Overwrite this method to add custom
+   * behavior.
    *
    * @param mouseEvent The mouse event that triggered this method.
    */
   public void whenMouseClicked(MouseCode mouseEvent) {}
 
   /**
-   * This method is called when the mouse wheel is moved.
-   * Overwrite this method to add custom behavior.
+   * This method is called when the mouse wheel is moved. Overwrite this method to add custom
+   * behavior.
    *
-   * @param steps the number of steps the mouse wheel has moved. Positive values indicate movement away from the user, 
-   *              while negative values indicate movement towards the user.
+   * @param steps the number of steps the mouse wheel has moved. Positive values indicate movement
+   *     away from the user, while negative values indicate movement towards the user.
    */
   public void whenMouseWheelMoved(int steps) {}
 
@@ -1016,16 +1002,14 @@ public class Stage {
   }
 
   /**
-   * This method is called when a key is pressed.
-   * Override this method to add custom behavior.
+   * This method is called when a key is pressed. Override this method to add custom behavior.
    *
    * @param keyCode the code of the key that was pressed
    */
   public void whenKeyPressed(int keyCode) {}
 
   /**
-   * This method is called when a key is released.
-   * Override this method to add custom behavior.
+   * This method is called when a key is released. Override this method to add custom behavior.
    *
    * @param keyCode the code of the key that was released
    */
@@ -1194,8 +1178,8 @@ public class Stage {
   }
 
   /**
-   * Broadcasts a message to all sprites in the stage.
-   * Each sprite will execute its `whenIReceive` method with the given message.
+   * Broadcasts a message to all sprites in the stage. Each sprite will execute its `whenIReceive`
+   * method with the given message.
    *
    * @param message The message to broadcast to all sprites.
    */
@@ -1204,9 +1188,9 @@ public class Stage {
   }
 
   /**
-   * Broadcasts a message to all sprites in the stage.
-   * Each sprite will execute its `whenIReceive` method with the given message.
-   * 
+   * Broadcasts a message to all sprites in the stage. Each sprite will execute its `whenIReceive`
+   * method with the given message.
+   *
    * @param message The message to broadcast to all sprites.
    */
   public void broadcast(Object message) {
@@ -1214,8 +1198,8 @@ public class Stage {
   }
 
   /**
-   * This method is called when a specific message is received.
-   * Override this method to add custom behavior.
+   * This method is called when a specific message is received. Override this method to add custom
+   * behavior.
    *
    * @param message The message that triggers this method.
    */
@@ -1274,8 +1258,8 @@ public class Stage {
   }
 
   /**
-   * Executes the main logic of the stage. This method should be overridden
-   * by subclasses to define the specific behavior of the stage.
+   * Executes the main logic of the stage. This method should be overridden by subclasses to define
+   * the specific behavior of the stage.
    */
   public void run() {}
 

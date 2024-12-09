@@ -3,11 +3,12 @@ package org.openpatch.scratch.extensions.timer;
 import org.openpatch.scratch.internal.Applet;
 
 /**
- * The Timer class provides methods for timing events in a graphical application.
- * It allows checking if a specified number of milliseconds has passed since the last time
- * a method was called, or if a specified interval has passed.
+ * The Timer class provides methods for timing events in a graphical application. It allows checking
+ * if a specified number of milliseconds has passed since the last time a method was called, or if a
+ * specified interval has passed.
  *
  * <p>Usage example:
+ *
  * <pre>
  * Timer timer = new Timer();
  * if (timer.everyMillis(1000)) {
@@ -31,9 +32,7 @@ public class Timer {
   private int startMillisInterval;
   private int currentInterval;
 
-  /**
-   * Constructs a new Timer object.
-   */
+  /** Constructs a new Timer object. */
   public Timer() {
     this.startMillisEvery = -1;
     this.startMillisFor = -1;
@@ -42,9 +41,7 @@ public class Timer {
     this.currentInterval = 0;
   }
 
-  /**
-   * Resets the timer.
-   */
+  /** Resets the timer. */
   public void reset() {
     this.startMillisEvery = -1;
     this.startMillisFor = -1;
@@ -63,10 +60,12 @@ public class Timer {
   }
 
   /**
-   * Checks if the specified number of milliseconds has passed since the last time this method returned true.
-   * 
+   * Checks if the specified number of milliseconds has passed since the last time this method
+   * returned true.
+   *
    * @param millis The number of milliseconds to wait before returning true.
-   * @return true if the specified number of milliseconds has passed since the last call that returned true, false otherwise.
+   * @return true if the specified number of milliseconds has passed since the last call that
+   *     returned true, false otherwise.
    */
   public boolean everyMillis(int millis) {
     int nowMillis = millis();
@@ -81,11 +80,12 @@ public class Timer {
   }
 
   /**
-   * Checks if the specified amount of milliseconds has passed since the method was first called.
-   * If the method is called for the first time, it initializes the start time.
+   * Checks if the specified amount of milliseconds has passed since the method was first called. If
+   * the method is called for the first time, it initializes the start time.
    *
    * @param millis the number of milliseconds to check against
-   * @return true if the current time is less than the start time plus the specified milliseconds, false otherwise
+   * @return true if the current time is less than the start time plus the specified milliseconds,
+   *     false otherwise
    */
   public boolean forMillis(int millis) {
     int nowMillis = millis();
@@ -99,7 +99,8 @@ public class Timer {
    * Checks if the specified number of milliseconds has passed since the method was first called.
    *
    * @param millis the number of milliseconds to check against
-   * @return true if the specified number of milliseconds has passed since the method was first called, false otherwise
+   * @return true if the specified number of milliseconds has passed since the method was first
+   *     called, false otherwise
    */
   public boolean afterMillis(int millis) {
     int nowMillis = millis();

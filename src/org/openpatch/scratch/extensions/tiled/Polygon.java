@@ -1,21 +1,18 @@
 package org.openpatch.scratch.extensions.tiled;
 
 /**
- * The Polygon class represents a polygon object in Tiled.
- * It includes a list of points that make up the polygon.
+ * The Polygon class represents a polygon object in Tiled. It includes a list of points that make up
+ * the polygon.
  *
  * <p>Example usage:
- * <pre>
- * {@code
+ *
+ * <pre>{@code
  * Polygon p = new Polygon();
  * p.points = "0,0 10,10";
- * }
- * </pre>
+ * }</pre>
  */
 public class Polygon {
-  /**
-   * The points that make up the polygon.
-   */
+  /** The points that make up the polygon. */
   public String points;
 
   /**

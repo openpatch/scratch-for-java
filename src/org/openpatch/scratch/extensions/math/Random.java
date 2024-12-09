@@ -4,15 +4,16 @@ import org.openpatch.scratch.internal.Applet;
 import org.openpatch.scratch.internal.OpenSimplex2S;
 
 /**
- * The Random class provides various methods for generating random values and noise.
- * It includes methods for generating Open Simplex noise, random vectors, random coordinates,
- * and random numbers within specified ranges.
- * 
- * <p>Methods in this class are static and can be accessed directly without creating an instance of the class.</p>
- * 
- * <p>Example usage:</p>
- * <pre>
- * {@code
+ * The Random class provides various methods for generating random values and noise. It includes
+ * methods for generating Open Simplex noise, random vectors, random coordinates, and random numbers
+ * within specified ranges.
+ *
+ * <p>Methods in this class are static and can be accessed directly without creating an instance of
+ * the class.
+ *
+ * <p>Example usage:
+ *
+ * <pre>{@code
  * double noiseValue = Random.noise(10.0);
  * Vector2 randomVector = Random.randomVector2();
  * double randomX = Random.randomX();
@@ -21,11 +22,10 @@ import org.openpatch.scratch.internal.OpenSimplex2S;
  * double randomDouble = Random.random();
  * int randomInt = Random.randomInt(100);
  * double randomDoubleInRange = Random.random(5.0, 10.0);
- * }
- * </pre>
- * 
- * <p>Note: The noise methods use Open Simplex noise, and the random methods use java.util.Random.</p>
- * 
+ * }</pre>
+ *
+ * <p>Note: The noise methods use Open Simplex noise, and the random methods use java.util.Random.
+ *
  * @see java.util.Random
  * @see OpenSimplex2S
  */

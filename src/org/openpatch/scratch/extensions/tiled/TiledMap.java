@@ -11,22 +11,23 @@ import org.openpatch.scratch.internal.Image;
 import org.openpatch.scratch.internal.Stamp;
 
 /**
- * The TiledMap class represents a map created using the Tiled map editor.
- * It provides methods to load the map from an XML file, retrieve objects from layers,
- * and stamp layers onto the foreground or background of a stage.
- * 
- * Example usage:
+ * The TiledMap class represents a map created using the Tiled map editor. It provides methods to
+ * load the map from an XML file, retrieve objects from layers, and stamp layers onto the foreground
+ * or background of a stage.
+ *
+ * <p>Example usage:
+ *
  * <pre>{@code
  * TiledMap map = new TiledMap("assets/map.tmx", stage);
  * map.stampLayerToForeground("foreground");
- * 
+ *
  * for (MapObject object : map.getObjectsFromLayer("objects")) {
  *  if (object.type.equals("player")) {
  *   Player p = new Player(object.x, object.y);
  *   stage.addSprite(p);
  *  }
  * }
- * 
+ *
  * }</pre>
  */
 public class TiledMap {
@@ -38,7 +39,7 @@ public class TiledMap {
   /**
    * Constructs a new TiledMap object.
    *
-   * @param path  the file path to the Tiled map XML file
+   * @param path the file path to the Tiled map XML file
    * @param stage the stage to which this Tiled map belongs
    */
   public TiledMap(String path, Stage stage) {
