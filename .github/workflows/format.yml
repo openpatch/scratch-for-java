@@ -9,8 +9,12 @@ jobs:
   formatting:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3 # v2 minimum required
-      - uses: axel-op/googlejavaformat-action@v3
+      - uses: actions/checkout@v4 # v2 minimum required
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin' # See 'Supported distributions' for available options
+          java-version: '17'
+      - name: Prettier Java Format
+        uses: axel-op/googlejavaformat-action@v3
         with:
           args: "--replace"
-          commit-message: "style: apply google format"

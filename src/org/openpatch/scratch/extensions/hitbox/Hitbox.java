@@ -12,7 +12,8 @@ import processing.core.PConstants;
 import processing.core.PGraphics;
 
 /**
- * Represents a hitbox with a shape that can be transformed by scaling, translating, and rotating it.
+ * Represents a hitbox with a shape that can be transformed by scaling, translating, and rotating
+ * it.
  */
 public class Hitbox {
   private final Shape originalShape;
@@ -48,7 +49,6 @@ public class Hitbox {
     return this.shape;
   }
 
-  
   /**
    * Transforms the shape by scaling, translating, and rotating it.
    *

@@ -12,10 +12,10 @@ import org.openpatch.scratch.internal.Color;
 import processing.core.PGraphics;
 
 /**
- * The Pen class represents a drawing tool that can be used to draw paths on a stage.
- * It supports various functionalities such as setting color, size, transparency,
- * moving to different positions, and stamping the current sprite onto the canvas.
- * The Pen can be associated with a Sprite and can draw on both the foreground and background.
+ * The Pen class represents a drawing tool that can be used to draw paths on a stage. It supports
+ * various functionalities such as setting color, size, transparency, moving to different positions,
+ * and stamping the current sprite onto the canvas. The Pen can be associated with a Sprite and can
+ * draw on both the foreground and background.
  */
 public class Pen {
 
@@ -67,9 +67,7 @@ public class Pen {
   private double x;
   private double y;
 
-  /**
-   * Constructs a new Pen object.
-   */
+  /** Constructs a new Pen object. */
   public Pen() {}
 
   /**
@@ -102,8 +100,8 @@ public class Pen {
   }
 
   /**
-   * This method is called when the pen is added to the stage.
-   * It assigns the given stage to the pen's stage variable.
+   * This method is called when the pen is added to the stage. It assigns the given stage to the
+   * pen's stage variable.
    *
    * @param stage The stage to which the pen is added.
    */
@@ -112,8 +110,8 @@ public class Pen {
   }
 
   /**
-   * This method is called when the pen is removed from the stage.
-   * It sets the stage reference to null.
+   * This method is called when the pen is removed from the stage. It sets the stage reference to
+   * null.
    *
    * @param stage The stage from which the pen is removed.
    */
@@ -160,16 +158,16 @@ public class Pen {
   }
 
   /**
-   * Sets the pen to the background.
-   * This method changes the state of the pen to indicate that it is no longer in the foreground.
+   * Sets the pen to the background. This method changes the state of the pen to indicate that it is
+   * no longer in the foreground.
    */
   public void goToBackground() {
     this.isForeground = false;
   }
 
   /**
-   * Moves the pen to the foreground.
-   * This method sets the pen's state to indicate that it is in the foreground.
+   * Moves the pen to the foreground. This method sets the pen's state to indicate that it is in the
+   * foreground.
    */
   public void goToForeground() {
     this.isForeground = true;
@@ -177,6 +175,7 @@ public class Pen {
 
   /**
    * Returns true if the pen is in the background.
+   *
    * @return true if the pen is in the background
    */
   public boolean isInBackground() {
@@ -221,6 +220,7 @@ public class Pen {
 
   /**
    * Change the transparency by a step
+   *
    * @param step the step to change the transparency by
    */
   public void changeTransparency(double step) {
@@ -251,9 +251,8 @@ public class Pen {
   }
 
   /**
-   * Moves the object to a random position within the boundaries of the stage.
-   * The new position is determined by generating random coordinates within
-   * the width and height of the stage.
+   * Moves the object to a random position within the boundaries of the stage. The new position is
+   * determined by generating random coordinates within the width and height of the stage.
    */
   public void goToRandomPosition() {
     this.setPosition(
@@ -261,9 +260,7 @@ public class Pen {
         Random.randomInt(-this.stage.getHeight() / 2, this.stage.getHeight() / 2));
   }
 
-  /**
-   * Moves the object to the current position of the mouse pointer.
-   */
+  /** Moves the object to the current position of the mouse pointer. */
   public void goToMousePointer() {
     this.setPosition(this.stage.getMouseX(), this.stage.getMouseY());
   }
@@ -288,9 +285,8 @@ public class Pen {
   }
 
   /**
-   * Stamps the current sprite onto the canvas. If the sprite is not null,
-   * it will stamp either to the foreground or the background based on the
-   * value of the isForeground flag.
+   * Stamps the current sprite onto the canvas. If the sprite is not null, it will stamp either to
+   * the foreground or the background based on the value of the isForeground flag.
    */
   public void stamp() {
     if (this.sprite != null) {
@@ -302,9 +298,7 @@ public class Pen {
     }
   }
 
-  /**
-   * Erases all. 
-   */
+  /** Erases all. */
   public void eraseAll() {
     this.pathsBuffer.clear();
     if (this.stage != null) {

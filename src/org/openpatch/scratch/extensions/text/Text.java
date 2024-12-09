@@ -13,12 +13,11 @@ import processing.core.PApplet;
 import processing.core.PConstants;
 
 /**
- * The Text class represents a text object that can be displayed on the stage.
- * It provides methods to set the text content, position, size, style, and alignment.
- * The text can be displayed in various styles such as plain, speech bubble, or box.
- * The text can be associated with a sprite and displayed relative to the sprite's position.
- * Example usage:
- * 
+ * The Text class represents a text object that can be displayed on the stage. It provides methods
+ * to set the text content, position, size, style, and alignment. The text can be displayed in
+ * various styles such as plain, speech bubble, or box. The text can be associated with a sprite and
+ * displayed relative to the sprite's position. Example usage:
+ *
  * <pre>{@code
  * Text text = new Text("Hello, World!", 100, 100, 200);
  * text.setStyle(TextStyle.SPEAK);
@@ -26,7 +25,6 @@ import processing.core.PConstants;
  * text.setTextColor(0, 0, 0);
  * text.setStrokeColor(0, 0, 0);
  * }</pre>
- * 
  */
 public class Text {
 
@@ -59,10 +57,9 @@ public class Text {
   private static int DEFAULT_TEXT_SIZE = 14;
 
   /**
-   * Constructs a new Text object with default values.
-   * The text is initialized to an empty string, positioned at (0, 0),
-   * with a default size of 0. The text style is set to plain and
-   * the text alignment is set to center.
+   * Constructs a new Text object with default values. The text is initialized to an empty string,
+   * positioned at (0, 0), with a default size of 0. The text style is set to plain and the text
+   * alignment is set to center.
    */
   public Text() {
     this("", 0, 0, 0);
@@ -84,9 +81,9 @@ public class Text {
   /**
    * Constructs a new Text object with the specified text, position, and width.
    *
-   * @param text  the text to be displayed
-   * @param x     the x-coordinate of the text's position
-   * @param y     the y-coordinate of the text's position
+   * @param text the text to be displayed
+   * @param x the x-coordinate of the text's position
+   * @param y the y-coordinate of the text's position
    * @param width the width of the text
    */
   public Text(String text, double x, double y, double width) {
@@ -106,9 +103,9 @@ public class Text {
   /**
    * Constructs a new Text object with the specified text, position, width, and style.
    *
-   * @param text  the text content to be displayed
-   * @param x     the x-coordinate of the text's position
-   * @param y     the y-coordinate of the text's position
+   * @param text the text content to be displayed
+   * @param x the x-coordinate of the text's position
+   * @param y the y-coordinate of the text's position
    * @param width the width of the text area
    * @param style the style to be applied to the text
    */
@@ -118,8 +115,8 @@ public class Text {
   }
 
   /**
-   * Copy constructor for the Text class.
-   * Creates a new Text object by copying the properties of the given Text object.
+   * Copy constructor for the Text class. Creates a new Text object by copying the properties of the
+   * given Text object.
    *
    * @param t the Text object to copy
    */
@@ -159,38 +156,36 @@ public class Text {
   }
 
   /**
-   * This method is called when the object is added to the stage.
-   * Override this method to define custom behavior when the object
-   * is added to the stage.
+   * This method is called when the object is added to the stage. Override this method to define
+   * custom behavior when the object is added to the stage.
    */
   public void whenAddedToStage() {}
 
   /**
-   * This method is called when the text is added to the stage.
-   * Override this method to define custom behavior when the text.
+   * This method is called when the text is added to the stage. Override this method to define
+   * custom behavior when the text.
    *
    * @param stage The stage to which the text is added.
    */
   public void whenAddedToStage(Stage stage) {}
 
   /**
-   * This method is called when the object is removed from the stage.
-   * Override this method to define custom behavior that should occur
-   * when the object is no longer part of the stage.
+   * This method is called when the object is removed from the stage. Override this method to define
+   * custom behavior that should occur when the object is no longer part of the stage.
    */
   public void whenRemovedFromStage() {}
 
   /**
-   * This method is called when the text is removed from the stage.
-   * Override this method to define custom behavior that should occur.
+   * This method is called when the text is removed from the stage. Override this method to define
+   * custom behavior that should occur.
    *
    * @param stage The stage from which the text is removed.
    */
   public void whenRemovedFromStage(Stage stage) {}
 
   /**
-   * Removes this object from its current stage if it is associated with one.
-   * If the object is not associated with any stage, this method does nothing.
+   * Removes this object from its current stage if it is associated with one. If the object is not
+   * associated with any stage, this method does nothing.
    */
   public void remove() {
     if (this.stage != null) {
@@ -240,9 +235,9 @@ public class Text {
   }
 
   /**
-   * Advances to the next font in the list of available fonts.
-   * The current font index is incremented by one and wraps around
-   * to the beginning of the list if it exceeds the number of available fonts.
+   * Advances to the next font in the list of available fonts. The current font index is incremented
+   * by one and wraps around to the beginning of the list if it exceeds the number of available
+   * fonts.
    */
   public void nextFont() {
     this.currentFont = (this.currentFont + 1) % this.fonts.size();
@@ -336,9 +331,9 @@ public class Text {
 
   /**
    * Displays the specified text.
-   * 
-   * @param text The text to be displayed. If the text is null or empty, 
-   *             the text will be set to null.
+   *
+   * @param text The text to be displayed. If the text is null or empty, the text will be set to
+   *     null.
    */
   public void showText(String text) {
     this.show = true;
@@ -514,8 +509,8 @@ public class Text {
   /**
    * Sets the alignment of the text.
    *
-   * @param align the alignment value to set. This could be a constant representing
-   *              left, center, or right alignment.
+   * @param align the alignment value to set. This could be a constant representing left, center, or
+   *     right alignment.
    */
   public void setAlign(int align) {
     this.textAlign = align;

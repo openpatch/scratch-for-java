@@ -3,13 +3,14 @@ package org.openpatch.scratch.extensions.math;
 import org.openpatch.scratch.Operators;
 
 /**
- * The {@code Vector2} class represents a 2D vector with x and y coordinates.
- * It provides various methods for vector operations such as addition, subtraction,
- * scalar multiplication, dot product, rotation, and more.
- * 
+ * The {@code Vector2} class represents a 2D vector with x and y coordinates. It provides various
+ * methods for vector operations such as addition, subtraction, scalar multiplication, dot product,
+ * rotation, and more.
+ *
  * <p>Instances of this class are immutable.
- * 
+ *
  * <p>Example usage:
+ *
  * <pre>{@code
  * Vector2 v1 = new Vector2(3, 4);
  * Vector2 v2 = new Vector2(1, 2);

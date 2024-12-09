@@ -1,15 +1,16 @@
 package org.openpatch.scratch.extensions.math;
 
 /**
- * The Utils class provides utility methods for mathematical operations.
- * It includes methods for rotating points around a specified origin and
- * converting angles between degrees and radians.
+ * The Utils class provides utility methods for mathematical operations. It includes methods for
+ * rotating points around a specified origin and converting angles between degrees and radians.
  */
 public abstract class Utils {
 
   private Utils() {}
+
   /**
-   * Rotates a point (x, y) around a specified origin (originX, originY) by a given angle in degrees.
+   * Rotates a point (x, y) around a specified origin (originX, originY) by a given angle in
+   * degrees.
    *
    * @param x the x-coordinate of the point to be rotated
    * @param y the y-coordinate of the point to be rotated

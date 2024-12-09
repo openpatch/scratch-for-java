@@ -1,9 +1,9 @@
 package org.openpatch.scratch.internal;
 
 /**
- * The Color class represents a color in the Scratch environment.
- * It supports various functionalities such as setting color values in the RGB and HSB spectrum,
- * changing the color based on a hue value, and converting between RGB and HSB color codes.
+ * The Color class represents a color in the Scratch environment. It supports various
+ * functionalities such as setting color values in the RGB and HSB spectrum, changing the color
+ * based on a hue value, and converting between RGB and HSB color codes.
  */
 public class Color {
 
@@ -15,9 +15,7 @@ public class Color {
   private double s = 255;
   private double l = 255;
 
-  /**
-   * Constructs a new Color object with default values.
-   */
+  /** Constructs a new Color object with default values. */
   public Color() {}
 
   /**
@@ -199,6 +197,7 @@ public class Color {
 
   /**
    * Get the hue value.
+   *
    * @return hue value [0...255]
    */
   public double getH() {
@@ -207,6 +206,7 @@ public class Color {
 
   /**
    * Get the saturation value.
+   *
    * @return saturation value [0...255]
    */
   public double getS() {
@@ -215,6 +215,7 @@ public class Color {
 
   /**
    * Get the luminosity value.
+   *
    * @return luminosity value [0...255]
    */
   public double getL() {

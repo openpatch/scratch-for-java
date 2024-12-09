@@ -3,11 +3,11 @@ package org.openpatch.scratch.extensions.camera;
 import org.openpatch.scratch.extensions.math.Vector2;
 
 /**
- * The Camera class represents a camera that can be used to view a scene.
- * It provides methods to set the position of the camera, convert between screen
- * and local coordinates, and zoom in and out.
- * 
- * <p>Example usage:</p>
+ * The Camera class represents a camera that can be used to view a scene. It provides methods to set
+ * the position of the camera, convert between screen and local coordinates, and zoom in and out.
+ *
+ * <p>Example usage:
+ *
  * <pre>{@code
  * Camera camera = new Camera();
  * camera.setPosition(0, 0);
@@ -22,8 +22,8 @@ public class Camera {
   private double zoomLimitL;
 
   /**
-   * Constructs a new Camera with default values.
-   * The default position is (0, 0) and the default zoom level is 100.
+   * Constructs a new Camera with default values. The default position is (0, 0) and the default
+   * zoom level is 100.
    */
   public Camera() {
     this.x = 0;
@@ -183,7 +183,7 @@ public class Camera {
   /**
    * Sets the zoom limits
    *
-   * @param low  the lower limit
+   * @param low the lower limit
    * @param high the upper limit
    */
   public void setZoomLimit(double low, double high) {
@@ -209,9 +209,7 @@ public class Camera {
     return this.zoom;
   }
 
-  /**
-   * Resets the zoom level to 100
-   */
+  /** Resets the zoom level to 100 */
   public void resetZoom() {
     this.zoom = 100;
   }

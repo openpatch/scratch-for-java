@@ -78,7 +78,8 @@ public class Applet extends PApplet {
   /**
    * Enables or disables the debug mode for the application.
    *
-   * @param debug a boolean value where {@code true} enables debug mode and {@code false} disables it.
+   * @param debug a boolean value where {@code true} enables debug mode and {@code false} disables
+   *     it.
    */
   public void setDebug(boolean debug) {
     this.debug = debug;
@@ -217,9 +218,7 @@ public class Applet extends PApplet {
     }
   }
 
-  /**
-   * Sets up the application window.
-   */
+  /** Sets up the application window. */
   public void setup() {
     this.windowTitle("Scratch for Java");
     this.windowResizable(false);
@@ -244,9 +243,7 @@ public class Applet extends PApplet {
     }
   }
 
-  /**
-   * Loads assets from the specified directory.
-   */
+  /** Loads assets from the specified directory. */
   public void loadAssets() {
     Font.loadFont(Font.defaultFontPath);
     if (this.assets != null) {
@@ -333,9 +330,7 @@ public class Applet extends PApplet {
     }
   }
 
-  /**
-   * Draws the application window.
-   */
+  /** Draws the application window. */
   public void draw() {
     var currentMillis = millis();
     if (lastMillis == 0) {

@@ -1,4 +1,5 @@
 package AnimatedSpriteResetAnimation;
+
 import org.openpatch.scratch.KeyCode;
 import org.openpatch.scratch.extensions.animation.AnimatedSprite;
 
