@@ -9,12 +9,8 @@ jobs:
   formatting:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3 # v2 minimum required
+      - uses: actions/checkout@v4 # v2 minimum required
       - name: Prettier Java Format
-        uses: tsar-boomba/prettier-java-action@v1.1.0
+        uses: axel-op/googlejavaformat-action@v3
         with:
-          prettier-args: '--tab-width 2  --write'  # See: https://prettier.io/docs/en/options.html
-          files: '**/*.java'
-          commit: 'true'
-          github-username: 'mikebarkmin'
-          commit-message: 'Format Java Code'
+          args: "--replace"
