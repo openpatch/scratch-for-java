@@ -17,6 +17,10 @@
   "repo": "https://github.com/openpatch/scratch-for-java/tree/main/docs/en",
   "links": [
     {
+      "label": "JavaDoc",
+      "href": "/javadoc"
+    },
+    {
       "label": "Contact",
       "links": [
         {

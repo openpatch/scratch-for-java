@@ -1,5 +1,5 @@
 {
-  "template": "method",
+  "template": "class-method",
   "related": [],
   "scratchblock": "(animation frame)",
   "name": "getAnimationFrame()",
@@ -9,9 +9,22 @@
   "returns": "int",
   "examples": [
     {
-      "src": "AnimatedSpriteGetAnimationFrame.java",
       "preview": "AnimatedSpriteGetAnimationFrame.gif",
-      "lines": "reg:[Rr]ecorder"
+      "folder": "AnimatedSpriteGetAnimationFrame",
+      "files": [
+        {
+          "src": "MySprite.java",
+          "lines": "reg:package"
+        },
+        {
+          "src": "MyStage.java",
+          "lines": "reg:package"
+        },
+        {
+          "src": "MyWindow.java",
+          "lines": "reg:([Rr]ecorder|package)"
+        }
+      ]
     }
   ]
 }

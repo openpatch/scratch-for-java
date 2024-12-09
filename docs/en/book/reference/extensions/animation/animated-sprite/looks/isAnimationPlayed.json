@@ -1,5 +1,5 @@
 {
-  "template": "method",
+  "template": "class-method",
   "related": [],
   "scratchblock": "<is animation played>",
   "name": "isAnimationPlayed()",
@@ -9,9 +9,22 @@
   "returns": "boolean",
   "examples": [
     {
-      "src": "AnimatedSpriteIsAnimationPlayed.java",
       "preview": "AnimatedSpriteIsAnimationPlayed.gif",
-      "lines": "reg:[Rr]ecorder"
+      "folder": "AnimatedSpriteIsAnimationPlayed",
+      "files": [
+        {
+          "src": "MySprite.java",
+          "lines": "reg:package"
+        },
+        {
+          "src": "MyStage.java",
+          "lines": "reg:package"
+        },
+        {
+          "src": "MyWindow.java",
+          "lines": "reg:([Rr]ecorder|package)"
+        }
+      ]
     }
   ]
 }

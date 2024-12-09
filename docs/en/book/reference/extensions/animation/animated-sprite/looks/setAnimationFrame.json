@@ -1,5 +1,5 @@
 {
-  "template": "method",
+  "template": "class-method",
   "related": [],
   "scratchblock": "set animation frame ()",
   "name": "setAnimationFrame()",
@@ -8,7 +8,24 @@
   "syntax": [".setAnimationFrame(frame)"],
   "returns": "void",
   "examples": [
-    { "src": "AnimatedSpriteSetAnimationFrame.java", "preview": "AnimatedSpriteSetAnimationFrame.gif", "lines": "reg:[Rr]ecorder"}
+    { 
+      "preview": "AnimatedSpriteSetAnimationFrame.gif",
+      "folder": "AnimatedSpriteSetAnimationFrame",
+      "files": [
+        {
+          "src": "MySprite.java",
+          "lines": "reg:package"
+        },
+        {
+          "src": "MyStage.java",
+          "lines": "reg:package"
+        },
+        {
+          "src": "MyWindow.java",
+          "lines": "reg:([Rr]ecorder|package)"
+        }
+      ]
+    }
   ],
   "parameters": [
     {
