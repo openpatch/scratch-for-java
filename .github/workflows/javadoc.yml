@@ -1,9 +1,8 @@
-name: build
+name: Deploy JavaDoc
 
 on:
   push:
-    branches:
-      - master
+    branches: [ main ]
 
 jobs:
   build:
