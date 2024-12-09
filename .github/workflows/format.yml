@@ -10,7 +10,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3 # v2 minimum required
-      - uses: ryanbascom/googlejavaformat@v5
+      - name: Prettier Java Format
+        uses: tsar-boomba/prettier-java-format-action@main
         with:
-          args: "--replace"
-          commit-message: "style: apply google format"
+          prettier-args: '--tab-width 2  --write'  # See: https://prettier.io/docs/en/options.html
+          files: '**/*.java'
+          commit: 'true'
+          github-username: 'mikebarkmin'
+          commit-message: 'Format Java Code'
