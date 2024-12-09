@@ -3,16 +3,15 @@ package org.openpatch.scratch.internal;
 import processing.sound.*;
 
 /**
- * The Sound class represents a sound object in Scratch.
- * It includes fields for the name of the sound and the sound file.
+ * The Sound class represents a sound object in Scratch. It includes fields for the name of the
+ * sound and the sound file.
  *
  * <p>Example usage:
- * <pre>
- * {@code
+ *
+ * <pre>{@code
  * Sound s = new Sound("mySound", "path/to/sound.wav");
  * s.play();
- * }
- * </pre>
+ * }</pre>
  */
 public class Sound {
   private String name;

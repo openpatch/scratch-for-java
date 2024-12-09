@@ -233,6 +233,7 @@ public class Image {
 
   /**
    * Sets the size of the image to the specified percentage of the original size.
+   *
    * @param percentage The desired size as a percentage of the original size
    */
   public void setSize(double percentage) {
@@ -242,10 +243,9 @@ public class Image {
   }
 
   /**
-   * Sets the size of the image to the specified width and height.
-   * If a resized version with the requested dimensions already exists in cache,
-   * it will use that version. Otherwise, it creates a new resized copy from
-   * the original image and caches it for future use.
+   * Sets the size of the image to the specified width and height. If a resized version with the
+   * requested dimensions already exists in cache, it will use that version. Otherwise, it creates a
+   * new resized copy from the original image and caches it for future use.
    *
    * @param width The desired width of the image in pixels
    * @param height The desired height of the image in pixels

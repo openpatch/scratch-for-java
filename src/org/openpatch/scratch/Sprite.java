@@ -23,24 +23,25 @@ import processing.event.KeyEvent;
 import processing.event.MouseEvent;
 
 /**
- * The `Sprite` class represents a graphical object that can be displayed on a stage.
- * It supports various functionalities such as costumes, sounds, movement, rotation,
- * collision detection, and interaction with the mouse and keyboard.
- * 
+ * The `Sprite` class represents a graphical object that can be displayed on a stage. It supports
+ * various functionalities such as costumes, sounds, movement, rotation, collision detection, and
+ * interaction with the mouse and keyboard.
+ *
  * <p>Key features include:
+ *
  * <ul>
- *   <li>Adding and switching costumes</li>
- *   <li>Adding and playing sounds</li>
- *   <li>Movement and rotation</li>
- *   <li>Collision detection with other sprites and the stage edges</li>
- *   <li>Interaction with the mouse and keyboard</li>
- *   <li>Displaying text and thought bubbles</li>
- *   <li>Broadcasting and receiving messages</li>
+ *   <li>Adding and switching costumes
+ *   <li>Adding and playing sounds
+ *   <li>Movement and rotation
+ *   <li>Collision detection with other sprites and the stage edges
+ *   <li>Interaction with the mouse and keyboard
+ *   <li>Displaying text and thought bubbles
+ *   <li>Broadcasting and receiving messages
  * </ul>
- * 
+ *
  * <p>Usage example:
- * <pre>
- * {@code
+ *
+ * <pre>{@code
  * Sprite sprite = new Sprite();
  * sprite.addCostume("costume1", "path/to/image.png");
  * sprite.addSound("sound1", "path/to/sound.wav");
@@ -48,12 +49,11 @@ import processing.event.MouseEvent;
  * sprite.move(10);
  * sprite.turnRight(90);
  * sprite.say("Hello, world!");
- * }
- * </pre>
- * 
- * <p>Note: This class is designed to be used within a stage, and many methods require
- * the sprite to be added to a stage to function correctly.
- * 
+ * }</pre>
+ *
+ * <p>Note: This class is designed to be used within a stage, and many methods require the sprite to
+ * be added to a stage to function correctly.
+ *
  * @see Stage
  * @see Image
  * @see Sound
@@ -146,38 +146,34 @@ public class Sprite {
   }
 
   /**
-   * This method is called when the sprite is added to the stage.
-   * Override this method to define custom behavior when the sprite
-   * is added to the stage.
+   * This method is called when the sprite is added to the stage. Override this method to define
+   * custom behavior when the sprite is added to the stage.
    */
   public void whenAddedToStage() {}
 
   /**
-   * This method is called when the sprite is added to the stage.
-   * Override this method to define custom behavior when the sprite
-   * is added to the stage.
+   * This method is called when the sprite is added to the stage. Override this method to define
+   * custom behavior when the sprite is added to the stage.
    *
    * @param stage The stage to which the sprite is added.
    */
   public void whenAddedToStage(Stage stage) {}
 
   /**
-   * This method is called when the sprite is removed from the stage.
-   * Override this method to define custom behavior when the sprite is removed.
+   * This method is called when the sprite is removed from the stage. Override this method to define
+   * custom behavior when the sprite is removed.
    */
   public void whenRemovedFromStage() {}
 
   /**
-   * This method is called when the sprite is removed from the stage.
-   * Override this method to define custom behavior when the sprite is removed.
+   * This method is called when the sprite is removed from the stage. Override this method to define
+   * custom behavior when the sprite is removed.
    *
    * @param stage The stage from which the sprite is removed from.
    */
   public void whenRemovedFromStage(Stage stage) {}
 
-  /**
-   * Removes this sprite from its current stage.
-   */
+  /** Removes this sprite from its current stage. */
   public void remove() {
     if (this.stage != null) {
       this.stage.remove(this);
@@ -435,6 +431,7 @@ public class Sprite {
 
   /**
    * Changes the tint for the sprite by a step.
+   *
    * @param step a step value
    */
   public void changeTint(double step) {
@@ -543,10 +540,10 @@ public class Sprite {
   }
 
   /**
-   * Checks if the sprite is on the edge of the stage and bounces it back if it is.
-   * The sprite's direction is reversed when it hits the left or right border,
-   * and it is reversed and rotated by 180 degrees when it hits the top or bottom border.
-   * The method does nothing if the hitbox is disabled or if the sprite is a UI element.
+   * Checks if the sprite is on the edge of the stage and bounces it back if it is. The sprite's
+   * direction is reversed when it hits the left or right border, and it is reversed and rotated by
+   * 180 degrees when it hits the top or bottom border. The method does nothing if the hitbox is
+   * disabled or if the sprite is a UI element.
    */
   public void ifOnEdgeBounce() {
     if (this.hitboxDisabled || this.isUI) return;
@@ -569,7 +566,6 @@ public class Sprite {
    *
    * @see RotationStyle
    * @param style the rotation style to be set
-   * 
    */
   public void setRotationStyle(RotationStyle style) {
     this.rotationStyle = style;
@@ -649,9 +645,8 @@ public class Sprite {
   /**
    * Points the sprite in the specified direction.
    *
-   * @param degrees The direction in degrees to point the sprite. 
-   *                0 degrees is to the right, 90 degrees is up, 
-   *                180 degrees is to the left, and 270 degrees is down.
+   * @param degrees The direction in degrees to point the sprite. 0 degrees is to the right, 90
+   *     degrees is up, 180 degrees is to the left, and 270 degrees is down.
    */
   public void pointInDirection(double degrees) {
     this.setDirection(degrees);
@@ -668,10 +663,9 @@ public class Sprite {
   }
 
   /**
-   * Points the sprite towards the current position of the mouse pointer.
-   * This method calculates the angle between the sprite's current position
-   * and the mouse pointer's position, then sets the sprite's direction
-   * accordingly.
+   * Points the sprite towards the current position of the mouse pointer. This method calculates the
+   * angle between the sprite's current position and the mouse pointer's position, then sets the
+   * sprite's direction accordingly.
    */
   public void pointTowardsMousePointer() {
     var mx = this.getMouseX();
@@ -935,12 +929,12 @@ public class Sprite {
   }
 
   /**
-   * Sets the hitbox for the sprite using the provided points.
-   * The points should be provided in pairs representing the x and y coordinates.
-   * 
+   * Sets the hitbox for the sprite using the provided points. The points should be provided in
+   * pairs representing the x and y coordinates.
+   *
    * @param points an array of integers representing the x and y coordinates of the hitbox vertices.
-   *               The length of the array should be even, with each pair of integers representing
-   *               a point (x, y).
+   *     The length of the array should be even, with each pair of integers representing a point (x,
+   *     y).
    */
   public void setHitbox(int... points) {
     int l = points.length / 2;
@@ -982,8 +976,7 @@ public class Sprite {
   }
 
   /**
-   * Disables the hitbox for the sprite.
-   * Once the hitbox is disabled, the sprite will no longer
+   * Disables the hitbox for the sprite. Once the hitbox is disabled, the sprite will no longer
    * detect collisions with other objects.
    */
   public void disableHitbox() {
@@ -991,17 +984,17 @@ public class Sprite {
   }
 
   /**
-   * Enables the hitbox for the sprite.
-   * This method sets the hitboxDisabled flag to false, allowing the sprite to interact with other objects.
+   * Enables the hitbox for the sprite. This method sets the hitboxDisabled flag to false, allowing
+   * the sprite to interact with other objects.
    */
   public void enableHitbox() {
     this.hitboxDisabled = false;
   }
 
   /**
-   * Returns the hitbox of the sprite based on its current costume, position, and rotation.
-   * If the sprite has a hitbox already defined, it updates and returns it.
-   * Otherwise, it calculates a new hitbox based on the sprite's dimensions and rotation.
+   * Returns the hitbox of the sprite based on its current costume, position, and rotation. If the
+   * sprite has a hitbox already defined, it updates and returns it. Otherwise, it calculates a new
+   * hitbox based on the sprite's dimensions and rotation.
    *
    * @return the hitbox of the sprite
    */
@@ -1064,10 +1057,9 @@ public class Sprite {
    * Checks if this sprite is touching another sprite.
    *
    * @param sprite The sprite to check for collision with.
-   * @return true if this sprite is touching the specified sprite, false otherwise.
-   *         Returns false if the specified sprite is the same as this sprite,
-   *         if the stage is null, if the specified sprite is null, not shown,
-   *         or has its hitbox disabled.
+   * @return true if this sprite is touching the specified sprite, false otherwise. Returns false if
+   *     the specified sprite is the same as this sprite, if the stage is null, if the specified
+   *     sprite is null, not shown, or has its hitbox disabled.
    */
   public boolean isTouchingSprite(Sprite sprite) {
     if (sprite == this) return false;
@@ -1096,7 +1088,8 @@ public class Sprite {
    *
    * @param <T> the type of the sprite to check for
    * @param c the class object of the type of sprite to check for
-   * @return the first sprite of the specified type that is touching this sprite, or null if no such sprite is found
+   * @return the first sprite of the specified type that is touching this sprite, or null if no such
+   *     sprite is found
    */
   public <T extends Sprite> T getTouchingSprite(Class<T> c) {
     if (stage == null) return null;
@@ -1113,7 +1106,8 @@ public class Sprite {
    *
    * @param <T> the type of sprites to return
    * @param c the class of the type of sprites to return
-   * @return a list of sprites of the specified type that are touching this sprite, or null if the stage is not set
+   * @return a list of sprites of the specified type that are touching this sprite, or null if the
+   *     stage is not set
    */
   public <T extends Sprite> List<T> getTouchingSprites(Class<T> c) {
     if (stage == null) return null;
@@ -1148,9 +1142,8 @@ public class Sprite {
    * Retrieves the current position of the mouse cursor.
    *
    * @see Vector2
-   * @return a Vector2 object representing the current mouse cursor position,
-   *         with the x-coordinate obtained from getMouseX() and the y-coordinate
-   *         obtained from getMouseY().
+   * @return a Vector2 object representing the current mouse cursor position, with the x-coordinate
+   *     obtained from getMouseX() and the y-coordinate obtained from getMouseY().
    */
   public Vector2 getMouse() {
     return new Vector2(this.getMouseX(), this.getMouseY());
@@ -1288,8 +1281,7 @@ public class Sprite {
   }
 
   /**
-   * This method is called when a key is pressed.
-   * Override this method to define custom behavior.
+   * This method is called when a key is pressed. Override this method to define custom behavior.
    *
    * @see KeyCode
    * @param keyCode the code of the key that was pressed
@@ -1297,8 +1289,7 @@ public class Sprite {
   public void whenKeyPressed(int keyCode) {}
 
   /**
-   * This method is called when a key is released.
-   * Override this method to define custom behavior.
+   * This method is called when a key is released. Override this method to define custom behavior.
    *
    * @see KeyCode
    * @param keyCode the code of the key that was released
@@ -1306,16 +1297,14 @@ public class Sprite {
   public void whenKeyReleased(int keyCode) {}
 
   /**
-   * Handles mouse events.
-   * Override this method to define custom behavior.
+   * Handles mouse events. Override this method to define custom behavior.
    *
    * @param e the MouseEvent object containing details about the mouse event
    */
   public void mouseEvent(MouseEvent e) {}
 
   /**
-   * This method is called when the mouse is moved.
-   * Override this method to define custom behavior.
+   * This method is called when the mouse is moved. Override this method to define custom behavior.
    *
    * @param x The x-coordinate of the mouse pointer.
    * @param y The y-coordinate of the mouse pointer.
@@ -1323,23 +1312,22 @@ public class Sprite {
   public void whenMouseMoved(double x, double y) {}
 
   /**
-   * This method is called when a mouse click event occurs.
-   * Override this method to define custom behavior.
+   * This method is called when a mouse click event occurs. Override this method to define custom
+   * behavior.
    *
    * @param mouseCode The code representing the mouse button that was clicked.
    */
   public void whenMouseClicked(MouseCode mouseCode) {}
 
   /**
-   * This method is called when the sprite is clicked.
-   * Override this method to define custom behavior for the sprite when it is clicked.
+   * This method is called when the sprite is clicked. Override this method to define custom
+   * behavior for the sprite when it is clicked.
    */
   public void whenClicked() {}
 
   /**
-   * Moves the sprite to a random position within the boundaries of the stage.
-   * The new position is determined by generating random coordinates within the
-   * width and height of the stage.
+   * Moves the sprite to a random position within the boundaries of the stage. The new position is
+   * determined by generating random coordinates within the width and height of the stage.
    */
   public void goToRandomPosition() {
     this.setPosition(
@@ -1348,9 +1336,8 @@ public class Sprite {
   }
 
   /**
-   * Moves the sprite to the current position of the mouse pointer.
-   * This method updates the sprite's position to the coordinates
-   * of the mouse cursor.
+   * Moves the sprite to the current position of the mouse pointer. This method updates the sprite's
+   * position to the coordinates of the mouse cursor.
    */
   public void goToMousePointer() {
     this.setPosition(this.getMouseX(), this.getMouseY());
@@ -1366,8 +1353,8 @@ public class Sprite {
   }
 
   /**
-   * Moves this sprite to the front layer of the stage.
-   * If the sprite is not part of any stage, the method does nothing.
+   * Moves this sprite to the front layer of the stage. If the sprite is not part of any stage, the
+   * method does nothing.
    */
   public void goToFrontLayer() {
     if (stage == null) return;
@@ -1375,8 +1362,8 @@ public class Sprite {
   }
 
   /**
-   * Moves the sprite to the back layer of the stage.
-   * If the sprite is not associated with any stage, the method returns without performing any action.
+   * Moves the sprite to the back layer of the stage. If the sprite is not associated with any
+   * stage, the method returns without performing any action.
    */
   public void goToBackLayer() {
     if (stage == null) return;
@@ -1394,8 +1381,8 @@ public class Sprite {
   }
 
   /**
-   * Moves the sprite backwards by a specified number of layers in the stage.
-   * If the sprite is not part of a stage, the method does nothing.
+   * Moves the sprite backwards by a specified number of layers in the stage. If the sprite is not
+   * part of a stage, the method does nothing.
    *
    * @param number the number of layers to move the sprite backwards
    */
@@ -1405,8 +1392,8 @@ public class Sprite {
   }
 
   /**
-   * This method is called when the backdrop switches to the specified name.
-   * Override this method to define custom behavior.
+   * This method is called when the backdrop switches to the specified name. Override this method to
+   * define custom behavior.
    *
    * @param name the name of the backdrop to switch to
    */
@@ -1481,8 +1468,8 @@ public class Sprite {
   }
 
   /**
-   * Broadcasts a message to all sprites in the stage except the current sprite.
-   * If the stage is not set, the method returns immediately.
+   * Broadcasts a message to all sprites in the stage except the current sprite. If the stage is not
+   * set, the method returns immediately.
    *
    * @param message The message to broadcast to other sprites.
    */
@@ -1493,8 +1480,8 @@ public class Sprite {
   }
 
   /**
-   * Broadcasts a message to all sprites in the stage except the current sprite,
-   * and also to the stage itself.
+   * Broadcasts a message to all sprites in the stage except the current sprite, and also to the
+   * stage itself.
    *
    * @param message The message to be broadcasted. It can be any object.
    */
@@ -1505,8 +1492,8 @@ public class Sprite {
   }
 
   /**
-   * This method is called when a message is received.
-   * Override this method to define custom behavior.
+   * This method is called when a message is received. Override this method to define custom
+   * behavior.
    *
    * @see Sprite#broadcast(String)
    * @param message The message that is received.
@@ -1514,8 +1501,8 @@ public class Sprite {
   public void whenIReceive(String message) {}
 
   /**
-   * This method is called when a message is received.
-   * Override this method to define custom behavior.
+   * This method is called when a message is received. Override this method to define custom
+   * behavior.
    *
    * @see Sprite#broadcast(String)
    * @param message The message that is received.
@@ -1597,9 +1584,9 @@ public class Sprite {
   }
 
   /**
-   * Draws debug information for the sprite. This includes the hitbox and the current costume.
-   * The hitbox is drawn if it is not disabled and the sprite is not a UI element.
-   * The current costume is drawn if there are costumes available and the sprite is set to be shown.
+   * Draws debug information for the sprite. This includes the hitbox and the current costume. The
+   * hitbox is drawn if it is not disabled and the sprite is not a UI element. The current costume
+   * is drawn if there are costumes available and the sprite is set to be shown.
    */
   public void drawDebug() {
     if (!this.hitboxDisabled && !this.isUI) {
@@ -1619,10 +1606,10 @@ public class Sprite {
   }
 
   /**
-   * This method is intended to be overridden by subclasses to define the behavior
-   * of the sprite when it is run. By default, this method does nothing.
-   * 
-   * It is called every frame.
+   * This method is intended to be overridden by subclasses to define the behavior of the sprite
+   * when it is run. By default, this method does nothing.
+   *
+   * <p>It is called every frame.
    */
   public void run() {}
 }

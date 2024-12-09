@@ -6,65 +6,51 @@ import java.awt.geom.Rectangle2D;
 import java.util.List;
 
 /**
- * Represents a map object with various properties such as dimensions, position, visibility, and type.
- * It also provides methods to retrieve property values in different formats and to get a Shape representation of the map object.
+ * Represents a map object with various properties such as dimensions, position, visibility, and
+ * type. It also provides methods to retrieve property values in different formats and to get a
+ * Shape representation of the map object.
  */
 public class MapObject {
-  /**
-   * The height of the map object.
-   */
+  /** The height of the map object. */
   public double height;
-  /**
-   * The unique identifier of the map object.
-   */
+
+  /** The unique identifier of the map object. */
   public int id;
-  /**
-   * The name of the map object.
-   */
+
+  /** The name of the map object. */
   public String name;
-  /**
-   * The rotation angle of the map object.
-   */
+
+  /** The rotation angle of the map object. */
   public double rotation;
-  /**
-   * The visibility status of the map object.
-   */
+
+  /** The visibility status of the map object. */
   public boolean visible;
-  /**
-   * The width of the map object.
-   */ 
+
+  /** The width of the map object. */
   public double width;
-  /**
-   * The type of the map object.
-   */
+
+  /** The type of the map object. */
   public String type;
-  /**
-   * The x-coordinate of the map object.
-   */
+
+  /** The x-coordinate of the map object. */
   public double x;
-  /**
-   * The y-coordinate of the map object.
-   */
+
+  /** The y-coordinate of the map object. */
   public double y;
-  /**
-   * A list of properties associated with the map object.
-   */
+
+  /** A list of properties associated with the map object. */
   public List<Property> properties;
-  /**
-   * An object representing an ellipse shape.
-   */
+
+  /** An object representing an ellipse shape. */
   public Object ellipse;
-  /**
-   * An object representing a point.
-   */
+
+  /** An object representing a point. */
   public Object point;
-  /**
-   * A Polygon object representing a polygon shape.
-   */
+
+  /** A Polygon object representing a polygon shape. */
   public Polygon polygon;
-  /**
-   * A Polyline object representing a polyline shape.
-   */
+
+  /** A Polyline object representing a polyline shape. */
   public Polyline polyline;
 
   /**
@@ -104,19 +90,20 @@ public class MapObject {
    * Retrieves the value of the specified property as a boolean.
    *
    * @param name the name of the property to retrieve
-   * @return the boolean value of the property, or false if the property is not found or cannot be parsed as a boolean
+   * @return the boolean value of the property, or false if the property is not found or cannot be
+   *     parsed as a boolean
    */
   public boolean getPropertyBoolean(String name) {
     return Boolean.parseBoolean(getProperty(name));
   }
 
   /**
-   * Returns a Shape object representing the current map object.
-   * The type of Shape returned depends on the properties of the map object:
-   * - If the object is a point, a 1x1 rectangle is returned.
-   * - If the object is an ellipse, an Ellipse2D object with the specified width and height is returned.
-   * - If the object is a polygon, a Polygon object with the specified points is returned.
-   * - If none of the above conditions are met, a rectangle with the specified width and height is returned.
+   * Returns a Shape object representing the current map object. The type of Shape returned depends
+   * on the properties of the map object: - If the object is a point, a 1x1 rectangle is returned. -
+   * If the object is an ellipse, an Ellipse2D object with the specified width and height is
+   * returned. - If the object is a polygon, a Polygon object with the specified points is returned.
+   * - If none of the above conditions are met, a rectangle with the specified width and height is
+   * returned.
    *
    * @return a Shape object representing the current map object.
    */

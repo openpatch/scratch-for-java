@@ -4,18 +4,19 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.openpatch.scratch.Sprite;
 
 /**
- * The AnimatedSprite class represents a sprite that can play animations.
- * It extends the Sprite class and provides methods to add animations, play animations,
- * set the interval between animation frames, and reset the animation.
- * 
- * <p>Example usage:</p>
+ * The AnimatedSprite class represents a sprite that can play animations. It extends the Sprite
+ * class and provides methods to add animations, play animations, set the interval between animation
+ * frames, and reset the animation.
+ *
+ * <p>Example usage:
+ *
  * <pre>{@code
  * AnimatedSprite sprite = new AnimatedSprite();
  * sprite.addCostume("idle", "assets/idle.png");
  * sprite.addAnimation("walk", "assets/walk_%d.png", 4);
  * sprite.playAnimation("walk");
  * }</pre>
- * 
+ *
  * @see Sprite
  */
 public class AnimatedSprite extends Sprite {
@@ -27,9 +28,9 @@ public class AnimatedSprite extends Sprite {
 
   /**
    * Adds an animation to the sprite.
-   * 
+   *
    * @param name the name of the animation
-   * @param pattern the pattern (@see String#format) of the file names 
+   * @param pattern the pattern (@see String#format) of the file names
    * @param frames the number of frames in the animation
    */
   public void addAnimation(String name, String pattern, int frames) {
@@ -46,10 +47,10 @@ public class AnimatedSprite extends Sprite {
   /**
    * Adds an animation to the sprite.
    *
-   * @param name   the name of the animation
-   * @param path   the path to the animation frames
+   * @param name the name of the animation
+   * @param path the path to the animation frames
    * @param frames the number of frames in the animation
-   * @param width  the width of each frame
+   * @param width the width of each frame
    * @param height the height of each frame
    */
   public void addAnimation(String name, String path, int frames, int width, int height) {
@@ -58,7 +59,7 @@ public class AnimatedSprite extends Sprite {
 
   /**
    * Adds an animation to the sprite.
-   * 
+   *
    * @param name the name of the animation
    * @param path the path to the animation frames
    * @param frames the number of frames in the animation
@@ -78,6 +79,7 @@ public class AnimatedSprite extends Sprite {
 
   /**
    * Adds an animation to the sprite.
+   *
    * @param name the name of the animation
    * @param path the path to the animation frames
    * @param frames the number of frames in the animation
@@ -108,6 +110,7 @@ public class AnimatedSprite extends Sprite {
 
   /**
    * Plays the animation with the specified name.
+   *
    * @param name the name of the animation to play
    * @param once whether to play the animation once
    */
@@ -130,10 +133,7 @@ public class AnimatedSprite extends Sprite {
     }
   }
 
-  /**
-   * Resets the animation.
-   * The animation will start from the first frame.
-   */
+  /** Resets the animation. The animation will start from the first frame. */
   public void resetAnimation() {
     animationFrame = 0;
     animationPlayed = false;
@@ -141,6 +141,7 @@ public class AnimatedSprite extends Sprite {
 
   /**
    * Sets the interval between animation frames.
+   *
    * @param interval the interval between animation frames
    */
   public void setAnimationInterval(int interval) {
@@ -149,6 +150,7 @@ public class AnimatedSprite extends Sprite {
 
   /**
    * Gets the interval between animation frames.
+   *
    * @return the interval between animation frames
    */
   public int getAnimationInterval() {
@@ -157,6 +159,7 @@ public class AnimatedSprite extends Sprite {
 
   /**
    * Gets the current animation frame.
+   *
    * @return the current animation frame
    */
   public int getAnimationFrame() {
@@ -165,6 +168,7 @@ public class AnimatedSprite extends Sprite {
 
   /**
    * Sets the current animation frame.
+   *
    * @param frame the current animation frame
    */
   public void setAnimationFrame(int frame) {
@@ -173,6 +177,7 @@ public class AnimatedSprite extends Sprite {
 
   /**
    * Checks if the animation is played.
+   *
    * @return true if the animation is played, false otherwise
    */
   public boolean isAnimationPlayed() {
