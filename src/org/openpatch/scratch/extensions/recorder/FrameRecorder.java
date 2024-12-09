@@ -4,12 +4,12 @@ import java.nio.file.Paths;
 import org.openpatch.scratch.internal.Applet;
 
 /**
- * The FrameRecorder class extends the Recorder class to provide functionality
- * for saving frames of an applet as PNG files. It allows saving the current frame
- * with a generated filename based on the frame number or taking a snapshot with
- * a specified filename.
+ * The FrameRecorder class extends the Recorder class to provide functionality for saving frames of
+ * an applet as PNG files. It allows saving the current frame with a generated filename based on the
+ * frame number or taking a snapshot with a specified filename.
  *
  * <p>Usage example:
+ *
  * <pre>
  * FrameRecorder recorder = new FrameRecorder("/path/to/output/folder");
  * recorder.saveFrame(); // Saves the current frame with a generated filename
@@ -31,9 +31,9 @@ public class FrameRecorder extends Recorder {
   }
 
   /**
-   * Saves the current frame of the applet to the specified output folder.
-   * The frame is saved as a PNG file with a filename pattern "#######.png".
-   * The exact filename will be generated based on the current frame number.
+   * Saves the current frame of the applet to the specified output folder. The frame is saved as a
+   * PNG file with a filename pattern "#######.png". The exact filename will be generated based on
+   * the current frame number.
    */
   @Override
   public void saveFrame() {

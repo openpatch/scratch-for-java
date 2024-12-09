@@ -5,28 +5,25 @@ import java.util.concurrent.ConcurrentHashMap;
 import processing.core.PFont;
 
 /**
- * The Font class represents a font that can be used to render text on the screen.
- * It supports various functionalities such as loading fonts from files, setting font sizes,
- * and getting the font object for a specific size.
+ * The Font class represents a font that can be used to render text on the screen. It supports
+ * various functionalities such as loading fonts from files, setting font sizes, and getting the
+ * font object for a specific size.
  */
 public class Font {
   private String name;
   private AbstractMap<Integer, PFont> fontMap;
 
-  /**
-   * The default font name.
-   */
+  /** The default font name. */
   public static String defaultFontName = "default";
-  /**
-   * The default font path.
-   */
+
+  /** The default font path. */
   public static String defaultFontPath = "UbuntuMono-Regular.ttf";
+
   private static int[] sizes = {8, 12, 14, 16, 20, 32, 48, 64, 128};
   private static final AbstractMap<String, AbstractMap<Integer, PFont>> fonts =
       new ConcurrentHashMap<>();
-  /**
-   * The default font.
-   */
+
+  /** The default font. */
   public static PFont defaultFont;
 
   /**
@@ -44,6 +41,7 @@ public class Font {
 
   /**
    * Copy constructor.
+   *
    * @param font the font to copy
    */
   public Font(Font font) {

@@ -3,21 +3,22 @@ package org.openpatch.scratch;
 import org.openpatch.scratch.internal.*;
 
 /**
- * The Window class represents a singleton window for the application.
- * It provides various constructors to create a window with different configurations
- * such as dimensions, full screen mode, and asset paths. The class ensures that only
- * one instance of the window can be created at any time.
- * 
- * The class also provides methods to interact with the window and the application,
- * such as retrieving the window dimensions, setting the debug mode, managing stages,
- * and exiting the application.
- * 
- * <p>Example usage:</p>
+ * The Window class represents a singleton window for the application. It provides various
+ * constructors to create a window with different configurations such as dimensions, full screen
+ * mode, and asset paths. The class ensures that only one instance of the window can be created at
+ * any time.
+ *
+ * <p>The class also provides methods to interact with the window and the application, such as
+ * retrieving the window dimensions, setting the debug mode, managing stages, and exiting the
+ * application.
+ *
+ * <p>Example usage:
+ *
  * <pre>{@code
  * Window window = new Window();
  * window.setDebug(true);
  * }</pre>
- * 
+ *
  * @see Stage
  */
 public class Window {
@@ -26,16 +27,16 @@ public class Window {
   private static Window instance;
 
   /**
-   * Constructs a new Window with default dimensions.
-   * The default width is 480 pixels and the default height is 360 pixels.
+   * Constructs a new Window with default dimensions. The default width is 480 pixels and the
+   * default height is 360 pixels.
    */
   public Window() {
     this(480, 360);
   }
 
   /**
-   * Constructs a new Window with the specified assets.
-   * The window will have a default width of 480 pixels and a height of 360 pixels.
+   * Constructs a new Window with the specified assets. The window will have a default width of 480
+   * pixels and a height of 360 pixels.
    *
    * @param assets the path to the assets to be used in the window
    */
@@ -46,7 +47,7 @@ public class Window {
   /**
    * Constructs a new Window with the specified width and height.
    *
-   * @param width  the width of the window
+   * @param width the width of the window
    * @param height the height of the window
    */
   public Window(int width, int height) {
@@ -54,10 +55,10 @@ public class Window {
   }
 
   /**
-   * Constructs a new Window with the specified width, height, and assets path.
-   * Ensures that only one instance of Window can be created.
+   * Constructs a new Window with the specified width, height, and assets path. Ensures that only
+   * one instance of Window can be created.
    *
-   * @param width  the width of the window
+   * @param width the width of the window
    * @param height the height of the window
    * @param assets the path to the assets
    * @throws Error if an instance of Window already exists
@@ -82,8 +83,8 @@ public class Window {
   }
 
   /**
-   * Constructs a new Window instance. If an instance of Window already exists,
-   * an Error is thrown to ensure only one Window instance is created.
+   * Constructs a new Window instance. If an instance of Window already exists, an Error is thrown
+   * to ensure only one Window instance is created.
    *
    * @param fullScreen a boolean indicating whether the window should be in full screen mode
    * @param assets a String specifying the path to the assets
@@ -128,7 +129,8 @@ public class Window {
   /**
    * Enables or disables the debug mode for the application.
    *
-   * @param debug a boolean value where {@code true} enables debug mode and {@code false} disables it.
+   * @param debug a boolean value where {@code true} enables debug mode and {@code false} disables
+   *     it.
    */
   public void setDebug(boolean debug) {
     Applet.getInstance().setDebug(debug);
@@ -208,8 +210,8 @@ public class Window {
   }
 
   /**
-   * Exits the application by invoking the `whenExits` method and then calling
-   * the `exit` method on the `Applet` instance.
+   * Exits the application by invoking the `whenExits` method and then calling the `exit` method on
+   * the `Applet` instance.
    */
   public void exit() {
     this.whenExits();
@@ -217,8 +219,8 @@ public class Window {
   }
 
   /**
-   * This method is called when the window exits.
-   * Override this method to define custom behavior when the window is closed.
+   * This method is called when the window exits. Override this method to define custom behavior
+   * when the window is closed.
    */
   public void whenExits() {}
 }
