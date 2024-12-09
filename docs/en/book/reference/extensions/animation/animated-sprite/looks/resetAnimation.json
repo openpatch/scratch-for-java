@@ -1,5 +1,5 @@
 {
-  "template": "method",
+  "template": "class-method",
   "related": [],
   "scratchblock": "reset animation",
   "name": "resetAnimation()",
@@ -9,9 +9,22 @@
   "returns": "void",
   "examples": [
     {
-      "src": "AnimatedSpriteResetAnimation.java",
       "preview": "AnimatedSpriteResetAnimation.gif",
-      "lines": "reg:[Rr]ecorder"
+      "folder": "AnimatedSpriteResetAnimation",
+      "files": [
+        {
+          "src": "MySprite.java",
+          "lines": "reg:package"
+        },
+        {
+          "src": "MyStage.java",
+          "lines": "reg:package"
+        },
+        {
+          "src": "MyWindow.java",
+          "lines": "reg:([Rr]ecorder|package)"
+        }
+      ]
     }
   ]
 }

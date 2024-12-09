@@ -1,5 +1,18 @@
 {
-  "template": "construction",
+  "template": "method",
   "class": "Camera",
-  "name": "changeX"
+  "name": "changeX",
+  "returns": "void",
+  "description": "Change the x-coordinate of the camera.",
+  "syntax": [
+    ".changeX(amount)"
+  ],
+  "parameters": [
+    {
+      "name": "amount",
+      "description": "The amount to change the x-coordinate by.",
+      "type": "int"
+    }
+  ],
+  "scratchblock": "change x by (amount)"
 }

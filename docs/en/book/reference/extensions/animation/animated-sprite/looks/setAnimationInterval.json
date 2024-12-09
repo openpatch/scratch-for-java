@@ -1,5 +1,5 @@
 {
-  "template": "method",
+  "template": "class-method",
   "related": [],
   "scratchblock": "set animation interval ()",
   "name": "setAnimationInterval()",
@@ -8,7 +8,23 @@
   "syntax": [".setAnimationInterval(interval)"],
   "returns": "void",
   "examples": [
-    { "src": "AnimatedSpriteSetAnimationInterval.java", "preview": "AnimatedSpriteSetAnimationInterval.gif", "lines": "reg:[Rr]ecorder"}
+    { "preview": "AnimatedSpriteSetAnimationInterval.gif", 
+      "folder": "AnimatedSpriteSetAnimationInterval",
+      "files": [
+        {
+          "src": "MySprite.java",
+          "lines": "reg:package"
+        },
+        {
+          "src": "MyStage.java",
+          "lines": "reg:package"
+        },
+        {
+          "src": "MyWindow.java",
+          "lines": "reg:([Rr]ecorder|package)"
+        }
+      ]
+  }
   ],
   "parameters": [
     {

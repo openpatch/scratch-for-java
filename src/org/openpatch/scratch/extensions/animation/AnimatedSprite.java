@@ -57,15 +57,6 @@ public class AnimatedSprite extends Sprite {
   }
 
   /**
-   * Plays the animation with the specified name.
-   *
-   * @param name the name of the animation to play
-   */
-  public void playAnimation(String name) {
-    this.playAnimation(name, false);
-  }
-
-  /**
    * Adds an animation to the sprite.
    * 
    * @param name the name of the animation
@@ -104,6 +95,15 @@ public class AnimatedSprite extends Sprite {
       animation[row] = costumeName;
     }
     animations.put(name, animation);
+  }
+
+  /**
+   * Plays the animation with the specified name.
+   *
+   * @param name the name of the animation to play
+   */
+  public void playAnimation(String name) {
+    this.playAnimation(name, false);
   }
 
   /**

@@ -262,16 +262,19 @@ public class Applet extends PApplet {
           }
         }
 
+        @SuppressWarnings("unused")
         var imageFiles =
             Files.find(p, Integer.MAX_VALUE, (filePath, fileAttr) -> fileAttr.isRegularFile())
                 .map(f -> f.toString())
                 .filter(f -> f.endsWith(".png") || f.endsWith(".jpg") || f.endsWith(".jpeg"))
                 .collect(Collectors.toList());
+        @SuppressWarnings("unused")
         var soundFiles =
             Files.find(p, Integer.MAX_VALUE, (filePath, fileAttr) -> fileAttr.isRegularFile())
                 .map(f -> f.toString())
                 .filter(f -> f.endsWith(".mp3") || f.endsWith(".wav"))
                 .collect(Collectors.toList());
+        @SuppressWarnings("unused")
         var fontFiles =
             Files.find(p, Integer.MAX_VALUE, (filePath, fileAttr) -> fileAttr.isRegularFile())
                 .map(f -> f.toString())

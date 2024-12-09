@@ -1,5 +1,5 @@
 {
-  "template": "method",
+  "template": "class-method",
   "related": [],
   "name": "addAnimation()",
   "scratchblock": "add animation (name) (pattern) (frames)",
@@ -13,9 +13,22 @@
   "returns": "void",
   "examples": [
     {
-      "src": "AnimatedSpriteAddAnimation.java",
       "preview": "AnimatedSpriteAddAnimation.gif",
-      "lines": "reg:[Rr]ecorder"
+      "folder": "AnimatedSpriteAddAnimation",
+      "files": [
+        {
+          "src": "MySprite.java",
+          "lines": "reg:package"
+        },
+        {
+          "src": "MyStage.java",
+          "lines": "reg:package"
+        },
+        {
+          "src": "MyWindow.java",
+          "lines": "reg:([Rr]ecorder|package)"
+        }
+      ]
     }
   ],
   "parameters": [
@@ -51,4 +64,3 @@
     }
   ]
 }
-

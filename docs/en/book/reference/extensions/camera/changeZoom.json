@@ -1,5 +1,18 @@
 {
-  "template": "construction",
+  "template": "method",
   "class": "Camera",
-  "name": "changeZoom"
+  "name": "changeZoom",
+  "returns": "void",
+  "description": "Change the zoom level of the camera.",
+  "syntax": [
+    ".changeZoom(amount)"
+  ],
+  "parameters": [
+    {
+      "name": "amount",
+      "description": "The amount to change the zoom level by.",
+      "type": "int"
+    }
+  ],
+  "scratchblock": "change zoom by (amount)"
 }
