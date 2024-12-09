@@ -23,5 +23,3 @@ done
 popd
 
 npx hyperbook build
-
-cp -R distribution/javadoc docs/.hyperbook/out/javadoc
