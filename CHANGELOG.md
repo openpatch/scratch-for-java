@@ -4,6 +4,37 @@ index: 4
 lang: en
 ---
 
+## 4.12.0
+
+- 🚀 Feat: There is a new color extension providing a color class and all named HTML colors for easy reference.
+
+```java
+Color c = new Color("#FF0000"); // red
+mySprite.setTint(c);
+
+mySprite.setTint(HtmlColor.AZURE);
+```
+
+- 🚀 Feat: Add shaders to sprites and to stages. You can find the shader example in the examples directory. For a quick overview you can look at the following code snippet, which works for sprites and for stages.
+
+```java
+class ShaderSprite extends Sprite {
+    public ShaderSprite() {
+        var shader = this.setShader("blur", "blur.glsl");
+        shader.set("radius", 10.0);
+        this.switchShader("blur");
+    }
+
+    public void whenKeyPressed(int keyCode) {
+        if (keyCode == KeyEvent.VK_N) {
+            this.nextShader();
+        } else if (keyCode == KeyEvent.VK_R) {
+            this.resetShader();
+        }
+    }
+}
+```
+
 ## 4.11.0
 
 - 🚀 Feat: A broadcast and whenIReceive methods for the Object-class, which makes it possible to send anything as a broadcast.

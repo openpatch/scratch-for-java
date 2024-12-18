@@ -5,12 +5,13 @@ import org.davidmoten.text.utils.WordWrap;
 import org.openpatch.scratch.Sprite;
 import org.openpatch.scratch.Stage;
 import org.openpatch.scratch.Window;
+import org.openpatch.scratch.extensions.color.Color;
 import org.openpatch.scratch.extensions.math.Vector2;
 import org.openpatch.scratch.internal.Applet;
-import org.openpatch.scratch.internal.Color;
 import org.openpatch.scratch.internal.Font;
 import processing.core.PApplet;
 import processing.core.PConstants;
+import processing.core.PGraphics;
 
 /**
  * The Text class represents a text object that can be displayed on the stage. It provides methods
@@ -544,12 +545,11 @@ public class Text {
         .split("\n");
   }
 
-  private void drawBubble() {
-    var applet = Applet.getInstance();
+  private void drawBubble(PGraphics buffer) {
     var lines = this.wrap(this.originalText, SPEAK_BUBBLE_MAX_LIMIT);
     var maxLineWidth = 0.0f;
     for (var line : lines) {
-      var lineWidth = applet.textWidth(line);
+      var lineWidth = buffer.textWidth(line);
       if (lineWidth > maxLineWidth) {
         maxLineWidth = lineWidth;
       }
@@ -565,63 +565,63 @@ public class Text {
     this.width = maxLineWidth + 16;
     this.text = String.join("\n", lines);
     this.height = (this.textSize + 4) * lines.length + 16;
-    applet.rectMode(PApplet.CORNER);
+    buffer.rectMode(PConstants.CORNER);
     var mirror = false;
-    applet.translate((float) x, (float) (-y - this.height));
-    applet.stroke(
+    buffer.translate((float) x, (float) (-y - this.height));
+    buffer.stroke(
         (float) this.strokeColor.getRed(),
         (float) this.strokeColor.getGreen(),
         (float) this.strokeColor.getBlue());
-    applet.fill(
+    buffer.fill(
         (float) this.backgroundColor.getRed(),
         (float) this.backgroundColor.getGreen(),
         (float) this.backgroundColor.getBlue());
-    applet.rect(0, 0, (float) this.width, (float) this.height, 16, 16, 16, 16);
+    buffer.rect(0, 0, (float) this.width, (float) this.height, 16, 16, 16, 16);
     if (this.style == TextStyle.SPEAK) {
-      applet.push();
-      applet.fill(
+      buffer.push();
+      buffer.fill(
           (float) this.backgroundColor.getRed(),
           (float) this.backgroundColor.getGreen(),
           (float) this.backgroundColor.getBlue());
       if (mirror) {
-        applet.translate((float) this.width - 40, (float) this.height);
-        applet.triangle(20, 0, 0, 0, 20, 20);
+        buffer.translate((float) this.width - 40, (float) this.height);
+        buffer.triangle(20, 0, 0, 0, 20, 20);
       } else {
-        applet.translate(10, (float) this.height);
-        applet.triangle(0, 20, 0, 0, 20, 0);
+        buffer.translate(10, (float) this.height);
+        buffer.triangle(0, 20, 0, 0, 20, 0);
       }
-      applet.stroke(
+      buffer.stroke(
           (float) this.backgroundColor.getRed(),
           (float) this.backgroundColor.getGreen(),
           (float) this.backgroundColor.getBlue());
-      applet.strokeWeight(3);
-      applet.line(2, 0, 16, 0);
-      applet.pop();
+      buffer.strokeWeight(3);
+      buffer.line(2, 0, 16, 0);
+      buffer.pop();
     } else if (this.style == TextStyle.THINK) {
-      applet.push();
+      buffer.push();
       if (mirror) {
-        applet.translate((float) this.width - 10, 0);
-        applet.circle(-20, (float) this.height, 10);
-        applet.circle(-7, (float) this.height + 7, 6);
-        applet.circle(0, (float) this.height + 10, 4);
+        buffer.translate((float) this.width - 10, 0);
+        buffer.circle(-20, (float) this.height, 10);
+        buffer.circle(-7, (float) this.height + 7, 6);
+        buffer.circle(0, (float) this.height + 10, 4);
       } else {
-        applet.circle(20, (float) this.height, 10);
-        applet.circle(7, (float) this.height + 7, 6);
-        applet.circle(0, (float) this.height + 10, 4);
+        buffer.circle(20, (float) this.height, 10);
+        buffer.circle(7, (float) this.height + 7, 6);
+        buffer.circle(0, (float) this.height + 10, 4);
       }
-      applet.pop();
+      buffer.pop();
     }
 
     // draw text
-    applet.fill(
+    buffer.fill(
         (float) this.textColor.getRed(),
         (float) this.textColor.getGreen(),
         (float) this.textColor.getBlue());
-    applet.textLeading(this.textSize + 4);
-    applet.text(this.text, 8, 8);
+    buffer.textLeading(this.textSize + 4);
+    buffer.text(this.text, 8, 8);
   }
 
-  private void drawBox() {
+  private void drawBox(PGraphics buffer) {
     var applet = Applet.getInstance();
     var lines = this.originalText.split("\n");
 
@@ -634,28 +634,28 @@ public class Text {
     this.height = (this.textSize + 4) * lines.length + 16;
     this.text = String.join("\n", lines);
 
-    applet.rectMode(PApplet.CORNER);
-    applet.translate((float) this.x, (float) (-this.y - this.height));
-    applet.stroke(
+    buffer.rectMode(PConstants.CORNER);
+    buffer.translate((float) this.x, (float) (-this.y - this.height));
+    buffer.stroke(
         (float) this.strokeColor.getRed(),
         (float) this.strokeColor.getGreen(),
         (float) this.strokeColor.getBlue());
-    applet.fill(
+    buffer.fill(
         (float) this.backgroundColor.getRed(),
         (float) this.backgroundColor.getGreen(),
         (float) this.backgroundColor.getBlue());
-    applet.strokeWeight(2);
-    applet.rect(0, 0, (float) this.width, (float) this.height, 16, 16, 0, 0);
+    buffer.strokeWeight(2);
+    buffer.rect(0, 0, (float) this.width, (float) this.height, 16, 16, 0, 0);
 
-    applet.fill(
+    buffer.fill(
         (float) this.textColor.getRed(),
         (float) this.textColor.getGreen(),
         (float) this.textColor.getBlue());
-    applet.textLeading(this.textSize + 4);
-    applet.text(this.text, 8, 8);
+    buffer.textLeading(this.textSize + 4);
+    buffer.text(this.text, 8, 8);
   }
 
-  private void drawPlain() {
+  private void drawPlain(PGraphics buffer) {
     var applet = Applet.getInstance();
     var lines = this.originalText.split("\n");
     if (this.width > 0) {
@@ -663,57 +663,55 @@ public class Text {
     }
     if (applet.isDebug()) {
       var textSize = applet.getTextSize();
-      applet.textSize(12);
-      applet.fill(Window.DEBUG_COLOR[0], Window.DEBUG_COLOR[1], Window.DEBUG_COLOR[1]);
-      applet.textAlign(PConstants.CENTER);
-      applet.text("(" + this.x + ", " + this.y + ")", 0, -20);
-      applet.textSize((float) textSize);
+      buffer.textSize(12);
+      buffer.fill(Window.DEBUG_COLOR[0], Window.DEBUG_COLOR[1], Window.DEBUG_COLOR[1]);
+      buffer.textAlign(PConstants.CENTER);
+      buffer.text("(" + this.x + ", " + this.y + ")", 0, -20);
+      buffer.textSize((float) textSize);
     }
     this.text = String.join("\n", lines);
 
-    applet.translate((float) this.x, (float) -this.y);
-    applet.fill(
+    buffer.translate((float) this.x, (float) -this.y);
+    buffer.fill(
         (float) this.textColor.getRed(),
         (float) this.textColor.getGreen(),
         (float) this.textColor.getBlue());
-    applet.textLeading(this.textSize + 4);
-    applet.text(this.text, 8, 8);
+    buffer.textLeading(this.textSize + 4);
+    buffer.text(this.text, 8, 8);
   }
 
-  public void draw() {
+  public void draw(PGraphics buffer) {
     if (this.stage == null) return;
     if (!this.show || this.originalText == null) return;
 
-    var applet = Applet.getInstance();
-
-    applet.push();
+    buffer.push();
     if (this.textAlign != TextAlign.DEFAULT) {
-      applet.textAlign(this.textAlign);
+      buffer.textAlign(this.textAlign);
     } else {
-      applet.textAlign(PApplet.LEFT, PApplet.TOP);
+      buffer.textAlign(PApplet.LEFT, PApplet.TOP);
     }
-    applet.textFont(this.fonts.get(this.currentFont).getFont(this.textSize));
-    applet.textSize(this.textSize);
+    buffer.textFont(this.fonts.get(this.currentFont).getFont(this.textSize));
+    buffer.textSize(this.textSize);
 
     switch (this.style) {
       case SPEAK:
       case THINK:
         {
-          this.drawBubble();
+          this.drawBubble(buffer);
           break;
         }
       case PLAIN:
         {
-          this.drawPlain();
+          this.drawPlain(buffer);
           break;
         }
       case BOX:
         {
-          this.drawBox();
+          this.drawBox(buffer);
           break;
         }
     }
-    applet.pop();
+    buffer.pop();
 
     if (this.hasLifetime && this.lifetime < System.currentTimeMillis()) {
       this.show = false;

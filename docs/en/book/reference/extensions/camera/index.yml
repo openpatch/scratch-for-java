@@ -1,0 +1,4 @@
+template: "class"
+name: "Camera"
+description: |
+  `import org.openpatch.scratch.extensions.camera.Camera`

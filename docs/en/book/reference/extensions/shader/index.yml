@@ -1,0 +1,4 @@
+template: "class"
+name: "Shader"
+description: |
+  `import org.openpatch.scratch.extensions.shader.Shader`
