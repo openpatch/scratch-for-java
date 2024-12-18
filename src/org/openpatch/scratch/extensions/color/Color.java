@@ -22,9 +22,9 @@ public class Color {
     if (hexCode.startsWith("#")) {
       hexCode = hexCode.substring(1);
     }
-    this.r = Integer.valueOf(hexCode.substring(0, 2), 16); 
-    this.g = Integer.valueOf(hexCode.substring(2, 4), 16); 
-    this.b = Integer.valueOf(hexCode.substring(4, 6), 16); 
+    this.r = Integer.valueOf(hexCode.substring(0, 2), 16);
+    this.g = Integer.valueOf(hexCode.substring(2, 4), 16);
+    this.b = Integer.valueOf(hexCode.substring(4, 6), 16);
   }
 
   /**

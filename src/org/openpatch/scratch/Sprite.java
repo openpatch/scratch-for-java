@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
-
 import org.openpatch.scratch.extensions.color.Color;
 import org.openpatch.scratch.extensions.hitbox.Hitbox;
 import org.openpatch.scratch.extensions.math.Random;
@@ -21,7 +20,6 @@ import org.openpatch.scratch.internal.Applet;
 import org.openpatch.scratch.internal.Image;
 import org.openpatch.scratch.internal.Sound;
 import org.openpatch.scratch.internal.Stamp;
-
 import processing.core.PGraphics;
 import processing.event.KeyEvent;
 import processing.event.MouseEvent;
@@ -186,6 +184,7 @@ public class Sprite {
   /**
    * Adds a new shader to the sprite. If a shader with the received name already exists, this method
    * does nothing.
+   *
    * @param name
    * @param shaderPath
    * @return the shader
@@ -204,6 +203,7 @@ public class Sprite {
 
   /**
    * Switch to a shader by name.
+   *
    * @param name the name of a shader
    */
   public void switchShader(String name) {
@@ -218,6 +218,7 @@ public class Sprite {
 
   /**
    * Switch to a shader by index.
+   *
    * @param index the index of a shader
    */
   public void switchShader(double index) {
@@ -230,6 +231,7 @@ public class Sprite {
 
   /**
    * Retrieves a shader by name.
+   *
    * @param name the name of a shader
    * @return the shader with the specified name, or null if no shader with that name exists
    */
@@ -242,15 +244,14 @@ public class Sprite {
     return null;
   }
 
-  /**
-   * Sets the next shader as the current shader.
-   */
+  /** Sets the next shader as the current shader. */
   public void nextShader() {
     this.currentShader = (this.currentShader + 1) % this.shaders.size();
   }
 
   /**
    * Retrieves the name of the current shader.
+   *
    * @return the name of the current shader, or null if no shaders exist
    */
   public String getCurrentShaderName() {
@@ -261,6 +262,7 @@ public class Sprite {
 
   /**
    * Retrieves the index of the current shader.
+   *
    * @return the index of the current shader
    */
   public int getCurrentShaderIndex() {
@@ -269,6 +271,7 @@ public class Sprite {
 
   /**
    * Retrieves the current shader.
+   *
    * @return the current shader, or null if no shaders exist
    */
   public Shader getCurrentShader() {
