@@ -15,4 +15,4 @@ Das nachfolgende Video zeigt ein Scratch-Projekt und ein BlueJ-Projekt, welches 
 Wenn du die beiden Projekte selber vergleichen möchtest, dann kannst du dir die beiden Implementierung hier anschauen:
 
 - Scratch: https://scratch.mit.edu/projects/338613208
-- BlueJ: [Quelltext auf GitHub](https://github.com/openpatch/scratch-for-java/tree/main/docs/en/archives/Halloween) oder [Projekt Halloween.zip](/archives/Halloween.zip)
+- BlueJ: [Quelltext auf GitHub](https://github.com/openpatch/scratch-for-java/blob/main/examples/archives/Halloween) oder [Projekt Halloween.zip](/archives/Halloween.zip)
