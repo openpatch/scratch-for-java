@@ -71,34 +71,3 @@ public class MyProgram {
     }
 }
 ```
-
-- There are no send, broadcast or receive message methods, you need to make use of custom-methods and object-references.
-
-```java
-public class Sender extends Sprite {
-    private Receiver receiver;
-
-    public Sender(Receiver aReceiver) {
-        receiver = aReceiver;
-    }
-
-    public whenClicked() {
-        aReceiver.receive("Hello");
-    }
-
-}
-
-public class Receiver extends Sprite {
-    public void receive(String text) {
-        this.say(text);
-    }
-}
-
-public class MyProgram {
-    Stage myStage = new Stage();
-    Receiver myReceiver = new Receiver();
-    myStage.add(myReceiver);
-    Sende mySender = new Sender(myReceiver);
-    myStage.add(mySender);
-}
-```

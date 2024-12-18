@@ -72,34 +72,3 @@ public class MyProgram {
     }
 }
 ```
-
-- Es existieren keine sende und empfange Methoden. Du musst eigene Methode schreiben und Objektreferenzen verwenden.
-
-```java
-public class Sender extends Sprite {
-    private Receiver receiver;
-
-    public Sender(Receiver aReceiver) {
-        receiver = aReceiver;
-    }
-
-    public whenClicked() {
-        aReceiver.receive("Hello");
-    }
-
-}
-
-public class Receiver extends Sprite {
-    public void receive(String text) {
-        this.say(text);
-    }
-}
-
-public class MyProgram {
-    Stage myStage = new Stage();
-    Receiver myReceiver = new Receiver();
-    myStage.add(myReceiver);
-    Sende mySender = new Sender(myReceiver);
-    myStage.add(mySender);
-}
-```
