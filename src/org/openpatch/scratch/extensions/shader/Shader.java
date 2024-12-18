@@ -3,7 +3,6 @@ package org.openpatch.scratch.extensions.shader;
 import org.openpatch.scratch.extensions.color.Color;
 import org.openpatch.scratch.extensions.math.Vector2;
 import org.openpatch.scratch.internal.Applet;
-
 import processing.opengl.PShader;
 
 public class Shader {
@@ -34,7 +33,7 @@ public class Shader {
 
   /**
    * Load shader
-   * 
+   *
    * @param path path to the shader file
    * @return shader
    */
