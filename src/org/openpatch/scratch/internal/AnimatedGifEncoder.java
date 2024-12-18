@@ -3,7 +3,6 @@ package org.openpatch.scratch.internal;
 import java.awt.*;
 import java.awt.image.*;
 import java.io.*;
-
 import org.openpatch.scratch.extensions.color.Color;
 
 /**
