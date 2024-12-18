@@ -1,3 +1,4 @@
 template: "class"
 name: "Timer"
-index: 4
+description: |
+  `import org.openpatch.scratch.extensions.timer.Timer`

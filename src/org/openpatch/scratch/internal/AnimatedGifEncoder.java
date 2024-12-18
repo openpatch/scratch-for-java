@@ -4,6 +4,8 @@ import java.awt.*;
 import java.awt.image.*;
 import java.io.*;
 
+import org.openpatch.scratch.extensions.color.Color;
+
 /**
  * Class AnimatedGifEncoder - Encodes a GIF file consisting of one or more frames.
  *
@@ -112,7 +114,7 @@ public class AnimatedGifEncoder {
    *
    * @param c Color to be treated as transparent on display.
    */
-  public void setTransparent(org.openpatch.scratch.internal.Color c) {
+  public void setTransparent(org.openpatch.scratch.extensions.color.Color c) {
     transparent = new Color(c.getRed() / 255.0f, c.getGreen() / 255.0f, c.getBlue() / 255.0f);
   }
 

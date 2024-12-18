@@ -6,19 +6,23 @@ import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
+
+import org.openpatch.scratch.extensions.color.Color;
 import org.openpatch.scratch.extensions.hitbox.Hitbox;
 import org.openpatch.scratch.extensions.math.Random;
 import org.openpatch.scratch.extensions.math.Utils;
 import org.openpatch.scratch.extensions.math.Vector2;
 import org.openpatch.scratch.extensions.pen.Pen;
+import org.openpatch.scratch.extensions.shader.Shader;
 import org.openpatch.scratch.extensions.text.Text;
 import org.openpatch.scratch.extensions.text.TextStyle;
 import org.openpatch.scratch.extensions.timer.Timer;
 import org.openpatch.scratch.internal.Applet;
-import org.openpatch.scratch.internal.Color;
 import org.openpatch.scratch.internal.Image;
 import org.openpatch.scratch.internal.Sound;
 import org.openpatch.scratch.internal.Stamp;
+
+import processing.core.PGraphics;
 import processing.event.KeyEvent;
 import processing.event.MouseEvent;
 
@@ -68,6 +72,8 @@ public class Sprite {
   private List<Image> costumes = new CopyOnWriteArrayList<>();
   private int currentCostume = 0;
   private List<Sound> sounds = new CopyOnWriteArrayList<>();
+  private List<Shader> shaders = new CopyOnWriteArrayList<>();
+  private int currentShader = 0;
   private boolean show = true;
   private double size = 100;
   private boolean onEdgeBounce = false;
@@ -113,6 +119,10 @@ public class Sprite {
     for (Sound sound : s.sounds) {
       this.sounds.add(new Sound(sound));
     }
+    this.shaders = new CopyOnWriteArrayList<>();
+    for (Shader shader : s.shaders) {
+      this.shaders.add(new Shader(shader));
+    }
     this.show = s.show;
     this.size = s.size;
     this.onEdgeBounce = s.onEdgeBounce;
@@ -127,22 +137,6 @@ public class Sprite {
     this.hitbox = s.hitbox;
     this.hitboxDisabled = s.hitboxDisabled;
     this.text = new Text(s.text);
-  }
-
-  public void addedToStage(Stage stage) {
-    this.stage = stage;
-    this.pen.addedToStage(stage);
-    this.text.addedToStage(stage);
-    this.whenAddedToStage();
-    this.whenAddedToStage(stage);
-  }
-
-  public void removedFromStage(Stage stage) {
-    this.pen.removedFromStage(stage);
-    this.text.removedFromStage(stage);
-    this.stage = null;
-    this.whenRemovedFromStage();
-    this.whenRemovedFromStage(stage);
   }
 
   /**
@@ -187,6 +181,100 @@ public class Sprite {
    */
   public Stage getStage() {
     return this.stage;
+  }
+
+  /**
+   * Adds a new shader to the sprite. If a shader with the received name already exists, this method
+   * does nothing.
+   * @param name
+   * @param shaderPath
+   * @return the shader
+   */
+  public Shader addShader(String name, final String shaderPath) {
+    for (Shader shader : this.shaders) {
+      if (shader.getName().equals(name)) {
+        return shader;
+      }
+    }
+
+    Shader shader = new Shader(name, shaderPath);
+    this.shaders.add(shader);
+    return shader;
+  }
+
+  /**
+   * Switch to a shader by name.
+   * @param name the name of a shader
+   */
+  public void switchShader(String name) {
+    for (int i = 0; i < this.shaders.size(); i++) {
+      Shader shader = this.shaders.get(i);
+      if (shader.getName().equals(name)) {
+        this.currentShader = i;
+        return;
+      }
+    }
+  }
+
+  /**
+   * Switch to a shader by index.
+   * @param index the index of a shader
+   */
+  public void switchShader(double index) {
+    this.currentShader = (int) index % this.shaders.size();
+  }
+
+  public void resetShader() {
+    this.currentShader = -1;
+  }
+
+  /**
+   * Retrieves a shader by name.
+   * @param name the name of a shader
+   * @return the shader with the specified name, or null if no shader with that name exists
+   */
+  public Shader getShader(String name) {
+    for (Shader shader : this.shaders) {
+      if (shader.getName().equals(name)) {
+        return shader;
+      }
+    }
+    return null;
+  }
+
+  /**
+   * Sets the next shader as the current shader.
+   */
+  public void nextShader() {
+    this.currentShader = (this.currentShader + 1) % this.shaders.size();
+  }
+
+  /**
+   * Retrieves the name of the current shader.
+   * @return the name of the current shader, or null if no shaders exist
+   */
+  public String getCurrentShaderName() {
+    if (this.shaders.size() == 0 || this.currentShader == -1) return null;
+
+    return this.shaders.get(this.currentShader).getName();
+  }
+
+  /**
+   * Retrieves the index of the current shader.
+   * @return the index of the current shader
+   */
+  public int getCurrentShaderIndex() {
+    return this.currentShader;
+  }
+
+  /**
+   * Retrieves the current shader.
+   * @return the current shader, or null if no shaders exist
+   */
+  public Shader getCurrentShader() {
+    if (this.shaders.size() == 0 || this.currentShader == -1) return null;
+
+    return this.shaders.get(this.currentShader);
   }
 
   /**
@@ -1533,18 +1621,6 @@ public class Sprite {
     }
   }
 
-  private Stamp getStamp() {
-    var stamp =
-        new Stamp(
-            this.costumes.get(this.currentCostume),
-            this.direction,
-            this.x,
-            this.y,
-            this.rotationStyle);
-
-    return stamp;
-  }
-
   /**
    * Stamps the current sprite to the foreground. A stamp is a non interactive version of the
    * sprite.
@@ -1573,13 +1649,38 @@ public class Sprite {
     return this.isUI;
   }
 
+  /**
+   * This method is intended to be overridden by subclasses to define the behavior of the sprite
+   * when it is run. By default, this method does nothing.
+   *
+   * <p>It is called every frame.
+   */
+  public void run() {}
+
+  protected void addedToStage(Stage stage) {
+    this.stage = stage;
+    this.pen.addedToStage(stage);
+    this.text.addedToStage(stage);
+    this.whenAddedToStage();
+    this.whenAddedToStage(stage);
+  }
+
+  protected void removedFromStage(Stage stage) {
+    this.pen.removedFromStage(stage);
+    this.text.removedFromStage(stage);
+    this.stage = null;
+    this.whenRemovedFromStage();
+    this.whenRemovedFromStage(stage);
+  }
+
   /** Draws the sprite if it is not hidden. */
-  public void draw() {
+  protected void draw(PGraphics buffer) {
     if (this.stage == null) return;
     if (this.costumes.size() > 0 && this.show) {
+      var shader = this.getCurrentShader();
       this.costumes
           .get(this.currentCostume)
-          .draw(this.size, this.direction, this.x, this.y, this.rotationStyle);
+          .draw(buffer, this.size, this.direction, this.x, this.y, this.rotationStyle, shader);
     }
   }
 
@@ -1588,7 +1689,7 @@ public class Sprite {
    * hitbox is drawn if it is not disabled and the sprite is not a UI element. The current costume
    * is drawn if there are costumes available and the sprite is set to be shown.
    */
-  public void drawDebug() {
+  protected void drawDebug() {
     if (!this.hitboxDisabled && !this.isUI) {
       this.getHitbox().drawDebug(this.getStage().getDebugBuffer());
     }
@@ -1605,11 +1706,15 @@ public class Sprite {
     }
   }
 
-  /**
-   * This method is intended to be overridden by subclasses to define the behavior of the sprite
-   * when it is run. By default, this method does nothing.
-   *
-   * <p>It is called every frame.
-   */
-  public void run() {}
+  private Stamp getStamp() {
+    var stamp =
+        new Stamp(
+            this.costumes.get(this.currentCostume),
+            this.direction,
+            this.x,
+            this.y,
+            this.rotationStyle);
+
+    return stamp;
+  }
 }

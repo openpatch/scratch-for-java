@@ -1,8 +1,8 @@
 package org.openpatch.scratch.extensions.recorder;
 
+import org.openpatch.scratch.extensions.color.Color;
 import org.openpatch.scratch.internal.AnimatedGifEncoder;
 import org.openpatch.scratch.internal.Applet;
-import org.openpatch.scratch.internal.Color;
 
 /**
  * The GifRecorder class is responsible for recording and saving frames as GIF images. It extends

@@ -14,14 +14,15 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 import org.openpatch.scratch.extensions.camera.Camera;
+import org.openpatch.scratch.extensions.color.Color;
 import org.openpatch.scratch.extensions.hitbox.Hitbox;
 import org.openpatch.scratch.extensions.math.Vector2;
 import org.openpatch.scratch.extensions.pen.Pen;
+import org.openpatch.scratch.extensions.shader.Shader;
 import org.openpatch.scratch.extensions.text.Text;
 import org.openpatch.scratch.extensions.text.TextStyle;
 import org.openpatch.scratch.extensions.timer.Timer;
 import org.openpatch.scratch.internal.Applet;
-import org.openpatch.scratch.internal.Color;
 import org.openpatch.scratch.internal.Font;
 import org.openpatch.scratch.internal.Image;
 import org.openpatch.scratch.internal.Sound;
@@ -32,8 +33,10 @@ import processing.event.KeyEvent;
 import processing.event.MouseEvent;
 
 /**
- * The Stage class represents a stage where various elements such as sprites, texts, pens, and
- * backdrops can be added and manipulated. It provides methods to manage these elements, handle
+ * The Stage class represents a stage where various elements such as sprites,
+ * texts, pens, and
+ * backdrops can be added and manipulated. It provides methods to manage these
+ * elements, handle
  * events, and control the stage's appearance and behavior.
  */
 public class Stage {
@@ -42,6 +45,12 @@ public class Stage {
   private Color color = new Color();
   private int currentBackdrop = 0;
   private final List<Sound> sounds = new CopyOnWriteArrayList<>();
+  private int currentShader = 0;
+  private List<Shader> shaders = new CopyOnWriteArrayList<>();
+
+  private PGraphics mainBuffer;
+
+  private PGraphics backdropBuffer;
 
   public Queue<Stamp> backgroundStamps;
   private PGraphics backgroundBuffer;
@@ -79,7 +88,8 @@ public class Stage {
   private Camera camera;
 
   /**
-   * Constructs a new Stage with default dimensions. The default width is 480 pixels and the default
+   * Constructs a new Stage with default dimensions. The default width is 480
+   * pixels and the default
    * height is 360 pixels.
    */
   public Stage() {
@@ -89,7 +99,7 @@ public class Stage {
   /**
    * Constructs a new Stage with the specified width and height.
    *
-   * @param width the width of the stage
+   * @param width  the width of the stage
    * @param height the height of the stage
    */
   public Stage(int width, final int height) {
@@ -99,7 +109,7 @@ public class Stage {
   /**
    * Constructs a new Stage with the specified width, height, and assets path.
    *
-   * @param width the width of the stage
+   * @param width  the width of the stage
    * @param height the height of the stage
    * @param assets the path to the assets directory
    */
@@ -110,7 +120,8 @@ public class Stage {
   /**
    * Constructs a new Stage.
    *
-   * @param fullScreen a boolean indicating whether the stage should be in full screen mode.
+   * @param fullScreen a boolean indicating whether the stage should be in full
+   *                   screen mode.
    */
   public Stage(boolean fullScreen) {
     this(480, 360, fullScreen, null);
@@ -119,8 +130,9 @@ public class Stage {
   /**
    * Constructs a new Stage with the specified fullscreen mode and assets path.
    *
-   * @param fullScreen a boolean indicating whether the stage should be in fullscreen mode
-   * @param assets the path to the assets directory
+   * @param fullScreen a boolean indicating whether the stage should be in
+   *                   fullscreen mode
+   * @param assets     the path to the assets directory
    */
   public Stage(boolean fullScreen, String assets) {
     this(480, 360, fullScreen, assets);
@@ -129,10 +141,10 @@ public class Stage {
   /**
    * Constructs a new Stage with the specified parameters.
    *
-   * @param width the width of the stage
-   * @param height the height of the stage
+   * @param width      the width of the stage
+   * @param height     the height of the stage
    * @param fullScreen whether the stage should be in full screen mode
-   * @param assets the path to the assets directory
+   * @param assets     the path to the assets directory
    */
   public Stage(int width, final int height, boolean fullScreen, String assets) {
     this.cursor = null;
@@ -140,6 +152,7 @@ public class Stage {
     this.texts = new CopyOnWriteArrayList<>();
     this.pens = new CopyOnWriteArrayList<>();
     this.sprites = new CopyOnWriteArrayList<>();
+    this.shaders = new CopyOnWriteArrayList<>();
     this.backgroundStamps = new ConcurrentLinkedQueue<>();
     this.foregroundStamps = new ConcurrentLinkedQueue<>();
     this.uiStamps = new ConcurrentLinkedQueue<>();
@@ -154,23 +167,23 @@ public class Stage {
       a.setStage(this);
     }
     Applet applet = Applet.getInstance();
-    this.backgroundBuffer =
-        applet.createGraphics(applet.width, applet.height, applet.sketchRenderer());
-    this.foregroundBuffer =
-        applet.createGraphics(applet.width, applet.height, applet.sketchRenderer());
+    this.mainBuffer = applet.createGraphics(applet.width, applet.height, applet.sketchRenderer());
+    this.backdropBuffer = applet.createGraphics(applet.width, applet.height, applet.sketchRenderer());
+    this.backgroundBuffer = applet.createGraphics(applet.width, applet.height, applet.sketchRenderer());
+    this.foregroundBuffer = applet.createGraphics(applet.width, applet.height, applet.sketchRenderer());
     this.uiBuffer = applet.createGraphics(applet.width, applet.height, applet.sketchRenderer());
     this.debugBuffer = applet.createGraphics(applet.width, applet.height, applet.sketchRenderer());
     /**
      * Smooth does currently not work on Apple Silicon
      * https://github.com/processing/processing4/issues/694
      */
+    this.mainBuffer.smooth(4);
     this.backgroundBuffer.smooth(4);
     this.foregroundBuffer.smooth(4);
     this.uiBuffer.smooth(4);
     this.debugBuffer.smooth(4);
     this.timer.put("default", new Timer());
-    this.display =
-        new Text(null, -applet.width / 2, -applet.height / 2, applet.width, TextStyle.BOX);
+    this.display = new Text(null, -applet.width / 2, -applet.height / 2, applet.width, TextStyle.BOX);
     this.display.addedToStage(this);
 
     var p = new Polygon();
@@ -205,8 +218,9 @@ public class Stage {
   /**
    * Enables or disables the debug mode for the application.
    *
-   * @param debug a boolean value where {@code true} enables debug mode and {@code false} disables
-   *     it.
+   * @param debug a boolean value where {@code true} enables debug mode and
+   *              {@code false} disables
+   *              it.
    */
   public void setDebug(boolean debug) {
     Applet.getInstance().setDebug(debug);
@@ -252,35 +266,138 @@ public class Stage {
   }
 
   /**
-   * Moves the specified sprite backwards by a given number of layers in the sprite list. If the
-   * resulting position is less than zero, the sprite is moved to the first position. If the
-   * resulting position is greater than the last index, the sprite is moved to the last position.
+   * Adds a new shader to the sprite. If a shader with the received name already exists, this method
+   * does nothing.
+   * @param name
+   * @param shaderPath
+   * @return the shader
+   */
+  public Shader addShader(String name, final String shaderPath) {
+    for (Shader shader : this.shaders) {
+      if (shader.getName().equals(name)) {
+        return shader;
+      }
+    }
+
+    Shader shader = new Shader(name, shaderPath);
+    this.shaders.add(shader);
+    return shader;
+  }
+
+  /**
+   * Switch to a shader by name.
+   * @param name the name of a shader
+   */
+  public void switchShader(String name) {
+    for (int i = 0; i < this.shaders.size(); i++) {
+      Shader shader = this.shaders.get(i);
+      if (shader.getName().equals(name)) {
+        this.currentShader = i;
+        return;
+      }
+    }
+  }
+
+  /**
+   * Switch to a shader by index.
+   * @param index the index of a shader
+   */
+  public void switchShader(double index) {
+    this.currentShader = (int) index % this.shaders.size();
+  }
+
+  public void resetShader() {
+    this.currentShader = -1;
+  }
+
+  /**
+   * Retrieves a shader by name.
+   * @param name the name of a shader
+   * @return the shader with the specified name, or null if no shader with that name exists
+   */
+  public Shader getShader(String name) {
+    for (Shader shader : this.shaders) {
+      if (shader.getName().equals(name)) {
+        return shader;
+      }
+    }
+    return null;
+  }
+
+  /**
+   * Sets the next shader as the current shader.
+   */
+  public void nextShader() {
+    this.currentShader = (this.currentShader + 1) % this.shaders.size();
+  }
+
+  /**
+   * Retrieves the name of the current shader.
+   * @return the name of the current shader, or null if no shaders exist
+   */
+  public String getCurrentShaderName() {
+    if (this.shaders.size() == 0 || this.currentShader == -1) return null;
+
+    return this.shaders.get(this.currentShader).getName();
+  }
+
+  /**
+   * Retrieves the index of the current shader.
+   * @return the index of the current shader
+   */
+  public int getCurrentShaderIndex() {
+    return this.currentShader;
+  }
+
+  /**
+   * Retrieves the current shader.
+   * @return the current shader, or null if no shaders exist
+   */
+  public Shader getCurrentShader() {
+    if (this.shaders.size() == 0 || this.currentShader == -1) return null;
+
+    return this.shaders.get(this.currentShader);
+  }
+
+  /**
+   * Moves the specified sprite backwards by a given number of layers in the
+   * sprite list. If the
+   * resulting position is less than zero, the sprite is moved to the first
+   * position. If the
+   * resulting position is greater than the last index, the sprite is moved to the
+   * last position.
    *
    * @param sprite the sprite to be moved backwards in the layer order
    * @param number the number of layers to move the sprite backwards
    */
   public void goLayersBackwards(Sprite sprite, int number) {
     int index = this.sprites.indexOf(sprite);
-    if (index == -1) return;
+    if (index == -1)
+      return;
     int newIndex = index - number;
-    if (newIndex < 0) newIndex = 0;
+    if (newIndex < 0)
+      newIndex = 0;
     newIndex = Math.min(newIndex, this.sprites.size() - 1);
     this.sprites.remove(index);
     this.sprites.add(newIndex, sprite);
   }
 
   /**
-   * Moves the specified sprite forward by a given number of layers in the sprite list. If the
-   * resulting position is out of bounds, it will be adjusted to the nearest valid position.
+   * Moves the specified sprite forward by a given number of layers in the sprite
+   * list. If the
+   * resulting position is out of bounds, it will be adjusted to the nearest valid
+   * position.
    *
    * @param sprite the sprite to be moved forward in the layer order
    * @param number the number of layers to move the sprite forward
    */
   public void goLayersForwards(Sprite sprite, int number) {
     int index = this.sprites.indexOf(sprite);
-    if (index == -1) return;
+    if (index == -1)
+      return;
     int newIndex = index + number;
-    if (newIndex < 0) newIndex = 0;
+    if (newIndex < 0)
+      newIndex = 0;
     newIndex = Math.min(newIndex, this.sprites.size() - 1);
     this.sprites.remove(index);
     this.sprites.add(newIndex, sprite);
@@ -307,7 +424,8 @@ public class Stage {
   }
 
   /**
-   * Moves the specified sprite to the UI layer by removing it from the current list of sprites.
+   * Moves the specified sprite to the UI layer by removing it from the current
+   * list of sprites.
    *
    * @param sprite the sprite to be moved to the UI layer
    */
@@ -510,11 +628,12 @@ public class Stage {
   }
 
   /**
-   * Add a backdrop to the stage. If a backdrop with the received name already exists do nothing.
+   * Add a backdrop to the stage. If a backdrop with the received name already
+   * exists do nothing.
    *
-   * @param name a unique name
+   * @param name      a unique name
    * @param imagePath a image path
-   * @param stretch stretch image to window size
+   * @param stretch   stretch image to window size
    */
   public void addBackdrop(String name, final String imagePath, boolean stretch) {
     for (Image backdrop : this.backdrops) {
@@ -530,9 +649,10 @@ public class Stage {
   }
 
   /**
-   * Add a backdrop to the stage. If a backdrop with the received name already exists do nothing.
+   * Add a backdrop to the stage. If a backdrop with the received name already
+   * exists do nothing.
    *
-   * @param name a unique name
+   * @param name      a unique name
    * @param imagePath a image path
    */
   public void addBackdrop(String name, final String imagePath) {
@@ -578,12 +698,14 @@ public class Stage {
   }
 
   /**
-   * This method is called when the backdrop switches to the specified name. Override this method to
+   * This method is called when the backdrop switches to the specified name.
+   * Override this method to
    * add custom behavior.
    *
    * @param name the name of the backdrop to switch to
    */
-  public void whenBackdropSwitches(String name) {}
+  public void whenBackdropSwitches(String name) {
+  }
 
   /** Switch to the next backdrop. */
   public void nextBackdrop() {
@@ -640,16 +762,18 @@ public class Stage {
   }
 
   /**
-   * This method marks the UI buffer to be erased, which will be processed in the next update cycle.
+   * This method marks the UI buffer to be erased, which will be processed in the
+   * next update cycle.
    */
   public void eraseUI() {
     this.eraseUIBuffer = true;
   }
 
   /**
-   * Add a sound to the stage. If a sound with the received name already exists do nothing.
+   * Add a sound to the stage. If a sound with the received name already exists do
+   * nothing.
    *
-   * @param name a unique name
+   * @param name      a unique name
    * @param soundPath a sound path
    */
   public void addSound(String name, final String soundPath) {
@@ -786,7 +910,7 @@ public class Stage {
   /**
    * Sets the color of the stage.
    *
-   * @see org.openpatch.scratch.internal.Color
+   * @see org.openpatch.scratch.extensions.color.Color
    * @param c the new color to be set
    */
   public void setColor(Color c) {
@@ -811,7 +935,8 @@ public class Stage {
    * @param b a blue value [0...255]
    */
   public void setTint(double r, double g, double b) {
-    if (this.backdrops.size() == 0) return;
+    if (this.backdrops.size() == 0)
+      return;
     this.backdrops.get(this.currentBackdrop).setTint(r, g, b);
   }
 
@@ -821,7 +946,8 @@ public class Stage {
    * @see Image#setTint(double)
    */
   public void setTint(double h) {
-    if (this.backdrops.size() == 0) return;
+    if (this.backdrops.size() == 0)
+      return;
     this.backdrops.get(this.currentBackdrop).setTint(h);
   }
 
@@ -832,7 +958,8 @@ public class Stage {
    * @param step a step value
    */
   public void changeTint(double step) {
-    if (this.backdrops.size() == 0) return;
+    if (this.backdrops.size() == 0)
+      return;
 
     this.backdrops.get(this.currentBackdrop).changeTint(step);
   }
@@ -854,13 +981,15 @@ public class Stage {
    * @param step a step value
    */
   public void changeTransparency(double step) {
-    if (this.backdrops.size() == 0) return;
+    if (this.backdrops.size() == 0)
+      return;
 
     this.backdrops.get(this.currentBackdrop).changeTransparency(step);
   }
 
   /**
-   * Return the width of the current costume or the pen size, when no costume is available.
+   * Return the width of the current costume or the pen size, when no costume is
+   * available.
    *
    * @return the width of the sprite
    */
@@ -869,7 +998,8 @@ public class Stage {
   }
 
   /**
-   * Return the height of the current costume or the pen size, when no costume is available.
+   * Return the height of the current costume or the pen size, when no costume is
+   * available.
    *
    * @return the height of the sprite
    */
@@ -902,7 +1032,8 @@ public class Stage {
    * @param name the name of the timer
    */
   public void addTimer(String name) {
-    if ("default".equals(name)) return;
+    if ("default".equals(name))
+      return;
 
     this.timer.put(name, new Timer());
   }
@@ -913,7 +1044,8 @@ public class Stage {
    * @param name the name of the timer
    */
   public void removeTimer(String name) {
-    if ("default".equals(name)) return;
+    if ("default".equals(name))
+      return;
 
     this.timer.remove(name);
   }
@@ -954,21 +1086,27 @@ public class Stage {
   }
 
   /**
-   * This method is called when a mouse click event occurs. Overwrite this method to add custom
+   * This method is called when a mouse click event occurs. Overwrite this method
+   * to add custom
    * behavior.
    *
    * @param mouseEvent The mouse event that triggered this method.
    */
-  public void whenMouseClicked(MouseCode mouseEvent) {}
+  public void whenMouseClicked(MouseCode mouseEvent) {
+  }
 
   /**
-   * This method is called when the mouse wheel is moved. Overwrite this method to add custom
+   * This method is called when the mouse wheel is moved. Overwrite this method to
+   * add custom
    * behavior.
    *
-   * @param steps the number of steps the mouse wheel has moved. Positive values indicate movement
-   *     away from the user, while negative values indicate movement towards the user.
+   * @param steps the number of steps the mouse wheel has moved. Positive values
+   *              indicate movement
+   *              away from the user, while negative values indicate movement
+   *              towards the user.
    */
-  public void whenMouseWheelMoved(int steps) {}
+  public void whenMouseWheelMoved(int steps) {
+  }
 
   /**
    * Returns the current x-position of the mouse cursor
@@ -1002,18 +1140,22 @@ public class Stage {
   }
 
   /**
-   * This method is called when a key is pressed. Override this method to add custom behavior.
+   * This method is called when a key is pressed. Override this method to add
+   * custom behavior.
    *
    * @param keyCode the code of the key that was pressed
    */
-  public void whenKeyPressed(int keyCode) {}
+  public void whenKeyPressed(int keyCode) {
+  }
 
   /**
-   * This method is called when a key is released. Override this method to add custom behavior.
+   * This method is called when a key is released. Override this method to add
+   * custom behavior.
    *
    * @param keyCode the code of the key that was released
    */
-  public void whenKeyReleased(int keyCode) {}
+  public void whenKeyReleased(int keyCode) {
+  }
 
   public void keyEvent(KeyEvent e) {
     switch (e.getAction()) {
@@ -1148,7 +1290,7 @@ public class Stage {
    * Returns a random integer between the specified range (inclusive).
    *
    * @param from the lower bound of the range (inclusive)
-   * @param to the upper bound of the range (inclusive)
+   * @param to   the upper bound of the range (inclusive)
    * @return a random integer between {@code from} and {@code to} (inclusive)
    */
   public int pickRandom(int from, final int to) {
@@ -1170,15 +1312,17 @@ public class Stage {
   /**
    * Displays the given text on the screen for a specified duration.
    *
-   * @param text The text to be displayed.
-   * @param millis The duration in milliseconds for which the text will be displayed.
+   * @param text   The text to be displayed.
+   * @param millis The duration in milliseconds for which the text will be
+   *               displayed.
    */
   public void display(String text, final int millis) {
     this.display.showText(text, millis);
   }
 
   /**
-   * Broadcasts a message to all sprites in the stage. Each sprite will execute its `whenIReceive`
+   * Broadcasts a message to all sprites in the stage. Each sprite will execute
+   * its `whenIReceive`
    * method with the given message.
    *
    * @param message The message to broadcast to all sprites.
@@ -1188,7 +1332,8 @@ public class Stage {
   }
 
   /**
-   * Broadcasts a message to all sprites in the stage. Each sprite will execute its `whenIReceive`
+   * Broadcasts a message to all sprites in the stage. Each sprite will execute
+   * its `whenIReceive`
    * method with the given message.
    *
    * @param message The message to broadcast to all sprites.
@@ -1198,19 +1343,22 @@ public class Stage {
   }
 
   /**
-   * This method is called when a specific message is received. Override this method to add custom
+   * This method is called when a specific message is received. Override this
+   * method to add custom
    * behavior.
    *
    * @param message The message that triggers this method.
    */
-  public void whenIReceive(String message) {}
+  public void whenIReceive(String message) {
+  }
 
   /**
    * This method is called when a message is received.
    *
    * @param message The message object that is received.
    */
-  public void whenIReceive(Object message) {}
+  public void whenIReceive(Object message) {
+  }
 
   /**
    * Sets the cursor image for the stage.
@@ -1227,8 +1375,8 @@ public class Stage {
    * Sets the cursor image and its active spot coordinates.
    *
    * @param path the file path to the cursor image
-   * @param x the x-coordinate of the cursor's active spot
-   * @param y the y-coordinate of the cursor's active spot
+   * @param x    the x-coordinate of the cursor's active spot
+   * @param y    the y-coordinate of the cursor's active spot
    */
   public void setCursor(String path, int x, int y) {
     this.cursor = path;
@@ -1258,14 +1406,17 @@ public class Stage {
   }
 
   /**
-   * Executes the main logic of the stage. This method should be overridden by subclasses to define
+   * Executes the main logic of the stage. This method should be overridden by
+   * subclasses to define
    * the specific behavior of the stage.
    */
-  public void run() {}
+  public void run() {
+  }
 
   public void pre() {
     Applet applet = Applet.getInstance();
-    if (applet == null) return;
+    if (applet == null)
+      return;
     var globalMouseX = applet.mouseX - this.getWidth() / 2;
     var globalMouseY = -(applet.mouseY - this.getHeight() / 2);
     this.mouseX = this.getCamera().toLocalX(globalMouseX);
@@ -1282,20 +1433,35 @@ public class Stage {
 
   public void draw() {
     Applet applet = Applet.getInstance();
-    if (applet == null) return;
-    // redraw background to clear screen
-    applet.background(
+    if (applet == null)
+      return;
+
+    var shader = this.getCurrentShader();
+    if (shader != null) {
+      applet.shader(shader.getPShader());
+    }
+
+    this.backdropBuffer.beginDraw();
+    this.backdropBuffer.background(
         (float) this.color.getRed(), (float) this.color.getGreen(), (float) this.color.getBlue());
+    this.backdropBuffer.push();
+    this.backdropBuffer.scale((float) this.camera.getZoom() / 100.0f);
+    this.backdropBuffer.translate((float) -this.camera.getX(), (float) this.camera.getY());
+    if (this.backdrops.size() > 0) {
+      this.backdrops.get(this.currentBackdrop).drawAsBackground(this.backdropBuffer);
+    }
+    this.backdropBuffer.pop();
+    this.backdropBuffer.endDraw();
+    if (this.backdropBuffer.pixels != null) {
+      applet.image(this.backdropBuffer, applet.width / 2.0f, applet.height / 2.0f);
+    } else {
+      try {
+        this.backdropBuffer.loadPixels();
+      } catch (Exception e) {
+      }
+    }
 
     // draw current backdrop
-    applet.push();
-    applet.translate(this.getWidth() / 2.0f, this.getHeight() / 2.0f);
-    applet.scale((float) this.camera.getZoom() / 100.0f);
-    applet.translate((float) -this.camera.getX(), (float) this.camera.getY());
-    if (this.backdrops.size() > 0) {
-      this.backdrops.get(this.currentBackdrop).drawAsBackground();
-    }
-    applet.pop();
     this.backgroundBuffer.beginDraw();
     this.backgroundBuffer.translate(this.getWidth() / 2.0f, this.getHeight() / 2.0f);
     this.backgroundBuffer.scale((float) this.camera.getZoom() / 100.0f);
@@ -1327,15 +1493,18 @@ public class Stage {
       applet.cursor(Image.loadImage(this.cursor), this.cursorActiveSpotX, this.cursorActiveSpotY);
     }
 
-    applet.push();
-    applet.translate(this.getWidth() / 2.0f, this.getHeight() / 2.0f);
-    applet.scale((float) this.camera.getZoom() / 100.0f);
-    applet.translate((float) -this.camera.getX(), (float) this.camera.getY());
+    mainBuffer.beginDraw();
+    mainBuffer.clear();
+    mainBuffer.translate(this.getWidth() / 2.0f, this.getHeight() / 2.0f);
+    mainBuffer.scale((float) this.camera.getZoom() / 100.0f);
+    mainBuffer.translate((float) -this.camera.getX(), (float) this.camera.getY());
 
-    this.sprites.stream().filter(s -> !s.isUI()).forEach(s -> s.draw());
-    this.texts.stream().filter(t -> !t.isUI()).forEach(t -> t.draw());
-    this.sprites.stream().filter(s -> !s.isUI()).forEach(s -> s.getText().draw());
-    applet.pop();
+    this.sprites.stream().filter(s -> !s.isUI()).forEach(s -> s.draw(mainBuffer));
+    this.texts.stream().filter(t -> !t.isUI()).forEach(t -> t.draw(mainBuffer));
+    this.sprites.stream().filter(s -> !s.isUI()).forEach(s -> s.getText().draw(mainBuffer));
+    mainBuffer.endDraw();
+
+    applet.image(mainBuffer, applet.width / 2.0f, applet.height / 2.0f);
 
     // draw foreground
     this.foregroundBuffer.beginDraw();
@@ -1361,16 +1530,17 @@ public class Stage {
       } catch (Exception e) {
       }
     }
+    applet.resetShader();
 
     applet.push();
     applet.translate(this.getWidth() / 2.0f, this.getHeight() / 2.0f);
     if (this.display != null) {
-      this.display.draw();
+      this.display.draw(applet.getGraphics());
     }
 
-    this.sprites.stream().filter(s -> s.isUI()).forEach(s -> s.draw());
-    this.texts.stream().filter(t -> t.isUI()).forEach(t -> t.draw());
-    this.sprites.stream().filter(s -> s.isUI()).forEach(s -> s.getText().draw());
+    this.sprites.stream().filter(s -> s.isUI()).forEach(s -> s.draw(applet.getGraphics()));
+    this.texts.stream().filter(t -> t.isUI()).forEach(t -> t.draw(applet.getGraphics()));
+    this.sprites.stream().filter(s -> s.isUI()).forEach(s -> s.getText().draw(applet.getGraphics()));
     applet.pop();
 
     // draw ui

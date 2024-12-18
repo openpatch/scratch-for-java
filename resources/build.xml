@@ -213,7 +213,6 @@
             windowtitle="Javadocs: ${project.name}">
 
             <link href="${javadoc.java.href}" />
-            <link href="${javadoc.processing.href}" />
         </javadoc>
     </target>
 
