@@ -1,8 +1,10 @@
 package org.openpatch.scratch.extensions.color;
 
 /**
- * The Color class represents a color in the Scratch environment. It supports various
- * functionalities such as setting color values in the RGB and HSB spectrum, changing the color
+ * The Color class represents a color in the Scratch environment. It supports
+ * various
+ * functionalities such as setting color values in the RGB and HSB spectrum,
+ * changing the color
  * based on a hue value, and converting between RGB and HSB color codes.
  */
 public class Color {
@@ -16,15 +18,17 @@ public class Color {
   private double l = 255;
 
   /** Constructs a new Color object with default values. */
-  public Color() {}
+  public Color() {
+  }
 
   public Color(String hexCode) {
     if (hexCode.startsWith("#")) {
       hexCode = hexCode.substring(1);
     }
-    this.r = Integer.valueOf(hexCode.substring(0, 2), 16);
-    this.g = Integer.valueOf(hexCode.substring(2, 4), 16);
-    this.b = Integer.valueOf(hexCode.substring(4, 6), 16);
+    var r = Integer.valueOf(hexCode.substring(0, 2), 16);
+    var g = Integer.valueOf(hexCode.substring(2, 4), 16);
+    var b = Integer.valueOf(hexCode.substring(4, 6), 16);
+    this.setRGB(r, g, b);
   }
 
   /**
@@ -63,6 +67,34 @@ public class Color {
   }
 
   /**
+   * Get the color value as a hex code. This is useful for comparing pixels.
+   * 
+   * @see Stage#getBackgroundPixels()
+   * 
+   * @return hex code
+   */
+  public int get() {
+    var v1 = this.r;
+    var v2 = this.g;
+    var v3 = this.b;
+
+    if (v1 > 255)
+      v1 = 255;
+    else if (v1 < 0)
+      v1 = 0;
+    if (v2 > 255)
+      v2 = 255;
+    else if (v2 < 0)
+      v2 = 0;
+    if (v3 > 255)
+      v3 = 255;
+    else if (v3 < 0)
+      v3 = 0;
+
+    return 0xff000000 | ((int) v1 << 16) | ((int) v2 << 8) | (int) v3;
+  }
+
+  /**
    * Get the color value on the HSB spectrum.
    *
    * @return hue value [0...255]
@@ -72,7 +104,8 @@ public class Color {
   }
 
   /**
-   * Setting the color value after the HSB spectrum. Saturation and Luminosity are fixed at 255.
+   * Setting the color value after the HSB spectrum. Saturation and Luminosity are
+   * fixed at 255.
    *
    * @param h A hue value [0...255]
    */
@@ -132,13 +165,14 @@ public class Color {
   }
 
   /**
-   * Changes the color accordining to a hue value, which is added to the current hue value. When the
+   * Changes the color accordining to a hue value, which is added to the current
+   * hue value. When the
    * resulting value is greater than 255 it will be reset. For example: 285 => 30.
    *
    * @param h A hue value. Could be any positive or negative number.
    */
   public void changeColor(double h) {
-    double newH = this.getHSB() + h;
+    double newH = this.getH() + h;
     this.setHSB(newH);
   }
 
@@ -151,10 +185,9 @@ public class Color {
    * @return hsb values
    */
   private static double[] RGBtoHSB(double r, double g, double b) {
-    var hsb =
-        java.awt.Color.RGBtoHSB(
-            Math.round((float) r), Math.round((float) g), Math.round((float) b), null);
-    double[] hsbd = {hsb[0], hsb[1], hsb[2]};
+    var hsb = java.awt.Color.RGBtoHSB(
+        Math.round((float) r), Math.round((float) g), Math.round((float) b), null);
+    double[] hsbd = { hsb[0], hsb[1], hsb[2] };
     return hsbd;
   }
 
@@ -167,8 +200,7 @@ public class Color {
    * @return rgb values
    */
   private static double[] HSBtoRGB(double h, double s, double l) {
-    java.awt.Color colorRgb =
-        new java.awt.Color(java.awt.Color.HSBtoRGB((float) h, (float) s, (float) l));
+    java.awt.Color colorRgb = new java.awt.Color(java.awt.Color.HSBtoRGB((float) h, (float) s, (float) l));
     double[] rgb = new double[3];
     rgb[0] = colorRgb.getRed();
     rgb[1] = colorRgb.getGreen();
