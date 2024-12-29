@@ -4,6 +4,10 @@ index: 4
 lang: en
 ---
 
+## 4.15.1
+
+- 🐛 Fix: Edge detection not working correctly.
+
 ## 4.15.0
 
 - 🚀 Feat: All methods return a color now return a Color object.

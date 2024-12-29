@@ -643,12 +643,16 @@ public class Sprite {
 
     if (h.intersects(this.stage.leftBorder)) {
       this.setDirection(-this.getDirection());
+      this.setX(-this.stage.getWidth() / 2 + this.getWidth() / 2);
     } else if (h.intersects(this.stage.rightBorder)) {
       this.setDirection(-this.getDirection());
+      this.setX(this.stage.getWidth() / 2 - this.getWidth() / 2);
     } else if (h.intersects(this.stage.topBorder)) {
       this.setDirection(-this.getDirection() - 180);
+      this.setY(this.stage.getHeight() / 2 - this.getHeight() / 2);
     } else if (h.intersects(this.stage.bottomBorder)) {
       this.setDirection(-this.getDirection() - 180);
+      this.setY(-this.stage.getHeight() / 2 + this.getHeight() / 2);
     }
   }
 
