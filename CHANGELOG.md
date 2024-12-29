@@ -4,6 +4,16 @@ index: 4
 lang: en
 ---
 
+## 4.14.0
+
+- 🚀 Feat: Add `enableYSort`-method to the stage. This sorts all sprites regarding their y-coordinate.
+
+```java
+Stage stage = new Stage();
+stage.enableYSort();
+```
+
+
 ## 4.13.0
 
 - Update dependencies
