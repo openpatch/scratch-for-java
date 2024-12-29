@@ -130,6 +130,7 @@ public class Pen {
 
   /**
    * Set the color of the pen
+   *
    * @param c color of the pen
    */
   public void setColor(Color c) {

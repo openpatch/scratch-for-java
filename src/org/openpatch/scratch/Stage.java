@@ -904,6 +904,7 @@ public class Stage {
 
   /**
    * Returns the current color of the stage.
+   *
    * @return the current color
    */
   public Color getColor() {
