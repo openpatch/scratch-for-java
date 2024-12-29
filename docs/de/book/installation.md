@@ -6,23 +6,33 @@ lang: de
 
 # Installation
 
+## VS Code (Empfohlen)
+
+Stelle zunächst sicher, dass du das Java Extension Pack installiert hast. Du findest es in der Erweiterungsansicht, indem du nach `redhat.java` suchst.
+
+Dann musst du die Scratch for Java jar für dein [Betriebssystem](#downloads) herunterladen.
+
+Anschließend musst du die jar zu deinem Projekt hinzufügen. Du kannst dies tun, indem du Folgendes zu deiner `settings.json` hinzufügst:
+
+```json
+"java.project.referencedLibraries": [
+    "path/to/scratch4j.jar"
+]
+```
+
+Wenn du mit BlueJ kompatibel sein möchtest, solltest du einen "+libs"-Ordner in deinem Projekt verwenden, die jar dort hinzufügen und dann Folgendes zu deiner `settings.json` hinzufügen:
+
+```json
+"java.project.referencedLibraries": [
+    "+libs/*.jar"
+]
+```
+
 ## BlueJ
 
 Du kannst die Bibliothek auf drei verschiedene Arten installieren.
 
-Als Erstes musst du dir die Scratch for Java jar-Datei für dein Betriebssystem herunterladen.
-
-::download[Windows - Intel 64-bit]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-windows-amd64.jar"}
-
-::download[Linux - Intel 64-bit]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-linux-amd64.jar"}
-
-::download[Linux - ARM 32-bit]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-linux-arm.jar"}
-
-::download[Linux - ARM 64-bit]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-linux-aarch64.jar"}
-
-::download[MacOS - Intel 64-bit]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-macos-x86_64.jar"}
-
-::download[MacOS - Apple Silicon]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-macos-aarch64.jar"}
+Als Erstes musst du dir die Scratch for Java jar-Datei für dein [Betriebssystem](#downloads) herunterladen.
 
 ### Für ein einzelnes Projekt
 
@@ -44,7 +54,9 @@ Wenn du BlueJ installiert hast, findest du den "userlib"-Ordner hier:
 
 ## Eigenständig
 
-Du kannst die Jar-Datei auch deinme classpath hinzufügen und so unabhängig von BlueJ mit deinem Lieblingseditor verwenden
+Du kannst die Jar-Datei auch deinme classpath hinzufügen und so unabhängig von BlueJ mit deinem Lieblingseditor verwenden.
+
+## Downloads
 
 ::download[Windows - Intel 64-bit]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-windows-amd64.jar"}
 

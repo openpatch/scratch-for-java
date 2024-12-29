@@ -6,6 +6,7 @@ import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
 import java.awt.geom.PathIterator;
+
 import org.openpatch.scratch.Window;
 import org.openpatch.scratch.extensions.math.Utils;
 import processing.core.PConstants;
@@ -116,7 +117,7 @@ public class Hitbox {
    * @return {@code true} if the hitboxes intersect, {@code false} otherwise.
    */
   public boolean intersects(Hitbox hitbox) {
-    if (this.getShape().getBounds().intersects(hitbox.getShape().getBounds())) {
+    if (this.getShape().getBounds2D().intersects(hitbox.getShape().getBounds2D())) {
 
       Area a = new Area(this.getShape());
       Area b = new Area(hitbox.getShape());

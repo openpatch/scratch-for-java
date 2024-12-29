@@ -2,6 +2,7 @@ package org.openpatch.scratch;
 
 import java.awt.Shape;
 import java.util.AbstractMap;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -1169,9 +1170,10 @@ public class Sprite {
     if (stage == null) return false;
     return this.stage.sprites.stream()
         .filter(s -> !s.isUI())
-        .filter(s -> c.isInstance(s) && this.isTouchingSprite(s))
-        .findFirst()
-        .isPresent();
+        .filter(s -> s.show)
+        .filter(s -> !s.hitboxDisabled)
+        .filter(s -> c.isInstance(s))
+        .anyMatch(s -> this.isTouchingSprite(s));
   }
 
   /**
@@ -1186,7 +1188,10 @@ public class Sprite {
     if (stage == null) return null;
     return this.stage.sprites.stream()
         .filter(s -> !s.isUI())
-        .filter(s -> c.isInstance(s) && this.isTouchingSprite(s))
+        .filter(s -> s.show)
+        .filter(s -> !s.hitboxDisabled)
+        .filter(s -> c.isInstance(s))
+        .filter(s -> this.isTouchingSprite(s))
         .findFirst()
         .map(c::cast)
         .orElse(null);
@@ -1204,7 +1209,8 @@ public class Sprite {
     if (stage == null) return null;
     return this.stage.sprites.stream()
         .filter(s -> !s.isUI())
-        .filter(s -> c.isInstance(s) && this.isTouchingSprite(s))
+        .filter(s -> c.isInstance(s))
+        .filter(s -> this.isTouchingSprite(s))
         .map(c::cast)
         .collect(Collectors.toList());
   }
@@ -1692,15 +1698,15 @@ public class Sprite {
    * hitbox is drawn if it is not disabled and the sprite is not a UI element. The current costume
    * is drawn if there are costumes available and the sprite is set to be shown.
    */
-  protected void drawDebug() {
+  protected void drawDebug(PGraphics buffer) {
     if (!this.hitboxDisabled && !this.isUI) {
-      this.getHitbox().drawDebug(this.getStage().getDebugBuffer());
+      this.getHitbox().drawDebug(buffer);
     }
     if (this.costumes.size() > 0 && this.show) {
       this.costumes
           .get(this.currentCostume)
           .drawDebug(
-              this.getStage().getDebugBuffer(),
+              buffer,
               this.size,
               this.direction,
               this.x,

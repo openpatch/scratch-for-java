@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.temporal.ChronoUnit;
 import java.util.AbstractMap;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Queue;
@@ -39,12 +40,12 @@ import processing.event.MouseEvent;
  */
 public class Stage {
 
-  private final List<Image> backdrops = new CopyOnWriteArrayList<>();
+  private final List<Image> backdrops = new ArrayList<>();
   private Color color = new Color();
   private int currentBackdrop = 0;
-  private final List<Sound> sounds = new CopyOnWriteArrayList<>();
+  private final List<Sound> sounds = new ArrayList<>();
   private int currentShader = 0;
-  private List<Shader> shaders = new CopyOnWriteArrayList<>();
+  private List<Shader> shaders = new ArrayList<>();
 
   private PGraphics mainBuffer;
 
@@ -144,10 +145,10 @@ public class Stage {
   public Stage(int width, final int height, boolean fullScreen, String assets) {
     this.cursor = null;
     this.camera = new Camera();
-    this.texts = new CopyOnWriteArrayList<>();
-    this.pens = new CopyOnWriteArrayList<>();
-    this.sprites = new CopyOnWriteArrayList<>();
-    this.shaders = new CopyOnWriteArrayList<>();
+    this.texts = new ArrayList<>();
+    this.pens = new ArrayList<>();
+    this.sprites = new ArrayList<>();
+    this.shaders = new ArrayList<>();
     this.backgroundStamps = new ConcurrentLinkedQueue<>();
     this.foregroundStamps = new ConcurrentLinkedQueue<>();
     this.uiStamps = new ConcurrentLinkedQueue<>();
@@ -750,6 +751,21 @@ public class Stage {
     this.eraseForegroundBuffer = true;
   }
 
+  public int[] getForegroundPixels() {
+    this.foregroundBuffer.loadPixels();
+    return this.foregroundBuffer.pixels;
+  }
+
+  public int[] getBackgroundPixels() {
+    this.backgroundBuffer.loadPixels();
+    return this.backgroundBuffer.pixels;
+  }
+
+  public int[] getPixels() {
+    this.mainBuffer.loadPixels();
+    return this.mainBuffer.pixels;
+  }
+
   /**
    * This method marks the UI buffer to be erased, which will be processed in the next update cycle.
    */
@@ -836,42 +852,6 @@ public class Stage {
     }
 
     return false;
-  }
-
-  /**
-   * Returns the pen buffer
-   *
-   * @return the pen buffer
-   */
-  public PGraphics getBackgroundBuffer() {
-    return this.backgroundBuffer;
-  }
-
-  /**
-   * Returns the foreground buffer.
-   *
-   * @return the PGraphics object representing the foreground buffer.
-   */
-  public PGraphics getForegroundBuffer() {
-    return this.foregroundBuffer;
-  }
-
-  /**
-   * Returns the PGraphics object representing the UI buffer.
-   *
-   * @return the PGraphics object used for the UI buffer.
-   */
-  public PGraphics getUIBuffer() {
-    return this.uiBuffer;
-  }
-
-  /**
-   * Returns the debug buffer.
-   *
-   * @return the PGraphics object representing the debug buffer.
-   */
-  public PGraphics getDebugBuffer() {
-    return this.debugBuffer;
   }
 
   /**
@@ -1368,6 +1348,10 @@ public class Stage {
     }
   }
 
+  public double getFrameRate() {
+    return Applet.getInstance().frameRate;
+  }
+
   /**
    * Executes the main logic of the stage. This method should be overridden by subclasses to define
    * the specific behavior of the stage.
@@ -1420,7 +1404,6 @@ public class Stage {
       }
     }
 
-    // draw current backdrop
     this.backgroundBuffer.beginDraw();
     this.backgroundBuffer.translate(this.getWidth() / 2.0f, this.getHeight() / 2.0f);
     this.backgroundBuffer.scale((float) this.camera.getZoom() / 100.0f);
@@ -1429,8 +1412,8 @@ public class Stage {
       this.backgroundBuffer.clear();
       this.eraseBackgroundBuffer = false;
     }
-    this.pens.stream().filter(p -> p.isInBackground()).forEach(p -> p.draw());
-    this.sprites.stream().filter(s -> s.getPen().isInBackground()).forEach(s -> s.getPen().draw());
+    this.pens.stream().filter(p -> p.isInBackground()).forEach(p -> p.draw(this.backgroundBuffer));
+    this.sprites.stream().filter(s -> s.getPen().isInBackground()).forEach(s -> s.getPen().draw(this.backgroundBuffer));
     while (!this.backgroundStamps.isEmpty()) {
       this.backgroundStamps.poll().draw(this.backgroundBuffer);
     }
@@ -1474,8 +1457,8 @@ public class Stage {
       this.foregroundBuffer.clear();
       this.eraseForegroundBuffer = false;
     }
-    this.pens.stream().filter(p -> !p.isInBackground()).forEach(p -> p.draw());
-    this.sprites.stream().filter(s -> !s.getPen().isInBackground()).forEach(s -> s.getPen().draw());
+    this.pens.stream().filter(p -> !p.isInBackground()).forEach(p -> p.draw(this.foregroundBuffer));
+    this.sprites.stream().filter(s -> !s.getPen().isInBackground()).forEach(s -> s.getPen().draw(this.foregroundBuffer));
     while (!this.foregroundStamps.isEmpty()) {
       this.foregroundStamps.poll().draw(this.foregroundBuffer);
     }
@@ -1511,7 +1494,7 @@ public class Stage {
       this.uiBuffer.clear();
       this.eraseUIBuffer = false;
     }
-    this.sprites.stream().filter(s -> s.isUI()).forEach(s -> s.getPen().draw());
+    this.sprites.stream().filter(s -> s.isUI()).forEach(s -> s.getPen().draw(this.uiBuffer));
     while (!this.uiStamps.isEmpty()) {
       this.uiStamps.poll().draw(this.uiBuffer);
     }
@@ -1533,9 +1516,9 @@ public class Stage {
       this.debugBuffer.scale((float) this.camera.getZoom() / 100.0f);
       this.debugBuffer.translate((float) -this.camera.getX(), (float) this.camera.getY());
       this.debugBuffer.clear();
-      this.sprites.stream().filter(s -> !s.isUI()).forEach(s -> s.drawDebug());
+      this.sprites.stream().filter(s -> !s.isUI()).forEach(s -> s.drawDebug(this.debugBuffer));
       this.debugBuffer.popMatrix();
-      this.sprites.stream().filter(s -> s.isUI()).forEach(s -> s.drawDebug());
+      this.sprites.stream().filter(s -> s.isUI()).forEach(s -> s.drawDebug(this.debugBuffer));
       this.debugBuffer.strokeWeight(1);
       this.debugBuffer.stroke(Window.DEBUG_COLOR[0], Window.DEBUG_COLOR[1], Window.DEBUG_COLOR[2]);
       this.debugBuffer.fill(Window.DEBUG_COLOR[0], Window.DEBUG_COLOR[1], Window.DEBUG_COLOR[2]);

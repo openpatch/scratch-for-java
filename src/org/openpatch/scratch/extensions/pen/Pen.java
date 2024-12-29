@@ -311,12 +311,8 @@ public class Pen {
   }
 
   /** Draw the line which the pen has drawn. */
-  public void draw() {
+  public void draw(PGraphics buffer) {
     if (this.stage == null) return;
-    PGraphics buffer = this.stage.getBackgroundBuffer();
-    if (!this.isInBackground()) {
-      buffer = this.stage.getForegroundBuffer();
-    }
     int pointsBufferSize = this.pathsBuffer.size();
     if (pointsBufferSize <= 0) return;
 
