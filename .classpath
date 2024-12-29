@@ -3,17 +3,15 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="examples/java"/>
 	<classpathentry kind="src" path="examples/reference"/>
-	<classpathentry kind="lib" path="libs/core-4.2.1.jar"/>
-	<classpathentry kind="lib" path="libs/gluegen-rt.jar"/>
+	<classpathentry kind="lib" path="libs/core-4.3.1.jar"/>
+	<classpathentry kind="lib" path="libs/gluegen-rt-2.5.0.jar"/>
 	<classpathentry kind="lib" path="libs/guava-mini-0.1.6.jar"/>
-	<classpathentry kind="lib" path="libs/jackson-annotations-2.15.2.jar"/>
-	<classpathentry kind="lib" path="libs/jackson-core-2.15.2.jar"/>
-	<classpathentry kind="lib" path="libs/jackson-databind-2.15.2.jar"/>
-	<classpathentry kind="lib" path="libs/jackson-dataformat-xml-2.15.2.jar"/>
-	<classpathentry kind="lib" path="libs/jogl-all.jar"/>
-	<classpathentry kind="lib" path="libs/jssc-2.9.4.jar"/>
+	<classpathentry kind="lib" path="libs/jackson-annotations-2.18.2.jar"/>
+	<classpathentry kind="lib" path="libs/jackson-core-2.18.2.jar"/>
+	<classpathentry kind="lib" path="libs/jackson-databind-2.18.2.jar"/>
+	<classpathentry kind="lib" path="libs/jackson-dataformat-xml-2.18.2.jar"/>
+	<classpathentry kind="lib" path="libs/jogl-all-2.5.0.jar"/>
 	<classpathentry kind="lib" path="libs/jsyn-17.1.0.jar"/>
-	<classpathentry kind="lib" path="libs/serial-3.3.7.jar"/>
 	<classpathentry kind="lib" path="libs/sound.jar"/>
 	<classpathentry kind="lib" path="libs/stax2-api-4.2.1.jar"/>
 	<classpathentry kind="lib" path="libs/woodstox-core-6.5.1.jar"/>
