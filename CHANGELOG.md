@@ -4,6 +4,15 @@ index: 4
 lang: en
 ---
 
+## 4.13.0
+
+- Update dependencies
+    - Processing 4.3.1
+    - Jackson 2.18.2
+    - Jogl 2.5.0
+    - Gluegen 2.5.0
+- Add template for VSCode
+
 ## 4.12.0
 
 - 🚀 Feat: There is a new color extension providing a color class and all named HTML colors for easy reference.
