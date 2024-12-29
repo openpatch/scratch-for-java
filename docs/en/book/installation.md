@@ -65,6 +65,4 @@ You need to add the Jar file for your [operating system](#downloads) to the clas
 
 ::download[Linux - ARM 64-bit]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-linux-aarch64.jar"}
 
-::download[MacOS - Intel 64-bit]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-macos-x86_64.jar"}
-
-::download[MacOS - Apple Silicon]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-macos-aarch64.jar"}
+::download[MacOS]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-macosx-universal.jar"}
