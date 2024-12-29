@@ -7,6 +7,7 @@ lang: en
 ## 4.15.0
 
 - 🚀 Feat: All methods return a color now return a Color object.
+- 🚀 Feat: Add `get`-method to color object for comparing pixels.
 
 ## 4.14.0
 
