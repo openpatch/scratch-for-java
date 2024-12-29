@@ -536,10 +536,10 @@ public class Sprite {
   /**
    * Retrieves the tint value of the current costume.
    *
-   * @return the tint value of the current costume, or 0 if there are no costumes.
+   * @return the tint value of the current costume, or null if there are no costumes.
    */
-  public double getTint() {
-    if (this.costumes.size() == 0) return 0;
+  public Color getTint() {
+    if (this.costumes.size() == 0) return null;
     return this.costumes.get(currentCostume).getTint();
   }
 

@@ -191,10 +191,10 @@ public class Image {
   /**
    * Returns the tint
    *
-   * @return a hue value [0...255]
+   * @return the tint
    */
-  public double getTint() {
-    return this.tint.getHSB();
+  public Color getTint() {
+    return this.tint;
   }
 
   /**

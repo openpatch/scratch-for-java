@@ -4,6 +4,10 @@ index: 4
 lang: en
 ---
 
+## 4.15.0
+
+- 🚀 Feat: All methods return a color now return a Color object.
+
 ## 4.14.0
 
 - 🚀 Feat: Add `enableYSort`-method to the stage. This sorts all sprites regarding their y-coordinate.

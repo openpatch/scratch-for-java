@@ -120,12 +120,20 @@ public class Pen {
   }
 
   /**
-   * Retrieves the current color of the pen in HSB (Hue, Saturation, Brightness) format.
+   * Retrieves the current color of the pen.
    *
-   * @return the color of the pen as a double representing the HSB value.
+   * @return the color of the pen
    */
-  public double getColor() {
-    return this.color.getHSB();
+  public Color getColor() {
+    return this.color;
+  }
+
+  /**
+   * Set the color of the pen
+   * @param c color of the pen
+   */
+  public void setColor(Color c) {
+    this.color = c;
   }
 
   /**
