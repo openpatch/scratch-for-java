@@ -2,7 +2,6 @@ package org.openpatch.scratch;
 
 import java.awt.Shape;
 import java.util.AbstractMap;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -1705,13 +1704,7 @@ public class Sprite {
     if (this.costumes.size() > 0 && this.show) {
       this.costumes
           .get(this.currentCostume)
-          .drawDebug(
-              buffer,
-              this.size,
-              this.direction,
-              this.x,
-              this.y,
-              this.rotationStyle);
+          .drawDebug(buffer, this.size, this.direction, this.x, this.y, this.rotationStyle);
     }
   }
 
