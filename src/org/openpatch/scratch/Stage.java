@@ -201,17 +201,17 @@ public class Stage {
     this.rightBorder = new Hitbox(p);
 
     p = new Polygon();
-    p.addPoint(-this.getWidth() / 2, this.getHeight() / 2);
-    p.addPoint(-this.getWidth() / 2, this.getHeight() / 2 + 5);
-    p.addPoint(this.getWidth() / 2, this.getHeight() / 2 + 5);
-    p.addPoint(this.getWidth() / 2, this.getHeight() / 2);
-    this.topBorder = new Hitbox(p);
-
-    p = new Polygon();
     p.addPoint(-this.getWidth() / 2, -this.getHeight() / 2);
     p.addPoint(-this.getWidth() / 2, -this.getHeight() / 2 - 5);
     p.addPoint(this.getWidth() / 2, -this.getHeight() / 2 - 5);
     p.addPoint(this.getWidth() / 2, -this.getHeight() / 2);
+    this.topBorder = new Hitbox(p);
+
+    p = new Polygon();
+    p.addPoint(-this.getWidth() / 2, this.getHeight() / 2);
+    p.addPoint(-this.getWidth() / 2, this.getHeight() / 2 + 5);
+    p.addPoint(this.getWidth() / 2, this.getHeight() / 2 + 5);
+    p.addPoint(this.getWidth() / 2, this.getHeight() / 2);
     this.bottomBorder = new Hitbox(p);
   }
 
