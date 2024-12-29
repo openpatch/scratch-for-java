@@ -929,6 +929,14 @@ public class Stage {
   }
 
   /**
+   * Returns the current color of the stage.
+   * @return the current color
+   */
+  public Color getColor() {
+    return this.color;
+  }
+
+  /**
    * Sets the color of the stage.
    *
    * @see org.openpatch.scratch.extensions.color.Color
