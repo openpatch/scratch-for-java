@@ -6,7 +6,6 @@ import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
 import java.awt.geom.PathIterator;
-
 import org.openpatch.scratch.Window;
 import org.openpatch.scratch.extensions.math.Utils;
 import processing.core.PConstants;

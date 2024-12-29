@@ -1413,7 +1413,9 @@ public class Stage {
       this.eraseBackgroundBuffer = false;
     }
     this.pens.stream().filter(p -> p.isInBackground()).forEach(p -> p.draw(this.backgroundBuffer));
-    this.sprites.stream().filter(s -> s.getPen().isInBackground()).forEach(s -> s.getPen().draw(this.backgroundBuffer));
+    this.sprites.stream()
+        .filter(s -> s.getPen().isInBackground())
+        .forEach(s -> s.getPen().draw(this.backgroundBuffer));
     while (!this.backgroundStamps.isEmpty()) {
       this.backgroundStamps.poll().draw(this.backgroundBuffer);
     }
@@ -1458,7 +1460,9 @@ public class Stage {
       this.eraseForegroundBuffer = false;
     }
     this.pens.stream().filter(p -> !p.isInBackground()).forEach(p -> p.draw(this.foregroundBuffer));
-    this.sprites.stream().filter(s -> !s.getPen().isInBackground()).forEach(s -> s.getPen().draw(this.foregroundBuffer));
+    this.sprites.stream()
+        .filter(s -> !s.getPen().isInBackground())
+        .forEach(s -> s.getPen().draw(this.foregroundBuffer));
     while (!this.foregroundStamps.isEmpty()) {
       this.foregroundStamps.poll().draw(this.foregroundBuffer);
     }
