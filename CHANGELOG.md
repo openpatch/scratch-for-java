@@ -4,6 +4,10 @@ index: 4
 lang: en
 ---
 
+## 4.15.2
+
+- 🐛 Fix: Random.randomInt not return the maximum value.
+
 ## 4.15.1
 
 - 🐛 Fix: Edge detection not working correctly.
