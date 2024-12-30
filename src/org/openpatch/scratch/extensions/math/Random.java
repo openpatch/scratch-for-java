@@ -132,7 +132,7 @@ public class Random {
    * @return a random integer
    */
   public static int randomInt(int max) {
-    return getRandom().nextInt(max);
+    return getRandom().nextInt(max + 1);
   }
 
   /**
@@ -153,6 +153,7 @@ public class Random {
    * @return a random integer
    */
   public static int randomInt(int min, int max) {
+    max += 1;
     return getRandom().nextInt(max - min) + min;
   }
 
