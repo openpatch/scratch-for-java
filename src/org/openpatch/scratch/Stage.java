@@ -6,7 +6,6 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.temporal.ChronoUnit;
 import java.util.AbstractMap;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Queue;
@@ -40,12 +39,12 @@ import processing.event.MouseEvent;
  */
 public class Stage {
 
-  private final List<Image> backdrops = new ArrayList<>();
+  private final List<Image> backdrops = new CopyOnWriteArrayList<>();
   private Color color = new Color();
   private int currentBackdrop = 0;
-  private final List<Sound> sounds = new ArrayList<>();
+  private final List<Sound> sounds = new CopyOnWriteArrayList<>();
   private int currentShader = 0;
-  private List<Shader> shaders = new ArrayList<>();
+  private List<Shader> shaders = new CopyOnWriteArrayList<>();
 
   private PGraphics mainBuffer;
 
@@ -145,10 +144,10 @@ public class Stage {
   public Stage(int width, final int height, boolean fullScreen, String assets) {
     this.cursor = null;
     this.camera = new Camera();
-    this.texts = new ArrayList<>();
-    this.pens = new ArrayList<>();
-    this.sprites = new ArrayList<>();
-    this.shaders = new ArrayList<>();
+    this.texts = new CopyOnWriteArrayList<>();
+    this.pens = new CopyOnWriteArrayList<>();
+    this.sprites = new CopyOnWriteArrayList<>();
+    this.shaders = new CopyOnWriteArrayList<>();
     this.backgroundStamps = new ConcurrentLinkedQueue<>();
     this.foregroundStamps = new ConcurrentLinkedQueue<>();
     this.uiStamps = new ConcurrentLinkedQueue<>();
