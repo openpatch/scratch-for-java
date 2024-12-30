@@ -6,6 +6,7 @@ lang: en
 
 ## 4.15.2
 
+- 🚀 Feat: add Operators.round(value, precision) to round values. `Operators.round(2.3456, 2)` will return `2.35`.
 - 🐛 Fix: Random.randomInt not return the maximum value.
 
 ## 4.15.1
