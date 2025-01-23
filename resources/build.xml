@@ -119,12 +119,18 @@
                 url="https://github.com/processing/processing-sound/releases/download/v2.4.0/sound.zip" />
 
             <!-- Jackson for JSON and XML loading -->
-            <url url="https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-core/${libs.jackson}/jackson-core-${libs.jackson}.jar" />
-            <url url="https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-annotations/${libs.jackson}/jackson-annotations-${libs.jackson}.jar" />
-            <url url="https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-databind/${libs.jackson}/jackson-databind-${libs.jackson}.jar" />
-            <url url="https://repo1.maven.org/maven2/com/fasterxml/jackson/dataformat/jackson-dataformat-xml/${libs.jackson}/jackson-dataformat-xml-${libs.jackson}.jar" />
-            <url url="https://repo1.maven.org/maven2/com/fasterxml/woodstox/woodstox-core/6.5.1/woodstox-core-6.5.1.jar" />
-            <url url="https://repo1.maven.org/maven2/org/codehaus/woodstox/stax2-api/4.2.1/stax2-api-4.2.1.jar" />
+            <url
+                url="https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-core/${libs.jackson}/jackson-core-${libs.jackson}.jar" />
+            <url
+                url="https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-annotations/${libs.jackson}/jackson-annotations-${libs.jackson}.jar" />
+            <url
+                url="https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-databind/${libs.jackson}/jackson-databind-${libs.jackson}.jar" />
+            <url
+                url="https://repo1.maven.org/maven2/com/fasterxml/jackson/dataformat/jackson-dataformat-xml/${libs.jackson}/jackson-dataformat-xml-${libs.jackson}.jar" />
+            <url
+                url="https://repo1.maven.org/maven2/com/fasterxml/woodstox/woodstox-core/6.5.1/woodstox-core-6.5.1.jar" />
+            <url
+                url="https://repo1.maven.org/maven2/org/codehaus/woodstox/stax2-api/4.2.1/stax2-api-4.2.1.jar" />
 
             <url
                 url="https://repo1.maven.org/maven2/com/github/davidmoten/word-wrap/0.1.12/word-wrap-0.1.12.jar" />
@@ -181,6 +187,7 @@
         <antcall target="generate.structure">
             <param name="folder" value="library" />
         </antcall>
+        <antcall target="extract.natives" />
         <antcall target="compile" />
         <antcall target="generate.javadoc" />
         <antcall target="generate.jar">
@@ -210,7 +217,7 @@
             source="${java.target.version}"
             target="${java.target.version}" includeantruntime="false"
             excludes="examples"
-            >
+        >
             <classpath>
                 <path refid="classpath" />
             </classpath>
@@ -219,6 +226,29 @@
         <copy todir="${project.bin.data}">
             <fileset dir="${project.data}" excludes="README" />
         </copy>
+    </target>
+
+    <target name="extract.natives" depends="library.init">
+        <!-- Iterate over JAR files -->
+        <delete dir="natives" />
+        <foreach target="extract.native" param="jar.file" parallel="false">
+            <path>
+                <fileset dir="${project.libs}/linux-amd64" includes="*.jar" />
+                <fileset dir="${project.libs}/linux-aarch64" includes="*.jar" />
+                <fileset dir="${project.libs}/linux-armv6hf" includes="*.jar" />
+                <fileset dir="${project.libs}/macosx-universal" includes="*.jar" />
+                <fileset dir="${project.libs}/windows-amd64" includes="*.jar" />
+            </path>
+        </foreach>
+    </target>
+
+    <!-- Extract a single JAR file -->
+    <target name="extract.native">
+        <unzip src="${jar.file}" dest="" overwrite="true">
+            <!-- Extract only native libraries if they are in specific folders (e.g., "lib/native/") -->
+            <!-- Uncomment the line below if native libraries are stored in a specific path -->
+            <patternset includes="natives/**" />
+        </unzip>
     </target>
 
     <target name="generate.jar">
