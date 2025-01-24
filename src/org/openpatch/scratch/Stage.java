@@ -33,10 +33,8 @@ import processing.event.KeyEvent;
 import processing.event.MouseEvent;
 
 /**
- * The Stage class represents a stage where various elements such as sprites,
- * texts, pens, and
- * backdrops can be added and manipulated. It provides methods to manage these
- * elements, handle
+ * The Stage class represents a stage where various elements such as sprites, texts, pens, and
+ * backdrops can be added and manipulated. It provides methods to manage these elements, handle
  * events, and control the stage's appearance and behavior.
  */
 public class Stage {
@@ -89,8 +87,7 @@ public class Stage {
   private Camera camera;
 
   /**
-   * Constructs a new Stage with default dimensions. The default width is 480
-   * pixels and the default
+   * Constructs a new Stage with default dimensions. The default width is 480 pixels and the default
    * height is 360 pixels.
    */
   public Stage() {
@@ -100,7 +97,7 @@ public class Stage {
   /**
    * Constructs a new Stage with the specified width and height.
    *
-   * @param width  the width of the stage
+   * @param width the width of the stage
    * @param height the height of the stage
    */
   public Stage(int width, final int height) {
@@ -110,7 +107,7 @@ public class Stage {
   /**
    * Constructs a new Stage with the specified width, height, and assets path.
    *
-   * @param width  the width of the stage
+   * @param width the width of the stage
    * @param height the height of the stage
    * @param assets the path to the assets directory
    */
@@ -121,8 +118,7 @@ public class Stage {
   /**
    * Constructs a new Stage.
    *
-   * @param fullScreen a boolean indicating whether the stage should be in full
-   *                   screen mode.
+   * @param fullScreen a boolean indicating whether the stage should be in full screen mode.
    */
   public Stage(boolean fullScreen) {
     this(fullScreen, null);
@@ -131,9 +127,8 @@ public class Stage {
   /**
    * Constructs a new Stage with the specified fullscreen mode and assets path.
    *
-   * @param fullScreen a boolean indicating whether the stage should be in
-   *                   fullscreen mode
-   * @param assets     the path to the assets directory
+   * @param fullScreen a boolean indicating whether the stage should be in fullscreen mode
+   * @param assets the path to the assets directory
    */
   public Stage(boolean fullScreen, String assets) {
     this(0, 0, fullScreen, assets);
@@ -142,8 +137,8 @@ public class Stage {
   /**
    * Constructs a new Stage with the specified width and height.
    *
-   * @param width      the width of the stage
-   * @param height     the height of the stage
+   * @param width the width of the stage
+   * @param height the height of the stage
    * @param fullScreen whether the stage should be in full screen mode
    */
   public Stage(boolean fullScreen, int width, int height) {
@@ -154,9 +149,9 @@ public class Stage {
    * Constructs a new Stage with the specified parameters.
    *
    * @param fullScreen whether the stage should be in full screen mode
-   * @param width      the width of the stage
-   * @param height     the height of the stage
-   * @param assets     the path to the assets directory
+   * @param width the width of the stage
+   * @param height the height of the stage
+   * @param assets the path to the assets directory
    */
   public Stage(boolean fullScreen, int width, int height, String assets) {
     this(width, height, fullScreen, assets);
@@ -165,10 +160,10 @@ public class Stage {
   /**
    * Constructs a new Stage with the specified parameters.
    *
-   * @param width      the width of the stage
-   * @param height     the height of the stage
+   * @param width the width of the stage
+   * @param height the height of the stage
    * @param fullScreen whether the stage should be in full screen mode
-   * @param assets     the path to the assets directory
+   * @param assets the path to the assets directory
    */
   private Stage(int width, final int height, boolean fullScreen, String assets) {
     this.cursor = null;
@@ -191,22 +186,36 @@ public class Stage {
       a.setStage(this);
     }
     Applet applet = Applet.getInstance();
-    this.shaderBuffer = applet.createGraphics(applet.getRenderWidth(), applet.getRenderHeight(),
-        applet.sketchRenderer());
-    this.mainBuffer = applet.createGraphics(applet.getRenderWidth(), applet.getRenderHeight(), applet.sketchRenderer());
-    this.backdropBuffer = applet.createGraphics(applet.getRenderWidth(), applet.getRenderHeight(),
-        applet.sketchRenderer());
-    this.backgroundBuffer = applet.createGraphics(applet.getRenderWidth(), applet.getRenderHeight(),
-        applet.sketchRenderer());
-    this.foregroundBuffer = applet.createGraphics(applet.getRenderWidth(), applet.getRenderHeight(),
-        applet.sketchRenderer());
-    this.uiBuffer = applet.createGraphics(applet.getRenderWidth(), applet.getRenderHeight(), applet.sketchRenderer());
-    this.debugBuffer = applet.createGraphics(applet.getRenderWidth(), applet.getRenderHeight(),
-        applet.sketchRenderer());
+    this.shaderBuffer =
+        applet.createGraphics(
+            applet.getRenderWidth(), applet.getRenderHeight(), applet.sketchRenderer());
+    this.mainBuffer =
+        applet.createGraphics(
+            applet.getRenderWidth(), applet.getRenderHeight(), applet.sketchRenderer());
+    this.backdropBuffer =
+        applet.createGraphics(
+            applet.getRenderWidth(), applet.getRenderHeight(), applet.sketchRenderer());
+    this.backgroundBuffer =
+        applet.createGraphics(
+            applet.getRenderWidth(), applet.getRenderHeight(), applet.sketchRenderer());
+    this.foregroundBuffer =
+        applet.createGraphics(
+            applet.getRenderWidth(), applet.getRenderHeight(), applet.sketchRenderer());
+    this.uiBuffer =
+        applet.createGraphics(
+            applet.getRenderWidth(), applet.getRenderHeight(), applet.sketchRenderer());
+    this.debugBuffer =
+        applet.createGraphics(
+            applet.getRenderWidth(), applet.getRenderHeight(), applet.sketchRenderer());
 
     this.timer.put("default", new Timer());
-    this.display = new Text(null, -applet.getRenderWidth() / 2, -applet.getRenderHeight() / 2, applet.getRenderWidth(),
-        TextStyle.BOX);
+    this.display =
+        new Text(
+            null,
+            -applet.getRenderWidth() / 2,
+            -applet.getRenderHeight() / 2,
+            applet.getRenderWidth(),
+            TextStyle.BOX);
     this.display.addedToStage(this);
 
     var p = new Polygon();
@@ -241,9 +250,8 @@ public class Stage {
   /**
    * Enables or disables the debug mode for the application.
    *
-   * @param debug a boolean value where {@code true} enables debug mode and
-   *              {@code false} disables
-   *              it.
+   * @param debug a boolean value where {@code true} enables debug mode and {@code false} disables
+   *     it.
    */
   public void setDebug(boolean debug) {
     Applet.getInstance().setDebug(debug);
@@ -289,8 +297,7 @@ public class Stage {
   }
 
   /**
-   * Adds a new shader to the sprite. If a shader with the received name already
-   * exists, this method
+   * Adds a new shader to the sprite. If a shader with the received name already exists, this method
    * does nothing.
    *
    * @param name
@@ -341,8 +348,7 @@ public class Stage {
    * Retrieves a shader by name.
    *
    * @param name the name of a shader
-   * @return the shader with the specified name, or null if no shader with that
-   *         name exists
+   * @return the shader with the specified name, or null if no shader with that name exists
    */
   public Shader getShader(String name) {
     for (Shader shader : this.shaders) {
@@ -364,8 +370,7 @@ public class Stage {
    * @return the name of the current shader, or null if no shaders exist
    */
   public String getCurrentShaderName() {
-    if (this.shaders.size() == 0 || this.currentShader == -1)
-      return null;
+    if (this.shaders.size() == 0 || this.currentShader == -1) return null;
 
     return this.shaders.get(this.currentShader).getName();
   }
@@ -385,51 +390,41 @@ public class Stage {
    * @return the current shader, or null if no shaders exist
    */
   public Shader getCurrentShader() {
-    if (this.shaders.size() == 0 || this.currentShader == -1)
-      return null;
+    if (this.shaders.size() == 0 || this.currentShader == -1) return null;
 
     return this.shaders.get(this.currentShader);
   }
 
   /**
-   * Moves the specified sprite backwards by a given number of layers in the
-   * sprite list. If the
-   * resulting position is less than zero, the sprite is moved to the first
-   * position. If the
-   * resulting position is greater than the last index, the sprite is moved to the
-   * last position.
+   * Moves the specified sprite backwards by a given number of layers in the sprite list. If the
+   * resulting position is less than zero, the sprite is moved to the first position. If the
+   * resulting position is greater than the last index, the sprite is moved to the last position.
    *
    * @param sprite the sprite to be moved backwards in the layer order
    * @param number the number of layers to move the sprite backwards
    */
   public void goLayersBackwards(Sprite sprite, int number) {
     int index = this.sprites.indexOf(sprite);
-    if (index == -1)
-      return;
+    if (index == -1) return;
     int newIndex = index - number;
-    if (newIndex < 0)
-      newIndex = 0;
+    if (newIndex < 0) newIndex = 0;
     newIndex = Math.min(newIndex, this.sprites.size() - 1);
     this.sprites.remove(index);
     this.sprites.add(newIndex, sprite);
   }
 
   /**
-   * Moves the specified sprite forward by a given number of layers in the sprite
-   * list. If the
-   * resulting position is out of bounds, it will be adjusted to the nearest valid
-   * position.
+   * Moves the specified sprite forward by a given number of layers in the sprite list. If the
+   * resulting position is out of bounds, it will be adjusted to the nearest valid position.
    *
    * @param sprite the sprite to be moved forward in the layer order
    * @param number the number of layers to move the sprite forward
    */
   public void goLayersForwards(Sprite sprite, int number) {
     int index = this.sprites.indexOf(sprite);
-    if (index == -1)
-      return;
+    if (index == -1) return;
     int newIndex = index + number;
-    if (newIndex < 0)
-      newIndex = 0;
+    if (newIndex < 0) newIndex = 0;
     newIndex = Math.min(newIndex, this.sprites.size() - 1);
     this.sprites.remove(index);
     this.sprites.add(newIndex, sprite);
@@ -456,8 +451,7 @@ public class Stage {
   }
 
   /**
-   * Moves the specified sprite to the UI layer by removing it from the current
-   * list of sprites.
+   * Moves the specified sprite to the UI layer by removing it from the current list of sprites.
    *
    * @param sprite the sprite to be moved to the UI layer
    */
@@ -466,10 +460,8 @@ public class Stage {
   }
 
   /**
-   * Sets a custom sorter for the sprites. Use enableYSort() to enable the sorting
-   * of sprites using
-   * the y-coordinates. This overwrites goToBackLayer(), goToFrontLayer(),
-   * goLayersBackwards() and
+   * Sets a custom sorter for the sprites. Use enableYSort() to enable the sorting of sprites using
+   * the y-coordinates. This overwrites goToBackLayer(), goToFrontLayer(), goLayersBackwards() and
    * goLayersForwards().
    *
    * @see #enableYSort()
@@ -480,15 +472,14 @@ public class Stage {
   }
 
   /**
-   * Enables the sorting of sprites using y-sorting. This means that sprites with
-   * a lower
-   * y-coordinate will be drawn on top of sprites with a higher y-coordinate. This
-   * sorting respects
+   * Enables the sorting of sprites using y-sorting. This means that sprites with a lower
+   * y-coordinate will be drawn on top of sprites with a higher y-coordinate. This sorting respects
    * the height of the sprites. This overwrites goToBackLayer(), goToFrontLayer(),
    * goLayersBackwards() and goLayersForwards().
    */
   public void enableYSort() {
-    this.sorter = (s1, s2) -> (int) ((s2.getY() - s2.getHeight() / 2) - (s1.getY() - s1.getHeight() / 2));
+    this.sorter =
+        (s1, s2) -> (int) ((s2.getY() - s2.getHeight() / 2) - (s1.getY() - s1.getHeight() / 2));
   }
 
   /** Disables the sorting of sprites. */
@@ -691,12 +682,11 @@ public class Stage {
   }
 
   /**
-   * Add a backdrop to the stage. If a backdrop with the received name already
-   * exists do nothing.
+   * Add a backdrop to the stage. If a backdrop with the received name already exists do nothing.
    *
-   * @param name      a unique name
+   * @param name a unique name
    * @param imagePath a image path
-   * @param stretch   stretch image to window size
+   * @param stretch stretch image to window size
    */
   public void addBackdrop(String name, final String imagePath, boolean stretch) {
     for (Image backdrop : this.backdrops) {
@@ -712,10 +702,9 @@ public class Stage {
   }
 
   /**
-   * Add a backdrop to the stage. If a backdrop with the received name already
-   * exists do nothing.
+   * Add a backdrop to the stage. If a backdrop with the received name already exists do nothing.
    *
-   * @param name      a unique name
+   * @param name a unique name
    * @param imagePath a image path
    */
   public void addBackdrop(String name, final String imagePath) {
@@ -761,14 +750,12 @@ public class Stage {
   }
 
   /**
-   * This method is called when the backdrop switches to the specified name.
-   * Override this method to
+   * This method is called when the backdrop switches to the specified name. Override this method to
    * add custom behavior.
    *
    * @param name the name of the backdrop to switch to
    */
-  public void whenBackdropSwitches(String name) {
-  }
+  public void whenBackdropSwitches(String name) {}
 
   /** Switch to the next backdrop. */
   public void nextBackdrop() {
@@ -840,18 +827,16 @@ public class Stage {
   }
 
   /**
-   * This method marks the UI buffer to be erased, which will be processed in the
-   * next update cycle.
+   * This method marks the UI buffer to be erased, which will be processed in the next update cycle.
    */
   public void eraseUI() {
     this.eraseUIBuffer = true;
   }
 
   /**
-   * Add a sound to the stage. If a sound with the received name already exists do
-   * nothing.
+   * Add a sound to the stage. If a sound with the received name already exists do nothing.
    *
-   * @param name      a unique name
+   * @param name a unique name
    * @param soundPath a sound path
    */
   public void addSound(String name, final String soundPath) {
@@ -986,8 +971,7 @@ public class Stage {
    * @param b a blue value [0...255]
    */
   public void setTint(double r, double g, double b) {
-    if (this.backdrops.size() == 0)
-      return;
+    if (this.backdrops.size() == 0) return;
     this.backdrops.get(this.currentBackdrop).setTint(r, g, b);
   }
 
@@ -997,8 +981,7 @@ public class Stage {
    * @see Image#setTint(double)
    */
   public void setTint(double h) {
-    if (this.backdrops.size() == 0)
-      return;
+    if (this.backdrops.size() == 0) return;
     this.backdrops.get(this.currentBackdrop).setTint(h);
   }
 
@@ -1009,8 +992,7 @@ public class Stage {
    * @param step a step value
    */
   public void changeTint(double step) {
-    if (this.backdrops.size() == 0)
-      return;
+    if (this.backdrops.size() == 0) return;
 
     this.backdrops.get(this.currentBackdrop).changeTint(step);
   }
@@ -1032,15 +1014,13 @@ public class Stage {
    * @param step a step value
    */
   public void changeTransparency(double step) {
-    if (this.backdrops.size() == 0)
-      return;
+    if (this.backdrops.size() == 0) return;
 
     this.backdrops.get(this.currentBackdrop).changeTransparency(step);
   }
 
   /**
-   * Return the width of the current costume or the pen size, when no costume is
-   * available.
+   * Return the width of the current costume or the pen size, when no costume is available.
    *
    * @return the width of the sprite
    */
@@ -1049,8 +1029,7 @@ public class Stage {
   }
 
   /**
-   * Return the height of the current costume or the pen size, when no costume is
-   * available.
+   * Return the height of the current costume or the pen size, when no costume is available.
    *
    * @return the height of the sprite
    */
@@ -1083,8 +1062,7 @@ public class Stage {
    * @param name the name of the timer
    */
   public void addTimer(String name) {
-    if ("default".equals(name))
-      return;
+    if ("default".equals(name)) return;
 
     this.timer.put(name, new Timer());
   }
@@ -1095,8 +1073,7 @@ public class Stage {
    * @param name the name of the timer
    */
   public void removeTimer(String name) {
-    if ("default".equals(name))
-      return;
+    if ("default".equals(name)) return;
 
     this.timer.remove(name);
   }
@@ -1137,27 +1114,21 @@ public class Stage {
   }
 
   /**
-   * This method is called when a mouse click event occurs. Overwrite this method
-   * to add custom
+   * This method is called when a mouse click event occurs. Overwrite this method to add custom
    * behavior.
    *
    * @param mouseEvent The mouse event that triggered this method.
    */
-  public void whenMouseClicked(MouseCode mouseEvent) {
-  }
+  public void whenMouseClicked(MouseCode mouseEvent) {}
 
   /**
-   * This method is called when the mouse wheel is moved. Overwrite this method to
-   * add custom
+   * This method is called when the mouse wheel is moved. Overwrite this method to add custom
    * behavior.
    *
-   * @param steps the number of steps the mouse wheel has moved. Positive values
-   *              indicate movement
-   *              away from the user, while negative values indicate movement
-   *              towards the user.
+   * @param steps the number of steps the mouse wheel has moved. Positive values indicate movement
+   *     away from the user, while negative values indicate movement towards the user.
    */
-  public void whenMouseWheelMoved(int steps) {
-  }
+  public void whenMouseWheelMoved(int steps) {}
 
   /**
    * Returns the current x-position of the mouse cursor
@@ -1191,22 +1162,18 @@ public class Stage {
   }
 
   /**
-   * This method is called when a key is pressed. Override this method to add
-   * custom behavior.
+   * This method is called when a key is pressed. Override this method to add custom behavior.
    *
    * @param keyCode the code of the key that was pressed
    */
-  public void whenKeyPressed(int keyCode) {
-  }
+  public void whenKeyPressed(int keyCode) {}
 
   /**
-   * This method is called when a key is released. Override this method to add
-   * custom behavior.
+   * This method is called when a key is released. Override this method to add custom behavior.
    *
    * @param keyCode the code of the key that was released
    */
-  public void whenKeyReleased(int keyCode) {
-  }
+  public void whenKeyReleased(int keyCode) {}
 
   public void keyEvent(KeyEvent e) {
     switch (e.getAction()) {
@@ -1341,7 +1308,7 @@ public class Stage {
    * Returns a random integer between the specified range (inclusive).
    *
    * @param from the lower bound of the range (inclusive)
-   * @param to   the upper bound of the range (inclusive)
+   * @param to the upper bound of the range (inclusive)
    * @return a random integer between {@code from} and {@code to} (inclusive)
    */
   public int pickRandom(int from, final int to) {
@@ -1363,17 +1330,15 @@ public class Stage {
   /**
    * Displays the given text on the screen for a specified duration.
    *
-   * @param text   The text to be displayed.
-   * @param millis The duration in milliseconds for which the text will be
-   *               displayed.
+   * @param text The text to be displayed.
+   * @param millis The duration in milliseconds for which the text will be displayed.
    */
   public void display(String text, final int millis) {
     this.display.showText(text, millis);
   }
 
   /**
-   * Broadcasts a message to all sprites in the stage. Each sprite will execute
-   * its `whenIReceive`
+   * Broadcasts a message to all sprites in the stage. Each sprite will execute its `whenIReceive`
    * method with the given message.
    *
    * @param message The message to broadcast to all sprites.
@@ -1383,8 +1348,7 @@ public class Stage {
   }
 
   /**
-   * Broadcasts a message to all sprites in the stage. Each sprite will execute
-   * its `whenIReceive`
+   * Broadcasts a message to all sprites in the stage. Each sprite will execute its `whenIReceive`
    * method with the given message.
    *
    * @param message The message to broadcast to all sprites.
@@ -1394,22 +1358,19 @@ public class Stage {
   }
 
   /**
-   * This method is called when a specific message is received. Override this
-   * method to add custom
+   * This method is called when a specific message is received. Override this method to add custom
    * behavior.
    *
    * @param message The message that triggers this method.
    */
-  public void whenIReceive(String message) {
-  }
+  public void whenIReceive(String message) {}
 
   /**
    * This method is called when a message is received.
    *
    * @param message The message object that is received.
    */
-  public void whenIReceive(Object message) {
-  }
+  public void whenIReceive(Object message) {}
 
   /**
    * Sets the cursor image for the stage.
@@ -1426,8 +1387,8 @@ public class Stage {
    * Sets the cursor image and its active spot coordinates.
    *
    * @param path the file path to the cursor image
-   * @param x    the x-coordinate of the cursor's active spot
-   * @param y    the y-coordinate of the cursor's active spot
+   * @param x the x-coordinate of the cursor's active spot
+   * @param y the y-coordinate of the cursor's active spot
    */
   public void setCursor(String path, int x, int y) {
     this.cursor = path;
@@ -1461,17 +1422,14 @@ public class Stage {
   }
 
   /**
-   * Executes the main logic of the stage. This method should be overridden by
-   * subclasses to define
+   * Executes the main logic of the stage. This method should be overridden by subclasses to define
    * the specific behavior of the stage.
    */
-  public void run() {
-  }
+  public void run() {}
 
   public void pre() {
     Applet applet = Applet.getInstance();
-    if (applet == null)
-      return;
+    if (applet == null) return;
     var targetWidth = applet.getRenderWidth();
     var targetHeight = applet.getRenderHeight();
     var width = applet.getWidth();
@@ -1504,8 +1462,7 @@ public class Stage {
 
   public void draw() {
     Applet applet = Applet.getInstance();
-    if (applet == null)
-      return;
+    if (applet == null) return;
 
     applet.background(0);
 
@@ -1619,9 +1576,7 @@ public class Stage {
     }
     this.sprites.stream().filter(s -> s.isUI()).forEach(s -> s.draw(uiBuffer));
     this.texts.stream().filter(t -> t.isUI()).forEach(t -> t.draw(uiBuffer));
-    this.sprites.stream()
-        .filter(s -> s.isUI())
-        .forEach(s -> s.getText().draw(uiBuffer));
+    this.sprites.stream().filter(s -> s.isUI()).forEach(s -> s.getText().draw(uiBuffer));
     this.uiBuffer.endDraw();
 
     if (this.uiBuffer.pixels != null) {
@@ -1649,9 +1604,15 @@ public class Stage {
       var globalMouseX = this.getCamera().toGlobalX(this.mouseX);
       var globalMouseY = this.getCamera().toGlobalY(this.mouseY);
       this.debugBuffer.line(
-          (float) globalMouseX, -this.debugBuffer.height / 2, (float) globalMouseX, this.debugBuffer.height);
+          (float) globalMouseX,
+          -this.debugBuffer.height / 2,
+          (float) globalMouseX,
+          this.debugBuffer.height);
       this.debugBuffer.line(
-          -this.debugBuffer.width / 2, (float) -globalMouseY, this.debugBuffer.width, (float) -globalMouseY);
+          -this.debugBuffer.width / 2,
+          (float) -globalMouseY,
+          this.debugBuffer.width,
+          (float) -globalMouseY);
       this.debugBuffer.textFont(Font.getDefaultFont());
       this.debugBuffer.text(
           "("
