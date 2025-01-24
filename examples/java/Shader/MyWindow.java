@@ -4,7 +4,7 @@ import org.openpatch.scratch.Window;
 
 public class MyWindow extends Window {
   public MyWindow() {
-    super(800, 400);
+    super(true, 800, 400);
     this.setStage(new MyStage());
   }
 

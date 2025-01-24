@@ -12,8 +12,8 @@ public class MyStage extends Stage {
     shader = this.addShader("glitch", "Shader/glitch.glsl");
     shader.set("rate", 0.0001);
     shader = this.addShader("light", "Shader/light.glsl");
-    this.switchShader("light");
-
+    shader = this.addShader("pixel", "Shader/pixel.glsl");
+    this.switchShader("pixel");
     this.add(new MySprite());
     this.add(new NormalSprite());
 

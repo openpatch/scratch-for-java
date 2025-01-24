@@ -4,7 +4,7 @@ import org.openpatch.scratch.Window;
 
 public class Tiled extends Window {
   public Tiled() {
-    super(800, 600, "Tiled/assets");
+    super(true, 640, 360, "Tiled/assets");
 
     I18n.setup();
 

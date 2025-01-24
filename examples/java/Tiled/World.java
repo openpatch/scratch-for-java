@@ -30,7 +30,8 @@ public class World extends Stage {
     this.eraseAll();
     map = new TiledMap("Tiled/" + mapFile + ".tmx", this);
     for (var object : map.getObjectsFromLayer("Objects")) {
-      // Spawn Points should only have an effect, if there was no PLAYER object. Meaning the first
+      // Spawn Points should only have an effect, if there was no PLAYER object.
+      // Meaning the first
       // time a map is loading.
       if ("spawn-point".equals(object.type) && PLAYER == null) {
         var playerX = GameState.get().playerX;
@@ -61,11 +62,10 @@ public class World extends Stage {
         }
       } else if ("enemy".equals(object.type)) {
         switch (object.name) {
-          case "bamboo":
-            {
-              this.add(new Bamboo(object.x, object.y));
-              break;
-            }
+          case "bamboo": {
+            this.add(new Bamboo(object.x, object.y));
+            break;
+          }
         }
       }
     }

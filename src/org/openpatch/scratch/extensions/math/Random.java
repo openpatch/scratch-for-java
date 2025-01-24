@@ -4,14 +4,19 @@ import org.openpatch.scratch.internal.Applet;
 import org.openpatch.scratch.internal.OpenSimplex2S;
 
 /**
- * The Random class provides various methods for generating random values and noise. It includes
- * methods for generating Open Simplex noise, random vectors, random coordinates, and random numbers
+ * The Random class provides various methods for generating random values and
+ * noise. It includes
+ * methods for generating Open Simplex noise, random vectors, random
+ * coordinates, and random numbers
  * within specified ranges.
  *
- * <p>Methods in this class are static and can be accessed directly without creating an instance of
+ * <p>
+ * Methods in this class are static and can be accessed directly without
+ * creating an instance of
  * the class.
  *
- * <p>Example usage:
+ * <p>
+ * Example usage:
  *
  * <pre>{@code
  * double noiseValue = Random.noise(10.0);
@@ -24,7 +29,9 @@ import org.openpatch.scratch.internal.OpenSimplex2S;
  * double randomDoubleInRange = Random.random(5.0, 10.0);
  * }</pre>
  *
- * <p>Note: The noise methods use Open Simplex noise, and the random methods use java.util.Random.
+ * <p>
+ * Note: The noise methods use Open Simplex noise, and the random methods use
+ * java.util.Random.
  *
  * @see java.util.Random
  * @see OpenSimplex2S
@@ -33,7 +40,8 @@ public class Random {
   private static java.util.Random internalRandom;
   private static long noiseSeed = 1L;
 
-  private Random() {}
+  private Random() {
+  }
 
   /*
    *
@@ -94,7 +102,7 @@ public class Random {
    */
   public static double randomX() {
     return Random.random(
-        -Applet.getInstance().getWidth() / 2.0, Applet.getInstance().getWidth() / 2.0);
+        -Applet.getInstance().getRenderWidth() / 2.0, Applet.getInstance().getRenderWidth() / 2.0);
   }
 
   /**
@@ -104,7 +112,7 @@ public class Random {
    */
   public static double randomY() {
     return Random.random(
-        -Applet.getInstance().getHeight() / 2.0, Applet.getInstance().getHeight() / 2.0);
+        -Applet.getInstance().getRenderHeight() / 2.0, Applet.getInstance().getRenderHeight() / 2.0);
   }
 
   /**

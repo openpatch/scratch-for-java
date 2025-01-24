@@ -4,7 +4,7 @@ import org.openpatch.scratch.*;
 
 public class RainbowVine extends Stage {
   public RainbowVine() {
-    super(800, 600);
+    super(true);
     this.setColor(0, 0, 0);
     this.add(new VineSprite());
     this.getCamera().setPosition(-400, -300);
