@@ -6,6 +6,22 @@ lang: de
 
 # Installation
 
+## Downloads
+
+::download[Windows - Intel 64-bit]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-windows-amd64.jar"}
+
+::download[Linux - Intel 64-bit]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-linux-amd64.jar"}
+
+::download[Linux - ARM v6hf]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-linux-armv6hf.jar"}
+
+::download[Linux - ARM 64-bit]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-linux-aarch64.jar"}
+
+::download[MacOS]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-macosx-universal.jar"}
+
+::download[Sources]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-sources.jar"}
+
+::download[JavaDoc]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-javadoc.jar"}
+
 ## VS Code (Empfohlen)
 
 Stelle zunächst sicher, dass du das Java Extension Pack installiert hast. Du findest es in der Erweiterungsansicht, indem du nach `redhat.java` suchst.
@@ -56,14 +72,3 @@ Wenn du BlueJ installiert hast, findest du den "userlib"-Ordner hier:
 
 Du kannst die Jar-Datei auch deinme classpath hinzufügen und so unabhängig von BlueJ mit deinem Lieblingseditor verwenden.
 
-## Downloads
-
-::download[Windows - Intel 64-bit]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-windows-amd64.jar"}
-
-::download[Linux - Intel 64-bit]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-linux-amd64.jar"}
-
-::download[Linux - ARM v6hf]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-linux-armv6hf.jar"}
-
-::download[Linux - ARM 64-bit]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-linux-aarch64.jar"}
-
-::download[MacOS]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-macosx-universal.jar"}
