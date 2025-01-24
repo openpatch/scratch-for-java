@@ -63,10 +63,11 @@ public class World extends Stage {
         }
       } else if ("enemy".equals(object.type)) {
         switch (object.name) {
-          case "bamboo": {
-            this.add(new Bamboo(object.x, object.y));
-            break;
-          }
+          case "bamboo":
+            {
+              this.add(new Bamboo(object.x, object.y));
+              break;
+            }
         }
       }
     }

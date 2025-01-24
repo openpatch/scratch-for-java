@@ -7,15 +7,13 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
 import java.awt.geom.PathIterator;
 import java.awt.geom.Rectangle2D;
-
 import org.openpatch.scratch.Window;
 import org.openpatch.scratch.extensions.math.Utils;
 import processing.core.PConstants;
 import processing.core.PGraphics;
 
 /**
- * Represents a hitbox with a shape that can be transformed by scaling,
- * translating, and rotating
+ * Represents a hitbox with a shape that can be transformed by scaling, translating, and rotating
  * it.
  */
 public class Hitbox {
@@ -55,13 +53,12 @@ public class Hitbox {
   /**
    * Transforms the shape by scaling, translating, and rotating it.
    *
-   * @param degrees    The angle in degrees to rotate the shape.
-   * @param originX    The x-coordinate of the rotation origin.
-   * @param originY    The y-coordinate of the rotation origin.
+   * @param degrees The angle in degrees to rotate the shape.
+   * @param originX The x-coordinate of the rotation origin.
+   * @param originY The y-coordinate of the rotation origin.
    * @param translateX The x-coordinate to translate the shape.
    * @param translateY The y-coordinate to translate the shape.
-   * @param size       The size to scale the shape, where 100.0 represents the
-   *                   original size.
+   * @param size The size to scale the shape, where 100.0 represents the original size.
    */
   public void translateAndRotateAndResize(
       double degrees,
@@ -107,8 +104,7 @@ public class Hitbox {
    *
    * @param x The x-coordinate of the point.
    * @param y The y-coordinate of the point.
-   * @return {@code true} if the hitbox contains the point, {@code false}
-   *         otherwise.
+   * @return {@code true} if the hitbox contains the point, {@code false} otherwise.
    */
   public boolean contains(double x, double y) {
     return this.shape.contains(new Point((int) Math.round(x), (int) Math.round(y)));
