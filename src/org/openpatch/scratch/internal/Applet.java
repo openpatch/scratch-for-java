@@ -19,12 +19,13 @@ import processing.event.MouseEvent;
 import processing.sound.SoundFile;
 
 /**
- * The Applet class represents the main application window. It is responsible for loading assets,
+ * The Applet class represents the main application window. It is responsible
+ * for loading assets,
  * managing stages, and handling mouse and keyboard events.
  */
 public class Applet extends PApplet {
-  private final int INITIAL_HEIGHT;
-  private final int INITIAL_WIDTH;
+  private final int RENDER_HEIGHT;
+  private final int RENDER_WIDTH;
   private final boolean FULLSCREEN;
 
   private boolean debug;
@@ -42,16 +43,25 @@ public class Applet extends PApplet {
   private String loadingText = "";
 
   /**
-   * Constructs an Applet with the specified width, height, fullscreen mode, and assets path.
+   * Constructs an Applet with the specified width, height, fullscreen mode, and
+   * assets path.
    *
-   * @param width the width of the window
-   * @param height the height of the window
+   * @param width      the width of the window
+   * @param height     the height of the window
    * @param fullscreen whether the window should be fullscreen
-   * @param assets the path to the assets directory
+   * @param assets     the path to the assets directory
    */
   public Applet(int width, final int height, final boolean fullscreen, final String assets) {
-    this.INITIAL_HEIGHT = height;
-    this.INITIAL_WIDTH = width;
+    if (height == 0) {
+      this.RENDER_HEIGHT = 1080;
+    } else {
+      this.RENDER_HEIGHT = height;
+    }
+    if (width == 0) {
+      this.RENDER_WIDTH = 1920;
+    } else {
+      this.RENDER_WIDTH = width;
+    }
     this.FULLSCREEN = fullscreen;
     this.assets = assets;
 
@@ -78,8 +88,9 @@ public class Applet extends PApplet {
   /**
    * Enables or disables the debug mode for the application.
    *
-   * @param debug a boolean value where {@code true} enables debug mode and {@code false} disables
-   *     it.
+   * @param debug a boolean value where {@code true} enables debug mode and
+   *              {@code false} disables
+   *              it.
    */
   public void setDebug(boolean debug) {
     this.debug = debug;
@@ -103,6 +114,14 @@ public class Applet extends PApplet {
     return this.width;
   }
 
+  public int getRenderWidth() {
+    return this.RENDER_WIDTH;
+  }
+
+  public int getRenderHeight() {
+    return this.RENDER_HEIGHT;
+  }
+
   /**
    * Returns the height of the current window.
    *
@@ -123,7 +142,7 @@ public class Applet extends PApplet {
 
   /**
    * @deprecated since 4.0.0. Use setStage instead.
-   * @param name Name of the stage
+   * @param name  Name of the stage
    * @param stage A stage object
    */
   @Deprecated(since = "4.0.0")
@@ -182,7 +201,7 @@ public class Applet extends PApplet {
     if (this.FULLSCREEN) {
       this.fullScreen(P2D);
     } else {
-      this.size(this.INITIAL_WIDTH, this.INITIAL_HEIGHT, P2D);
+      this.size(this.RENDER_WIDTH, this.RENDER_HEIGHT, P2D);
     }
   }
 
@@ -213,7 +232,8 @@ public class Applet extends PApplet {
   public void runSketch() {
     if (!this.isRunning) {
       super.runSketch();
-      while (this.surface.isStopped()) {}
+      while (this.surface.isStopped()) {
+      }
       this.isRunning = true;
     }
   }
@@ -222,14 +242,12 @@ public class Applet extends PApplet {
   public void setup() {
     this.windowTitle("Scratch for Java");
     this.windowResizable(false);
-
     this.imageMode(PConstants.CENTER);
     this.rectMode(PConstants.CENTER);
 
     this.loading = this.loadImage("loading.png");
-    var loadingScaleX = this.INITIAL_WIDTH / 480.0;
-    var loadingScaleY =
-        this.INITIAL_HEIGHT / (360.0 + 150); // normal height + padding for loading text
+    var loadingScaleX = this.RENDER_WIDTH / 480.0;
+    var loadingScaleY = this.RENDER_HEIGHT / (360.0 + 150); // normal height + padding for loading text
     var scale = Math.min(1, Math.min(loadingScaleX, loadingScaleY));
     this.loading.resize((int) (this.loading.width * scale), (int) (this.loading.height * scale));
   }
@@ -259,24 +277,18 @@ public class Applet extends PApplet {
           }
         }
 
-        @SuppressWarnings("unused")
-        var imageFiles =
-            Files.find(p, Integer.MAX_VALUE, (filePath, fileAttr) -> fileAttr.isRegularFile())
-                .map(f -> f.toString())
-                .filter(f -> f.endsWith(".png") || f.endsWith(".jpg") || f.endsWith(".jpeg"))
-                .collect(Collectors.toList());
-        @SuppressWarnings("unused")
-        var soundFiles =
-            Files.find(p, Integer.MAX_VALUE, (filePath, fileAttr) -> fileAttr.isRegularFile())
-                .map(f -> f.toString())
-                .filter(f -> f.endsWith(".mp3") || f.endsWith(".wav"))
-                .collect(Collectors.toList());
-        @SuppressWarnings("unused")
-        var fontFiles =
-            Files.find(p, Integer.MAX_VALUE, (filePath, fileAttr) -> fileAttr.isRegularFile())
-                .map(f -> f.toString())
-                .filter(f -> f.endsWith(".ttf") || f.endsWith(".otf"))
-                .collect(Collectors.toList());
+        var imageFiles = Files.find(p, Integer.MAX_VALUE, (filePath, fileAttr) -> fileAttr.isRegularFile())
+            .map(f -> f.toString())
+            .filter(f -> f.endsWith(".png") || f.endsWith(".jpg") || f.endsWith(".jpeg"))
+            .collect(Collectors.toList());
+        var soundFiles = Files.find(p, Integer.MAX_VALUE, (filePath, fileAttr) -> fileAttr.isRegularFile())
+            .map(f -> f.toString())
+            .filter(f -> f.endsWith(".mp3") || f.endsWith(".wav"))
+            .collect(Collectors.toList());
+        var fontFiles = Files.find(p, Integer.MAX_VALUE, (filePath, fileAttr) -> fileAttr.isRegularFile())
+            .map(f -> f.toString())
+            .filter(f -> f.endsWith(".ttf") || f.endsWith(".otf"))
+            .collect(Collectors.toList());
         this.numberAssets += imageFiles.size();
         this.numberAssets += soundFiles.size();
         this.numberAssets += fontFiles.size();

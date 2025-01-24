@@ -14,6 +14,8 @@
 	<classpathentry kind="lib" path="libs/jsyn-17.1.0.jar"/>
 	<classpathentry kind="lib" path="libs/sound.jar"/>
 	<classpathentry kind="lib" path="libs/stax2-api-4.2.1.jar"/>
+	<classpathentry kind="lib" path="libs/tritonus-share-0.3.7.4.jar"/>
+	<classpathentry kind="lib" path="libs/vorbisspi-1.0.3.3.jar"/>
 	<classpathentry kind="lib" path="libs/woodstox-core-6.5.1.jar"/>
 	<classpathentry kind="lib" path="libs/word-wrap-0.1.12.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>

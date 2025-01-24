@@ -38,9 +38,15 @@ public class Shader {
    * @return shader
    */
   private static PShader loadPShader(String path) {
-    // add support for ~
-    path = path.replaceFirst("^~", System.getProperty("user.home"));
-    return Applet.getInstance().loadShader(path);
+    // Shader need the JOGL surface to be instantiated
+    // Sometimes the app will start to fast and the surface is not ready
+    // This is a workaround to load the shader.
+    try {
+      path = path.replaceFirst("^~", System.getProperty("user.home"));
+      return Applet.getInstance().loadShader(path);
+    } catch (Exception e) {
+      return loadPShader(path);
+    }
   }
 
   /**

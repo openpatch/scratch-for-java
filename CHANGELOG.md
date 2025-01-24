@@ -4,6 +4,30 @@ index: 4
 lang: en
 ---
 
+## 4.16.0
+
+- 🚀 Feat: Add better fullscreen mode. You can now set a target resolution, when using the fullscreen mode. This renders the stage at this resolution and scales it to the fullscreen size keeping the aspect-ratio.
+
+In the following code the stage is rendered at 800x600 and then scaled to fit the fullscreen window.
+
+```java
+public class MyWindow extends Window {
+    public MyWindow() {
+        super(true, 800, 600);
+    }
+}
+``` 
+
+This is also possible when you are working with only the stage class.
+
+```java
+public class MyStage extends Stage {
+    public MyStage() {
+        super(true, 800, 600);
+    }
+}
+``` 
+
 ## 4.15.2
 
 - 🚀 Feat: add Operators.round(value, precision) to round values. `Operators.round(2.3456, 2)` will return `2.35`.
