@@ -1,31 +1,14 @@
 ---
-name: Installation
-index: 1
+name: Setup
 ---
 
-# Installation
-
-## Downloads
-
-::download[Windows - Intel 64-bit]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-windows-amd64.jar"}
-
-::download[Linux - Intel 64-bit]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-linux-amd64.jar"}
-
-::download[Linux - ARM v6hf]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-linux-armv6hf.jar"}
-
-::download[Linux - ARM 64-bit]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-linux-aarch64.jar"}
-
-::download[MacOS]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-macosx-universal.jar"}
-
-::download[Sources]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-sources.jar"}
-
-::download[JavaDoc]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-javadoc.jar"}
+# Setup
 
 ## VS Code (Recommended)
 
 First make sure you have the Java Extension Pack installed. You can find it in the Extensions view by searching for `redhat.java`.
 
-Then you need to download the Scratch for Java jar for your [operating system](#downloads).
+Then you need to download the Scratch for Java jar for your [operating system](/download).
 
 Afterward, you need to add the jar to your project. You can do this by adding the following to your `settings.json`:
 
@@ -47,7 +30,7 @@ If you want to be compatible with BlueJ you should use a "+libs" folder in your 
 
 You can install this library via three ways in BlueJ.
 
-First, you need to download the Scratch for Java jar for your [operating system](#downloads).
+First, you need to download the Scratch for Java jar for your [operating system](/download).
 
 ### Project-by-project
 
@@ -69,4 +52,4 @@ If you have installed BlueJ via the installer you probably find the "userlib" fo
 
 ## Standalone
 
-You need to add the Jar file for your [operating system](#downloads) to the classpath.
+You need to add the Jar file for your [operating system](/download) to the classpath.

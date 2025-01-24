@@ -1,32 +1,15 @@
 ---
-name: Installation
-index: 1
+name: Setup
 lang: de
 ---
 
-# Installation
-
-## Downloads
-
-::download[Windows - Intel 64-bit]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-windows-amd64.jar"}
-
-::download[Linux - Intel 64-bit]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-linux-amd64.jar"}
-
-::download[Linux - ARM v6hf]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-linux-armv6hf.jar"}
-
-::download[Linux - ARM 64-bit]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-linux-aarch64.jar"}
-
-::download[MacOS]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-macosx-universal.jar"}
-
-::download[Sources]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-sources.jar"}
-
-::download[JavaDoc]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-javadoc.jar"}
+# Setup
 
 ## VS Code (Empfohlen)
 
 Stelle zunächst sicher, dass du das Java Extension Pack installiert hast. Du findest es in der Erweiterungsansicht, indem du nach `redhat.java` suchst.
 
-Dann musst du die Scratch for Java jar für dein [Betriebssystem](#downloads) herunterladen.
+Dann musst du die Scratch for Java jar für dein [Betriebssystem](/download) herunterladen.
 
 Anschließend musst du die jar zu deinem Projekt hinzufügen. Du kannst dies tun, indem du Folgendes zu deiner `settings.json` hinzufügst:
 
@@ -48,7 +31,7 @@ Wenn du mit BlueJ kompatibel sein möchtest, solltest du einen "+libs"-Ordner in
 
 Du kannst die Bibliothek auf drei verschiedene Arten installieren.
 
-Als Erstes musst du dir die Scratch for Java jar-Datei für dein [Betriebssystem](#downloads) herunterladen.
+Als Erstes musst du dir die Scratch for Java jar-Datei für dein [Betriebssystem](/download) herunterladen.
 
 ### Für ein einzelnes Projekt
 
