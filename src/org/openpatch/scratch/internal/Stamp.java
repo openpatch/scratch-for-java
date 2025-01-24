@@ -49,7 +49,7 @@ public class Stamp {
         (float) this.image.tint.getGreen(),
         (float) this.image.tint.getBlue(),
         (float) this.image.transparency);
-    g.image(this.image.image, 0, 0);
+    g.image(this.image.originalImage, 0, 0);
     g.noTint();
     g.pop();
   }

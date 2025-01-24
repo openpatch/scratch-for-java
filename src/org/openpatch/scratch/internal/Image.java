@@ -15,8 +15,6 @@ import processing.core.PImage;
 public class Image {
 
   String name;
-  PImage image;
-  AbstractMap<String, PImage> imageResized = new ConcurrentHashMap<>();
   final PImage originalImage;
   Color tint = new Color();
   double transparency = 255;
@@ -30,7 +28,7 @@ public class Image {
   /**
    * Construct a ScratchImage object by a name and a path to an image.
    *
-   * @param name a a name
+   * @param name      a a name
    * @param imagePath a path to an image
    */
   public Image(String name, String imagePath) {
@@ -38,23 +36,21 @@ public class Image {
     this.originalImage = Image.loadImage(imagePath);
     this.width = this.originalImage.width;
     this.height = this.originalImage.height;
-    this.image = this.originalImage;
   }
 
   /**
    * Construct a ScratchImage object by a name and a path to a sprite sheet.
    *
-   * @param name a name
+   * @param name            a name
    * @param spriteSheetPath a path to a sprite sheet
-   * @param x the x coordinate of the tile
-   * @param y the y coordinate of the tile
-   * @param width the width of the tile
-   * @param height the height of the tile
+   * @param x               the x coordinate of the tile
+   * @param y               the y coordinate of the tile
+   * @param width           the width of the tile
+   * @param height          the height of the tile
    */
   public Image(String name, String spriteSheetPath, int x, int y, int width, int height) {
     this.name = name;
     this.originalImage = Image.loadImage(spriteSheetPath, x, y, width, height);
-    this.image = this.originalImage;
     this.width = this.originalImage.width;
     this.height = this.originalImage.height;
   }
@@ -66,7 +62,6 @@ public class Image {
    */
   public Image(Image i) {
     this.name = i.name;
-    this.image = i.image;
     this.originalImage = i.originalImage;
     this.tint = new Color(i.tint);
     this.transparency = i.transparency;
@@ -94,10 +89,10 @@ public class Image {
   /**
    * Loads an image from a given path and returns a tile of the image.
    *
-   * @param path the path to the image
-   * @param x the x coordinate of the tile
-   * @param y the y coordinate of the tile
-   * @param width the width of the tile
+   * @param path   the path to the image
+   * @param x      the x coordinate of the tile
+   * @param y      the y coordinate of the tile
+   * @param width  the width of the tile
    * @param height the height of the tile
    * @return a tile of the image
    */
@@ -156,7 +151,7 @@ public class Image {
    * @return the pixel at the given position
    */
   public int getPixel(int x, int y) {
-    return this.image.get(x, y);
+    return this.originalImage.get(x, y);
   }
 
   /**
@@ -225,56 +220,41 @@ public class Image {
   }
 
   /**
-   * Sets the image from a given path
-   *
-   * @param imagePath the path to the image
-   */
-  public void setImage(String imagePath) {
-    this.image = Applet.getInstance().loadImage(imagePath);
-  }
-
-  /**
    * Sets the size of the image to the specified percentage of the original size.
    *
    * @param percentage The desired size as a percentage of the original size
    */
   public void setSize(double percentage) {
-    this.width = (int) Math.round(this.originalImage.width * percentage / 100);
-    this.height = (int) Math.round(this.originalImage.height * percentage / 100);
+    var width = (int) Math.round(this.originalImage.width * percentage / 100);
+    var height = (int) Math.round(this.originalImage.height * percentage / 100);
     this.setSize(width, height);
   }
 
   /**
-   * Sets the size of the image to the specified width and height. If a resized version with the
-   * requested dimensions already exists in cache, it will use that version. Otherwise, it creates a
+   * Sets the size of the image to the specified width and height. If a resized
+   * version with the
+   * requested dimensions already exists in cache, it will use that version.
+   * Otherwise, it creates a
    * new resized copy from the original image and caches it for future use.
    *
-   * @param width The desired width of the image in pixels
+   * @param width  The desired width of the image in pixels
    * @param height The desired height of the image in pixels
    */
   public void setSize(int width, int height) {
-    var key = width + "x" + height;
-    var imageResized = this.imageResized.get(key);
-    if (imageResized != null) {
-      this.image = imageResized;
-    } else {
-      imageResized = this.originalImage.copy();
-      imageResized.resize(width, height);
-      this.imageResized.put(key, imageResized);
-      this.image = imageResized;
-    }
+    this.width = width;
+    this.height = height;
   }
 
   /**
    * Draw the scaled image at a given position.
    *
-   * @param buffer a buffer
-   * @param size a percentage value
+   * @param buffer  a buffer
+   * @param size    a percentage value
    * @param degrees direction
-   * @param x a x coordinate
-   * @param y a y coordinate
-   * @param style a rotation style
-   * @param shader a shader
+   * @param x       a x coordinate
+   * @param y       a y coordinate
+   * @param style   a rotation style
+   * @param shader  a shader
    */
   public void draw(
       PGraphics buffer,
@@ -285,7 +265,6 @@ public class Image {
       RotationStyle style,
       Shader shader) {
     buffer.push();
-    buffer.imageMode(PConstants.CENTER);
     buffer.translate((float) x, (float) -y);
     degrees -= 90;
     switch (style) {
@@ -306,12 +285,22 @@ public class Image {
       var pshader = shader.getPShader();
       buffer.shader(pshader);
     }
+
+    buffer.translate(-this.width / 2.0f, -this.height / 2.0f);
     buffer.tint(
         (float) this.tint.getRed(),
         (float) this.tint.getGreen(),
         (float) this.tint.getBlue(),
         (float) this.transparency);
-    buffer.image(this.image, 0, 0);
+    buffer.noStroke();
+    buffer.textureMode(PConstants.NORMAL);
+    buffer.beginShape();
+    buffer.texture(this.originalImage);
+    buffer.vertex(0, 0, 0, 0);
+    buffer.vertex(this.width, 0, 1, 0);
+    buffer.vertex(this.width, this.height, 1, 1);
+    buffer.vertex(0, this.height, 0, 1);
+    buffer.endShape();
     buffer.noTint();
     buffer.resetShader();
     buffer.pop();
@@ -320,11 +309,11 @@ public class Image {
   /**
    * Draw the scaled image at a given position.
    *
-   * @param size a percentage value
+   * @param size    a percentage value
    * @param degrees direction
-   * @param x a x coordinate
-   * @param y a y coordinate
-   * @param style a rotation style
+   * @param x       a x coordinate
+   * @param y       a y coordinate
+   * @param style   a rotation style
    */
   public void drawDebug(
       PGraphics buffer, double size, double degrees, double x, double y, RotationStyle style) {
@@ -340,31 +329,20 @@ public class Image {
   /**
    * Draw the scaled image at a given position.
    *
-   * @param buffer a buffer
-   * @param size a percentage value
+   * @param buffer  a buffer
+   * @param size    a percentage value
    * @param degrees direction
-   * @param x a x coordinate
-   * @param y a y coordinate
-   * @param shader a shader
+   * @param x       a x coordinate
+   * @param y       a y coordinate
+   * @param shader  a shader
    */
   public void draw(PGraphics buffer, float size, float degrees, float x, float y, Shader shader) {
     this.draw(buffer, size, degrees, x, y, RotationStyle.ALL_AROUND, shader);
   }
 
-  /** Draw the image. */
-  public void draw() {
-    PApplet parent = Applet.getInstance();
-    parent.tint(
-        (float) this.tint.getRed(),
-        (float) this.tint.getGreen(),
-        (float) this.tint.getBlue(),
-        (float) this.transparency);
-    parent.image(this.image, 0, 0);
-    parent.noTint();
-  }
-
   /**
-   * Draw the image as a background. The image is automatically scaled to fit the window size.
+   * Draw the image as a background. The image is automatically scaled to fit the
+   * window size.
    *
    * @param buffer a buffer
    */
@@ -374,7 +352,15 @@ public class Image {
         (float) this.tint.getGreen(),
         (float) this.tint.getBlue(),
         (float) this.transparency);
-    buffer.image(this.image, 0, 0);
+    buffer.noStroke();
+    buffer.textureMode(PConstants.NORMAL);
+    buffer.beginShape();
+    buffer.texture(this.originalImage);
+    buffer.vertex(0, 0, 0, 0);
+    buffer.vertex(buffer.width, 0, 1, 0);
+    buffer.vertex(buffer.width, buffer.height, 1, 1);
+    buffer.vertex(0, buffer.height, 0, 1);
+    buffer.endShape();
     buffer.noTint();
   }
 }

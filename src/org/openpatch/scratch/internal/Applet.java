@@ -9,17 +9,21 @@ import java.nio.file.Paths;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
+
 import org.openpatch.scratch.KeyCode;
 import org.openpatch.scratch.Stage;
+
 import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PImage;
 import processing.event.KeyEvent;
 import processing.event.MouseEvent;
+import processing.opengl.PGraphicsOpenGL;
 import processing.sound.SoundFile;
 
 /**
- * The Applet class represents the main application window. It is responsible for loading assets,
+ * The Applet class represents the main application window. It is responsible
+ * for loading assets,
  * managing stages, and handling mouse and keyboard events.
  */
 public class Applet extends PApplet {
@@ -40,14 +44,16 @@ public class Applet extends PApplet {
   private double deltaTime;
   private boolean hasLoaded = false;
   private String loadingText = "";
+  private int textureSamplingMode;
 
   /**
-   * Constructs an Applet with the specified width, height, fullscreen mode, and assets path.
+   * Constructs an Applet with the specified width, height, fullscreen mode, and
+   * assets path.
    *
-   * @param width the width of the window
-   * @param height the height of the window
+   * @param width      the width of the window
+   * @param height     the height of the window
    * @param fullscreen whether the window should be fullscreen
-   * @param assets the path to the assets directory
+   * @param assets     the path to the assets directory
    */
   public Applet(int width, final int height, final boolean fullscreen, final String assets) {
     if (height == 0) {
@@ -86,8 +92,9 @@ public class Applet extends PApplet {
   /**
    * Enables or disables the debug mode for the application.
    *
-   * @param debug a boolean value where {@code true} enables debug mode and {@code false} disables
-   *     it.
+   * @param debug a boolean value where {@code true} enables debug mode and
+   *              {@code false} disables
+   *              it.
    */
   public void setDebug(boolean debug) {
     this.debug = debug;
@@ -139,7 +146,7 @@ public class Applet extends PApplet {
 
   /**
    * @deprecated since 4.0.0. Use setStage instead.
-   * @param name Name of the stage
+   * @param name  Name of the stage
    * @param stage A stage object
    */
   @Deprecated(since = "4.0.0")
@@ -229,7 +236,8 @@ public class Applet extends PApplet {
   public void runSketch() {
     if (!this.isRunning) {
       super.runSketch();
-      while (this.surface.isStopped()) {}
+      while (this.surface.isStopped()) {
+      }
       this.isRunning = true;
     }
   }
@@ -243,8 +251,7 @@ public class Applet extends PApplet {
 
     this.loading = this.loadImage("loading.png");
     var loadingScaleX = this.RENDER_WIDTH / 480.0;
-    var loadingScaleY =
-        this.RENDER_HEIGHT / (360.0 + 150); // normal height + padding for loading text
+    var loadingScaleY = this.RENDER_HEIGHT / (360.0 + 150); // normal height + padding for loading text
     var scale = Math.min(1, Math.min(loadingScaleX, loadingScaleY));
     this.loading.resize((int) (this.loading.width * scale), (int) (this.loading.height * scale));
   }
@@ -274,21 +281,18 @@ public class Applet extends PApplet {
           }
         }
 
-        var imageFiles =
-            Files.find(p, Integer.MAX_VALUE, (filePath, fileAttr) -> fileAttr.isRegularFile())
-                .map(f -> f.toString())
-                .filter(f -> f.endsWith(".png") || f.endsWith(".jpg") || f.endsWith(".jpeg"))
-                .collect(Collectors.toList());
-        var soundFiles =
-            Files.find(p, Integer.MAX_VALUE, (filePath, fileAttr) -> fileAttr.isRegularFile())
-                .map(f -> f.toString())
-                .filter(f -> f.endsWith(".mp3") || f.endsWith(".wav"))
-                .collect(Collectors.toList());
-        var fontFiles =
-            Files.find(p, Integer.MAX_VALUE, (filePath, fileAttr) -> fileAttr.isRegularFile())
-                .map(f -> f.toString())
-                .filter(f -> f.endsWith(".ttf") || f.endsWith(".otf"))
-                .collect(Collectors.toList());
+        var imageFiles = Files.find(p, Integer.MAX_VALUE, (filePath, fileAttr) -> fileAttr.isRegularFile())
+            .map(f -> f.toString())
+            .filter(f -> f.endsWith(".png") || f.endsWith(".jpg") || f.endsWith(".jpeg"))
+            .collect(Collectors.toList());
+        var soundFiles = Files.find(p, Integer.MAX_VALUE, (filePath, fileAttr) -> fileAttr.isRegularFile())
+            .map(f -> f.toString())
+            .filter(f -> f.endsWith(".mp3") || f.endsWith(".wav"))
+            .collect(Collectors.toList());
+        var fontFiles = Files.find(p, Integer.MAX_VALUE, (filePath, fileAttr) -> fileAttr.isRegularFile())
+            .map(f -> f.toString())
+            .filter(f -> f.endsWith(".ttf") || f.endsWith(".otf"))
+            .collect(Collectors.toList());
         this.numberAssets += imageFiles.size();
         this.numberAssets += soundFiles.size();
         this.numberAssets += fontFiles.size();
@@ -340,6 +344,15 @@ public class Applet extends PApplet {
     if (e.getKeyCode() == KeyCode.VK_F11) {
       this.debug = !this.debug;
     }
+  }
+
+  public void setTextureSampling(int mode) {
+    textureSamplingMode = mode;
+    ((PGraphicsOpenGL) g).textureSampling(mode);
+  }
+
+  public int getTextureSampling() {
+    return textureSamplingMode;
   }
 
   /** Draws the application window. */

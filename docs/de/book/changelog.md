@@ -4,6 +4,19 @@ index: 4
 lang: en
 ---
 
+## 4.12.0
+
+- 🚀 Feat: You can set the texture sampling mode. For pixel art games, you can set the texture sampling mode to nearest neighbor. This will prevent the textures from being interpolated.
+
+```java
+public class MyStage() {
+    public MyStage() {
+        super(800, 400);
+        setTextureSampling(2); // set the texture sampling to point sampling.
+    }
+}
+```
+
 ## 4.11.0
 
 - 🚀 Feat: A broadcast and whenIReceive methods for the Object-class, which makes it possible to send anything as a broadcast.

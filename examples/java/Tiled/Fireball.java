@@ -21,11 +21,15 @@ public class Fireball extends AnimatedSprite {
 
     if (dir == "left") {
       this.changeX(-speed);
+      this.setDirection(0);
     } else if (dir == "right") {
       this.changeX(speed);
+      this.setDirection(180);
     } else if (dir == "up") {
+      this.setDirection(90);
       this.changeY(speed);
     } else if (dir == "down") {
+      this.setDirection(270);
       this.changeY(-speed);
     }
 
