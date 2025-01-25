@@ -14,7 +14,6 @@ public class World extends Stage {
     GameState.load();
     I18n.select(GameState.get().locale);
     this.loadMap(GameState.get().map);
-    this.setTextureSampling(2);
   }
 
   public void whenKeyPressed(int keyCode) {

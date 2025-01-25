@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 import org.openpatch.scratch.KeyCode;
 import org.openpatch.scratch.Stage;
+import org.openpatch.scratch.extensions.text.Text;
 
 import processing.core.PApplet;
 import processing.core.PConstants;
@@ -44,7 +45,6 @@ public class Applet extends PApplet {
   private double deltaTime;
   private boolean hasLoaded = false;
   private String loadingText = "";
-  private int textureSamplingMode;
 
   /**
    * Constructs an Applet with the specified width, height, fullscreen mode, and
@@ -267,7 +267,7 @@ public class Applet extends PApplet {
 
   /** Loads assets from the specified directory. */
   public void loadAssets() {
-    Font.loadFont(Font.defaultFontPath);
+    Font.loadFont(Text.DEFAULT_FONT);
     if (this.assets != null) {
       try {
         this.loadingText = "Finding files...";
@@ -347,12 +347,7 @@ public class Applet extends PApplet {
   }
 
   public void setTextureSampling(int mode) {
-    textureSamplingMode = mode;
     ((PGraphicsOpenGL) g).textureSampling(mode);
-  }
-
-  public int getTextureSampling() {
-    return textureSamplingMode;
   }
 
   /** Draws the application window. */
