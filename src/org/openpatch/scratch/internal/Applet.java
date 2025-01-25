@@ -9,11 +9,9 @@ import java.nio.file.Paths;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
-
 import org.openpatch.scratch.KeyCode;
 import org.openpatch.scratch.Stage;
 import org.openpatch.scratch.extensions.text.Text;
-
 import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PImage;
