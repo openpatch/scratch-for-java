@@ -2,23 +2,20 @@ package org.openpatch.scratch.internal;
 
 import java.util.AbstractMap;
 import java.util.concurrent.ConcurrentHashMap;
-
 import org.openpatch.scratch.extensions.text.Text;
-
 import processing.core.PFont;
 
 /**
- * The Font class represents a font that can be used to render text on the
- * screen. It supports
- * various functionalities such as loading fonts from files, setting font sizes,
- * and getting the
+ * The Font class represents a font that can be used to render text on the screen. It supports
+ * various functionalities such as loading fonts from files, setting font sizes, and getting the
  * font object for a specific size.
  */
 public class Font {
   private String name;
   private AbstractMap<Integer, PFont> fontMap;
 
-  private static final AbstractMap<String, AbstractMap<Integer, PFont>> fonts = new ConcurrentHashMap<>();
+  private static final AbstractMap<String, AbstractMap<Integer, PFont>> fonts =
+      new ConcurrentHashMap<>();
 
   /** The default font. */
   public static PFont defaultFont;
@@ -62,7 +59,9 @@ public class Font {
    */
   public static PFont getDefaultFont() {
     if (defaultFont == null) {
-      defaultFont = Applet.getInstance().createFont(Text.DEFAULT_FONT, Text.DEFAULT_FONT_SIZE, Text.SMOOTHING);
+      defaultFont =
+          Applet.getInstance()
+              .createFont(Text.DEFAULT_FONT, Text.DEFAULT_FONT_SIZE, Text.SMOOTHING);
     }
     return defaultFont;
   }
