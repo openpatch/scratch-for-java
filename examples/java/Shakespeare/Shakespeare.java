@@ -67,6 +67,7 @@ public class Shakespeare extends Stage {
   }
 
   public static void main(String[] args) {
+    Text.FONT_SIZES = new int[] { 14, 20 };
     new Shakespeare();
   }
 }
