@@ -13,7 +13,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
-
 import org.openpatch.scratch.extensions.camera.Camera;
 import org.openpatch.scratch.extensions.color.Color;
 import org.openpatch.scratch.extensions.hitbox.Hitbox;
@@ -28,7 +27,6 @@ import org.openpatch.scratch.internal.Font;
 import org.openpatch.scratch.internal.Image;
 import org.openpatch.scratch.internal.Sound;
 import org.openpatch.scratch.internal.Stamp;
-
 import processing.core.PConstants;
 import processing.core.PGraphics;
 import processing.event.KeyEvent;
@@ -194,6 +192,7 @@ public class Stage {
       a.setStage(this);
     }
     Applet applet = Applet.getInstance();
+
     this.shaderBuffer = applet.createGraphics(
         applet.getRenderWidth(), applet.getRenderHeight(), applet.sketchRenderer());
     this.mainBuffer = applet.createGraphics(
@@ -314,8 +313,45 @@ public class Stage {
   }
 
   /**
+   * <<<<<<< HEAD
    * Adds a new shader to the sprite. If a shader with the received name already
    * exists, this method
+   * =======
+   * Sets the texture sampling mode Point sampling: both magnification and
+   * minification filtering
+   * are set to nearest. Linear sampling: magnification filtering is nearest,
+   * minification set to
+   * linear Bilinear sampling: both magnification filtering is set to linear and
+   * minification either
+   * to linear-mipmap-nearest (linear interpolation is used within a mipmap, but
+   * not between
+   * different mipmaps). Trilinear sampling: magnification filtering set to
+   * linear, minification to
+   * linear-mipmap-linear, which offers the best mipmap quality since linear
+   * interpolation to
+   * compute the value in each of two maps and then interpolates linearly between
+   * these two values.
+   *
+   * @param mode the texture sampling mode. 2: Point Sampling. 3: Linear. 4:
+   *             Bilinear. 5: Trilinear.
+   */
+  public void setTextureSampling(int mode) {
+    if (mode < 2 || mode > 5)
+      return;
+    Applet.getInstance().setTextureSampling(mode);
+    ((PGraphicsOpenGL) this.shaderBuffer).textureSampling(mode);
+    ((PGraphicsOpenGL) this.mainBuffer).textureSampling(mode);
+    ((PGraphicsOpenGL) this.backgroundBuffer).textureSampling(mode);
+    ((PGraphicsOpenGL) this.debugBuffer).textureSampling(mode);
+    ((PGraphicsOpenGL) this.backdropBuffer).textureSampling(mode);
+    ((PGraphicsOpenGL) this.uiBuffer).textureSampling(mode);
+    ((PGraphicsOpenGL) this.foregroundBuffer).textureSampling(mode);
+  }
+
+  /**
+   * Adds a new shader to the sprite. If a shader with the received name already
+   * exists, this method
+   * >>>>>>> d7b76036d7d2175245fa8de40d42d972914b35f6
    * does nothing.
    *
    * @param name
