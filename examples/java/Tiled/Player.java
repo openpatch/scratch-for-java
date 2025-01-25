@@ -29,7 +29,7 @@ public class Player extends AnimatedSprite {
     this.changeX(dx);
     this.changeY(dy);
     if (!hasItem("scroll-water") && this.isTouchingSprite(Water.class)) {
-      this.think(I18n.get("need-scroll-water"), 2000);
+      this.think(I18n.get("need-scroll-water"), 5000);
       this.changeX(-dx);
       this.changeY(-dy);
     }

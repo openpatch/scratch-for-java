@@ -4,6 +4,23 @@ index: 4
 lang: en
 ---
 
+## 4.17.0
+
+- 🚀 Feat: Add texture sampling modes. These are useful if you want for example develop a pixelart game. The texture sampling mode can be set via the new global settings.
+- 🚀 Feat: Introducing global settings.
+
+You can set theses static attributes in your main-method. Take a look at the [documentation](https://openpatch.github.io/scratch-for-java/) for more information.
+
+```java
+Window.TEXTURE_SAMPLING_MODE = 2;
+Text.DEFAULT_FONT = "Tiled/assets/Retro Gaming.ttf";
+Text.DEFAULT_FONT_SIZE = 11;
+Text.FONT_SIZES = new int[] { 11 };
+Text.SPEAK_BUBBLE_MAX_LIMIT = 200;
+Text.SMOOTHING = false;
+```
+
+
 ## 4.16.0
 
 - 🚀 Feat: Add better fullscreen mode. You can now set a target resolution, when using the fullscreen mode. This renders the stage at this resolution and scales it to the fullscreen size keeping the aspect-ratio.
