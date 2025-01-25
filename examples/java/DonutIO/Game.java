@@ -1,6 +1,7 @@
 package DonutIO;
 
 import org.openpatch.scratch.Window;
+import org.openpatch.scratch.extensions.text.Text;
 
 public class Game extends Window {
 
@@ -13,6 +14,7 @@ public class Game extends Window {
   }
 
   public static void main(String[] args) {
+    Text.FONT_SIZES = new int[] { 32, 48 };
     new Game();
   }
 }
