@@ -1,5 +1,6 @@
 ---
 name: Setup
+index: 2
 ---
 
 # Setup

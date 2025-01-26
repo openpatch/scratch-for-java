@@ -1,6 +1,6 @@
 ---
 name: Differences to Scratch
-index: 2
+index: 3
 ---
 
 # Differences to Scratch
