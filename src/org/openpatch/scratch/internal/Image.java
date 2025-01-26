@@ -28,7 +28,7 @@ public class Image {
   /**
    * Construct a ScratchImage object by a name and a path to an image.
    *
-   * @param name      a a name
+   * @param name a a name
    * @param imagePath a path to an image
    */
   public Image(String name, String imagePath) {
@@ -41,12 +41,12 @@ public class Image {
   /**
    * Construct a ScratchImage object by a name and a path to a sprite sheet.
    *
-   * @param name            a name
+   * @param name a name
    * @param spriteSheetPath a path to a sprite sheet
-   * @param x               the x coordinate of the tile
-   * @param y               the y coordinate of the tile
-   * @param width           the width of the tile
-   * @param height          the height of the tile
+   * @param x the x coordinate of the tile
+   * @param y the y coordinate of the tile
+   * @param width the width of the tile
+   * @param height the height of the tile
    */
   public Image(String name, String spriteSheetPath, int x, int y, int width, int height) {
     this.name = name;
@@ -89,10 +89,10 @@ public class Image {
   /**
    * Loads an image from a given path and returns a tile of the image.
    *
-   * @param path   the path to the image
-   * @param x      the x coordinate of the tile
-   * @param y      the y coordinate of the tile
-   * @param width  the width of the tile
+   * @param path the path to the image
+   * @param x the x coordinate of the tile
+   * @param y the y coordinate of the tile
+   * @param width the width of the tile
    * @param height the height of the tile
    * @return a tile of the image
    */
@@ -220,13 +220,11 @@ public class Image {
   }
 
   /**
-   * Sets the size of the image to the specified width and height. If a resized
-   * version with the
-   * requested dimensions already exists in cache, it will use that version.
-   * Otherwise, it creates a
+   * Sets the size of the image to the specified width and height. If a resized version with the
+   * requested dimensions already exists in cache, it will use that version. Otherwise, it creates a
    * new resized copy from the original image and caches it for future use.
    *
-   * @param width  The desired width of the image in pixels
+   * @param width The desired width of the image in pixels
    * @param height The desired height of the image in pixels
    */
   public void setSize(int width, int height) {
@@ -237,13 +235,13 @@ public class Image {
   /**
    * Draw the scaled image at a given position.
    *
-   * @param buffer  a buffer
-   * @param size    a percentage value
+   * @param buffer a buffer
+   * @param size a percentage value
    * @param degrees direction
-   * @param x       a x coordinate
-   * @param y       a y coordinate
-   * @param style   a rotation style
-   * @param shader  a shader
+   * @param x a x coordinate
+   * @param y a y coordinate
+   * @param style a rotation style
+   * @param shader a shader
    */
   public void draw(
       PGraphics buffer,
@@ -298,11 +296,11 @@ public class Image {
   /**
    * Draw the scaled image at a given position.
    *
-   * @param size    a percentage value
+   * @param size a percentage value
    * @param degrees direction
-   * @param x       a x coordinate
-   * @param y       a y coordinate
-   * @param style   a rotation style
+   * @param x a x coordinate
+   * @param y a y coordinate
+   * @param style a rotation style
    */
   public void drawDebug(
       PGraphics buffer, double size, double degrees, double x, double y, RotationStyle style) {
@@ -318,20 +316,19 @@ public class Image {
   /**
    * Draw the scaled image at a given position.
    *
-   * @param buffer  a buffer
-   * @param size    a percentage value
+   * @param buffer a buffer
+   * @param size a percentage value
    * @param degrees direction
-   * @param x       a x coordinate
-   * @param y       a y coordinate
-   * @param shader  a shader
+   * @param x a x coordinate
+   * @param y a y coordinate
+   * @param shader a shader
    */
   public void draw(PGraphics buffer, float size, float degrees, float x, float y, Shader shader) {
     this.draw(buffer, size, degrees, x, y, RotationStyle.ALL_AROUND, shader);
   }
 
   /**
-   * Draw the image as a background. The image is automatically scaled to fit the
-   * window size.
+   * Draw the image as a background. The image is automatically scaled to fit the window size.
    *
    * @param buffer a buffer
    */
