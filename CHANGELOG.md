@@ -4,7 +4,13 @@ index: 4
 lang: en
 ---
 
-## 4.17.0
+## 4.18.1
+
+- 🐛 Fix: isTouchingSprite not working correctly, when the sprite is resized.
+- 🐛 Fix: The build is now comaptible with Java 17 again.
+- 🐛 Fix: Missing previousCostume method on the Sprite class.
+
+## 4.18.0
 
 - 🚀 Feat: Add texture sampling modes. These are useful if you want for example develop a pixelart game. The texture sampling mode can be set via the new global settings.
 - 🚀 Feat: Introducing global settings.
@@ -21,7 +27,7 @@ Text.SMOOTHING = false;
 ```
 
 
-## 4.16.0
+## 4.17.0
 
 - 🚀 Feat: Add better fullscreen mode. You can now set a target resolution, when using the fullscreen mode. This renders the stage at this resolution and scales it to the fullscreen size keeping the aspect-ratio.
 
@@ -45,7 +51,7 @@ public class MyStage extends Stage {
 }
 ``` 
 
-## 4.15.2
+## 4.16.0
 
 - 🚀 Feat: add Operators.round(value, precision) to round values. `Operators.round(2.3456, 2)` will return `2.35`.
 - 🐛 Fix: Random.randomInt not return the maximum value.

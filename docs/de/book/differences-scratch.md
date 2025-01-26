@@ -1,6 +1,6 @@
 ---
 name: Unterschiede zu Scratch
-index: 2
+index: 3
 lang: de
 ---
 

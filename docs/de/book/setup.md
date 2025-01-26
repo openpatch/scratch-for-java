@@ -1,6 +1,7 @@
 ---
 name: Setup
 lang: de
+index: 2
 ---
 
 # Setup
