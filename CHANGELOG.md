@@ -4,6 +4,18 @@ index: 4
 lang: en
 ---
 
+## 4.19.0
+
+- 🚀 Feat: Add transitionToStage method to Window class.
+
+You can now use the transitionToStage method for a smoothing transition between the current and the new stage.
+
+```java
+window.transitionToStage(new MyStage(), 500);
+```
+
+The DonutIO example shows the usage of the transitionToStage method.
+
 ## 4.18.1
 
 - 🐛 Fix: isTouchingSprite not working correctly, when the sprite is resized.

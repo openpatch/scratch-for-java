@@ -21,7 +21,8 @@ import processing.opengl.PGraphicsOpenGL;
 import processing.sound.SoundFile;
 
 /**
- * The Applet class represents the main application window. It is responsible for loading assets,
+ * The Applet class represents the main application window. It is responsible
+ * for loading assets,
  * managing stages, and handling mouse and keyboard events.
  */
 public class Applet extends PApplet {
@@ -37,6 +38,10 @@ public class Applet extends PApplet {
   private PImage loading;
   private final String assets;
   private Stage stage;
+  private Stage nextStage;
+  private int transitionStart;
+  private int transitionDuration;
+  private String transitionStage;
   private Map<String, Stage> stages;
   private int lastMillis;
   private double deltaTime;
@@ -44,12 +49,13 @@ public class Applet extends PApplet {
   private String loadingText = "";
 
   /**
-   * Constructs an Applet with the specified width, height, fullscreen mode, and assets path.
+   * Constructs an Applet with the specified width, height, fullscreen mode, and
+   * assets path.
    *
-   * @param width the width of the window
-   * @param height the height of the window
+   * @param width      the width of the window
+   * @param height     the height of the window
    * @param fullscreen whether the window should be fullscreen
-   * @param assets the path to the assets directory
+   * @param assets     the path to the assets directory
    */
   public Applet(int width, final int height, final boolean fullscreen, final String assets) {
     if (height == 0) {
@@ -88,8 +94,9 @@ public class Applet extends PApplet {
   /**
    * Enables or disables the debug mode for the application.
    *
-   * @param debug a boolean value where {@code true} enables debug mode and {@code false} disables
-   *     it.
+   * @param debug a boolean value where {@code true} enables debug mode and
+   *              {@code false} disables
+   *              it.
    */
   public void setDebug(boolean debug) {
     this.debug = debug;
@@ -141,7 +148,7 @@ public class Applet extends PApplet {
 
   /**
    * @deprecated since 4.0.0. Use setStage instead.
-   * @param name Name of the stage
+   * @param name  Name of the stage
    * @param stage A stage object
    */
   @Deprecated(since = "4.0.0")
@@ -188,6 +195,13 @@ public class Applet extends PApplet {
     this.stage = stage;
   }
 
+  public void transitionToStage(Stage stage, int duration) {
+    this.transitionStart = millis();
+    this.transitionStage = "OUT";
+    this.transitionDuration = duration;
+    this.nextStage = stage;
+  }
+
   /**
    * Use this method to call size().
    *
@@ -231,7 +245,8 @@ public class Applet extends PApplet {
   public void runSketch() {
     if (!this.isRunning) {
       super.runSketch();
-      while (this.surface.isStopped()) {}
+      while (this.surface.isStopped()) {
+      }
       this.isRunning = true;
     }
   }
@@ -245,8 +260,7 @@ public class Applet extends PApplet {
 
     this.loading = this.loadImage("loading.png");
     var loadingScaleX = this.RENDER_WIDTH / 480.0;
-    var loadingScaleY =
-        this.RENDER_HEIGHT / (360.0 + 150); // normal height + padding for loading text
+    var loadingScaleY = this.RENDER_HEIGHT / (360.0 + 150); // normal height + padding for loading text
     var scale = Math.min(1, Math.min(loadingScaleX, loadingScaleY));
     this.loading.resize((int) (this.loading.width * scale), (int) (this.loading.height * scale));
   }
@@ -276,21 +290,18 @@ public class Applet extends PApplet {
           }
         }
 
-        var imageFiles =
-            Files.find(p, Integer.MAX_VALUE, (filePath, fileAttr) -> fileAttr.isRegularFile())
-                .map(f -> f.toString())
-                .filter(f -> f.endsWith(".png") || f.endsWith(".jpg") || f.endsWith(".jpeg"))
-                .collect(Collectors.toList());
-        var soundFiles =
-            Files.find(p, Integer.MAX_VALUE, (filePath, fileAttr) -> fileAttr.isRegularFile())
-                .map(f -> f.toString())
-                .filter(f -> f.endsWith(".mp3") || f.endsWith(".wav"))
-                .collect(Collectors.toList());
-        var fontFiles =
-            Files.find(p, Integer.MAX_VALUE, (filePath, fileAttr) -> fileAttr.isRegularFile())
-                .map(f -> f.toString())
-                .filter(f -> f.endsWith(".ttf") || f.endsWith(".otf"))
-                .collect(Collectors.toList());
+        var imageFiles = Files.find(p, Integer.MAX_VALUE, (filePath, fileAttr) -> fileAttr.isRegularFile())
+            .map(f -> f.toString())
+            .filter(f -> f.endsWith(".png") || f.endsWith(".jpg") || f.endsWith(".jpeg"))
+            .collect(Collectors.toList());
+        var soundFiles = Files.find(p, Integer.MAX_VALUE, (filePath, fileAttr) -> fileAttr.isRegularFile())
+            .map(f -> f.toString())
+            .filter(f -> f.endsWith(".mp3") || f.endsWith(".wav"))
+            .collect(Collectors.toList());
+        var fontFiles = Files.find(p, Integer.MAX_VALUE, (filePath, fileAttr) -> fileAttr.isRegularFile())
+            .map(f -> f.toString())
+            .filter(f -> f.endsWith(".ttf") || f.endsWith(".otf"))
+            .collect(Collectors.toList());
         this.numberAssets += imageFiles.size();
         this.numberAssets += soundFiles.size();
         this.numberAssets += fontFiles.size();
@@ -368,8 +379,40 @@ public class Applet extends PApplet {
       this.text(round(this.loadingStatus() * 100) + "%", 0, this.loading.height / 2 + 40);
       this.textSize(14);
     } else if (this.stage != null) {
-      this.stage.pre();
+
+      if (transitionStage == null) {
+        this.stage.pre();
+      }
       this.stage.draw();
+
+      if ("OUT".equals(transitionStage)) {
+        var alpha = PApplet.lerp(0, 255, (currentMillis - transitionStart) / (float) transitionDuration / 2.0f);
+        if (alpha < 255) {
+          this.push();
+          this.translate(this.width / 2, this.height / 2);
+          this.fill(0, 0, 0, alpha);
+          this.rect(0, 0, this.getWidth(), this.getHeight());
+          this.pop();
+        } else {
+          transitionStage = "IN";
+          transitionStart = currentMillis;
+          this.stage = this.nextStage;
+          this.nextStage = null;
+        }
+      }
+
+      if ("IN".equals(transitionStage)) {
+        var alpha = PApplet.lerp(255, 0, (currentMillis - transitionStart) / (float) transitionDuration / 2.0f);
+        if (alpha > 0) {
+          this.push();
+          this.translate(this.width / 2, this.height / 2);
+          this.fill(0, 0, 0, alpha);
+          this.rect(0, 0, this.getWidth(), this.getHeight());
+          this.pop();
+        } else {
+          transitionStage = null;
+        }
+      }
     }
   }
 }
