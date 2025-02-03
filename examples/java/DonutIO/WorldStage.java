@@ -53,11 +53,13 @@ public class WorldStage extends Stage {
     }
 
     if (this.count(FollowDonut.class) == 0) {
-      Window.getInstance().setStage(new WinStage());
+      Window.getInstance().transitionToStage(new WinStage(), 500);
+      return;
     }
 
     if (this.count(PlayerDonut.class) == 0) {
-      Window.getInstance().setStage(new GameOverStage());
+      Window.getInstance().transitionToStage(new GameOverStage(), 500);
+      return;
     }
 
     if (this.isKeyPressed(KeyCode.VK_1)) {

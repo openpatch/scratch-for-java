@@ -30,7 +30,7 @@ public class GameOverStage extends Stage {
     System.out.println(keyCode);
     if (keyCode == KeyCode.VK_SPACE) {
       Game.LEVEL = 0;
-      Window.getInstance().setStage(new WorldStage());
+      Window.getInstance().transitionToStage(new WorldStage(), 500);
     }
   }
 }
