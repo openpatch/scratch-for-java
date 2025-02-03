@@ -189,7 +189,7 @@ public class Window {
   /**
    * Transitions to a new stage with a specified duration.
    *
-   * @param stage    the new stage to transition to
+   * @param stage the new stage to transition to
    * @param duration the duration of the transition in milliseconds
    */
   public void transitionToStage(Stage stage, int duration) {
