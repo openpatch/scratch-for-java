@@ -14,7 +14,7 @@ Scratch for Java hat solche Möglichlichkeiten nicht eingebaut. Du musst daher a
 
 Du kannst die folgenden Quellen für freie Grafiken durchsuchen, welche du für Kostüme oder Hintergründe verwenden kannst.
 
-- [clker.com](clker.com)
+- [clker.com](https://clker.com)
 - [openclipart.org](https://openclipart.org/)
 - [unsplash.com](https://unsplash.com/)
 - [OpenSprites](https://opensprites.org/)
