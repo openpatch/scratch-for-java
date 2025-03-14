@@ -13,7 +13,7 @@ Scratch for Java does not come with any of that. So you have to use external sou
 
 You can search the following sources for free graphics, which you can use for costumes or backdrop.
 
-- [clker.com](clker.com)
+- [clker.com](https://clker.com)
 - [openclipart.org](https://openclipart.org/)
 - [unsplash.com](https://unsplash.com/)
 - [OpenSprites](https://opensprites.org/)
