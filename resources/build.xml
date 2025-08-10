@@ -40,10 +40,10 @@
         <os family="unix" />
     </condition>
 
-    <property name="libs.processing" value="4.3.1" />
+    <property name="libs.processing" value="4.3.4" />
     <property name="libs.gluegen-rt" value="2.5.0" />
     <property name="libs.jogl-all" value="2.5.0" />
-    <property name="libs.jackson" value="2.18.2" />
+    <property name="libs.jackson" value="2.18.3" />
 
 
     <property name="project.jar.name" value="${project.name}" />

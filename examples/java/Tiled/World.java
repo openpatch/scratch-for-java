@@ -7,33 +7,16 @@ import org.openpatch.scratch.extensions.tiled.TiledMap;
 public class World extends Stage {
 
   private TiledMap map;
-  public static Player PLAYER;
+  private Player player;
   private Item inventory;
 
-  public World() {
-    GameState.load();
-    I18n.select(GameState.get().locale);
-    this.loadMap(GameState.get().map);
-  }
-
-  public void whenKeyPressed(int keyCode) {
-    if (keyCode == KeyCode.VK_F1) {
-      this.setDebug(!this.isDebug());
-    } else if (keyCode == KeyCode.VK_F5) {
-      GameState.save();
-      this.display("Game saved", 2000);
-    }
-  }
-
-  public void loadMap(String mapFile) {
-    this.removeAll();
-    this.eraseAll();
+  public World(String mapFile, Player player) {
     map = new TiledMap("Tiled/" + mapFile + ".tmx", this);
     for (var object : map.getObjectsFromLayer("Objects")) {
       // Spawn Points should only have an effect, if there was no PLAYER object.
       // Meaning the first
       // time a map is loading.
-      if ("spawn-point".equals(object.type) && PLAYER == null) {
+      if ("spawn-point".equals(object.type) && player == null) {
         var playerX = GameState.get().playerX;
         // check playerX and playerY are not saved in GameState
         if (playerX == Double.MAX_VALUE) {
@@ -62,34 +45,41 @@ public class World extends Stage {
         }
       } else if ("enemy".equals(object.type)) {
         switch (object.name) {
-          case "bamboo":
-            {
-              this.add(new Bamboo(object.x, object.y));
-              break;
-            }
+          case "bamboo": {
+            this.add(new Bamboo(object.x, object.y));
+            break;
+          }
         }
       }
     }
 
-    if (PLAYER == null) {
-      PLAYER = new Player(GameState.get().playerX, GameState.get().playerY);
-      this.getCamera().setPosition(PLAYER.getX(), PLAYER.getY());
+    if (player == null) {
+      player = new Player(GameState.get().playerX, GameState.get().playerY);
+      this.getCamera().setPosition(player.getX(), player.getY());
     }
-    if (PLAYER != null) {
-      this.add(PLAYER);
-    }
+    this.add(player);
 
     GameState.get().map = mapFile;
     inventory = new Item();
     inventory.isUI(true);
     this.add(inventory);
+    this.player = player;
+  }
+
+  public void whenKeyPressed(int keyCode) {
+    if (keyCode == KeyCode.VK_F1) {
+      this.setDebug(!this.isDebug());
+    } else if (keyCode == KeyCode.VK_F5) {
+      GameState.save();
+      this.display("Game saved", 2000);
+    }
   }
 
   public void run() {
     this.eraseAll();
     this.setColor(0, 0, 0);
 
-    this.getCamera().setPosition(PLAYER.getPosition());
+    this.getCamera().setPosition(player.getPosition());
 
     this.map.stampLayerToBackground("Floor");
     this.map.stampLayerToBackground("FloorObjects");
@@ -109,5 +99,9 @@ public class World extends Stage {
       inventory.switchCostume(items.get(i));
       inventory.stampToUI();
     }
+  }
+
+  public Player getPlayer() {
+    return player;
   }
 }
