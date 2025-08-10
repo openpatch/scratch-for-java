@@ -7,10 +7,10 @@ import org.openpatch.scratch.Sprite;
 public class MySprite extends Sprite {
   public MySprite() {
     this.addCostume("cat", "Shader/cat.png");
-    var shader = this.addShader("halftone", "Shader/halftone.glsl");
-    shader = this.addShader("pixelate", "Shader/pixelate.glsl");
+    var shader = this.addShader("halftone", "Shader/halftone.frag", "Shader/default.vert");
+    shader = this.addShader("pixelate", "Shader/pixelate.frag", "Shader/default.vert");
     shader.set("pixels", 20.0, 10.0);
-    shader = this.addShader("neon", "Shader/neon.glsl");
+    shader = this.addShader("neon", "Shader/neon.frag", "Shader/default.vert");
     shader.set("brt", 0.4);
     shader.set("rad", 1);
     this.switchShader("halftone");

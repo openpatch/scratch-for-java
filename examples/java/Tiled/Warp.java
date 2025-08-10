@@ -18,10 +18,11 @@ public class Warp extends Sprite {
   }
 
   public void run() {
-    if (this.isTouchingSprite(World.PLAYER)) {
-      this.world.loadMap(toMap);
-      World.PLAYER.setX(toX);
-      World.PLAYER.setY(toY);
+    var player = world.getPlayer();
+    if (this.isTouchingSprite(player)) {
+      this.getWindow().transitionToStage(new World(toMap, player), 500);
+      player.setX(toX);
+      player.setY(toY);
     }
   }
 }

@@ -1,16 +1,18 @@
+#version 140
+
 #ifdef GL_ES
 precision mediump float;
 #endif
 
 #define PROCESSING_TEXTURE_SHADER
 
-varying vec4 vertTexCoord;
+in vec4 vertTexCoord;
 uniform sampler2D texture;
 
 uniform vec3[100] lights;
 uniform vec2 resolution;
 
-float intensity = 100;
+float intensity = 100.0;
 vec3 ambient_light = vec3(0.1, 0.1, 0.1);
 vec3 color = vec3(0.499, 0.499, 0.999);
 

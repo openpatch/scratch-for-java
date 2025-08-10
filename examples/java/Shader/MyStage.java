@@ -6,13 +6,13 @@ import org.openpatch.scratch.extensions.timer.Timer;
 
 public class MyStage extends Stage {
   public MyStage() {
-    var shader = this.addShader("blobby", "Shader/blobby.glsl");
+    var shader = this.addShader("blobby", "Shader/blobby.frag", "Shader/default.vert");
     shader.set("depth", 1.5);
     shader.set("rate", 1.5);
-    shader = this.addShader("glitch", "Shader/glitch.glsl");
+    shader = this.addShader("glitch", "Shader/glitch.frag", "Shader/default.vert");
     shader.set("rate", 0.0001);
-    shader = this.addShader("light", "Shader/light.glsl");
-    shader = this.addShader("pixel", "Shader/pixel.glsl");
+    shader = this.addShader("light", "Shader/light.frag", "Shader/default.vert");
+    shader = this.addShader("pixel", "Shader/pixel.frag", "Shader/default.vert");
     this.switchShader("pixel");
     this.add(new MySprite());
     this.add(new NormalSprite());

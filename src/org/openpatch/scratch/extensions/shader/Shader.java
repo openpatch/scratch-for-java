@@ -1,9 +1,12 @@
 package org.openpatch.scratch.extensions.shader;
 
+import java.util.concurrent.TimeUnit;
+
 import org.openpatch.scratch.extensions.color.Color;
 import org.openpatch.scratch.extensions.math.Vector2;
 import org.openpatch.scratch.internal.Applet;
 import processing.opengl.PShader;
+import processing.opengl.PSurfaceJOGL;
 
 public class Shader {
 
@@ -16,9 +19,9 @@ public class Shader {
    * @param name unique name
    * @param path path to the shader file
    */
-  public Shader(String name, String path) {
+  public Shader(String name, String fragmentShaderPath, String vertexShaderPath) {
     this.name = name;
-    this.shader = loadPShader(path);
+    this.shader = loadPShader(fragmentShaderPath, vertexShaderPath);
   }
 
   /**
@@ -37,16 +40,21 @@ public class Shader {
    * @param path path to the shader file
    * @return shader
    */
-  private static PShader loadPShader(String path) {
-    // Shader need the JOGL surface to be instantiated
-    // Sometimes the app will start to fast and the surface is not ready
-    // This is a workaround to load the shader.
-    try {
-      path = path.replaceFirst("^~", System.getProperty("user.home"));
-      return Applet.getInstance().loadShader(path);
-    } catch (Exception e) {
-      return loadPShader(path);
+  private static PShader loadPShader(String fragementShaderPath, String vertexShaderPath) {
+    vertexShaderPath = vertexShaderPath.replaceFirst("^~", System.getProperty("user.home"));
+    fragementShaderPath = fragementShaderPath.replaceFirst("^~", System.getProperty("user.home"));
+    var surface = (PSurfaceJOGL) Applet.getInstance().getSurface();
+
+    // The surface context may not be initialized yet.
+    // The surface is initialized in the Applet constructor, but in another thread.
+    while (surface.pgl.context == null) {
+      try {
+        TimeUnit.MILLISECONDS.sleep(100);
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
     }
+    return Applet.getInstance().loadShader(fragementShaderPath, vertexShaderPath);
   }
 
   /**

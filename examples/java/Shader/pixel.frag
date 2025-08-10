@@ -8,7 +8,7 @@ varying vec4 vertTexCoord;
 uniform sampler2D texture;
 
 void main( void ) {
-	  vec2 uv = vertTexCoord.st;
+	vec2 uv = vertTexCoord.st;
     // Get the texture size
     vec2 texture_size = vec2(textureSize(texture, 0));   
     // Calculate the box filter size in texel units

@@ -6,6 +6,7 @@ import java.nio.file.FileSystemNotFoundException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.AbstractMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
@@ -21,13 +22,23 @@ import processing.opengl.PGraphicsOpenGL;
 import processing.sound.SoundFile;
 
 /**
- * The Applet class represents the main application window. It is responsible for loading assets,
+ * The Applet class represents the main application window. It is responsible
+ * for loading assets,
  * managing stages, and handling mouse and keyboard events.
  */
 public class Applet extends PApplet {
+
+  enum State {
+    LOADING,
+    RUNNING,
+    TRANSITIONING_OUT,
+    TRANSITIONING_IN
+  }
+
   private final int RENDER_HEIGHT;
   private final int RENDER_WIDTH;
   private final boolean FULLSCREEN;
+  private State state;
 
   private boolean debug;
   private static Applet instance;
@@ -37,25 +48,28 @@ public class Applet extends PApplet {
   private PImage loading;
   private final String assets;
   private Stage stage;
-  private Stage nextStage;
   private int transitionStart;
   private int transitionDuration;
-  private String transitionStage;
+  private Stage transitionToStage;
   private Map<String, Stage> stages;
   private int lastMillis;
   private double deltaTime;
-  private boolean hasLoaded = false;
   private String loadingText = "";
 
+  private final AbstractMap<Integer, Boolean> keyCodePressed = new ConcurrentHashMap<>();
+  private boolean mouseDown;
+
   /**
-   * Constructs an Applet with the specified width, height, fullscreen mode, and assets path.
+   * Constructs an Applet with the specified width, height, fullscreen mode, and
+   * assets path.
    *
-   * @param width the width of the window
-   * @param height the height of the window
+   * @param width      the width of the window
+   * @param height     the height of the window
    * @param fullscreen whether the window should be fullscreen
-   * @param assets the path to the assets directory
+   * @param assets     the path to the assets directory
    */
   public Applet(int width, final int height, final boolean fullscreen, final String assets) {
+    this.state = State.LOADING;
     if (height == 0) {
       this.RENDER_HEIGHT = 1080;
     } else {
@@ -92,8 +106,9 @@ public class Applet extends PApplet {
   /**
    * Enables or disables the debug mode for the application.
    *
-   * @param debug a boolean value where {@code true} enables debug mode and {@code false} disables
-   *     it.
+   * @param debug a boolean value where {@code true} enables debug mode and
+   *              {@code false} disables
+   *              it.
    */
   public void setDebug(boolean debug) {
     this.debug = debug;
@@ -145,7 +160,7 @@ public class Applet extends PApplet {
 
   /**
    * @deprecated since 4.0.0. Use setStage instead.
-   * @param name Name of the stage
+   * @param name  Name of the stage
    * @param stage A stage object
    */
   @Deprecated(since = "4.0.0")
@@ -193,10 +208,12 @@ public class Applet extends PApplet {
   }
 
   public void transitionToStage(Stage stage, int duration) {
-    this.transitionStart = millis();
-    this.transitionStage = "OUT";
-    this.transitionDuration = duration;
-    this.nextStage = stage;
+    if (this.state == State.RUNNING) {
+      this.transitionStart = millis();
+      this.transitionDuration = duration;
+      this.state = State.TRANSITIONING_OUT;
+      this.transitionToStage = stage;
+    }
   }
 
   /**
@@ -242,7 +259,6 @@ public class Applet extends PApplet {
   public void runSketch() {
     if (!this.isRunning) {
       super.runSketch();
-      while (this.surface.isStopped()) {}
       this.isRunning = true;
     }
   }
@@ -253,11 +269,11 @@ public class Applet extends PApplet {
     this.windowResizable(false);
     this.imageMode(PConstants.CENTER);
     this.rectMode(PConstants.CENTER);
+    this.background(0x222222);
 
     this.loading = this.loadImage("loading.png");
     var loadingScaleX = this.RENDER_WIDTH / 480.0;
-    var loadingScaleY =
-        this.RENDER_HEIGHT / (360.0 + 150); // normal height + padding for loading text
+    var loadingScaleY = this.RENDER_HEIGHT / (360.0 + 150); // normal height + padding for loading text
     var scale = Math.min(1, Math.min(loadingScaleX, loadingScaleY));
     this.loading.resize((int) (this.loading.width * scale), (int) (this.loading.height * scale));
   }
@@ -287,21 +303,18 @@ public class Applet extends PApplet {
           }
         }
 
-        var imageFiles =
-            Files.find(p, Integer.MAX_VALUE, (filePath, fileAttr) -> fileAttr.isRegularFile())
-                .map(f -> f.toString())
-                .filter(f -> f.endsWith(".png") || f.endsWith(".jpg") || f.endsWith(".jpeg"))
-                .collect(Collectors.toList());
-        var soundFiles =
-            Files.find(p, Integer.MAX_VALUE, (filePath, fileAttr) -> fileAttr.isRegularFile())
-                .map(f -> f.toString())
-                .filter(f -> f.endsWith(".mp3") || f.endsWith(".wav"))
-                .collect(Collectors.toList());
-        var fontFiles =
-            Files.find(p, Integer.MAX_VALUE, (filePath, fileAttr) -> fileAttr.isRegularFile())
-                .map(f -> f.toString())
-                .filter(f -> f.endsWith(".ttf") || f.endsWith(".otf"))
-                .collect(Collectors.toList());
+        var imageFiles = Files.find(p, Integer.MAX_VALUE, (filePath, fileAttr) -> fileAttr.isRegularFile())
+            .map(f -> f.toString())
+            .filter(f -> f.endsWith(".png") || f.endsWith(".jpg") || f.endsWith(".jpeg"))
+            .collect(Collectors.toList());
+        var soundFiles = Files.find(p, Integer.MAX_VALUE, (filePath, fileAttr) -> fileAttr.isRegularFile())
+            .map(f -> f.toString())
+            .filter(f -> f.endsWith(".mp3") || f.endsWith(".wav"))
+            .collect(Collectors.toList());
+        var fontFiles = Files.find(p, Integer.MAX_VALUE, (filePath, fileAttr) -> fileAttr.isRegularFile())
+            .map(f -> f.toString())
+            .filter(f -> f.endsWith(".ttf") || f.endsWith(".otf"))
+            .collect(Collectors.toList());
         this.numberAssets += imageFiles.size();
         this.numberAssets += soundFiles.size();
         this.numberAssets += fontFiles.size();
@@ -323,7 +336,6 @@ public class Applet extends PApplet {
       } catch (IOException | URISyntaxException e) {
       }
     }
-    this.hasLoaded = true;
   }
 
   private float loadingStatus() {
@@ -336,9 +348,14 @@ public class Applet extends PApplet {
    * @param e the MouseEvent object
    */
   public void mouseEvent(MouseEvent e) {
-    if (this.hasLoaded && this.stage != null) {
+    mouseDown = e.getAction() == MouseEvent.PRESS;
+    if (this.state == State.RUNNING && this.stage != null) {
       this.stage.mouseEvent(e);
     }
+  }
+
+  public boolean isMouseDown() {
+    return mouseDown;
   }
 
   /**
@@ -347,16 +364,76 @@ public class Applet extends PApplet {
    * @param e the KeyEvent object
    */
   public void keyEvent(KeyEvent e) {
-    if (this.hasLoaded && this.stage != null) {
+    if (this.state == State.RUNNING && this.stage != null) {
       this.stage.keyEvent(e);
+    }
+    switch (e.getAction()) {
+      case KeyEvent.PRESS:
+        this.keyCodePressed.put(e.getKeyCode(), true);
+        break;
+      case KeyEvent.RELEASE:
+        this.keyCodePressed.put(e.getKeyCode(), false);
+        break;
     }
     if (e.getKeyCode() == KeyCode.VK_F11) {
       this.debug = !this.debug;
     }
   }
 
+  public AbstractMap<Integer, Boolean> getKeyCodePressed() {
+    return keyCodePressed;
+  }
+
   public void setTextureSampling(int mode) {
     ((PGraphicsOpenGL) g).textureSampling(mode);
+  }
+
+  private void drawLoading() {
+    this.translate(this.width / 2, this.height / 2);
+    this.background(0x222222);
+    this.image(this.loading, 0, 0);
+    this.textAlign(CENTER);
+    this.stroke(0xf58219);
+    this.textFont(Font.getDefaultFont());
+    this.textSize(14);
+    this.text(this.loadingText, 0, this.loading.height / 2 + 20);
+    this.text(round(this.loadingStatus() * 100) + "%", 0, this.loading.height / 2 + 40);
+    this.textSize(14);
+    if (this.loadingStatus() >= 1 && this.stage != null) {
+      this.state = State.RUNNING;
+    }
+  }
+
+  private void drawTransitionOut() {
+    var alpha = PApplet.lerp(
+        0, 255, (lastMillis - transitionStart) / (float) transitionDuration / 2.0f);
+    if (alpha < 255) {
+      this.push();
+      this.translate(this.width / 2, this.height / 2);
+      this.fill(0, 0, 0, alpha);
+      this.rect(0, 0, this.getWidth(), this.getHeight());
+      this.pop();
+    } else {
+      this.state = State.TRANSITIONING_IN;
+      this.stage = this.transitionToStage;
+      this.transitionStart = lastMillis;
+    }
+  }
+
+  private void drawTransitionIn() {
+    var alpha = PApplet.lerp(
+        255, 0, (lastMillis - transitionStart) / (float) transitionDuration / 2.0f);
+    if (alpha > 0) {
+      this.stage.pre();
+      this.stage.draw(this.getGraphics());
+      this.push();
+      this.translate(this.width / 2, this.height / 2);
+      this.fill(0, 0, 0, alpha);
+      this.rect(0, 0, this.getWidth(), this.getHeight());
+      this.pop();
+    } else {
+      this.state = State.RUNNING;
+    }
   }
 
   /** Draws the application window. */
@@ -367,56 +444,21 @@ public class Applet extends PApplet {
     }
     deltaTime = (currentMillis - lastMillis) / 1000.0;
     lastMillis = currentMillis;
-    if (!this.hasLoaded || this.loadingStatus() < 1) {
-      this.translate(this.width / 2, this.height / 2);
-      this.background(0x222222);
-      this.image(this.loading, 0, 0);
-      this.textAlign(CENTER);
-      this.stroke(0xf58219);
-      this.textFont(Font.getDefaultFont());
-      this.textSize(14);
-      this.text(this.loadingText, 0, this.loading.height / 2 + 20);
-      this.text(round(this.loadingStatus() * 100) + "%", 0, this.loading.height / 2 + 40);
-      this.textSize(14);
-    } else if (this.stage != null) {
 
-      if (transitionStage == null) {
+    switch (state) {
+      case LOADING:
+        this.drawLoading();
+        break;
+      case RUNNING:
         this.stage.pre();
-      }
-      this.stage.draw();
-
-      if ("OUT".equals(transitionStage)) {
-        var alpha =
-            PApplet.lerp(
-                0, 255, (currentMillis - transitionStart) / (float) transitionDuration / 2.0f);
-        if (alpha < 255) {
-          this.push();
-          this.translate(this.width / 2, this.height / 2);
-          this.fill(0, 0, 0, alpha);
-          this.rect(0, 0, this.getWidth(), this.getHeight());
-          this.pop();
-        } else {
-          transitionStage = "IN";
-          transitionStart = currentMillis;
-          this.stage = this.nextStage;
-          this.nextStage = null;
-        }
-      }
-
-      if ("IN".equals(transitionStage)) {
-        var alpha =
-            PApplet.lerp(
-                255, 0, (currentMillis - transitionStart) / (float) transitionDuration / 2.0f);
-        if (alpha > 0) {
-          this.push();
-          this.translate(this.width / 2, this.height / 2);
-          this.fill(0, 0, 0, alpha);
-          this.rect(0, 0, this.getWidth(), this.getHeight());
-          this.pop();
-        } else {
-          transitionStage = null;
-        }
-      }
+        this.stage.draw(this.getGraphics());
+        break;
+      case TRANSITIONING_IN:
+        this.drawTransitionIn();
+        break;
+      case TRANSITIONING_OUT:
+        this.drawTransitionOut();
+        break;
     }
   }
 }
