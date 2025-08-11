@@ -22,13 +22,18 @@ public class Image {
   private int width = 0;
   private int height = 0;
 
+  private boolean nineSlice = false;
+  // top, right, bottom, left
+  private int[] originalSlice = { 0, 0, 0, 0 };
+  private int[] slice = { 0, 0, 0, 0 };
+
   private static final AbstractMap<String, PImage> originalImages = new ConcurrentHashMap<>();
   private static final AbstractMap<String, PImage> originalImageTiles = new ConcurrentHashMap<>();
 
   /**
    * Construct a ScratchImage object by a name and a path to an image.
    *
-   * @param name a a name
+   * @param name      a a name
    * @param imagePath a path to an image
    */
   public Image(String name, String imagePath) {
@@ -41,12 +46,12 @@ public class Image {
   /**
    * Construct a ScratchImage object by a name and a path to a sprite sheet.
    *
-   * @param name a name
+   * @param name            a name
    * @param spriteSheetPath a path to a sprite sheet
-   * @param x the x coordinate of the tile
-   * @param y the y coordinate of the tile
-   * @param width the width of the tile
-   * @param height the height of the tile
+   * @param x               the x coordinate of the tile
+   * @param y               the y coordinate of the tile
+   * @param width           the width of the tile
+   * @param height          the height of the tile
    */
   public Image(String name, String spriteSheetPath, int x, int y, int width, int height) {
     this.name = name;
@@ -67,6 +72,9 @@ public class Image {
     this.transparency = i.transparency;
     this.width = i.width;
     this.height = i.height;
+    this.nineSlice = i.nineSlice;
+    this.originalSlice = i.originalSlice.clone();
+    this.slice = i.slice.clone();
   }
 
   /**
@@ -89,10 +97,10 @@ public class Image {
   /**
    * Loads an image from a given path and returns a tile of the image.
    *
-   * @param path the path to the image
-   * @param x the x coordinate of the tile
-   * @param y the y coordinate of the tile
-   * @param width the width of the tile
+   * @param path   the path to the image
+   * @param x      the x coordinate of the tile
+   * @param y      the y coordinate of the tile
+   * @param width  the width of the tile
    * @param height the height of the tile
    * @return a tile of the image
    */
@@ -135,12 +143,30 @@ public class Image {
   }
 
   /**
+   * Sets the width
+   *
+   * @param width a width value
+   */
+  public void setWidth(int width) {
+    this.width = width;
+  }
+
+  /**
    * Returns the height
    *
    * @return the height
    */
   public int getHeight() {
     return this.height;
+  }
+
+  /**
+   * Sets the height
+   *
+   * @param height a height value
+   */
+  public void setHeight(int height) {
+    this.height = height;
   }
 
   /**
@@ -216,15 +242,23 @@ public class Image {
   public void setSize(double percentage) {
     var width = (int) Math.round(this.originalImage.width * percentage / 100);
     var height = (int) Math.round(this.originalImage.height * percentage / 100);
+    this.slice = new int[] {
+        (int) Math.round(this.originalSlice[0] * percentage / 100),
+        (int) Math.round(this.originalSlice[1] * percentage / 100),
+        (int) Math.round(this.originalSlice[2] * percentage / 100),
+        (int) Math.round(this.originalSlice[3] * percentage / 100)
+    };
     this.setSize(width, height);
   }
 
   /**
-   * Sets the size of the image to the specified width and height. If a resized version with the
-   * requested dimensions already exists in cache, it will use that version. Otherwise, it creates a
+   * Sets the size of the image to the specified width and height. If a resized
+   * version with the
+   * requested dimensions already exists in cache, it will use that version.
+   * Otherwise, it creates a
    * new resized copy from the original image and caches it for future use.
    *
-   * @param width The desired width of the image in pixels
+   * @param width  The desired width of the image in pixels
    * @param height The desired height of the image in pixels
    */
   public void setSize(int width, int height) {
@@ -233,15 +267,38 @@ public class Image {
   }
 
   /**
+   * Sets the nine-slice scaling parameters for the image.
+   * This allows the image to be scaled while preserving the corners and edges.
+   *
+   * @param top    the top slice height
+   * @param right  the right slice width
+   * @param bottom the bottom slice height
+   * @param left   the left slice width
+   */
+  public void setNineSlice(int top, int right, int bottom, int left) {
+    this.nineSlice = true;
+    this.originalSlice = new int[] { top, right, bottom, left };
+    this.slice = new int[] { top, right, bottom, left };
+  }
+
+  /**
+   * Disables the nine-slice scaling for the image.
+   * This will make the image scale normally without preserving corners and edges.
+   */
+  public void disableNineSlice() {
+    this.nineSlice = false;
+  }
+
+  /**
    * Draw the scaled image at a given position.
    *
-   * @param buffer a buffer
-   * @param size a percentage value
+   * @param buffer  a buffer
+   * @param size    a percentage value
    * @param degrees direction
-   * @param x a x coordinate
-   * @param y a y coordinate
-   * @param style a rotation style
-   * @param shader a shader
+   * @param x       a x coordinate
+   * @param y       a y coordinate
+   * @param style   a rotation style
+   * @param shader  a shader
    */
   public void draw(
       PGraphics buffer,
@@ -281,26 +338,109 @@ public class Image {
         (float) this.transparency);
     buffer.noStroke();
     buffer.textureMode(PConstants.NORMAL);
-    buffer.beginShape();
-    buffer.texture(this.originalImage);
-    buffer.vertex(0, 0, 0, 0);
-    buffer.vertex(this.width, 0, 1, 0);
-    buffer.vertex(this.width, this.height, 1, 1);
-    buffer.vertex(0, this.height, 0, 1);
-    buffer.endShape();
+    if (nineSlice) {
+      drawNineSlice(buffer);
+    } else {
+      buffer.beginShape();
+      buffer.texture(this.originalImage);
+      buffer.vertex(0, 0, 0, 0);
+      buffer.vertex(this.width, 0, 1, 0);
+      buffer.vertex(this.width, this.height, 1, 1);
+      buffer.vertex(0, this.height, 0, 1);
+      buffer.endShape();
+    }
+
     buffer.noTint();
     buffer.resetShader();
     buffer.pop();
   }
 
+  private void drawNineSlice(PGraphics buffer) {
+    int imgW = originalImage.width;
+    int imgH = originalImage.height;
+
+    float destW = this.width;
+    float destH = this.height;
+
+    float leftW = this.slice[3];
+    float rightW = this.slice[1];
+    float topH = this.slice[0];
+    float bottomH = this.slice[2];
+    float centerW = destW - leftW - rightW;
+    float centerH = destH - topH - bottomH;
+
+    float u0 = 0f;
+    float u1 = (float) this.originalSlice[3] / imgW;
+    float u2 = (float) (imgW - this.originalSlice[1]) / imgW;
+    float u3 = 1f;
+
+    float v0 = 0f;
+    float v1 = (float) this.originalSlice[0] / imgH;
+    float v2 = (float) (imgH - this.originalSlice[2]) / imgH;
+    float v3 = 1f;
+
+    buffer.beginShape(PConstants.QUADS);
+    buffer.texture(this.originalImage);
+
+    // Row 1 (top)
+    buffer.vertex(0, 0, u0, v0);
+    buffer.vertex(leftW, 0, u1, v0);
+    buffer.vertex(leftW, topH, u1, v1);
+    buffer.vertex(0, topH, u0, v1);
+
+    buffer.vertex(leftW, 0, u1, v0);
+    buffer.vertex(leftW + centerW, 0, u2, v0);
+    buffer.vertex(leftW + centerW, topH, u2, v1);
+    buffer.vertex(leftW, topH, u1, v1);
+
+    buffer.vertex(leftW + centerW, 0, u2, v0);
+    buffer.vertex(destW, 0, u3, v0);
+    buffer.vertex(destW, topH, u3, v1);
+    buffer.vertex(leftW + centerW, topH, u2, v1);
+
+    // Row 2 (middle)
+    buffer.vertex(0, topH, u0, v1);
+    buffer.vertex(leftW, topH, u1, v1);
+    buffer.vertex(leftW, topH + centerH, u1, v2);
+    buffer.vertex(0, topH + centerH, u0, v2);
+
+    buffer.vertex(leftW, topH, u1, v1);
+    buffer.vertex(leftW + centerW, topH, u2, v1);
+    buffer.vertex(leftW + centerW, topH + centerH, u2, v2);
+    buffer.vertex(leftW, topH + centerH, u1, v2);
+
+    buffer.vertex(leftW + centerW, topH, u2, v1);
+    buffer.vertex(destW, topH, u3, v1);
+    buffer.vertex(destW, topH + centerH, u3, v2);
+    buffer.vertex(leftW + centerW, topH + centerH, u2, v2);
+
+    // Row 3 (bottom)
+    buffer.vertex(0, topH + centerH, u0, v2);
+    buffer.vertex(leftW, topH + centerH, u1, v2);
+    buffer.vertex(leftW, destH, u1, v3);
+    buffer.vertex(0, destH, u0, v3);
+
+    buffer.vertex(leftW, topH + centerH, u1, v2);
+    buffer.vertex(leftW + centerW, topH + centerH, u2, v2);
+    buffer.vertex(leftW + centerW, destH, u2, v3);
+    buffer.vertex(leftW, destH, u1, v3);
+
+    buffer.vertex(leftW + centerW, topH + centerH, u2, v2);
+    buffer.vertex(destW, topH + centerH, u3, v2);
+    buffer.vertex(destW, destH, u3, v3);
+    buffer.vertex(leftW + centerW, destH, u2, v3);
+
+    buffer.endShape();
+  }
+
   /**
    * Draw the scaled image at a given position.
    *
-   * @param size a percentage value
+   * @param size    a percentage value
    * @param degrees direction
-   * @param x a x coordinate
-   * @param y a y coordinate
-   * @param style a rotation style
+   * @param x       a x coordinate
+   * @param y       a y coordinate
+   * @param style   a rotation style
    */
   public void drawDebug(
       PGraphics buffer, double size, double degrees, double x, double y, RotationStyle style) {
@@ -316,19 +456,20 @@ public class Image {
   /**
    * Draw the scaled image at a given position.
    *
-   * @param buffer a buffer
-   * @param size a percentage value
+   * @param buffer  a buffer
+   * @param size    a percentage value
    * @param degrees direction
-   * @param x a x coordinate
-   * @param y a y coordinate
-   * @param shader a shader
+   * @param x       a x coordinate
+   * @param y       a y coordinate
+   * @param shader  a shader
    */
   public void draw(PGraphics buffer, float size, float degrees, float x, float y, Shader shader) {
     this.draw(buffer, size, degrees, x, y, RotationStyle.ALL_AROUND, shader);
   }
 
   /**
-   * Draw the image as a background. The image is automatically scaled to fit the window size.
+   * Draw the image as a background. The image is automatically scaled to fit the
+   * window size.
    *
    * @param buffer a buffer
    */

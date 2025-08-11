@@ -347,9 +347,11 @@ public class Sprite {
   }
 
   /**
-   * Adds all tiles from a spritesheet as costumes. The costumes will be name by
+   * Adds all tiles from a spritesheet as costumes. The costumes will be named by
    * the prefix and the
    * index in the spritesheet.
+   * For example if the prefix is "tile" and the spritesheet contains 4 tiles,
+   * the costumes will be named "tile0", "tile1", "tile2", and "tile3".
    *
    * @param prefix      a prefix for all generated costumes
    * @param spriteSheet a path to a sprite sheet
@@ -369,6 +371,34 @@ public class Sprite {
             prefix + index, spriteSheet, x * tileWidth, y * tileHeight, tileWidth, tileHeight);
         this.costumes.add(costume);
       }
+    }
+  }
+
+  /**
+   * Set the nine-slice (also known as nine-patch) parameters for the sprite's
+   * costumes.
+   *
+   * @param top    the size of the top slice in pixels
+   * @param right  the size of the right slice in pixels
+   * @param bottom the size of the bottom slice in pixels
+   * @param left   the size of the left slice in pixels
+   */
+  public void setNineSlice(int top, int right, int bottom, int left) {
+    if (this.costumes.size() == 0)
+      return;
+    for (Image costume : this.costumes) {
+      costume.setNineSlice(top, right, bottom, left);
+    }
+  }
+
+  /**
+   * Disables the nine-slice feature for all costumes of the sprite.
+   */
+  public void disableNineSlice() {
+    if (this.costumes.size() == 0)
+      return;
+    for (Image costume : this.costumes) {
+      costume.disableNineSlice();
     }
   }
 
@@ -656,6 +686,50 @@ public class Sprite {
     for (Image costume : this.costumes) {
       costume.setSize(percentage);
     }
+  }
+
+  /**
+   * * Sets the height of the sprite.
+   *
+   * @param height a height in pixels
+   */
+  public void setHeight(double height) {
+    if (this.costumes.size() == 0)
+      return;
+    for (Image costume : this.costumes) {
+      costume.setHeight((int) height);
+    }
+  }
+
+  /**
+   * Changes the height of the sprite by a given amount.
+   *
+   * @param amount a height in pixels
+   */
+  public void changeHeight(double amount) {
+    this.setHeight(this.getHeight() + amount);
+  }
+
+  /**
+   * * Sets the width of the sprite.
+   *
+   * @param width a width in pixels
+   */
+  public void setWidth(double width) {
+    if (this.costumes.size() == 0)
+      return;
+    for (Image costume : this.costumes) {
+      costume.setWidth((int) width);
+    }
+  }
+
+  /**
+   * Returns the height of the sprite.
+   *
+   * @return a height in pixels
+   */
+  public void changeWidth(double amount) {
+    this.setWidth(this.getWidth() + amount);
   }
 
   /**

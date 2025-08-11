@@ -4,6 +4,17 @@ index: 4
 lang: en
 ---
 
+## 4.20.0
+
+- 🚀 Feat: Add 9-Slice scaling to the Sprite class. This allows you to scale a sprite in a way that the corners are not stretched, but the middle part is stretched. This is useful for UI elements like buttons or panels.
+
+```java
+sprite.setNineSlice(10, 10, 10, 10); // top right bottom left;
+sprite.disableNineSlice();
+```
+
+- 🚀 Feat: Add `setWidth`, `setHeight`, `changeWidth` and `changeHeight` methods to the Sprite class. This allows you to set the width and height of a sprite without changing the aspect ratio.
+
 ## 4.19.0
 
 - 🚀 Feat: Add transitionToStage method to Window class.
