@@ -21,7 +21,7 @@ public class Tiled extends Window {
     Window.TEXTURE_SAMPLING_MODE = 2;
     Text.DEFAULT_FONT = "Tiled/assets/Retro Gaming.ttf";
     Text.DEFAULT_FONT_SIZE = 11;
-    Text.FONT_SIZES = new int[] { 11 };
+    Text.FONT_SIZES = new int[] {11};
     Text.SPEAK_BUBBLE_MAX_LIMIT = 200;
     Text.SMOOTHING = false;
 
