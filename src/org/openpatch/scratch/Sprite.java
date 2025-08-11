@@ -204,7 +204,8 @@ public class Sprite {
    * @param vertexShaderPath   the path to the vertex shader file
    * @return the shader
    */
-  public Shader addShader(String name, final String fragmentShaderPath, final String vertexShaderPath) {
+  public Shader addShader(
+      String name, final String fragmentShaderPath, final String vertexShaderPath) {
     for (Shader shader : this.shaders) {
       if (shader.getName().equals(name)) {
         return shader;
@@ -347,7 +348,7 @@ public class Sprite {
   }
 
   /**
-   * Adds all tiles from a spritesheet as costumes. The costumes will be named by
+   * Adds all tiles from a spritesheet as costumes. The costumes will be name by
    * the prefix and the
    * index in the spritesheet.
    * For example if the prefix is "tile" and the spritesheet contains 4 tiles,
