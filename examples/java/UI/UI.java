@@ -37,7 +37,6 @@ class MyStage extends Stage {
     bar.setY(100);
     bar.setSize(70);
     this.add(bar);
-
   }
 
   public void run() {
