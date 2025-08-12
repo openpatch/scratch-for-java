@@ -7,6 +7,7 @@
   "description": "Add an animation to the sprite. The animation can either be multiple images or parts of a spritesheet.",
   "syntax": [
     ".addAnimation(name, pattern, frames)",
+    ".addAnimation(name, builder, frames)",
     ".addAnimation(name, path, frames, width, height)",
     ".addAnimation(name, path, frames, width, height, row)"
   ],
@@ -41,6 +42,11 @@
       "name": "pattern",
       "description": "A pattern for finding images representing the frames.",
       "type": "String"
+    },
+    {
+      "name": "builder",
+      "description": "A function that returns a String for each frame of the animation. This function is called to load the images.",
+      "type": "Function<Integer, String>"
     },
     {
       "name": "frames",
