@@ -4,6 +4,20 @@ index: 4
 lang: en
 ---
 
+## 4.21.0
+
+- 🚀 Feat: Add `addAnimation` with a builder function to the AnimatedSprite
+class. This allows you to add animations with a more flexible API. The function
+receives the frame number and returns the path to the image for that frame.
+This is useful if you want to generate the image path dynamically or if you
+want to use a naming convention for your images. To be consistant with the
+pattern the frames start counting at 1.
+
+```java
+mySprite.addAnimation("run", frame -> "test" + frame + ".png", 10);
+```
+
+
 ## 4.20.0
 
 - 🚀 Feat: Add 9-Slice scaling to the Sprite class. This allows you to scale a sprite in a way that the corners are not stretched, but the middle part is stretched. This is useful for UI elements like buttons or panels.

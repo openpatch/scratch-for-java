@@ -7,6 +7,7 @@
   "description": "Fügt eine Animation hinzu. Die Animation kann entweder eine Reihe von einzelnen Bildern oder ein Teil eines Spritesheets sein.",
   "syntax": [
     ".addAnimation(name, pattern, frames)",
+    ".addAnimation(name, builder, frames)",
     ".addAnimation(name, path, frames, width, height)",
     ".addAnimation(name, path, frames, width, height, row)"
   ],
@@ -41,6 +42,11 @@
       "name": "pattern",
       "description": "Ein Muster für das Finden von Bilden, welche die einzelnen Frames der Animation repräsentieren.",
       "type": "String"
+    },
+    {
+      "name": "builder",
+      "description": "Eine Funktion, die einen String für jedes Frame der Animation zurückgibt. Diese Funktion wird aufgerufen, um die Bilder zu laden.",
+      "type": "Function<Integer, String>"
     },
     {
       "name": "frames",
