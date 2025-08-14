@@ -12,12 +12,9 @@ import org.openpatch.scratch.extensions.math.Vector2;
 import processing.core.PGraphics;
 
 /**
- * The Pen class represents a drawing tool that can be used to draw paths on a
- * stage. It supports
- * various functionalities such as setting color, size, transparency, moving to
- * different positions,
- * and stamping the current sprite onto the canvas. The Pen can be associated
- * with a Sprite and can
+ * The Pen class represents a drawing tool that can be used to draw paths on a stage. It supports
+ * various functionalities such as setting color, size, transparency, moving to different positions,
+ * and stamping the current sprite onto the canvas. The Pen can be associated with a Sprite and can
  * draw on both the foreground and background.
  */
 public class Pen {
@@ -71,8 +68,7 @@ public class Pen {
   private double y;
 
   /** Constructs a new Pen object. */
-  public Pen() {
-  }
+  public Pen() {}
 
   /**
    * Constructs a new Pen object associated with the given Sprite.
@@ -104,8 +100,7 @@ public class Pen {
   }
 
   /**
-   * This method is called when the pen is added to the stage. It assigns the
-   * given stage to the
+   * This method is called when the pen is added to the stage. It assigns the given stage to the
    * pen's stage variable.
    *
    * @param stage The stage to which the pen is added.
@@ -115,8 +110,7 @@ public class Pen {
   }
 
   /**
-   * This method is called when the pen is removed from the stage. It sets the
-   * stage reference to
+   * This method is called when the pen is removed from the stage. It sets the stage reference to
    * null.
    *
    * @param stage The stage from which the pen is removed.
@@ -173,8 +167,7 @@ public class Pen {
   }
 
   /**
-   * Sets the pen to the background. This method changes the state of the pen to
-   * indicate that it is
+   * Sets the pen to the background. This method changes the state of the pen to indicate that it is
    * no longer in the foreground.
    */
   public void goToBackground() {
@@ -182,8 +175,7 @@ public class Pen {
   }
 
   /**
-   * Moves the pen to the foreground. This method sets the pen's state to indicate
-   * that it is in the
+   * Moves the pen to the foreground. This method sets the pen's state to indicate that it is in the
    * foreground.
    */
   public void goToForeground() {
@@ -268,10 +260,8 @@ public class Pen {
   }
 
   /**
-   * Moves the object to a random position within the boundaries of the stage. The
-   * new position is
-   * determined by generating random coordinates within the width and height of
-   * the stage.
+   * Moves the object to a random position within the boundaries of the stage. The new position is
+   * determined by generating random coordinates within the width and height of the stage.
    */
   public void goToRandomPosition() {
     this.setPosition(
@@ -304,8 +294,7 @@ public class Pen {
   }
 
   /**
-   * Stamps the current sprite onto the canvas. If the sprite is not null, it will
-   * stamp either to
+   * Stamps the current sprite onto the canvas. If the sprite is not null, it will stamp either to
    * the foreground or the background based on the value of the isForeground flag.
    */
   public void stamp() {
@@ -332,11 +321,9 @@ public class Pen {
 
   /** Draw the line which the pen has drawn. */
   public void draw(PGraphics buffer) {
-    if (this.stage == null)
-      return;
+    if (this.stage == null) return;
     int pointsBufferSize = this.pathsBuffer.size();
-    if (pointsBufferSize <= 0)
-      return;
+    if (pointsBufferSize <= 0) return;
 
     Iterator<Path> pathsBufferIter = this.pathsBuffer.iterator();
 

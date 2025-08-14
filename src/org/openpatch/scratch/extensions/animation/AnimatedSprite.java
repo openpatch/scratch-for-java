@@ -1,19 +1,14 @@
 package org.openpatch.scratch.extensions.animation;
 
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.Consumer;
-
 import org.openpatch.scratch.Sprite;
 
 /**
- * The AnimatedSprite class represents a sprite that can play animations. It
- * extends the Sprite
- * class and provides methods to add animations, play animations, set the
- * interval between animation
+ * The AnimatedSprite class represents a sprite that can play animations. It extends the Sprite
+ * class and provides methods to add animations, play animations, set the interval between animation
  * frames, and reset the animation.
  *
- * <p>
- * Example usage:
+ * <p>Example usage:
  *
  * <pre>{@code
  * AnimatedSprite sprite = new AnimatedSprite();
@@ -46,10 +41,9 @@ public class AnimatedSprite extends Sprite {
   /**
    * Adds an animation to the sprite.
    *
-   * @param name    the name of the animation
-   * @param pattern the pattern (@see String#format) of the file names. The frame
-   *                starts from 1.
-   * @param frames  the number of frames in the animation
+   * @param name the name of the animation
+   * @param pattern the pattern (@see String#format) of the file names. The frame starts from 1.
+   * @param frames the number of frames in the animation
    */
   public void addAnimation(String name, String pattern, int frames) {
     String[] animation = new String[frames];
@@ -65,10 +59,9 @@ public class AnimatedSprite extends Sprite {
   /**
    * Adds an animation to the sprite.
    *
-   * @param name    the name of the animation
+   * @param name the name of the animation
    * @param builder a function that builds the file names for the animation frames
-   * @param frame   the number of frames in the animation. The frame starts from
-   *                1.
+   * @param frame the number of frames in the animation. The frame starts from 1.
    */
   public void addAnimation(
       String name, java.util.function.Function<Integer, String> builder, int frame) {
@@ -84,10 +77,10 @@ public class AnimatedSprite extends Sprite {
   /**
    * Adds an animation to the sprite.
    *
-   * @param name   the name of the animation
-   * @param path   the path to the animation frames
+   * @param name the name of the animation
+   * @param path the path to the animation frames
    * @param frames the number of frames in the animation
-   * @param width  the width of each frame
+   * @param width the width of each frame
    * @param height the height of each frame
    */
   public void addAnimation(String name, String path, int frames, int width, int height) {
@@ -97,12 +90,12 @@ public class AnimatedSprite extends Sprite {
   /**
    * Adds an animation to the sprite.
    *
-   * @param name   the name of the animation
-   * @param path   the path to the animation frames
+   * @param name the name of the animation
+   * @param path the path to the animation frames
    * @param frames the number of frames in the animation
-   * @param width  the width of each frame
+   * @param width the width of each frame
    * @param height the height of each frame
-   * @param row    the row of the animation frames
+   * @param row the row of the animation frames
    */
   public void addAnimation(String name, String path, int frames, int width, int height, int row) {
     String[] animation = new String[frames];
@@ -117,12 +110,12 @@ public class AnimatedSprite extends Sprite {
   /**
    * Adds an animation to the sprite.
    *
-   * @param name       the name of the animation
-   * @param path       the path to the animation frames
-   * @param frames     the number of frames in the animation
-   * @param width      the width of each frame
-   * @param height     the height of each frame
-   * @param column     the column of the animation frames
+   * @param name the name of the animation
+   * @param path the path to the animation frames
+   * @param frames the number of frames in the animation
+   * @param width the width of each frame
+   * @param height the height of each frame
+   * @param column the column of the animation frames
    * @param useColumns whether to use columns or rows
    */
   public void addAnimation(
