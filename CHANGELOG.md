@@ -4,6 +4,38 @@ index: 4
 lang: en
 ---
 
+## 4.22.0
+
+- 🚀 Feat: Add functional interfaces to the Sprite and Stage class. This allows you to use lambda expressions for when methods and the run method. This is especially useful if you do not want to use inheritance. For example, you can now write:
+```java
+Sprite sprite = new Sprite();
+sprite.setWhenKeyPressed((s, keyCode) -> {
+    if (keyCode == KeyEvent.VK_SPACE) {
+        s.move(10);
+    }
+});
+```
+
+All methods receive the sprite or stage as the first parameter, so you can access the sprite or stage directly in the lambda expression. If you use inheritance you are better off overwriting when and run methods, like before:
+
+```java
+class MySprite extends Sprite {
+    @Override
+    public void whenKeyPressed(int keyCode) {
+        if (keyCode == KeyEvent.VK_SPACE) {
+            this.move(10);
+        }
+    }
+}
+
+```
+
+- 🚀 Feat: You can now check the library version with `getLibraryVersion()` on the window class. This is useful if you want to check the version of the library at runtime.
+
+```java
+window.getLibraryVersion(); // returns the version as a string
+```
+
 ## 4.21.0
 
 - 🚀 Feat: Add `addAnimation` with a builder function to the AnimatedSprite
