@@ -217,7 +217,7 @@
                 </executions>
                 <configuration>
                     <excludePackageNames>
-                        demos.*:reference.*
+                        demos.*:demos:reference.*:reference
                     </excludePackageNames>
                     <doclint>all,-missing</doclint>
                 </configuration>
