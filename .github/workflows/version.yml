@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - ".changesets/**"
+      - ".changeset/**"
 
 jobs:
   bump-version:
@@ -24,7 +24,7 @@ jobs:
       - name: Detect change types and build PR body
         id: detect
         run: |
-          FILES=$(git diff-tree --no-commit-id --name-only -r ${{ github.sha }} | grep '.changesets/' || true)
+          FILES=$(git diff-tree --no-commit-id --name-only -r ${{ github.sha }} | grep '.changeset/' || true)
           if [ -z "$FILES" ]; then
             echo "No changeset files found"
             exit 0
@@ -86,7 +86,7 @@ jobs:
 
       - name: Delete changeset files
         run: |
-          rm -f .changesets/*
+          rm -f .changeset/*
           echo "Removed processed changeset files."
 
       - name: Commit and push changes
@@ -94,7 +94,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout -B changeset
-          git add pom.xml .changesets
+          git add pom.xml .changeset
           git commit -m "chore: release v${{ env.VERSION }}"
           git push origin changeset --force
 
