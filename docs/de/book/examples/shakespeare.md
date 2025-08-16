@@ -11,4 +11,4 @@ Ein Beispiel, das die Nutzung der Text-Klasse zeigt.
 
 ## Quelltext
 
-- Java: https://github.com/openpatch/scratch-for-java/tree/main/examples/java/Shakespeare
+- Java: https://github.com/openpatch/scratch-for-java/tree/main/src/examples/java/demos/shakespeare

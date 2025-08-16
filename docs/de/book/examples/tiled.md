@@ -11,4 +11,4 @@ Dieses Beispiel zeigt vor allem den Umgang mit der Erweiterung Tiled am Beispiel
 
 ## Source Code:
 
-- Java: https://github.com/openpatch/scratch-for-java/tree/main/examples/java/Tiled
+- Java: https://github.com/openpatch/scratch-for-java/tree/main/src/examples/java/demos/tiled

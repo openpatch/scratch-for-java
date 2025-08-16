@@ -17,7 +17,7 @@ do
     s4j_examples_copy_to_documentation $LOCALE
 
     rm -rf ./docs/$LOCALE/archives
-    cp -R ./examples/archives ./docs/$LOCALE/archives
+    cp -R ./docs/archives ./docs/$LOCALE/archives
 done
 
 popd

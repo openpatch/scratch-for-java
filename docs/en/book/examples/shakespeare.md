@@ -10,4 +10,4 @@ An example showing the use of the Text class.
 
 ## Source Code
 
-- Java: https://github.com/openpatch/scratch-for-java/tree/main/examples/java/Shakespeare
+- Java: https://github.com/openpatch/scratch-for-java/tree/main/src/examples/java/demos/shakespeare

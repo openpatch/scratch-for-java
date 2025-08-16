@@ -11,4 +11,4 @@ Ein Beispiel, welches die Methode `isTouchingMousePointer` und individuelle Hitb
 
 ## Quelltext:
 
-- Java: https://github.com/openpatch/scratch-for-java/tree/main/examples/java/Sensing
+- Java: https://github.com/openpatch/scratch-for-java/tree/main/src/examples/java/demos/sensing

@@ -10,6 +10,8 @@ classes
 *.class
 *.ctxt
 *.zip
+docs/de/archives
+docs/en/archives
 docs/en/public/reference
 docs/de/public/reference
 docs/en/book/changelog.md
@@ -22,3 +24,15 @@ natives
 
 # Ignore Gradle build output directory
 build
+
+### Maven ###
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar

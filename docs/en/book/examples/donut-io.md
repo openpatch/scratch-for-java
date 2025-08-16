@@ -11,4 +11,4 @@ This example show the switch of stages and the interaction of multiple sprites.
 
 ## Source Code
 
-- Java: https://github.com/openpatch/scratch-for-java/tree/main/examples/java/DonutIO
+- Java: https://github.com/openpatch/scratch-for-java/tree/main/src/examples/java/demos/donutIO

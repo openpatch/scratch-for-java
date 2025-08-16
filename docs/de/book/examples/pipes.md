@@ -11,4 +11,4 @@ Dieses Beispiel zeigt die Nutzung des Stifts.
 
 ## Quelltext 
 
-- Java: https://github.com/openpatch/scratch-for-java/tree/main/examples/java/Pipes
+- Java: https://github.com/openpatch/scratch-for-java/tree/main/src/examples/java/demos/pipes

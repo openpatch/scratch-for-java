@@ -10,4 +10,4 @@ This example demonstrates the usage of the sensing time methods.
 
 ## Source Code
 
-- Java: https://github.com/openpatch/scratch-for-java/tree/main/examples/java/Clock
+- Java: https://github.com/openpatch/scratch-for-java/tree/main/src/examples/java/demos/clock

@@ -11,4 +11,4 @@ Ein Beispiel, welches die Nutzung der Matheklassen Vector2 und Random demonstrie
 
 ## Quelltext
 
-- Java: https://github.com/openpatch/scratch-for-java/tree/main/examples/java/SmartRocket
+- Java: https://github.com/openpatch/scratch-for-java/tree/main/src/examples/java/demos/smartRocket
