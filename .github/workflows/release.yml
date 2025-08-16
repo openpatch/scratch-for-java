@@ -8,6 +8,7 @@ on:
 
 jobs:
   release:
+    if: github.event.pull_request.merged == true  # only run if PR was merged
     runs-on: ubuntu-latest
 
     permissions:
