@@ -16,3 +16,9 @@ Wenn du die beiden Projekte selber vergleichen möchtest, dann kannst du dir die
 
 - Scratch: https://scratch.mit.edu/projects/338613208
 - BlueJ: [Quelltext auf GitHub](https://github.com/openpatch/scratch-for-java/blob/main/docs/archives/Halloween) oder [Projekt Halloween.zip](/archives/Halloween.zip)
+
+## Special Thanks
+
+The Scratch for Java library is profiled using [Java Profiler](https://www.ej-technologies.com/products/jprofiler/overview.html)
+
+[![Java Profiler](https://www.ej-technologies.com/images/product_banners/jprofiler_large.png)](https://www.ej-technologies.com/products/jprofiler/overview.html)
