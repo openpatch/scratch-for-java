@@ -22,11 +22,11 @@ npx hyperbook dev
 
 ## Library
 
-If you want to work on the library. You need a Java environment and Ant. Then you can use the following command to build
+If you want to work on the library. You need a Java environment and Maven. Then you can use the following command to build
 the library.
 
 ```
-mvn clean package
+mvn compile
 ```
 
 You can release the library with the following command:
@@ -37,7 +37,7 @@ mvn deploy
 
 ## Maintainer
 
-Mike Barkmin • [Twitter](https://twitter.com/mikebarkmin) • [GitHub](https://github.com/mikebarkmin/)
+Mike Barkmin • [Mastodon](https://bildung.social/@mikebarkmin) • [GitHub](https://github.com/mikebarkmin/)
 
 ## Support
 

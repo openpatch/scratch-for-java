@@ -9,7 +9,7 @@
     <packaging>jar</packaging>
 
     <name>Scratch for Java</name>
-    <description>Scratch for Java Library</description>
+    <description>Scratch for Java is a Java library that replicates the functionality and concepts of Scratch, helping learners transition from block-based programming to text-based coding in Java. It provides an approachable API inspired by Scratch blocks, making it easier for beginners to understand programming concepts while gaining experience with real Java syntax and tools.</description>
     <url>https://scratch4j.openpatch.org</url>
 
     <licenses>
@@ -37,7 +37,7 @@
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <libs.processing>4.4.6</libs.processing>
         <libs.jackson>2.19.2</libs.jackson>
     </properties>
