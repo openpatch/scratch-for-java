@@ -6,8 +6,7 @@ on:
       - main
     paths:
       - ".changeset/**"
-    paths-ignore:
-      - '.changeset/README.md'
+      - '!.changeset/README.md'
 
 jobs:
   bump-version:
