@@ -1,0 +1,86 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write   # needed for release + deleting branches
+      pages: write      # needed to publish to GitHub Pages
+      id-token: write   # required for GitHub Pages deployment
+      packages: write   # needed for Maven Central deploy
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+          cache: maven
+          server-id: central
+          server-username: MAVEN_USERNAME
+          server-password: MAVEN_PASSWORD
+
+      - name: Import GPG key
+        run: |
+          echo "$GPG_PRIVATE_KEY" | gpg --batch --import
+          echo "allow-loopback-pinentry" >> ~/.gnupg/gpg.conf
+        env:
+          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+
+      - name: Set GPG passphrase
+        run: |
+          echo "pinentry-mode loopback" >> ~/.gnupg/gpg.conf
+        env:
+          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+
+      - name: Deploy to Maven Central (signed)
+        run: mvn -B clean deploy -Pcentral -Dgpg.passphrase=${{ secrets.GPG_PASSPHRASE }} -Dgpg.executable=gpg
+
+      - name: Build fat jar
+        run: mvn -B clean package -Pall
+
+      - name: Get project version
+        id: get-version
+        run: |
+          VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "Detected version: $VERSION"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ env.VERSION }}
+          name: Release v${{ env.VERSION }}
+          body: "Automated release of version ${{ env.VERSION }}"
+          files: |
+            target/*-all.jar
+
+      - name: Generate Javadocs
+        run: mvn -B javadoc:javadoc
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Javadocs artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: target/site/apidocs
+
+      - name: Deploy Javadocs to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Delete changeset branch
+        run: |
+          echo "Deleting branch 'changeset'"
+          git push origin --delete changeset || true
+
