@@ -10,4 +10,4 @@ An example which demonstrates the usage of the math classes Vector2 and Random.
 
 ## Source Code
 
-- Java: https://github.com/openpatch/scratch-for-java/tree/main/examples/java/SmartRocket
+- Java: https://github.com/openpatch/scratch-for-java/tree/main/src/examples/java/demos/smartRocket

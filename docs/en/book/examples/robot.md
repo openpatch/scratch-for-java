@@ -10,4 +10,4 @@ An example with a class in another file.
 
 ## Source Code:
 
-- Java: https://github.com/openpatch/scratch-for-java/tree/main/examples/java/Robot
+- Java: https://github.com/openpatch/scratch-for-java/tree/main/src/examples/java/demos/robot

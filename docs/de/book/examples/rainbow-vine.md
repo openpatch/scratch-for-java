@@ -11,4 +11,4 @@ Dieses Beispile verwendet Maus-Ereignisse und Timer.
 
 ## Quelltext:
 
-- Java: https://github.com/openpatch/scratch-for-java/tree/main/examples/java/RainbowVine
+- Java: https://github.com/openpatch/scratch-for-java/tree/main/src/examples/java/demos/rainbowVine

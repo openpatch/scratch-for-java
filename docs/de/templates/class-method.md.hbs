@@ -25,16 +25,16 @@ hide: true
 :::tab{title="{{{ src }}}" id="{{{ folder }}}.{{{ src }}}"}
 ```java
 {{#if lines}}
-{{{ rfile (concat "/examples/reference/" ../folder "/" src) lines "" }}}
+{{{ rfile (concat "/src/examples/java/reference/" ../folder "/" src) lines "" }}}
 {{else}}
-{{{ rfile (concat "/examples/reference/" ../folder "/" src) }}}
+{{{ rfile (concat "/src/examples/java/reference/" ../folder "/" src) }}}
 {{/if}}
 ```
 :::
 {{/each}}
 ::::
 
-[View on GitHub](https://github.com/openpatch/scratch-for-java/blob/main/examples/reference/{{ folder }})
+[View on GitHub](https://github.com/openpatch/scratch-for-java/blob/main/src/examples/java/reference/{{ folder }})
 {{/each}}
 {{/if}}
 

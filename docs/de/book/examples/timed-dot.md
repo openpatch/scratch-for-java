@@ -10,5 +10,4 @@ Ein Beispiel, welches verschiedene Timer nutzt.
 
 ## Quelltext:
 
-- Java: https://github.com/openpatch/scratch-for-java/tree/main/examples/java/TimedDot
-- Processing: https://github.com/openpatch/scratch-for-java/tree/main/examples/processing/TimedDot
+- Java: https://github.com/openpatch/scratch-for-java/tree/main/src/examples/java/demos/timedDot

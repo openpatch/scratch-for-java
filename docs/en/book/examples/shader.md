@@ -10,4 +10,4 @@ An example showing how to use shaders on stage and sprite objects.
 
 ## Source Code
 
-- Java: https://github.com/openpatch/scratch-for-java/tree/main/examples/java/Shader
+- Java: https://github.com/openpatch/scratch-for-java/tree/main/src/examples/java/demos/shader

@@ -10,4 +10,4 @@ An example with heavy use of the Pen.
 
 ## Source Code
 
-- Java: https://github.com/openpatch/scratch-for-java/tree/main/examples/java/Pipes
+- Java: https://github.com/openpatch/scratch-for-java/tree/main/src/examples/java/demos/pipes

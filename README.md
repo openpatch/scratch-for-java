@@ -26,7 +26,13 @@ If you want to work on the library. You need a Java environment and Ant. Then yo
 the library.
 
 ```
-ant -f resources/build.xml
+mvn clean package
+```
+
+You can release the library with the following command:
+
+```
+mvn deploy
 ```
 
 ## Maintainer

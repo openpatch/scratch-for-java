@@ -11,4 +11,4 @@ Dieses Beispiel zeigt die Wechsel der Bühne und die Interaktion mehrerer Figure
 
 ## Quelltext
 
-- Java: https://github.com/openpatch/scratch-for-java/tree/main/examples/java/DonutIO
+- Java: https://github.com/openpatch/scratch-for-java/tree/main/src/examples/java/demos/donutIO

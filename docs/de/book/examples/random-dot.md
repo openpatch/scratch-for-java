@@ -11,4 +11,4 @@ Das Beispiel zeigt die Zufallsmethoden und wie man auf die Größe des Fensters 
 
 ## Quelltext:
 
-- Java: https://github.com/openpatch/scratch-for-java/tree/main/examples/java/RandomDot
+- Java: https://github.com/openpatch/scratch-for-java/tree/main/src/examples/java/demos/randomDot

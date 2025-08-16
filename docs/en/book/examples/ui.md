@@ -8,5 +8,5 @@ An example which changes the mouse pointer and demonstrates the 9-slice scaling 
 
 ## Source Code:
 
-- Java: https://github.com/openpatch/scratch-for-java/tree/main/examples/java/UI
+- Java: https://github.com/openpatch/scratch-for-java/tree/main/src/examples/java/demos/ui
 

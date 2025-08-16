@@ -4,6 +4,16 @@ index: 4
 lang: en
 ---
 
+## 4.23.0
+
+We moved the build tools from Ant to Maven. We also restructured the releases.
+You can now find the final jar containing all depdencies and all operation
+system dependent libraries at Github releases. This means, that you can more easily 
+share your project with others, since you only need to include the final jar file.
+
+We also released the library on Maven Central, so you can easily include it in
+your project with Maven or Gradle.
+
 ## 4.22.0
 
 - 🚀 Feat: Add functional interfaces to the Sprite and Stage class. This allows you to use lambda expressions for when methods and the run method. This is especially useful if you do not want to use inheritance. For example, you can now write:

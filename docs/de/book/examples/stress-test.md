@@ -11,5 +11,5 @@ Wie viele Figure können angezeigt werden? Wie wird die Framerate beeinflusst. T
 
 ## Source Code:
 
-- Java: https://github.com/openpatch/scratch-for-java/tree/main/examples/java/StressTest
+- Java: https://github.com/openpatch/scratch-for-java/tree/main/src/examples/java/demos/stressTest
 

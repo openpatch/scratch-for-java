@@ -11,4 +11,4 @@ Dieses Beispile zeigt die Zeit-Methoden der Sprite-Klasse.
 
 ## Quelltext 
 
-- Java: https://github.com/openpatch/scratch-for-java/tree/main/examples/java/Clock
+- Java: https://github.com/openpatch/scratch-for-java/tree/main/src/examples/java/demos/clock
