@@ -216,10 +216,9 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <excludes>
-                        <exclude>demos/**</exclude>
-                        <exclude>reference/**</exclude>
-                    </excludes>
+                    <excludePackageNames>
+                        demos.*:reference.*
+                    </excludePackageNames>
                     <doclint>all,-missing</doclint>
                 </configuration>
             </plugin>
