@@ -4,7 +4,7 @@ hide: true
 lang: de
 ---
 
-# Scratch for Java
+# Scratch for Java (Version {{VERSION}})
 
 Um den Übergang von der block-basierten Programmierung mit [Scratch](scratch.mit.edu) zu der text-basierten Programmierung mit Java zu gestalten, wurde die Bibliothek erstellt. Daher wurden die Kernelemente von Scratch nachmodelliert.
 
@@ -15,4 +15,4 @@ Das nachfolgende Video zeigt ein Scratch-Projekt und ein BlueJ-Projekt, welches 
 Wenn du die beiden Projekte selber vergleichen möchtest, dann kannst du dir die beiden Implementierung hier anschauen:
 
 - Scratch: https://scratch.mit.edu/projects/338613208
-- BlueJ: [Quelltext auf GitHub](https://github.com/openpatch/scratch-for-java/blob/main/examples/archives/Halloween) oder [Projekt Halloween.zip](/archives/Halloween.zip)
+- BlueJ: [Quelltext auf GitHub](https://github.com/openpatch/scratch-for-java/blob/main/docs/archives/Halloween) oder [Projekt Halloween.zip](/archives/Halloween.zip)

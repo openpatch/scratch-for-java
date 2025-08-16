@@ -5,16 +5,28 @@ index: 1
 
 # Download
 
-::download[Windows - Intel 64-bit]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-windows-amd64.jar"}
+## GitHub Releases
 
-::download[Linux - Intel 64-bit]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-linux-amd64.jar"}
+This JAR file is platform-independent and can be used on any operating system that supports Java 17.
 
-::download[Linux - ARM v6hf]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-linux-armv6hf.jar"}
+::download[All Operating Systems]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch-{{VERSION}}-all.jar"}
 
-::download[Linux - ARM 64-bit]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-linux-aarch64.jar"}
+The source code can be downloaded here:
 
-::download[MacOS]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-macosx-universal.jar"}
+::download[Sources]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch-{{version}}-sources.jar"}
 
-::download[Sources]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-sources.jar"}
+If you also need the JavaDoc, i.e., the documentation of the classes, it can be downloaded here:
 
-::download[JavaDoc]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch4j-javadoc.jar"}
+::download[JavaDoc]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch-{{version}}-javadoc.jar"}
+
+It is best to add all three JAR files so that autocomplete and documentation lookup work correctly in your IDE.
+
+## Maven Central
+
+```xml
+<dependency>
+    <groupId>org.openpatch</groupId>
+    <artifactId>scratch</artifactId>
+    <version>{{VERSION}}</version>
+</dependency>
+```
