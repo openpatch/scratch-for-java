@@ -54,3 +54,18 @@ If you have installed BlueJ via the installer you probably find the "userlib" fo
 ## Standalone
 
 You need to add the Jar file for your [operating system](/download) to the classpath.
+
+
+## Maven
+
+You can also use Scratch for Java via Maven. Just add the following dependency to your `pom.xml`:
+
+```xml
+<dependency>
+    <groupId>org.openpatch</groupId>
+    <artifactId>scratch</artifactId>
+    <version>4.23.0</version>
+</dependency>
+```
+
+We have also prepared a starter for you: [Maven Starter](https://github.com/openpatch/scratch-for-java-maven-starter/tree/main)

@@ -56,3 +56,16 @@ Wenn du BlueJ installiert hast, findest du den "userlib"-Ordner hier:
 
 Du kannst die Jar-Datei auch deinme classpath hinzufügen und so unabhängig von BlueJ mit deinem Lieblingseditor verwenden.
 
+## Maven
+
+Du kannst Scratch for Java auch über Maven verwenden. Füge einfach die folgende Abhängigkeit zu deiner `pom.xml` hinzu:
+
+```xml
+<dependency>
+    <groupId>org.openpatch</groupId>
+    <artifactId>scratch</artifactId>
+    <version>4.23.0</version>
+</dependency>
+```
+
+Wir haben auch ein Starter für dich vorbereitet: [Maven Starter](https://github.com/openpatch/scratch-for-java-maven-starter/tree/main)
