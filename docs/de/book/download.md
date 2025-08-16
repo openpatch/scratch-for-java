@@ -13,11 +13,11 @@ Dieses Jar-Datei ist plattformunabhängig und kann auf jedem Betriebssystem verw
 
 Die Quelltexte können hier heruntergeladen werden:
 
-::download[Sources]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch-{{version}}-sources.jar"}
+::download[Sources]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch-{{VERSION}}-sources.jar"}
 
 Wenn auch die JavaDoc, also die Dokumentation der Klassen, benötigt wird, kann diese hier heruntergeladen werden:
 
-::download[JavaDoc]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch-{{version}}-javadoc.jar"}
+::download[JavaDoc]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch-{{VERSION}}-javadoc.jar"}
 
 Am Besten fügt man alle drei Jar-Dateien hinzu, damit die Autovervollständigung und das nachschauen in der Dokumentation in der IDE funktioniert.
 

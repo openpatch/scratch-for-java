@@ -3,7 +3,7 @@ name: Welcome
 hide: true
 ---
 
-# Scratch for Java
+# Scratch for Java (Version {{VERSION}})
 
 To ease the transition from the block-based programming environment
 [Scratch](scratch.mit.edu) to Java this
@@ -19,10 +19,6 @@ If you want to compare it yourself, you can take a look inside both projects:
 - BlueJ: [Source Code on GitHub](https://github.com/openpatch/scratch-for-java/blob/main/examples/archives/Halloween/) or [Project Halloween.zip](/archives/Halloween.zip)
 
 ## Special Thanks
-
-The Scratch for Java website is hosted on [Vercel](https://vercel.com).
-
-[![Vercel](https://www.datocms-assets.com/31049/1618983297-powered-by-vercel.svg)](https://vercel.com?utm_source=openpatch&utm_campaign=oss)
 
 The Scratch for Java library is profiled using [Java Profiler](https://www.ej-technologies.com/products/jprofiler/overview.html)
 
