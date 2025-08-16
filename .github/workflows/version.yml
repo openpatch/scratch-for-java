@@ -1,0 +1,108 @@
+name: Version Bump
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".changesets/**"
+
+jobs:
+  bump-version:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Detect change types and build PR body
+        id: detect
+        run: |
+          FILES=$(git diff-tree --no-commit-id --name-only -r ${{ github.sha }} | grep '.changesets/' || true)
+          if [ -z "$FILES" ]; then
+            echo "No changeset files found"
+            exit 0
+          fi
+
+          # Initialize variables
+          TYPE_PRIORITY=0
+          BODY=""
+
+          for FILE in $FILES; do
+            echo "Processing $FILE"
+
+            FILE_TYPE=$(grep '^type:' "$FILE" | awk '{print $2}')
+            case "$FILE_TYPE" in
+              patch) PRIORITY=1 ;;
+              minor) PRIORITY=2 ;;
+              major) PRIORITY=3 ;;
+              *) echo "Unknown type: $FILE_TYPE"; exit 1 ;;
+            esac
+
+            if [ $PRIORITY -gt $TYPE_PRIORITY ]; then
+              TYPE_PRIORITY=$PRIORITY
+              TYPE=$FILE_TYPE
+            fi
+
+            CONTENT=$(sed '/^type:/d' "$FILE" | sed '/^---$/d')
+            BODY="$BODY\n\n$CONTENT"
+          done
+
+          echo "TYPE=$TYPE" >> $GITHUB_ENV
+          echo "BODY<<EOF" >> $GITHUB_ENV
+          echo -e "$BODY" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
+          echo "Final detected type: $TYPE"
+          echo "PR body:"
+          echo -e "$BODY"
+
+      - name: Bump version
+        run: |
+          case "$TYPE" in
+            patch) mvn versions:set -DnextSnapshot=true -DgenerateBackupPoms=false ;;
+            minor) mvn build-helper:parse-version versions:set \
+                      -DnewVersion=\${parsedVersion.majorVersion}.\$((parsedVersion.minorVersion+1)).0-SNAPSHOT \
+                      -DgenerateBackupPoms=false ;;
+            major) mvn build-helper:parse-version versions:set \
+                      -DnewVersion=\$((parsedVersion.majorVersion+1)).0.0-SNAPSHOT \
+                      -DgenerateBackupPoms=false ;;
+            *) echo "Unknown type: $TYPE"; exit 1 ;;
+          esac
+          mvn versions:commit
+
+      - name: Get new project version
+        id: get-version
+        run: |
+          VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "New version: $VERSION"
+
+      - name: Delete changeset files
+        run: |
+          rm -f .changesets/*
+          echo "Removed processed changeset files."
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -B changeset
+          git add pom.xml .changesets
+          git commit -m "chore: release v${{ env.VERSION }}"
+          git push origin changeset --force
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "chore: release v${{ env.VERSION }}"
+          branch: changeset
+          title: "Release v${{ env.VERSION }}"
+          body: ${{ env.BODY }}
+          labels: version
