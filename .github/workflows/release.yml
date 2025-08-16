@@ -45,7 +45,9 @@ jobs:
           GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
 
       - name: Deploy to Maven Central (signed)
-        run: mvn -B clean deploy -Pcentral -Dgpg.passphrase=${{ secrets.GPG_PASSPHRASE }} -Dgpg.executable=gpg
+        run: mvn -B clean deploy -Pcentral -Dgpg.executable=gpg
+        env:
+          MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
 
       - name: Build fat jar
         run: mvn -B clean package -Pall
