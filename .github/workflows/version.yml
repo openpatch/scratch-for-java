@@ -25,6 +25,10 @@ jobs:
         id: detect
         run: |
           FILES=$(git diff-tree --no-commit-id --name-only -r ${{ github.sha }} | grep '.changeset/' || true)
+          
+          # Ignore README.md
+          FILES=$(echo "$FILES" | grep -v 'README.md' || true)
+
           if [ -z "$FILES" ]; then
             echo "No changeset files found"
             exit 0
