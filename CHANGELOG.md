@@ -4,6 +4,27 @@ index: 4
 lang: en
 ---
 
+## 4.24.0
+
+Move towards supporting Java modules. Therefore we added the shape extension
+and remove public facing java.awt classes. This is a breaking change, since you
+can not use the java.awt classes anymore. Instead, you can use the new shape
+extension, which provides the same functionality.
+
+```java
+import org.openpatch.scratch.extensions.shape.Rectangle;
+import org.openpatch.scratch.extensions.shape.Polygon;
+import org.openpatch.scratch.extensions.shape.Shape;
+import org.openpatch.scratch.extensions.shape.Circle;
+import org.openpatch.scratch.extensions.shape.Ellipse;
+
+Shape rect = new Rectangle(10, 10, 100, 50);
+Shape poly = new Polygon(new double[] { 0, 100, 50 }, new double[] { 0, 0, 100 });
+Shape circle = new Circle(50, 50, 25);
+Shape ellipse = new Ellipse(50, 50, 100, 50);
+Shape triangle = new Triangle(0, 0, 100, 0, 50, 100);
+```
+
 ## 4.23.0
 
 We moved the build tools from Ant to Maven. We also restructured the releases.

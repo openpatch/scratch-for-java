@@ -1,0 +1,29 @@
+// Since processing is not a Java module core is unstable and
+// therefore we are not publishing scratch for java as a Java
+// module.
+
+module scratch {
+
+  requires com.fasterxml.jackson.databind;
+  requires com.fasterxml.jackson.core;
+  requires com.fasterxml.jackson.annotation;
+  requires com.fasterxml.jackson.dataformat.xml;
+  requires com.github.davidmoten.wordwrap;
+  requires java.desktop;
+  requires transitive core;
+
+  exports org.openpatch.scratch;
+  exports org.openpatch.scratch.extensions.animation;
+  exports org.openpatch.scratch.extensions.camera;
+  exports org.openpatch.scratch.extensions.color;
+  exports org.openpatch.scratch.extensions.fs;
+  exports org.openpatch.scratch.extensions.hitbox;
+  exports org.openpatch.scratch.extensions.math;
+  exports org.openpatch.scratch.extensions.pen;
+  exports org.openpatch.scratch.extensions.recorder;
+  exports org.openpatch.scratch.extensions.shader;
+  exports org.openpatch.scratch.extensions.shape;
+  exports org.openpatch.scratch.extensions.text;
+  exports org.openpatch.scratch.extensions.tiled;
+  exports org.openpatch.scratch.extensions.timer;
+}

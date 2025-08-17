@@ -1,10 +1,12 @@
 package org.openpatch.scratch.extensions.tiled;
 
 /**
- * The Point class represents a point object in Tiled. It includes fields for the x and y
+ * The Point class represents a point object in Tiled. It includes fields for
+ * the x and y
  * coordinates of the point.
  *
- * <p>Example usage:
+ * <p>
+ * Example usage:
  *
  * <pre>{@code
  * Point p = new Point();

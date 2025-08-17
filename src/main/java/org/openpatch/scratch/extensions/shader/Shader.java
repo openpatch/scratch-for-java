@@ -6,7 +6,6 @@ import org.openpatch.scratch.extensions.math.Vector2;
 import org.openpatch.scratch.internal.Applet;
 
 import processing.opengl.PShader;
-import processing.opengl.PSurfaceJOGL;
 
 public class Shader {
 

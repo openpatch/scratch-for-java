@@ -1,11 +1,11 @@
 package demos.sensing;
 
-import java.awt.geom.Ellipse2D;
 import org.openpatch.scratch.KeyCode;
 import org.openpatch.scratch.Sprite;
 import org.openpatch.scratch.Stage;
 import org.openpatch.scratch.Window;
 import org.openpatch.scratch.extensions.hitbox.Hitbox;
+import org.openpatch.scratch.extensions.shape.Ellipse;
 
 public class Sensing extends Stage {
   public static Hero h, m;
@@ -65,7 +65,7 @@ class MovableHero extends Hero {
     super();
     this.setPosition(-100, -100);
     this.setDirection(0);
-    var hb = new Hitbox(new Ellipse2D.Double(0, 0, 615, 570));
+    var hb = new Hitbox(new Ellipse(0, 0, 615, 570));
     this.setHitbox(hb);
   }
 

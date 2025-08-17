@@ -16,6 +16,12 @@ VERSION=$(grep -m1 '<version>' ./pom.xml | sed -E 's/.*<version>([^<]+)<\/versio
 for LOCALE in ${LOCALES[@]}; do
     cp ./CHANGELOG.md ./docs/$LOCALE/book/changelog.md
     s4j_examples_copy_to_documentation $LOCALE
+    folder=./docs/$LOCALE/public/reference/
+    rm -rf $folder
+    mkdir $folder
+    pushd ./src/examples/java/reference
+    find . -name "*.gif" | cpio -pdm $folder
+    popd
 
     sed -i "s/{{VERSION}}/${VERSION}/g" ./docs/${LOCALE}/book/download.md
     sed -i "s/{{VERSION}}/${VERSION}/g" ./docs/${LOCALE}/book/index.md

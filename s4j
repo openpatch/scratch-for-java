@@ -1,0 +1,82 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Find the project root (assumes .gitpod.yml exists there)
+s4j_workdir() {
+    local dir=$(pwd)
+    while [[ -n "$dir" && ! -f "$dir/.gitpod.yml" ]]; do
+        dir="${dir%/*}"
+    done
+    echo "$dir"
+}
+
+WORKDIR=$(s4j_workdir)
+
+# Compare en/ and de/ doc structures
+s4j_diff_docs() {
+    echo "🔍 Checking documentation structure differences..."
+    if ! diff -d <(tree -a "$WORKDIR/docs/en/") <(tree -a "$WORKDIR/docs/de/"); then
+        echo "❌ Documentation structure mismatch between en/ and de/"
+        return 1
+    fi
+    echo "✅ Documentation structures match."
+}
+
+# Search for forbidden words/placeholders
+s4j_lint_docs() {
+    echo "🔍 Linting documentation for forbidden words..."
+    local errors=0
+    local forbidden=("construction") # add more if needed
+
+    for word in "${forbidden[@]}"; do
+        if grep -Rni "$word" "$WORKDIR/docs/en/book" "$WORKDIR/docs/de/book"; then
+            echo "❌ Found forbidden word: $word"
+            errors=1
+        fi
+    done
+
+    if [[ $errors -eq 0 ]]; then
+        echo "✅ No forbidden words found."
+    fi
+    return $errors
+}
+
+# Run all checks
+s4j_check_all() {
+    local status=0
+    s4j_diff_docs || status=1
+    s4j_check_javadocs || status=1
+    s4j_lint_docs || status=1
+    return $status
+}
+
+# Convert CamelCase class name to kebab-case (AnimatedSprite -> animated-sprite)
+to_kebab_case() {
+    echo "$1" | sed -E 's/([a-z0-9])([A-Z])/\1-\L\2/g' | tr '[:upper:]' '[:lower:]'
+}
+
+fqcn_to_doc_path() {
+    local fqcn="$1"
+    # Remove prefix org.openpatch.scratch.
+    local path="${fqcn#org.openpatch.scratch.}"
+    # Convert dots to slashes
+    echo "${path//./\/}"
+}
+
+# -------------------------------
+# CLI interface
+# -------------------------------
+case "$1" in
+diff)
+    s4j_diff_docs
+    ;;
+lint)
+    s4j_lint_docs
+    ;;
+*)
+    echo "Usage: $0 {javadocs|lint}"
+    echo "  diff     Compare en/ vs de/ docs"
+    echo "  lint              Search for 'construction' in docs"
+    exit 1
+    ;;
+esac

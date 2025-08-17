@@ -1,6 +1,5 @@
 package org.openpatch.scratch;
 
-import java.awt.Shape;
 import java.util.AbstractMap;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
@@ -13,6 +12,7 @@ import org.openpatch.scratch.extensions.math.Utils;
 import org.openpatch.scratch.extensions.math.Vector2;
 import org.openpatch.scratch.extensions.pen.Pen;
 import org.openpatch.scratch.extensions.shader.Shader;
+import org.openpatch.scratch.extensions.shape.Shape;
 import org.openpatch.scratch.extensions.text.Text;
 import org.openpatch.scratch.extensions.text.TextStyle;
 import org.openpatch.scratch.extensions.timer.Timer;
@@ -877,19 +877,19 @@ public class Sprite {
 
     if (h.intersects(this.stage.leftBorder)) {
       this.setDirection(-this.getDirection());
-      this.setX(-this.stage.getWidth() / 2 + bounds.getWidth() / 2);
+      this.setX(-this.stage.getWidth() / 2 + bounds.width() / 2);
     }
     if (h.intersects(this.stage.rightBorder)) {
       this.setDirection(-this.getDirection());
-      this.setX(this.stage.getWidth() / 2 - bounds.getWidth() / 2);
+      this.setX(this.stage.getWidth() / 2 - bounds.width() / 2);
     }
     if (h.intersects(this.stage.topBorder)) {
       this.setDirection(-this.getDirection() - 180);
-      this.setY(this.stage.getHeight() / 2 - bounds.getHeight() / 2);
+      this.setY(this.stage.getHeight() / 2 - bounds.height() / 2);
     }
     if (h.intersects(this.stage.bottomBorder)) {
       this.setDirection(-this.getDirection() - 180);
-      this.setY(-this.stage.getHeight() / 2 + bounds.getHeight() / 2);
+      this.setY(-this.stage.getHeight() / 2 + bounds.height() / 2);
     }
   }
 
@@ -1280,10 +1280,10 @@ public class Sprite {
    *               integers representing a point (x,
    *               y).
    */
-  public void setHitbox(int... points) {
+  public void setHitbox(double... points) {
     int l = points.length / 2;
-    int[] xPoints = new int[l];
-    int[] yPoints = new int[l];
+    double[] xPoints = new double[l];
+    double[] yPoints = new double[l];
     for (int i = 0; i < points.length; i += 2) {
       xPoints[i / 2] = points[i];
       yPoints[i / 2] = points[i + 1];
@@ -1295,9 +1295,9 @@ public class Sprite {
    * Sets the hitbox for the sprite using the provided x and y coordinates.
    *
    * @param xPoints an array of x coordinates for the hitbox
-   * @param yPoints an array of y coordinates for the hitbox
+   * @param yPoints an array of y coordinar the hitbox
    */
-  public void setHitbox(int[] xPoints, final int[] yPoints) {
+  public void setHitbox(double[] xPoints, double[] yPoints) {
     this.hitbox = new Hitbox(xPoints, yPoints);
   }
 
@@ -1382,16 +1382,16 @@ public class Sprite {
     var cornerBottomRight = Utils.rotateXY(
         this.x + spriteWidth / 2.0f, -this.y + spriteHeight / 2.0f, this.x, -this.y, rotation);
 
-    int[] xPoints = new int[4];
-    int[] yPoints = new int[4];
-    xPoints[0] = (int) Math.round(cornerTopLeft[0]);
-    yPoints[0] = (int) Math.round(cornerTopLeft[1]);
-    xPoints[1] = (int) Math.round(cornerTopRight[0]);
-    yPoints[1] = (int) Math.round(cornerTopRight[1]);
-    xPoints[2] = (int) Math.round(cornerBottomRight[0]);
-    yPoints[2] = (int) Math.round(cornerBottomRight[1]);
-    xPoints[3] = (int) Math.round(cornerBottomLeft[0]);
-    yPoints[3] = (int) Math.round(cornerBottomLeft[1]);
+    double[] xPoints = new double[4];
+    double[] yPoints = new double[4];
+    xPoints[0] = cornerTopLeft[0];
+    yPoints[0] = cornerTopLeft[1];
+    xPoints[1] = cornerTopRight[0];
+    yPoints[1] = cornerTopRight[1];
+    xPoints[2] = cornerBottomRight[0];
+    yPoints[2] = cornerBottomRight[1];
+    xPoints[3] = cornerBottomLeft[0];
+    yPoints[3] = cornerBottomLeft[1];
 
     Hitbox hitbox = new Hitbox(xPoints, yPoints);
     return hitbox;
@@ -2028,7 +2028,7 @@ public class Sprite {
    */
   public void stampToBackground() {
     if (this.costumes.size() > 0) {
-      this.stage.backgroundStamps.add(this.getStamp());
+      this.stage.addStampsToBackground(this.getStamp());
     }
   }
 
@@ -2038,7 +2038,7 @@ public class Sprite {
    */
   public void stampToUI() {
     if (this.costumes.size() > 0) {
-      this.stage.uiStamps.add(this.getStamp());
+      this.stage.addStampsToUI(this.getStamp());
     }
   }
 
@@ -2049,7 +2049,7 @@ public class Sprite {
    */
   public void stampToForeground() {
     if (this.costumes.size() > 0) {
-      this.stage.foregroundStamps.add(this.getStamp());
+      this.stage.addStampsToForeground(this.getStamp());
     }
   }
 

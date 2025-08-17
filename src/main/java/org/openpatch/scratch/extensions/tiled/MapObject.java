@@ -1,13 +1,16 @@
 package org.openpatch.scratch.extensions.tiled;
 
-import java.awt.Shape;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.Rectangle2D;
 import java.util.List;
 
+import org.openpatch.scratch.extensions.shape.Ellipse;
+import org.openpatch.scratch.extensions.shape.Rectangle;
+import org.openpatch.scratch.extensions.shape.Shape;
+
 /**
- * Represents a map object with various properties such as dimensions, position, visibility, and
- * type. It also provides methods to retrieve property values in different formats and to get a
+ * Represents a map object with various properties such as dimensions, position,
+ * visibility, and
+ * type. It also provides methods to retrieve property values in different
+ * formats and to get a
  * Shape representation of the map object.
  */
 public class MapObject {
@@ -48,24 +51,27 @@ public class MapObject {
   public Object point;
 
   /** A Polygon object representing a polygon shape. */
-  public Polygon polygon;
+  protected Polygon polygon;
 
   /** A Polyline object representing a polyline shape. */
-  public Polyline polyline;
+  protected Polyline polyline;
 
   /**
-   * Retrieves the value of a property with the specified name and converts it to an integer.
+   * Retrieves the value of a property with the specified name and converts it to
+   * an integer.
    *
    * @param name the name of the property to retrieve
    * @return the integer value of the property
-   * @throws NumberFormatException if the property value cannot be parsed as an integer
+   * @throws NumberFormatException if the property value cannot be parsed as an
+   *                               integer
    */
   public int getPropertyInt(String name) {
     return Integer.parseInt(getProperty(name));
   }
 
   /**
-   * Retrieves the value of a property with the specified name from the properties list.
+   * Retrieves the value of a property with the specified name from the properties
+   * list.
    *
    * @param name the name of the property to retrieve
    * @return the value of the property with the specified name
@@ -80,7 +86,8 @@ public class MapObject {
    *
    * @param name the name of the property to retrieve
    * @return the float value of the specified property
-   * @throws NumberFormatException if the property value cannot be parsed as a float
+   * @throws NumberFormatException if the property value cannot be parsed as a
+   *                               float
    */
   public float getPropertyFloat(String name) {
     return Float.parseFloat(getProperty(name));
@@ -90,36 +97,46 @@ public class MapObject {
    * Retrieves the value of the specified property as a boolean.
    *
    * @param name the name of the property to retrieve
-   * @return the boolean value of the property, or false if the property is not found or cannot be
-   *     parsed as a boolean
+   * @return the boolean value of the property, or false if the property is not
+   *         found or cannot be
+   *         parsed as a boolean
    */
   public boolean getPropertyBoolean(String name) {
     return Boolean.parseBoolean(getProperty(name));
   }
 
   /**
-   * Returns a Shape object representing the current map object. The type of Shape returned depends
-   * on the properties of the map object: - If the object is a point, a 1x1 rectangle is returned. -
-   * If the object is an ellipse, an Ellipse2D object with the specified width and height is
-   * returned. - If the object is a polygon, a Polygon object with the specified points is returned.
-   * - If none of the above conditions are met, a rectangle with the specified width and height is
+   * Returns a Shape object representing the current map object. The type of Shape
+   * returned depends
+   * on the properties of the map object: - If the object is a point, a 1x1
+   * rectangle is returned. -
+   * If the object is an ellipse, an Ellipse2D object with the specified width and
+   * height is
+   * returned. - If the object is a polygon, a Polygon object with the specified
+   * points is returned.
+   * - If none of the above conditions are met, a rectangle with the specified
+   * width and height is
    * returned.
    *
    * @return a Shape object representing the current map object.
    */
   public Shape getShape() {
     if (point != null) {
-      return new Rectangle2D.Double(0, 0, 1, 1);
+      return new Rectangle(0, 0, 1, 1);
     } else if (ellipse != null) {
-      return new Ellipse2D.Double(0, 0, width, height);
+      return new Ellipse(0, 0, width, height);
     } else if (polygon != null) {
-      var p = new java.awt.Polygon();
-      p.addPoint(0, 0);
-      for (var point : polygon.getPoints()) {
-        p.addPoint((int) Math.round(point[0]), (int) Math.round(point[1]));
+      var points = polygon.getPoints();
+      var xPoints = new double[points.length];
+      var yPoints = new double[points.length];
+
+      for (int i = 0; i < points.length; i++) {
+        xPoints[i] = points[i][0];
+        yPoints[i] = points[i][1];
       }
-      return p;
+
+      return new org.openpatch.scratch.extensions.shape.Polygon(xPoints, yPoints);
     }
-    return new Rectangle2D.Double(0, 0, width, height);
+    return new Rectangle(0, 0, width, height);
   }
 }

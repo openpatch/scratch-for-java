@@ -5,27 +5,32 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.nio.file.Paths;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentLinkedQueue;
+
 import org.openpatch.scratch.Stage;
 import org.openpatch.scratch.extensions.fs.File;
 import org.openpatch.scratch.internal.Image;
 import org.openpatch.scratch.internal.Stamp;
 
 /**
- * The TiledMap class represents a map created using the Tiled map editor. It provides methods to
- * load the map from an XML file, retrieve objects from layers, and stamp layers onto the foreground
+ * The TiledMap class represents a map created using the Tiled map editor. It
+ * provides methods to
+ * load the map from an XML file, retrieve objects from layers, and stamp layers
+ * onto the foreground
  * or background of a stage.
  *
- * <p>Example usage:
+ * <p>
+ * Example usage:
  *
  * <pre>{@code
  * TiledMap map = new TiledMap("assets/map.tmx", stage);
  * map.stampLayerToForeground("foreground");
  *
  * for (MapObject object : map.getObjectsFromLayer("objects")) {
- *  if (object.type.equals("player")) {
- *   Player p = new Player(object.x, object.y);
- *   stage.addSprite(p);
- *  }
+ *   if (object.type.equals("player")) {
+ *     Player p = new Player(object.x, object.y);
+ *     stage.addSprite(p);
+ *   }
  * }
  *
  * }</pre>
@@ -39,7 +44,7 @@ public class TiledMap {
   /**
    * Constructs a new TiledMap object.
    *
-   * @param path the file path to the Tiled map XML file
+   * @param path  the file path to the Tiled map XML file
    * @param stage the stage to which this Tiled map belongs
    */
   public TiledMap(String path, Stage stage) {
@@ -54,14 +59,13 @@ public class TiledMap {
         var x = index % tileset.columns;
         var y = index / tileset.columns;
 
-        var image =
-            new Image(
-                "",
-                spriteSheetPath,
-                x * tileset.tilewidth,
-                y * tileset.tileheight,
-                tileset.tilewidth,
-                tileset.tileheight);
+        var image = new Image(
+            "",
+            spriteSheetPath,
+            x * tileset.tilewidth,
+            y * tileset.tileheight,
+            tileset.tilewidth,
+            tileset.tileheight);
         image.setSize(tileset.tilewidth + 1, tileset.tileheight + 1);
         tiles.put(firstId + index, image);
       }
@@ -90,7 +94,8 @@ public class TiledMap {
    * Retrieves the objects from a specified layer in the tiled map.
    *
    * @param name the name of the layer from which to retrieve objects
-   * @return an array of MapObject from the specified layer, or null if the layer does not exist
+   * @return an array of MapObject from the specified layer, or null if the layer
+   *         does not exist
    */
   public MapObject[] getObjectsFromLayer(String name) {
     var og = getObjectGroup(name);
@@ -104,8 +109,9 @@ public class TiledMap {
     return null;
   }
 
-  private void stampLayer(String name, Queue<Stamp> stamps) {
+  private Queue<Stamp> stampLayer(String name) {
     var layer = this.getLayer(name);
+    var stamps = new ConcurrentLinkedQueue<Stamp>();
 
     for (int index = 0; index < layer.data.length; index++) {
       var tx = index % layer.width;
@@ -121,6 +127,8 @@ public class TiledMap {
 
       stamps.add(new Stamp(tile, x - 0.5, y - 0.5));
     }
+
+    return stamps;
   }
 
   /**
@@ -129,7 +137,8 @@ public class TiledMap {
    * @param name the name of the layer to be stamped to the foreground
    */
   public void stampLayerToForeground(String name) {
-    stampLayer(name, stage.foregroundStamps);
+    var stamps = stampLayer(name);
+    stage.addStampsToForeground(stamps);
   }
 
   /**
@@ -138,7 +147,8 @@ public class TiledMap {
    * @param name the name of the layer to be stamped onto the background
    */
   public void stampLayerToBackground(String name) {
-    stampLayer(name, stage.backgroundStamps);
+    var stamps = stampLayer(name);
+    stage.addStampsToBackground(stamps);
   }
 
   public String toString() {
