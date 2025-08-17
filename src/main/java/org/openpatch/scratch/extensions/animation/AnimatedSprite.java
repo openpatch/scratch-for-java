@@ -1,7 +1,6 @@
 package org.openpatch.scratch.extensions.animation;
 
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.Consumer;
 
 import org.openpatch.scratch.Sprite;
 

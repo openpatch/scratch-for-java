@@ -1,6 +1,5 @@
 package org.openpatch.scratch;
 
-import java.awt.Polygon;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -20,6 +19,7 @@ import org.openpatch.scratch.extensions.hitbox.Hitbox;
 import org.openpatch.scratch.extensions.math.Vector2;
 import org.openpatch.scratch.extensions.pen.Pen;
 import org.openpatch.scratch.extensions.shader.Shader;
+import org.openpatch.scratch.extensions.shape.Polygon;
 import org.openpatch.scratch.extensions.text.Text;
 import org.openpatch.scratch.extensions.text.TextStyle;
 import org.openpatch.scratch.extensions.timer.Timer;
@@ -83,15 +83,15 @@ public class Stage {
 
   private PGraphics backdropBuffer;
 
-  public Queue<Stamp> backgroundStamps;
+  private Queue<Stamp> backgroundStamps;
   private PGraphics backgroundBuffer;
   private boolean eraseBackgroundBuffer;
 
-  public Queue<Stamp> foregroundStamps;
+  private Queue<Stamp> foregroundStamps;
   private PGraphics foregroundBuffer;
   private boolean eraseForegroundBuffer;
 
-  public Queue<Stamp> uiStamps;
+  private Queue<Stamp> uiStamps;
   private PGraphics uiBuffer;
   private boolean eraseUIBuffer;
 
@@ -1649,6 +1649,35 @@ public class Stage {
    */
   public void run() {
     this.runHandler.handle(this);
+  }
+
+  public void addStampsToForeground(Stamp stamp) {
+    if (stamp == null) {
+      return;
+    }
+    this.foregroundStamps.add(stamp);
+  }
+
+  public void addStampsToForeground(Queue<Stamp> stamps) {
+    this.foregroundStamps.addAll(stamps);
+  }
+
+  public void addStampsToBackground(Stamp stamp) {
+    if (stamp == null) {
+      return;
+    }
+    this.backgroundStamps.add(stamp);
+  }
+
+  public void addStampsToBackground(Queue<Stamp> stamps) {
+    this.backgroundStamps.addAll(stamps);
+  }
+
+  void addStampsToUI(Stamp stamp) {
+    if (stamp == null) {
+      return;
+    }
+    this.uiStamps.add(stamp);
   }
 
   /**

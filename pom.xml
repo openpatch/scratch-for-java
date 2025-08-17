@@ -5,7 +5,7 @@
 
     <groupId>org.openpatch</groupId>
     <artifactId>scratch</artifactId>
-    <version>4.23.0</version>
+    <version>4.24.0</version>
     <packaging>jar</packaging>
 
     <name>Scratch for Java</name>
