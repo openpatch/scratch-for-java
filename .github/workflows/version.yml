@@ -68,8 +68,6 @@ jobs:
           echo "PR body:"
           echo -e "$BODY"
 
-      - name: Bump version
-        run: |
           VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
           # Split the version by dots
           IFS='.' read -r major minor patch <<< "$VERSION"
