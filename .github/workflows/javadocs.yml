@@ -12,7 +12,7 @@ jobs:
     steps:
 
       - name: Generate Javadocs
-        run: mvn -B javadoc:javadoc
+        run: mvn -B javadoc:javadoc -Pcentral
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
