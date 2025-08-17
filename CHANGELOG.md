@@ -4,6 +4,10 @@ index: 4
 lang: en
 ---
 
+## 4.24.1
+
+- Fix wrong implemention of Polygon.
+
 ## 4.24.0
 
 Move towards supporting Java modules. Therefore we added the shape extension
