@@ -70,19 +70,21 @@ jobs:
 
       - name: Bump version
         run: |
-          major=$(mvn help:evaluate -Dexpression=parsedVersion.majorVersion -q -DforceStdout)
-          minor=$(mvn help:evaluate -Dexpression=parsedVersion.minorVersion -q -DforceStdout)
+          VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+          # Split the version by dots
+          IFS='.' read -r major minor patch <<< "$VERSION"
 
           case "$TYPE" in
             patch)
-              mvn versions:set -DnextSnapshot=true -DgenerateBackupPoms=false
+              new_version="$major.$minor.$((patch+1))"
+              mvn versions:set -DnewVersion="$new_version" -DgenerateBackupPoms=false
               ;;
             minor)
-              new_version="$major.$((minor+1)).0-SNAPSHOT"
+              new_version="$major.$((minor+1)).0"
               mvn versions:set -DnewVersion="$new_version" -DgenerateBackupPoms=false
               ;;
             major)
-              new_version="$((major+1)).0.0-SNAPSHOT"
+              new_version="$((major+1)).0.0"
               mvn versions:set -DnewVersion="$new_version" -DgenerateBackupPoms=false
               ;;
             *)
@@ -100,7 +102,7 @@ jobs:
 
       - name: Delete changeset files
         run: |
-          rm -f .changeset/*
+          find .changeset -type f ! -name 'README.md' -delete
           echo "Removed processed changeset files."
 
       - name: Commit and push changes
