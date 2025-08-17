@@ -9,7 +9,23 @@ jobs:
   javadocs:
     runs-on: ubuntu-latest
 
+    permissions:
+      pages: write      # needed to publish to GitHub Pages
+      id-token: write   # required for GitHub Pages deployment
+
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+          cache: maven
+          server-id: central
+          server-username: MAVEN_USERNAME
+          server-password: MAVEN_PASSWORD
 
       - name: Generate Javadocs
         run: mvn -B javadoc:javadoc -Pcentral
