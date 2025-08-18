@@ -128,6 +128,7 @@
                         <configuration>
                             <publishingServerId>central</publishingServerId>
                             <checksums>required</checksums>
+                            <autoPublish>true</autoPublish>
                         </configuration>
                     </plugin>
 
