@@ -18,6 +18,8 @@ Der Nachteil ist, dass das Verhalten der Sprite-Objekte in einer globalen Klasse
 Das heißt, dass mit diesem Ansatz die Einfachheit im Umgang mit Java gegen Kompatibilität mit dem Scratch-Modell getauscht wird.
 
 ```java
+import org.openpatch.scratch.*;
+
 public class MyProgram {
     public MyProgram() {
         Stage myStage = new Stage();
@@ -25,9 +27,9 @@ public class MyProgram {
         zebra.addCostume("walk_1", "assets/walk_1.png");
         zebra.setOnEdgeBounce(true);
 
-        while(true) {
-            zebra.move(1);
-        }
+        zebra.setRun(s -> {
+            s.move(1);
+        })
     }
 }
 ```
@@ -45,6 +47,8 @@ Hier sind ein paar Vergleiche, die man verwenden könnte:
 - In Scratch haben wir Nachrichten zu und von Figure geschickt, indem wir einen Block benutzt haben. In Java definieren wir eigene Methoden und rufen diese dann auf.
 
 ```java
+import org.openpatch.scratch.*;
+
 class Zebra extends Sprite {
     public Zebra() {
         this.addCostume("walk_1", "assets/walk_1.png");
@@ -72,6 +76,8 @@ Der erweiterte Scratch Ansatz basiert auf dem objektorientierten Ansatz, aber f�
 Zum Beispiel gibt es in Scratch for Java die Window-Klasse. Welches nur einmalig instanziiert werden kann. Dieses Objekt kann mehrere Bühnen enthalten und zwischen ihnen wechseln. Du kannst auch die Größe des Fensters verändern.
 
 ```java
+import org.openpatch.scratch.*;
+
 public class MyProject extends Window {
     public MyProject() {
         super(800, 600);
@@ -88,6 +94,8 @@ public class MyProject extends Window {
 Eine andere Erweiterung ist die Klasse AnimatedSprite, welches es sehr einfach macht Animation zu verwenden. Die Klasse kann sehr früh verwendet werden, denn sie beseitig den Nachteil, dass Skripte nicht pausiert werden können.
 
 ```java
+import org.openpatch.scratch.extensions.animation.*;
+
 public Zebra extends AnimatedSprite {
     public Zebra() {
         this.addAnimation("walk", "walk_%d.png", 4);

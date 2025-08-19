@@ -17,6 +17,8 @@ The downside to this approach is that you define the behavior of the Sprites ins
 So by using this approach you are trading simplicity with compatibility to the Scratch model.
 
 ```java
+import org.openpatch.scratch.*;
+
 public class MyProgram {
     public MyProgram() {
         Stage myStage = new Stage();
@@ -24,9 +26,9 @@ public class MyProgram {
         zebra.addCostume("walk_1", "assets/walk_1.png");
         zebra.setOnEdgeBounce(true);
 
-        while(true) {
-            zebra.move(1);
-        }
+        zebra.setRun(s -> {
+            s.move(1);
+        })
     }
 }
 ```
@@ -44,6 +46,8 @@ Here are a few comparisons you could draw:
 - In Scratch we send messages to and from sprites by using a block. In Java we call methods on an object `mySprite.goLeft()`. A method is similar to a custom block.
 
 ```java
+import org.openpatch.scratch.*;
+
 class Zebra extends Sprite {
     public Zebra() {
         this.addCostume("walk_1", "assets/walk_1.png");
@@ -71,6 +75,8 @@ The enhanced Scratch approach is based on the object-oriented approach, but intr
 For example in Scratch for Java you can create an object from the Window-class. This object can hold multiple stages and can switch between those. You can also define the size of the window - by default it uses the same size as a Scratch project.
 
 ```java
+import org.openpatch.scratch.*;
+
 public class MyProject extends Window {
     public MyProject() {
         super(800, 600);
@@ -87,6 +93,8 @@ public class MyProject extends Window {
 Another enhancement is the class AnimatedSprite, which makes it easy to use an animated for Sprites. This class should be used early since it overcomes the downside of not having a per-sprite wait-block by abstracting the timing.
 
 ```java
+import org.openpatch.scratch.extensions.animation.*;
+
 public Zebra extends AnimatedSprite {
     public Zebra() {
         this.addAnimation("walk", "walk_%d.png", 4);
