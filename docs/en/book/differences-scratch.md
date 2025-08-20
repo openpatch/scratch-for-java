@@ -7,7 +7,6 @@ index: 3
 
 Probably the most noticeable differences to Scratch are the following:
 
-- The coordinated start in the top left hand side corner and **not** in the center.
 - There is not wait-block on a Sprite-level, you need to use [Timers](/reference/sprite/sensing/getTimer).
 
 If you want to achieve something like this inside a Sprite:

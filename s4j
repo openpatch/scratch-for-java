@@ -20,6 +20,7 @@ fi
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 # Counters
@@ -27,7 +28,8 @@ total_classes=0
 documented_classes=0
 total_methods=0
 documented_methods=0
-missing_docs=()
+missing_docs_en=()
+missing_docs_de=()
 
 echo "Documentation Coverage Checker"
 echo "=============================="
@@ -90,6 +92,7 @@ EOF
         echo -e "  ${GREEN}Created:${NC} $index_file"
     done
 }
+
 is_public_class() {
     local java_file="$1"
     local class_name=$(get_class_name "$java_file")
@@ -100,6 +103,7 @@ is_public_class() {
         grep -q "^\s*public\s\+enum\s\+$class_name" "$java_file" ||
         grep -q "^\s*public\s\+abstract\s\+class\s\+$class_name" "$java_file"
 }
+
 get_qualified_class_name() {
     local java_file="$1"
 
@@ -156,53 +160,151 @@ extract_public_methods() {
         sort -u
 }
 
-# Function to check if documentation exists for a method
-check_method_documentation() {
+# Function to check if documentation exists for a method in a specific language
+check_method_documentation_lang() {
     local java_file="$1"
     local method_name="$2"
+    local docs_dir="$3"
     local doc_folder=$(get_doc_folder "$java_file")
 
-    # Check in all documentation directories
-    for docs_dir in "${DOCS_DIRS[@]}"; do
-        local doc_path="$docs_dir/$doc_folder/$method_name.md.json"
+    # First check if method documentation exists directly in class folder
+    local doc_path="$docs_dir/$doc_folder/$method_name.md.json"
+    if [ -f "$doc_path" ]; then
+        return 0
+    fi
 
-        # First check if method documentation exists directly in class folder
-        if [ -f "$doc_path" ]; then
-            return 0
-        fi
+    # For specific classes (Sprite, Stage, Window), also check subfolders
+    local class_name=$(get_class_name "$java_file")
+    if [[ "$class_name" == "Sprite" || "$class_name" == "Stage" || "$class_name" == "Window" ]]; then
+        # Check common subfolders for these classes
+        local subfolders=("events" "looks" "motion" "sensing" "sound" "control" "operators" "variables")
 
-        # For specific classes (Sprite, Stage, Window), also check subfolders
-        local class_name=$(get_class_name "$java_file")
-        if [[ "$class_name" == "Sprite" || "$class_name" == "Stage" || "$class_name" == "Window" ]]; then
-            # Check common subfolders for these classes
-            local subfolders=("events" "looks" "motion" "sensing" "sound" "control" "operators" "variables")
-
-            for subfolder in "${subfolders[@]}"; do
-                local subfolder_path="$docs_dir/$doc_folder/$subfolder/$method_name.md.json"
-                if [ -f "$subfolder_path" ]; then
-                    return 0
-                fi
-            done
-        fi
-    done
+        for subfolder in "${subfolders[@]}"; do
+            local subfolder_path="$docs_dir/$doc_folder/$subfolder/$method_name.md.json"
+            if [ -f "$subfolder_path" ]; then
+                return 0
+            fi
+        done
+    fi
 
     return 1
 }
 
-# Function to check if documentation exists for a class
+# Function to check if documentation exists for a method (returns status for each language)
+check_method_documentation() {
+    local java_file="$1"
+    local method_name="$2"
+    local en_exists=false
+    local de_exists=false
+
+    # Check English documentation
+    if check_method_documentation_lang "$java_file" "$method_name" "${DOCS_DIRS[0]}"; then
+        en_exists=true
+    fi
+
+    # Check German documentation
+    if check_method_documentation_lang "$java_file" "$method_name" "${DOCS_DIRS[1]}"; then
+        de_exists=true
+    fi
+
+    # Return 0 if exists in at least one language for overall count
+    if [ "$en_exists" = true ] || [ "$de_exists" = true ]; then
+        # Store missing language-specific documentation
+        if [ "$en_exists" = false ]; then
+            local doc_folder=$(get_doc_folder "$java_file")
+            local qualified_name=$(get_qualified_class_name "$java_file")
+            local class_name=$(get_class_name "$java_file")
+
+            if [[ "$class_name" == "Sprite" || "$class_name" == "Stage" || "$class_name" == "Window" ]]; then
+                missing_docs_en+=("METHOD: $qualified_name.$method_name -> $doc_folder/$method_name.md.json (or in subfolders: events/, looks/, motion/, etc.)")
+            else
+                missing_docs_en+=("METHOD: $qualified_name.$method_name -> $doc_folder/$method_name.md.json")
+            fi
+        fi
+
+        if [ "$de_exists" = false ]; then
+            local doc_folder=$(get_doc_folder "$java_file")
+            local qualified_name=$(get_qualified_class_name "$java_file")
+            local class_name=$(get_class_name "$java_file")
+
+            if [[ "$class_name" == "Sprite" || "$class_name" == "Stage" || "$class_name" == "Window" ]]; then
+                missing_docs_de+=("METHOD: $qualified_name.$method_name -> $doc_folder/$method_name.md.json (or in subfolders: events/, looks/, motion/, etc.)")
+            else
+                missing_docs_de+=("METHOD: $qualified_name.$method_name -> $doc_folder/$method_name.md.json")
+            fi
+        fi
+
+        return 0
+    else
+        # Add to both missing lists if missing in both languages
+        local doc_folder=$(get_doc_folder "$java_file")
+        local qualified_name=$(get_qualified_class_name "$java_file")
+        local class_name=$(get_class_name "$java_file")
+
+        if [[ "$class_name" == "Sprite" || "$class_name" == "Stage" || "$class_name" == "Window" ]]; then
+            missing_docs_en+=("METHOD: $qualified_name.$method_name -> $doc_folder/$method_name.md.json (or in subfolders: events/, looks/, motion/, etc.)")
+            missing_docs_de+=("METHOD: $qualified_name.$method_name -> $doc_folder/$method_name.md.json (or in subfolders: events/, looks/, motion/, etc.)")
+        else
+            missing_docs_en+=("METHOD: $qualified_name.$method_name -> $doc_folder/$method_name.md.json")
+            missing_docs_de+=("METHOD: $qualified_name.$method_name -> $doc_folder/$method_name.md.json")
+        fi
+
+        return 1
+    fi
+}
+
+# Function to check if documentation exists for a class in a specific language
+check_class_documentation_lang() {
+    local java_file="$1"
+    local docs_dir="$2"
+    local doc_folder=$(get_doc_folder "$java_file")
+    local doc_dir="$docs_dir/$doc_folder"
+
+    if [ -d "$doc_dir" ]; then
+        return 0
+    fi
+    return 1
+}
+
+# Function to check if documentation exists for a class (returns status for each language)
 check_class_documentation() {
     local java_file="$1"
-    local doc_folder=$(get_doc_folder "$java_file")
+    local en_exists=false
+    local de_exists=false
 
-    # Check in all documentation directories
-    for docs_dir in "${DOCS_DIRS[@]}"; do
-        local doc_dir="$docs_dir/$doc_folder"
-        if [ -d "$doc_dir" ]; then
-            return 0
+    # Check English documentation
+    if check_class_documentation_lang "$java_file" "${DOCS_DIRS[0]}"; then
+        en_exists=true
+    fi
+
+    # Check German documentation
+    if check_class_documentation_lang "$java_file" "${DOCS_DIRS[1]}"; then
+        de_exists=true
+    fi
+
+    # Return 0 if exists in at least one language for overall count
+    if [ "$en_exists" = true ] || [ "$de_exists" = true ]; then
+        # Store missing language-specific documentation
+        local qualified_name=$(get_qualified_class_name "$java_file")
+        local doc_folder=$(get_doc_folder "$java_file")
+
+        if [ "$en_exists" = false ]; then
+            missing_docs_en+=("CLASS: $qualified_name -> $doc_folder/")
         fi
-    done
 
-    return 1
+        if [ "$de_exists" = false ]; then
+            missing_docs_de+=("CLASS: $qualified_name -> $doc_folder/")
+        fi
+
+        return 0
+    else
+        # Add to both missing lists if missing in both languages
+        local qualified_name=$(get_qualified_class_name "$java_file")
+        local doc_folder=$(get_doc_folder "$java_file")
+        missing_docs_en+=("CLASS: $qualified_name -> $doc_folder/")
+        missing_docs_de+=("CLASS: $qualified_name -> $doc_folder/")
+        return 1
+    fi
 }
 
 # Main processing
@@ -225,6 +327,7 @@ while IFS= read -r -d '' java_file; do
     if ! is_public_class "$java_file"; then
         continue
     fi
+
     class_name=$(get_class_name "$java_file")
     qualified_name=$(get_qualified_class_name "$java_file")
     ((total_classes++))
@@ -237,7 +340,6 @@ while IFS= read -r -d '' java_file; do
         echo -e "  ${GREEN}✓${NC} Class folder exists"
     else
         echo -e "  ${RED}✗${NC} Missing class folder: $(get_doc_folder "$java_file")"
-        missing_docs+=("CLASS: $qualified_name -> $(get_doc_folder "$java_file")/")
 
         # Create missing class documentation if flag is set
         if [ "$CREATE_MISSING" = true ]; then
@@ -259,15 +361,6 @@ while IFS= read -r -d '' java_file; do
                     echo -e "    ${GREEN}✓${NC} Documentation exists"
                 else
                     echo -e "    ${RED}✗${NC} Missing documentation"
-                    doc_folder=$(get_doc_folder "$java_file")
-                    class_name=$(get_class_name "$java_file")
-
-                    # Provide helpful suggestion for Sprite, Stage, Window classes
-                    if [[ "$class_name" == "Sprite" || "$class_name" == "Stage" || "$class_name" == "Window" ]]; then
-                        missing_docs+=("METHOD: $qualified_name.$method -> $doc_folder/$method.md.json (or in subfolders: events/, looks/, motion/, etc.)")
-                    else
-                        missing_docs+=("METHOD: $qualified_name.$method -> $doc_folder/$method.md.json")
-                    fi
 
                     # Create missing method documentation if flag is set
                     if [ "$CREATE_MISSING" = true ]; then
@@ -289,24 +382,38 @@ echo "=============================="
 echo "Classes: $documented_classes/$total_classes documented"
 echo "Methods: $documented_methods/$total_methods documented"
 
-if [ ${#missing_docs[@]} -gt 0 ]; then
+# Show language-specific missing documentation
+if [ ${#missing_docs_en[@]} -gt 0 ] || [ ${#missing_docs_de[@]} -gt 0 ]; then
     echo ""
     if [ "$CREATE_MISSING" = true ]; then
         echo -e "${GREEN}CREATED MISSING DOCUMENTATION FILES${NC}"
         echo "===================================="
-        echo -e "${GREEN}Created ${#missing_docs[@]} missing documentation files!${NC}"
+        total_missing=$((${#missing_docs_en[@]} + ${#missing_docs_de[@]}))
+        echo -e "${GREEN}Created $total_missing missing documentation files!${NC}"
         echo ""
         echo "Note: All created files use template placeholders."
         echo "Please review and update the content as needed."
     else
-        echo -e "${RED}MISSING DOCUMENTATION:${NC}"
-        echo "======================="
-        for missing in "${missing_docs[@]}"; do
-            echo -e "${YELLOW}$missing${NC}"
-        done
-        echo ""
-        echo -e "${RED}Total missing: ${#missing_docs[@]}${NC}"
-        echo ""
+        if [ ${#missing_docs_en[@]} -gt 0 ]; then
+            echo -e "${RED}MISSING ENGLISH DOCUMENTATION:${NC}"
+            echo "==============================="
+            for missing in "${missing_docs_en[@]}"; do
+                echo -e "${YELLOW}$missing${NC}"
+            done
+            echo -e "${RED}Total missing EN: ${#missing_docs_en[@]}${NC}"
+            echo ""
+        fi
+
+        if [ ${#missing_docs_de[@]} -gt 0 ]; then
+            echo -e "${RED}MISSING GERMAN DOCUMENTATION:${NC}"
+            echo "=============================="
+            for missing in "${missing_docs_de[@]}"; do
+                echo -e "${YELLOW}$missing${NC}"
+            done
+            echo -e "${RED}Total missing DE: ${#missing_docs_de[@]}${NC}"
+            echo ""
+        fi
+
         echo "To create missing files automatically, run with --create flag:"
         echo "  $0 --create"
     fi
@@ -316,6 +423,6 @@ if [ ${#missing_docs[@]} -gt 0 ]; then
     fi
 else
     echo ""
-    echo -e "${GREEN}All public classes and methods are documented! ✓${NC}"
+    echo -e "${GREEN}All public classes and methods are documented in both languages! ✓${NC}"
     exit 0
 fi
