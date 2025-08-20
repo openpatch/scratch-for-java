@@ -8,7 +8,6 @@ lang: de
 
 Die wahrscheinlich auffallensten Unterschiede sind die folgenden:
 
-- Das Koordinatensystem startet in der oberen linken Ecke und **nicht** im Zentrum
 - Es existiert kein Warte-Block, du musst [Timer](/reference/sprite/sensing/getTimer) verwenden.
 
 Wenn du etwas ähnlich wie folgende erreichen möchtest:
