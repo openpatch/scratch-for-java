@@ -33,25 +33,23 @@ The library is structured around three core concepts:
 
 ### Maven Build Commands
 
-⚠️ **CRITICAL DEPENDENCY ISSUE**: The build currently fails due to network connectivity issues with the jogamp repository (jogamp.org). This is a known external issue.
-
-**Standard Build Attempts (Currently Failing)**:
+**Standard Build Commands**:
 ```bash
-mvn clean compile  # FAILS - jogamp dependency issue
-mvn clean package  # FAILS - jogamp dependency issue
+mvn clean compile          # Basic compilation
+mvn clean package          # Create standard JAR
+mvn clean test             # Run tests (if any)
 ```
 
-**Working Build Profiles**:
+**Build Profiles**:
 ```bash
 # For Maven Central release (includes native dependencies)
-mvn clean compile -Pcentral  # May work in some environments
+mvn clean compile -Pcentral
 
 # For standalone JAR with all dependencies
 mvn clean package -Pall      # Creates target/*-all.jar
 ```
 
-### Build Workarounds
-When jogamp repository is unavailable, the build will fail. This is a known issue and not related to code changes. The library uses JOGL for OpenGL graphics rendering.
+**Note**: The library uses JOGL for OpenGL graphics rendering, which requires access to the jogamp.org repository. This dependency is now working correctly in the CI environment.
 
 ### Documentation Build
 
@@ -140,7 +138,7 @@ src/
 ### Validation Steps
 1. **Documentation Coverage**: Run `./s4j` to ensure all public APIs are documented
 2. **Example Compilation**: All reference examples should compile successfully
-3. **Maven Build**: Should pass when jogamp repository is accessible
+3. **Maven Build**: Standard build commands work with all profiles
 4. **Documentation Build**: `npx hyperbook build` should complete successfully
 
 ## Templates and Starter Projects
@@ -215,9 +213,9 @@ The repository includes VS Code configuration with:
 ## Troubleshooting Common Issues
 
 ### Build Failures
-1. **jogamp.org dependency errors**: External repository issue, not code-related
+1. **Maven cache issues**: Run `mvn clean` and retry
 2. **Java version mismatch**: Ensure Java 17+ is installed and active
-3. **Maven cache issues**: Run `mvn clean` and retry
+3. **Dependency download issues**: Check network connectivity and retry
 
 ### Documentation Issues
 1. **Missing documentation warnings**: Run `./s4j --create` to generate templates
@@ -228,7 +226,7 @@ Examples in `src/examples/java/` should compile with the main source. They're in
 
 ## Working with This Repository
 
-**ALWAYS** trust these instructions and refer to them before exploring. The build system has known external dependencies that may fail intermittently. Focus on:
+**ALWAYS** trust these instructions and refer to them before exploring. Focus on:
 
 1. Understanding the core Sprite/Stage/Window architecture
 2. Using the reference examples in `src/examples/java/reference/` as patterns
@@ -237,6 +235,6 @@ Examples in `src/examples/java/` should compile with the main source. They're in
 
 When making changes, ensure:
 - All public APIs have corresponding documentation
-- Examples compile successfully (when dependencies are available)
+- Examples compile successfully
 - Changes follow the established patterns in existing code
 - Documentation is updated in both English and German if adding new features
