@@ -37,7 +37,8 @@ for LOCALE in ${LOCALES[@]}; do
     template_list=""
     for template in ./templates/*; do
         template_name=$(basename $template)
-        capitalize_template_name=$(echo $template_name | sed -E 's/(^|_|-)([a-z])/\U\2/g')
+        # Capitalize template name for display replace - with space
+        capitalize_template_name=$(echo $template_name | sed -E 's/[-_]/ /g' | awk '{for(i=1;i<=NF;i++) $i=toupper(substr($i,1,1)) substr($i,2)}1')
         template_list+="- :archive[$capitalize_template_name]{name="$template_name"}\n"
     done
     sed -i "s/{{TEMPLATES}}/${template_list}/g" ./docs/${LOCALE}/book/download.md
