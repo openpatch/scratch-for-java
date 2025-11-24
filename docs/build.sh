@@ -27,16 +27,17 @@ for LOCALE in ${LOCALES[@]}; do
     cp -R ./docs/archives ./docs/$LOCALE/archives
 
     # put each template in ../templates in the archives folder
+    mkdir ./docs/$LOCALE/archives
     for template in ./templates/*; do
         template_name=$(basename $template)
-        cp -R $template ./docs/$LOCALE/archives/templates/$template_name
+        cp -R $template ./docs/$LOCALE/archives/$template_name
     done
 
     # replace {{TEMPLATES}} in the download.md with the list of templates
     template_list=""
     for template in ./templates/*; do
         template_name=$(basename $template)
-        capitalize_template_name=$(echo $template_name | sed -E 's/(^|_)([a-z])/\U\2/g')
+        capitalize_template_name=$(echo $template_name | sed -E 's/(^|_|-)([a-z])/\U\2/g')
         template_list+="- :archive[$capitalize_template_name]{name="$template_name"}\n"
     done
     sed -i "s/{{TEMPLATES}}/${template_list}/g" ./docs/${LOCALE}/book/download.md
