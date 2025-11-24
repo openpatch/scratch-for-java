@@ -5,6 +5,10 @@ index: 1
 
 # Download
 
+## Templates
+
+{{TEMPLATES}}
+
 ## GitHub Releases
 
 This JAR file is platform-independent and can be used on any operating system that supports Java 17.
