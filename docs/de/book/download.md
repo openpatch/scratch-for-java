@@ -5,6 +5,10 @@ index: 1
 
 # Download
 
+## Vorlagen
+
+{{TEMPLATES}}
+
 ## GitHub Releases
 
 Dieses Jar-Datei ist plattformunabhängig und kann auf jedem Betriebssystem verwendet werden, das Java 17 unterstützt.
