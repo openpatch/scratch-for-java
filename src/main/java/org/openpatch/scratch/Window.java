@@ -27,9 +27,14 @@ import org.openpatch.scratch.internal.*;
  * }</pre>
  *
  * @see Stage
+ * 
+ * @index-in-docs 3
  */
 public class Window {
 
+  /**
+   * @ignore-in-docs
+   */
   public interface WhenExitsHandler {
     void handle();
   }

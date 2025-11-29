@@ -35,8 +35,7 @@
     </scm>
 
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.release>17</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <libs.processing>4.4.6</libs.processing>
         <libs.jackson>2.19.2</libs.jackson>
@@ -180,6 +179,7 @@
                     <excludes>
                         <exclude>demos/**</exclude>
                         <exclude>reference/**</exclude>
+                        <exclude>tools/**</exclude>
                     </excludes>
                 </configuration>
             </plugin>
@@ -198,6 +198,7 @@
                         <configuration>
                             <sources>
                                 <source>src/examples/java</source>
+                                <source>src/tools/java</source>
                             </sources>
                         </configuration>
                     </execution>
@@ -217,8 +218,46 @@
                     </execution>
                 </executions>
                 <configuration>
+                    <tags>
+                        <tag>
+                            <name>index-in-docs</name>
+                            <placement>X</placement>
+                            <head>Index in documentation</head>
+                        </tag>
+                        <tag>
+                            <name>name-in-docs</name>
+                            <placement>X</placement>
+                            <head>Name in documentation</head>
+                        </tag>
+                        <tag>
+                            <name>ignore-in-docs</name>
+                            <placement>X</placement>
+                            <head>Ignored in documentation</head>
+                        </tag>
+                        <tag>
+                            <name>scratchblock</name>
+                            <placement>a</placement>
+                            <head>Scratch Block:</head>
+                        </tag>
+                        <!-- Allow any example.* tag -->
+                        <tag>
+                            <name>example.preview</name>
+                            <placement>X</placement>
+                            <head>Example:</head>
+                        </tag>
+                        <tag>
+                            <name>example.folder</name>
+                            <placement>X</placement>
+                            <head>Example:</head>
+                        </tag>
+                        <tag>
+                            <name>example.files</name>
+                            <placement>X</placement>
+                            <head>Example:</head>
+                        </tag>
+                    </tags>
                     <excludePackageNames>
-                        demos.*:demos:reference.*:reference
+                        demos.*:demos:reference.*:reference,doclets.*:doclets
                     </excludePackageNames>
                     <doclint>all,-missing</doclint>
                 </configuration>
@@ -243,6 +282,38 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.6.3</version>
+                <executions>
+                    <!-- Disable default javadoc execution -->
+                    <execution>
+                        <id>default-cli</id>
+                        <phase>none</phase>
+                    </execution>
+                    <execution>
+                        <id>generate-json-docs</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>javadoc-no-fork</goal>
+                        </goals>
+                        <configuration>
+                            <doclet>doclets.Scratch4JDoclet</doclet>
+                            <!-- Use the compiled classes from target/classes -->
+                            <docletPath>${project.build.outputDirectory}</docletPath>
+                            <outputDirectory>${project.build.directory}/../docs/book/reference</outputDirectory>
+                            <useStandardDocletOptions>false</useStandardDocletOptions>
+                            <additionalOptions>
+                                <additionalOption>-d</additionalOption>
+                                <additionalOption>${project.build.directory}/../docs/book/reference</additionalOption>
+                            </additionalOptions>
+                            <show>public</show>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
 
         <resources>
@@ -263,4 +334,3 @@
         </resources>
     </build>
 </project>
-

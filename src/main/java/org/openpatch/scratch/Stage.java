@@ -40,33 +40,56 @@ import processing.opengl.PGraphicsOpenGL;
  * backdrops can be added and manipulated. It provides methods to manage these
  * elements, handle
  * events, and control the stage's appearance and behavior.
+ * 
+ * @index-in-docs 2
  */
 public class Stage {
 
+  /**
+   * @ignore-in-docs
+   */
   public interface WhenBackdropSwitchesHandler {
     void handle(Stage stage, String name);
   }
 
+  /**
+   * @ignore-in-docs
+   */
   public interface WhenMouseClickedHandler {
     void handle(Stage stage, MouseCode mouseCode);
   }
 
+  /**
+   * @ignore-in-docs
+   */
   public interface WhenMouseWheelMovedHandler {
     void handle(Stage stage, int rotation);
   }
 
+  /**
+   * @ignore-in-docs
+   */
   public interface WhenKeyPressedHandler {
     void handle(Stage stage, int keyCode);
   }
 
+  /**
+   * @ignore-in-docs
+   */
   public interface WhenKeyReleasedHandler {
     void handle(Stage stage, int keyCode);
   }
 
+  /**
+   * @ignore-in-docs
+   */
   public interface WhenIReceiveHandler {
     void handle(Stage stage, Object message);
   }
 
+  /**
+   * @ignore-in-docs
+   */
   public interface RunHandler {
     void handle(Stage stage);
   }

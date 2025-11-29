@@ -1,5 +1,3 @@
-package org.openpatch.scratch.extensions.shape;
-
 /**
  * Provides classes for creating and manipulating geometric shapes.
  * <p>
@@ -32,4 +30,6 @@ package org.openpatch.scratch.extensions.shape;
  *      // Scale the ellipse
  *      Shape scaledEllipse = ellipse.scale(1.5, 1.5);
  *      </pre>
+ * @name-in-docs Shape
  */
+package org.openpatch.scratch.extensions.shape;

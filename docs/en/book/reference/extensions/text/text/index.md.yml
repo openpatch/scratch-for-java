@@ -1,4 +1,0 @@
-template: "class"
-name: "Text"
-description: |
-  `import org.openpatch.scratch.extensions.text.Text`

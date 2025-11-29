@@ -1,0 +1,55 @@
+{
+  "name": "Scratch for Java",
+  "version": "0.0.0",
+  "search": true,
+  "qrcode": true,
+  "allowDangerousHtml": true,
+  "description": "A library which remodels Scratch in Java",
+  "author": {
+    "name": "OpenPatch",
+    "url": "https://openpatch.org"
+  },
+  "logo": "/assets/logo.png",
+  "colors": {
+    "brand": "#4e7896",
+    "brandDark": "#f58219",
+    "brandText": "#f58219"
+  },
+  "repo": "https://github.com/openpatch/scratch-for-java/tree/main/docs/en",
+  "links": [
+    {
+      "label": "JavaDoc",
+      "href": "https://openpatch.github.io/scratch-for-java/"
+    },
+    {
+      "label": "Contact",
+      "links": [
+        {
+          "label": "Mail",
+          "icon": "📧",
+          "href": "mailto:contact@openpatch.org"
+        },
+        {
+          "label": "Twitter",
+          "icon": "🐦",
+          "href": "https://twitter.com/openpatchorg"
+        },
+        {
+          "label": "Mastodon",
+          "icon": "🐘",
+          "href": "https://fosstodon.org/@openpatch"
+        },
+        {
+          "label": "Matrix (Chat)",
+          "icon": "👨‍💻",
+          "href": "https://matrix.to/#/#hyperbook:matrix.org"
+        }
+      ]
+    }
+  ],
+  "elements": {
+    "bookmarks": false
+  },
+  "license": "CC-BY-NC-SA",
+  "language": "en"
+}

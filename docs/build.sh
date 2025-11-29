@@ -7,43 +7,18 @@ shopt -s expand_aliases
 DIR="${BASH_SOURCE%/*}"
 if [[ ! -d "$DIR" ]]; then DIR="$PWD"; fi
 
-LOCALES=("en" "de")
-
 VERSION=$(grep -m1 '<version>' ./pom.xml | sed -E 's/.*<version>([^<]+)<\/version>.*/\1/')
 
-for LOCALE in ${LOCALES[@]}; do
-    cp ./CHANGELOG.md ./docs/$LOCALE/book/changelog.md
-    folder=$DIR/docs/$LOCALE/public/reference/
-    rm -rf $folder
-    mkdir $folder
-    pushd ./src/examples/java/reference
-    find . -name "*.gif" | cpio -pdm $folder
-    popd
+cp ./CHANGELOG.md ./docs/book/changelog.md
+folder=$DIR/docs/public/reference/
+rm -rf $folder
+mkdir $folder
+pushd ./src/examples/java/reference
+find . -name "*.gif" | cpio -pdm $folder
+popd
 
-    sed -i "s/{{VERSION}}/${VERSION}/g" ./docs/${LOCALE}/book/download.md
-    sed -i "s/{{VERSION}}/${VERSION}/g" ./docs/${LOCALE}/book/index.md
-
-    rm -rf ./docs/$LOCALE/archives
-    cp -R ./docs/archives ./docs/$LOCALE/archives
-
-    # put each template in ../templates in the archives folder
-    mkdir ./docs/$LOCALE/archives
-    for template in ./templates/*; do
-        template_name=$(basename $template)
-        cp -R $template ./docs/$LOCALE/archives/$template_name
-    done
-
-    # replace {{TEMPLATES}} in the download.md with the list of templates
-    template_list=""
-    for template in ./templates/*; do
-        template_name=$(basename $template)
-        # Capitalize template name for display replace - with space
-        capitalize_template_name=$(echo $template_name | sed -E 's/[-_]/ /g' | awk '{for(i=1;i<=NF;i++) $i=toupper(substr($i,1,1)) substr($i,2)}1')
-        template_list+="- :archive[$capitalize_template_name]{name="$template_name"}\n"
-    done
-    sed -i "s/{{TEMPLATES}}/${template_list}/g" ./docs/${LOCALE}/book/download.md
-done
-
+sed -i "s/{{VERSION}}/${VERSION}/g" ./docs/book/download.md
+sed -i "s/{{VERSION}}/${VERSION}/g" ./docs/book/index.md
 popd
 
 npx hyperbook build

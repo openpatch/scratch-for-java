@@ -10,12 +10,7 @@ classes
 *.class
 *.ctxt
 *.zip
-docs/de/archives
-docs/en/archives
-docs/en/public/reference
-docs/de/public/reference
-docs/en/book/changelog.md
-docs/de/book/changelog.md
+old
 
 natives
 

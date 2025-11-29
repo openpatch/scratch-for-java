@@ -1,4 +1,0 @@
-template: "class"
-name: "Pen"
-description: |
-  `import org.openpatch.scratch.extensions.pen.*`

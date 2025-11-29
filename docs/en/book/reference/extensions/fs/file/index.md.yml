@@ -1,4 +1,0 @@
-template: "class"
-name: "File"
-description: |
-  `import org.openpatch.scratch.extensions.fs.File`

@@ -11,11 +11,11 @@ public class MyWindow extends Window {
     this.setStage(myStage);
     Recorder recorder = new GifRecorder("examples/reference/" + this.getClass().getPackageName());
     recorder.start();
-    // Wait for 5 seconds
-    while (myStage.getTimer().forMillis(5000))
-      ;
-    recorder.stop();
-    this.exit();
+    // Wait for 5 seconds @ignore
+    while (myStage.getTimer().forMillis(5000)) // @ignore
+      ; // @ignore
+    recorder.stop(); // @ignore
+    this.exit(); // @ignore
   }
 
   public static void main(String[] args) {

@@ -1,9 +1,0 @@
-template: "class"
-name: "AnimatedSprite"
-index: 3
-description: >
-    Die Klasse AnimatedSprite erweitert die Klasse Sprite. Objekte der Klasse
-    AnimatedSprite können Animation haben. Eine Animation ist im Grunde nichts
-    anderes als eine Reihe von Kostüme, die nacheinander angezeigt werden.
-constructors: 
-    - AnimatedSprite()

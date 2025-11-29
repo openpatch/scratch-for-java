@@ -46,7 +46,8 @@ import processing.event.MouseEvent;
  * <p>
  * Usage example:
  *
- * <pre>{@code
+ * <pre>
+ * {@code
  * Sprite sprite = new Sprite();
  * sprite.addCostume("costume1", "path/to/image.png");
  * sprite.addSound("sound1", "path/to/sound.wav");
@@ -54,7 +55,8 @@ import processing.event.MouseEvent;
  * sprite.move(10);
  * sprite.turnRight(90);
  * sprite.say("Hello, world!");
- * }</pre>
+ * }
+ * </pre>
  *
  * <p>
  * Note: This class is designed to be used within a stage, and many methods
@@ -68,45 +70,76 @@ import processing.event.MouseEvent;
  * @see Text
  * @see Timer
  * @see Hitbox
+ * @index-in-docs 1
  */
 public class Sprite {
 
+  /**
+   * @ignore-in-docs
+   */
   public interface WhenIReceiveHandler {
     void handle(Sprite s, Object msg);
   }
 
+  /**
+   * @ignore-in-docs
+   */
   public interface WhenAddedToStageHandler {
     void handle(Sprite s, Stage stage);
   }
 
+  /**
+   * @ignore-in-docs
+   */
   public interface WhenRemovedFromStageHandler {
     void handle(Sprite s, Stage stage);
   }
 
+  /**
+   * @ignore-in-docs
+   */
   public interface RunHandler {
     void handle(Sprite s);
   }
 
+  /**
+   * @ignore-in-docs
+   */
   public interface WhenBackdropSwitchesHandler {
     void handle(Sprite s, String backdropName);
   }
 
+  /**
+   * @ignore-in-docs
+   */
   public interface WhenClickedHandler {
     void handle(Sprite s);
   }
 
+  /**
+   * @ignore-in-docs
+   */
   public interface WhenMouseClickedHandler {
     void handle(Sprite s, MouseCode mouseCode);
   }
 
+  /**
+   * @ignore-in-docs
+   */
   public interface WhenMouseMovedHandler {
     void handle(Sprite s, double mouseX, double mouseY);
   }
 
+  /**
+   * @ignore-in-docs
+   */
   public interface WhenKeyReleasedHandler {
     void handle(Sprite s, Integer keyCode);
   }
 
+  /**
+   * @ignore-in-docs
+   */
   public interface WhenKeyPressedHandler {
     void handle(Sprite s, Integer keyCode);
   }
@@ -152,6 +185,9 @@ public class Sprite {
   private WhenKeyPressedHandler whenKeyPressedHandler = (sprite, keyCode) -> {
   };
 
+  /**
+   * Constructs a new Sprite object with default settings.
+   */
   public Sprite() {
     this.pen = new Pen(this);
     this.timer = new ConcurrentHashMap<>();
@@ -161,6 +197,12 @@ public class Sprite {
     this.timer.put("default", new Timer());
   }
 
+  /**
+   * Constructs a new Sprite object with a specified costume.
+   *
+   * @param name      a unique name for the costume
+   * @param imagePath the path to the image file for the costume
+   */
   public Sprite(String name, final String imagePath) {
     this();
     Image costume = new Image(name, imagePath);
@@ -1945,6 +1987,8 @@ public class Sprite {
    * Broadcasts a message to all sprites in the stage except the current sprite.
    * If the stage is not
    * set, the method returns immediately.
+
+   * @scratchblock broadcast [message v]
    *
    * @param message The message to broadcast to other sprites.
    */

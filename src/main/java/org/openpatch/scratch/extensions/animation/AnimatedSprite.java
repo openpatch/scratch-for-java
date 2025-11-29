@@ -1,6 +1,7 @@
 package org.openpatch.scratch.extensions.animation;
 
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
 
 import org.openpatch.scratch.Sprite;
 
@@ -44,6 +45,10 @@ public class AnimatedSprite extends Sprite {
 
   /**
    * Adds an animation to the sprite.
+   * 
+   * @example.preview AnimatedSpriteAddAnimation.gif
+   * @example.folder AnimatedSpriteAddAnimation
+   * @example.files MySprite.java;MyStage.java;MyWindow.java
    *
    * @param name    the name of the animation
    * @param pattern the pattern (@see String#format) of the file names. The frame
@@ -63,6 +68,13 @@ public class AnimatedSprite extends Sprite {
 
   /**
    * Adds an animation to the sprite.
+   * 
+   * To add an animation with file names "walk_1.png", "walk_2.png",
+   * "walk_3.png", you can use the following code:
+   *
+   * <pre>{@code
+   * sprite.addAnimation("walk", i -> "walk_" + i + ".png", 3);
+   * }</pre>
    *
    * @param name    the name of the animation
    * @param builder a function that builds the file names for the animation frames
@@ -70,7 +82,7 @@ public class AnimatedSprite extends Sprite {
    *                1.
    */
   public void addAnimation(
-      String name, java.util.function.Function<Integer, String> builder, int frame) {
+      String name, Function<Integer, String> builder, int frame) {
     String[] animation = new String[frame];
     for (int i = 0; i < animation.length; i++) {
       String costumeName = "_animation_" + name + "_" + i;
@@ -82,6 +94,16 @@ public class AnimatedSprite extends Sprite {
 
   /**
    * Adds an animation to the sprite.
+   * 
+   * For an animation sprite sheet, where each frame is of equal width and height,
+   * you can use this method to add an animation by specifying the path to the
+   * sprite sheet, the number of frames, and the dimensions of each frame.
+   * For example, for a four-frame animation arranged in a single row, each frame
+   * being 64x64 pixels, you can add the animation using the following code:
+   * 
+   * <pre>{@code
+   * sprite.addAnimation("walk", "assets/walk.png", 4, 64, 64);
+   * }</pre>
    *
    * @param name   the name of the animation
    * @param path   the path to the animation frames
@@ -95,6 +117,16 @@ public class AnimatedSprite extends Sprite {
 
   /**
    * Adds an animation to the sprite.
+   * 
+   * If the animation frames are arranged in rows in a sprite sheet, you can use
+   * this method to specify which row to use for the animation.
+   * 
+   * For example, for a four-frame animation arranged in a single row, you want the second, each frame
+   * being 64x64 pixels, you can add the animation using the following code:
+   * 
+   * <pre>{@code
+   * sprite.addAnimation("walk", "assets/walk.png", 4, 64, 64, 2);
+   * }</pre>
    *
    * @param name   the name of the animation
    * @param path   the path to the animation frames
@@ -115,6 +147,15 @@ public class AnimatedSprite extends Sprite {
 
   /**
    * Adds an animation to the sprite.
+   * 
+   * If the animation frames are arranged in either rows or columns in a sprite
+   * sheet, you can use this method to specify which column or row to use for the
+   * animation. Take four frame animation arranged in a single column. Each frame is
+   * 64x64 pixels. You can add the animation using the following code:
+   * 
+   * <pre>{@code
+   * sprite.addAnimation("walk", "assets/walk.png", 4, 64, 64, 1, true); // use column 1
+   * }</pre>
    *
    * @param name       the name of the animation
    * @param path       the path to the animation frames

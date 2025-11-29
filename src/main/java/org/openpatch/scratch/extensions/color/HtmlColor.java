@@ -2,6 +2,19 @@ package org.openpatch.scratch.extensions.color;
 
 import java.util.Random;
 
+/**
+ * Provides predefined HTML colors as Color objects.
+ *
+ * @see <a href="https://www.w3schools.com/colors/colors_names.asp">HTML Color Names</a>
+ * 
+ * You can use these colors in your Scratch extensions to set colors by name.
+ * 
+ * <pre>{@code
+ * import org.openpatch.scratch.extensions.color.HtmlColor;
+ * 
+ * Color myColor = HtmlColor.CORNFLOWER_BLUE;
+ * }</pre>
+ */
 public class HtmlColor {
   /** The color Alice Blue. */
   public static Color ALICE_BLUE = new Color("#F0F8FF");

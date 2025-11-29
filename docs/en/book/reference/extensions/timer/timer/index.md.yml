@@ -1,4 +1,0 @@
-template: "class"
-name: "Timer"
-description: |
-  `import org.openpatch.scratch.extensions.timer.Timer`
