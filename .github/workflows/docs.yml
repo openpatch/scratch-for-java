@@ -42,7 +42,7 @@ jobs:
       - name: Upload Docs artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./docs/.hyperbook
+          path: ./docs/.hyperbook/out
 
       - name: Deploy Javadocs to GitHub Pages
         id: deployment
