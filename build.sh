@@ -3,7 +3,7 @@
 VERSION=$(grep -m1 '<version>' ./pom.xml | sed -E 's/.*<version>([^<]+)<\/version>.*/\1/')
 
 cp ./CHANGELOG.md ./docs/book/changelog.md
-folder=$DIR/docs/public/reference/
+folder=$PWD/docs/public/reference/
 rm -rf $folder
 mkdir $folder
 pushd ./src/examples/java/reference
