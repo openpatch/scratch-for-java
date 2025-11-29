@@ -17,6 +17,8 @@ pushd ./src/examples/java/reference
 find . -name "*.gif" | cpio -pdm $folder
 popd
 
+mvn javadoc:javadoc@generate-json-docs
+
 sed -i "s/{{VERSION}}/${VERSION}/g" ./docs/book/download.md
 sed -i "s/{{VERSION}}/${VERSION}/g" ./docs/book/index.md
 popd
