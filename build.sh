@@ -13,4 +13,5 @@ popd
 sed -i "s/{{VERSION}}/${VERSION}/g" ./docs/book/download.md
 sed -i "s/{{VERSION}}/${VERSION}/g" ./docs/book/index.md
 
+cd docs
 npx hyperbook build
