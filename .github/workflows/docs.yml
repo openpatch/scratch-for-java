@@ -31,7 +31,7 @@ jobs:
         run: mvn -B javadoc:javadoc -Pcentral
 
       - name: Build Docs
-        run:  sh ./docs/build.sh
+        run:  bash ./docs/build.sh
 
       - name: Copy Javadocs into docs
         run: cp -r target/site/apidocs ./docs/.hyperbook/out/javadocs
