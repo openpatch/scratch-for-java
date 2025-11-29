@@ -1,4 +1,4 @@
-name: JavaDocs
+name: Documentation
 
 on:
   push:
@@ -31,7 +31,7 @@ jobs:
         run: mvn clean package
 
       - name: Build Docs
-        run:  bash ./docs/build.sh
+        run:  bash ./build.sh
 
       - name: Copy Javadocs into docs
         run: cp -r target/site/apidocs ./docs/.hyperbook/out/javadocs
