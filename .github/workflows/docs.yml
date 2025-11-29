@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  javadocs:
+  documentation:
     runs-on: ubuntu-latest
 
     permissions:
