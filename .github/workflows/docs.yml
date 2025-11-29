@@ -34,7 +34,7 @@ jobs:
         run:  bash ./build.sh
 
       - name: Copy Javadocs into docs
-        run: cp -r target/site/apidocs ./docs/.hyperbook/out/javadocs
+        run: cp -r target/apidocs ./docs/.hyperbook/out/javadocs
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
