@@ -30,13 +30,19 @@ jobs:
       - name: Generate Javadocs
         run: mvn -B javadoc:javadoc -Pcentral
 
+      - name: Build Docs
+        run:  sh ./docs/build.sh
+
+      - name: Copy Javadocs into docs
+        run: cp -r target/site/apidocs ./docs/.hyperbook/out/javadocs
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
-      - name: Upload Javadocs artifact
+      - name: Upload Docs artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: target/site/apidocs
+          path: ./docs/.hyperbook
 
       - name: Deploy Javadocs to GitHub Pages
         id: deployment
