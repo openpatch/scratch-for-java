@@ -225,7 +225,7 @@ public class Scratch4JDoclet implements Doclet {
                 }
             }
         }
-        json.put("description", convertToMarkdown(description, packageName));
+        json.put("description", convertToMarkdown(description, packageName).trim());
         if (indexInDocs != null) {
             json.put("index", indexInDocs);
         }
@@ -320,7 +320,7 @@ public class Scratch4JDoclet implements Doclet {
         }
 
         json.put("scratchblock", customTags.getOrDefault("scratchblock", ""));
-        json.put("description", convertToMarkdown(description, currentPackage));
+        json.put("description", convertToMarkdown(description, currentPackage).trim());
         if (indexInDocs != null) {
             json.put("index", indexInDocs);
         }
@@ -412,7 +412,7 @@ public class Scratch4JDoclet implements Doclet {
         }
         json.put("scratchblock", customTags.getOrDefault("scratchblock", ""));
         json.put("class", className);
-        json.put("description", finalDescription);
+        json.put("description", finalDescription.trim());
         if (indexInDocs != null) {
             json.put("index", indexInDocs);
         }
