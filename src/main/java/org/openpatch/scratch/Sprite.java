@@ -2059,7 +2059,8 @@ public class Sprite {
   }
 
   /**
-   * @see stampToBackground
+   * Stamps the current sprite to the background. A stamp is a non interactive
+   * version of the sprite.
    */
   public void stamp() {
     this.stampToBackground();
@@ -2067,8 +2068,7 @@ public class Sprite {
 
   /**
    * Stamps the current sprite to the background. A stamp is a non interactive
-   * version of the
-   * sprite.
+   * version of the sprite.
    */
   public void stampToBackground() {
     if (this.costumes.size() > 0) {
@@ -2088,8 +2088,7 @@ public class Sprite {
 
   /**
    * Stamps the current sprite to the foreground. A stamp is a non interactive
-   * version of the
-   * sprite.
+   * version of the sprite.
    */
   public void stampToForeground() {
     if (this.costumes.size() > 0) {
