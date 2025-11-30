@@ -1,35 +1,61 @@
 package org.openpatch.scratch;
 
 /**
- * Contains virtual key code constants for keyboard input handling. These constants represent
+ * Contains virtual key code constants for keyboard input handling. These
+ * constants represent
  * various keys on a keyboard including:
  *
  * <ul>
- *   <li>Standard character keys (letters, numbers, symbols)
- *   <li>Function keys (F1-F24)
- *   <li>Navigation keys (arrows, home, end, etc.)
- *   <li>Modifier keys (shift, ctrl, alt, etc.)
- *   <li>Numpad keys
- *   <li>Special keys for international keyboards
- *   <li>Media and system control keys
+ * <li>Standard character keys (letters, numbers, symbols)
+ * <li>Function keys (F1-F24)
+ * <li>Navigation keys (arrows, home, end, etc.)
+ * <li>Modifier keys (shift, ctrl, alt, etc.)
+ * <li>Numpad keys
+ * <li>Special keys for international keyboards
+ * <li>Media and system control keys
  * </ul>
  *
- * The key codes are defined as integer constants and follow common virtual key code standards used
- * in various platforms. Many of these codes align with ASCII values for basic characters, while
+ * The key codes are defined as integer constants and follow common virtual key
+ * code standards used
+ * in various platforms. Many of these codes align with ASCII values for basic
+ * characters, while
  * others use platform-specific ranges for special keys.
  *
- * <p>This class includes support for:
+ * <p>
+ * This class includes support for:
  *
  * <ul>
- *   <li>Standard US QWERTY keyboard layout
- *   <li>European keyboard specific keys
- *   <li>Asian keyboard specific keys (Japanese, Korean, etc.)
- *   <li>Sun keyboard specific functions
- *   <li>Microsoft Windows specific keys
+ * <li>Standard US QWERTY keyboard layout
+ * <li>European keyboard specific keys
+ * <li>Asian keyboard specific keys (Japanese, Korean, etc.)
+ * <li>Sun keyboard specific functions
+ * <li>Microsoft Windows specific keys
  * </ul>
  *
- * <p>The constants in this class are intended to be used for keyboard event handling and key
+ * <p>
+ * The constants in this class are intended to be used for keyboard event
+ * handling and key
  * mapping operations.
+ * 
+ * Use can use these constants to identify which key was pressed or released in
+ * keyboard events.
+ * 
+ * For example:
+ * 
+ * <pre>{@code
+ * public void whenKeyPressed(int keyCode) {
+ * if (keyCode == KeyCode.VK_ENTER) {
+ *    // Handle enter key press
+ * }
+ * }</pre>
+ * 
+ * <pre>
+ * {@code
+ * if (this.isKeyPressed(KeyCode.VK_SPACE)) {
+ *    // Handle space key being pressed
+ * }
+ * }
+ * </pre>
  * 
  */
 public final class KeyCode {
@@ -494,7 +520,8 @@ public final class KeyCode {
   public static final int VK_UNDERSCORE = 0x020B;
 
   /**
-   * Constant for the Microsoft Windows "Windows" key. It is used for both the left and right
+   * Constant for the Microsoft Windows "Windows" key. It is used for both the
+   * left and right
    * version of the key.
    */
   public static final int VK_WINDOWS = 0x020C;
@@ -522,12 +549,16 @@ public final class KeyCode {
   /* not clear what this means - listed in Microsoft Windows API */
   public static final int VK_MODECHANGE = 0x001F;
 
-  /* replaced by VK_KANA_LOCK for Microsoft Windows and Solaris;
-  might still be used on other platforms */
+  /*
+   * replaced by VK_KANA_LOCK for Microsoft Windows and Solaris;
+   * might still be used on other platforms
+   */
   public static final int VK_KANA = 0x0015;
 
-  /* replaced by VK_INPUT_METHOD_ON_OFF for Microsoft Windows and Solaris;
-  might still be used for other platforms */
+  /*
+   * replaced by VK_INPUT_METHOD_ON_OFF for Microsoft Windows and Solaris;
+   * might still be used for other platforms
+   */
   public static final int VK_KANJI = 0x0019;
 
   /** Constant for the Alphanumeric function key. */
@@ -567,28 +598,37 @@ public final class KeyCode {
   public static final int VK_CODE_INPUT = 0x0102;
 
   /**
-   * Constant for the Japanese-Katakana function key. This key switches to a Japanese input method
+   * Constant for the Japanese-Katakana function key. This key switches to a
+   * Japanese input method
    * and selects its Katakana input mode.
    */
   /* Japanese Macintosh keyboard - VK_JAPANESE_HIRAGANA + SHIFT */
   public static final int VK_JAPANESE_KATAKANA = 0x0103;
 
   /**
-   * Constant for the Japanese-Hiragana function key. This key switches to a Japanese input method
+   * Constant for the Japanese-Hiragana function key. This key switches to a
+   * Japanese input method
    * and selects its Hiragana input mode.
    */
   /* Japanese Macintosh keyboard */
   public static final int VK_JAPANESE_HIRAGANA = 0x0104;
 
   /**
-   * Constant for the Japanese-Roman function key. This key switches to a Japanese input method and
+   * Constant for the Japanese-Roman function key. This key switches to a Japanese
+   * input method and
    * selects its Roman-Direct input mode.
    */
   /* Japanese Macintosh keyboard */
   public static final int VK_JAPANESE_ROMAN = 0x0105;
 
-  /** Constant for the locking Kana function key. This key locks the keyboard into a Kana layout. */
-  /* Japanese PC 106 keyboard with special Windows driver - eisuu + Control; Japanese Solaris keyboard: kana */
+  /**
+   * Constant for the locking Kana function key. This key locks the keyboard into
+   * a Kana layout.
+   */
+  /*
+   * Japanese PC 106 keyboard with special Windows driver - eisuu + Control;
+   * Japanese Solaris keyboard: kana
+   */
   public static final int VK_KANA_LOCK = 0x0106;
 
   /** Constant for the input method on/off key. */
