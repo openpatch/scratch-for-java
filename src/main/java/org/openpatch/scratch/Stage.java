@@ -968,16 +968,28 @@ public class Stage {
     this.eraseForegroundBuffer = true;
   }
 
+  /**
+   * Returns the pixels of the foreground buffer.
+   * @return the pixels of the foreground buffer
+   */
   public int[] getForegroundPixels() {
     this.foregroundBuffer.loadPixels();
     return this.foregroundBuffer.pixels;
   }
 
+  /**
+   * Returns the pixels of the background buffer.
+   * @return the pixels of the background buffer
+   */
   public int[] getBackgroundPixels() {
     this.backgroundBuffer.loadPixels();
     return this.backgroundBuffer.pixels;
   }
 
+  /**
+   * Returns the pixels of the main buffer.
+   * @return the pixels of the main buffer
+   */
   public int[] getPixels() {
     this.mainBuffer.loadPixels();
     return this.mainBuffer.pixels;
@@ -1245,6 +1257,10 @@ public class Stage {
     this.timer.remove(name);
   }
 
+  /**
+   * @ignore-in-docs
+   * @param e
+   */
   public void mouseEvent(MouseEvent e) {
     if (e.getAction() == MouseEvent.CLICK) {
       final MouseCode me;
@@ -1338,6 +1354,11 @@ public class Stage {
     return this.mouseY;
   }
 
+  /**
+   * Returns the current position of the mouse cursor as a Vector2
+   *
+   * @return mouse position
+   */
   public Vector2 getMouse() {
     return new Vector2(this.mouseX, this.mouseY);
   }
@@ -1393,6 +1414,10 @@ public class Stage {
     this.whenKeyReleasedHandler = whenKeyReleased;
   }
 
+  /**
+   * @ignore-in-docs
+   * @param e
+   */
   public void keyEvent(KeyEvent e) {
     switch (e.getAction()) {
       case KeyEvent.PRESS:
@@ -1652,6 +1677,11 @@ public class Stage {
     }
   }
 
+  /**
+   * Get the frame rate of the application.
+   *
+   * @return the frame rate
+   */
   public double getFrameRate() {
     return Applet.getInstance().frameRate;
   }
@@ -1674,6 +1704,10 @@ public class Stage {
     this.runHandler.handle(this);
   }
 
+  /**
+   * @ignore-in-docs
+   * @param stamp
+   */
   public void addStampsToForeground(Stamp stamp) {
     if (stamp == null) {
       return;
@@ -1681,10 +1715,18 @@ public class Stage {
     this.foregroundStamps.add(stamp);
   }
 
+  /**
+   * @ignore-in-docs
+   * @param stamps
+   */
   public void addStampsToForeground(Queue<Stamp> stamps) {
     this.foregroundStamps.addAll(stamps);
   }
 
+  /**
+   * @ignore-in-docs
+   * @param stamp
+   */
   public void addStampsToBackground(Stamp stamp) {
     if (stamp == null) {
       return;
@@ -1692,10 +1734,18 @@ public class Stage {
     this.backgroundStamps.add(stamp);
   }
 
+  /**
+   * @ignore-in-docs
+   * @param stamps
+   */
   public void addStampsToBackground(Queue<Stamp> stamps) {
     this.backgroundStamps.addAll(stamps);
   }
 
+  /**
+   * @ignore-in-docs
+   * @param stamp
+   */
   void addStampsToUI(Stamp stamp) {
     if (stamp == null) {
       return;
@@ -1712,6 +1762,9 @@ public class Stage {
     this.runHandler = run;
   }
 
+  /**
+   * @ignore-in-docs
+   */
   public void pre() {
     Applet applet = Applet.getInstance();
     if (applet == null)
@@ -1746,6 +1799,10 @@ public class Stage {
     Window.getInstance().exit();
   }
 
+  /**
+   * @ignore-in-docs
+   * @param buffer
+   */
   public void draw(PGraphics buffer) {
     Applet applet = Applet.getInstance();
     if (applet == null || buffer == null)
