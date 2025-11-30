@@ -42,17 +42,20 @@ package org.openpatch.scratch;
  * 
  * For example:
  * 
- * <pre>{@code
+ * <pre>
+ * {@code
  * public void whenKeyPressed(int keyCode) {
- * if (keyCode == KeyCode.VK_ENTER) {
- *    // Handle enter key press
+ *   if (keyCode == KeyCode.VK_ENTER) {
+ *     // Handle enter key press
+ *   }
  * }
- * }</pre>
+ * }
+ * </pre>
  * 
  * <pre>
  * {@code
  * if (this.isKeyPressed(KeyCode.VK_SPACE)) {
- *    // Handle space key being pressed
+ *   // Handle space key being pressed
  * }
  * }
  * </pre>

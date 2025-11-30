@@ -320,7 +320,7 @@ public class Scratch4JDoclet implements Doclet {
         }
 
         json.put("scratchblock", customTags.getOrDefault("scratchblock", ""));
-        json.put("description", convertToMarkdown(description, currentPackage).replace("\n", " ").replace("\r", " ").trim());
+        json.put("description", convertToMarkdown(description, currentPackage).trim());
         if (indexInDocs != null) {
             json.put("index", indexInDocs);
         }
