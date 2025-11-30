@@ -205,7 +205,7 @@
                 </executions>
             </plugin>
 
-            <!-- Javadoc JAR -->
+            <!-- Javadoc JAR and custom doclet execution (merged into one plugin declaration) -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
@@ -215,6 +215,30 @@
                         <goals>
                             <goal>jar</goal>
                         </goals>
+                    </execution>
+                    <!-- Disable default javadoc execution -->
+                    <execution>
+                        <id>default-cli</id>
+                        <phase>none</phase>
+                    </execution>
+                    <execution>
+                        <id>generate-json-docs</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>javadoc-no-fork</goal>
+                        </goals>
+                        <configuration>
+                            <doclet>doclets.Scratch4JDoclet</doclet>
+                            <!-- Use the compiled classes from target/classes -->
+                            <docletPath>${project.build.outputDirectory}</docletPath>
+                            <outputDirectory>${project.build.directory}/../docs/book/reference</outputDirectory>
+                            <useStandardDocletOptions>false</useStandardDocletOptions>
+                            <additionalOptions>
+                                <additionalOption>-d</additionalOption>
+                                <additionalOption>${project.build.directory}/../docs/book/reference</additionalOption>
+                            </additionalOptions>
+                            <show>public</show>
+                        </configuration>
                     </execution>
                 </executions>
                 <configuration>
@@ -279,38 +303,6 @@
                         <goals>
                             <goal>jar</goal>
                         </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.6.3</version>
-                <executions>
-                    <!-- Disable default javadoc execution -->
-                    <execution>
-                        <id>default-cli</id>
-                        <phase>none</phase>
-                    </execution>
-                    <execution>
-                        <id>generate-json-docs</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>javadoc-no-fork</goal>
-                        </goals>
-                        <configuration>
-                            <doclet>doclets.Scratch4JDoclet</doclet>
-                            <!-- Use the compiled classes from target/classes -->
-                            <docletPath>${project.build.outputDirectory}</docletPath>
-                            <outputDirectory>${project.build.directory}/../docs/book/reference</outputDirectory>
-                            <useStandardDocletOptions>false</useStandardDocletOptions>
-                            <additionalOptions>
-                                <additionalOption>-d</additionalOption>
-                                <additionalOption>${project.build.directory}/../docs/book/reference</additionalOption>
-                            </additionalOptions>
-                            <show>public</show>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>
