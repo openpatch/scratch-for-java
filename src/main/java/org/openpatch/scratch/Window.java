@@ -39,7 +39,16 @@ public class Window {
     void handle();
   }
 
-  /** The default color used for debugging purposes. */
+  /**
+   * The default color used for debugging purposes.
+   * You can modify this array to change the debug color.
+   * 
+   * For example, to set the debug color to green, you can do:
+   * 
+   * <pre>{@code
+   * Window.DEBUG_COLOR = new int[] { 0, 255, 0 };
+   * }</pre>
+   */
   public static final int[] DEBUG_COLOR = { 255, 0, 0 };
 
   /**
@@ -59,6 +68,15 @@ public class Window {
    * offers the best mipmap quality since linear interpolation to compute the
    * value in each of two
    * maps and then interpolates linearly between these two values.
+   * 
+   * You can change the texture sampling mode by setting this variable before
+   * creating the Window instance.
+   * 
+   * For example, to use linear sampling, you can do:
+   *
+   * <pre>{@code
+   * Window.TEXTURE_SAMPLING_MODE = 3;
+   * }</pre>
    */
   public static int TEXTURE_SAMPLING_MODE = 4;
 
@@ -285,6 +303,11 @@ public class Window {
     this.whenExitsHandler.handle();
   }
 
+  /**
+   * Sets a custom handler to be executed when the window exits.
+   * 
+   * @param runnable the custom handler to be executed on exit
+   */
   public void setWhenExits(WhenExitsHandler runnable) {
     this.whenExitsHandler = runnable;
   }

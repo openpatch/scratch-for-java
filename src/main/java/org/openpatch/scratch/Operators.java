@@ -6,9 +6,17 @@ package org.openpatch.scratch;
  * values, mapping ranges, rounding, modulo, absolute value, floor, ceiling, square root,
  * trigonometric functions, inverse trigonometric functions, logarithms, and exponentiation.
  *
- * <p>Each method is designed to be a utility function that can be used without instantiating the
+ * Each method is designed to be a utility function that can be used without instantiating the
  * Operators class. The methods cover operations for both double and int data types where
  * applicable.
+ * 
+ * For example, to use the lerp function, you can do:
+ * 
+ * <pre>{@code
+ * import org.openpatch.scratch.Operators;
+ * 
+ * double result = Operators.lerp(0.0, 10.0, 0.5); // result will be 5.0
+ * }</pre>
  */
 public class Operators {
   private Operators() {}
