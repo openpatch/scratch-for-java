@@ -225,7 +225,7 @@ public class Scratch4JDoclet implements Doclet {
                 }
             }
         }
-        json.put("description", convertToMarkdown(description, packageName).trim());
+        json.put("description", convertToMarkdown(description, packageName).replace("\n", " ").replace("\r", " ").trim());
         if (indexInDocs != null) {
             json.put("index", indexInDocs);
         }
@@ -320,7 +320,7 @@ public class Scratch4JDoclet implements Doclet {
         }
 
         json.put("scratchblock", customTags.getOrDefault("scratchblock", ""));
-        json.put("description", convertToMarkdown(description, currentPackage).trim());
+        json.put("description", convertToMarkdown(description, currentPackage).replace("\n", " ").replace("\r", " ").trim());
         if (indexInDocs != null) {
             json.put("index", indexInDocs);
         }
@@ -334,6 +334,31 @@ public class Scratch4JDoclet implements Doclet {
 
         // Examples - support multiple examples
         json.put("examples", buildExamples(customTags));
+
+        // --- Add public static fields under "fields" ---
+        List<Map<String, Object>> fields = new ArrayList<>();
+        for (Element member : classElement.getEnclosedElements()) {
+            if (member.getKind() == ElementKind.FIELD) {
+                Set<Modifier> modifiers = member.getModifiers();
+                if (modifiers.contains(Modifier.PUBLIC) && modifiers.contains(Modifier.STATIC)) {
+                    Map<String, Object> fieldJson = new LinkedHashMap<>();
+                    fieldJson.put("name", member.getSimpleName().toString());
+                    fieldJson.put("type", simplifyType(member.asType().toString()));
+                    // Add field Javadoc if present
+                    DocCommentTree fieldDoc = env.getDocTrees().getDocCommentTree(member);
+                    String fieldDesc = "";
+                    if (fieldDoc != null) {
+                        fieldDesc = convertToMarkdown(extractDescription(fieldDoc, currentPackage), currentPackage)
+                            .replace("\n", " ").replace("\r", " ").trim();
+                    }
+                    fieldJson.put("description", fieldDesc);
+                    fields.add(fieldJson);
+                }
+            }
+        }
+        if (!fields.isEmpty()) {
+            json.put("fields", fields);
+        }
 
         writeJsonToFile(json, classDir.resolve("index.md.json"));
     }
@@ -412,7 +437,7 @@ public class Scratch4JDoclet implements Doclet {
         }
         json.put("scratchblock", customTags.getOrDefault("scratchblock", ""));
         json.put("class", className);
-        json.put("description", finalDescription.trim());
+        json.put("description", finalDescription.replace("\n", " ").replace("\r", " ").trim());
         if (indexInDocs != null) {
             json.put("index", indexInDocs);
         }
@@ -584,7 +609,7 @@ public class Scratch4JDoclet implements Doclet {
      */
     private String convertToMarkdown(String html, String currentPackage) {
         // Convert <pre>{@code ...}</pre> to markdown code blocks
-        // Pattern matches: <pre>\s*{@code\s* ... }\s*</pre>
+        // Pattern matches: <pre>\s*\\{@code\s* ... }\s*</pre>
         String result = html.replaceAll(
                 "(?s)<pre>\\s*\\{@code\\s*(.*?)\\s*\\}\\s*</pre>",
                 "\n```java\n$1\n```\n");

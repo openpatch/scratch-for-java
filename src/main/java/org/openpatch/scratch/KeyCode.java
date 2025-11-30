@@ -30,6 +30,7 @@ package org.openpatch.scratch;
  *
  * <p>The constants in this class are intended to be used for keyboard event handling and key
  * mapping operations.
+ * 
  */
 public final class KeyCode {
   /* Virtual key codes. */

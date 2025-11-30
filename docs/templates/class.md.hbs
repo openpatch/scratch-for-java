@@ -40,3 +40,13 @@ hide: true
 {{/each}}
 {{/if}}
 
+{{#if fields}}
+## Static Fields
+
+| Name | Type | Description |
+|------|------|-------------|
+{{#each fields}}
+| `{{ name }}` | {{ type }} | {{ description }} |
+{{/each}}
+{{/if}}
+
