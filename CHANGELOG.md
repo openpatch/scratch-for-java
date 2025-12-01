@@ -4,6 +4,10 @@ index: 4
 lang: en
 ---
 
+## 4.24.2
+
+- Fix jogl and gluegen dependencies.
+
 ## 4.24.1
 
 - Fix wrong implemention of Polygon.

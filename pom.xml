@@ -5,7 +5,7 @@
 
     <groupId>org.openpatch</groupId>
     <artifactId>scratch</artifactId>
-    <version>4.24.1</version>
+    <version>4.24.2</version>
     <packaging>jar</packaging>
 
     <name>Scratch for Java</name>
@@ -37,7 +37,7 @@
     <properties>
         <maven.compiler.release>17</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <libs.processing>4.4.6</libs.processing>
+        <libs.processing>4.4.10</libs.processing>
         <libs.jackson>2.19.2</libs.jackson>
     </properties>
 
@@ -53,6 +53,16 @@
             <groupId>org.processing</groupId>
             <artifactId>core</artifactId>
             <version>${libs.processing}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jogamp.jogl</groupId>
+            <artifactId>jogl-all-main</artifactId>
+            <version>2.5.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jogamp.gluegen</groupId>
+            <artifactId>gluegen-rt-main</artifactId>
+            <version>2.5.0</version>
         </dependency>
 
         <!-- Jackson -->
@@ -87,20 +97,6 @@
     <profiles>
         <profile>
             <id>central</id>
-            <dependencies>
-                <dependency>
-                    <groupId>org.jogamp.jogl</groupId>
-                    <artifactId>jogl-all</artifactId>
-                    <version>2.5.0</version>
-                    <classifier>natives-linux-amd64</classifier>
-                </dependency>
-                <dependency>
-                    <groupId>org.jogamp.gluegen</groupId>
-                    <artifactId>gluegen-rt</artifactId>
-                    <version>2.5.0</version>
-                    <classifier>natives-linux-amd64</classifier>
-                </dependency>
-            </dependencies>
 
             <build>
                 <plugins>
