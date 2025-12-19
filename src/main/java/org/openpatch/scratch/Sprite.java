@@ -547,6 +547,8 @@ public class Sprite {
   /**
    * Switch to a costume by name.
    *
+   * @scratchblock switch costume to [name v]
+   *
    * @param name the name of a costume
    */
   public void switchCostume(String name) {
@@ -584,7 +586,11 @@ public class Sprite {
     this.currentCostume = (int) index % this.costumes.size();
   }
 
-  /** Switch to the next costume. */
+  /**
+   * Switch to the next costume.
+   *
+   * @scratchblock next costume
+   */
   public void nextCostume() {
     if (this.costumes.isEmpty()) {
       System.err.println("\n==============================================");
@@ -675,6 +681,8 @@ public class Sprite {
   /**
    * Plays a sound.
    *
+   * @scratchblock start sound [name v]
+   *
    * @param name the sound name
    */
   public void playSound(String name) {
@@ -707,7 +715,11 @@ public class Sprite {
     }
   }
 
-  /** Stops the playing of all sounds of the sprite. */
+  /**
+   * Stops the playing of all sounds of the sprite.
+   *
+   * @scratchblock stop all sounds
+   */
   public void stopAllSounds() {
     for (Sound sound : this.sounds) {
       sound.stop();
@@ -853,12 +865,20 @@ public class Sprite {
     return this.costumes.get(currentCostume).getTransparency();
   }
 
-  /** Hides the sprite. The pen is not effected. */
+  /**
+   * Hides the sprite. The pen is not effected.
+   *
+   * @scratchblock hide
+   */
   public void hide() {
     this.show = false;
   }
 
-  /** Shows the sprite. */
+  /**
+   * Shows the sprite.
+   *
+   * @scratchblock show
+   */
   public void show() {
     this.show = true;
   }
@@ -883,6 +903,8 @@ public class Sprite {
 
   /**
    * Sets the size of the sprite.
+   *
+   * @scratchblock set size to (percentage) %
    *
    * @param percentage a percentage [0...100]
    */
@@ -1005,6 +1027,8 @@ public class Sprite {
   /**
    * Sets the position of the sprite
    *
+   * @scratchblock go to x: (x) y: (y)
+   *
    * @param x a x coordinate
    * @param y a y coordinate
    */
@@ -1045,6 +1069,8 @@ public class Sprite {
   /**
    * Rotates the sprite by a certain degrees to the left.
    *
+   * @scratchblock turn left (degrees) degrees
+   *
    * @param degrees between 0 and 360
    */
   public void turnLeft(double degrees) {
@@ -1053,6 +1079,8 @@ public class Sprite {
 
   /**
    * Rotates the sprite by a certain degrees to the right.
+   *
+   * @scratchblock turn right (degrees) degrees
    *
    * @param degrees between 0 and 360
    */
@@ -1064,6 +1092,8 @@ public class Sprite {
    * Sets the direction of the sprite to a given degrees. When this value is 0 the
    * sprite move
    * right, when it is 180 is moves to the left.
+   *
+   * @scratchblock point in direction (degrees)
    *
    * @param degrees between 0 and 360
    */
@@ -1155,6 +1185,8 @@ public class Sprite {
   /**
    * Moves the sprite towards the current rotation by the received steps.
    *
+   * @scratchblock move (steps) steps
+   *
    * @param steps a number of pixels
    */
   public void move(double steps) {
@@ -1196,6 +1228,8 @@ public class Sprite {
   /**
    * Sets the x coordinate
    *
+   * @scratchblock set x to (x)
+   *
    * @param x a x coordinate
    */
   public void setX(double x) {
@@ -1205,6 +1239,8 @@ public class Sprite {
 
   /**
    * Changes x by a certain amount
+   *
+   * @scratchblock change x by (x)
    *
    * @param x number in pixels
    */
@@ -1225,6 +1261,8 @@ public class Sprite {
   /**
    * Sets the y coordinate
    *
+   * @scratchblock set y to (y)
+   *
    * @param y a y coordinate
    */
   public void setY(double y) {
@@ -1234,6 +1272,8 @@ public class Sprite {
 
   /**
    * Changes y by a certain amount
+   *
+   * @scratchblock change y by (y)
    *
    * @param y number in pixels
    */
@@ -1312,6 +1352,8 @@ public class Sprite {
 
   /**
    * Returns true is the mouse pointer is touching the hitbox of the sprite.
+   *
+   * @scratchblock <touching [mouse-pointer v]?>
    *
    * @return true if touching
    */
@@ -1498,6 +1540,8 @@ public class Sprite {
 
   /**
    * Checks if this sprite is touching another sprite.
+   *
+   * @scratchblock <touching [sprite v]?>
    *
    * @param sprite The sprite to check for collision with.
    * @return true if this sprite is touching the specified sprite, false
@@ -1999,6 +2043,8 @@ public class Sprite {
   /**
    * Displays a thought bubble with the specified text.
    *
+   * @scratchblock think [text]
+   *
    * @param text The text to be displayed in the thought bubble.
    */
   public void think(String text) {
@@ -2020,6 +2066,8 @@ public class Sprite {
 
   /**
    * Makes the sprite display a speech bubble with the specified text.
+   *
+   * @scratchblock say [text]
    *
    * @param text The text to be displayed in the speech bubble.
    */

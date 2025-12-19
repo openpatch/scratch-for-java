@@ -870,6 +870,8 @@ public class Stage {
   /**
    * Switch to a backdrop by name.
    *
+   * @scratchblock switch backdrop to [name v]
+   *
    * @param name the name of a backdrop
    */
   public void switchBackdrop(String name) {
@@ -925,7 +927,11 @@ public class Stage {
     this.whenBackdropSwitchesHandler = whenBackdropSwitches;
   }
 
-  /** Switch to the next backdrop. */
+  /**
+   * Switch to the next backdrop.
+   *
+   * @scratchblock next backdrop
+   */
   public void nextBackdrop() {
     if (this.backdrops.isEmpty()) {
       System.err.println("\n==============================================");
