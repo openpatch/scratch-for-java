@@ -557,6 +557,21 @@ public class Sprite {
         return;
       }
     }
+    System.err.println("\n==============================================");
+    System.err.println("WARNING: Costume not found!");
+    System.err.println("==============================================");
+    System.err.println("Costume name: '" + name + "'");
+    if (this.costumes.isEmpty()) {
+      System.err.println("\nThis sprite has no costumes.");
+      System.err.println("\nTip: Use addCostume() to add costumes first.");
+    } else {
+      System.err.println("\nAvailable costumes:");
+      for (Image costume : this.costumes) {
+        System.err.println("  - '" + costume.getName() + "'");
+      }
+      System.err.println("\nTip: Check the spelling of your costume name.");
+    }
+    System.err.println("==============================================\n");
   }
 
   /**
@@ -571,11 +586,31 @@ public class Sprite {
 
   /** Switch to the next costume. */
   public void nextCostume() {
+    if (this.costumes.isEmpty()) {
+      System.err.println("\n==============================================");
+      System.err.println("WARNING: No costumes added!");
+      System.err.println("==============================================");
+      System.err.println("\nCannot switch to next costume - sprite has no costumes.");
+      System.err.println("\nTip: Use addCostume() to add at least one costume");
+      System.err.println("     before calling nextCostume().");
+      System.err.println("==============================================\n");
+      return;
+    }
     this.currentCostume = (this.currentCostume + 1) % this.costumes.size();
   }
 
   /** Switch to the next costume. */
   public void previousCostume() {
+    if (this.costumes.isEmpty()) {
+      System.err.println("\n==============================================");
+      System.err.println("WARNING: No costumes added!");
+      System.err.println("==============================================");
+      System.err.println("\nCannot switch to previous costume - sprite has no costumes.");
+      System.err.println("\nTip: Use addCostume() to add at least one costume");
+      System.err.println("     before calling previousCostume().");
+      System.err.println("==============================================\n");
+      return;
+    }
     var index = (this.currentCostume - 1) % this.costumes.size();
     if (index < 0) {
       index += this.costumes.size();
@@ -643,10 +678,32 @@ public class Sprite {
    * @param name the sound name
    */
   public void playSound(String name) {
+    boolean found = false;
     for (Sound sound : this.sounds) {
-      if (sound.getName().equals(name) && !sound.isPlaying()) {
-        sound.play();
+      if (sound.getName().equals(name)) {
+        found = true;
+        if (!sound.isPlaying()) {
+          sound.play();
+        }
+        break;
       }
+    }
+    if (!found) {
+      System.err.println("\n==============================================");
+      System.err.println("WARNING: Sound not found!");
+      System.err.println("==============================================");
+      System.err.println("Sound name: '" + name + "'");
+      if (this.sounds.isEmpty()) {
+        System.err.println("\nThis sprite has no sounds.");
+        System.err.println("\nTip: Use addSound() to add sounds first.");
+      } else {
+        System.err.println("\nAvailable sounds:");
+        for (Sound sound : this.sounds) {
+          System.err.println("  - '" + sound.getName() + "'");
+        }
+        System.err.println("\nTip: Check the spelling of your sound name.");
+      }
+      System.err.println("==============================================\n");
     }
   }
 

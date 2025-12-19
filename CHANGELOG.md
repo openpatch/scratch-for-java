@@ -4,6 +4,12 @@ index: 4
 lang: en
 ---
 
+## 4.25.0
+
+- Add beginner-friendly error messages for common mistakes, such as missing
+assets or incorrect file paths. This will help new users to quickly identify
+and fix issues in their code.
+
 ## 4.24.2
 
 - Fix jogl and gluegen dependencies.

@@ -57,7 +57,18 @@ public class Shader {
       var shader = Applet.getInstance().loadShader(fragementShaderPath, vertexShaderPath);
       return shader;
     } catch (Exception e) {
-      System.err.println("Error loading shader: " + fragementShaderPath + ", " + vertexShaderPath);
+      System.err.println("\n==============================================");
+      System.err.println("ERROR: Could not load shader files!");
+      System.err.println("==============================================");
+      System.err.println("Fragment shader: " + fragementShaderPath);
+      System.err.println("Vertex shader:   " + vertexShaderPath);
+      System.err.println("\nPossible reasons:");
+      System.err.println("  1. One or both files do not exist");
+      System.err.println("  2. The file paths are incorrect (check spelling)");
+      System.err.println("  3. The shader code contains syntax errors");
+      System.err.println("\nTip: Make sure both shader files exist and");
+      System.err.println("     the paths are correct.");
+      System.err.println("==============================================\n");
       System.exit(1);
     }
     return null;

@@ -172,6 +172,7 @@ public class File {
 
   private static <T> T load(String path, Class<T> cls, FileType type, boolean createIfMissing) {
     var mapper = getObjectMapper(type);
+    String originalPath = path;
     path = Applet.getPath(path);
     java.io.File file = new java.io.File(path);
 
@@ -185,15 +186,48 @@ public class File {
           writer.write(mapper.writeValueAsString(cls.getDeclaredConstructor().newInstance()));
         }
       } catch (Exception e) {
-        System.err.println("Could not create file: " + e);
+        System.err.println("\n==============================================");
+        System.err.println("ERROR: Could not create data file!");
+        System.err.println("==============================================");
+        System.err.println("Path: " + originalPath);
+        System.err.println("\nPossible reasons:");
+        System.err.println("  1. No write permission for this location");
+        System.err.println("  2. Invalid path or filename");
+        System.err.println("  3. Parent directory does not exist");
+        System.err.println("\nTip: Check your file path and permissions.");
+        System.err.println("==============================================\n");
         return null;
       }
+    }
+
+    if (!file.exists()) {
+      System.err.println("\n==============================================");
+      System.err.println("ERROR: Could not load data file!");
+      System.err.println("==============================================");
+      System.err.println("Path: " + originalPath);
+      System.err.println("\nPossible reasons:");
+      System.err.println("  1. The file does not exist at this location");
+      System.err.println("  2. The file path is incorrect (check spelling)");
+      System.err.println("\nTip: Use loadJSONOrCreate() or loadXMLOrCreate()");
+      System.err.println("     to automatically create missing files.");
+      System.err.println("==============================================\n");
+      return null;
     }
 
     try (Reader reader = new FileReader(file)) {
       return mapper.readValue(reader, cls);
     } catch (Exception e) {
-      System.err.println(e);
+      System.err.println("\n==============================================");
+      System.err.println("ERROR: Could not parse data file!");
+      System.err.println("==============================================");
+      System.err.println("Path: " + originalPath);
+      System.err.println("Format: " + type);
+      System.err.println("\nPossible reasons:");
+      System.err.println("  1. The file is not valid " + type);
+      System.err.println("  2. The file structure does not match the class");
+      System.err.println("  3. The file is corrupted or empty");
+      System.err.println("\nDetails: " + e.getMessage());
+      System.err.println("==============================================\n");
       return null;
     }
   }

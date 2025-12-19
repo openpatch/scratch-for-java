@@ -377,13 +377,20 @@ public class Applet extends PApplet {
     switch (e.getAction()) {
       case KeyEvent.PRESS:
         this.keyCodePressed.put(e.getKeyCode(), true);
+        // F12 toggles debug mode
+        if (e.getKeyCode() == KeyCode.VK_F12) {
+          this.debug = !this.debug;
+          if (this.debug) {
+            System.out.println("\n[Debug Mode Enabled]");
+            System.out.println("Press F12 again to disable");
+          } else {
+            System.out.println("[Debug Mode Disabled]\n");
+          }
+        }
         break;
       case KeyEvent.RELEASE:
         this.keyCodePressed.put(e.getKeyCode(), false);
         break;
-    }
-    if (e.getKeyCode() == KeyCode.VK_F11) {
-      this.debug = !this.debug;
     }
   }
 

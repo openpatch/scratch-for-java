@@ -38,13 +38,37 @@ public class Sound {
         clip.open(audioInput);
         soundCache.put(path, clip);
       } catch (IOException e) {
-        System.err.println("Error loading sound file: " + path);
+        System.err.println("\n==============================================");
+        System.err.println("ERROR: Could not load sound file!");
+        System.err.println("==============================================");
+        System.err.println("Path: " + path);
+        System.err.println("\nPossible reasons:");
+        System.err.println("  1. The file does not exist at this location");
+        System.err.println("  2. The file path is incorrect (check spelling)");
+        System.err.println("\nTip: Make sure the path is relative to your");
+        System.err.println("     assets folder or use an absolute path.");
+        System.err.println("==============================================\n");
         System.exit(1);
       } catch (UnsupportedAudioFileException e) {
-        System.err.println("Unsupported audio file: " + path);
+        System.err.println("\n==============================================");
+        System.err.println("ERROR: Unsupported audio file format!");
+        System.err.println("==============================================");
+        System.err.println("Path: " + path);
+        System.err.println("\nSupported formats: WAV, AIFF, AU");
+        System.err.println("\nTip: Convert your audio file to WAV format");
+        System.err.println("     using an audio conversion tool.");
+        System.err.println("==============================================\n");
         System.exit(1);
       } catch (LineUnavailableException e) {
-        System.err.println("Line unavailable for sound: " + path);
+        System.err.println("\n==============================================");
+        System.err.println("ERROR: Audio system unavailable!");
+        System.err.println("==============================================");
+        System.err.println("Path: " + path);
+        System.err.println("\nPossible reasons:");
+        System.err.println("  1. No audio output device is available");
+        System.err.println("  2. Audio device is being used by another program");
+        System.err.println("\nTip: Check your system's audio settings.");
+        System.err.println("==============================================\n");
         System.exit(1);
       }
     }

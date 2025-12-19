@@ -86,13 +86,22 @@ public class Image {
   public static PImage loadImage(String path) {
     PImage image = originalImages.get(path);
     if (image == null) {
+      String originalPath = path;
       // add support for ~
       path = path.replaceFirst("^~", System.getProperty("user.home"));
       try {
         image = Applet.getInstance().loadImage(path);
-        originalImages.put(path, image);
+        originalImages.put(originalPath, image);
       } catch (Exception e) {
-        System.err.println("Error loading image: " + path);
+        System.err.println("\n==============================================");
+        System.err.println("ERROR: Could not load image file!");
+        System.err.println("==============================================");
+        System.err.println("Path: " + originalPath);
+        System.err.println("\nPossible reasons:");
+        System.err.println("  1. The file does not exist at this location");
+        System.err.println("  2. The file path is incorrect (check spelling)");
+        System.err.println("  3. The file is not in a supported format (PNG, JPG, GIF)");
+        System.err.println("==============================================\n");
         System.exit(1);
       }
     }

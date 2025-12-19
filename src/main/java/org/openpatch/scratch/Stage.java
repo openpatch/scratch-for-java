@@ -881,6 +881,21 @@ public class Stage {
         return;
       }
     }
+    System.err.println("\n==============================================");
+    System.err.println("WARNING: Backdrop not found!");
+    System.err.println("==============================================");
+    System.err.println("Backdrop name: '" + name + "'");
+    if (this.backdrops.isEmpty()) {
+      System.err.println("\nThis stage has no backdrops.");
+      System.err.println("\nTip: Use addBackdrop() to add backdrops first.");
+    } else {
+      System.err.println("\nAvailable backdrops:");
+      for (Image backdrop : this.backdrops) {
+        System.err.println("  - '" + backdrop.getName() + "'");
+      }
+      System.err.println("\nTip: Check the spelling of your backdrop name.");
+    }
+    System.err.println("==============================================\n");
   }
 
   private void emitBackdropSwitch() {
@@ -912,12 +927,32 @@ public class Stage {
 
   /** Switch to the next backdrop. */
   public void nextBackdrop() {
+    if (this.backdrops.isEmpty()) {
+      System.err.println("\n==============================================");
+      System.err.println("WARNING: No backdrops added!");
+      System.err.println("==============================================");
+      System.err.println("\nCannot switch to next backdrop - stage has no backdrops.");
+      System.err.println("\nTip: Use addBackdrop() to add at least one backdrop");
+      System.err.println("     before calling nextBackdrop().");
+      System.err.println("==============================================\n");
+      return;
+    }
     this.currentBackdrop = (this.currentBackdrop + 1) % this.backdrops.size();
     this.emitBackdropSwitch();
   }
 
   /** Switch to the previous backdrop. */
   public void previousBackdrop() {
+    if (this.backdrops.isEmpty()) {
+      System.err.println("\n==============================================");
+      System.err.println("WARNING: No backdrops added!");
+      System.err.println("==============================================");
+      System.err.println("\nCannot switch to previous backdrop - stage has no backdrops.");
+      System.err.println("\nTip: Use addBackdrop() to add at least one backdrop");
+      System.err.println("     before calling previousBackdrop().");
+      System.err.println("==============================================\n");
+      return;
+    }
     var index = (this.currentBackdrop - 1) % this.backdrops.size();
     if (index < 0) {
       index += this.backdrops.size();

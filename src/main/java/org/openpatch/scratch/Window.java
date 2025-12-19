@@ -43,7 +43,9 @@ public class Window {
    * The default color used for debugging purposes.
    * You can modify this array to change the debug color.
    * 
-   * For example, to set the debug color to green, you can do:
+   * <p>Debug mode can be toggled at runtime by pressing F12.
+   * 
+   * <p>For example, to set the debug color to green, you can do:
    * 
    * <pre>{@code
    * Window.DEBUG_COLOR = new int[] { 0, 255, 0 };
@@ -128,6 +130,16 @@ public class Window {
   public Window(int width, int height, String assets) {
     super();
     if (Window.instance != null) {
+      System.err.println("\n==============================================");
+      System.err.println("ERROR: Cannot create multiple Windows!");
+      System.err.println("==============================================");
+      System.err.println("\nA Window instance already exists.");
+      System.err.println("\nPossible reasons:");
+      System.err.println("  1. You created 'new Window()' multiple times");
+      System.err.println("  2. Your code instantiates Window in multiple places");
+      System.err.println("\nTip: Scratch for Java only supports one Window.");
+      System.err.println("     Remove duplicate Window creation code.");
+      System.err.println("==============================================\n");
       throw new Error("You can only have one Window.");
     }
 
@@ -161,6 +173,16 @@ public class Window {
 
   public Window(boolean fullScreen, int width, int height, String assets) {
     if (Window.instance != null) {
+      System.err.println("\n==============================================");
+      System.err.println("ERROR: Cannot create multiple Windows!");
+      System.err.println("==============================================");
+      System.err.println("\nA Window instance already exists.");
+      System.err.println("\nPossible reasons:");
+      System.err.println("  1. You created 'new Window()' multiple times");
+      System.err.println("  2. Your code instantiates Window in multiple places");
+      System.err.println("\nTip: Scratch for Java only supports one Window.");
+      System.err.println("     Remove duplicate Window creation code.");
+      System.err.println("==============================================\n");
       throw new Error("You can only have one Window.");
     }
     Window.instance = this;
@@ -192,6 +214,8 @@ public class Window {
 
   /**
    * Checks if the application is in debug mode.
+   * 
+   * <p>Debug mode can be toggled at runtime by pressing F12.
    *
    * @return true if the application is in debug mode, false otherwise.
    */
@@ -201,6 +225,9 @@ public class Window {
 
   /**
    * Enables or disables the debug mode for the application.
+   * 
+   * <p>Debug mode shows sprite positions, hitboxes, and other debug information.
+   * It can also be toggled at runtime by pressing F12.
    *
    * @param debug a boolean value where {@code true} enables debug mode and
    *              {@code false} disables
