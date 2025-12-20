@@ -32,7 +32,7 @@ mvn compile
 You can release the library with the following command:
 
 ```
-mvn deploy
+mvn deploy -Pcentral
 ```
 
 ## Maintainer
