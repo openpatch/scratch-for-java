@@ -1353,7 +1353,7 @@ public class Sprite {
   /**
    * Returns true is the mouse pointer is touching the hitbox of the sprite.
    *
-   * @scratchblock <touching [mouse-pointer v]?>
+   * @scratchblock &lt;touching [mouse-pointer v]?&gt;
    *
    * @return true if touching
    */
@@ -1541,7 +1541,7 @@ public class Sprite {
   /**
    * Checks if this sprite is touching another sprite.
    *
-   * @scratchblock <touching [sprite v]?>
+   * @scratchblock &lt;touching [sprite v]?&gt;
    *
    * @param sprite The sprite to check for collision with.
    * @return true if this sprite is touching the specified sprite, false
