@@ -5,7 +5,7 @@ public class SpriteGetOrigin extends Window {
     super(800, 600);
     var stage = new Stage();
     
-    var sprite = new Sprite("hedgehog", "assets/hedgehog.png");
+    var sprite = new Sprite("slime", "assets/slime.png");
     sprite.setPosition(0, 0);
     
     // Test getting default origin

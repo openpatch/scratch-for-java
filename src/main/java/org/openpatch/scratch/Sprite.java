@@ -2438,7 +2438,10 @@ public class Sprite {
         this.direction,
         this.x,
         this.y,
-        this.rotationStyle);
+        this.rotationStyle,
+        this.origin,
+        this.originX,
+        this.originY);
 
     return stamp;
   }
