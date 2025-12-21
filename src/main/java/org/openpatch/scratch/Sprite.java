@@ -156,6 +156,9 @@ public class Sprite {
   private double x = 0;
   private double y = 0;
   private double direction = 90;
+  private Origin origin = Origin.CENTER;
+  private double originX = 0;
+  private double originY = 0;
   private Stage stage;
   private final AbstractMap<String, Timer> timer;
   private final Pen pen;
@@ -235,6 +238,9 @@ public class Sprite {
     this.x = s.x;
     this.y = s.y;
     this.direction = s.direction;
+    this.origin = s.origin;
+    this.originX = s.originX;
+    this.originY = s.originY;
     this.stage = s.stage;
     this.timer = new ConcurrentHashMap<>();
     this.timer.put("default", new Timer());
@@ -1174,6 +1180,64 @@ public class Sprite {
   }
 
   /**
+   * Sets the origin of the sprite to a predefined position.
+   * The origin determines the reference point for positioning and rotation.
+   *
+   * @param origin the predefined origin position
+   */
+  public void setOrigin(Origin origin) {
+    this.origin = origin;
+    // Calculate offset based on the predefined position
+    // These offsets are relative to the center (0, 0) in costume space
+    if (origin != Origin.CUSTOM) {
+      // Reset custom offsets when using predefined position
+      this.originX = 0;
+      this.originY = 0;
+    }
+  }
+
+  /**
+   * Sets the origin of the sprite to a custom position.
+   * The coordinates are relative to the center of the costume.
+   * Positive x moves origin to the right, positive y moves origin down.
+   *
+   * @param x the x offset from center in pixels
+   * @param y the y offset from center in pixels
+   */
+  public void setOrigin(double x, double y) {
+    this.origin = Origin.CUSTOM;
+    this.originX = x;
+    this.originY = y;
+  }
+
+  /**
+   * Returns the current origin mode of the sprite.
+   *
+   * @return the origin mode
+   */
+  public Origin getOrigin() {
+    return this.origin;
+  }
+
+  /**
+   * Returns the x offset of the origin from the center.
+   *
+   * @return the x offset in pixels
+   */
+  public double getOriginX() {
+    return this.originX;
+  }
+
+  /**
+   * Returns the y offset of the origin from the center.
+   *
+   * @return the y offset in pixels
+   */
+  public double getOriginY() {
+    return this.originY;
+  }
+
+  /**
    * Returns the pen of the sprite.
    *
    * @return
@@ -1503,25 +1567,77 @@ public class Sprite {
       rotation = 0;
     }
 
+    // Calculate origin offset based on origin mode
+    double offsetX = 0;
+    double offsetY = 0;
+    
+    switch (this.origin) {
+      case TOP_LEFT:
+        offsetX = spriteWidth / 2.0;
+        offsetY = -spriteHeight / 2.0;
+        break;
+      case TOP_CENTER:
+        offsetX = 0;
+        offsetY = -spriteHeight / 2.0;
+        break;
+      case TOP_RIGHT:
+        offsetX = -spriteWidth / 2.0;
+        offsetY = -spriteHeight / 2.0;
+        break;
+      case CENTER_LEFT:
+        offsetX = spriteWidth / 2.0;
+        offsetY = 0;
+        break;
+      case CENTER:
+        offsetX = 0;
+        offsetY = 0;
+        break;
+      case CENTER_RIGHT:
+        offsetX = -spriteWidth / 2.0;
+        offsetY = 0;
+        break;
+      case BOTTOM_LEFT:
+        offsetX = spriteWidth / 2.0;
+        offsetY = spriteHeight / 2.0;
+        break;
+      case BOTTOM_CENTER:
+        offsetX = 0;
+        offsetY = spriteHeight / 2.0;
+        break;
+      case BOTTOM_RIGHT:
+        offsetX = -spriteWidth / 2.0;
+        offsetY = spriteHeight / 2.0;
+        break;
+      case CUSTOM:
+        // For custom origin, apply the offset from center
+        offsetX = -this.originX;
+        offsetY = this.originY;
+        break;
+    }
+
+    // Apply origin offset to the hitbox base position
+    double hitboxCenterX = this.x + offsetX;
+    double hitboxCenterY = this.y + offsetY;
+
     if (this.hitbox != null) {
       this.hitbox.translateAndRotateAndResize(
           rotation,
-          this.x,
-          -this.y,
-          this.x - spriteWidth / 2.0f,
-          -this.y - spriteHeight / 2.0f,
+          hitboxCenterX,
+          -hitboxCenterY,
+          hitboxCenterX - spriteWidth / 2.0f,
+          -hitboxCenterY - spriteHeight / 2.0f,
           this.size);
       return this.hitbox;
     }
 
     var cornerTopLeft = Utils.rotateXY(
-        this.x - spriteWidth / 2.0f, -this.y - spriteHeight / 2.0f, this.x, -this.y, rotation);
+        hitboxCenterX - spriteWidth / 2.0f, -hitboxCenterY - spriteHeight / 2.0f, hitboxCenterX, -hitboxCenterY, rotation);
     var cornerTopRight = Utils.rotateXY(
-        this.x + spriteWidth / 2.0f, -this.y - spriteHeight / 2.0f, this.x, -this.y, rotation);
+        hitboxCenterX + spriteWidth / 2.0f, -hitboxCenterY - spriteHeight / 2.0f, hitboxCenterX, -hitboxCenterY, rotation);
     var cornerBottomLeft = Utils.rotateXY(
-        this.x - spriteWidth / 2.0f, -this.y + spriteHeight / 2.0f, this.x, -this.y, rotation);
+        hitboxCenterX - spriteWidth / 2.0f, -hitboxCenterY + spriteHeight / 2.0f, hitboxCenterX, -hitboxCenterY, rotation);
     var cornerBottomRight = Utils.rotateXY(
-        this.x + spriteWidth / 2.0f, -this.y + spriteHeight / 2.0f, this.x, -this.y, rotation);
+        hitboxCenterX + spriteWidth / 2.0f, -hitboxCenterY + spriteHeight / 2.0f, hitboxCenterX, -hitboxCenterY, rotation);
 
     double[] xPoints = new double[4];
     double[] yPoints = new double[4];
@@ -2275,7 +2391,17 @@ public class Sprite {
       var shader = this.getCurrentShader();
       this.costumes
           .get(this.currentCostume)
-          .draw(buffer, this.size, this.direction, this.x, this.y, this.rotationStyle, shader);
+          .draw(
+              buffer,
+              this.size,
+              this.direction,
+              this.x,
+              this.y,
+              this.rotationStyle,
+              shader,
+              this.origin,
+              this.originX,
+              this.originY);
     }
   }
 
@@ -2293,7 +2419,16 @@ public class Sprite {
     if (this.costumes.size() > 0 && this.show) {
       this.costumes
           .get(this.currentCostume)
-          .drawDebug(buffer, this.size, this.direction, this.x, this.y, this.rotationStyle);
+          .drawDebug(
+              buffer,
+              this.size,
+              this.direction,
+              this.x,
+              this.y,
+              this.rotationStyle,
+              this.origin,
+              this.originX,
+              this.originY);
     }
   }
 

@@ -2,6 +2,7 @@ package org.openpatch.scratch.internal;
 
 import java.util.AbstractMap;
 import java.util.concurrent.ConcurrentHashMap;
+import org.openpatch.scratch.Origin;
 import org.openpatch.scratch.RotationStyle;
 import org.openpatch.scratch.Window;
 import org.openpatch.scratch.extensions.color.Color;
@@ -324,6 +325,34 @@ public class Image {
       double y,
       RotationStyle style,
       Shader shader) {
+    draw(buffer, size, degrees, x, y, style, shader, Origin.CENTER, 0, 0);
+  }
+
+  /**
+   * Draw the scaled image at a given position with custom origin.
+   *
+   * @param buffer  a buffer
+   * @param size    a percentage value
+   * @param degrees direction
+   * @param x       a x coordinate
+   * @param y       a y coordinate
+   * @param style   a rotation style
+   * @param shader  a shader
+   * @param origin  the origin mode
+   * @param originX the x offset from center
+   * @param originY the y offset from center
+   */
+  public void draw(
+      PGraphics buffer,
+      double size,
+      double degrees,
+      double x,
+      double y,
+      RotationStyle style,
+      Shader shader,
+      Origin origin,
+      double originX,
+      double originY) {
     buffer.push();
     buffer.translate((float) x, (float) -y);
     degrees -= 90;
@@ -346,7 +375,55 @@ public class Image {
       buffer.shader(pshader);
     }
 
-    buffer.translate(-this.width / 2.0f, -this.height / 2.0f);
+    // Calculate origin offset based on origin mode
+    float offsetX = 0;
+    float offsetY = 0;
+    
+    switch (origin) {
+      case TOP_LEFT:
+        offsetX = 0;
+        offsetY = 0;
+        break;
+      case TOP_CENTER:
+        offsetX = -this.width / 2.0f;
+        offsetY = 0;
+        break;
+      case TOP_RIGHT:
+        offsetX = -this.width;
+        offsetY = 0;
+        break;
+      case CENTER_LEFT:
+        offsetX = 0;
+        offsetY = -this.height / 2.0f;
+        break;
+      case CENTER:
+        offsetX = -this.width / 2.0f;
+        offsetY = -this.height / 2.0f;
+        break;
+      case CENTER_RIGHT:
+        offsetX = -this.width;
+        offsetY = -this.height / 2.0f;
+        break;
+      case BOTTOM_LEFT:
+        offsetX = 0;
+        offsetY = -this.height;
+        break;
+      case BOTTOM_CENTER:
+        offsetX = -this.width / 2.0f;
+        offsetY = -this.height;
+        break;
+      case BOTTOM_RIGHT:
+        offsetX = -this.width;
+        offsetY = -this.height;
+        break;
+      case CUSTOM:
+        // For custom origin, apply the offset from center
+        offsetX = -this.width / 2.0f - (float) originX;
+        offsetY = -this.height / 2.0f + (float) originY;
+        break;
+    }
+
+    buffer.translate(offsetX, offsetY);
     buffer.tint(
         (float) this.tint.getRed(),
         (float) this.tint.getGreen(),
@@ -460,6 +537,19 @@ public class Image {
    */
   public void drawDebug(
       PGraphics buffer, double size, double degrees, double x, double y, RotationStyle style) {
+    drawDebug(buffer, size, degrees, x, y, style, Origin.CENTER, 0, 0);
+  }
+
+  public void drawDebug(
+      PGraphics buffer,
+      double size,
+      double degrees,
+      double x,
+      double y,
+      RotationStyle style,
+      Origin origin,
+      double originX,
+      double originY) {
     buffer.push();
     buffer.translate((float) x, (float) -y);
     buffer.fill(Window.DEBUG_COLOR[0], Window.DEBUG_COLOR[1], Window.DEBUG_COLOR[1]);
