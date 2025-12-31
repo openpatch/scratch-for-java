@@ -324,6 +324,32 @@ public class Image {
       double y,
       RotationStyle style,
       Shader shader) {
+    this.draw(buffer, size, degrees, x, y, style, shader, 0, 0);
+  }
+
+  /**
+   * Draw the scaled image at a given position with origin offset.
+   *
+   * @param buffer  a buffer
+   * @param size    a percentage value
+   * @param degrees direction
+   * @param x       a x coordinate
+   * @param y       a y coordinate
+   * @param style   a rotation style
+   * @param shader  a shader
+   * @param originX x offset of the origin from center
+   * @param originY y offset of the origin from center
+   */
+  public void draw(
+      PGraphics buffer,
+      double size,
+      double degrees,
+      double x,
+      double y,
+      RotationStyle style,
+      Shader shader,
+      double originX,
+      double originY) {
     buffer.push();
     buffer.translate((float) x, (float) -y);
     degrees -= 90;
@@ -346,6 +372,10 @@ public class Image {
       buffer.shader(pshader);
     }
 
+    // Apply origin offset: shift the image so that the origin point appears at position (x,y)
+    // originX positive = origin to the right of center, so image shifts left (-originX)
+    // originY positive = origin above center, so image shifts down (+originY in screen coords)
+    buffer.translate((float) -originX, (float) originY);
     buffer.translate(-this.width / 2.0f, -this.height / 2.0f);
     buffer.tint(
         (float) this.tint.getRed(),
@@ -460,6 +490,29 @@ public class Image {
    */
   public void drawDebug(
       PGraphics buffer, double size, double degrees, double x, double y, RotationStyle style) {
+    this.drawDebug(buffer, size, degrees, x, y, style, 0, 0);
+  }
+
+  /**
+   * Draw debug information at a given position with origin offset.
+   *
+   * @param size    a percentage value
+   * @param degrees direction
+   * @param x       a x coordinate
+   * @param y       a y coordinate
+   * @param style   a rotation style
+   * @param originX x offset of the origin from center
+   * @param originY y offset of the origin from center
+   */
+  public void drawDebug(
+      PGraphics buffer,
+      double size,
+      double degrees,
+      double x,
+      double y,
+      RotationStyle style,
+      double originX,
+      double originY) {
     buffer.push();
     buffer.translate((float) x, (float) -y);
     buffer.fill(Window.DEBUG_COLOR[0], Window.DEBUG_COLOR[1], Window.DEBUG_COLOR[1]);
