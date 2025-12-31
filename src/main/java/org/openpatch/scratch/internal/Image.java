@@ -515,10 +515,33 @@ public class Image {
       double originY) {
     buffer.push();
     buffer.translate((float) x, (float) -y);
-    buffer.fill(Window.DEBUG_COLOR[0], Window.DEBUG_COLOR[1], Window.DEBUG_COLOR[1]);
+    buffer.fill(Window.DEBUG_COLOR[0], Window.DEBUG_COLOR[1], Window.DEBUG_COLOR[2]);
     buffer.textAlign(PConstants.CENTER);
     buffer.text("Direction: " + Math.round((degrees) * 100) / 100.0, 0, -this.height / 2.0f - 10);
     buffer.text("(" + Math.round(x * 100) / 100.0 + ", " + Math.round(y * 100) / 100.0 + ")", 0, 0);
+
+    // Draw origin marker and offset visualization
+    if (originX != 0 || originY != 0) {
+      // Draw text showing origin offset
+      buffer.text(
+          "Origin: (" + Math.round(originX * 100) / 100.0 + ", " + Math.round(originY * 100) / 100.0
+              + ")",
+          0,
+          this.height / 2.0f + 20);
+
+      // Draw a line from the sprite position to where the image center is drawn
+      buffer.stroke(Window.DEBUG_COLOR[0], Window.DEBUG_COLOR[1], Window.DEBUG_COLOR[2]);
+      buffer.strokeWeight(1);
+      buffer.line(0, 0, (float) -originX, (float) originY);
+
+      // Draw a small cross at the origin point (sprite position)
+      buffer.line(-5, 0, 5, 0);
+      buffer.line(0, -5, 0, 5);
+
+      // Draw a small circle at the image center
+      buffer.noFill();
+      buffer.ellipse((float) -originX, (float) originY, 8, 8);
+    }
     buffer.pop();
   }
 
