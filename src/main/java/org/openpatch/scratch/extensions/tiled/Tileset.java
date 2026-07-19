@@ -1,6 +1,6 @@
 package org.openpatch.scratch.extensions.tiled;
 
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
+import tools.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 
 class Tileset {
   public int columns;

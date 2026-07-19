@@ -4,6 +4,10 @@ index: 4
 lang: en
 ---
 
+## 4.26.0
+
+- Update dependencies
+
 ## 4.25.0
 
 - Add beginner-friendly error messages for common mistakes, such as missing

@@ -1,7 +1,7 @@
 package org.openpatch.scratch.extensions.tiled;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.ObjectMapper;
 import java.nio.file.Paths;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentHashMap;
@@ -156,7 +156,7 @@ public class TiledMap {
       ObjectMapper mapper = new ObjectMapper();
       String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(this.map);
       return json;
-    } catch (JsonProcessingException e) {
+    } catch (JacksonException e) {
       System.out.println(e);
       return "";
     }

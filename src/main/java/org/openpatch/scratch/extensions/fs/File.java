@@ -1,9 +1,9 @@
 package org.openpatch.scratch.extensions.fs;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import tools.jackson.databind.DeserializationFeature;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.SerializationFeature;
+import tools.jackson.dataformat.xml.XmlMapper;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -63,8 +63,10 @@ public class File {
     if (type == FileType.XML) {
       objectMapper = new XmlMapper();
     }
-    objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
-    objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    objectMapper = objectMapper.rebuild()
+        .enable(SerializationFeature.INDENT_OUTPUT)
+        .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
+        .build();
     return objectMapper;
   }
 

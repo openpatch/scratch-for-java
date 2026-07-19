@@ -5,7 +5,7 @@
 
     <groupId>org.openpatch</groupId>
     <artifactId>scratch</artifactId>
-    <version>4.25.0</version>
+    <version>4.26.0</version>
     <packaging>jar</packaging>
 
     <name>Scratch for Java</name>
@@ -37,16 +37,9 @@
     <properties>
         <maven.compiler.release>17</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <libs.processing>4.4.10</libs.processing>
-        <libs.jackson>2.19.2</libs.jackson>
+        <libs.processing>4.5.5</libs.processing>
+        <libs.jackson>3.2.1</libs.jackson>
     </properties>
-
-    <repositories>
-        <repository>
-            <id>jogamp</id>
-            <url>https://jogamp.org/deployment/maven/</url>
-        </repository>
-    </repositories>
 
     <dependencies>
         <dependency>
@@ -54,35 +47,25 @@
             <artifactId>core</artifactId>
             <version>${libs.processing}</version>
         </dependency>
-        <dependency>
-            <groupId>org.jogamp.jogl</groupId>
-            <artifactId>jogl-all-main</artifactId>
-            <version>2.5.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jogamp.gluegen</groupId>
-            <artifactId>gluegen-rt-main</artifactId>
-            <version>2.5.0</version>
-        </dependency>
 
         <!-- Jackson -->
         <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
+            <groupId>tools.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
             <version>${libs.jackson}</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
-            <version>${libs.jackson}</version>
+            <version>2.22</version>
         </dependency>
         <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
+            <groupId>tools.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>${libs.jackson}</version>
         </dependency>
         <dependency>
-            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <groupId>tools.jackson.dataformat</groupId>
             <artifactId>jackson-dataformat-xml</artifactId>
             <version>${libs.jackson}</version>
         </dependency>
