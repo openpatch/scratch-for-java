@@ -1,6 +1,8 @@
 package org.openpatch.scratch.extensions.tiled;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 import org.openpatch.scratch.extensions.shape.Ellipse;
 import org.openpatch.scratch.extensions.shape.Rectangle;
@@ -77,8 +79,20 @@ public class MapObject {
    * @return the value of the property with the specified name
    */
   public String getProperty(String name) {
-    var p = properties.stream().filter(n -> name.equals(n.name)).findFirst().get();
-    return p.value;
+    if (properties == null || properties.isEmpty()) {
+      throw new NoSuchElementException(
+          "Property '" + name + "' not found: map object '" + this.name
+              + "' (id " + this.id + ") has no custom properties at all. Add one named '"
+              + name + "' to it in the Tiled editor.");
+    }
+    return properties.stream()
+        .filter(p -> name.equals(p.name))
+        .findFirst()
+        .orElseThrow(() -> new NoSuchElementException(
+            "Property '" + name + "' not found on map object '" + this.name + "' (id " + this.id
+                + "). Available properties: "
+                + properties.stream().map(p -> p.name).collect(Collectors.joining(", "))))
+        .value;
   }
 
   /**

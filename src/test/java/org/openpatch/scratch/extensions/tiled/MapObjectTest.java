@@ -101,9 +101,25 @@ class MapObjectTest {
   }
 
   @Test
-  void getPropertyThrowsWhenPropertyDoesNotExist() {
+  void getPropertyThrowsAHelpfulMessageNamingTheMissingAndAvailableProperties() {
     MapObject object = withProperty("label", "hello");
 
-    assertThrows(java.util.NoSuchElementException.class, () -> object.getProperty("missing"));
+    var thrown = assertThrows(
+        java.util.NoSuchElementException.class, () -> object.getProperty("missing"));
+
+    assertTrue(thrown.getMessage().contains("missing"));
+    assertTrue(thrown.getMessage().contains("label"));
+  }
+
+  @Test
+  void getPropertyThrowsAHelpfulMessageWhenThereAreNoPropertiesAtAll() {
+    MapObject object = new MapObject();
+    object.name = "spawn";
+
+    var thrown = assertThrows(
+        java.util.NoSuchElementException.class, () -> object.getProperty("health"));
+
+    assertTrue(thrown.getMessage().contains("health"));
+    assertTrue(thrown.getMessage().contains("spawn"));
   }
 }

@@ -74,21 +74,21 @@ import processing.event.MouseEvent;
  */
 public class Sprite {
 
-  /** Direction constant pointing right (0 degrees).
+  /** Direction constant pointing up (0 degrees).
    * @see #setDirection(double) */
-  public static final double DIRECTION_RIGHT = 0;
+  public static final double DIRECTION_UP = 0;
 
-  /** Direction constant pointing up (90 degrees).
+  /** Direction constant pointing right (90 degrees).
    * @see #setDirection(double) */
-  public static final double DIRECTION_UP = 90;
+  public static final double DIRECTION_RIGHT = 90;
 
-  /** Direction constant pointing left (180 degrees).
+  /** Direction constant pointing down (180 degrees).
    * @see #setDirection(double) */
-  public static final double DIRECTION_LEFT = 180;
+  public static final double DIRECTION_DOWN = 180;
 
-  /** Direction constant pointing down (270 degrees).
+  /** Direction constant pointing left (270 degrees).
    * @see #setDirection(double) */
-  public static final double DIRECTION_DOWN = 270;
+  public static final double DIRECTION_LEFT = 270;
 
   /**
    * @ignore-in-docs
@@ -1213,8 +1213,8 @@ public class Sprite {
 
   /**
    * Sets the direction of the sprite to a given degrees. When this value is 0 the
-   * sprite move
-   * right, when it is 180 is moves to the left.
+   * sprite moves
+   * up, when it is 180 it moves down.
    *
    * @scratchblock point in direction (degrees)
    *
@@ -1240,10 +1240,9 @@ public class Sprite {
   /**
    * Points the sprite in the specified direction.
    *
-   * @param degrees The direction in degrees to point the sprite. 0 degrees is to
-   *                the right, 90
-   *                degrees is up, 180 degrees is to the left, and 270 degrees is
-   *                down.
+   * @param degrees The direction in degrees to point the sprite. 0 degrees is up,
+   *                90 degrees is to the right, 180 degrees is down, and 270
+   *                degrees is to the left.
    */
   public void pointInDirection(double degrees) {
     this.setDirection(degrees);
