@@ -2,4 +2,4 @@
 type: minor
 ---
 
-Update dependencies to the latest versions.
+Update dependencies (processing and jackson) to the latest versions.
