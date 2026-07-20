@@ -27,10 +27,10 @@ public class Sensing extends Stage {
   public void run() {
     this.display("Move the hero with WASD and rotate him with R");
 
-    if (isKeyPressed(KeyCode.VK_0)) {
+    if (isKeyPressed(KeyCode.DIGIT_0)) {
       this.getCamera().changeZoom(-1);
     }
-    if (isKeyPressed(KeyCode.VK_1)) {
+    if (isKeyPressed(KeyCode.DIGIT_1)) {
       this.getCamera().changeZoom(1);
     }
   }
@@ -71,22 +71,22 @@ class MovableHero extends Hero {
 
   public void run() {
     super.run();
-    if (this.isKeyPressed(KeyCode.VK_SPACE)) {
+    if (this.isKeyPressed(KeyCode.SPACE)) {
       this.move(1);
     }
-    if (this.isKeyPressed(KeyCode.VK_A)) {
+    if (this.isKeyPressed(KeyCode.A)) {
       this.changeX(-1);
     }
-    if (this.isKeyPressed(KeyCode.VK_D)) {
+    if (this.isKeyPressed(KeyCode.D)) {
       this.changeX(1);
     }
-    if (this.isKeyPressed(KeyCode.VK_W)) {
+    if (this.isKeyPressed(KeyCode.W)) {
       this.changeY(1);
     }
-    if (this.isKeyPressed(KeyCode.VK_S)) {
+    if (this.isKeyPressed(KeyCode.S)) {
       this.changeY(-1);
     }
-    if (this.isKeyPressed(82)) {
+    if (this.isKeyPressed(KeyCode.R)) {
       this.turnRight(1);
     }
     if (this.isTouchingSprite(Hero.class)) {

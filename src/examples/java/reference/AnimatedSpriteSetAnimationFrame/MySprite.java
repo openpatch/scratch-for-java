@@ -10,7 +10,7 @@ public class MySprite extends AnimatedSprite {
 
   public void run() {
     this.playAnimation("idle");
-    if (this.isKeyPressed(KeyCode.VK_SPACE)) {
+    if (this.isKeyPressed(KeyCode.SPACE)) {
       this.setAnimationFrame(0);
     }
   }

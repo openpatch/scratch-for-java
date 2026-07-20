@@ -10,7 +10,7 @@ public class StageIsKeyPressed {
         new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
     recorder.start();
     while (myStage.getTimer().forMillis(3000)) {
-      myStage.display("Space pressed? " + myStage.isKeyPressed(KeyCode.VK_SPACE));
+      myStage.display("Space pressed? " + myStage.isKeyPressed(KeyCode.SPACE));
     }
     recorder.stop();
     myStage.exit();

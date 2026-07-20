@@ -39,8 +39,8 @@ public class Player extends AnimatedSprite {
     }
   }
 
-  public void whenKeyPressed(int keyCode) {
-    if (hasItem("scroll-fire") && keyCode == KeyCode.VK_G) {
+  public void whenKeyPressed(KeyCode keyCode) {
+    if (hasItem("scroll-fire") && keyCode == KeyCode.G) {
       var f = new Fireball(this.getX(), this.getY(), dir);
       this.getStage().add(f);
     }
@@ -52,32 +52,32 @@ public class Player extends AnimatedSprite {
     var dx = 0;
     var dy = 0;
 
-    if (this.isKeyPressed(KeyCode.VK_W) || this.isKeyPressed(KeyCode.VK_UP)) {
+    if (this.isKeyPressed(KeyCode.W) || this.isKeyPressed(KeyCode.UP)) {
       dy += this.speed;
       state = "walk";
       dir = "up";
     }
 
-    if (this.isKeyPressed(KeyCode.VK_S) || this.isKeyPressed(KeyCode.VK_DOWN)) {
+    if (this.isKeyPressed(KeyCode.S) || this.isKeyPressed(KeyCode.DOWN)) {
       dy -= this.speed;
       state = "walk";
       dir = "down";
     }
 
-    if (this.isKeyPressed(KeyCode.VK_A) || this.isKeyPressed(KeyCode.VK_LEFT)) {
+    if (this.isKeyPressed(KeyCode.A) || this.isKeyPressed(KeyCode.LEFT)) {
       dx -= this.speed;
       state = "walk";
       dir = "left";
     }
 
-    if (this.isKeyPressed(KeyCode.VK_D) || this.isKeyPressed(KeyCode.VK_RIGHT)) {
+    if (this.isKeyPressed(KeyCode.D) || this.isKeyPressed(KeyCode.RIGHT)) {
       dx += this.speed;
       state = "walk";
       dir = "right";
     }
 
     var item = this.getTouchingSprite(Item.class);
-    if (item != null && this.isKeyPressed(KeyCode.VK_E)) {
+    if (item != null && this.isKeyPressed(KeyCode.E)) {
       item.collect();
     } else if (item != null) {
       this.getStage().display(I18n.get("tutorial-item-pickup"), 1000);

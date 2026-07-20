@@ -17,7 +17,7 @@ public class StageWhenKeyPressed {
     }
 
     @Override
-    public void whenKeyPressed(int keyCode) {
+    public void whenKeyPressed(KeyCode keyCode) {
       this.display("Key Pressed: " + keyCode);
     }
   }

@@ -12,8 +12,8 @@ public class Pipes extends Stage {
     this.addSound("bg", "demos/pipes/sounds/bensound-enigmatic.wav");
   }
 
-  public void whenKeyPressed(int keyCode) {
-    if (keyCode == KeyCode.VK_SPACE) {
+  public void whenKeyPressed(KeyCode keyCode) {
+    if (keyCode == KeyCode.SPACE) {
       PenSprite.setColor(Random.random(255));
     }
   }

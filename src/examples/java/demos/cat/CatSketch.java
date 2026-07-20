@@ -1,5 +1,6 @@
 package demos.cat;
 
+import org.openpatch.scratch.KeyCode;
 import org.openpatch.scratch.Sprite;
 import org.openpatch.scratch.Stage;
 
@@ -24,8 +25,8 @@ class CatSprite extends Sprite {
     this.setDirection(0);
   }
 
-  public void whenKeyPressed(int keyCode) {
-    if (keyCode == 32) {
+  public void whenKeyPressed(KeyCode keyCode) {
+    if (keyCode == KeyCode.SPACE) {
       this.stamp();
     }
   }

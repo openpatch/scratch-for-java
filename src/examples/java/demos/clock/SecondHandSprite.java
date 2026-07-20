@@ -11,7 +11,7 @@ public class SecondHandSprite extends Sprite {
 
   public void run() {
     int second = this.getCurrentSecond();
-    if (this.isKeyPressed(KeyCode.VK_SPACE)) {
+    if (this.isKeyPressed(KeyCode.SPACE)) {
       int millisecond = this.getCurrentMillisecond();
       this.setDirection(90 + (second + millisecond / 1000.0) / 60.0 * 360);
     } else {

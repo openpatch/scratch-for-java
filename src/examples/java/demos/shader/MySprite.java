@@ -16,11 +16,11 @@ public class MySprite extends Sprite {
     this.switchShader("halftone");
   }
 
-  public void whenKeyPressed(int keyCode) {
-    if (keyCode == KeyCode.VK_N) {
+  public void whenKeyPressed(KeyCode keyCode) {
+    if (keyCode == KeyCode.N) {
       this.nextShader();
     }
-    if (keyCode == KeyCode.VK_M) {
+    if (keyCode == KeyCode.M) {
       this.resetShader();
     }
   }

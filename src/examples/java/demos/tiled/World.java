@@ -66,10 +66,10 @@ public class World extends Stage {
     this.player = player;
   }
 
-  public void whenKeyPressed(int keyCode) {
-    if (keyCode == KeyCode.VK_F1) {
+  public void whenKeyPressed(KeyCode keyCode) {
+    if (keyCode == KeyCode.F1) {
       this.setDebug(!this.isDebug());
-    } else if (keyCode == KeyCode.VK_F5) {
+    } else if (keyCode == KeyCode.F5) {
       GameState.save();
       this.display("Game saved", 2000);
     }
@@ -85,10 +85,10 @@ public class World extends Stage {
     this.map.stampLayerToBackground("FloorObjects");
     this.map.stampLayerToBackground("Walls");
 
-    if (this.isKeyPressed(KeyCode.VK_1)) {
+    if (this.isKeyPressed(KeyCode.DIGIT_1)) {
       this.getCamera().changeZoom(1);
     }
-    if (this.isKeyPressed(KeyCode.VK_0)) {
+    if (this.isKeyPressed(KeyCode.DIGIT_0)) {
       this.getCamera().changeZoom(-1);
     }
 

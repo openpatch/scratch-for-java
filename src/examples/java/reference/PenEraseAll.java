@@ -18,7 +18,7 @@ public class PenEraseAll {
     myPen.up();
     myPen.setPosition(50, 0);
     while (myStage.getTimer().forMillis(3000)) {
-      if (myStage.isKeyPressed(KeyCode.VK_SPACE)) {
+      if (myStage.isKeyPressed(KeyCode.SPACE)) {
         myPen.eraseAll();
       }
     }

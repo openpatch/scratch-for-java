@@ -91,19 +91,15 @@ public class Image {
       path = path.replaceFirst("^~", System.getProperty("user.home"));
       try {
         image = Applet.getInstance().loadImage(path);
-        originalImages.put(originalPath, image);
       } catch (Exception e) {
-        System.err.println("\n==============================================");
-        System.err.println("ERROR: Could not load image file!");
-        System.err.println("==============================================");
-        System.err.println("Path: " + originalPath);
-        System.err.println("\nPossible reasons:");
-        System.err.println("  1. The file does not exist at this location");
-        System.err.println("  2. The file path is incorrect (check spelling)");
-        System.err.println("  3. The file is not in a supported format (PNG, JPG, GIF)");
-        System.err.println("==============================================\n");
-        System.exit(1);
+        // fall through to null check below
       }
+      if (image == null || image.width == 0) {
+        AssetErrorReporter.reportAndExit(
+            "image", originalPath, "PNG, JPG, GIF",
+            new String[]{".png", ".jpg", ".jpeg", ".gif"});
+      }
+      originalImages.put(originalPath, image);
     }
     return image;
   }

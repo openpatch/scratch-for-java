@@ -675,12 +675,12 @@ public class Text {
       lines = this.wrap(this.originalText, this.width, buffer);
     }
     if (applet.isDebug()) {
-      var textSize = applet.getTextSize();
+      buffer.push();
       buffer.textSize(12);
       buffer.fill(Window.DEBUG_COLOR[0], Window.DEBUG_COLOR[1], Window.DEBUG_COLOR[1]);
       buffer.textAlign(PConstants.CENTER);
       buffer.text("(" + this.x + ", " + this.y + ")", 0, -20);
-      buffer.textSize((float) textSize);
+      buffer.pop();
     }
     this.text = String.join("\n", lines);
 

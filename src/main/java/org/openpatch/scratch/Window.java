@@ -238,10 +238,27 @@ public class Window {
   }
 
   /**
-   * Retrieves the width of the current window.
+   * Prints a debug message to stdout when debug mode is enabled.
+   * The message is prefixed with the window's class name.
    *
-   * @return the width of the window in pixels
+   * <p>Example:
+   * <pre>{@code
+   * this.debug("fps =", getFps());
+   * // prints: [MyWindow] fps = 60
+   * }</pre>
+   *
+   * @param values one or more values to print
    */
+  public void debug(Object... values) {
+    if (!Applet.getInstance().isDebug()) return;
+    StringBuilder sb = new StringBuilder("[").append(getClass().getSimpleName()).append("]");
+    for (Object v : values) {
+      sb.append(" ").append(v);
+    }
+    System.out.println(sb);
+  }
+
+
   public int getWidth() {
     return Applet.getInstance().getRenderWidth();
   }

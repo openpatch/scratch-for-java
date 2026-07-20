@@ -70,14 +70,14 @@ public class Stage {
    * @ignore-in-docs
    */
   public interface WhenKeyPressedHandler {
-    void handle(Stage stage, int keyCode);
+    void handle(Stage stage, KeyCode keyCode);
   }
 
   /**
    * @ignore-in-docs
    */
   public interface WhenKeyReleasedHandler {
-    void handle(Stage stage, int keyCode);
+    void handle(Stage stage, KeyCode keyCode);
   }
 
   /**
@@ -145,6 +145,16 @@ public class Stage {
   private WhenKeyReleasedHandler whenKeyReleasedHandler;
   private WhenIReceiveHandler whenIReceiveHandler;
   private RunHandler runHandler;
+  private final java.util.Set<String> warnedOnce = java.util.Collections.synchronizedSet(new java.util.HashSet<>());
+
+  private void warnOnce(String key, String... lines) {
+    if (warnedOnce.add(key)) {
+      System.err.println("\n==============================================");
+      for (String line : lines)
+        System.err.println(line);
+      System.err.println("==============================================\n");
+    }
+  }
 
   /**
    * Constructs a new Stage with default dimensions. The default width is 480
@@ -356,10 +366,28 @@ public class Stage {
   }
 
   /**
-   * Add a sprite object to the stage
+   * Prints a debug message to stdout when debug mode is enabled.
+   * The message is prefixed with the stage's class name so you can tell
+   * which stage it came from.
    *
-   * @param sprite a sprite
+   * <p>Example:
+   * <pre>{@code
+   * this.debug("score =", score, "lives =", lives);
+   * // prints: [MyStage] score = 5 lives = 3
+   * }</pre>
+   *
+   * @param values one or more values to print
    */
+  public void debug(Object... values) {
+    if (!Applet.getInstance().isDebug()) return;
+    StringBuilder sb = new StringBuilder("[").append(getClass().getSimpleName()).append("]");
+    for (Object v : values) {
+      sb.append(" ").append(v);
+    }
+    System.out.println(sb);
+  }
+
+
   public void add(Sprite sprite) {
     this.sprites.add(sprite);
     sprite.addedToStage(this);
@@ -405,8 +433,18 @@ public class Stage {
    *             Bilinear. 5: Trilinear.
    */
   public void setTextureSampling(int mode) {
-    if (mode < 2 || mode > 5)
+    if (mode < 2 || mode > 5) {
+      System.err.println("\n==============================================");
+      System.err.println("WARNING: Invalid texture sampling mode: " + mode);
+      System.err.println("==============================================");
+      System.err.println("\nValid values are:");
+      System.err.println("  2 = Point Sampling");
+      System.err.println("  3 = Linear");
+      System.err.println("  4 = Bilinear (default)");
+      System.err.println("  5 = Trilinear");
+      System.err.println("==============================================\n");
       return;
+    }
     Applet.getInstance().setTextureSampling(mode);
     ((PGraphicsOpenGL) this.shaderBuffer).textureSampling(mode);
     ((PGraphicsOpenGL) this.mainBuffer).textureSampling(mode);
@@ -452,6 +490,22 @@ public class Stage {
         return;
       }
     }
+
+    System.err.println("\n==============================================");
+    System.err.println("WARNING: Shader not found!");
+    System.err.println("==============================================");
+    System.err.println("Shader name: '" + name + "'");
+    if (this.shaders.isEmpty()) {
+      System.err.println("\nThis stage has no shaders.");
+      System.err.println("\nTip: Use addShader() to add a shader first.");
+    } else {
+      System.err.println("\nAvailable shaders:");
+      for (Shader shader : this.shaders) {
+        System.err.println("  - '" + shader.getName() + "'");
+      }
+      System.err.println("\nTip: Check the spelling of your shader name.");
+    }
+    System.err.println("==============================================\n");
   }
 
   /**
@@ -1083,11 +1137,35 @@ public class Stage {
    * @param name the sound name
    */
   public void playSound(String name) {
+    boolean found = false;
     for (Sound sound : this.sounds) {
-      if (sound.getName().equals(name) && !sound.isPlaying()) {
-        sound.play();
+      if (sound.getName().equals(name)) {
+        found = true;
+        if (!sound.isPlaying()) {
+          sound.play();
+        }
       }
     }
+    if (!found) {
+      this.printSoundNotFoundWarning(name);
+    }
+  }
+
+  private void printSoundNotFoundWarning(String name) {
+    System.err.println("\n==============================================");
+    System.err.println("WARNING: Sound not found!");
+    System.err.println("==============================================");
+    System.err.println("Sound name: '" + name + "'");
+    if (this.sounds.isEmpty()) {
+      System.err.println("\nAvailable sounds: none added");
+    } else {
+      System.err.println("\nAvailable sounds:");
+      for (Sound sound : this.sounds) {
+        System.err.println("  - '" + sound.getName() + "'");
+      }
+    }
+    System.err.println("\nTip: Check the spelling of your sound name.");
+    System.err.println("==============================================\n");
   }
 
   /** Stops the playing of all sounds of the stage. */
@@ -1103,11 +1181,16 @@ public class Stage {
    * @param name Name of the sound
    */
   public void stopSound(String name) {
+    boolean found = false;
     for (Sound sound : this.sounds) {
       if (sound.getName().equals(name)) {
+        found = true;
         sound.stop();
         break;
       }
+    }
+    if (!found) {
+      this.printSoundNotFoundWarning(name);
     }
   }
 
@@ -1417,17 +1500,16 @@ public class Stage {
    * This method is called when a key is pressed. Override this method to add
    * custom behavior.
    *
-   * @param keyCode the code of the key that was pressed
+   * @param keyCode the key that was pressed
    */
-  public void whenKeyPressed(int keyCode) {
+  public void whenKeyPressed(KeyCode keyCode) {
     this.whenKeyPressedHandler.handle(this, keyCode);
   }
 
   /**
    * Sets the handler for key press events.
    *
-   * @param whenKeyPressed a handler that takes a Stage and an Integer (the key
-   *                       code) as arguments
+   * @param whenKeyPressed a handler that takes a Stage and a KeyCode as an argument
    */
   public void setWhenKeyPressed(
       WhenKeyPressedHandler whenKeyPressed) {
@@ -1438,17 +1520,16 @@ public class Stage {
    * This method is called when a key is released. Override this method to add
    * custom behavior.
    *
-   * @param keyCode the code of the key that was released
+   * @param keyCode the key that was released
    */
-  public void whenKeyReleased(int keyCode) {
+  public void whenKeyReleased(KeyCode keyCode) {
     this.whenKeyReleasedHandler.handle(this, keyCode);
   }
 
   /**
    * Sets the handler for key release events.
    *
-   * @param whenKeyReleased a handler that takes a Stage and an Integer (the key
-   *                        code) as arguments
+   * @param whenKeyReleased a handler that takes a Stage and a KeyCode as an argument
    */
   public void setWhenKeyReleased(
       WhenKeyReleasedHandler whenKeyReleased) {
@@ -1462,10 +1543,10 @@ public class Stage {
   public void keyEvent(KeyEvent e) {
     switch (e.getAction()) {
       case KeyEvent.PRESS:
-        this.whenKeyPressed(e.getKeyCode());
+        this.whenKeyPressed(KeyCode.fromCode(e.getKeyCode()));
         break;
       case KeyEvent.RELEASE:
-        this.whenKeyReleased(e.getKeyCode());
+        this.whenKeyReleased(KeyCode.fromCode(e.getKeyCode()));
         break;
     }
     this.sprites.stream().forEach(s -> s.keyEvent(e));
@@ -1474,12 +1555,12 @@ public class Stage {
   /**
    * Returns true if the key is pressed
    *
-   * @param keyCode a key code
+   * @param keyCode a key
    * @return key pressed
    */
-  public boolean isKeyPressed(int keyCode) {
+  public boolean isKeyPressed(KeyCode keyCode) {
     var kp = Applet.getInstance().getKeyCodePressed();
-    Boolean isPressed = kp.get(keyCode);
+    Boolean isPressed = kp.get(keyCode.getCode());
     if (isPressed == null) {
       return false;
     }

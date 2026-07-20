@@ -37,9 +37,9 @@ public class PenSprite extends Sprite {
     this.finished = true;
   }
 
-  public void whenKeyPressed(int keyCode) {
+  public void whenKeyPressed(KeyCode keyCode) {
 
-    if (keyCode != KeyCode.VK_H) {
+    if (keyCode != KeyCode.H) {
       return;
     }
 

@@ -14,14 +14,14 @@ public class SpriteWhenKeyPressed {
     }
 
     @Override
-    public void whenKeyPressed(int keyCode) {
-      if (keyCode == KeyCode.VK_UP) {
+    public void whenKeyPressed(KeyCode keyCode) {
+      if (keyCode == KeyCode.UP) {
         this.changeY(20);
-      } else if (keyCode == KeyCode.VK_DOWN) {
+      } else if (keyCode == KeyCode.DOWN) {
         this.changeY(-20);
-      } else if (keyCode == KeyCode.VK_LEFT) {
+      } else if (keyCode == KeyCode.LEFT) {
         this.changeX(-20);
-      } else if (keyCode == KeyCode.VK_RIGHT) {
+      } else if (keyCode == KeyCode.RIGHT) {
         this.changeX(20);
       }
     }

@@ -9,7 +9,6 @@ public class Game extends Window {
 
   public Game() {
     super(800, 600, "demos/donutIO/assets");
-
     this.setStage(new StartStage());
   }
 

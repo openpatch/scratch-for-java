@@ -74,6 +74,22 @@ import processing.event.MouseEvent;
  */
 public class Sprite {
 
+  /** Direction constant pointing right (0 degrees).
+   * @see #setDirection(double) */
+  public static final double DIRECTION_RIGHT = 0;
+
+  /** Direction constant pointing up (90 degrees).
+   * @see #setDirection(double) */
+  public static final double DIRECTION_UP = 90;
+
+  /** Direction constant pointing left (180 degrees).
+   * @see #setDirection(double) */
+  public static final double DIRECTION_LEFT = 180;
+
+  /** Direction constant pointing down (270 degrees).
+   * @see #setDirection(double) */
+  public static final double DIRECTION_DOWN = 270;
+
   /**
    * @ignore-in-docs
    */
@@ -134,14 +150,14 @@ public class Sprite {
    * @ignore-in-docs
    */
   public interface WhenKeyReleasedHandler {
-    void handle(Sprite s, Integer keyCode);
+    void handle(Sprite s, KeyCode keyCode);
   }
 
   /**
    * @ignore-in-docs
    */
   public interface WhenKeyPressedHandler {
-    void handle(Sprite s, Integer keyCode);
+    void handle(Sprite s, KeyCode keyCode);
   }
 
   private List<Image> costumes = new CopyOnWriteArrayList<>();
@@ -184,6 +200,16 @@ public class Sprite {
   };
   private WhenKeyPressedHandler whenKeyPressedHandler = (sprite, keyCode) -> {
   };
+  private final java.util.Set<String> warnedOnce = java.util.Collections.synchronizedSet(new java.util.HashSet<>());
+
+  private void warnOnce(String key, String... lines) {
+    if (warnedOnce.add(key)) {
+      System.err.println("\n==============================================");
+      for (String line : lines)
+        System.err.println(line);
+      System.err.println("==============================================\n");
+    }
+  }
 
   /**
    * Constructs a new Sprite object with default settings.
@@ -324,6 +350,28 @@ public class Sprite {
   }
 
   /**
+   * Prints a debug message to stdout when debug mode is enabled.
+   * The message is prefixed with the sprite's class name so you can tell
+   * which sprite it came from.
+   *
+   * <p>Example:
+   * <pre>{@code
+   * this.debug("x =", getX(), "y =", getY());
+   * // prints: [CatSprite] x = 100.0 y = 200.0
+   * }</pre>
+   *
+   * @param values one or more values to print
+   */
+  public void debug(Object... values) {
+    if (this.stage == null || !this.stage.isDebug()) return;
+    StringBuilder sb = new StringBuilder("[").append(getClass().getSimpleName()).append("]");
+    for (Object v : values) {
+      sb.append(" ").append(v);
+    }
+    System.out.println(sb);
+  }
+
+  /**
    * Retrieves the current stage associated with this sprite.
    *
    * @return the stage associated with this sprite
@@ -331,6 +379,8 @@ public class Sprite {
   public Stage getStage() {
     return this.stage;
   }
+
+
 
   /**
    * Adds a new shader to the sprite. If a shader with the received name already
@@ -368,6 +418,22 @@ public class Sprite {
         return;
       }
     }
+
+    System.err.println("\n==============================================");
+    System.err.println("WARNING: Shader not found!");
+    System.err.println("==============================================");
+    System.err.println("Shader name: '" + name + "'");
+    if (this.shaders.isEmpty()) {
+      System.err.println("\nThis sprite has no shaders.");
+      System.err.println("\nTip: Use addShader() to add a shader first.");
+    } else {
+      System.err.println("\nAvailable shaders:");
+      for (Shader shader : this.shaders) {
+        System.err.println("  - '" + shader.getName() + "'");
+      }
+      System.err.println("\nTip: Check the spelling of your shader name.");
+    }
+    System.err.println("==============================================\n");
   }
 
   /**
@@ -715,6 +781,23 @@ public class Sprite {
     }
   }
 
+  private void printSoundNotFoundWarning(String name) {
+    System.err.println("\n==============================================");
+    System.err.println("WARNING: Sound not found!");
+    System.err.println("==============================================");
+    System.err.println("Sound name: '" + name + "'");
+    if (this.sounds.isEmpty()) {
+      System.err.println("\nAvailable sounds: none added");
+    } else {
+      System.err.println("\nAvailable sounds:");
+      for (Sound sound : this.sounds) {
+        System.err.println("  - '" + sound.getName() + "'");
+      }
+    }
+    System.err.println("\nTip: Check the spelling of your sound name.");
+    System.err.println("==============================================\n");
+  }
+
   /**
    * Stops the playing of all sounds of the sprite.
    *
@@ -732,11 +815,16 @@ public class Sprite {
    * @param name Name of the sound
    */
   public void stopSound(String name) {
+    boolean found = false;
     for (Sound sound : this.sounds) {
       if (sound.getName().equals(name)) {
+        found = true;
         sound.stop();
         break;
       }
+    }
+    if (!found) {
+      this.printSoundNotFoundWarning(name);
     }
   }
 
@@ -774,8 +862,13 @@ public class Sprite {
    * @param b a blue value [0...255]
    */
   public void setTint(double r, double g, double b) {
-    if (this.costumes.size() == 0)
+    if (this.costumes.size() == 0) {
+      warnOnce("setTint-no-costume",
+          "WARNING: setTint() called but this sprite has no costumes!",
+          "",
+          "Tip: Call addCostume() before using setTint().");
       return;
+    }
 
     for (Image costume : this.costumes) {
       costume.setTint(r, g, b);
@@ -789,8 +882,13 @@ public class Sprite {
    * @param h a hue value [0...255]
    */
   public void setTint(double h) {
-    if (this.costumes.size() == 0)
+    if (this.costumes.size() == 0) {
+      warnOnce("setTint-h-no-costume",
+          "WARNING: setTint() called but this sprite has no costumes!",
+          "",
+          "Tip: Call addCostume() before using setTint().");
       return;
+    }
 
     for (Image costume : this.costumes) {
       costume.setTint(h);
@@ -803,8 +901,13 @@ public class Sprite {
    * @param step a step value
    */
   public void changeTint(double step) {
-    if (this.costumes.size() == 0)
+    if (this.costumes.size() == 0) {
+      warnOnce("changeTint-no-costume",
+          "WARNING: changeTint() called but this sprite has no costumes!",
+          "",
+          "Tip: Call addCostume() before using changeTint().");
       return;
+    }
 
     for (Image costume : this.costumes) {
       costume.changeTint(step);
@@ -830,8 +933,13 @@ public class Sprite {
    * @param transparency 0 full transparency, 255 no transparency
    */
   public void setTransparency(double transparency) {
-    if (this.costumes.size() == 0)
+    if (this.costumes.size() == 0) {
+      warnOnce("setTransparency-no-costume",
+          "WARNING: setTransparency() called but this sprite has no costumes!",
+          "",
+          "Tip: Call addCostume() before using setTransparency().");
       return;
+    }
 
     for (Image costume : this.costumes) {
       costume.setTransparency(transparency);
@@ -845,8 +953,13 @@ public class Sprite {
    * @param step a step value
    */
   public void changeTransparency(double step) {
-    if (this.costumes.size() == 0)
+    if (this.costumes.size() == 0) {
+      warnOnce("changeTransparency-no-costume",
+          "WARNING: changeTransparency() called but this sprite has no costumes!",
+          "",
+          "Tip: Call addCostume() before using changeTransparency().");
       return;
+    }
 
     for (Image costume : this.costumes) {
       costume.changeTransparency(step);
@@ -921,8 +1034,13 @@ public class Sprite {
    * @param height a height in pixels
    */
   public void setHeight(double height) {
-    if (this.costumes.size() == 0)
+    if (this.costumes.size() == 0) {
+      warnOnce("setHeight-no-costume",
+          "WARNING: setHeight() called but this sprite has no costumes!",
+          "",
+          "Tip: Call addCostume() before using setHeight().");
       return;
+    }
     for (Image costume : this.costumes) {
       costume.setHeight((int) height);
     }
@@ -943,8 +1061,13 @@ public class Sprite {
    * @param width a width in pixels
    */
   public void setWidth(double width) {
-    if (this.costumes.size() == 0)
+    if (this.costumes.size() == 0) {
+      warnOnce("setWidth-no-costume",
+          "WARNING: setWidth() called but this sprite has no costumes!",
+          "",
+          "Tip: Call addCostume() before using setWidth().");
       return;
+    }
     for (Image costume : this.costumes) {
       costume.setWidth((int) width);
     }
@@ -1332,8 +1455,15 @@ public class Sprite {
    * @param name the name of the timer
    */
   public void addTimer(String name) {
-    if ("default".equals(name))
+    if ("default".equals(name)) {
+      System.err.println("\n==============================================");
+      System.err.println("WARNING: Cannot add timer named 'default'!");
+      System.err.println("==============================================");
+      System.err.println("\n'default' is a reserved timer name.");
+      System.err.println("\nTip: Use a different name, e.g. addTimer(\"countdown\")");
+      System.err.println("==============================================\n");
       return;
+    }
 
     this.timer.put(name, new Timer());
   }
@@ -1344,8 +1474,14 @@ public class Sprite {
    * @param name the name of the timer
    */
   public void removeTimer(String name) {
-    if ("default".equals(name))
+    if ("default".equals(name)) {
+      System.err.println("\n==============================================");
+      System.err.println("WARNING: Cannot remove the 'default' timer!");
+      System.err.println("==============================================");
+      System.err.println("\n'default' is a reserved timer that cannot be removed.");
+      System.err.println("==============================================\n");
       return;
+    }
 
     this.timer.remove(name);
   }
@@ -1672,10 +1808,10 @@ public class Sprite {
   /**
    * Returns true if the key is pressed
    *
-   * @param keyCode a key code
+   * @param keyCode a key
    * @return key pressed
    */
-  public boolean isKeyPressed(int keyCode) {
+  public boolean isKeyPressed(KeyCode keyCode) {
     if (this.stage == null)
       return false;
     return this.stage.isKeyPressed(keyCode);
@@ -1792,10 +1928,10 @@ public class Sprite {
   public void keyEvent(KeyEvent e) {
     switch (e.getAction()) {
       case KeyEvent.PRESS:
-        this.whenKeyPressed(e.getKeyCode());
+        this.whenKeyPressed(KeyCode.fromCode(e.getKeyCode()));
         break;
       case KeyEvent.RELEASE:
-        this.whenKeyReleased(e.getKeyCode());
+        this.whenKeyReleased(KeyCode.fromCode(e.getKeyCode()));
         break;
     }
   }
@@ -1805,9 +1941,9 @@ public class Sprite {
    * custom behavior.
    *
    * @see KeyCode
-   * @param keyCode the code of the key that was pressed
+   * @param keyCode the key that was pressed
    */
-  public void whenKeyPressed(int keyCode) {
+  public void whenKeyPressed(KeyCode keyCode) {
     this.whenKeyPressedHandler.handle(this, keyCode);
   }
 
@@ -1816,7 +1952,7 @@ public class Sprite {
    * behavior when
    * a key is pressed.
    *
-   * @param whenKeyPressed A KeyPressedHandler that takes a Sprite and an
+   * @param whenKeyPressed a handler that takes a Sprite and a KeyCode
    */
   public void setWhenKeyPressed(WhenKeyPressedHandler whenKeyPressed) {
     this.whenKeyPressedHandler = whenKeyPressed;
@@ -1827,9 +1963,9 @@ public class Sprite {
    * custom behavior.
    *
    * @see KeyCode
-   * @param keyCode the code of the key that was released
+   * @param keyCode the key that was released
    */
-  public void whenKeyReleased(int keyCode) {
+  public void whenKeyReleased(KeyCode keyCode) {
     this.whenKeyReleasedHandler.handle(this, keyCode);
   }
 
@@ -1838,8 +1974,7 @@ public class Sprite {
    * custom behavior when
    * a key is released.
    *
-   * @param whenKeyReleased A KeyReleasedHandler that takes a Sprite and an
-   *
+   * @param whenKeyReleased a handler that takes a Sprite and a KeyCode
    */
   public void setWhenKeyReleased(WhenKeyReleasedHandler whenKeyReleased) {
     this.whenKeyReleasedHandler = whenKeyReleased;
@@ -1954,8 +2089,13 @@ public class Sprite {
    * method does nothing.
    */
   public void goToFrontLayer() {
-    if (stage == null)
+    if (stage == null) {
+      warnOnce("goToFrontLayer",
+          "WARNING: goToFrontLayer() called but this sprite is not on a stage!",
+          "",
+          "Tip: Add the sprite to a stage before changing its layer.");
       return;
+    }
     this.stage.goToFrontLayer(this);
   }
 
@@ -1965,8 +2105,13 @@ public class Sprite {
    * stage, the method returns without performing any action.
    */
   public void goToBackLayer() {
-    if (stage == null)
+    if (stage == null) {
+      warnOnce("goToBackLayer",
+          "WARNING: goToBackLayer() called but this sprite is not on a stage!",
+          "",
+          "Tip: Add the sprite to a stage before changing its layer.");
       return;
+    }
     this.stage.goToBackLayer(this);
   }
 
@@ -1976,8 +2121,13 @@ public class Sprite {
    * @param number the number of layers to move the sprite forward
    */
   public void goLayersForwards(int number) {
-    if (stage == null)
+    if (stage == null) {
+      warnOnce("goLayersForwards",
+          "WARNING: goLayersForwards() called but this sprite is not on a stage!",
+          "",
+          "Tip: Add the sprite to a stage before changing its layer.");
       return;
+    }
     this.stage.goLayersForwards(this, number);
   }
 
@@ -1989,8 +2139,13 @@ public class Sprite {
    * @param number the number of layers to move the sprite backwards
    */
   public void goLayersBackwards(int number) {
-    if (stage == null)
+    if (stage == null) {
+      warnOnce("goLayersBackwards",
+          "WARNING: goLayersBackwards() called but this sprite is not on a stage!",
+          "",
+          "Tip: Add the sprite to a stage before changing its layer.");
       return;
+    }
     this.stage.goLayersBackwards(this, number);
   }
 
@@ -2098,8 +2253,14 @@ public class Sprite {
    * @param message The message to broadcast to other sprites.
    */
   public void broadcast(String message) {
-    if (stage == null)
+    if (stage == null) {
+      warnOnce("broadcast",
+          "WARNING: broadcast() called but this sprite is not on a stage!",
+          "",
+          "Tip: Don't call broadcast() in the constructor.",
+          "     Add the sprite to a stage first, then broadcast.");
       return;
+    }
     this.stage.sprites.stream().filter(s -> s != this).forEach(s -> s.whenIReceive(message));
     this.stage.whenIReceive(message);
   }
@@ -2112,8 +2273,14 @@ public class Sprite {
    * @param message The message to be broadcasted. It can be any object.
    */
   public void broadcast(Object message) {
-    if (stage == null)
+    if (stage == null) {
+      warnOnce("broadcast-obj",
+          "WARNING: broadcast() called but this sprite is not on a stage!",
+          "",
+          "Tip: Don't call broadcast() in the constructor.",
+          "     Add the sprite to a stage first, then broadcast.");
       return;
+    }
     this.stage.sprites.stream().filter(s -> s != this).forEach(s -> s.whenIReceive(message));
     this.stage.whenIReceive(message);
   }

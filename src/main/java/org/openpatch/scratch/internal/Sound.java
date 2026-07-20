@@ -38,17 +38,9 @@ public class Sound {
         clip.open(audioInput);
         soundCache.put(path, clip);
       } catch (IOException e) {
-        System.err.println("\n==============================================");
-        System.err.println("ERROR: Could not load sound file!");
-        System.err.println("==============================================");
-        System.err.println("Path: " + path);
-        System.err.println("\nPossible reasons:");
-        System.err.println("  1. The file does not exist at this location");
-        System.err.println("  2. The file path is incorrect (check spelling)");
-        System.err.println("\nTip: Make sure the path is relative to your");
-        System.err.println("     assets folder or use an absolute path.");
-        System.err.println("==============================================\n");
-        System.exit(1);
+        AssetErrorReporter.reportAndExit(
+            "sound", path, "WAV, AIFF, AU",
+            new String[]{".wav", ".aiff", ".au", ".mp3"});
       } catch (UnsupportedAudioFileException e) {
         System.err.println("\n==============================================");
         System.err.println("ERROR: Unsupported audio file format!");

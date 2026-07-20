@@ -14,7 +14,7 @@ public class SpriteIsKeyPressed {
         new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
     recorder.start();
     while (myStage.getTimer().forMillis(3000)) {
-      mySprite.say("Space pressed? " + mySprite.isKeyPressed(KeyCode.VK_SPACE));
+      mySprite.say("Space pressed? " + mySprite.isKeyPressed(KeyCode.SPACE));
     }
     recorder.stop();
     myStage.exit();

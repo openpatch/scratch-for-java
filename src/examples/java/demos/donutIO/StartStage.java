@@ -34,8 +34,8 @@ public class StartStage extends Stage {
     this.add(text);
   }
 
-  public void whenKeyPressed(int keyCode) {
-    if (keyCode == KeyCode.VK_SPACE) {
+  public void whenKeyPressed(KeyCode keyCode) {
+    if (keyCode == KeyCode.SPACE) {
       Game.LEVEL = 0;
       Window.getInstance().transitionToStage(new WorldStage(), 500);
     }

@@ -1,7 +1,10 @@
 package org.openpatch.scratch.internal;
 
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystemNotFoundException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -27,6 +30,44 @@ import processing.opengl.PGraphicsOpenGL;
  * managing stages, and handling mouse and keyboard events.
  */
 public class Applet extends PApplet {
+
+  /** Lines containing any of these strings are silently dropped from stderr. */
+  private static final String[] SUPPRESSED_STDERR = {
+    "The sketch has been resized from",
+    "This happened outside Processing",
+    "is missing or inaccessible, make sure",
+    "X11Util",
+    "NamedX11Display",
+  };
+
+  private static final class FilteredPrintStream extends PrintStream {
+    private final StringBuilder lineBuffer = new StringBuilder();
+
+    FilteredPrintStream(OutputStream out) {
+      super(out, true, StandardCharsets.UTF_8);
+    }
+
+    private boolean isSuppressed(String line) {
+      for (String pattern : SUPPRESSED_STDERR) {
+        if (line.contains(pattern)) return true;
+      }
+      return false;
+    }
+
+    @Override
+    public void write(byte[] buf, int off, int len) {
+      String chunk = new String(buf, off, len, StandardCharsets.UTF_8);
+      lineBuffer.append(chunk);
+      int newline;
+      while ((newline = lineBuffer.indexOf("\n")) >= 0) {
+        String line = lineBuffer.substring(0, newline + 1);
+        lineBuffer.delete(0, newline + 1);
+        if (!isSuppressed(line)) {
+          super.write(line.getBytes(StandardCharsets.UTF_8), 0, line.getBytes(StandardCharsets.UTF_8).length);
+        }
+      }
+    }
+  }
 
   enum State {
     LOADING,
@@ -70,6 +111,10 @@ public class Applet extends PApplet {
    * @param assets     the path to the assets directory
    */
   public Applet(int width, final int height, final boolean fullscreen, final String assets) {
+    System.setErr(new FilteredPrintStream(System.err));
+    Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+      System.setErr(new PrintStream(OutputStream.nullOutputStream()));
+    }, "suppress-jogl-shutdown-noise"));
     this.state = State.LOADING;
     if (height == 0) {
       this.RENDER_HEIGHT = 1080;
@@ -378,7 +423,7 @@ public class Applet extends PApplet {
       case KeyEvent.PRESS:
         this.keyCodePressed.put(e.getKeyCode(), true);
         // F12 toggles debug mode
-        if (e.getKeyCode() == KeyCode.VK_F12) {
+        if (e.getKeyCode() == KeyCode.F12.getCode()) {
           this.debug = !this.debug;
           if (this.debug) {
             System.out.println("\n[Debug Mode Enabled]");

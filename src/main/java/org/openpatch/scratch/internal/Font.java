@@ -82,19 +82,9 @@ public class Font {
           PFont font = Applet.getInstance().createFont(path, size, Text.SMOOTHING);
           fontMap.put(size, font);
         } catch (Exception e) {
-          System.err.println("\n==============================================");
-          System.err.println("ERROR: Could not load font file!");
-          System.err.println("==============================================");
-          System.err.println("Path: " + path);
-          System.err.println("Size: " + size);
-          System.err.println("\nPossible reasons:");
-          System.err.println("  1. The file does not exist at this location");
-          System.err.println("  2. The file path is incorrect (check spelling)");
-          System.err.println("  3. The file is not a valid font format (TTF, OTF)");
-          System.err.println("\nTip: Make sure the path is relative to your");
-          System.err.println("     assets folder or use an absolute path.");
-          System.err.println("==============================================\n");
-          System.exit(1);
+          AssetErrorReporter.reportAndExit(
+              "font", path, "TTF, OTF",
+              new String[]{".ttf", ".otf"});
         }
       }
     }

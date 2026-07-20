@@ -40,9 +40,9 @@ class MyStage extends Stage {
   }
 
   public void run() {
-    if (this.isKeyPressed(KeyCode.VK_LEFT)) {
+    if (this.isKeyPressed(KeyCode.LEFT)) {
       bar.changeWidth(-1);
-    } else if (this.isKeyPressed(KeyCode.VK_RIGHT)) {
+    } else if (this.isKeyPressed(KeyCode.RIGHT)) {
       bar.changeWidth(+1);
     }
   }

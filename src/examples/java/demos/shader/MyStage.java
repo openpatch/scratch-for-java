@@ -24,11 +24,11 @@ public class MyStage extends Stage {
     }
   }
 
-  public void whenKeyPressed(int keyCode) {
-    if (keyCode == KeyCode.VK_A) {
+  public void whenKeyPressed(KeyCode keyCode) {
+    if (keyCode == KeyCode.A) {
       this.nextShader();
     }
-    if (keyCode == KeyCode.VK_S) {
+    if (keyCode == KeyCode.S) {
       this.resetShader();
     }
   }

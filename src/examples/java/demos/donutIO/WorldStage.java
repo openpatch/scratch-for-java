@@ -62,15 +62,15 @@ public class WorldStage extends Stage {
       return;
     }
 
-    if (this.isKeyPressed(KeyCode.VK_1)) {
+    if (this.isKeyPressed(KeyCode.DIGIT_1)) {
       this.getCamera().changeZoom(1);
       manualZoom = true;
     }
-    if (this.isKeyPressed(KeyCode.VK_0)) {
+    if (this.isKeyPressed(KeyCode.DIGIT_0)) {
       this.getCamera().changeZoom(-1);
       manualZoom = true;
     }
-    if (this.isKeyPressed(KeyCode.VK_R)) {
+    if (this.isKeyPressed(KeyCode.R)) {
       this.getCamera().resetZoom();
       manualZoom = false;
     }
