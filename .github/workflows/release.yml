@@ -39,13 +39,6 @@ jobs:
         env:
           GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
 
-      - name: Debug GPG
-        run: |
-          echo "$GPG_PRIVATE_KEY" | head -2
-          echo "Length: ${#GPG_PRIVATE_KEY}"
-        env:
-          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
-
       - name: Deploy to Maven Central (signed)
         run: mvn -B clean deploy -Pcentral -Dgpg.executable=gpg
         env:
@@ -54,7 +47,9 @@ jobs:
           MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
 
       - name: Build fat jar
-        run: mvn -B clean package -Pall
+        # Tests already ran as part of the deploy step above; skip them here
+        # to avoid paying for the full suite twice in the same job.
+        run: mvn -B clean package -Pall -DskipTests
 
       - name: Get project version
         id: get-version

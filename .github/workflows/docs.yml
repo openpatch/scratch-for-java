@@ -21,11 +21,8 @@ jobs:
         uses: actions/setup-java@v5
         with:
           distribution: temurin
-          java-version: 25
+          java-version: 17
           cache: maven
-          server-id: central
-          server-username: MAVEN_USERNAME
-          server-password: MAVEN_PASSWORD
 
       - name: Build Java Project
         run: mvn clean package

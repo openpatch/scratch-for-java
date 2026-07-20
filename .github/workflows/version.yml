@@ -12,6 +12,10 @@ jobs:
   bump-version:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: write        # needed to commit the version bump and push the branch
+      pull-requests: write   # needed to open the release PR
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
@@ -29,8 +33,10 @@ jobs:
 
           if [ -z "$FILES" ]; then
             echo "No changeset files found"
+            echo "found=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
+          echo "found=true" >> "$GITHUB_OUTPUT"
 
           # Initialize variables
           TYPE_PRIORITY=0
@@ -90,12 +96,14 @@ jobs:
 
       - name: Get new project version
         id: get-version
+        if: steps.detect.outputs.found == 'true'
         run: |
           VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
           echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "New version: $VERSION"
 
       - name: Update CHANGELOG.md
+        if: steps.detect.outputs.found == 'true'
         run: |
           ENTRY_FILE=$(mktemp)
           printf "## %s\n%s\n\n" "$VERSION" "$BODY" > "$ENTRY_FILE"
@@ -121,11 +129,13 @@ jobs:
           sed -i "0,/^index: [0-9]*/s//index: $(( $(grep -c '^## ' CHANGELOG.md) ))/" CHANGELOG.md
 
       - name: Delete changeset files
+        if: steps.detect.outputs.found == 'true'
         run: |
           find .changeset -type f ! -name 'README.md' -delete
           echo "Removed processed changeset files."
 
       - name: Create Pull Request
+        if: steps.detect.outputs.found == 'true'
         uses: peter-evans/create-pull-request@v8
         with:
           base: main
