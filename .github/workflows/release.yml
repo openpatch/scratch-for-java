@@ -70,7 +70,7 @@ jobs:
           name: Release v${{ env.VERSION }}
           body: "Automated release of version ${{ env.VERSION }}"
           files: |
-            target/*-all.jar
+            target/*.jar
 
       - name: Generate Javadocs
         run: mvn -B javadoc:javadoc
