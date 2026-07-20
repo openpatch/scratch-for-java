@@ -85,7 +85,7 @@ public class Operators {
    * @return the maximum
    */
   public static final double max(double... v) {
-    double m = Double.MIN_VALUE;
+    double m = Double.NEGATIVE_INFINITY;
     for (var vv : v) {
       if (m < vv) {
         m = vv;
@@ -304,7 +304,7 @@ public class Operators {
    * @return the angle of that value
    */
   public static final double asinOf(double x) {
-    return Math.asin(x * 180.0 / Math.PI);
+    return Math.asin(x) * 180.0 / Math.PI;
   }
 
   /**
@@ -316,7 +316,7 @@ public class Operators {
    * @return the angle of that value
    */
   public static final double acosOf(double x) {
-    return Math.acos(x * 180.0 / Math.PI);
+    return Math.acos(x) * 180.0 / Math.PI;
   }
 
   /**
@@ -328,7 +328,7 @@ public class Operators {
    * @return the angle of that value
    */
   public static final double atanOf(double x) {
-    return Math.atan(x * 180.0 / Math.PI);
+    return Math.atan(x) * 180.0 / Math.PI;
   }
 
   /**

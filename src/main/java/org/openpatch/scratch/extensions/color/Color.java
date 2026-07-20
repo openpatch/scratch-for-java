@@ -45,7 +45,7 @@ public class Color {
    * @param b the blue value
    */
   public Color(double r, double g, double b) {
-    this.setRGB(r, g, g);
+    this.setRGB(r, g, b);
   }
 
   /**

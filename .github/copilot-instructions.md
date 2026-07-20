@@ -5,147 +5,144 @@
 **Scratch for Java** is a Java library that replicates the functionality and concepts of Scratch, helping learners transition from block-based programming to text-based coding in Java. The library provides an approachable API inspired by Scratch blocks, making it easier for beginners to understand programming concepts while gaining experience with real Java syntax and tools.
 
 - **Main Package**: `org.openpatch.scratch`
-- **Current Version**: 4.24.1
+- **Version**: see `<version>` in `pom.xml` — managed automatically by the changeset release flow, do not hand-edit it
 - **Java Version**: 17
 - **Build Tool**: Maven
 - **Documentation Site**: https://scratch4j.openpatch.org
-- **Repository Size**: ~5,500 lines of core Java code, 146 reference examples, 59 demo projects
+- **Tests**: none — there is no JUnit dependency and no `*Test.java` files under `src/main`. Validate changes with `mvn compile` and by checking the relevant demo/reference example still behaves correctly.
 
 ## High-Level Architecture
 
 The library is structured around three core concepts:
-1. **Window**: The main application window (extends `Window` class)
-2. **Stage**: The game/application stage where sprites and elements are displayed
-3. **Sprite**: Interactive objects that can move, detect collisions, play sounds, etc.
+1. **Window**: the singleton application window (`Window` class) — owns the render loop and the current `Stage`
+2. **Stage**: the active scene, holding sprites, backdrops, and `when*` event handlers (key press, mouse click, broadcasts, ...)
+3. **Sprite**: interactive objects that can move, detect collisions, play sounds, etc., with a `run()` method invoked every frame
 
-### Key Dependencies
-- **Processing 4.4.6**: Core graphics and windowing framework
-- **Jackson 2.19.2**: JSON/XML processing
-- **JOGL 2.5.0**: OpenGL bindings (from jogamp repository)
-- **Gluegen 2.5.0**: Native library loading
+### Key Dependencies (see `pom.xml`)
+- **Processing** (`org.processing:core`) — core graphics and windowing framework
+- **Jackson** (`tools.jackson.*` + `com.fasterxml.jackson.core:jackson-annotations`) — JSON/XML processing, used e.g. in `extensions/fs` and `extensions/tiled`
+- **word-wrap** (`com.github.davidmoten:word-wrap`) — text wrapping for `extensions/text`
 
-## Build Instructions and Known Issues
+## Build Instructions
 
 ### Prerequisites
-- Java 17+ (verified with OpenJDK 17.0.16)
-- Maven 3.9.11+
-- Node.js + npm (for documentation)
+- Java 17+ (CI builds with Temurin; `docs.yml` uses Java 25, `release.yml` uses Java 17 — either works locally, but match `maven.compiler.release=17` for compatibility)
+- Maven
+- Node.js + npm (for the documentation site only)
 
 ### Maven Build Commands
 
-**Standard Build Commands**:
 ```bash
-mvn clean compile          # Basic compilation
-mvn clean package          # Create standard JAR
-mvn clean test             # Run tests (if any)
+mvn compile                # basic compilation (the day-to-day command from README.md)
+mvn clean package          # create the standard JAR
 ```
 
 **Build Profiles**:
 ```bash
-# For Maven Central release (includes native dependencies)
-mvn clean compile -Pcentral
-
-# For standalone JAR with all dependencies
-mvn clean package -Pall      # Creates target/*-all.jar
+mvn deploy -Pcentral         # release to Maven Central: GPG signing + central-publishing-maven-plugin
+                              # (the real release path — not something to run casually)
+mvn clean package -Pall      # standalone JAR with all dependencies shaded in -> target/*-all.jar
 ```
-
-**Note**: The library uses JOGL for OpenGL graphics rendering, which requires access to the jogamp.org repository. This dependency is now working correctly in the CI environment.
 
 ### Documentation Build
 
-The documentation uses **Hyperbook** (Node.js-based static site generator):
+The documentation site uses **Hyperbook** (Node.js-based static site generator) and lives entirely under `docs/` (single language, English):
 
 ```bash
 cd docs
-npx hyperbook dev    # Start development server
-npx hyperbook build  # Build static documentation
+npx hyperbook dev    # start development server
+npx hyperbook build  # build static documentation
 ```
 
-Documentation includes:
-- English and German versions (`docs/en/` and `docs/de/`)
-- Reference examples with generated GIFs
-- API documentation generated from Java source
-
-### Documentation Coverage Validation
-
-Use the `s4j` script to check documentation coverage:
-
-```bash
-./s4j                  # Check documentation coverage
-./s4j --create         # Create missing documentation files
-```
-
-This script validates that all public classes and methods have corresponding documentation files in both English and German.
+`./build.sh` (run from the repo root) is the full pipeline CI uses: it copies `CHANGELOG.md` into `docs/book/changelog.md`, regenerates the reference GIFs from `src/examples/java/reference` into `docs/public/reference/`, substitutes the version into `docs/book/download.md` / `docs/book/index.md`, then runs `npx hyperbook build`.
 
 ## Project Layout and Architecture
 
 ### Source Code Structure
 ```
-src/
-├── main/java/org/openpatch/scratch/
-│   ├── Stage.java                    # Core stage class (1,907 lines)
-│   ├── Sprite.java                   # Core sprite class (2,173 lines)
-│   ├── Window.java                   # Main window class (304 lines)
-│   ├── extensions/                   # Extension modules
-│   │   ├── animation/                # Sprite animation support
-│   │   ├── camera/                   # Camera/viewport functionality
-│   │   ├── color/                    # Color manipulation
-│   │   ├── fs/                       # File system operations
-│   │   ├── math/                     # Mathematical utilities
-│   │   ├── pen/                      # Drawing/pen functionality
-│   │   ├── recorder/                 # GIF/video recording
-│   │   ├── shader/                   # OpenGL shader support
-│   │   ├── shape/                    # Geometric shapes
-│   │   ├── text/                     # Text rendering
-│   │   └── timer/                    # Timer functionality
-│   └── internal/                     # Internal implementation classes
-└── examples/java/
-    ├── demos/                        # 59 complete demo projects
-    └── reference/                    # 146 method reference examples
+src/main/java/org/openpatch/scratch/
+├── Window.java                       # singleton application window
+├── Stage.java                        # scene: sprites, backdrops, event handlers
+├── Sprite.java                       # core interactive object
+├── Operators.java                    # Scratch "Operators" block equivalents
+├── KeyCode.java / MouseCode.java / RotationStyle.java
+├── extensions/                       # optional capabilities, one sub-package each:
+│   ├── animation/                    # AnimatedSprite etc.
+│   ├── camera/                       # camera/viewport
+│   ├── color/                        # color manipulation
+│   ├── fs/                           # file system / save-data
+│   ├── hitbox/                       # precise collision shapes
+│   ├── math/                         # math utilities
+│   ├── pen/                          # drawing/pen
+│   ├── recorder/                     # GIF recording (Recorder / GifRecorder)
+│   ├── shader/                       # OpenGL shader support
+│   ├── shape/                        # geometric shapes
+│   ├── text/                         # text rendering
+│   ├── tiled/                        # Tiled map support
+│   └── timer/                        # timers
+└── internal/                         # implementation details, not public API
+    (Processing glue, image/font/sound loading, GIF encoding, simplex noise, ...)
+
+src/examples/java/
+├── demos/                            # complete runnable example projects
+└── reference/                        # one folder per documented API method/feature
+
+src/tools/java/doclets/
+└── Scratch4JDoclet.java              # custom Javadoc doclet that generates the reference docs
+
+docs/                                  # Hyperbook documentation site
+├── book/                              # page content (tutorials, examples, generated reference)
+├── archives/                          # starter project templates (vs-code-starter, bluej-starter)
+│                                       # and other downloadable/archived project snapshots
+├── templates/                        # Handlebars templates used by the doclet-generated pages
+└── public/                            # static assets, incl. generated reference GIFs
 ```
 
+Prefer adding a new `extensions/` sub-package for new capabilities over growing `Sprite.java`/`Stage.java` further (they are already ~2,000+ lines each) — e.g. `AnimatedSprite` (animation) extends `Sprite` rather than adding animation state directly to it.
+
+`src/examples/java` and `src/tools/java` are wired into the main build via the
+`build-helper-maven-plugin` (`add-examples-source` execution), so they compile as part of the
+project even though they live outside `src/main`. They are excluded from the packaged JAR and
+sources JAR (see the `maven-jar-plugin` / `maven-source-plugin` `<excludes>` in `pom.xml`).
+
 ### Configuration Files
-- `pom.xml` - Maven build configuration with multiple profiles
-- `.vscode/settings.json` - VS Code Java project settings
-- `.vscode/extensions.json` - Recommended VS Code extensions
-- `docs/hyperlibrary.json` - Multi-language documentation config
-- `.github/workflows/` - CI/CD pipelines
+- `pom.xml` - Maven build configuration with `central` and `all` profiles
+- `.vscode/settings.json` - VS Code Java project settings (Hyperbook root, formatter)
+- `docs/hyperbook.json` - documentation site config
+- `.github/workflows/` - CI/CD pipelines (`version.yml`, `release.yml`, `docs.yml`)
 
-### Key Build Profiles
-- **Default**: Basic compilation (currently broken due to jogamp issue)
-- **central**: Maven Central publishing with native dependencies and GPG signing
-- **all**: Creates standalone JAR with all dependencies using maven-shade-plugin
+## Continuous Integration
 
-## Continuous Integration and Validation
+1. **Version Bump Workflow** (`.github/workflows/version.yml`) — triggers on changeset files in `.changeset/`, bumps the version (patch/minor/major), updates `CHANGELOG.md`, opens a release PR.
+2. **Release Workflow** (`.github/workflows/release.yml`) — triggers when the version-bump PR is merged; deploys to Maven Central (`mvn deploy -Pcentral`, GPG-signed), builds the fat JAR (`-Pall`), and creates a GitHub release.
+3. **Documentation Workflow** (`.github/workflows/docs.yml`) — on push to `main`: `mvn clean package`, `./build.sh`, copies `target/apidocs` into the built docs, deploys to GitHub Pages.
 
-### GitHub Workflows
+### Release Flow (changesets)
+Releases are changeset-driven (`.changeset/README.md`): add a Markdown file to `.changeset/` with
+frontmatter `type: patch | minor | major` and a description as part of your PR. Merging that PR
+triggers the version-bump workflow above; merging *its* PR triggers the actual release.
 
-1. **Version Bump Workflow** (`.github/workflows/version.yml`)
-   - Triggers on changeset files in `.changeset/`
-   - Automatically bumps version (patch/minor/major)
-   - Creates release PR
+## Javadoc → Documentation Pipeline
 
-2. **Release Workflow** (`.github/workflows/release.yml`)
-   - Triggers when release PR is merged
-   - Publishes to Maven Central with GPG signing
-   - Creates GitHub release with fat JAR
-   - Publishes Javadocs to GitHub Pages
-   - Deletes changeset branch
+Public API Javadoc is the source of truth for https://scratch4j.openpatch.org. The custom doclet
+(`Scratch4JDoclet`) reads special tags on public members and emits per-method reference pages:
 
-3. **Javadocs Workflow** (`.github/workflows/javadocs.yml`)
-   - Builds and publishes API documentation
+- `@example.folder <Name>` — matches `src/examples/java/reference/<Name>/`, a self-contained example
+  (package `reference.<Name>`) with `MySprite.java` / `MyStage.java` / `MyWindow.java`. `MyWindow`
+  typically wraps the example in a `GifRecorder` to produce the preview GIF.
+- `@example.preview <file>.gif` — the GIF shown alongside the docs.
+- `@example.files a.java;b.java;...` — which files from that folder to display as source.
+- `@index-in-docs`, `@name-in-docs`, `@ignore-in-docs`, `@scratchblock` — control ordering, display
+  name, exclusion, and the Scratch-block visual shown for a member.
 
-### Validation Steps
-1. **Documentation Coverage**: Run `./s4j` to ensure all public APIs are documented
-2. **Example Compilation**: All reference examples should compile successfully
-3. **Maven Build**: Standard build commands work with all profiles
-4. **Documentation Build**: `npx hyperbook build` should complete successfully
+When adding or changing a documented public method, add/update the matching folder under
+`src/examples/java/reference/` and the Javadoc tags together — the doclet won't generate a page
+without both.
 
-## Templates and Starter Projects
+## Common Development Patterns
 
-### VS Code Starter Template (`templates/vscode-starter/`)
+### Application Entry Point
 ```java
-// MyWindow.java - Main application entry point
 import org.openpatch.scratch.Window;
 
 public class MyWindow extends Window {
@@ -153,17 +150,12 @@ public class MyWindow extends Window {
     super(800, 600, "assets");
     this.setStage(new MyStage());
   }
-  
+
   public static void main(String[] args) {
     new MyWindow();
   }
 }
 ```
-
-### BlueJ Starter Template (`templates/bluej-starter/`)
-Similar structure optimized for BlueJ IDE.
-
-## Common Development Patterns
 
 ### Basic Sprite Implementation
 ```java
@@ -174,7 +166,7 @@ public class MySprite extends Sprite {
     this.setCostume("name", "path/to/image.png");
     this.setPosition(100, 100);
   }
-  
+
   public void run() {
     // Called every frame
     this.ifOnEdgeBounce();
@@ -197,44 +189,11 @@ public class MyStage extends Stage {
 }
 ```
 
-## Development Environment Setup
-
-### VS Code Setup
-The repository includes VS Code configuration with:
-- Java extension pack recommended
-- Hyperbook Studio for documentation editing  
-- Custom Java source paths including examples
-- Java formatter configuration
-
-### Required Extensions
-- `redhat.java` - Java language support
-- `openpatch.hyperbook-studio` - Documentation editing
-
-## Troubleshooting Common Issues
-
-### Build Failures
-1. **Maven cache issues**: Run `mvn clean` and retry
-2. **Java version mismatch**: Ensure Java 17+ is installed and active
-3. **Dependency download issues**: Check network connectivity and retry
-
-### Documentation Issues
-1. **Missing documentation warnings**: Run `./s4j --create` to generate templates
-2. **Hyperbook build failures**: Ensure Node.js dependencies are installed in `docs/en/`
-
-### Example Compilation
-Examples in `src/examples/java/` should compile with the main source. They're included via the build-helper-maven-plugin.
-
 ## Working with This Repository
 
-**ALWAYS** trust these instructions and refer to them before exploring. Focus on:
-
+Focus on:
 1. Understanding the core Sprite/Stage/Window architecture
-2. Using the reference examples in `src/examples/java/reference/` as patterns
-3. Running `./s4j` to validate documentation coverage
-4. Testing documentation builds with `npx hyperbook dev` in the `docs/` directory
-
-When making changes, ensure:
-- All public APIs have corresponding documentation
-- Examples compile successfully
-- Changes follow the established patterns in existing code
-- Documentation is updated in both English and German if adding new features
+2. Using the reference examples in `src/examples/java/reference/` and demos in `src/examples/java/demos/` as patterns
+3. Keeping new capabilities in their own `extensions/` sub-package rather than expanding `Sprite.java`/`Stage.java`
+4. Adding/updating the matching `src/examples/java/reference/<Name>/` folder and Javadoc tags whenever a public, documented API changes
+5. Testing documentation builds with `npx hyperbook dev` in `docs/` if editing documentation content

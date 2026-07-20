@@ -39,6 +39,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <libs.processing>4.5.5</libs.processing>
         <libs.jackson>3.2.1</libs.jackson>
+        <libs.junit>5.11.4</libs.junit>
     </properties>
 
     <dependencies>
@@ -74,6 +75,13 @@
             <groupId>com.github.davidmoten</groupId>
             <artifactId>word-wrap</artifactId>
             <version>0.1.13</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${libs.junit}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
@@ -149,6 +157,13 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <version>3.14.0</version>
                 <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+
+            <!-- Tests -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.5.2</version>
             </plugin>
 
             <plugin>
