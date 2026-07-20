@@ -14,7 +14,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Set up Java
         uses: actions/setup-java@v5
@@ -25,10 +25,7 @@ jobs:
       - name: Detect change types and build PR body
         id: detect
         run: |
-          FILES=$(git diff-tree --no-commit-id --name-only -r ${{ github.sha }} | grep '.changeset/' || true)
-          
-          # Ignore README.md
-          FILES=$(echo "$FILES" | grep -v 'README.md' || true)
+          FILES=$(find .changeset -maxdepth 1 -type f ! -name README.md)
 
           if [ -z "$FILES" ]; then
             echo "No changeset files found"
