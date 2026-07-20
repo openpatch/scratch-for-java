@@ -39,6 +39,13 @@ jobs:
         env:
           GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
 
+      - name: Debug GPG
+        run: |
+          echo "$GPG_PRIVATE_KEY" | head -2
+          echo "Length: ${#GPG_PRIVATE_KEY}"
+        env:
+          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+
       - name: Deploy to Maven Central (signed)
         run: mvn -B clean deploy -Pcentral -Dgpg.executable=gpg
         env:

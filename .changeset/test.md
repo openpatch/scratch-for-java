@@ -2,4 +2,4 @@
 type: patch
 ---
 
-Changed release action
+Changed release action.
