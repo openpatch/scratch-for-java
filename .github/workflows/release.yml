@@ -33,16 +33,11 @@ jobs:
 
       - name: Import GPG key
         run: |
+          mkdir -p ~/.gnupg
+          chmod 700 ~/.gnupg
           echo "$GPG_PRIVATE_KEY" | gpg --batch --import
-          echo "allow-loopback-pinentry" >> ~/.gnupg/gpg.conf
         env:
           GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
-
-      - name: Set GPG passphrase
-        run: |
-          echo "pinentry-mode loopback" >> ~/.gnupg/gpg.conf
-        env:
-          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
 
       - name: Deploy to Maven Central (signed)
         run: mvn -B clean deploy -Pcentral -Dgpg.executable=gpg
