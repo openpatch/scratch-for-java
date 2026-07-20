@@ -68,7 +68,7 @@ jobs:
         with:
           tag_name: v${{ env.VERSION }}
           name: Release v${{ env.VERSION }}
-          body: "Automated release of version ${{ env.VERSION }}"
+          body: ${{ github.event.pull_request.body || format('Automated release of version {0}', env.VERSION) }}
           files: |
             target/*.jar
 

@@ -95,6 +95,31 @@ jobs:
           echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "New version: $VERSION"
 
+      - name: Update CHANGELOG.md
+        run: |
+          ENTRY_FILE=$(mktemp)
+          printf "## %s\n%s\n\n" "$VERSION" "$BODY" > "$ENTRY_FILE"
+
+          awk -v newfile="$ENTRY_FILE" '
+            BEGIN { fm=0; done=0 }
+            {
+              print
+              if ($0 == "---") {
+                fm++
+                if (fm == 2 && !done) {
+                  print ""
+                  while ((getline line < newfile) > 0) print line
+                  done=1
+                }
+              }
+            }
+          ' CHANGELOG.md > /tmp/CHANGELOG.new
+
+          mv /tmp/CHANGELOG.new CHANGELOG.md
+
+          # bump the index in the frontmatter to match the new entry count
+          sed -i "0,/^index: [0-9]*/s//index: $(( $(grep -c '^## ' CHANGELOG.md) ))/" CHANGELOG.md
+
       - name: Delete changeset files
         run: |
           find .changeset -type f ! -name 'README.md' -delete
