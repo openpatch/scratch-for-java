@@ -62,7 +62,7 @@ jobs:
         uses: softprops/action-gh-release@v3
         with:
           tag_name: v${{ env.VERSION }}
-          name: Release v${{ env.VERSION }}
+          name: v${{ env.VERSION }}
           body: ${{ github.event.pull_request.body || format('Automated release of version {0}', env.VERSION) }}
           files: |
             target/*.jar
