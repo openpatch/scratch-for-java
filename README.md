@@ -35,6 +35,22 @@ You can release the library with the following command:
 mvn deploy -Pcentral
 ```
 
+## Automatic Release Flow
+
+For the automatic release flow you have to commit a changeset. This is a `.md`-file in the `.changeset` directory.
+
+The file needs to have the following structure:
+
+```md
+---
+type: patch | minor | major
+---
+
+A description of the changes made in this release.
+```
+
+When a pull request is merged, the changeset will trigger a GitHub action that will create a new pull request with the new version. After this pull request is merged, the new version will be released to Maven Central and Github releases.
+
 ## Maintainer
 
 Mike Barkmin • [Mastodon](https://bildung.social/@mikebarkmin) • [GitHub](https://github.com/mikebarkmin/)
