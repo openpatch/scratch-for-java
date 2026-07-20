@@ -14,6 +14,7 @@ import processing.core.PFont;
  */
 public class Font {
   private String name;
+  private String path;
   private AbstractMap<Integer, PFont> fontMap;
 
   private static final AbstractMap<String, AbstractMap<Integer, PFont>> fonts = new ConcurrentHashMap<>();
@@ -22,16 +23,17 @@ public class Font {
   public static PFont defaultFont;
 
   /**
-   * Constructs a font with the specified name and path.
+   * Constructs a font with the specified name and path. The underlying font
+   * file is not actually loaded until {@link #getFont(int)} is first called,
+   * so constructing a Font (e.g. via a Sprite that has not been shown yet)
+   * does not require a running Applet.
    *
    * @param name the name of the font
    * @param path the path to the font file
    */
   public Font(String name, String path) {
     this.name = name;
-    this.fontMap = new ConcurrentHashMap<>();
-
-    this.fontMap = loadFont(path);
+    this.path = path;
   }
 
   /**
@@ -41,7 +43,8 @@ public class Font {
    */
   public Font(Font font) {
     this.name = font.name;
-    this.fontMap = new ConcurrentHashMap<>(font.fontMap);
+    this.path = font.path;
+    this.fontMap = font.fontMap == null ? null : new ConcurrentHashMap<>(font.fontMap);
   }
 
   /**
@@ -93,6 +96,10 @@ public class Font {
   }
 
   public PFont getFont(int targetSize) {
+    if (this.fontMap == null) {
+      this.fontMap = loadFont(this.path);
+    }
+
     int actualSize = Text.FONT_SIZES[0];
     int bestSizeDifference = Math.abs(actualSize - targetSize);
 

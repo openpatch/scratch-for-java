@@ -1110,10 +1110,11 @@ public class Sprite {
    * reversed and rotated by
    * 180 degrees when it hits the top or bottom border. The method does nothing if
    * the hitbox is
-   * disabled or if the sprite is a UI element.
+   * disabled or if the sprite is a UI element. It also does nothing if the
+   * sprite has not been added to a stage yet.
    */
   public void ifOnEdgeBounce() {
-    if (this.hitboxDisabled || this.isUI)
+    if (this.hitboxDisabled || this.isUI || this.stage == null)
       return;
 
     var h = this.getHitbox();
