@@ -103,18 +103,10 @@ jobs:
           find .changeset -type f ! -name 'README.md' -delete
           echo "Removed processed changeset files."
 
-      - name: Commit and push changes
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git checkout -B changeset
-          git add pom.xml .changeset
-          git commit -m "chore: release v${{ env.VERSION }}"
-          git push origin changeset --force
-
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v8
         with:
+          base: main
           commit-message: "chore: release v${{ env.VERSION }}"
           branch: changeset
           title: "Release v${{ env.VERSION }}"
