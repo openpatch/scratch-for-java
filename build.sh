@@ -38,5 +38,21 @@ done
 # which is how pages for deleted methods used to survive.
 mvn -q -DskipTests prepare-package
 
+# Any jar linked in for local testing by scripts/link-jar.sh is taken out again
+# here. Zipping one in would put a 19 MB library inside every project download.
+removed=0
+for libs in "$ROOT"/docs/archives/*/+libs; do
+  for jar in "$libs"/scratch-*.jar; do
+    if [ -e "$jar" ] || [ -L "$jar" ]; then
+      rm -f "$jar"
+      removed=$((removed + 1))
+    fi
+  done
+done
+if [ "$removed" -gt 0 ]; then
+  echo "Removed $removed locally linked jar(s) from docs/archives before building."
+  echo "Run ./scripts/link-jar.sh again if you want to keep testing the projects."
+fi
+
 cd docs
 npx hyperbook build

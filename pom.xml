@@ -133,6 +133,62 @@
             </build>
         </profile>
 
+        <!--
+            Compiles and runs one of the finished tutorial projects under
+            docs/archives, using the library as it is in this working copy:
+
+                mvn -q compile exec:java -Parchive -Darchive=make-it-walk-100 -Dmain=WalkStage
+
+            No jar needs building first. The sources are compiled into their own
+            output directory so they can never end up in a released jar.
+        -->
+        <profile>
+            <id>archive</id>
+            <properties>
+                <archive>make-it-walk-100</archive>
+                <main>WalkStage</main>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>build-helper-maven-plugin</artifactId>
+                        <version>3.3.0</version>
+                        <executions>
+                            <execution>
+                                <id>add-archive-source</id>
+                                <phase>generate-sources</phase>
+                                <goals>
+                                    <goal>add-source</goal>
+                                </goals>
+                                <configuration>
+                                    <sources>
+                                        <source>docs/archives/${archive}</source>
+                                    </sources>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>3.5.0</version>
+                        <configuration>
+                            <!-- A separate JVM: the graphics library loads native
+                                 code, which does not survive sharing Maven's. -->
+                            <executable>java</executable>
+                            <classpathScope>runtime</classpathScope>
+                            <arguments>
+                                <argument>-classpath</argument>
+                                <classpath />
+                                <argument>${main}</argument>
+                            </arguments>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
         <profile>
             <id>all</id>
 
