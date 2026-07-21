@@ -50,4 +50,8 @@ public class GuessStage extends Stage {
       this.solved = true;
     }
   }
+
+  public static void main(String[] args) {
+    new GuessStage();
+  }
 }

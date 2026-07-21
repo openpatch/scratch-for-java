@@ -133,6 +133,10 @@ public class CatchStage extends Stage {
   private void showScore() {
     this.scoreText.showText("Coins: " + this.score);
   }
+
+  public static void main(String[] args) {
+    new CatchStage();
+  }
 }
 ```
 

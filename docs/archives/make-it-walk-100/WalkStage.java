@@ -6,4 +6,8 @@ public class WalkStage extends Stage {
     this.addBackdrop("background");
     this.add(new Walker());
   }
+
+  public static void main(String[] args) {
+    new WalkStage();
+  }
 }

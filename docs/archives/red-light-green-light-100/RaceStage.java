@@ -10,4 +10,8 @@ public class RaceStage extends Stage {
     this.add(new Racer("ladybug", 0, 1.6));
     this.add(new Racer("snail", -60, 1.0));
   }
+
+  public static void main(String[] args) {
+    new RaceStage();
+  }
 }
