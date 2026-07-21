@@ -192,9 +192,6 @@ public class AnimatedSprite extends Sprite {
    * @param once whether to play the animation once
    */
   public void playAnimation(String name, boolean once) {
-    if (this.getTimer("animation") == null) {
-      this.addTimer("animation");
-    }
     String[] animation = animations.get(name);
     this.switchCostume(animation[animationFrame % animation.length]);
     if (this.getTimer("animation").everyMillis(animationInterval)) {

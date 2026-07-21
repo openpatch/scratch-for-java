@@ -20,14 +20,6 @@ class TimerSprite extends Sprite {
   public TimerSprite() {
     super();
     this.getPen().setSize(40);
-
-    this.addTimer("every");
-    this.addTimer("for");
-    this.addTimer("after");
-    this.addTimer("interval1");
-    this.addTimer("interval2");
-    this.addTimer("interval3");
-    this.addTimer("interval4");
   }
 
   public void run() {

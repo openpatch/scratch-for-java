@@ -18,9 +18,11 @@ import org.openpatch.scratch.extensions.color.Color;
 import org.openpatch.scratch.extensions.hitbox.Hitbox;
 import org.openpatch.scratch.extensions.math.Vector2;
 import org.openpatch.scratch.extensions.pen.Pen;
+import org.openpatch.scratch.extensions.pixels.Pixels;
 import org.openpatch.scratch.extensions.shader.Shader;
 import org.openpatch.scratch.extensions.shader.Shaders;
 import org.openpatch.scratch.extensions.shape.Polygon;
+import org.openpatch.scratch.extensions.sorting.Sorting;
 import org.openpatch.scratch.extensions.text.Text;
 import org.openpatch.scratch.extensions.text.TextStyle;
 import org.openpatch.scratch.extensions.timer.Timer;
@@ -81,7 +83,8 @@ public class Stage {
   List<Sprite> sprites;
   private double mouseX;
   private double mouseY;
-  private Comparator<? super Sprite> sorter;
+  private final Sorting sorting = new Sorting();
+  private Pixels pixels;
 
   Hitbox leftBorder;
   Hitbox rightBorder;
@@ -98,6 +101,38 @@ public class Stage {
         System.err.println(line);
       System.err.println("==============================================\n");
     }
+  }
+
+  /**
+   * Returns the order in which the sprites of this stage are drawn.
+   *
+   * <p>
+   * Example usage:
+   *
+   * <pre>{@code
+   * this.getSorting().byY();
+   * }</pre>
+   *
+   * @return the sorting
+   */
+  public Sorting getSorting() {
+    return this.sorting;
+  }
+
+  /**
+   * Returns the colours of everything this stage has drawn.
+   *
+   * <p>
+   * Example usage:
+   *
+   * <pre>{@code
+   * int[] colours = this.getPixels().main();
+   * }</pre>
+   *
+   * @return the pixels
+   */
+  public Pixels getPixels() {
+    return this.pixels;
   }
 
   /**
@@ -236,6 +271,7 @@ public class Stage {
         applet.getRenderWidth(), applet.getRenderHeight(), applet.sketchRenderer());
     this.debugBuffer = applet.createGraphics(
         applet.getRenderWidth(), applet.getRenderHeight(), applet.sketchRenderer());
+    this.pixels = new Pixels(this.mainBuffer, this.backgroundBuffer, this.foregroundBuffer);
     ((PGraphicsOpenGL) this.shaderBuffer).textureSampling(Window.TEXTURE_SAMPLING_MODE);
     ((PGraphicsOpenGL) this.mainBuffer).textureSampling(Window.TEXTURE_SAMPLING_MODE);
     ((PGraphicsOpenGL) this.backgroundBuffer).textureSampling(Window.TEXTURE_SAMPLING_MODE);
@@ -358,47 +394,6 @@ public class Stage {
     pen.addedToStage(this);
   }
 
-  /**
-   * Sets the texture sampling mode Point sampling: both magnification and
-   * minification filtering
-   * are set to nearest. Linear sampling: magnification filtering is nearest,
-   * minification set to
-   * linear Bilinear sampling: both magnification filtering is set to linear and
-   * minification either
-   * to linear-mipmap-nearest (linear interpolation is used within a mipmap, but
-   * not between
-   * different mipmaps). Trilinear sampling: magnification filtering set to
-   * linear, minification to
-   * linear-mipmap-linear, which offers the best mipmap quality since linear
-   * interpolation to
-   * compute the value in each of two maps and then interpolates linearly between
-   * these two values.
-   *
-   * @param mode the texture sampling mode. 2: Point Sampling. 3: Linear. 4:
-   *             Bilinear. 5: Trilinear.
-   */
-  public void setTextureSampling(int mode) {
-    if (mode < 2 || mode > 5) {
-      System.err.println("\n==============================================");
-      System.err.println("WARNING: Invalid texture sampling mode: " + mode);
-      System.err.println("==============================================");
-      System.err.println("\nValid values are:");
-      System.err.println("  2 = Point Sampling");
-      System.err.println("  3 = Linear");
-      System.err.println("  4 = Bilinear (default)");
-      System.err.println("  5 = Trilinear");
-      System.err.println("==============================================\n");
-      return;
-    }
-    Applet.getInstance().setTextureSampling(mode);
-    ((PGraphicsOpenGL) this.shaderBuffer).textureSampling(mode);
-    ((PGraphicsOpenGL) this.mainBuffer).textureSampling(mode);
-    ((PGraphicsOpenGL) this.backgroundBuffer).textureSampling(mode);
-    ((PGraphicsOpenGL) this.debugBuffer).textureSampling(mode);
-    ((PGraphicsOpenGL) this.backdropBuffer).textureSampling(mode);
-    ((PGraphicsOpenGL) this.uiBuffer).textureSampling(mode);
-    ((PGraphicsOpenGL) this.foregroundBuffer).textureSampling(mode);
-  }
 
 
 
@@ -419,45 +414,9 @@ public class Stage {
     this.sprites.remove(sprite);
   }
 
-  /**
-   * Sets a custom sorter for the sprites. Use enableYSort() to enable the sorting
-   * of sprites using
-   * the y-coordinates. This overwrites goToBackLayer(), goToFrontLayer(),
-   * goLayersBackwards() and
-   * goLayersForwards().
-   *
-   * @see #enableYSort()
-   * @param sorter the comparator used to sort the sprites
-   */
-  public void setSorter(Comparator<? super Sprite> sorter) {
-    this.sorter = sorter;
-  }
 
-  /**
-   * Enables the sorting of sprites using y-sorting. This means that sprites with
-   * a lower
-   * y-coordinate will be drawn on top of sprites with a higher y-coordinate. This
-   * sorting respects
-   * the height of the sprites. This overwrites goToBackLayer(), goToFrontLayer(),
-   * goLayersBackwards() and goLayersForwards().
-   */
-  public void enableYSort() {
-    this.sorter = (s1, s2) -> (int) ((s2.getY() - s2.getHeight() / 2) - (s1.getY() - s1.getHeight() / 2));
-  }
 
-  /** Disables the sorting of sprites. */
-  public void disableSort() {
-    this.sorter = null;
-  }
 
-  /**
-   * Checks if the sorting of sprites is enabled.
-   *
-   * @return true if sorting is enabled, false otherwise
-   */
-  public boolean isSortEnabled() {
-    return this.sorter != null;
-  }
 
   /**
    * Retrieves a list of all sprites in the current stage.
@@ -786,32 +745,8 @@ public class Stage {
     this.eraseForegroundBuffer = true;
   }
 
-  /**
-   * Returns the pixels of the foreground buffer.
-   * @return the pixels of the foreground buffer
-   */
-  public int[] getForegroundPixels() {
-    this.foregroundBuffer.loadPixels();
-    return this.foregroundBuffer.pixels;
-  }
 
-  /**
-   * Returns the pixels of the background buffer.
-   * @return the pixels of the background buffer
-   */
-  public int[] getBackgroundPixels() {
-    this.backgroundBuffer.loadPixels();
-    return this.backgroundBuffer.pixels;
-  }
 
-  /**
-   * Returns the pixels of the main buffer.
-   * @return the pixels of the main buffer
-   */
-  public int[] getPixels() {
-    this.mainBuffer.loadPixels();
-    return this.mainBuffer.pixels;
-  }
 
   /**
    * This method marks the UI buffer to be erased, which will be processed in the
@@ -1081,32 +1016,11 @@ public class Stage {
    * @return the timer
    */
   public Timer getTimer(String name) {
-    return this.timer.get(name);
+    // Created on first use, so that a timer never has to be declared up front.
+    return this.timer.computeIfAbsent(name, n -> new Timer());
   }
 
-  /**
-   * Add a new timer by name. Overwriting default is not permitted.
-   *
-   * @param name the name of the timer
-   */
-  public void addTimer(String name) {
-    if ("default".equals(name))
-      return;
 
-    this.timer.put(name, new Timer());
-  }
-
-  /**
-   * Remove a timer by name. Removing of default is not permitted.
-   *
-   * @param name the name of the timer
-   */
-  public void removeTimer(String name) {
-    if ("default".equals(name))
-      return;
-
-    this.timer.remove(name);
-  }
 
   /**
    * @ignore-in-docs
@@ -1545,8 +1459,8 @@ public class Stage {
     }
     this.backgroundBuffer.endDraw();
 
-    if (this.sorter != null) {
-      this.sprites.sort(this.sorter);
+    if (this.sorting.isOn()) {
+      this.sprites.sort(this.sorting.getComparator());
     }
 
     if (this.cursor != null) {

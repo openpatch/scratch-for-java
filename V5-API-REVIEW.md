@@ -37,8 +37,25 @@ accessor-to-an-extension-object shape is exactly the pattern to move things
 *into*, not away. Those accessors stay as the door; the operations behind them
 move. `getShaders()` above is the model.
 
-Still to move (~44 methods): pen/stamp 13, ui + nine-slice sizing 10, hitbox 7,
-timer 4, sorting 4, pixels 3, window 3, spritesheet 1, input 2.
+Third batch done, another 10 off the core; the API is at **208**.
+
+| Group | Methods | Became |
+|---|---:|---|
+| Sorting | 4 | `extensions/sorting/Sorting` behind `getSorting()` |
+| Pixels | 3 | `extensions/pixels/Pixels` behind `getPixels()` |
+| `setTextureSampling` | 1 | **dropped, not moved** — duplicates the existing `Window.TEXTURE_SAMPLING_MODE` |
+| Timers | 4 | **dropped by a design fix, not moved** — `getTimer(name)` now creates the timer on first use, so `addTimer`/`removeTimer` have nothing left to do |
+
+Two more verdicts corrected while applying:
+
+- **Hitbox — MOVE → KEEP.** `setHitbox` has seven real uses across the sensing,
+  smartRocket, donutIO and tiled demos; it is the escape hatch for precise
+  collision shapes. Its problem is four overloads, which is step 3, not a move.
+- **`setCursor` — MOVE → KEEP.** It is per-stage state, and a menu stage wanting
+  a different cursor from a game stage is reasonable. Two methods, left alone.
+
+Still to move (~26 methods): pen/stamp 13, ui + nine-slice sizing 10,
+spritesheet 1, input 2.
 
 Then: step 3 (overloads), step 4 (packages), step 5 (docs).
 

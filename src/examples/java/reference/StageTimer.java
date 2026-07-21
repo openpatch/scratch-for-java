@@ -5,8 +5,6 @@ import org.openpatch.scratch.extensions.recorder.*;
 public class StageTimer {
   public StageTimer() {
     Stage myStage = new Stage(600, 240);
-    myStage.addTimer("identityChange");
-
     GifRecorder recorder =
         new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
     recorder.start();

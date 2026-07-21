@@ -1231,45 +1231,11 @@ public class Sprite {
    * @return a timer
    */
   public Timer getTimer(String name) {
-    return this.timer.get(name);
+    // Created on first use, so that a timer never has to be declared up front.
+    return this.timer.computeIfAbsent(name, n -> new Timer());
   }
 
-  /**
-   * Add a new timer by name. Overwriting default is not permitted.
-   *
-   * @param name the name of the timer
-   */
-  public void addTimer(String name) {
-    if ("default".equals(name)) {
-      System.err.println("\n==============================================");
-      System.err.println("WARNING: Cannot add timer named 'default'!");
-      System.err.println("==============================================");
-      System.err.println("\n'default' is a reserved timer name.");
-      System.err.println("\nTip: Use a different name, e.g. addTimer(\"countdown\")");
-      System.err.println("==============================================\n");
-      return;
-    }
 
-    this.timer.put(name, new Timer());
-  }
-
-  /**
-   * Remove a timer by name. Removing of default is not permitted.
-   *
-   * @param name the name of the timer
-   */
-  public void removeTimer(String name) {
-    if ("default".equals(name)) {
-      System.err.println("\n==============================================");
-      System.err.println("WARNING: Cannot remove the 'default' timer!");
-      System.err.println("==============================================");
-      System.err.println("\n'default' is a reserved timer that cannot be removed.");
-      System.err.println("==============================================\n");
-      return;
-    }
-
-    this.timer.remove(name);
-  }
 
   /**
    * Returns true is the mouse pointer is touching the hitbox of the sprite.

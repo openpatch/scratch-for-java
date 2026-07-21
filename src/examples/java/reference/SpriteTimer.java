@@ -8,7 +8,6 @@ public class SpriteTimer {
     Stage myStage = new Stage(600, 240);
     Sprite timeMe = new Sprite("zeta", "assets/zeta_green_badge.png");
     timeMe.addCostume("gamma", "assets/gamma_purple_badge.png");
-    timeMe.addTimer("identityChange");
     myStage.add(timeMe);
 
     GifRecorder recorder =

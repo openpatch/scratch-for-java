@@ -7,7 +7,6 @@ public class SpriteAddTimer {
     Stage myStage = new Stage(600, 240);
     Sprite zeta = new Sprite("green", "assets/zeta_green_badge.png");
     zeta.addCostume("yellow", "assets/zeta_yellow_badge.png");
-    zeta.addTimer("costumeChange");
     myStage.add(zeta);
     GifRecorder recorder =
         new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
