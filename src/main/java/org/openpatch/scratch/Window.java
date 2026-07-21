@@ -33,13 +33,6 @@ import org.openpatch.scratch.internal.*;
 public class Window {
 
   /**
-   * @ignore-in-docs
-   */
-  public interface WhenExitsHandler {
-    void handle();
-  }
-
-  /**
    * The default color used for debugging purposes.
    * You can modify this array to change the debug color.
    * 
@@ -83,9 +76,6 @@ public class Window {
   public static int TEXTURE_SAMPLING_MODE = 4;
 
   private static Window instance;
-
-  private WhenExitsHandler whenExitsHandler = () -> {
-  };
 
   /**
    * Constructs a new Window with default dimensions. The default width is 480
@@ -347,16 +337,6 @@ public class Window {
    * when the window is closed.
    */
   public void whenExits() {
-    this.whenExitsHandler.handle();
-  }
-
-  /**
-   * Sets a custom handler to be executed when the window exits.
-   * 
-   * @param runnable the custom handler to be executed on exit
-   */
-  public void setWhenExits(WhenExitsHandler runnable) {
-    this.whenExitsHandler = runnable;
   }
 
   /**

@@ -32,8 +32,11 @@ for page in $VERSIONED_PAGES; do
   sed -i "s/{{VERSION}}/${VERSION}/g" "$page"
 done
 
-# Builds the built-in sprite and sound pages from src/main/resources.
-mvn -q compile exec:java@generate-asset-pages
+# Regenerates everything the docs are built from: the reference pages written by
+# the doclet, and the built-in sprite and sound pages. Running only `compile`
+# here would leave the reference pages as they were after the last `mvn package`,
+# which is how pages for deleted methods used to survive.
+mvn -q -DskipTests prepare-package
 
 cd docs
 npx hyperbook build

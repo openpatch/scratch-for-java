@@ -8,11 +8,14 @@ Scratch for Java is build for supporting different approaches to teaching object
 
 ## Imperative Approach (aka. Classes-later)
 
-When using the imperative approach you would only use the built-in classes Stage and Sprite. These are known to the students and have methods which resembles the Scratch blocks.
+When using the imperative approach the whole project is one class. Sprites stay
+plain `Sprite` objects, and everything they do is written in the stage's
+`run()`. Students meet only the built-in classes, which they already know from
+Scratch, and write no classes of their own beyond the stage itself.
 
 Students can learn how to write simple Java programs, without the possible overload of having to deal with custom classes.
 
-The downside to this approach is that you define the behavior of the Sprites inside a global class. This differs from the behavior of Scratch where you define the behavior of each Sprite individually.
+The downside to this approach is that you define the behavior of the Sprites inside one class. This differs from Scratch, where you define the behavior of each Sprite individually.
 
 So by using this approach you are trading simplicity with compatibility to the Scratch model.
 
