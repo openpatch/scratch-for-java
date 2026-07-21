@@ -726,12 +726,16 @@ public class Stage {
     this.eraseUIBuffer = true;
   }
 
-  /** When this method is called, the background buffer will be erased. */
+  /** When this method is called, the background buffer will be erased. *
+   * @ignore-in-docs  the plumbing behind Pen.eraseAll()
+   */
   public void eraseBackground() {
     this.eraseBackgroundBuffer = true;
   }
 
-  /** When this method is called, the foreground buffer will be erased. */
+  /** When this method is called, the foreground buffer will be erased. *
+   * @ignore-in-docs  the plumbing behind Pen.eraseAll()
+   */
   public void eraseForeground() {
     this.eraseForegroundBuffer = true;
   }
@@ -742,6 +746,8 @@ public class Stage {
   /**
    * This method marks the UI buffer to be erased, which will be processed in the
    * next update cycle.
+   *
+   * @ignore-in-docs  layer-specific erasing
    */
   public void eraseUI() {
     this.eraseUIBuffer = true;

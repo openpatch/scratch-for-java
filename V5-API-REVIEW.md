@@ -74,7 +74,31 @@ class they also use as an ordinary sprite. They now declare a three-line
 subclass (`UIHero`, `UIItem`) that calls the protected `setUI(true)`. That keeps
 the capability without putting the flag back on `Sprite`'s public surface.
 
-Still to move (~16 methods): pen/stamp 13, spritesheet 1, input 2.
+**The pen/stamp group cannot be moved.** `Pen` (in `extensions/pen`) calls
+`sprite.stampToForeground()` and `stage.eraseForeground()`, and `TiledMap` (in
+`extensions/tiled`) calls `stage.addStampsToForeground()`. Those are different
+packages, so Java forces the methods to stay public — the same wall as
+`Stage.draw`/`pre`, which `internal.Applet` calls.
+
+What was done instead: the six plumbing methods are tagged `@ignore-in-docs`, so
+they leave the reference site even though they remain callable. `Sprite.stamp()`
+and `Stage.eraseAll()` stay visible; both are genuine Scratch pen blocks.
+
+That gives two numbers worth tracking separately:
+
+| | Count |
+|---|---:|
+| Public methods | 199 |
+| Hidden from the docs | 14 |
+| **Documented surface** | **185** |
+
+Getting the plumbing genuinely off the public API needs one of: merging
+`extensions/pen` into the core package, or a JPMS module descriptor that does
+not export the plumbing (there is a `module-info.java_bak` in the repo already),
+or an internal bridge type. That is an architecture decision, not a cleanup —
+worth deciding before step 4 moves packages around.
+
+Still to move: spritesheet 1, input 2.
 
 Then: step 3 (overloads), step 4 (packages), step 5 (docs).
 

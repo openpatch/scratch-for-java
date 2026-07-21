@@ -1911,6 +1911,8 @@ public class Sprite {
   /**
    * Stamps the current sprite to the background. A stamp is a non interactive
    * version of the sprite.
+   *
+   * @ignore-in-docs  the plumbing behind Pen.stamp(); Pen lives in another package, so Java forces this public
    */
   public void stampToBackground() {
     if (this.costumes.size() > 0) {
@@ -1921,6 +1923,8 @@ public class Sprite {
   /**
    * Stamps the current sprite to the ui. A stamp is a non interactive version of
    * the sprite.
+   *
+   * @ignore-in-docs  layer-specific stamping, used by the tiled demo
    */
   public void stampToUI() {
     if (this.costumes.size() > 0) {
@@ -1931,6 +1935,8 @@ public class Sprite {
   /**
    * Stamps the current sprite to the foreground. A stamp is a non interactive
    * version of the sprite.
+   *
+   * @ignore-in-docs  the plumbing behind Pen.stamp()
    */
   public void stampToForeground() {
     if (this.costumes.size() > 0) {
