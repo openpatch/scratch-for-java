@@ -1,8 +1,8 @@
 package org.openpatch.scratch.extensions.shader;
 
 import java.util.concurrent.TimeUnit;
-import org.openpatch.scratch.extensions.color.Color;
-import org.openpatch.scratch.extensions.math.Vector2;
+import org.openpatch.scratch.Color;
+import org.openpatch.scratch.Vector2;
 import org.openpatch.scratch.internal.Applet;
 
 import processing.opengl.PShader;

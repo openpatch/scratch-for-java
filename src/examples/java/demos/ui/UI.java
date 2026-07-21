@@ -2,7 +2,7 @@ package demos.ui;
 
 import org.openpatch.scratch.KeyCode;
 import org.openpatch.scratch.Sprite;
-import org.openpatch.scratch.extensions.ui.UISprite;
+import org.openpatch.scratch.UISprite;
 import org.openpatch.scratch.Stage;
 
 public class UI {

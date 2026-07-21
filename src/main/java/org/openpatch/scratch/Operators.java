@@ -13,8 +13,7 @@ package org.openpatch.scratch;
  * For example, to use the lerp function, you can do:
  * 
  * <pre>{@code
- * import org.openpatch.scratch.Operators;
- * 
+ *  * 
  * double result = Operators.lerp(0.0, 10.0, 0.5); // result will be 5.0
  * }</pre>
  */

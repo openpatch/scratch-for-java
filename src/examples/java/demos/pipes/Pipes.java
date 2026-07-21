@@ -1,7 +1,7 @@
 package demos.pipes;
 
 import org.openpatch.scratch.*;
-import org.openpatch.scratch.extensions.math.*;
+import org.openpatch.scratch.*;
 
 public class Pipes extends Stage {
   public Pipes() {

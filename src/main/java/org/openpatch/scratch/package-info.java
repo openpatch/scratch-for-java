@@ -13,8 +13,7 @@
  *
  * <pre>
  * {@code
- * import org.openpatch.scratch.Window;
- *
+ *  *
  * public class Game extends Window {
  *      public Game() {
  *          super(800, 600);
@@ -28,8 +27,7 @@
  *
  * <pre>
  * {@code
- * import org.openpatch.scratch.Stage;
- *
+ *  *
  * class MyStage extends Stage {
  *      public MyStage() {
  *          this.add(new MySprite());
@@ -42,8 +40,7 @@
  *
  * <pre>
  * {@code
- * import org.openpatch.scratch.Sprite;
- *
+ *  *
  * class MySprite extends Sprite {
  *      public MySprite() {
  *          this.setCostume("cat_sitting", "cat.png");

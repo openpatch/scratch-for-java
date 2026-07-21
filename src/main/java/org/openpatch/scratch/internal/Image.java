@@ -4,7 +4,7 @@ import java.util.AbstractMap;
 import java.util.concurrent.ConcurrentHashMap;
 import org.openpatch.scratch.RotationStyle;
 import org.openpatch.scratch.Window;
-import org.openpatch.scratch.extensions.color.Color;
+import org.openpatch.scratch.Color;
 import org.openpatch.scratch.extensions.shader.Shader;
 import processing.core.PApplet;
 import processing.core.PConstants;

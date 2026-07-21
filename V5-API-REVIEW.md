@@ -149,7 +149,40 @@ are used across the demos.
 
 **184 public methods** across 155 distinct names.
 
-Then: step 4 (packages), step 5 (docs).
+**Step 4 (packages) is done.** Nine extension packages folded into
+`org.openpatch.scratch`: `pen`, `text`, `timer`, `animation`, `ui`, `math`,
+`shape`, `color`, `hitbox`. `Utils` went to `internal` instead, being used only
+by the library itself.
+
+Seven packages stay opt-in: `camera`, `fs`, `pixels`, `recorder`, `shader`,
+`sorting`, `tiled`.
+
+Across the 209 example files, the imports now look like this:
+
+| Imports | Package |
+|---:|---|
+| 177 | `org.openpatch.scratch` |
+| 27 | `…extensions.recorder` (only the doc-generating examples) |
+| 2 | `…extensions.tiled` |
+| 1 | `…extensions.fs` |
+
+So `import org.openpatch.scratch.*;` covers a school course, which was the point.
+
+**And the hidden count reached zero.** With `Pen` in the core package, the six
+`stampTo*`/`erase*` methods became package-private. `stampToUI` turned out to be
+a real user call in the tiled demo, so it was replaced by `stamp(Layer)` on
+`Sprite`, matching `stamp(stamps, Layer)` on `Stage`.
+
+| | Count |
+|---|---:|
+| Public methods | **179** |
+| Hidden from the docs | **0** |
+| **Documented surface** | **179** |
+
+From 293. Public and documented are now the same number, which was the goal
+behind the whole architecture question.
+
+Then: step 5 (docs).
 
 ## Where it lands
 

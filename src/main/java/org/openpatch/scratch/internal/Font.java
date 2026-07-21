@@ -2,7 +2,7 @@ package org.openpatch.scratch.internal;
 
 import java.util.AbstractMap;
 import java.util.concurrent.ConcurrentHashMap;
-import org.openpatch.scratch.extensions.text.Text;
+import org.openpatch.scratch.Text;
 import processing.core.PFont;
 
 /**

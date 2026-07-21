@@ -4,8 +4,8 @@ import org.openpatch.scratch.KeyCode;
 import org.openpatch.scratch.Sprite;
 import org.openpatch.scratch.Stage;
 import org.openpatch.scratch.Window;
-import org.openpatch.scratch.extensions.hitbox.Hitbox;
-import org.openpatch.scratch.extensions.shape.Ellipse;
+import org.openpatch.scratch.Hitbox;
+import org.openpatch.scratch.Ellipse;
 
 public class Sensing extends Stage {
   public static Hero h, m;

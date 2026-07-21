@@ -2,8 +2,8 @@ package reference.OperatorsLerp;
 
 import org.openpatch.scratch.Operators;
 import org.openpatch.scratch.Stage;
-import org.openpatch.scratch.extensions.pen.Pen;
-import org.openpatch.scratch.extensions.timer.Timer;
+import org.openpatch.scratch.Pen;
+import org.openpatch.scratch.Timer;
 
 public class MyStage extends Stage {
   private Pen myPen;

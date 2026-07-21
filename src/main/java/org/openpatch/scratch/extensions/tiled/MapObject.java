@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
-import org.openpatch.scratch.extensions.shape.Ellipse;
-import org.openpatch.scratch.extensions.shape.Rectangle;
-import org.openpatch.scratch.extensions.shape.Shape;
+import org.openpatch.scratch.Ellipse;
+import org.openpatch.scratch.Rectangle;
+import org.openpatch.scratch.Shape;
 
 /**
  * Represents a map object with various properties such as dimensions, position,
@@ -149,7 +149,7 @@ public class MapObject {
         yPoints[i] = points[i][1];
       }
 
-      return new org.openpatch.scratch.extensions.shape.Polygon(xPoints, yPoints);
+      return new org.openpatch.scratch.Polygon(xPoints, yPoints);
     }
     return new Rectangle(0, 0, width, height);
   }

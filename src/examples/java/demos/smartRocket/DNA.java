@@ -1,6 +1,6 @@
 package demos.smartRocket;
 
-import org.openpatch.scratch.extensions.math.*;
+import org.openpatch.scratch.*;
 
 public class DNA {
   private Vector2[] gene;

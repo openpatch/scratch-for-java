@@ -1,7 +1,7 @@
 package demos.tiled;
 
 import org.openpatch.scratch.Window;
-import org.openpatch.scratch.extensions.text.Text;
+import org.openpatch.scratch.Text;
 
 public class Tiled extends Window {
 

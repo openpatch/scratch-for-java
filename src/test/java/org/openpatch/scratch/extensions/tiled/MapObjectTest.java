@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
-import org.openpatch.scratch.extensions.shape.Bounds;
+import org.openpatch.scratch.Bounds;
 
 class MapObjectTest {
 

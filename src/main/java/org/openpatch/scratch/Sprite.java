@@ -5,18 +5,9 @@ import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
-import org.openpatch.scratch.extensions.color.Color;
-import org.openpatch.scratch.extensions.hitbox.Hitbox;
-import org.openpatch.scratch.extensions.math.Random;
-import org.openpatch.scratch.extensions.math.Utils;
-import org.openpatch.scratch.extensions.math.Vector2;
-import org.openpatch.scratch.extensions.pen.Pen;
+import org.openpatch.scratch.internal.Utils;
 import org.openpatch.scratch.extensions.shader.Shader;
 import org.openpatch.scratch.extensions.shader.Shaders;
-import org.openpatch.scratch.extensions.shape.Shape;
-import org.openpatch.scratch.extensions.text.Text;
-import org.openpatch.scratch.extensions.text.TextStyle;
-import org.openpatch.scratch.extensions.timer.Timer;
 import org.openpatch.scratch.internal.Image;
 import org.openpatch.scratch.internal.Sound;
 import org.openpatch.scratch.internal.Stamp;
@@ -1845,12 +1836,35 @@ public class Sprite {
   }
 
   /**
+   * Stamps the sprite onto one of the stage's layers. A stamp is a picture of
+   * the sprite that stays where it is put, and is not interactive.
+   *
+   * <p>
+   * Example usage:
+   *
+   * <pre>{@code
+   * this.stamp(Layer.UI);
+   * }</pre>
+   *
+   * @param layer which layer to stamp onto
+   */
+  public void stamp(Layer layer) {
+    if (layer == null) {
+      return;
+    }
+    switch (layer) {
+      case BACKGROUND -> this.stampToBackground();
+      case FOREGROUND -> this.stampToForeground();
+      case UI -> this.stampToUI();
+    }
+  }
+
+  /**
    * Stamps the current sprite to the background. A stamp is a non interactive
    * version of the sprite.
    *
-   * @ignore-in-docs  the plumbing behind Pen.stamp(); Pen lives in another package, so Java forces this public
    */
-  public void stampToBackground() {
+  void stampToBackground() {
     if (this.costumes.size() > 0) {
       this.stage.addStampsToBackground(this.getStamp());
     }
@@ -1860,9 +1874,8 @@ public class Sprite {
    * Stamps the current sprite to the ui. A stamp is a non interactive version of
    * the sprite.
    *
-   * @ignore-in-docs  layer-specific stamping, used by the tiled demo
    */
-  public void stampToUI() {
+  void stampToUI() {
     if (this.costumes.size() > 0) {
       this.stage.addStampsToUI(this.getStamp());
     }
@@ -1872,9 +1885,8 @@ public class Sprite {
    * Stamps the current sprite to the foreground. A stamp is a non interactive
    * version of the sprite.
    *
-   * @ignore-in-docs  the plumbing behind Pen.stamp()
    */
-  public void stampToForeground() {
+  void stampToForeground() {
     if (this.costumes.size() > 0) {
       this.stage.addStampsToForeground(this.getStamp());
     }

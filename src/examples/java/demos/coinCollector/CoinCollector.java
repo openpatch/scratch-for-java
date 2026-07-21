@@ -1,7 +1,7 @@
 package demos.coinCollector;
 
 import org.openpatch.scratch.Stage;
-import org.openpatch.scratch.extensions.text.Text;
+import org.openpatch.scratch.Text;
 
 /**
  * A small game that only uses assets built into Scratch for Java.

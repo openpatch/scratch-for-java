@@ -4,7 +4,7 @@
  * For example, it includes extensions for animations:
  * 
  * <pre>{@code
- * import org.openpatch.scratch.extensions.animation.AnimatedSprite;
+ * import org.openpatch.scratch.AnimatedSprite;
  * 
  * AnimatedSprite sprite = new AnimatedSprite();
  * sprite.addAnimation("walk", "assets/walk_%d.png", 4);

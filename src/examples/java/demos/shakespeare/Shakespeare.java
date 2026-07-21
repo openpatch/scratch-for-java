@@ -1,7 +1,7 @@
 package demos.shakespeare;
 
 import org.openpatch.scratch.*;
-import org.openpatch.scratch.extensions.text.*;
+import org.openpatch.scratch.*;
 
 public class Shakespeare extends Stage {
 

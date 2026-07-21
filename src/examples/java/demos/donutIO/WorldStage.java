@@ -3,8 +3,8 @@ package demos.donutIO;
 import org.openpatch.scratch.KeyCode;
 import org.openpatch.scratch.Stage;
 import org.openpatch.scratch.Window;
-import org.openpatch.scratch.extensions.math.Random;
-import org.openpatch.scratch.extensions.math.Vector2;
+import org.openpatch.scratch.Random;
+import org.openpatch.scratch.Vector2;
 
 public class WorldStage extends Stage {
 

@@ -1,7 +1,7 @@
 package reference.AnimatedSpriteSetAnimationInterval;
 
 import org.openpatch.scratch.KeyCode;
-import org.openpatch.scratch.extensions.animation.AnimatedSprite;
+import org.openpatch.scratch.AnimatedSprite;
 
 public class MySprite extends AnimatedSprite {
   public MySprite() {

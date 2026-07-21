@@ -2,7 +2,7 @@ package demos.coinCollector;
 
 import org.openpatch.scratch.KeyCode;
 import org.openpatch.scratch.RotationStyle;
-import org.openpatch.scratch.extensions.animation.AnimatedSprite;
+import org.openpatch.scratch.AnimatedSprite;
 
 /** The alien you steer with the arrow keys. */
 public class Player extends AnimatedSprite {

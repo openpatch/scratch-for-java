@@ -1,7 +1,7 @@
 package demos.tiled;
 
 import org.openpatch.scratch.*;
-import org.openpatch.scratch.extensions.animation.*;
+import org.openpatch.scratch.*;
 
 public class Player extends AnimatedSprite {
 

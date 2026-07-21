@@ -1,6 +1,6 @@
 package org.openpatch.scratch.extensions.recorder;
 
-import org.openpatch.scratch.extensions.color.Color;
+import org.openpatch.scratch.Color;
 import org.openpatch.scratch.internal.AnimatedGifEncoder;
 import org.openpatch.scratch.internal.Applet;
 

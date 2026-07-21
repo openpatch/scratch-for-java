@@ -1,6 +1,6 @@
 package demos.stressTest;
 
-import org.openpatch.scratch.extensions.animation.*;
+import org.openpatch.scratch.*;
 
 public class Character extends AnimatedSprite {
   public CharacterState state;

@@ -2,7 +2,7 @@ package demos.pipes;
 
 import org.openpatch.scratch.KeyCode;
 import org.openpatch.scratch.Sprite;
-import org.openpatch.scratch.extensions.math.Random;
+import org.openpatch.scratch.Random;
 
 public class PenSprite extends Sprite {
 

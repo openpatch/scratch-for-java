@@ -14,18 +14,10 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 
 import org.openpatch.scratch.extensions.camera.Camera;
-import org.openpatch.scratch.extensions.color.Color;
-import org.openpatch.scratch.extensions.hitbox.Hitbox;
-import org.openpatch.scratch.extensions.math.Vector2;
-import org.openpatch.scratch.extensions.pen.Pen;
 import org.openpatch.scratch.extensions.pixels.Pixels;
 import org.openpatch.scratch.extensions.shader.Shader;
 import org.openpatch.scratch.extensions.shader.Shaders;
-import org.openpatch.scratch.extensions.shape.Polygon;
 import org.openpatch.scratch.extensions.sorting.Sorting;
-import org.openpatch.scratch.extensions.text.Text;
-import org.openpatch.scratch.extensions.text.TextStyle;
-import org.openpatch.scratch.extensions.timer.Timer;
 import org.openpatch.scratch.internal.Applet;
 import org.openpatch.scratch.internal.Font;
 import org.openpatch.scratch.internal.Image;
@@ -751,16 +743,14 @@ public class Stage {
   }
 
   /** When this method is called, the background buffer will be erased. *
-   * @ignore-in-docs  the plumbing behind Pen.eraseAll()
    */
-  public void eraseBackground() {
+  void eraseBackground() {
     this.eraseBackgroundBuffer = true;
   }
 
   /** When this method is called, the foreground buffer will be erased. *
-   * @ignore-in-docs  the plumbing behind Pen.eraseAll()
    */
-  public void eraseForeground() {
+  void eraseForeground() {
     this.eraseForegroundBuffer = true;
   }
 
@@ -771,9 +761,8 @@ public class Stage {
    * This method marks the UI buffer to be erased, which will be processed in the
    * next update cycle.
    *
-   * @ignore-in-docs  layer-specific erasing
    */
-  public void eraseUI() {
+  void eraseUI() {
     this.eraseUIBuffer = true;
   }
 

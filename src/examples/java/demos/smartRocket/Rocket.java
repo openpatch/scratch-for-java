@@ -1,7 +1,7 @@
 package demos.smartRocket;
 
 import org.openpatch.scratch.*;
-import org.openpatch.scratch.extensions.math.*;
+import org.openpatch.scratch.*;
 
 public class Rocket extends Sprite {
   private Vector2 geschwindigkeit;
