@@ -105,6 +105,13 @@ public class Sprite {
   private List<Image> costumes = new CopyOnWriteArrayList<>();
   private int currentCostume = 0;
   private List<Sound> sounds = new CopyOnWriteArrayList<>();
+  private double volume = 100;
+  private double glideFromX;
+  private double glideFromY;
+  private double glideToX;
+  private double glideToY;
+  private double glideMillis;
+  private double glideElapsed = -1;
   private boolean show = true;
   private double size = 100;
   private boolean onEdgeBounce = false;
@@ -2025,6 +2032,97 @@ public class Sprite {
   public void say(String text, final int millis) {
     this.text.setStyle(TextStyle.SPEAK);
     this.text.showText(text, millis);
+  }
+
+  /**
+   * Sets how loud every sound of this sprite plays.
+   *
+   * @param percent 0 for silent, 100 for full volume
+   *
+   * @scratchblock set volume to (percent) %
+   */
+  public void setVolume(double percent) {
+    this.volume = Math.max(0, Math.min(100, percent));
+    for (Sound sound : this.sounds) {
+      sound.setVolume(this.volume / 100.0);
+    }
+  }
+
+  /**
+   * Makes every sound of this sprite louder or quieter.
+   *
+   * @param step how much to add to the volume, in percent
+   *
+   * @scratchblock change volume by (step)
+   */
+  public void changeVolume(double step) {
+    this.setVolume(this.volume + step);
+  }
+
+  /**
+   * Returns how loud the sounds of this sprite play.
+   *
+   * @return the volume, from 0 to 100
+   *
+   * @scratchblock (volume)
+   */
+  public double getVolume() {
+    return this.volume;
+  }
+
+
+
+  /**
+   * Slides the sprite to a place over the given time, instead of jumping there.
+   *
+   * <p>
+   * Unlike Scratch this does not hold up the sprite: `run()` keeps being called
+   * while the sprite is on its way. Use {@link #isGliding()} to tell whether it
+   * has arrived.
+   *
+   * @param seconds how long the trip should take
+   * @param x       where to end up
+   * @param y       where to end up
+   *
+   * @scratchblock glide (seconds) secs to x: (x) y: (y)
+   */
+  public void glide(double seconds, double x, double y) {
+    if (seconds <= 0) {
+      this.setPosition(x, y);
+      this.glideElapsed = -1;
+      return;
+    }
+    this.glideFromX = this.x;
+    this.glideFromY = this.y;
+    this.glideToX = x;
+    this.glideToY = y;
+    this.glideMillis = seconds * 1000;
+    this.glideElapsed = 0;
+  }
+
+  /**
+   * Checks whether the sprite is still on its way to a place it was told to
+   * glide to.
+   *
+   * @return true while it is still moving
+   */
+  public boolean isGliding() {
+    return this.glideElapsed >= 0;
+  }
+
+  /** Moves a gliding sprite a little further along; called once per frame. */
+  void stepGlide(double deltaSeconds) {
+    if (this.glideElapsed < 0) {
+      return;
+    }
+    this.glideElapsed += deltaSeconds * 1000;
+    var progress = Math.min(1, this.glideElapsed / this.glideMillis);
+    this.setPosition(
+        this.glideFromX + (this.glideToX - this.glideFromX) * progress,
+        this.glideFromY + (this.glideToY - this.glideFromY) * progress);
+    if (progress >= 1) {
+      this.glideElapsed = -1;
+    }
   }
 
   /**

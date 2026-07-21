@@ -9,8 +9,16 @@ import processing.core.PGraphics;
  * Reached through {@code stage.getPixels()}:
  *
  * <pre>{@code
- * int[] pixels = this.getPixels().main();
+ * int[] colours = this.getPixels().main();
  * }</pre>
+ *
+ * <p>
+ * These layers live on the graphics card, and reading them back is both slow and
+ * only possible while the stage is drawing. Asking from somewhere else - a
+ * sprite's {@code run()}, say - gives an empty array. Treat this as a low-level
+ * hook for drawing tricks rather than as a way to sense colours: a Scratch-style
+ * "touching colour" check would have to read the whole screen back every frame,
+ * which is far too slow for the machines this library is meant to run on.
  */
 public class Pixels {
 
@@ -42,7 +50,7 @@ public class Pixels {
   }
 
   /**
-   * Returns the pixels of the background layer.
+   * Returns the pixels of the background layer, where the pen and stamps draw.
    *
    * @return one colour per pixel
    */

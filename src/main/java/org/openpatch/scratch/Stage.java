@@ -68,6 +68,7 @@ public class Stage {
   private Color color = new Color();
   private int currentBackdrop = 0;
   private final List<Sound> sounds = new CopyOnWriteArrayList<>();
+  private double volume = 100;
 
   private PGraphics shaderBuffer;
   private PGraphics mainBuffer;
@@ -1312,6 +1313,42 @@ public class Stage {
   }
 
   /**
+   * Sets how loud every sound of this stage plays.
+   *
+   * @param percent 0 for silent, 100 for full volume
+   *
+   * @scratchblock set volume to (percent) %
+   */
+  public void setVolume(double percent) {
+    this.volume = Math.max(0, Math.min(100, percent));
+    for (Sound sound : this.sounds) {
+      sound.setVolume(this.volume / 100.0);
+    }
+  }
+
+  /**
+   * Makes every sound of this stage louder or quieter.
+   *
+   * @param step how much to add to the volume, in percent
+   *
+   * @scratchblock change volume by (step)
+   */
+  public void changeVolume(double step) {
+    this.setVolume(this.volume + step);
+  }
+
+  /**
+   * Returns how loud the sounds of this stage play.
+   *
+   * @return the volume, from 0 to 100
+   *
+   * @scratchblock (volume)
+   */
+  public double getVolume() {
+    return this.volume;
+  }
+
+  /**
    * Asks a question and waits for an answer to be typed in. A box appears at the
    * top of the stage; whatever is typed goes into it until Enter is pressed.
    *
@@ -1467,6 +1504,34 @@ public class Stage {
   }
 
   /**
+   * Waits until something becomes true, then carries on.
+   *
+   * <p>
+   * Like {@link #wait(int)} this holds up the code that calls it, not the whole
+   * program: sprites keep running and the stage keeps drawing while it waits.
+   * That makes it useful for setting a scene up in a constructor, and a bad idea
+   * inside `run()`, which is called once per frame and should return quickly.
+   *
+   * <pre>{@code
+   * this.ask("What is your name?");
+   * this.waitUntil(() -> !this.isAsking());
+   * this.display("Hello " + this.getAnswer() + "!");
+   * }</pre>
+   *
+   * @param condition checked over and over until it is true
+   *
+   * @scratchblock wait until &lt;condition&gt;
+   */
+  public void waitUntil(java.util.function.BooleanSupplier condition) {
+    if (condition == null) {
+      return;
+    }
+    while (!condition.getAsBoolean()) {
+      this.wait(16);
+    }
+  }
+
+  /**
    * Get the frame rate of the application.
    *
    * @return the frame rate
@@ -1597,6 +1662,8 @@ public class Stage {
     this.mouseX = this.getCamera().toLocalX(globalMouseX);
     this.mouseY = this.getCamera().toLocalY(globalMouseY);
 
+    var delta = this.getDeltaTime();
+    this.sprites.stream().forEach(s -> s.stepGlide(delta));
     this.run();
     this.sprites.stream().forEach(s -> s.run());
   }
