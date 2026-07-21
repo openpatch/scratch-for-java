@@ -113,7 +113,7 @@ public class CatchStage extends Stage {
     this.addBackdrop("background");
     this.addSound("handleCoins");
 
-    this.scoreText.setPosition(-270, 170);
+    this.scoreText.setPosition(0, 170);
     this.scoreText.setTextSize(22);
     this.add(this.scoreText);
     this.showScore();

@@ -11,6 +11,7 @@ import org.openpatch.scratch.Layer;
 import org.openpatch.scratch.Stage;
 import org.openpatch.scratch.extensions.fs.File;
 import org.openpatch.scratch.internal.Image;
+import org.openpatch.scratch.internal.StageAccess;
 import org.openpatch.scratch.internal.Stamp;
 
 /**
@@ -139,7 +140,7 @@ public class TiledMap {
    */
   public void stampLayerToForeground(String name) {
     var stamps = stampLayer(name);
-    stage.stamp(stamps, Layer.FOREGROUND);
+    StageAccess.get().stamp(stage, stamps, Layer.FOREGROUND);
   }
 
   /**
@@ -149,7 +150,7 @@ public class TiledMap {
    */
   public void stampLayerToBackground(String name) {
     var stamps = stampLayer(name);
-    stage.stamp(stamps, Layer.BACKGROUND);
+    StageAccess.get().stamp(stage, stamps, Layer.BACKGROUND);
   }
 
   public String toString() {

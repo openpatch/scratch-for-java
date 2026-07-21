@@ -102,7 +102,7 @@ public class Walker extends AnimatedSprite {
     this.setAnimationInterval(150);
     this.setSize(60);
     this.setRotationStyle(RotationStyle.LEFT_RIGHT);
-    this.setY(-60);
+    this.setY(-50);
   }
 
   public void run() {

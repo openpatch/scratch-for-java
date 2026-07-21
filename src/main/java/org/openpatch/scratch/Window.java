@@ -48,6 +48,7 @@ public class Window {
 
   private static TextureSampling textureSampling = TextureSampling.BILINEAR;
   private static boolean fullScreen = false;
+  private static String splashLogo = null;
 
   /**
    * Makes the window fill the whole screen.
@@ -103,6 +104,49 @@ public class Window {
    */
   public static TextureSampling getTextureSampling() {
     return textureSampling;
+  }
+
+  /**
+   * Puts your own picture on the loading screen in place of the Scratch for Java
+   * logo. The picture fades in while your project starts and fades out again
+   * once it is ready.
+   *
+   * <p>
+   * It is shrunk to fit if it is large, and never enlarged, so a picture of
+   * roughly 300 by 300 looks right in a window of the usual size.
+   *
+   * <p>
+   * Call it before the first stage is created, because the loading screen is the
+   * first thing the window draws:
+   *
+   * <pre>{@code
+   * public static void main(String[] args) {
+   *   Window.useSplashLogo("assets/logo.png");
+   *   new MyStage();
+   * }
+   * }</pre>
+   *
+   * @param path the picture to show, or {@code null} for the Scratch for Java
+   *             logo
+   */
+  public static void useSplashLogo(String path) {
+    if (instance != null) {
+      warnTooLate("useSplashLogo()", "Window.useSplashLogo(\"assets/logo.png\");");
+      return;
+    }
+    splashLogo = path;
+  }
+
+  /**
+   * Returns the picture the loading screen shows.
+   *
+   * @return the path set with {@link #useSplashLogo}, or {@code null} for the
+   *         built-in logo
+   *
+   * @ignore-in-docs
+   */
+  public static String getSplashLogo() {
+    return splashLogo;
   }
 
   /** Says so, loudly, when a window setting is chosen after the window exists. */

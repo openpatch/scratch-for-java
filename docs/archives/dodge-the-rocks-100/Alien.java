@@ -1,13 +1,13 @@
 import org.openpatch.scratch.*;
 
-public class Walker extends AnimatedSprite {
-  public Walker() {
+public class Alien extends AnimatedSprite {
+  public Alien() {
     this.addCostume("alienGreen_stand");
     this.addAnimation("walk", "alienGreen_walk%d", 2);
     this.setAnimationInterval(150);
-    this.setSize(60);
+    this.setSize(45);
     this.setRotationStyle(RotationStyle.LEFT_RIGHT);
-    this.setY(-50);
+    this.setY(-140);
   }
 
   public void run() {
@@ -15,12 +15,12 @@ public class Walker extends AnimatedSprite {
 
     if (this.isKeyPressed(KeyCode.RIGHT)) {
       this.setDirection(90);
-      this.move(3);
+      this.move(4);
       walking = true;
     }
     if (this.isKeyPressed(KeyCode.LEFT)) {
       this.setDirection(-90);
-      this.move(3);
+      this.move(4);
       walking = true;
     }
 

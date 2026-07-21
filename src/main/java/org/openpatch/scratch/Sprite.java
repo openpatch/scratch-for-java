@@ -934,22 +934,29 @@ public class Sprite {
 
     var h = this.getHitbox();
     var bounds = h.getBounds();
+    var halfWidth = this.stage.getWidth() / 2.0;
+    var halfHeight = this.stage.getHeight() / 2.0;
 
+    // The hitbox is not necessarily centred on the sprite's position — a costume
+    // with transparent padding, or a custom hitbox, puts it off to one side. So
+    // the sprite is nudged by the distance its hitbox pokes out over the border,
+    // rather than moved to a position worked out from the hitbox size alone.
+    // bounds are in screen coordinates, where y grows downwards.
     if (h.intersects(this.stage.leftBorder)) {
       this.setDirection(-this.getDirection());
-      this.setX(-this.stage.getWidth() / 2 + bounds.width() / 2);
+      this.setX(this.getX() + (-halfWidth - bounds.x()));
     }
     if (h.intersects(this.stage.rightBorder)) {
       this.setDirection(-this.getDirection());
-      this.setX(this.stage.getWidth() / 2 - bounds.width() / 2);
+      this.setX(this.getX() + (halfWidth - (bounds.x() + bounds.width())));
     }
     if (h.intersects(this.stage.topBorder)) {
       this.setDirection(-this.getDirection() - 180);
-      this.setY(this.stage.getHeight() / 2 - bounds.height() / 2);
+      this.setY(this.getY() + (halfHeight + bounds.y()));
     }
     if (h.intersects(this.stage.bottomBorder)) {
       this.setDirection(-this.getDirection() - 180);
-      this.setY(-this.stage.getHeight() / 2 + bounds.height() / 2);
+      this.setY(this.getY() + (-halfHeight + bounds.y() + bounds.height()));
     }
   }
 

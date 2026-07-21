@@ -23,6 +23,7 @@ import org.openpatch.scratch.internal.Font;
 import org.openpatch.scratch.internal.Image;
 import org.openpatch.scratch.internal.Sound;
 import org.openpatch.scratch.internal.Stamp;
+import org.openpatch.scratch.internal.StageAccess;
 import org.openpatch.scratch.internal.StageHooks;
 import processing.core.PConstants;
 import processing.core.PGraphics;
@@ -86,6 +87,8 @@ public class Stage {
   private Queue<Stamp> uiStamps;
   private PGraphics uiBuffer;
   private boolean eraseUIBuffer;
+  /** Whether the render buffers have had their OpenGL framebuffers allocated yet. */
+  private boolean buffersAllocated;
 
   private PGraphics debugBuffer;
 
@@ -1552,21 +1555,26 @@ public class Stage {
   }
 
   /**
-   * Stamps images permanently onto one of the stage's layers. A stamp stays
-   * where it is put until that layer is erased, so this is how a tile map or a
-   * painted background gets drawn once instead of every frame.
-   *
-   * <p>
-   * Example usage:
-   *
-   * <pre>{@code
-   * stage.stamp(stamps, Layer.BACKGROUND);
-   * }</pre>
+   * Lets {@code TiledMap} stamp a map's layers without {@link #stamp} having to
+   * be public. See {@link StageAccess}.
+   */
+  static {
+    StageAccess.install(new StageAccess() {
+      public void stamp(Stage stage, Queue<Stamp> stamps, Layer layer) {
+        stage.stamp(stamps, layer);
+      }
+    });
+  }
+
+  /**
+   * Stamps images permanently onto one of the stage's layers, so that a tile map
+   * gets drawn once instead of every frame. Reached from other packages through
+   * {@link StageAccess}; {@link Sprite#stamp(Layer)} is the stamp block.
    *
    * @param stamps the images to stamp
    * @param layer  which layer to stamp them onto
    */
-  public void stamp(Queue<Stamp> stamps, Layer layer) {
+  void stamp(Queue<Stamp> stamps, Layer layer) {
     if (stamps == null || layer == null) {
       return;
     }
@@ -1681,6 +1689,25 @@ public class Stage {
     Applet applet = Applet.getInstance();
     if (applet == null || buffer == null)
       return;
+
+    // A buffer's OpenGL framebuffer is allocated the first time it is drawn to.
+    // Left alone, that happens further down, after the canvas has been painted
+    // black - and the allocation disturbs the renderer enough that the letterbox
+    // bars come out in the sketch's default grey instead, so the window flashed
+    // every time a stage was set. Allocating them all here, before the canvas is
+    // painted, costs one begin/end per buffer once in a stage's life. It has to
+    // happen on the animation thread, which is why it is not done in the
+    // constructor.
+    if (!this.buffersAllocated) {
+      for (PGraphics b : new PGraphics[] {
+          this.shaderBuffer, this.mainBuffer, this.backdropBuffer, this.backgroundBuffer,
+          this.foregroundBuffer, this.uiBuffer, this.debugBuffer }) {
+        b.beginDraw();
+        b.clear();
+        b.endDraw();
+      }
+      this.buffersAllocated = true;
+    }
 
     buffer.background(0);
 
