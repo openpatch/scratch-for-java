@@ -4,10 +4,10 @@ name: Tutorials
 
 # Tutorials
 
-Five small projects, meant to be done in order. Each one introduces one new idea
+Six small projects, meant to be done in order. Each one introduces one new idea
 and reuses everything before it.
 
-The first four need **no downloads at all** — every picture and sound they use is
+The first five need **no downloads at all** — every picture and sound they use is
 built into Scratch for Java.
 
 | | Chapter | What is new |
@@ -15,12 +15,13 @@ built into Scratch for Java.
 | 1 | **[Your first program](/tutorials/getting-started)** | A sprite, a costume, and `run()` |
 | 2 | **[Make it Walk](/tutorials/make-it-walk)** | Several costumes, timers, animation |
 | 3 | **[Catch the Coins](/tutorials/catch-the-coins)** | A score, random numbers, collisions |
-| 4 | **[Guess the Number](/tutorials/guess-the-number)** | Asking the player something |
-| 5 | **[Bouncing Hedgehog](/tutorials/bouncy-hedgehog)** | A full game, from a project template |
+| 4 | **[Red Light, Green Light](/tutorials/red-light-green-light)** | Messages between sprites |
+| 5 | **[Guess the Number](/tutorials/guess-the-number)** | Asking the player something |
+| 6 | **[Bouncing Hedgehog](/tutorials/bouncy-hedgehog)** | A full game, from a project template |
 
 ## For teachers
 
-Chapters 1 to 4 were written to be worked through at a keyboard in roughly a
+Chapters 1 to 5 were written to be worked through at a keyboard in roughly a
 lesson each, and every code block on those pages is compiled as part of building
 this site, so nothing on them can quietly stop working.
 

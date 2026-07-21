@@ -1,6 +1,6 @@
 ---
 name: Bouncing Hedgehog
-index: 5
+index: 6
 lang: en
 ---
 

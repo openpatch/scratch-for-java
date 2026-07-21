@@ -1,6 +1,6 @@
 ---
 name: Guess the Number
-index: 4
+index: 5
 ---
 
 # Guess the Number
