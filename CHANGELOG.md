@@ -25,9 +25,9 @@ Nothing here is a rename for its own sake: every removal is either a second way
 to do something that already had a first way, or something with no Scratch
 equivalent and no demonstrated use.
 
-## Migrating from v4
+### Migrating from v4
 
-### One import
+#### One import
 
 Eight packages moved into `org.openpatch.scratch`, so `Pen`, `Text`, `Timer`,
 `AnimatedSprite`, `Vector2`, `Random`, `Color`, `Hitbox` and the shapes all come
@@ -44,7 +44,7 @@ Five packages are still opt-in, for things a first course does not meet:
 `camera`, `fs`, `recorder`, `shader` and `tiled`, joined by the new `pixels` and
 `sorting`.
 
-### Handlers are overridden, not registered
+#### Handlers are overridden, not registered
 
 The whole `setWhenX` family is gone — 16 setters across `Sprite`, `Stage` and
 `Window`, and the 16 nested `When*Handler` interfaces that went with them. Every
@@ -65,7 +65,7 @@ becomes a call inside `run()`, the way the block works:
 this.ifOnEdgeBounce();
 ```
 
-### Settings are methods, chosen before the window opens
+#### Settings are methods, chosen before the window opens
 
 Public fields you assigned before starting did nothing at all if you assigned
 them afterwards — no error, no warning. They are methods now, and they say so
@@ -85,7 +85,7 @@ when used too late:
 value can no longer be written. Code that already said `TextAlign.LEFT` compiles
 unchanged.
 
-### Methods that moved to a class of their own
+#### Methods that moved to a class of their own
 
 Nine clock values and nine shader methods existed on **both** `Sprite` and
 `Stage` — 36 methods for 18 ideas.
@@ -104,7 +104,7 @@ Nine clock values and nine shader methods existed on **both** `Sprite` and
 `Layer` is a new enum with `BACKGROUND`, `FOREGROUND` and `UI`, so choosing a
 layer is something you say rather than a method name you pick.
 
-### Overloads that made the wrong thing easy
+#### Overloads that made the wrong thing easy
 
 - `broadcast(Object)` and `whenIReceive(Object)` are gone. Broadcasting a
   non-`String` used to call only the `Object` handler, so a sprite overriding
@@ -115,7 +115,7 @@ layer is something you say rather than a method name you pick.
 - `setHitbox(Hitbox)` and `setHitbox(double[], double[])` are gone.
   `setHitbox(Shape)` and `setHitbox(double... points)` cover both.
 
-### Interface parts have their own class
+#### Interface parts have their own class
 
 Buttons and bars want to be drawn on top, ignore the camera, and be sized in
 pixels rather than percent. That is now `UISprite`:
@@ -135,14 +135,14 @@ public class Button extends UISprite {
 `UISprite` only; `isUI(boolean)` became `protected setUI(boolean)`; and
 `Stage.goToUILayer` is gone.
 
-### Fewer constructors
+#### Fewer constructors
 
 `Stage` had seven and `Window` eight, four of each differing only by a leading
 `boolean fullScreen`. `Stage` keeps `Stage()`, `Stage(width, height)` and
 `Stage(width, height, assets)`; `Window` keeps those three plus
 `Window(assets)`. Full screen is `Window.useFullScreen()`.
 
-### Plumbing that was public only to cross a package
+#### Plumbing that was public only to cross a package
 
 `Stage.draw`, `pre`, `keyEvent` and `mouseEvent` were public only so the render
 loop could reach them from another package. They are private now, reached
@@ -157,7 +157,7 @@ accessor, and the method is package-private.
 Neither was reachable in any useful way before, so no project has to change.
 `Sprite.stamp(Layer)` is still the stamp block.
 
-## Behaviour that changed without the code changing
+### Behaviour that changed without the code changing
 
 These need no edit, but a v4 project may look or behave differently:
 
@@ -176,7 +176,7 @@ These need no edit, but a v4 project may look or behave differently:
 - **The loading screen fades in and out**, which adds about half a second to
   starting a project.
 
-## What is new
+### What is new
 
 - **838 built-in sprites and 266 built-in sounds** from [kenney.nl](https://kenney.nl)
   ship inside the jar, so a first project needs no downloads at all:
@@ -209,7 +209,7 @@ off the graphics card every frame, which is too slow for the machines this
 library is meant for. `getPixels()` carries the same limitation, now written
 down in its documentation.
 
-## Fixes
+### Fixes
 
 - `ifOnEdgeBounce()` no longer leaves a sprite stuck half outside the stage. It
   used to reposition using the size of the hitbox alone, which only works while
@@ -226,7 +226,7 @@ down in its documentation.
   shading.
 - Sprites can be constructed and tested without a running window.
 
-## Documentation
+### Documentation
 
 The book is now seven tutorials, and every Java block on the hand-written pages
 is compiled by `mvn test`, so an example cannot quietly stop working — which had
