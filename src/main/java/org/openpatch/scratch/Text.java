@@ -46,7 +46,7 @@ public class Text {
   private Color textColor;
   private Color backgroundColor;
   private Color strokeColor;
-  private int textAlign = -1;
+  private TextAlign textAlign = TextAlign.DEFAULT;
 
   /** SPEAK_BUBBLE_MAX_LIMIT is the maximum width of the speech bubble. */
   public static int SPEAK_BUBBLE_MAX_LIMIT = 330;
@@ -642,11 +642,19 @@ public class Text {
   /**
    * Sets the alignment of the text.
    *
-   * @param align the alignment value to set. This could be a constant representing left, center, or
-   *     right alignment.
+   * @param align where the text should sit relative to its position
    */
-  public void setAlign(int align) {
-    this.textAlign = align;
+  public void setAlign(TextAlign align) {
+    this.textAlign = align == null ? TextAlign.DEFAULT : align;
+  }
+
+  /**
+   * Returns where the text sits relative to its position.
+   *
+   * @return the alignment
+   */
+  public TextAlign getAlign() {
+    return this.textAlign;
   }
 
   /**
@@ -817,7 +825,7 @@ public class Text {
 
     buffer.push();
     if (this.textAlign != TextAlign.DEFAULT) {
-      buffer.textAlign(this.textAlign);
+      buffer.textAlign(this.textAlign.getMode());
     } else {
       buffer.textAlign(PApplet.LEFT, PApplet.TOP);
     }

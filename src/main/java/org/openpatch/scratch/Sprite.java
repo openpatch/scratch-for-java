@@ -2333,6 +2333,12 @@ public class Sprite {
       return;
     }
     if (this.costumes.isEmpty()) {
+      // A sprite given a collision shape but no costume is an invisible wall or
+      // trigger, which is a normal thing to build. Only a sprite with neither is
+      // likely to be a forgotten addCostume().
+      if (this.hitbox != null) {
+        return;
+      }
       // Drawing nothing at all looks exactly like a broken program, so say what
       // is wrong and put a marker where the sprite would be.
       this.warnOnce("no-costume",

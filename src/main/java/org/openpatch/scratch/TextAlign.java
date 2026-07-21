@@ -3,21 +3,42 @@ package org.openpatch.scratch;
 import processing.core.PApplet;
 
 /**
- * The TextAlign class provides constants for text alignment options. These constants can be used to
- * set the alignment of text in a graphical application.
+ * Where a piece of text sits relative to its position.
  *
- * <p>Available alignment options:
+ * <pre>{@code
+ * myText.setAlign(TextAlign.LEFT);
+ * }</pre>
  *
- * <ul>
- *   <li>{@link #DEFAULT} - Default alignment, represented by -1.
- *   <li>{@link #CENTER} - Center alignment, uses PApplet.CENTER.
- *   <li>{@link #RIGHT} - Right alignment, uses PApplet.RIGHT.
- *   <li>{@link #LEFT} - Left alignment, uses PApplet.LEFT.
- * </ul>
+ * @see Text#setAlign(TextAlign)
  */
-public class TextAlign {
-  public static int DEFAULT = -1;
-  public static int CENTER = PApplet.CENTER;
-  public static int RIGHT = PApplet.RIGHT;
-  public static int LEFT = PApplet.LEFT;
+public enum TextAlign {
+
+  /** Whatever the text style already uses. */
+  DEFAULT(-1),
+
+  /** Centred on its position. */
+  CENTER(PApplet.CENTER),
+
+  /** Its right edge at its position. */
+  RIGHT(PApplet.RIGHT),
+
+  /** Its left edge at its position. */
+  LEFT(PApplet.LEFT);
+
+  private final int mode;
+
+  TextAlign(int mode) {
+    this.mode = mode;
+  }
+
+  /**
+   * Returns the number the graphics library uses for this alignment.
+   *
+   * @return the alignment number
+   *
+   * @ignore-in-docs
+   */
+  public int getMode() {
+    return this.mode;
+  }
 }
