@@ -233,14 +233,14 @@ public class Stage {
     this.debugBuffer = applet.createGraphics(
         applet.getRenderWidth(), applet.getRenderHeight(), applet.sketchRenderer());
     this.pixels = new Pixels(this.mainBuffer, this.backgroundBuffer, this.foregroundBuffer);
-    ((PGraphicsOpenGL) this.shaderBuffer).textureSampling(Window.TEXTURE_SAMPLING_MODE);
-    ((PGraphicsOpenGL) this.mainBuffer).textureSampling(Window.TEXTURE_SAMPLING_MODE);
-    ((PGraphicsOpenGL) this.backgroundBuffer).textureSampling(Window.TEXTURE_SAMPLING_MODE);
-    ((PGraphicsOpenGL) this.debugBuffer).textureSampling(Window.TEXTURE_SAMPLING_MODE);
-    ((PGraphicsOpenGL) this.backdropBuffer).textureSampling(Window.TEXTURE_SAMPLING_MODE);
-    ((PGraphicsOpenGL) this.uiBuffer).textureSampling(Window.TEXTURE_SAMPLING_MODE);
-    ((PGraphicsOpenGL) this.foregroundBuffer).textureSampling(Window.TEXTURE_SAMPLING_MODE);
-    if (Window.TEXTURE_SAMPLING_MODE == 2) {
+    ((PGraphicsOpenGL) this.shaderBuffer).textureSampling(Window.getTextureSampling().getMode());
+    ((PGraphicsOpenGL) this.mainBuffer).textureSampling(Window.getTextureSampling().getMode());
+    ((PGraphicsOpenGL) this.backgroundBuffer).textureSampling(Window.getTextureSampling().getMode());
+    ((PGraphicsOpenGL) this.debugBuffer).textureSampling(Window.getTextureSampling().getMode());
+    ((PGraphicsOpenGL) this.backdropBuffer).textureSampling(Window.getTextureSampling().getMode());
+    ((PGraphicsOpenGL) this.uiBuffer).textureSampling(Window.getTextureSampling().getMode());
+    ((PGraphicsOpenGL) this.foregroundBuffer).textureSampling(Window.getTextureSampling().getMode());
+    if (Window.getTextureSampling() == TextureSampling.POINT) {
       this.shaderBuffer.noSmooth();
       this.mainBuffer.noSmooth();
       this.backgroundBuffer.noSmooth();

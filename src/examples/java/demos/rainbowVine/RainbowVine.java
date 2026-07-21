@@ -11,7 +11,7 @@ public class RainbowVine extends Stage {
   }
 
   public static void main(String[] args) {
-    Window.FULL_SCREEN = true;
+    Window.useFullScreen();
     new RainbowVine();
   }
 }

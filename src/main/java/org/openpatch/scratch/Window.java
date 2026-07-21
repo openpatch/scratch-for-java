@@ -46,49 +46,76 @@ public class Window {
    */
   public static final int[] DEBUG_COLOR = { 255, 0, 0 };
 
-  /**
-   * 2: Point Sampling. 3: Linear. 4: Bilinear. 5: Trilinear.
-   *
-   * <p>
-   * Point sampling: both magnification and minification filtering are set to
-   * nearest. Linear
-   * sampling: magnification filtering is nearest, minification set to linear
-   * Bilinear sampling:
-   * both magnification filtering is set to linear and minification either to
-   * linear-mipmap-nearest
-   * (linear interpolation is used within a mipmap, but not between different
-   * mipmaps). Trilinear
-   * sampling: magnification filtering set to linear, minification to
-   * linear-mipmap-linear, which
-   * offers the best mipmap quality since linear interpolation to compute the
-   * value in each of two
-   * maps and then interpolates linearly between these two values.
-   * 
-   * You can change the texture sampling mode by setting this variable before
-   * creating the Window instance.
-   * 
-   * For example, to use linear sampling, you can do:
-   *
-   * <pre>{@code
-   * Window.TEXTURE_SAMPLING_MODE = 3;
-   * }</pre>
-   */
-  public static int TEXTURE_SAMPLING_MODE = 4;
+  private static TextureSampling textureSampling = TextureSampling.BILINEAR;
+  private static boolean fullScreen = false;
 
   /**
-   * Whether the window fills the whole screen. Set it before the window or the
-   * first stage is created, the same way as {@link #TEXTURE_SAMPLING_MODE}:
+   * Makes the window fill the whole screen.
+   *
+   * <p>
+   * Call it before the first stage is created, because the size of the window is
+   * settled the moment it opens:
    *
    * <pre>{@code
-   * Window.FULL_SCREEN = true;
+   * public static void main(String[] args) {
+   *   Window.useFullScreen();
+   *   new MyStage();
+   * }
+   * }</pre>
+   */
+  public static void useFullScreen() {
+    if (instance != null) {
+      warnTooLate("useFullScreen()", "Window.useFullScreen();");
+      return;
+    }
+    fullScreen = true;
+  }
+
+  /**
+   * Chooses how pictures are smoothed when they are drawn larger or smaller than
+   * they really are. Pixel art usually wants {@link TextureSampling#POINT}.
+   *
+   * <p>
+   * Call it before the first stage is created.
+   *
+   * <pre>{@code
+   * Window.useTextureSampling(TextureSampling.POINT);
    * new MyStage();
    * }</pre>
    *
-   * <p>
-   * In full screen the size is taken from the screen, so any width and height
-   * you give are ignored.
+   * @param sampling how to smooth pictures
    */
-  public static boolean FULL_SCREEN = false;
+  public static void useTextureSampling(TextureSampling sampling) {
+    if (sampling == null) {
+      return;
+    }
+    if (instance != null) {
+      warnTooLate("useTextureSampling()", "Window.useTextureSampling(TextureSampling.POINT);");
+      return;
+    }
+    textureSampling = sampling;
+  }
+
+  /**
+   * Returns how pictures are being smoothed.
+   *
+   * @return the current setting
+   */
+  public static TextureSampling getTextureSampling() {
+    return textureSampling;
+  }
+
+  /** Says so, loudly, when a window setting is chosen after the window exists. */
+  private static void warnTooLate(String what, String example) {
+    System.err.println("\n==============================================");
+    System.err.println("WARNING: " + what + " was called too late!");
+    System.err.println("==============================================");
+    System.err.println("\nThe window already exists, so this had no effect.");
+    System.err.println("\nTip: Call it before the first stage is created:");
+    System.err.println("       " + example);
+    System.err.println("       new MyStage();");
+    System.err.println("==============================================\n");
+  }
 
   private static Window instance;
 
@@ -133,7 +160,7 @@ public class Window {
    * @throws Error if an instance of Window already exists
    */
   public Window(int width, int height, String assets) {
-    this(FULL_SCREEN, width, height, assets);
+    this(fullScreen, width, height, assets);
   }
 
 
@@ -154,7 +181,7 @@ public class Window {
     }
     Window.instance = this;
     var applet = new Applet(width, height, fullScreen, assets);
-    applet.setTextureSampling(TEXTURE_SAMPLING_MODE);
+    applet.setTextureSampling(textureSampling.getMode());
   }
 
 

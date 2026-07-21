@@ -9,7 +9,7 @@ public class ShaderExample extends Window {
   }
 
   public static void main(String[] args) {
-    Window.FULL_SCREEN = true;
+    Window.useFullScreen();
     new ShaderExample();
   }
 }

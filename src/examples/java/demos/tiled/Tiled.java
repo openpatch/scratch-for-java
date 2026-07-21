@@ -1,5 +1,6 @@
 package demos.tiled;
 
+import org.openpatch.scratch.TextureSampling;
 import org.openpatch.scratch.Window;
 import org.openpatch.scratch.Text;
 
@@ -18,7 +19,7 @@ public class Tiled extends Window {
 
   public static void main(String[] args) {
     // These global settings must be set before starting the game.
-    Window.TEXTURE_SAMPLING_MODE = 2;
+    Window.useTextureSampling(TextureSampling.POINT);
     Text.DEFAULT_FONT = "demos/tiled/assets/Retro Gaming.ttf";
     Text.DEFAULT_FONT_SIZE = 11;
     Text.FONT_SIZES = new int[] { 11 };
@@ -26,7 +27,7 @@ public class Tiled extends Window {
     Text.SMOOTHING = false;
 
     // Start the Game
-    Window.FULL_SCREEN = true;
+    Window.useFullScreen();
     new Tiled();
   }
 }
