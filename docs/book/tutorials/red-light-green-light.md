@@ -158,6 +158,13 @@ second picture without you naming it twice.
 In Scratch this would have been three separate sprites, each with its own copy of
 the same scripts, and a change to one meaning three edits.
 
+## The finished project
+
+If something will not run, you can compare against the finished version.
+It needs no assets, only the library itself.
+
+::archive[Project: Red Light, Green Light 100%]{name="red-light-green-light-100"}
+
 ## Things to try
 
 - Add a fourth racer — `frog` and `fishGreen` both have `_move` costumes. Notice

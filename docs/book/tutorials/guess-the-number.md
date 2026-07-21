@@ -131,6 +131,13 @@ The number of tries races upwards. `solved` is what stops it.
 
 :::
 
+## The finished project
+
+If something will not run, you can compare against the finished version.
+It needs no assets, only the library itself.
+
+::archive[Project: Guess the Number 100%]{name="guess-the-number-100"}
+
 ## Things to try
 
 - Give the player only five tries.

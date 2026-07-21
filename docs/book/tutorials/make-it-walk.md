@@ -154,6 +154,13 @@ Three things are new here:
 - **`setAnimationInterval(150)`** is the same idea as the `200` in step 2: how
   long each picture stays on screen.
 
+## The finished project
+
+If something will not run, you can compare against the finished version.
+It needs no assets, only the library itself.
+
+::archive[Project: Make it Walk 100%]{name="make-it-walk-100"}
+
 ## Things to try
 
 - Give the alien a third state. `alienGreen_jump` is a costume; show it while the

@@ -150,6 +150,13 @@ Three things worth noticing:
   `((CatchStage) this.getStage()).addPoint()` means: "ask my stage to add a
   point".
 
+## The finished project
+
+If something will not run, you can compare against the finished version.
+It needs no assets, only the library itself.
+
+::archive[Project: Catch the Coins 100%]{name="catch-the-coins-100"}
+
 ## Things to try
 
 - Make the coins fall faster the more you have caught.

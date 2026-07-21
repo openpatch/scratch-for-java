@@ -136,6 +136,13 @@ Run it again and hold the left and right arrow keys:
 | used a `forever` loop | let `run()` repeat for you |
 | gave a sprite a name you rarely used | need the name to talk to it at all |
 
+## The finished project
+
+If something will not run, you can compare against the finished version.
+It needs no assets, only the library itself.
+
+::archive[Project: Your first program 100%]{name="getting-started-100"}
+
 ## Where to go next
 
 - **[Bouncing Hedgehog](/tutorials/bouncy-hedgehog)** — your first real game,
