@@ -29,10 +29,10 @@ public class Polygon extends Shape {
     if (xPoints.length != yPoints.length) {
       throw new IllegalArgumentException("xPoints and yPoints must have the same length");
     }
-    this.awtShape = new Path2D.Double();
     for (int i = 0; i < xPoints.length; i++) {
-      addPoint(xPoints[i], yPoints[i]);
+      points.add(new Point2D.Double(xPoints[i], yPoints[i]));
     }
+    rebuildPath();
   }
 
   /**
@@ -61,5 +61,6 @@ public class Polygon extends Shape {
       path.closePath();
     }
     this.awtShape = path;
+    this.invalidateCache();
   }
 }

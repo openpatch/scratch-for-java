@@ -124,6 +124,22 @@ public class Sprite {
   private final Pen pen;
   private Hitbox hitbox;
   private boolean hitboxDisabled = false;
+
+  // Last hitbox handed out by getHitbox(), plus the sprite state it was built
+  // from. See hitboxStateChanged().
+  private Hitbox cachedHitbox;
+  private double hitboxCacheX;
+  private double hitboxCacheY;
+  private double hitboxCacheDirection;
+  private double hitboxCacheSize;
+  private double hitboxCachePenSize;
+  private Image hitboxCacheCostume;
+  private double hitboxCacheCostumeWidth;
+  private double hitboxCacheCostumeHeight;
+  private RotationStyle hitboxCacheRotationStyle;
+  private boolean hitboxCacheShow;
+  private Hitbox hitboxCacheCustom;
+
   private final Text text;
   private boolean isUI;
 
@@ -1481,6 +1497,14 @@ public class Sprite {
    * @return the hitbox of the sprite
    */
   public Hitbox getHitbox() {
+    // Collision checks ask every sprite for its hitbox against every other one,
+    // so this runs O(n^2) times a frame. Rebuilding the shape each time made
+    // that the most expensive thing in a stage with a few hundred sprites, even
+    // though a sprite that has not moved has the same hitbox as last time.
+    if (!this.hitboxStateChanged() && this.cachedHitbox != null) {
+      return this.cachedHitbox;
+    }
+
     Image currentCostume = null;
     if (this.costumes.size() > this.getCurrentCostumeIndex()) {
       currentCostume = this.costumes.get(this.getCurrentCostumeIndex());
@@ -1504,6 +1528,7 @@ public class Sprite {
           this.x - spriteWidth / 2.0f,
           -this.y - spriteHeight / 2.0f,
           this.size);
+      this.cachedHitbox = this.hitbox;
       return this.hitbox;
     }
 
@@ -1548,7 +1573,52 @@ public class Sprite {
     yPoints[3] = cornerBottomLeft[1];
 
     Hitbox hitbox = new Hitbox(xPoints, yPoints);
+    this.cachedHitbox = hitbox;
     return hitbox;
+  }
+
+  /**
+   * Records the state {@link #getHitbox()} derives its shape from, and reports
+   * whether any of it moved since the cached hitbox was built. Comparing the
+   * inputs rather than marking the cache dirty in every setter means a field
+   * that gets written directly, or a costume resized behind the sprite's back,
+   * cannot leave a stale hitbox behind.
+   */
+  private boolean hitboxStateChanged() {
+    Image currentCostume = null;
+    if (this.costumes.size() > this.getCurrentCostumeIndex()) {
+      currentCostume = this.costumes.get(this.getCurrentCostumeIndex());
+    }
+    var costumeWidth = currentCostume != null ? currentCostume.getWidth() : this.pen.getSize();
+    var costumeHeight = currentCostume != null ? currentCostume.getHeight() : this.pen.getSize();
+    var penSize = this.pen.getSize();
+
+    if (this.hitboxCachePenSize == penSize
+        && this.hitboxCacheX == this.x
+        && this.hitboxCacheY == this.y
+        && this.hitboxCacheDirection == this.direction
+        && this.hitboxCacheSize == this.size
+        && this.hitboxCacheCostume == currentCostume
+        && this.hitboxCacheCostumeWidth == costumeWidth
+        && this.hitboxCacheCostumeHeight == costumeHeight
+        && this.hitboxCacheRotationStyle == this.rotationStyle
+        && this.hitboxCacheShow == this.show
+        && this.hitboxCacheCustom == this.hitbox) {
+      return false;
+    }
+
+    this.hitboxCachePenSize = penSize;
+    this.hitboxCacheX = this.x;
+    this.hitboxCacheY = this.y;
+    this.hitboxCacheDirection = this.direction;
+    this.hitboxCacheSize = this.size;
+    this.hitboxCacheCostume = currentCostume;
+    this.hitboxCacheCostumeWidth = costumeWidth;
+    this.hitboxCacheCostumeHeight = costumeHeight;
+    this.hitboxCacheRotationStyle = this.rotationStyle;
+    this.hitboxCacheShow = this.show;
+    this.hitboxCacheCustom = this.hitbox;
+    return true;
   }
 
   /**

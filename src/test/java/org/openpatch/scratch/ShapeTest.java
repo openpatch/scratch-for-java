@@ -71,6 +71,101 @@ class ShapeTest {
   }
 
   @Test
+  void intersectsHandlesRotatedQuads() {
+    // A sprite hitbox is a rotated rectangle, which is the case the
+    // separating-axis fast path in intersects() exists for. These two overlap
+    // only once rotation is taken into account - their corners are apart, so a
+    // test that only compared corners would miss it.
+    Polygon diamond = new Polygon(
+        new double[] { 0, 10, 0, -10 }, new double[] { -10, 0, 10, 0 });
+    Polygon square = new Polygon(
+        new double[] { 5, 25, 25, 5 }, new double[] { -5, -5, 15, 15 });
+
+    assertTrue(diamond.intersects(square));
+    assertTrue(square.intersects(diamond));
+  }
+
+  @Test
+  void intersectsReturnsFalseForShapesMeetingOnlyAlongAnEdge() {
+    // Touching outlines share no area, so they do not count as intersecting.
+    Rectangle a = new Rectangle(0, 0, 10, 10);
+    Rectangle b = new Rectangle(10, 0, 10, 10);
+
+    assertFalse(a.intersects(b));
+  }
+
+  @Test
+  void intersectsReturnsTrueWhenOneShapeIsInsideAnother() {
+    Rectangle outer = new Rectangle(0, 0, 100, 100);
+    Rectangle inner = new Rectangle(40, 40, 5, 5);
+
+    assertTrue(outer.intersects(inner));
+    assertTrue(inner.intersects(outer));
+  }
+
+  @Test
+  void intersectsHandlesConcaveShapes() {
+    // An L, and a square sitting in the notch of the L. Their bounding boxes
+    // overlap but the shapes themselves do not, which only the general path
+    // gets right - concave outlines must not take the convex fast path.
+    Polygon l = new Polygon(
+        new double[] { 0, 30, 30, 10, 10, 0 },
+        new double[] { 0, 0, 10, 10, 30, 30 });
+    Rectangle inNotch = new Rectangle(15, 15, 10, 10);
+
+    assertFalse(l.intersects(inNotch));
+    assertFalse(inNotch.intersects(l));
+  }
+
+  @Test
+  void intersectsAgreesWithAreaForManyRandomRotatedRectangles() {
+    java.util.Random random = new java.util.Random(7);
+    int overlapping = 0;
+
+    for (int i = 0; i < 5000; i++) {
+      Polygon a = randomRotatedRectangle(random);
+      Polygon b = randomRotatedRectangle(random);
+
+      boolean expected = intersectsViaArea(a, b);
+      if (expected) {
+        overlapping++;
+      }
+      assertEquals(expected, a.intersects(b), "case " + i);
+      assertEquals(expected, b.intersects(a), "case " + i + " reversed");
+    }
+
+    // Guard against the generator drifting into only ever producing pairs that
+    // miss each other, which would make the assertions above vacuous.
+    assertTrue(overlapping > 500, "expected a healthy mix, got " + overlapping + " overlaps");
+  }
+
+  private static Polygon randomRotatedRectangle(java.util.Random random) {
+    double centerX = random.nextDouble() * 200 - 100;
+    double centerY = random.nextDouble() * 200 - 100;
+    double width = 10 + random.nextDouble() * 60;
+    double height = 10 + random.nextDouble() * 60;
+    double angle = random.nextDouble() * Math.PI * 2;
+
+    double[][] corners = {
+        { -width / 2, -height / 2 }, { width / 2, -height / 2 },
+        { width / 2, height / 2 }, { -width / 2, height / 2 } };
+    double[] xs = new double[4];
+    double[] ys = new double[4];
+    for (int i = 0; i < 4; i++) {
+      xs[i] = centerX + corners[i][0] * Math.cos(angle) - corners[i][1] * Math.sin(angle);
+      ys[i] = centerY + corners[i][0] * Math.sin(angle) + corners[i][1] * Math.cos(angle);
+    }
+    return new Polygon(xs, ys);
+  }
+
+  /** The straightforward answer, used as the reference for the fast path. */
+  private static boolean intersectsViaArea(Shape a, Shape b) {
+    java.awt.geom.Area area = new java.awt.geom.Area(a.awtShape);
+    area.intersect(new java.awt.geom.Area(b.awtShape));
+    return !area.isEmpty();
+  }
+
+  @Test
   void scaleGrowsBoundsAroundTheOrigin() {
     Rectangle rectangle = new Rectangle(0, 0, 10, 10);
 

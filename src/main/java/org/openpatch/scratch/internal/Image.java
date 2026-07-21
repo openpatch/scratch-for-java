@@ -464,7 +464,13 @@ public class Image {
     }
 
     buffer.noTint();
-    buffer.resetShader();
+    // resetShader() flushes the renderer, which ends the current batch and costs
+    // a draw call. Doing that for every sprite means a stage with 200 sprites
+    // issues 200 draw calls instead of a handful of batched ones, so only reset
+    // when a shader was actually set above.
+    if (shader != null) {
+      buffer.resetShader();
+    }
     buffer.pop();
   }
 

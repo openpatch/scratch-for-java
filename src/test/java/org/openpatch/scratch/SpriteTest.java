@@ -142,4 +142,42 @@ class SpriteTest {
     assertEquals(1000.0, sprite.getX(), DELTA);
     assertEquals(1000.0, sprite.getY(), DELTA);
   }
+
+  @Test
+  void hitboxFollowsTheSpriteAfterItMoves() {
+    // getHitbox() reuses the last hitbox while the sprite stands still, so that
+    // collision checks do not rebuild it once per pair. Anything that changes
+    // the shape has to be noticed, or sprites collide where they used to be.
+    Sprite sprite = new Sprite();
+    sprite.setPosition(0, 0);
+    double startX = sprite.getHitbox().getBounds().x();
+
+    sprite.setPosition(100, 0);
+
+    assertEquals(startX + 100, sprite.getHitbox().getBounds().x(), DELTA);
+  }
+
+  @Test
+  void customHitboxFollowsTheSpriteAfterItIsResized() {
+    Sprite sprite = new Sprite();
+    sprite.setHitbox(0, 0, 40, 0, 40, 20, 0, 20);
+    double startWidth = sprite.getHitbox().getBounds().width();
+
+    sprite.setSize(200);
+
+    assertEquals(2 * startWidth, sprite.getHitbox().getBounds().width(), DELTA);
+  }
+
+  @Test
+  void customHitboxFollowsTheSpriteAfterItTurns() {
+    Sprite sprite = new Sprite();
+    sprite.setHitbox(0, 0, 40, 0, 40, 20, 0, 20);
+    double startWidth = sprite.getHitbox().getBounds().width();
+
+    sprite.setDirection(180);
+
+    // A quarter turn stands the box on its end, so what was its width is now
+    // its height.
+    assertEquals(startWidth, sprite.getHitbox().getBounds().height(), DELTA);
+  }
 }
