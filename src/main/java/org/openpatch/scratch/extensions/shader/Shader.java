@@ -3,6 +3,7 @@ package org.openpatch.scratch.extensions.shader;
 import java.util.concurrent.TimeUnit;
 import org.openpatch.scratch.Color;
 import org.openpatch.scratch.Vector2;
+import org.openpatch.scratch.ScratchException;
 import org.openpatch.scratch.internal.Applet;
 
 import processing.opengl.PShader;
@@ -69,9 +70,8 @@ public class Shader {
       System.err.println("\nTip: Make sure both shader files exist and");
       System.err.println("     the paths are correct.");
       System.err.println("==============================================\n");
-      System.exit(1);
+      throw new ScratchException("Could not load shader: " + fragementShaderPath);
     }
-    return null;
   }
 
   /**

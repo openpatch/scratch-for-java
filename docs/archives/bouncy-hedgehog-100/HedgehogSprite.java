@@ -1,5 +1,5 @@
 import org.openpatch.scratch.Sprite;
-import org.openpatch.scratch.extensions.math.Random;
+import org.openpatch.scratch.Random;
 
 public class HedgehogSprite extends Sprite {
 

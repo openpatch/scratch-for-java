@@ -85,7 +85,7 @@ public class Font {
           PFont font = Applet.getInstance().createFont(path, size, Text.SMOOTHING);
           fontMap.put(size, font);
         } catch (Exception e) {
-          AssetErrorReporter.reportAndExit(
+          AssetErrorReporter.reportAndFail(
               "font", path, "TTF, OTF",
               new String[]{".ttf", ".otf"});
         }

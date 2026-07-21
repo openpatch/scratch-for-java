@@ -1,6 +1,8 @@
 package org.openpatch.scratch.internal;
 
 import javax.sound.sampled.*;
+
+import org.openpatch.scratch.ScratchException;
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -50,7 +52,7 @@ public class Sound {
       if (resource != null) {
         return new Sound(name, resource);
       }
-      AssetErrorReporter.reportUnknownBuiltinAndExit(pathOrBuiltin, "sound");
+      AssetErrorReporter.reportUnknownBuiltinAndFail(pathOrBuiltin, "sound");
     }
     return new Sound(name, pathOrBuiltin);
   }
@@ -75,7 +77,7 @@ public class Sound {
         }
         soundCache.put(path, clip);
       } catch (IOException e) {
-        AssetErrorReporter.reportAndExit(
+        AssetErrorReporter.reportAndFail(
             "sound", path, "WAV, AIFF, AU, OGG",
             new String[]{".wav", ".aiff", ".au", ".ogg"});
       } catch (UnsupportedAudioFileException e) {
@@ -87,7 +89,7 @@ public class Sound {
         System.err.println("\nTip: Convert your audio file to WAV or OGG");
         System.err.println("     format using an audio conversion tool.");
         System.err.println("==============================================\n");
-        System.exit(1);
+        throw new ScratchException("Unsupported audio format: " + path);
       } catch (LineUnavailableException e) {
         System.err.println("\n==============================================");
         System.err.println("ERROR: Audio system unavailable!");
@@ -98,7 +100,7 @@ public class Sound {
         System.err.println("  2. Audio device is being used by another program");
         System.err.println("\nTip: Check your system's audio settings.");
         System.err.println("==============================================\n");
-        System.exit(1);
+        throw new ScratchException("No audio device available for: " + path);
       }
     }
     return clip;

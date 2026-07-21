@@ -11,6 +11,7 @@ import org.openpatch.scratch.extensions.shader.Shaders;
 import org.openpatch.scratch.internal.Image;
 import org.openpatch.scratch.internal.Sound;
 import org.openpatch.scratch.internal.Stamp;
+import processing.core.PConstants;
 import processing.core.PGraphics;
 import processing.event.KeyEvent;
 import processing.event.MouseEvent;
@@ -2186,12 +2187,42 @@ public class Sprite {
   protected void draw(PGraphics buffer) {
     if (this.stage == null)
       return;
-    if (this.costumes.size() > 0 && this.show) {
-      var shader = this.shaders.getCurrent();
-      this.costumes
-          .get(this.currentCostume)
-          .draw(buffer, this.size, this.direction, this.x, this.y, this.rotationStyle, shader);
+    if (!this.show) {
+      return;
     }
+    if (this.costumes.isEmpty()) {
+      // Drawing nothing at all looks exactly like a broken program, so say what
+      // is wrong and put a marker where the sprite would be.
+      this.warnOnce("no-costume",
+          "WARNING: " + this.getClass().getSimpleName() + " has no costume, so there is nothing to draw!",
+          "",
+          "Tip: Call addCostume() in the constructor, for example",
+          "     this.addCostume(\"bunny1_stand\");",
+          "     All built-in costumes are listed at https://scratch4j.openpatch.org/sprites");
+      this.drawMissingCostume(buffer);
+      return;
+    }
+    var shader = this.shaders.getCurrent();
+    this.costumes
+        .get(this.currentCostume)
+        .draw(buffer, this.size, this.direction, this.x, this.y, this.rotationStyle, shader);
+  }
+
+  /** A question mark where a sprite without a costume would have been. */
+  private void drawMissingCostume(PGraphics buffer) {
+    var side = 40 * this.size / 100.0;
+    buffer.push();
+    buffer.translate((float) this.x, (float) -this.y);
+    buffer.rectMode(PConstants.CENTER);
+    buffer.stroke(Window.DEBUG_COLOR[0], Window.DEBUG_COLOR[1], Window.DEBUG_COLOR[2]);
+    buffer.strokeWeight(2);
+    buffer.noFill();
+    buffer.rect(0, 0, (float) side, (float) side);
+    buffer.fill(Window.DEBUG_COLOR[0], Window.DEBUG_COLOR[1], Window.DEBUG_COLOR[2]);
+    buffer.textAlign(PConstants.CENTER, PConstants.CENTER);
+    buffer.textSize((float) (side * 0.6));
+    buffer.text("?", 0, 0);
+    buffer.pop();
   }
 
   /**

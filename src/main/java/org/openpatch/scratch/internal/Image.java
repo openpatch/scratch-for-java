@@ -96,7 +96,7 @@ public class Image {
       if (entry != null) {
         return new Image(name, entry.sheetPath, entry.x, entry.y, entry.width, entry.height);
       }
-      AssetErrorReporter.reportUnknownBuiltinAndExit(pathOrBuiltin, "sprite");
+      AssetErrorReporter.reportUnknownBuiltinAndFail(pathOrBuiltin, "sprite");
     }
     return new Image(name, pathOrBuiltin);
   }
@@ -119,7 +119,7 @@ public class Image {
         // fall through to null check below
       }
       if (image == null || image.width == 0) {
-        AssetErrorReporter.reportAndExit(
+        AssetErrorReporter.reportAndFail(
             "image", originalPath, "PNG, JPG, GIF",
             new String[]{".png", ".jpg", ".jpeg", ".gif"});
       }
