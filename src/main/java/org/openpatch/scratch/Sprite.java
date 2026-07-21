@@ -2028,6 +2028,50 @@ public class Sprite {
   }
 
   /**
+   * Asks a question and waits for an answer to be typed in. The question appears
+   * at the top of the stage.
+   *
+   * <p>
+   * Unlike Scratch, this does not pause the sprite. `run()` keeps being called
+   * while the question is on screen, so check {@link #isAsking()} or wait for
+   * {@link #getAnswer()} to change.
+   *
+   * @param question the question to show
+   *
+   * @scratchblock ask [question] and wait
+   */
+  public void ask(String question) {
+    if (this.stage == null) {
+      this.warnOnce("ask-no-stage",
+          "WARNING: ask() called but this sprite is not on a stage!",
+          "",
+          "Tip: Add the sprite to a stage before asking a question.");
+      return;
+    }
+    this.stage.ask(question);
+  }
+
+  /**
+   * Returns the last answer that was typed in.
+   *
+   * @return the answer, or an empty string if nothing has been answered yet
+   *
+   * @scratchblock (answer)
+   */
+  public String getAnswer() {
+    return this.stage == null ? "" : this.stage.getAnswer();
+  }
+
+  /**
+   * Checks whether a question is on screen and still waiting for an answer.
+   *
+   * @return true while a question is waiting
+   */
+  public boolean isAsking() {
+    return this.stage != null && this.stage.isAsking();
+  }
+
+  /**
    * Broadcasts a message to all sprites in the stage except the current sprite.
    * If the stage is not
    * set, the method returns immediately.

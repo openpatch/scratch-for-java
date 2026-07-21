@@ -92,6 +92,10 @@ public class Stage {
   private int cursorActiveSpotX;
   private int cursorActiveSpotY;
   private final Text display;
+  private final Text askDisplay;
+  private String askQuestion = null;
+  private final StringBuilder askInput = new StringBuilder();
+  private String answer = "";
   private final AbstractMap<String, Timer> timer;
   List<Text> texts;
   List<Pen> pens;
@@ -253,6 +257,14 @@ public class Stage {
         applet.getRenderWidth(),
         TextStyle.BOX);
     this.display.addedToStage(this);
+    // Bottom of the stage, where Scratch puts its ask box too.
+    this.askDisplay = new Text(
+        null,
+        -applet.getRenderWidth() / 2,
+        -applet.getRenderHeight() / 2,
+        applet.getRenderWidth(),
+        TextStyle.BOX);
+    this.askDisplay.addedToStage(this);
 
     var p = new Polygon();
     p.addPoint(-this.getWidth() / 2, this.getHeight() / 2);
@@ -1197,6 +1209,14 @@ public class Stage {
    * @param e
    */
   private void keyEvent(KeyEvent e) {
+    if (this.askQuestion != null) {
+      if (e.getAction() == KeyEvent.PRESS) {
+        this.typeIntoAnswer(e.getKey());
+      }
+      // While a question is on screen the keys belong to it, so sprites do not
+      // react to someone typing their name.
+      return;
+    }
     switch (e.getAction()) {
       case KeyEvent.PRESS:
         this.whenKeyPressed(KeyCode.fromCode(e.getKeyCode()));
@@ -1289,6 +1309,84 @@ public class Stage {
    */
   public void display(String text, final int millis) {
     this.display.showText(text, millis);
+  }
+
+  /**
+   * Asks a question and waits for an answer to be typed in. A box appears at the
+   * top of the stage; whatever is typed goes into it until Enter is pressed.
+   *
+   * <p>
+   * Unlike Scratch, this does not pause anything. Your `run()` keeps being
+   * called while the question is on screen, so check {@link #isAsking()} or wait
+   * for {@link #getAnswer()} to change:
+   *
+   * <pre>{@code
+   * public void run() {
+   *   if (!this.isAsking() && this.getAnswer().isEmpty()) {
+   *     this.ask("What is your name?");
+   *   }
+   *   if (!this.getAnswer().isEmpty()) {
+   *     this.display("Hello " + this.getAnswer() + "!");
+   *   }
+   * }
+   * }</pre>
+   *
+   * @param question the question to show
+   *
+   * @scratchblock ask [question] and wait
+   */
+  public void ask(String question) {
+    this.askQuestion = question == null ? "" : question;
+    this.askInput.setLength(0);
+    this.showAskBox();
+  }
+
+  /**
+   * Returns the last answer that was typed in.
+   *
+   * @return the answer, or an empty string if nothing has been answered yet
+   *
+   * @scratchblock (answer)
+   */
+  public String getAnswer() {
+    return this.answer;
+  }
+
+  /**
+   * Checks whether a question is on screen and still waiting for an answer.
+   *
+   * @return true while a question is waiting
+   */
+  public boolean isAsking() {
+    return this.askQuestion != null;
+  }
+
+  /** Puts the question and whatever has been typed so far on screen. */
+  private void showAskBox() {
+    this.askDisplay.showText(this.askQuestion + "\n> " + this.askInput);
+  }
+
+  /** Handles one keypress while a question is waiting for an answer. */
+  private void typeIntoAnswer(char key) {
+    if (key == '\n' || key == '\r') {
+      this.answer = this.askInput.toString();
+      this.askQuestion = null;
+      this.askInput.setLength(0);
+      this.askDisplay.showText(null);
+      return;
+    }
+    if (key == '\b') {
+      if (this.askInput.length() > 0) {
+        this.askInput.setLength(this.askInput.length() - 1);
+      }
+      this.showAskBox();
+      return;
+    }
+    // 65535 is what Processing reports for keys that produce no character.
+    if (key >= ' ' && key != 65535) {
+      this.askInput.append(key);
+      this.showAskBox();
+    }
   }
 
   /**
@@ -1626,6 +1724,9 @@ public class Stage {
     }
     if (this.display != null) {
       this.display.draw(this.uiBuffer);
+    }
+    if (this.askDisplay != null) {
+      this.askDisplay.draw(this.uiBuffer);
     }
     this.sprites.stream().filter(s -> s.isUI()).forEach(s -> s.draw(uiBuffer));
     this.texts.stream().filter(t -> t.isUI()).forEach(t -> t.draw(uiBuffer));
