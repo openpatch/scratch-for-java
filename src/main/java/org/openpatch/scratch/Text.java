@@ -54,17 +54,140 @@ public class Text {
   /** SPEAK_BUBBLE_MIN_LIMIT is the minimum width of the speech bubble. */
   public static int SPEAK_BUBBLE_MIN_LIMIT = 80;
 
-  /** DEFAULT_FONT_SIZE is the default font size for the text. */
-  public static int DEFAULT_FONT_SIZE = 14;
+  private static String font = "UbuntuMono-Regular.ttf";
+  private static int fontSize = 14;
+  private static int[] fontSizes = { 14 };
+  private static boolean smoothing = true;
 
-  /** DEFAULT_FONT is the default font for the text. */
-  public static String DEFAULT_FONT = "UbuntuMono-Regular.ttf";
+  /**
+   * Chooses the font all text is written in, and how big it is.
+   *
+   * <p>
+   * Call it before the first stage is created. The font is loaded while the
+   * window starts up, so choosing one later is not reliable.
+   *
+   * <pre>{@code
+   * public static void main(String[] args) {
+   *   Text.useFont("assets/Retro Gaming.ttf", 11);
+   *   new MyStage();
+   * }
+   * }</pre>
+   *
+   * @param path the path to a .ttf or .otf file
+   * @param size the size to write in
+   */
+  public static void useFont(String path, int size) {
+    if (warnIfTooLate("Text.useFont(\"assets/Retro Gaming.ttf\", 11);")) {
+      return;
+    }
+    if (path != null) {
+      font = path;
+    }
+    if (size > 0) {
+      fontSize = size;
+      fontSizes = new int[] { size };
+    }
+    Font.reset();
+  }
 
-  /** FONT_SIZES is an array of font sizes that can be used for the text. */
-  public static int[] FONT_SIZES = {DEFAULT_FONT_SIZE};
+  /**
+   * Chooses the font all text is written in, keeping the current size.
+   *
+   * @param path the path to a .ttf or .otf file
+   */
+  public static void useFont(String path) {
+    useFont(path, fontSize);
+  }
 
-  /** SMOOTHING is a boolean flag that indicates whether text will be smoothed */
-  public static boolean SMOOTHING = true;
+  /**
+   * Prepares several sizes of the font in advance. Only needed when text is
+   * shown at more than one size, so that every size looks sharp.
+   *
+   * @param sizes the sizes to prepare
+   */
+  public static void useFontSizes(int... sizes) {
+    if (warnIfTooLate("Text.useFontSizes(14, 20);")) {
+      return;
+    }
+    if (sizes != null && sizes.length > 0) {
+      fontSizes = sizes.clone();
+      fontSize = sizes[0];
+      Font.reset();
+    }
+  }
+
+  /**
+   * Chooses whether letters are smoothed. Turn it off for pixel fonts.
+   *
+   * @param smooth true to smooth the letters
+   */
+  public static void useSmoothing(boolean smooth) {
+    if (warnIfTooLate("Text.useSmoothing(false);")) {
+      return;
+    }
+    smoothing = smooth;
+    Font.reset();
+  }
+
+  /**
+   * Says so, loudly, when a font setting is chosen after the window exists,
+   * because the font is already loaded by then.
+   */
+  private static boolean warnIfTooLate(String example) {
+    if (Window.getInstance() == null) {
+      return false;
+    }
+    System.err.println("\n==============================================");
+    System.err.println("WARNING: A font setting was chosen too late!");
+    System.err.println("==============================================");
+    System.err.println("\nThe window is already running and the font has been");
+    System.err.println("loaded, so this may not take effect.");
+    System.err.println("\nTip: Choose it before the first stage is created:");
+    System.err.println("       " + example);
+    System.err.println("       new MyStage();");
+    System.err.println("==============================================\n");
+    return true;
+  }
+
+  /**
+   * Returns the font that text is written in by default.
+   *
+   * @return the path to the font file
+   */
+  public static String getDefaultFont() {
+    return font;
+  }
+
+  /**
+   * Returns the size text is written in by default.
+   *
+   * @return the font size
+   */
+  public static int getDefaultFontSize() {
+    return fontSize;
+  }
+
+  /**
+   * Returns the sizes prepared in advance.
+   *
+   * @return the font sizes
+   *
+   * @ignore-in-docs
+   */
+  public static int[] getDefaultFontSizes() {
+    return fontSizes;
+  }
+
+  /**
+   * Returns whether letters are smoothed.
+   *
+   * @return true if smoothing is on
+   *
+   * @ignore-in-docs
+   */
+  public static boolean isSmoothing() {
+    return smoothing;
+  }
 
   /**
    * Constructs a new Text object with default values. The text is initialized to an empty string,
@@ -99,7 +222,7 @@ public class Text {
   public Text(String text, double x, double y, double width) {
     this.x = x;
     this.y = y;
-    this.textSize = DEFAULT_FONT_SIZE;
+    this.textSize = fontSize;
     this.originalText = text;
     this.width = width;
     this.show = false;
@@ -107,7 +230,7 @@ public class Text {
     this.textColor = new Color(120, 120, 120);
     this.strokeColor = new Color(218, 218, 218);
     this.fontName = "default";
-    this.addFont("default", DEFAULT_FONT);
+    this.addFont("default", font);
   }
 
   /**

@@ -61,10 +61,21 @@ public class Font {
    *
    * @return the default font
    */
+  /**
+   * Forgets every font loaded so far, so that a changed font setting takes
+   * effect instead of the old one lingering in the cache.
+   *
+   * @ignore-in-docs
+   */
+  public static void reset() {
+    fonts.clear();
+    defaultFont = null;
+  }
+
   public static PFont getDefaultFont() {
     if (defaultFont == null) {
       defaultFont = Applet.getInstance()
-          .createFont(Text.DEFAULT_FONT, Text.DEFAULT_FONT_SIZE, Text.SMOOTHING);
+          .createFont(Text.getDefaultFont(), Text.getDefaultFontSize(), Text.isSmoothing());
     }
     return defaultFont;
   }
@@ -77,12 +88,12 @@ public class Font {
    */
   public static AbstractMap<Integer, PFont> loadFont(String path) {
     var fontMap = fonts.getOrDefault(path, new ConcurrentHashMap<>());
-    for (int size : Text.FONT_SIZES) {
+    for (int size : Text.getDefaultFontSizes()) {
       if (fontMap.containsKey(size)) {
         return fontMap;
       } else {
         try {
-          PFont font = Applet.getInstance().createFont(path, size, Text.SMOOTHING);
+          PFont font = Applet.getInstance().createFont(path, size, Text.isSmoothing());
           fontMap.put(size, font);
         } catch (Exception e) {
           AssetErrorReporter.reportAndFail(
@@ -100,10 +111,10 @@ public class Font {
       this.fontMap = loadFont(this.path);
     }
 
-    int actualSize = Text.FONT_SIZES[0];
+    int actualSize = Text.getDefaultFontSizes()[0];
     int bestSizeDifference = Math.abs(actualSize - targetSize);
 
-    for (int size : Text.FONT_SIZES) {
+    for (int size : Text.getDefaultFontSizes()) {
       int sizeDifference = Math.abs(size - targetSize);
       if (bestSizeDifference > sizeDifference) {
         bestSizeDifference = sizeDifference;

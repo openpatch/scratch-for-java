@@ -359,7 +359,7 @@ public class Applet extends PApplet {
 
   /** Loads assets from the specified directory. */
   public void loadAssets() {
-    Font.loadFont(Text.DEFAULT_FONT);
+    Font.loadFont(Text.getDefaultFont());
     if (this.assets != null) {
       try {
         this.loadingText = "Finding files...";

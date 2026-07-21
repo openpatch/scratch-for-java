@@ -13,7 +13,7 @@ public class Game extends Window {
   }
 
   public static void main(String[] args) {
-    Text.FONT_SIZES = new int[] { 32, 48 };
+    Text.useFontSizes(32, 48);
     new Game();
   }
 }
