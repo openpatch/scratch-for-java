@@ -35,6 +35,26 @@ You can release the library with the following command:
 mvn deploy -Pcentral
 ```
 
+## Running anything, quickly
+
+```
+./scripts/run.sh
+```
+
+Pick a demo, a finished tutorial project or a reference example from a list and
+it runs. Needs [fzf](https://github.com/junegunn/fzf).
+
+```
+./scripts/run.sh cat          # start with the list already filtered
+./scripts/run.sh --demos      # only the demos
+./scripts/run.sh --archives   # only the finished tutorial projects
+./scripts/run.sh --reference  # only the reference examples
+```
+
+A query matching exactly one thing runs it without asking. The library and
+examples are compiled if they have not been already, and the tutorial projects,
+which are not part of the build, are compiled on the fly.
+
 ## Running the tutorial projects
 
 `docs/archives` holds a finished project for every tutorial. They are handy for
