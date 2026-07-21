@@ -13,5 +13,8 @@ popd
 sed -i "s/{{VERSION}}/${VERSION}/g" ./docs/book/download.md
 sed -i "s/{{VERSION}}/${VERSION}/g" ./docs/book/index.md
 
+# Builds the built-in sprite and sound pages from src/main/resources.
+mvn -q compile exec:java@generate-asset-pages
+
 cd docs
 npx hyperbook build

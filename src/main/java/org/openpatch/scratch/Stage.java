@@ -879,7 +879,8 @@ public class Stage {
    * exists do nothing.
    *
    * @param name      a unique name
-   * @param imagePath a image path
+   * @param imagePath a image path, or the name of a built-in sprite such as
+   *                  "bg_castle"
    * @param stretch   stretch image to window size
    */
   public void addBackdrop(String name, final String imagePath, boolean stretch) {
@@ -888,7 +889,7 @@ public class Stage {
         return;
       }
     }
-    Image backdrop = new Image(name, imagePath);
+    Image backdrop = Image.ofNameOrPath(name, imagePath);
     if (stretch) {
       backdrop.setSize(this.getWidth(), this.getHeight());
     }
@@ -900,10 +901,31 @@ public class Stage {
    * exists do nothing.
    *
    * @param name      a unique name
-   * @param imagePath a image path
+   * @param imagePath a image path, or the name of a built-in sprite such as
+   *                  "bg_castle"
    */
   public void addBackdrop(String name, final String imagePath) {
     this.addBackdrop(name, imagePath, false);
+  }
+
+  /**
+   * Add one of the backdrops that ship with Scratch for Java to the stage. The
+   * backdrop gets the same name as the built-in sprite. If a backdrop with that
+   * name already exists do nothing.
+   *
+   * <p>
+   * Example usage:
+   *
+   * <pre>{@code
+   * this.addBackdrop("bg_castle");
+   * }</pre>
+   *
+   * @param name the name of a built-in sprite, for example "bg_castle". Add the
+   *             sheet in front of the name, for example "platformer/grass", if
+   *             the same name exists on several sheets.
+   */
+  public void addBackdrop(String name) {
+    this.addBackdrop(name, name, false);
   }
 
   /**
@@ -1103,7 +1125,8 @@ public class Stage {
    * nothing.
    *
    * @param name      a unique name
-   * @param soundPath a sound path
+   * @param soundPath a sound path, or the name of a built-in sound such as
+   *                  "footstep_carpet_000"
    */
   public void addSound(String name, final String soundPath) {
     for (Sound sound : this.sounds) {
@@ -1112,8 +1135,26 @@ public class Stage {
       }
     }
 
-    Sound sound = new Sound(name, soundPath);
+    Sound sound = Sound.ofNameOrPath(name, soundPath);
     this.sounds.add(sound);
+  }
+
+  /**
+   * Add one of the sounds that ship with Scratch for Java to the stage. The
+   * sound gets the same name as the built-in sound. If a sound with that name
+   * already exists do nothing.
+   *
+   * <p>
+   * Example usage:
+   *
+   * <pre>{@code
+   * this.addSound("footstep_carpet_000");
+   * }</pre>
+   *
+   * @param name the name of a built-in sound, for example "footstep_carpet_000"
+   */
+  public void addSound(String name) {
+    this.addSound(name, name);
   }
 
   /**

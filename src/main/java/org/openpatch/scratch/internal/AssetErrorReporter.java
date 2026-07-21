@@ -115,6 +115,43 @@ public final class AssetErrorReporter {
     System.exit(1);
   }
 
+  /**
+   * Prints a beginner-friendly error for a name that was meant to be an asset
+   * bundled with Scratch for Java but does not exist, and then exits.
+   *
+   * @param name      the name the user supplied
+   * @param assetType either "sprite" or "sound"
+   */
+  public static void reportUnknownBuiltinAndExit(String name, String assetType) {
+    boolean isSound = "sound".equals(assetType);
+
+    System.err.println("\n==============================================");
+    System.err.println("ERROR: Unknown built-in " + assetType + "!");
+    System.err.println("==============================================");
+    System.err.println("You wrote: " + name);
+    System.err.println("\nThere is no built-in " + assetType + " with that name.");
+
+    List<String> suggestions = isSound
+        ? BuiltinSounds.suggest(name, MAX_LISTED_FILES)
+        : BuiltinAssets.suggest(name, MAX_LISTED_FILES);
+    if (!suggestions.isEmpty()) {
+      System.err.println("\n*** Did you mean:");
+      for (String suggestion : suggestions) {
+        System.err.println("  - " + suggestion);
+      }
+    }
+
+    if (name.indexOf('/') >= 0) {
+      System.err.println("\nTip: If you meant a file of your own, add the file");
+      System.err.println("     extension, for example \"" + name
+          + (isSound ? ".wav" : ".png") + "\".");
+    }
+    System.err.println("\nTip: All built-in " + assetType + "s are listed at");
+    System.err.println("     https://scratch4j.openpatch.org/" + assetType + "s");
+    System.err.println("==============================================\n");
+    System.exit(1);
+  }
+
   private static String capitalize(String s) {
     if (s == null || s.isEmpty()) return s;
     return Character.toUpperCase(s.charAt(0)) + s.substring(1);

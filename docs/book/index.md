@@ -3,7 +3,7 @@ name: Welcome
 hide: true
 ---
 
-# Scratch for Java (Version {{VERSION}})
+# Scratch for Java (Version 4.28.1)
 
 To ease the transition from the block-based programming environment
 [Scratch](scratch.mit.edu) to Java this

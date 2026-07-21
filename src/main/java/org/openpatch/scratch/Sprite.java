@@ -509,11 +509,32 @@ public class Sprite {
   }
 
   /**
+   * Add one of the costumes that ship with Scratch for Java to the sprite. The
+   * costume gets the same name as the built-in sprite. If a costume with that
+   * name already exists do nothing.
+   *
+   * <p>
+   * Example usage:
+   *
+   * <pre>{@code
+   * this.addCostume("bunny1_jump");
+   * }</pre>
+   *
+   * @param name the name of a built-in sprite, for example "bunny1_jump". Add
+   *             the sheet in front of the name, for example
+   *             "platformer/grass", if the same name exists on several sheets.
+   */
+  public void addCostume(String name) {
+    this.addCostume(name, name);
+  }
+
+  /**
    * Add a costume to the sprite. If a costume with the received name already
    * exists do nothing.
    *
    * @param name      a unique name
-   * @param imagePath a image path
+   * @param imagePath a image path, or the name of a built-in sprite such as
+   *                  "bunny1_jump"
    */
   public void addCostume(String name, final String imagePath) {
     for (Image costume : this.costumes) {
@@ -522,7 +543,7 @@ public class Sprite {
       }
     }
 
-    Image costume = new Image(name, imagePath);
+    Image costume = Image.ofNameOrPath(name, imagePath);
     this.costumes.add(costume);
   }
 
@@ -716,7 +737,8 @@ public class Sprite {
    * do nothing.
    *
    * @param name      a unique name
-   * @param soundPath a sound path
+   * @param soundPath a sound path, or the name of a built-in sound such as
+   *                  "footstep_carpet_000"
    */
   public void addSound(String name, final String soundPath) {
     for (Sound sound : this.sounds) {
@@ -725,8 +747,26 @@ public class Sprite {
       }
     }
 
-    Sound sound = new Sound(name, soundPath);
+    Sound sound = Sound.ofNameOrPath(name, soundPath);
     this.sounds.add(sound);
+  }
+
+  /**
+   * Add one of the sounds that ship with Scratch for Java to the sprite. The
+   * sound gets the same name as the built-in sound. If a sound with that name
+   * already exists do nothing.
+   *
+   * <p>
+   * Example usage:
+   *
+   * <pre>{@code
+   * this.addSound("footstep_carpet_000");
+   * }</pre>
+   *
+   * @param name the name of a built-in sound, for example "footstep_carpet_000"
+   */
+  public void addSound(String name) {
+    this.addSound(name, name);
   }
 
   /**
@@ -1650,14 +1690,34 @@ public class Sprite {
       return this.hitbox;
     }
 
-    var cornerTopLeft = Utils.rotateXY(
-        this.x - spriteWidth / 2.0f, -this.y - spriteHeight / 2.0f, this.x, -this.y, rotation);
-    var cornerTopRight = Utils.rotateXY(
-        this.x + spriteWidth / 2.0f, -this.y - spriteHeight / 2.0f, this.x, -this.y, rotation);
-    var cornerBottomLeft = Utils.rotateXY(
-        this.x - spriteWidth / 2.0f, -this.y + spriteHeight / 2.0f, this.x, -this.y, rotation);
-    var cornerBottomRight = Utils.rotateXY(
-        this.x + spriteWidth / 2.0f, -this.y + spriteHeight / 2.0f, this.x, -this.y, rotation);
+    // By default the hitbox wraps the painted pixels of the costume, not the
+    // whole costume. Costumes are often drawn into a larger canvas - a standing
+    // pose in a costume tall enough to also hold a jumping one - and colliding
+    // with that empty space looks like a bug to whoever plays the game.
+    var left = this.x - spriteWidth / 2.0;
+    var top = -this.y - spriteHeight / 2.0;
+    var boundsWidth = spriteWidth;
+    var boundsHeight = spriteHeight;
+
+    if (currentCostume != null && this.show
+        && currentCostume.getOriginalWidth() > 0 && currentCostume.getOriginalHeight() > 0) {
+      var content = currentCostume.getContentBounds();
+      var scaleX = spriteWidth / (double) currentCostume.getOriginalWidth();
+      var scaleY = spriteHeight / (double) currentCostume.getOriginalHeight();
+
+      left += content[0] * scaleX;
+      top += content[1] * scaleY;
+      boundsWidth = content[2] * scaleX;
+      boundsHeight = content[3] * scaleY;
+    }
+
+    var right = left + boundsWidth;
+    var bottom = top + boundsHeight;
+
+    var cornerTopLeft = Utils.rotateXY(left, top, this.x, -this.y, rotation);
+    var cornerTopRight = Utils.rotateXY(right, top, this.x, -this.y, rotation);
+    var cornerBottomLeft = Utils.rotateXY(left, bottom, this.x, -this.y, rotation);
+    var cornerBottomRight = Utils.rotateXY(right, bottom, this.x, -this.y, rotation);
 
     double[] xPoints = new double[4];
     double[] yPoints = new double[4];
