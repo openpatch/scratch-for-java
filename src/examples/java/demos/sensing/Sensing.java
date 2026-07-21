@@ -18,8 +18,7 @@ public class Sensing extends Stage {
     this.add(h);
     this.add(m);
 
-    var uiH = new Hero();
-    uiH.isUI(true);
+    var uiH = new UIHero();
     uiH.setPosition(300, 300);
     this.add(uiH);
   }
@@ -94,5 +93,12 @@ class MovableHero extends Hero {
     } else {
       this.say(null);
     }
+  }
+}
+
+/** A Hero pinned to the user interface layer. */
+class UIHero extends Hero {
+  public UIHero() {
+    this.setUI(true);
   }
 }

@@ -385,7 +385,7 @@ public class Sprite {
    * @param bottom the size of the bottom slice in pixels
    * @param left   the size of the left slice in pixels
    */
-  public void setNineSlice(int top, int right, int bottom, int left) {
+  protected void setNineSlice(int top, int right, int bottom, int left) {
     if (this.costumes.size() == 0)
       return;
     for (Image costume : this.costumes) {
@@ -394,7 +394,7 @@ public class Sprite {
   }
 
   /** Disables the nine-slice feature for all costumes of the sprite. */
-  public void disableNineSlice() {
+  protected void disableNineSlice() {
     if (this.costumes.size() == 0)
       return;
     for (Image costume : this.costumes) {
@@ -829,7 +829,7 @@ public class Sprite {
    *
    * @param height a height in pixels
    */
-  public void setHeight(double height) {
+  protected void setHeight(double height) {
     if (this.costumes.size() == 0) {
       warnOnce("setHeight-no-costume",
           "WARNING: setHeight() called but this sprite has no costumes!",
@@ -842,21 +842,13 @@ public class Sprite {
     }
   }
 
-  /**
-   * Changes the height of the sprite by a given amount.
-   *
-   * @param amount a height in pixels
-   */
-  public void changeHeight(double amount) {
-    this.setHeight(this.getHeight() + amount);
-  }
 
   /**
    * * Sets the width of the sprite.
    *
    * @param width a width in pixels
    */
-  public void setWidth(double width) {
+  protected void setWidth(double width) {
     if (this.costumes.size() == 0) {
       warnOnce("setWidth-no-costume",
           "WARNING: setWidth() called but this sprite has no costumes!",
@@ -869,15 +861,6 @@ public class Sprite {
     }
   }
 
-  /**
-   * Returns the height of the sprite.
-   *
-   * @param amount a amount in pixels
-   *
-   */
-  public void changeWidth(double amount) {
-    this.setWidth(this.getWidth() + amount);
-  }
 
   /**
    * Changes the size of the sprite by a given percentage.
@@ -1960,7 +1943,7 @@ public class Sprite {
    *
    * @param isUI A boolean value indicating whether the sprite is part of the UI.
    */
-  public void isUI(boolean isUI) {
+  protected void setUI(boolean isUI) {
     this.isUI = isUI;
   }
 
@@ -1969,7 +1952,7 @@ public class Sprite {
    *
    * @return true if the sprite is part of the user interface, false otherwise.
    */
-  public boolean isUI() {
+  protected boolean isUI() {
     return this.isUI;
   }
 

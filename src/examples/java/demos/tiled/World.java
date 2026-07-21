@@ -60,8 +60,7 @@ public class World extends Stage {
     this.add(player);
 
     GameState.get().map = mapFile;
-    inventory = new Item();
-    inventory.isUI(true);
+    inventory = new UIItem();
     this.add(inventory);
     this.player = player;
   }

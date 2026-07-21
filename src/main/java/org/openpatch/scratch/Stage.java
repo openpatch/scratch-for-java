@@ -404,15 +404,6 @@ public class Stage {
 
 
 
-  /**
-   * Moves the specified sprite to the UI layer by removing it from the current
-   * list of sprites.
-   *
-   * @param sprite the sprite to be moved to the UI layer
-   */
-  public void goToUILayer(Sprite sprite) {
-    this.sprites.remove(sprite);
-  }
 
 
 

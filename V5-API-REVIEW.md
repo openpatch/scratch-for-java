@@ -54,8 +54,27 @@ Two more verdicts corrected while applying:
 - **`setCursor` — MOVE → KEEP.** It is per-stage state, and a menu stage wanting
   a different cursor from a game stage is reasonable. Two methods, left alone.
 
-Still to move (~26 methods): pen/stamp 13, ui + nine-slice sizing 10,
-spritesheet 1, input 2.
+Fourth batch done: **`UISprite`**, another 9 off the core; the API is at **199**.
+
+`extensions/ui/UISprite` is a `Sprite` that is drawn on the interface layer and
+can be sized in pixels, which is what nine-slice scaling needs. `setWidth`,
+`setHeight`, `setNineSlice` and `disableNineSlice` are now `protected` on
+`Sprite` and widened to `public` on `UISprite`; `changeWidth`/`changeHeight`
+live only on `UISprite`; `isUI(boolean)`/`isUI()` became `protected setUI`/
+`isUI`; and `Stage.goToUILayer` is gone (unused, and it only removed the sprite
+from the stage's list).
+
+One correction: **`getWidth`/`getHeight` stay on `Sprite`.** They are needed
+generally - the y-sorting added in the last batch uses `getHeight()` - so only
+the setters are nine-slice-specific.
+
+A note on the tradeoff: `isUI(true)` used to let any sprite be promoted to the
+interface layer at runtime, and the sensing and tiled demos both do that with a
+class they also use as an ordinary sprite. They now declare a three-line
+subclass (`UIHero`, `UIItem`) that calls the protected `setUI(true)`. That keeps
+the capability without putting the flag back on `Sprite`'s public surface.
+
+Still to move (~16 methods): pen/stamp 13, spritesheet 1, input 2.
 
 Then: step 3 (overloads), step 4 (packages), step 5 (docs).
 
