@@ -1,5 +1,5 @@
 import org.openpatch.scratch.KeyCode;
-import org.openpatch.scratch.extensions.animation.AnimatedSprite;
+import org.openpatch.scratch.AnimatedSprite;
 
 public class GhostSprite extends AnimatedSprite {
 
@@ -12,17 +12,17 @@ public class GhostSprite extends AnimatedSprite {
   }
 
   public void run() {
-    if (this.isKeyPressed(KeyCode.VK_LEFT)) {
+    if (this.isKeyPressed(KeyCode.LEFT)) {
       this.changeX(-this.speed);
-    } else if (this.isKeyPressed(KeyCode.VK_RIGHT)) {
+    } else if (this.isKeyPressed(KeyCode.RIGHT)) {
       this.changeX(this.speed);
     }
-    if (this.isKeyPressed(KeyCode.VK_UP)) {
+    if (this.isKeyPressed(KeyCode.UP)) {
       this.changeY(this.speed);
-    } else if (this.isKeyPressed(KeyCode.VK_DOWN)) {
+    } else if (this.isKeyPressed(KeyCode.DOWN)) {
       this.changeY(-this.speed);
     }
-    if (this.isKeyPressed(KeyCode.VK_SPACE)) {
+    if (this.isKeyPressed(KeyCode.SPACE)) {
       this.playSound("laugh");
     }
     this.playAnimation("idle");

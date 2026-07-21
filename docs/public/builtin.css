@@ -1,0 +1,230 @@
+/*
+ * Styles for the generated "Built-in Sprites" and "Built-in Sounds" pages.
+ * Only custom ba-/bs- elements are targeted, never Hyperbook's own classes.
+ */
+
+.ba-filter {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  padding: 0.75rem 0;
+  margin-bottom: 0.5rem;
+  background: var(--color-background, #fff);
+}
+
+.ba-search {
+  flex: 1 1 16rem;
+  min-width: 0;
+  padding: 0.5rem 0.75rem;
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  border: 2px solid rgba(128, 128, 128, 0.4);
+  border-radius: 0.4rem;
+}
+
+.ba-search:focus {
+  outline: none;
+  border-color: var(--color-brand, #4e7896);
+}
+
+.ba-count {
+  font-size: 0.85rem;
+  opacity: 0.7;
+  white-space: nowrap;
+}
+
+.ba-group[hidden],
+.ba-tile[hidden],
+.bs-row[hidden] {
+  display: none;
+}
+
+/* ----------------------------------------------------------- sprite grid */
+
+.ba-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(7.5rem, 1fr));
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.ba-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.5rem 0.25rem;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  background: transparent;
+  border: 2px solid transparent;
+  border-radius: 0.5rem;
+}
+
+.ba-tile:hover,
+.ba-tile:focus-visible {
+  outline: none;
+  border-color: var(--color-brand, #4e7896);
+}
+
+/*
+ * A checkerboard keeps white and transparent sprites visible in both the
+ * light and the dark theme.
+ */
+.ba-frame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 5.5rem;
+  overflow: hidden;
+  border-radius: 0.35rem;
+  background-color: #f2f2f2;
+  background-image:
+    linear-gradient(45deg, #e0e0e0 25%, transparent 25%),
+    linear-gradient(-45deg, #e0e0e0 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #e0e0e0 75%),
+    linear-gradient(-45deg, transparent 75%, #e0e0e0 75%);
+  background-size: 16px 16px;
+  background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+}
+
+/*
+ * Each sprite is a window onto its sheet: the box is exactly the size of the
+ * sprite and the sheet is shifted so the right part shows through.
+ */
+.ba-sprite {
+  display: block;
+  flex: none;
+  background-repeat: no-repeat;
+}
+
+.ba-sheet-platformer {
+  background-image: url("/builtin/platformer.png");
+}
+
+.ba-sheet-jumper {
+  background-image: url("/builtin/jumper.png");
+}
+
+.ba-sheet-space_shooter {
+  background-image: url("/builtin/space_shooter.png");
+}
+
+.ba-sheet-tappy_plane {
+  background-image: url("/builtin/tappy_plane.png");
+}
+
+.ba-name {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.7rem;
+  line-height: 1.2;
+  text-align: center;
+  overflow-wrap: anywhere;
+  opacity: 0.85;
+}
+
+/* ------------------------------------------------------------ sound list */
+
+.bs-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: 0.25rem;
+  margin-bottom: 2rem;
+}
+
+.bs-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.15rem 0;
+}
+
+.bs-play {
+  flex: none;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  cursor: pointer;
+  color: inherit;
+  background: transparent;
+  border: 2px solid rgba(128, 128, 128, 0.4);
+  border-radius: 50%;
+}
+
+.bs-play::before {
+  content: "▶";
+  font-size: 0.7rem;
+  line-height: 1;
+}
+
+.bs-play:hover,
+.bs-play:focus-visible {
+  outline: none;
+  border-color: var(--color-brand, #4e7896);
+}
+
+.bs-play[data-playing="true"]::before {
+  content: "■";
+}
+
+.bs-name {
+  flex: 1 1 auto;
+  padding: 0.25rem 0.35rem;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.8rem;
+  text-align: left;
+  color: inherit;
+  cursor: pointer;
+  background: transparent;
+  border: 2px solid transparent;
+  border-radius: 0.3rem;
+  overflow-wrap: anywhere;
+}
+
+.bs-name:hover,
+.bs-name:focus-visible {
+  outline: none;
+  border-color: var(--color-brand, #4e7896);
+}
+
+/* --------------------------------------------------------------- shared */
+
+.ba-empty {
+  padding: 2rem 0;
+  text-align: center;
+  opacity: 0.7;
+}
+
+/* Briefly shown after a name has been copied to the clipboard. */
+.ba-copied {
+  position: fixed;
+  left: 50%;
+  bottom: 2rem;
+  z-index: 50;
+  transform: translateX(-50%);
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+  color: #fff;
+  background: #333;
+  border-radius: 0.4rem;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.ba-copied[data-visible="true"] {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ba-copied {
+    transition: none;
+  }
+}

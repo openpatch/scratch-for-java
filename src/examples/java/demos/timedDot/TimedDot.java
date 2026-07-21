@@ -22,14 +22,12 @@ public class TimedDot extends Stage {
 class DotSprite extends Sprite {
   public DotSprite() {
     super();
-    this.addTimer("timer2");
-    this.addTimer("timer1");
     this.getPen().setSize(40);
-    this.setOnEdgeBounce(true);
     this.setDirection(65);
   }
 
   public void run() {
+    this.ifOnEdgeBounce();
     if (this.getTimer("timer2").everyMillis(600)) {
       this.getPen().setColor(200);
       this.move(20);

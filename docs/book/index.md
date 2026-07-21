@@ -5,11 +5,39 @@ hide: true
 
 # Scratch for Java (Version {{VERSION}})
 
-To ease the transition from the block-based programming environment
-[Scratch](scratch.mit.edu) to Java this
-library was created. Therefore, the core elements of Scratch are remodeled.
+Scratch for Java lets you keep everything you learned in
+[Scratch](https://scratch.mit.edu) — sprites, costumes, the stage, `move`,
+`say`, `when key pressed` — and write it as Java instead of dragging it.
 
-The following video show a Scratch project and a similar BlueJ project using the Scratch for Java library.
+It is built for the moment a class outgrows Scratch but is not ready to start
+Java from an empty file.
+
+```java
+import org.openpatch.scratch.*;
+
+public class MyStage extends Stage {
+  public MyStage() {
+    Sprite bunny = new Sprite();
+    bunny.addCostume("bunny1_stand");
+    this.add(bunny);
+  }
+}
+```
+
+That is a complete program, and it needs no image files: **838 pictures and 266
+sounds are built in**.
+
+- **[Your first program](/tutorials/getting-started)** — ten minutes, nothing to
+  download
+- **[Setup](/setup)** — BlueJ, VS Code or plain Java
+- **[Sprites](/sprites)** and **[Sounds](/sounds)** — the built-in library
+- **[Documentation](/reference)** — every method with the Scratch block it
+  replaces
+
+## Seeing it side by side
+
+The following video shows a Scratch project and a similar BlueJ project using
+the Scratch for Java library.
 
 ::youtube[Comparision Scratch and Scratch for Java]{#3wKw2WWQcXk}
 

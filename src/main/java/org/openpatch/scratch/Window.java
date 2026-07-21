@@ -33,13 +33,6 @@ import org.openpatch.scratch.internal.*;
 public class Window {
 
   /**
-   * @ignore-in-docs
-   */
-  public interface WhenExitsHandler {
-    void handle();
-  }
-
-  /**
    * The default color used for debugging purposes.
    * You can modify this array to change the debug color.
    * 
@@ -53,39 +46,122 @@ public class Window {
    */
   public static final int[] DEBUG_COLOR = { 255, 0, 0 };
 
+  private static TextureSampling textureSampling = TextureSampling.BILINEAR;
+  private static boolean fullScreen = false;
+  private static String splashLogo = null;
+
   /**
-   * 2: Point Sampling. 3: Linear. 4: Bilinear. 5: Trilinear.
+   * Makes the window fill the whole screen.
    *
    * <p>
-   * Point sampling: both magnification and minification filtering are set to
-   * nearest. Linear
-   * sampling: magnification filtering is nearest, minification set to linear
-   * Bilinear sampling:
-   * both magnification filtering is set to linear and minification either to
-   * linear-mipmap-nearest
-   * (linear interpolation is used within a mipmap, but not between different
-   * mipmaps). Trilinear
-   * sampling: magnification filtering set to linear, minification to
-   * linear-mipmap-linear, which
-   * offers the best mipmap quality since linear interpolation to compute the
-   * value in each of two
-   * maps and then interpolates linearly between these two values.
-   * 
-   * You can change the texture sampling mode by setting this variable before
-   * creating the Window instance.
-   * 
-   * For example, to use linear sampling, you can do:
+   * Call it before the first stage is created, because the size of the window is
+   * settled the moment it opens:
    *
    * <pre>{@code
-   * Window.TEXTURE_SAMPLING_MODE = 3;
+   * public static void main(String[] args) {
+   *   Window.useFullScreen();
+   *   new MyStage();
+   * }
    * }</pre>
    */
-  public static int TEXTURE_SAMPLING_MODE = 4;
+  public static void useFullScreen() {
+    if (instance != null) {
+      warnTooLate("useFullScreen()", "Window.useFullScreen();");
+      return;
+    }
+    fullScreen = true;
+  }
+
+  /**
+   * Chooses how pictures are smoothed when they are drawn larger or smaller than
+   * they really are. Pixel art usually wants {@link TextureSampling#POINT}.
+   *
+   * <p>
+   * Call it before the first stage is created.
+   *
+   * <pre>{@code
+   * Window.useTextureSampling(TextureSampling.POINT);
+   * new MyStage();
+   * }</pre>
+   *
+   * @param sampling how to smooth pictures
+   */
+  public static void useTextureSampling(TextureSampling sampling) {
+    if (sampling == null) {
+      return;
+    }
+    if (instance != null) {
+      warnTooLate("useTextureSampling()", "Window.useTextureSampling(TextureSampling.POINT);");
+      return;
+    }
+    textureSampling = sampling;
+  }
+
+  /**
+   * Returns how pictures are being smoothed.
+   *
+   * @return the current setting
+   */
+  public static TextureSampling getTextureSampling() {
+    return textureSampling;
+  }
+
+  /**
+   * Puts your own picture on the loading screen in place of the Scratch for Java
+   * logo. The picture fades in while your project starts and fades out again
+   * once it is ready.
+   *
+   * <p>
+   * It is shrunk to fit if it is large, and never enlarged, so a picture of
+   * roughly 300 by 300 looks right in a window of the usual size.
+   *
+   * <p>
+   * Call it before the first stage is created, because the loading screen is the
+   * first thing the window draws:
+   *
+   * <pre>{@code
+   * public static void main(String[] args) {
+   *   Window.useSplashLogo("assets/logo.png");
+   *   new MyStage();
+   * }
+   * }</pre>
+   *
+   * @param path the picture to show, or {@code null} for the Scratch for Java
+   *             logo
+   */
+  public static void useSplashLogo(String path) {
+    if (instance != null) {
+      warnTooLate("useSplashLogo()", "Window.useSplashLogo(\"assets/logo.png\");");
+      return;
+    }
+    splashLogo = path;
+  }
+
+  /**
+   * Returns the picture the loading screen shows.
+   *
+   * @return the path set with {@link #useSplashLogo}, or {@code null} for the
+   *         built-in logo
+   *
+   * @ignore-in-docs
+   */
+  public static String getSplashLogo() {
+    return splashLogo;
+  }
+
+  /** Says so, loudly, when a window setting is chosen after the window exists. */
+  private static void warnTooLate(String what, String example) {
+    System.err.println("\n==============================================");
+    System.err.println("WARNING: " + what + " was called too late!");
+    System.err.println("==============================================");
+    System.err.println("\nThe window already exists, so this had no effect.");
+    System.err.println("\nTip: Call it before the first stage is created:");
+    System.err.println("       " + example);
+    System.err.println("       new MyStage();");
+    System.err.println("==============================================\n");
+  }
 
   private static Window instance;
-
-  private WhenExitsHandler whenExitsHandler = () -> {
-  };
 
   /**
    * Constructs a new Window with default dimensions. The default width is 480
@@ -128,50 +204,12 @@ public class Window {
    * @throws Error if an instance of Window already exists
    */
   public Window(int width, int height, String assets) {
-    super();
-    if (Window.instance != null) {
-      System.err.println("\n==============================================");
-      System.err.println("ERROR: Cannot create multiple Windows!");
-      System.err.println("==============================================");
-      System.err.println("\nA Window instance already exists.");
-      System.err.println("\nPossible reasons:");
-      System.err.println("  1. You created 'new Window()' multiple times");
-      System.err.println("  2. Your code instantiates Window in multiple places");
-      System.err.println("\nTip: Scratch for Java only supports one Window.");
-      System.err.println("     Remove duplicate Window creation code.");
-      System.err.println("==============================================\n");
-      throw new Error("You can only have one Window.");
-    }
-
-    Window.instance = this;
-    new Applet(width, height, false, assets);
+    this(fullScreen, width, height, assets);
   }
 
-  /**
-   * Constructs a new Window.
-   *
-   * @param fullScreen a boolean indicating whether the window should be in full
-   *                   screen mode.
-   */
-  public Window(boolean fullScreen) {
-    this(fullScreen, null);
-  }
 
-  /**
-   * Constructs a new Window instance. If an instance of Window already exists, an
-   * Error is thrown
-   * to ensure only one Window instance is created.
-   *
-   * @param fullScreen a boolean indicating whether the window should be in full
-   *                   screen mode
-   * @param assets     a String specifying the path to the assets
-   * @throws Error if an instance of Window already exists
-   */
-  public Window(boolean fullScreen, String assets) {
-    this(fullScreen, 0, 0, assets);
-  }
 
-  public Window(boolean fullScreen, int width, int height, String assets) {
+  private Window(boolean fullScreen, int width, int height, String assets) {
     if (Window.instance != null) {
       System.err.println("\n==============================================");
       System.err.println("ERROR: Cannot create multiple Windows!");
@@ -187,12 +225,9 @@ public class Window {
     }
     Window.instance = this;
     var applet = new Applet(width, height, fullScreen, assets);
-    applet.setTextureSampling(TEXTURE_SAMPLING_MODE);
+    applet.setTextureSampling(textureSampling.getMode());
   }
 
-  public Window(boolean fullScreen, int width, int height) {
-    this(fullScreen, width, height, null);
-  }
 
   /**
    * Returns the singleton instance of the Window class.
@@ -276,6 +311,9 @@ public class Window {
    * Sets the current stage of the application.
    *
    * @param stage the new stage to be set
+   *
+   * @example.preview WindowSetStage.gif
+   * @example.files WindowSetStage.java
    */
   public void setStage(Stage stage) {
     Applet.getInstance().setStage(stage);
@@ -344,16 +382,6 @@ public class Window {
    * when the window is closed.
    */
   public void whenExits() {
-    this.whenExitsHandler.handle();
-  }
-
-  /**
-   * Sets a custom handler to be executed when the window exits.
-   * 
-   * @param runnable the custom handler to be executed on exit
-   */
-  public void setWhenExits(WhenExitsHandler runnable) {
-    this.whenExitsHandler = runnable;
   }
 
   /**

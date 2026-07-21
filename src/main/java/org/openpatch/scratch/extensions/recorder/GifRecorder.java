@@ -1,6 +1,6 @@
 package org.openpatch.scratch.extensions.recorder;
 
-import org.openpatch.scratch.extensions.color.Color;
+import org.openpatch.scratch.Color;
 import org.openpatch.scratch.internal.AnimatedGifEncoder;
 import org.openpatch.scratch.internal.Applet;
 
@@ -87,7 +87,11 @@ public class GifRecorder extends Recorder {
   /** Stops the GIF recording process and finalizes the GIF file. */
   @Override
   public void stop() {
-    this.gifEncoder.finish();
+    // Frames are added from the render thread, so recording has to be switched
+    // off before the trailer is written. The other way round, a frame arriving
+    // between finish() and the flag being cleared is appended after the end of
+    // the file, and the last frame of the GIF is truncated.
     super.stop();
+    this.gifEncoder.finish();
   }
 }

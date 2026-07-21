@@ -1,6 +1,7 @@
 package demos.tiled;
 
 import org.openpatch.scratch.KeyCode;
+import org.openpatch.scratch.Layer;
 import org.openpatch.scratch.Stage;
 import org.openpatch.scratch.extensions.tiled.TiledMap;
 
@@ -60,8 +61,7 @@ public class World extends Stage {
     this.add(player);
 
     GameState.get().map = mapFile;
-    inventory = new Item();
-    inventory.isUI(true);
+    inventory = new UIItem();
     this.add(inventory);
     this.player = player;
   }
@@ -97,7 +97,7 @@ public class World extends Stage {
       inventory.setX(-this.getWidth() / 2 + 30);
       inventory.setY(this.getHeight() / 2 - 30 - i * 36);
       inventory.switchCostume(items.get(i));
-      inventory.stampToUI();
+      inventory.stamp(Layer.UI);
     }
   }
 

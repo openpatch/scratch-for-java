@@ -4,7 +4,7 @@ import java.util.AbstractMap;
 import java.util.concurrent.ConcurrentHashMap;
 import org.openpatch.scratch.RotationStyle;
 import org.openpatch.scratch.Window;
-import org.openpatch.scratch.extensions.color.Color;
+import org.openpatch.scratch.Color;
 import org.openpatch.scratch.extensions.shader.Shader;
 import processing.core.PApplet;
 import processing.core.PConstants;
@@ -29,6 +29,7 @@ public class Image {
 
   private static final AbstractMap<String, PImage> originalImages = new ConcurrentHashMap<>();
   private static final AbstractMap<String, PImage> originalImageTiles = new ConcurrentHashMap<>();
+  private static final AbstractMap<PImage, int[]> contentBounds = new ConcurrentHashMap<>();
 
   /**
    * Construct a ScratchImage object by a name and a path to an image.
@@ -78,6 +79,29 @@ public class Image {
   }
 
   /**
+   * Creates an image from either the name of a sprite bundled with Scratch for
+   * Java or a path to an image file.
+   *
+   * <p>
+   * A string without a file extension is looked up in {@link BuiltinAssets},
+   * everything else is treated as a path, so existing code keeps working.
+   *
+   * @param name          the name the image should have
+   * @param pathOrBuiltin a bundled sprite name or a path to an image
+   * @return the image
+   */
+  public static Image ofNameOrPath(String name, String pathOrBuiltin) {
+    if (BuiltinAssets.isBuiltinName(pathOrBuiltin)) {
+      BuiltinAssets.Entry entry = BuiltinAssets.get(pathOrBuiltin);
+      if (entry != null) {
+        return new Image(name, entry.sheetPath, entry.x, entry.y, entry.width, entry.height);
+      }
+      AssetErrorReporter.reportUnknownBuiltinAndFail(pathOrBuiltin, "sprite");
+    }
+    return new Image(name, pathOrBuiltin);
+  }
+
+  /**
    * Loads an image from a given path and returns it.
    *
    * @param path the path to the image
@@ -95,7 +119,7 @@ public class Image {
         // fall through to null check below
       }
       if (image == null || image.width == 0) {
-        AssetErrorReporter.reportAndExit(
+        AssetErrorReporter.reportAndFail(
             "image", originalPath, "PNG, JPG, GIF",
             new String[]{".png", ".jpg", ".jpeg", ".gif"});
       }
@@ -123,6 +147,83 @@ public class Image {
       originalImageTiles.put(key, image);
     }
     return image;
+  }
+
+  /**
+   * Returns the width of the image before it was resized.
+   *
+   * @return the width in pixels
+   */
+  public int getOriginalWidth() {
+    return this.originalImage.width;
+  }
+
+  /**
+   * Returns the height of the image before it was resized.
+   *
+   * @return the height in pixels
+   */
+  public int getOriginalHeight() {
+    return this.originalImage.height;
+  }
+
+  /**
+   * Returns the smallest rectangle that holds every pixel which is not fully
+   * transparent, in coordinates of the image before it was resized.
+   *
+   * <p>
+   * Costumes usually have transparent space around them - a walking pose drawn
+   * into a costume tall enough for a jumping one, say. Measuring that space
+   * makes a sprite collide with what a player can actually see instead of with
+   * its whole costume.
+   *
+   * @return x, y, width and height of the painted area; the whole image if it is
+   *         fully transparent
+   */
+  public int[] getContentBounds() {
+    return contentBounds.computeIfAbsent(this.originalImage, Image::computeContentBounds);
+  }
+
+  private static int[] computeContentBounds(PImage image) {
+    int[] wholeImage = { 0, 0, image.width, image.height };
+    if (image.width == 0 || image.height == 0) {
+      return wholeImage;
+    }
+
+    image.loadPixels();
+    if (image.pixels == null) {
+      return wholeImage;
+    }
+
+    int minX = image.width;
+    int minY = image.height;
+    int maxX = -1;
+    int maxY = -1;
+
+    for (int y = 0; y < image.height; y++) {
+      int row = y * image.width;
+      for (int x = 0; x < image.width; x++) {
+        if ((image.pixels[row + x] >>> 24) != 0) {
+          if (x < minX) {
+            minX = x;
+          }
+          if (x > maxX) {
+            maxX = x;
+          }
+          if (y < minY) {
+            minY = y;
+          }
+          if (y > maxY) {
+            maxY = y;
+          }
+        }
+      }
+    }
+
+    if (maxX < 0) {
+      return wholeImage;
+    }
+    return new int[] { minX, minY, maxX - minX + 1, maxY - minY + 1 };
   }
 
   /**

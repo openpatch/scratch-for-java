@@ -11,15 +11,29 @@ keeping the same mental model (Window / Stage / Sprite, costumes, backdrops, bro
 ## Build & release commands
 
 - `mvn compile` — compile the library (this is the command referenced in the README for day-to-day dev)
+- `mvn test` — run the JUnit 5 test suite (152 tests)
 - `mvn clean package` — build the JAR
 - `mvn clean package -Pall` — build a standalone JAR with all dependencies shaded in (maven-shade-plugin)
 - `mvn deploy -Pcentral` — release to Maven Central (GPG signing + central-publishing-maven-plugin); not something to run casually
 - `./build.sh` — full doc site build: copies CHANGELOG into the docs book, regenerates reference GIFs from `src/examples/java/reference`, substitutes the version into docs, then runs `npx hyperbook build` inside `docs/`
 - `cd docs && npx hyperbook dev` — run the documentation site locally
 
-There is no test suite (no JUnit dependency, no `*Test.java` files under `src/main`). Verifying a
-change means making sure it compiles (`mvn compile`) and, where relevant, that the affected
-reference/demo example under `src/examples/java` still behaves correctly.
+Tests live in `src/test/java` and run under JUnit 5. They cover the parts that can be checked
+without a window — geometry, operators, colours, the built-in asset registry — plus one that guards
+the documentation:
+
+- `DocumentationSnippetsTest` pulls every ```java block out of the hand-written pages under
+  `docs/book` and compiles them, a page at a time. **If you change a public API, this is what tells
+  you which tutorial you just broke.** Two examples had rotted unnoticed before it existed.
+
+Most of the library still cannot be unit-tested, because anything with a costume needs a live
+`Window`. So verifying a change usually also means running something: the affected
+reference/demo example under `src/examples/java`, or `./scripts/run.sh` to pick one.
+
+Running a windowed example headlessly works with `xvfb-run -a java ...`, which is how the
+documentation GIFs are recorded. Note that under Xvfb the window is exactly the render size, so
+letterbox bars never appear — a bug that only shows on a scaled or HiDPI display will not reproduce
+there.
 
 Java 17 is required (`maven.compiler.release` in `pom.xml`).
 

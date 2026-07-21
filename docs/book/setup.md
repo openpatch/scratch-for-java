@@ -64,7 +64,7 @@ You can also use Scratch for Java via Maven. Just add the following dependency t
 <dependency>
     <groupId>org.openpatch</groupId>
     <artifactId>scratch</artifactId>
-    <version>4.23.0</version>
+    <version>{{VERSION}}</version>
 </dependency>
 ```
 

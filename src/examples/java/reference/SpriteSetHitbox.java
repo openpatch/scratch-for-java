@@ -12,9 +12,8 @@ public class SpriteSetHitbox {
     GifRecorder recorder = new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
     recorder.start();
     myStage.wait(2000);
-    double x[] = { 0, 10, 10, 0 };
-    double y[] = { 0, 0, 10, 10 };
-    mySprite.setHitbox(x, y);
+    // x and y of each corner, in turn
+    mySprite.setHitbox(0, 0, 10, 0, 10, 10, 0, 10);
     recorder.stop();
     myStage.wait(2000);
     myStage.exit();

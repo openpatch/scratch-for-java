@@ -13,8 +13,7 @@ package org.openpatch.scratch;
  * For example, to use the lerp function, you can do:
  * 
  * <pre>{@code
- * import org.openpatch.scratch.Operators;
- * 
+ *  * 
  * double result = Operators.lerp(0.0, 10.0, 0.5); // result will be 5.0
  * }</pre>
  */
@@ -31,6 +30,10 @@ public class Operators {
    * @param stop second value
    * @param amt double between 0.0 and 1.0
    * @return the interpolated value
+   *
+   * @example.preview OperatorsLerp.gif
+   * @example.folder OperatorsLerp
+   * @example.files MyStage.java;MyWindow.java
    */
   public static final double lerp(double start, double stop, double amt) {
     return start + (stop - start) * amt;
@@ -157,6 +160,8 @@ public class Operators {
    *
    * @param x a value
    * @return the rounded value
+   *
+   * @scratchblock (round (x))
    */
   public static final int round(double x) {
     return (int) Math.round(x);
@@ -181,6 +186,8 @@ public class Operators {
    * @param x first value
    * @param y second value
    * @return reminder of first value divided by second value
+   *
+   * @scratchblock ((x) mod (y))
    */
   public static final double mod(double x, double y) {
     return x % y;
@@ -217,6 +224,8 @@ public class Operators {
    *
    * @param x a value
    * @return the absolute value
+   *
+   * @scratchblock ([abs v] of (x))
    */
   public static final double absOf(double x) {
     return Math.abs(x);
@@ -228,6 +237,8 @@ public class Operators {
    *
    * @param x a value
    * @return the floor of that value
+   *
+   * @scratchblock ([floor v] of (x))
    */
   public static final double floorOf(double x) {
     return Math.floor(x);
@@ -239,6 +250,8 @@ public class Operators {
    *
    * @param x a value
    * @return the ceiling of that value
+   *
+   * @scratchblock ([ceiling v] of (x))
    */
   public static final double ceilingOf(double x) {
     return Math.ceil(x);
@@ -253,6 +266,8 @@ public class Operators {
    *
    * @param x a value
    * @return the square root of the value
+   *
+   * @scratchblock ([sqrt v] of (x))
    */
   public static final double sqrtOf(double x) {
     return Math.sqrt(x);
@@ -266,6 +281,8 @@ public class Operators {
    *
    * @param x an angle between [0,...,360]
    * @return the sin of the angle
+   *
+   * @scratchblock ([sin v] of (x))
    */
   public static final double sinOf(double x) {
     return Math.sin(x / 180.0 * Math.PI);
@@ -278,6 +295,8 @@ public class Operators {
    *
    * @param x an angle between [0, ..., 360]
    * @return the cos of the angle
+   *
+   * @scratchblock ([cos v] of (x))
    */
   public static final double cosOf(double x) {
     return Math.cos(x / 180.0 * Math.PI);
@@ -290,6 +309,8 @@ public class Operators {
    *
    * @param x an angle between [0, ..., 360]
    * @return the tan of the angle
+   *
+   * @scratchblock ([tan v] of (x))
    */
   public static final double tanOf(double x) {
     return Math.tan(x / 180.0 * Math.PI);
@@ -302,6 +323,8 @@ public class Operators {
    *
    * @param x a value
    * @return the angle of that value
+   *
+   * @scratchblock ([asin v] of (x))
    */
   public static final double asinOf(double x) {
     return Math.asin(x) * 180.0 / Math.PI;
@@ -314,6 +337,8 @@ public class Operators {
    *
    * @param x a value
    * @return the angle of that value
+   *
+   * @scratchblock ([acos v] of (x))
    */
   public static final double acosOf(double x) {
     return Math.acos(x) * 180.0 / Math.PI;
@@ -326,6 +351,8 @@ public class Operators {
    *
    * @param x a value
    * @return the angle of that value
+   *
+   * @scratchblock ([atan v] of (x))
    */
   public static final double atanOf(double x) {
     return Math.atan(x) * 180.0 / Math.PI;
@@ -338,6 +365,8 @@ public class Operators {
    *
    * @param x a value
    * @return the ln of that value
+   *
+   * @scratchblock ([ln v] of (x))
    */
   public static final double lnOf(double x) {
     return Math.log(x);
@@ -350,6 +379,8 @@ public class Operators {
    *
    * @param x a value
    * @return the log to base 10 of that value
+   *
+   * @scratchblock ([log v] of (x))
    */
   public static final double logOf(double x) {
     return Math.log10(x);
@@ -362,6 +393,8 @@ public class Operators {
    *
    * @param x a value
    * @return e to the power of that value
+   *
+   * @scratchblock ([e ^ v] of (x))
    */
   public static final double eToThePowerOf(double x) {
     return Math.pow(Math.E, x);
@@ -373,6 +406,8 @@ public class Operators {
    *
    * @param x a value
    * @return 10 to the power of that value
+   *
+   * @scratchblock ([10 ^ v] of (x))
    */
   public static final double tenToThePowerOf(double x) {
     return Math.pow(10, x);

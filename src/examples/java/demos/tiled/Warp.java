@@ -20,7 +20,7 @@ public class Warp extends Sprite {
   public void run() {
     var player = world.getPlayer();
     if (this.isTouchingSprite(player)) {
-      this.getWindow().transitionToStage(new World(toMap, player), 500);
+      Window.getInstance().transitionToStage(new World(toMap, player), 500);
       player.setX(toX);
       player.setY(toY);
     }

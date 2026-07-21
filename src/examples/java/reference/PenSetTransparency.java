@@ -1,6 +1,6 @@
 package reference;
 import org.openpatch.scratch.*;
-import org.openpatch.scratch.extensions.pen.*;
+import org.openpatch.scratch.*;
 import org.openpatch.scratch.extensions.recorder.*;
 
 public class PenSetTransparency {

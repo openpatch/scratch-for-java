@@ -9,7 +9,6 @@ public class SpriteWhenBackdropSwitches {
     Stage myStage = new Stage(600, 240);
     myStage.addBackdrop("forest", "assets/background_forest.png");
     myStage.addBackdrop("sea", "assets/background_sea.png");
-    myStage.addTimer("backdrop");
     myStage.add(new CustomSprite());
 
     GifRecorder recorder =

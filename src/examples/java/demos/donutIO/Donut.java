@@ -1,8 +1,8 @@
 package demos.donutIO;
 
 import org.openpatch.scratch.Sprite;
-import org.openpatch.scratch.extensions.math.Random;
-import org.openpatch.scratch.extensions.shape.Ellipse;
+import org.openpatch.scratch.Random;
+import org.openpatch.scratch.Ellipse;
 
 public class Donut extends Sprite {
 

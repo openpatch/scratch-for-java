@@ -1,6 +1,6 @@
 ---
 name: Bouncing Hedgehog
-index: 2
+index: 6
 lang: en
 ---
 
@@ -118,19 +118,19 @@ public class TrampolineSprite extends Sprite {
         this.setPosition(0, -120);
     }
 
-    public void whenKeyPressed(int keyCode) {
-        if (keyCode == KeyCode.VK_LEFT) {
+    public void whenKeyPressed(KeyCode keyCode) {
+        if (keyCode == KeyCode.LEFT) {
             this.changeX(-10);
-        } else if (keyCode == KeyCode.VK_RIGHT) {
+        } else if (keyCode == KeyCode.RIGHT) {
             this.changeX(10);
         }
     }
 }
 ```
 
-We have added a new method `whenKeyPressed` to the class. Methods allow us to implement certain behaviors for the objects of a class. In this case, `whenKeyPressed` is a special method - predefined by Scratch4j. It is always called when a key on the keyboard is pressed. The variable `keyCode` then contains the numeric code of that key.
+We have added a new method `whenKeyPressed` to the class. Methods allow us to implement certain behaviors for the objects of a class. In this case, `whenKeyPressed` is a special method - predefined by Scratch4j. It is always called when a key on the keyboard is pressed. The variable `keyCode` then tells you which key it was.
 
-For example, if you press the key `A`, then the variable `keyCode` contains the value `65`. So that we don't have to remember all the values of individual keys, there is the `KeyCode` class. For example, behind `KeyCode.VK_A` would be the value `65`. This also makes the source code more comprehensible. Since this is again a class from Scratch4j, we must also import it (see first line).
+For example, if you press the key `A`, then the variable `keyCode` contains the value `65`. So that we don't have to remember all the values of individual keys, there is the `KeyCode` class. For example, behind `KeyCode.A` would be the value `65`. This also makes the source code more comprehensible. Since this is again a class from Scratch4j, we must also import it (see first line).
 
 Now we can define what should happen when a key is pressed.
 
@@ -145,7 +145,7 @@ The hedgehog should automatically fall down and move back up when it touches the
 
 ```java
 import org.openpatch.scratch.Sprite;
-import org.openpatch.scratch.extensions.math.Random;
+import org.openpatch.scratch.Random;
 
 public class HedgehogSprite extends Sprite {
 

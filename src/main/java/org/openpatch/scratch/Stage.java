@@ -14,20 +14,17 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 
 import org.openpatch.scratch.extensions.camera.Camera;
-import org.openpatch.scratch.extensions.color.Color;
-import org.openpatch.scratch.extensions.hitbox.Hitbox;
-import org.openpatch.scratch.extensions.math.Vector2;
-import org.openpatch.scratch.extensions.pen.Pen;
+import org.openpatch.scratch.extensions.pixels.Pixels;
 import org.openpatch.scratch.extensions.shader.Shader;
-import org.openpatch.scratch.extensions.shape.Polygon;
-import org.openpatch.scratch.extensions.text.Text;
-import org.openpatch.scratch.extensions.text.TextStyle;
-import org.openpatch.scratch.extensions.timer.Timer;
+import org.openpatch.scratch.extensions.shader.Shaders;
+import org.openpatch.scratch.extensions.sorting.Sorting;
 import org.openpatch.scratch.internal.Applet;
 import org.openpatch.scratch.internal.Font;
 import org.openpatch.scratch.internal.Image;
 import org.openpatch.scratch.internal.Sound;
 import org.openpatch.scratch.internal.Stamp;
+import org.openpatch.scratch.internal.StageAccess;
+import org.openpatch.scratch.internal.StageHooks;
 import processing.core.PConstants;
 import processing.core.PGraphics;
 import processing.event.KeyEvent;
@@ -44,62 +41,35 @@ import processing.opengl.PGraphicsOpenGL;
  * @index-in-docs 2
  */
 public class Stage {
-
   /**
-   * @ignore-in-docs
+   * Lets the render loop reach this stage without the four methods above having
+   * to be public. See {@link StageHooks}.
    */
-  public interface WhenBackdropSwitchesHandler {
-    void handle(Stage stage, String name);
-  }
+  private final StageHooks hooks = new StageHooks() {
+    public void pre() {
+      Stage.this.pre();
+    }
 
-  /**
-   * @ignore-in-docs
-   */
-  public interface WhenMouseClickedHandler {
-    void handle(Stage stage, MouseCode mouseCode);
-  }
+    public void draw(PGraphics buffer) {
+      Stage.this.draw(buffer);
+    }
 
-  /**
-   * @ignore-in-docs
-   */
-  public interface WhenMouseWheelMovedHandler {
-    void handle(Stage stage, int rotation);
-  }
+    public void keyEvent(KeyEvent e) {
+      Stage.this.keyEvent(e);
+    }
 
-  /**
-   * @ignore-in-docs
-   */
-  public interface WhenKeyPressedHandler {
-    void handle(Stage stage, KeyCode keyCode);
-  }
+    public void mouseEvent(MouseEvent e) {
+      Stage.this.mouseEvent(e);
+    }
+  };
 
-  /**
-   * @ignore-in-docs
-   */
-  public interface WhenKeyReleasedHandler {
-    void handle(Stage stage, KeyCode keyCode);
-  }
-
-  /**
-   * @ignore-in-docs
-   */
-  public interface WhenIReceiveHandler {
-    void handle(Stage stage, Object message);
-  }
-
-  /**
-   * @ignore-in-docs
-   */
-  public interface RunHandler {
-    void handle(Stage stage);
-  }
+  private final Shaders shaders = new Shaders("stage");
 
   private final List<Image> backdrops = new CopyOnWriteArrayList<>();
   private Color color = new Color();
   private int currentBackdrop = 0;
   private final List<Sound> sounds = new CopyOnWriteArrayList<>();
-  private int currentShader = 0;
-  private List<Shader> shaders = new CopyOnWriteArrayList<>();
+  private double volume = 100;
 
   private PGraphics shaderBuffer;
   private PGraphics mainBuffer;
@@ -117,6 +87,8 @@ public class Stage {
   private Queue<Stamp> uiStamps;
   private PGraphics uiBuffer;
   private boolean eraseUIBuffer;
+  /** Whether the render buffers have had their OpenGL framebuffers allocated yet. */
+  private boolean buffersAllocated;
 
   private PGraphics debugBuffer;
 
@@ -124,13 +96,18 @@ public class Stage {
   private int cursorActiveSpotX;
   private int cursorActiveSpotY;
   private final Text display;
+  private final Text askDisplay;
+  private String askQuestion = null;
+  private final StringBuilder askInput = new StringBuilder();
+  private String answer = "";
   private final AbstractMap<String, Timer> timer;
   List<Text> texts;
   List<Pen> pens;
   List<Sprite> sprites;
   private double mouseX;
   private double mouseY;
-  private Comparator<? super Sprite> sorter;
+  private final Sorting sorting = new Sorting();
+  private Pixels pixels;
 
   Hitbox leftBorder;
   Hitbox rightBorder;
@@ -138,13 +115,6 @@ public class Stage {
   Hitbox bottomBorder;
 
   private Camera camera;
-  private WhenBackdropSwitchesHandler whenBackdropSwitchesHandler;
-  private WhenMouseClickedHandler whenMouseClickedHandler;
-  private WhenMouseWheelMovedHandler whenMouseWheelMovedHandler;
-  private WhenKeyPressedHandler whenKeyPressedHandler;
-  private WhenKeyReleasedHandler whenKeyReleasedHandler;
-  private WhenIReceiveHandler whenIReceiveHandler;
-  private RunHandler runHandler;
   private final java.util.Set<String> warnedOnce = java.util.Collections.synchronizedSet(new java.util.HashSet<>());
 
   private void warnOnce(String key, String... lines) {
@@ -154,6 +124,56 @@ public class Stage {
         System.err.println(line);
       System.err.println("==============================================\n");
     }
+  }
+
+  /**
+   * Returns the order in which the sprites of this stage are drawn.
+   *
+   * <p>
+   * Example usage:
+   *
+   * <pre>{@code
+   * this.getSorting().byY();
+   * }</pre>
+   *
+   * @return the sorting
+   */
+  public Sorting getSorting() {
+    return this.sorting;
+  }
+
+  /**
+   * Returns the colours of everything this stage has drawn.
+   *
+   * <p>
+   * Example usage:
+   *
+   * <pre>{@code
+   * int[] colours = this.getPixels().main();
+   * }</pre>
+   *
+   * @return the pixels
+   */
+  public Pixels getPixels() {
+    return this.pixels;
+  }
+
+  /**
+   * Returns the shaders of this stage. Shader handling lives behind this one
+   * method so that it does not crowd the everyday API.
+   *
+   * <p>
+   * Example usage:
+   *
+   * <pre>{@code
+   * this.getShaders().add("blur", "blur.frag", null);
+   * this.getShaders().switchTo("blur");
+   * }</pre>
+   *
+   * @return the shaders
+   */
+  public Shaders getShaders() {
+    return this.shaders;
   }
 
   /**
@@ -182,99 +202,24 @@ public class Stage {
    * @param height the height of the stage
    * @param assets the path to the assets directory
    */
-  public Stage(int width, int height, String assets) {
-    this(width, height, false, assets);
-  }
-
-  /**
-   * Constructs a new Stage.
-   *
-   * @param fullScreen a boolean indicating whether the stage should be in full
-   *                   screen mode.
-   */
-  public Stage(boolean fullScreen) {
-    this(fullScreen, null);
-  }
-
-  /**
-   * Constructs a new Stage with the specified fullscreen mode and assets path.
-   *
-   * @param fullScreen a boolean indicating whether the stage should be in
-   *                   fullscreen mode
-   * @param assets     the path to the assets directory
-   */
-  public Stage(boolean fullScreen, String assets) {
-    this(0, 0, fullScreen, assets);
-  }
-
-  /**
-   * Constructs a new Stage with the specified width and height.
-   *
-   * @param width      the width of the stage
-   * @param height     the height of the stage
-   * @param fullScreen whether the stage should be in full screen mode
-   */
-  public Stage(boolean fullScreen, int width, int height) {
-    this(width, height, fullScreen, null);
-  }
-
-  /**
-   * Constructs a new Stage with the specified parameters.
-   *
-   * @param fullScreen whether the stage should be in full screen mode
-   * @param width      the width of the stage
-   * @param height     the height of the stage
-   * @param assets     the path to the assets directory
-   */
-  public Stage(boolean fullScreen, int width, int height, String assets) {
-    this(width, height, fullScreen, assets);
-  }
-
-  /**
-   * Constructs a new Stage with the specified parameters.
-   *
-   * @param width      the width of the stage
-   * @param height     the height of the stage
-   * @param fullScreen whether the stage should be in full screen mode
-   * @param assets     the path to the assets directory
-   */
-  private Stage(int width, final int height, boolean fullScreen, String assets) {
+  public Stage(int width, final int height, String assets) {
     this.cursor = null;
     this.camera = new Camera();
     this.texts = new CopyOnWriteArrayList<>();
     this.pens = new CopyOnWriteArrayList<>();
     this.sprites = new CopyOnWriteArrayList<>();
-    this.shaders = new CopyOnWriteArrayList<>();
     this.backgroundStamps = new ConcurrentLinkedQueue<>();
     this.foregroundStamps = new ConcurrentLinkedQueue<>();
     this.uiStamps = new ConcurrentLinkedQueue<>();
     this.timer = new ConcurrentHashMap<>();
 
-    this.whenBackdropSwitchesHandler = (stage, name) -> {
-    };
-    this.whenMouseClickedHandler = (stage, mouseCode) -> {
-    };
-    this.whenMouseWheelMovedHandler = (stage, rotation) -> {
-    };
-    this.whenKeyPressedHandler = (stage, keyCode) -> {
-    };
-    this.whenKeyReleasedHandler = (stage, keyCode) -> {
-    };
-    this.whenIReceiveHandler = (stage, message) -> {
-    };
-    this.runHandler = s -> {
-    };
-
     if (Window.getInstance() == null) {
-      if (fullScreen) {
-        new Window(fullScreen, width, height, assets);
-      } else {
-        new Window(width, height, assets);
-      }
+      new Window(width, height, assets);
       Applet a = Applet.getInstance();
       a.setStage(this);
     }
     Applet applet = Applet.getInstance();
+    applet.registerHooks(this, this.hooks);
 
     this.shaderBuffer = applet.createGraphics(
         applet.getRenderWidth(), applet.getRenderHeight(), applet.sketchRenderer());
@@ -290,14 +235,15 @@ public class Stage {
         applet.getRenderWidth(), applet.getRenderHeight(), applet.sketchRenderer());
     this.debugBuffer = applet.createGraphics(
         applet.getRenderWidth(), applet.getRenderHeight(), applet.sketchRenderer());
-    ((PGraphicsOpenGL) this.shaderBuffer).textureSampling(Window.TEXTURE_SAMPLING_MODE);
-    ((PGraphicsOpenGL) this.mainBuffer).textureSampling(Window.TEXTURE_SAMPLING_MODE);
-    ((PGraphicsOpenGL) this.backgroundBuffer).textureSampling(Window.TEXTURE_SAMPLING_MODE);
-    ((PGraphicsOpenGL) this.debugBuffer).textureSampling(Window.TEXTURE_SAMPLING_MODE);
-    ((PGraphicsOpenGL) this.backdropBuffer).textureSampling(Window.TEXTURE_SAMPLING_MODE);
-    ((PGraphicsOpenGL) this.uiBuffer).textureSampling(Window.TEXTURE_SAMPLING_MODE);
-    ((PGraphicsOpenGL) this.foregroundBuffer).textureSampling(Window.TEXTURE_SAMPLING_MODE);
-    if (Window.TEXTURE_SAMPLING_MODE == 2) {
+    this.pixels = new Pixels(this.mainBuffer, this.backgroundBuffer, this.foregroundBuffer);
+    ((PGraphicsOpenGL) this.shaderBuffer).textureSampling(Window.getTextureSampling().getMode());
+    ((PGraphicsOpenGL) this.mainBuffer).textureSampling(Window.getTextureSampling().getMode());
+    ((PGraphicsOpenGL) this.backgroundBuffer).textureSampling(Window.getTextureSampling().getMode());
+    ((PGraphicsOpenGL) this.debugBuffer).textureSampling(Window.getTextureSampling().getMode());
+    ((PGraphicsOpenGL) this.backdropBuffer).textureSampling(Window.getTextureSampling().getMode());
+    ((PGraphicsOpenGL) this.uiBuffer).textureSampling(Window.getTextureSampling().getMode());
+    ((PGraphicsOpenGL) this.foregroundBuffer).textureSampling(Window.getTextureSampling().getMode());
+    if (Window.getTextureSampling() == TextureSampling.POINT) {
       this.shaderBuffer.noSmooth();
       this.mainBuffer.noSmooth();
       this.backgroundBuffer.noSmooth();
@@ -315,6 +261,14 @@ public class Stage {
         applet.getRenderWidth(),
         TextStyle.BOX);
     this.display.addedToStage(this);
+    // Bottom of the stage, where Scratch puts its ask box too.
+    this.askDisplay = new Text(
+        null,
+        -applet.getRenderWidth() / 2,
+        -applet.getRenderHeight() / 2,
+        applet.getRenderWidth(),
+        TextStyle.BOX);
+    this.askDisplay.addedToStage(this);
 
     var p = new Polygon();
     p.addPoint(-this.getWidth() / 2, this.getHeight() / 2);
@@ -387,7 +341,6 @@ public class Stage {
     System.out.println(sb);
   }
 
-
   public void add(Sprite sprite) {
     this.sprites.add(sprite);
     sprite.addedToStage(this);
@@ -413,286 +366,28 @@ public class Stage {
     pen.addedToStage(this);
   }
 
-  /**
-   * Sets the texture sampling mode Point sampling: both magnification and
-   * minification filtering
-   * are set to nearest. Linear sampling: magnification filtering is nearest,
-   * minification set to
-   * linear Bilinear sampling: both magnification filtering is set to linear and
-   * minification either
-   * to linear-mipmap-nearest (linear interpolation is used within a mipmap, but
-   * not between
-   * different mipmaps). Trilinear sampling: magnification filtering set to
-   * linear, minification to
-   * linear-mipmap-linear, which offers the best mipmap quality since linear
-   * interpolation to
-   * compute the value in each of two maps and then interpolates linearly between
-   * these two values.
-   *
-   * @param mode the texture sampling mode. 2: Point Sampling. 3: Linear. 4:
-   *             Bilinear. 5: Trilinear.
-   */
-  public void setTextureSampling(int mode) {
-    if (mode < 2 || mode > 5) {
-      System.err.println("\n==============================================");
-      System.err.println("WARNING: Invalid texture sampling mode: " + mode);
-      System.err.println("==============================================");
-      System.err.println("\nValid values are:");
-      System.err.println("  2 = Point Sampling");
-      System.err.println("  3 = Linear");
-      System.err.println("  4 = Bilinear (default)");
-      System.err.println("  5 = Trilinear");
-      System.err.println("==============================================\n");
-      return;
-    }
-    Applet.getInstance().setTextureSampling(mode);
-    ((PGraphicsOpenGL) this.shaderBuffer).textureSampling(mode);
-    ((PGraphicsOpenGL) this.mainBuffer).textureSampling(mode);
-    ((PGraphicsOpenGL) this.backgroundBuffer).textureSampling(mode);
-    ((PGraphicsOpenGL) this.debugBuffer).textureSampling(mode);
-    ((PGraphicsOpenGL) this.backdropBuffer).textureSampling(mode);
-    ((PGraphicsOpenGL) this.uiBuffer).textureSampling(mode);
-    ((PGraphicsOpenGL) this.foregroundBuffer).textureSampling(mode);
-  }
 
-  /**
-   * Adds a new shader to the sprite. If a shader with the received name already
-   * exists, this method
-   *
-   * @param name
-   * @param fragmentShaderPath The path to the fragment shader
-   * @param vertexShaderPath   The path to the vertex shader
-   * @return the shader
-   */
-  public Shader addShader(
-      String name, final String fragmentShaderPath, final String vertexShaderPath) {
-    for (Shader shader : this.shaders) {
-      if (shader.getName().equals(name)) {
-        return shader;
-      }
-    }
 
-    Shader shader = new Shader(name, fragmentShaderPath, vertexShaderPath);
-    this.shaders.add(shader);
-    return shader;
-  }
 
-  /**
-   * Switch to a shader by name.
-   *
-   * @param name the name of a shader
-   */
-  public void switchShader(String name) {
-    for (int i = 0; i < this.shaders.size(); i++) {
-      Shader shader = this.shaders.get(i);
-      if (shader.getName().equals(name)) {
-        this.currentShader = i;
-        return;
-      }
-    }
 
-    System.err.println("\n==============================================");
-    System.err.println("WARNING: Shader not found!");
-    System.err.println("==============================================");
-    System.err.println("Shader name: '" + name + "'");
-    if (this.shaders.isEmpty()) {
-      System.err.println("\nThis stage has no shaders.");
-      System.err.println("\nTip: Use addShader() to add a shader first.");
-    } else {
-      System.err.println("\nAvailable shaders:");
-      for (Shader shader : this.shaders) {
-        System.err.println("  - '" + shader.getName() + "'");
-      }
-      System.err.println("\nTip: Check the spelling of your shader name.");
-    }
-    System.err.println("==============================================\n");
-  }
 
-  /**
-   * Switch to a shader by index.
-   *
-   * @param index the index of a shader
-   */
-  public void switchShader(double index) {
-    this.currentShader = (int) index % this.shaders.size();
-  }
 
-  public void resetShader() {
-    this.currentShader = -1;
-  }
 
-  /**
-   * Retrieves a shader by name.
-   *
-   * @param name the name of a shader
-   * @return the shader with the specified name, or null if no shader with that
-   *         name exists
-   */
-  public Shader getShader(String name) {
-    for (Shader shader : this.shaders) {
-      if (shader.getName().equals(name)) {
-        return shader;
-      }
-    }
-    return null;
-  }
 
-  /** Sets the next shader as the current shader. */
-  public void nextShader() {
-    this.currentShader = (this.currentShader + 1) % this.shaders.size();
-  }
 
-  /**
-   * Retrieves the name of the current shader.
-   *
-   * @return the name of the current shader, or null if no shaders exist
-   */
-  public String getCurrentShaderName() {
-    if (this.shaders.size() == 0 || this.currentShader == -1)
-      return null;
 
-    return this.shaders.get(this.currentShader).getName();
-  }
 
-  /**
-   * Retrieves the index of the current shader.
-   *
-   * @return the index of the current shader
-   */
-  public int getCurrentShaderIndex() {
-    return this.currentShader;
-  }
 
-  /**
-   * Retrieves the current shader.
-   *
-   * @return the current shader, or null if no shaders exist
-   */
-  public Shader getCurrentShader() {
-    if (this.shaders.size() == 0 || this.currentShader == -1)
-      return null;
 
-    return this.shaders.get(this.currentShader);
-  }
 
-  /**
-   * Moves the specified sprite backwards by a given number of layers in the
-   * sprite list. If the
-   * resulting position is less than zero, the sprite is moved to the first
-   * position. If the
-   * resulting position is greater than the last index, the sprite is moved to the
-   * last position.
-   *
-   * @param sprite the sprite to be moved backwards in the layer order
-   * @param number the number of layers to move the sprite backwards
-   */
-  public void goLayersBackwards(Sprite sprite, int number) {
-    int index = this.sprites.indexOf(sprite);
-    if (index == -1)
-      return;
-    int newIndex = index - number;
-    if (newIndex < 0)
-      newIndex = 0;
-    newIndex = Math.min(newIndex, this.sprites.size() - 1);
-    this.sprites.remove(index);
-    this.sprites.add(newIndex, sprite);
-  }
-
-  /**
-   * Moves the specified sprite forward by a given number of layers in the sprite
-   * list. If the
-   * resulting position is out of bounds, it will be adjusted to the nearest valid
-   * position.
-   *
-   * @param sprite the sprite to be moved forward in the layer order
-   * @param number the number of layers to move the sprite forward
-   */
-  public void goLayersForwards(Sprite sprite, int number) {
-    int index = this.sprites.indexOf(sprite);
-    if (index == -1)
-      return;
-    int newIndex = index + number;
-    if (newIndex < 0)
-      newIndex = 0;
-    newIndex = Math.min(newIndex, this.sprites.size() - 1);
-    this.sprites.remove(index);
-    this.sprites.add(newIndex, sprite);
-  }
-
-  /**
-   * Moves the specified sprite to the front layer.
-   *
-   * @param sprite the sprite to be moved to the front layer
-   */
-  public void goToFrontLayer(Sprite sprite) {
-    this.sprites.remove(sprite);
-    this.sprites.add(sprite);
-  }
-
-  /**
-   * Moves the specified sprite to the back layer of the stage.
-   *
-   * @param sprite the sprite to be moved to the back layer
-   */
-  public void goToBackLayer(Sprite sprite) {
-    this.sprites.remove(sprite);
-    this.sprites.add(0, sprite);
-  }
-
-  /**
-   * Moves the specified sprite to the UI layer by removing it from the current
-   * list of sprites.
-   *
-   * @param sprite the sprite to be moved to the UI layer
-   */
-  public void goToUILayer(Sprite sprite) {
-    this.sprites.remove(sprite);
-  }
-
-  /**
-   * Sets a custom sorter for the sprites. Use enableYSort() to enable the sorting
-   * of sprites using
-   * the y-coordinates. This overwrites goToBackLayer(), goToFrontLayer(),
-   * goLayersBackwards() and
-   * goLayersForwards().
-   *
-   * @see #enableYSort()
-   * @param sorter the comparator used to sort the sprites
-   */
-  public void setSorter(Comparator<? super Sprite> sorter) {
-    this.sorter = sorter;
-  }
-
-  /**
-   * Enables the sorting of sprites using y-sorting. This means that sprites with
-   * a lower
-   * y-coordinate will be drawn on top of sprites with a higher y-coordinate. This
-   * sorting respects
-   * the height of the sprites. This overwrites goToBackLayer(), goToFrontLayer(),
-   * goLayersBackwards() and goLayersForwards().
-   */
-  public void enableYSort() {
-    this.sorter = (s1, s2) -> (int) ((s2.getY() - s2.getHeight() / 2) - (s1.getY() - s1.getHeight() / 2));
-  }
-
-  /** Disables the sorting of sprites. */
-  public void disableSort() {
-    this.sorter = null;
-  }
-
-  /**
-   * Checks if the sorting of sprites is enabled.
-   *
-   * @return true if sorting is enabled, false otherwise
-   */
-  public boolean isSortEnabled() {
-    return this.sorter != null;
-  }
 
   /**
    * Retrieves a list of all sprites in the current stage.
    *
    * @return a list containing all sp
+   *
+   * @example.preview StageGetAll.gif
+   * @example.files StageGetAll.java
    */
   public List<Sprite> getAll() {
     return new CopyOnWriteArrayList<>(this.sprites);
@@ -702,6 +397,9 @@ public class Stage {
    * Removes the specified sprite from the stage.
    *
    * @param sprite the sprite to be removed
+   *
+   * @example.preview StageRemove.gif
+   * @example.files StageRemove.java
    */
   public void remove(Sprite sprite) {
     this.sprites.remove(sprite);
@@ -728,35 +426,78 @@ public class Stage {
     text.removedFromStage(this);
   }
 
-  /** Removes all elements from the stage. */
-  public void removeAll() {
-    this.removeAllSprites();
-    this.removeAllTexts();
-    this.removeAllPens();
+  // Package-private: the implementation behind Sprite.goToFrontLayer().
+  void goToFrontLayer(Sprite sprite) {
+    this.sprites.remove(sprite);
+    this.sprites.add(sprite);
   }
 
-  /** Removes all sprites from the stage. */
-  public void removeAllSprites() {
+  // Package-private: the implementation behind Sprite.goToBackLayer().
+  void goToBackLayer(Sprite sprite) {
+    this.sprites.remove(sprite);
+    this.sprites.add(0, sprite);
+  }
+
+  // Package-private: the implementation behind Sprite.goLayersForwards().
+  void goLayersForwards(Sprite sprite, int number) {
+    int index = this.sprites.indexOf(sprite);
+    if (index == -1)
+      return;
+    int newIndex = index + number;
+    if (newIndex < 0)
+      newIndex = 0;
+    newIndex = Math.min(newIndex, this.sprites.size() - 1);
+    this.sprites.remove(index);
+    this.sprites.add(newIndex, sprite);
+  }
+
+  // Package-private: the implementation behind Sprite.goLayersBackwards().
+  void goLayersBackwards(Sprite sprite, int number) {
+    int index = this.sprites.indexOf(sprite);
+    if (index == -1)
+      return;
+    int newIndex = index - number;
+    if (newIndex < 0)
+      newIndex = 0;
+    newIndex = Math.min(newIndex, this.sprites.size() - 1);
+    this.sprites.remove(index);
+    this.sprites.add(newIndex, sprite);
+  }
+
+  // Private helper for removeAll().
+  private void removeAllSprites() {
     for (Sprite sprite : this.sprites) {
       sprite.removedFromStage(this);
     }
     this.sprites.clear();
   }
 
-  /** Removes all texts from the stage. */
-  public void removeAllTexts() {
+  // Private helper for removeAll().
+  private void removeAllTexts() {
     for (Text text : this.texts) {
       text.removedFromStage(this);
     }
     this.texts.clear();
   }
 
-  /** Removes all pens from the stage. */
-  public void removeAllPens() {
+  // Private helper for removeAll().
+  private void removeAllPens() {
     for (Pen pen : this.pens) {
       pen.removedFromStage(this);
     }
     this.pens.clear();
+  }
+
+  /**
+   * Removes all elements from the stage.
+   *
+   * @example.preview StageRemoveAll.gif
+   * @example.files StageRemoveAll.java
+   */
+  public void removeAll() {
+    this.removeAllSprites();
+    this.removeAllTexts();
+    this.removeAllPens();
   }
 
   /**
@@ -777,36 +518,12 @@ public class Stage {
    * Find sprites of a given class.
    *
    * @param c Class
+   *
+   * @example.preview StageFind.gif
+   * @example.files StageFind.java
    */
   public <T extends Sprite> List<T> find(Class<T> c) {
     return this.sprites.stream().filter(c::isInstance).map(c::cast).collect(Collectors.toList());
-  }
-
-  /**
-   * Find sprites of a given class.
-   *
-   * @param c Class
-   */
-  public <T extends Sprite> List<T> findSpritesOf(Class<T> c) {
-    return this.find(c);
-  }
-
-  /**
-   * Find texts of a given class.
-   *
-   * @param c Class
-   */
-  public <T extends Text> List<T> findTextsOf(Class<T> c) {
-    return this.texts.stream().filter(c::isInstance).map(c::cast).collect(Collectors.toList());
-  }
-
-  /**
-   * Find texts of a given class.
-   *
-   * @param c Class
-   */
-  public <T extends Pen> List<T> findPensOf(Class<T> c) {
-    return this.pens.stream().filter(c::isInstance).map(c::cast).collect(Collectors.toList());
   }
 
   /**
@@ -820,67 +537,16 @@ public class Stage {
   }
 
   /**
-   * Returns the number of sprites in the stage.
-   *
-   * @return the number of sprites
-   */
-  public long countSprites() {
-    return this.sprites.size();
-  }
-
-  /**
-   * Returns the number of sprites of the specified class.
-   *
-   * @param c the class of the sprites to count
-   * @return the number of sprites of the specified class
-   */
-  public <T extends Sprite> long countSpritesOf(Class<T> c) {
-    return this.count(c);
-  }
-
-  /**
-   * Returns the number of texts in the stage.
-   *
-   * @return the number of texts
-   */
-  public long countTexts() {
-    return this.texts.size();
-  }
-
-  /**
-   * Returns the number of texts of the specified class.
-   *
-   * @param c the class of the texts to count
-   */
-  public <T extends Text> long countTextsOf(Class<T> c) {
-    return this.texts.stream().filter(c::isInstance).count();
-  }
-
-  /**
-   * Returns the number of pens
-   *
-   * @return the number of pens
-   */
-  public long countPens() {
-    return this.pens.size();
-  }
-
-  /**
-   * Returns the number of pens of the specified class.
-   *
-   * @param c the class of the pens to count
-   */
-  public <T extends Pen> long countPensOf(Class<T> c) {
-    return this.pens.stream().filter(c::isInstance).count();
-  }
-
-  /**
    * Add a backdrop to the stage. If a backdrop with the received name already
    * exists do nothing.
    *
    * @param name      a unique name
-   * @param imagePath a image path
+   * @param imagePath a image path, or the name of a built-in sprite such as
+   *                  "bg_castle"
    * @param stretch   stretch image to window size
+   *
+   * @example.preview StageAddBackdrop.gif
+   * @example.files StageAddBackdrop.java
    */
   public void addBackdrop(String name, final String imagePath, boolean stretch) {
     for (Image backdrop : this.backdrops) {
@@ -888,7 +554,7 @@ public class Stage {
         return;
       }
     }
-    Image backdrop = new Image(name, imagePath);
+    Image backdrop = Image.ofNameOrPath(name, imagePath);
     if (stretch) {
       backdrop.setSize(this.getWidth(), this.getHeight());
     }
@@ -900,25 +566,31 @@ public class Stage {
    * exists do nothing.
    *
    * @param name      a unique name
-   * @param imagePath a image path
+   * @param imagePath a image path, or the name of a built-in sprite such as
+   *                  "bg_castle"
    */
   public void addBackdrop(String name, final String imagePath) {
     this.addBackdrop(name, imagePath, false);
   }
 
   /**
-   * Remove a backdrop from the stage.
+   * Add one of the backdrops that ship with Scratch for Java to the stage. The
+   * backdrop gets the same name as the built-in sprite. If a backdrop with that
+   * name already exists do nothing.
    *
-   * @param name of the backdrop
+   * <p>
+   * Example usage:
+   *
+   * <pre>{@code
+   * this.addBackdrop("bg_castle");
+   * }</pre>
+   *
+   * @param name the name of a built-in sprite, for example "bg_castle". Add the
+   *             sheet in front of the name, for example "platformer/grass", if
+   *             the same name exists on several sheets.
    */
-  public void removeBackdrop(String name) {
-    for (int i = 0; i < this.backdrops.size(); i++) {
-      Image backdrop = this.backdrops.get(i);
-      if (backdrop.getName().equals(name)) {
-        this.backdrops.remove(i);
-        return;
-      }
-    }
+  public void addBackdrop(String name) {
+    this.addBackdrop(name, name, false);
   }
 
   /**
@@ -927,6 +599,9 @@ public class Stage {
    * @scratchblock switch backdrop to [name v]
    *
    * @param name the name of a backdrop
+   *
+   * @example.preview StageSwitchBackdrop.gif
+   * @example.files StageSwitchBackdrop.java
    */
   public void switchBackdrop(String name) {
     for (int i = 0; i < this.backdrops.size(); i++) {
@@ -967,24 +642,20 @@ public class Stage {
    * add custom behavior.
    *
    * @param name the name of the backdrop to switch to
+   *
+   * @example.preview StageWhenBackdropSwitches.gif
+   * @example.files StageWhenBackdropSwitches.java
    */
   public void whenBackdropSwitches(String name) {
-    this.whenBackdropSwitchesHandler.handle(this, name);
-  }
-
-  /**
-   * Sets the handler for when the backdrop switches.
-   *
-   * @param whenBackdropSwitches the handler to set
-   */
-  public void setWhenBackdropSwitches(WhenBackdropSwitchesHandler whenBackdropSwitches) {
-    this.whenBackdropSwitchesHandler = whenBackdropSwitches;
   }
 
   /**
    * Switch to the next backdrop.
    *
    * @scratchblock next backdrop
+   *
+   * @example.preview StageNextBackdrop.gif
+   * @example.files StageNextBackdrop.java
    */
   public void nextBackdrop() {
     if (this.backdrops.isEmpty()) {
@@ -1001,7 +672,11 @@ public class Stage {
     this.emitBackdropSwitch();
   }
 
-  /** Switch to the previous backdrop. */
+  /**
+   * Switch to the previous backdrop.
+   *
+   * @scratchblock switch backdrop to [previous backdrop v]
+   */
   public void previousBackdrop() {
     if (this.backdrops.isEmpty()) {
       System.err.println("\n==============================================");
@@ -1021,7 +696,11 @@ public class Stage {
     this.emitBackdropSwitch();
   }
 
-  /** Switch to a random backdrop. */
+  /**
+   * Switch to a random backdrop.
+   *
+   * @scratchblock switch backdrop to [random backdrop v]
+   */
   public void randomBackdrop() {
     int size = this.backdrops.size();
     this.currentBackdrop = this.pickRandom(0, size - 1) % size;
@@ -1032,6 +711,11 @@ public class Stage {
    * Returns the current backdrop name
    *
    * @return a backdrop name
+   *
+   * @example.preview StageGetCurrentBackdropName.gif
+   * @example.files StageGetCurrentBackdropName.java
+   *
+   * @scratchblock (backdrop [name v])
    */
   public String getCurrentBackdropName() {
     return this.backdrops.get(this.currentBackdrop).getName();
@@ -1041,12 +725,21 @@ public class Stage {
    * Returns the current backdrop index
    *
    * @return a backdrop index
+   *
+   * @example.preview StageGetCurrentBackdropIndex.gif
+   * @example.files StageGetCurrentBackdropIndex.java
+   *
+   * @scratchblock (backdrop [number v])
    */
   public int getCurrentBackdropIndex() {
     return this.currentBackdrop;
   }
 
-  /** Erases all lines on the pen layer. */
+  /**
+   * Erases all lines on the pen layer.
+   *
+   * @scratchblock erase all
+   */
   public void eraseAll() {
     this.eraseBackgroundBuffer = true;
     this.eraseForegroundBuffer = true;
@@ -1054,47 +747,24 @@ public class Stage {
   }
 
   /** When this method is called, the background buffer will be erased. */
-  public void eraseBackground() {
+  void eraseBackground() {
     this.eraseBackgroundBuffer = true;
   }
 
   /** When this method is called, the foreground buffer will be erased. */
-  public void eraseForeground() {
+  void eraseForeground() {
     this.eraseForegroundBuffer = true;
   }
 
-  /**
-   * Returns the pixels of the foreground buffer.
-   * @return the pixels of the foreground buffer
-   */
-  public int[] getForegroundPixels() {
-    this.foregroundBuffer.loadPixels();
-    return this.foregroundBuffer.pixels;
-  }
 
-  /**
-   * Returns the pixels of the background buffer.
-   * @return the pixels of the background buffer
-   */
-  public int[] getBackgroundPixels() {
-    this.backgroundBuffer.loadPixels();
-    return this.backgroundBuffer.pixels;
-  }
 
-  /**
-   * Returns the pixels of the main buffer.
-   * @return the pixels of the main buffer
-   */
-  public int[] getPixels() {
-    this.mainBuffer.loadPixels();
-    return this.mainBuffer.pixels;
-  }
 
   /**
    * This method marks the UI buffer to be erased, which will be processed in the
    * next update cycle.
+   *
    */
-  public void eraseUI() {
+  void eraseUI() {
     this.eraseUIBuffer = true;
   }
 
@@ -1103,7 +773,8 @@ public class Stage {
    * nothing.
    *
    * @param name      a unique name
-   * @param soundPath a sound path
+   * @param soundPath a sound path, or the name of a built-in sound such as
+   *                  "footstep_carpet_000"
    */
   public void addSound(String name, final String soundPath) {
     for (Sound sound : this.sounds) {
@@ -1112,29 +783,34 @@ public class Stage {
       }
     }
 
-    Sound sound = new Sound(name, soundPath);
+    Sound sound = Sound.ofNameOrPath(name, soundPath);
     this.sounds.add(sound);
   }
 
   /**
-   * Remove a sound from the stage.
+   * Add one of the sounds that ship with Scratch for Java to the stage. The
+   * sound gets the same name as the built-in sound. If a sound with that name
+   * already exists do nothing.
    *
-   * @param name the sound name
+   * <p>
+   * Example usage:
+   *
+   * <pre>{@code
+   * this.addSound("footstep_carpet_000");
+   * }</pre>
+   *
+   * @param name the name of a built-in sound, for example "footstep_carpet_000"
    */
-  public void removeSound(String name) {
-    for (int i = 0; i < this.sounds.size(); i++) {
-      Sound sound = this.sounds.get(i);
-      if (sound.getName().equals(name)) {
-        this.sounds.remove(i);
-        return;
-      }
-    }
+  public void addSound(String name) {
+    this.addSound(name, name);
   }
 
   /**
    * Plays a sound.
    *
    * @param name the sound name
+   *
+   * @scratchblock start sound [name v]
    */
   public void playSound(String name) {
     boolean found = false;
@@ -1168,7 +844,11 @@ public class Stage {
     System.err.println("==============================================\n");
   }
 
-  /** Stops the playing of all sounds of the stage. */
+  /**
+   * Stops the playing of all sounds of the stage.
+   *
+   * @scratchblock stop all sounds
+   */
   public void stopAllSounds() {
     for (Sound sound : this.sounds) {
       sound.stop();
@@ -1213,6 +893,9 @@ public class Stage {
    * Sets the background color via a hue value
    *
    * @param h a hue value [0...255]
+   *
+   * @example.preview StageSetColor.gif
+   * @example.files StageSetColor.java
    */
   public void setColor(double h) {
     this.color.setHSB(h);
@@ -1241,7 +924,7 @@ public class Stage {
   /**
    * Sets the color of the stage.
    *
-   * @see org.openpatch.scratch.extensions.color.Color
+   * @see Color
    * @param c the new color to be set
    */
   public void setColor(Color c) {
@@ -1252,6 +935,9 @@ public class Stage {
    * Changes the background color by adding a step to the hue value.
    *
    * @param h a step value
+   *
+   * @example.preview StageChangeColor.gif
+   * @example.files StageChangeColor.java
    */
   public void changeColor(double h) {
     this.color.changeColor(h);
@@ -1264,6 +950,9 @@ public class Stage {
    * @param r a red value [0...255]
    * @param g a green value [0...255]
    * @param b a blue value [0...255]
+   *
+   * @example.preview StageSetTint.gif
+   * @example.files StageSetTint.java
    */
   public void setTint(double r, double g, double b) {
     if (this.backdrops.size() == 0)
@@ -1275,6 +964,8 @@ public class Stage {
    * Sets the tint for the current backdrop with a hue.
    *
    * @see Image#setTint(double)
+   *
+   * @scratchblock set [color v] effect to (h)
    */
   public void setTint(double h) {
     if (this.backdrops.size() == 0)
@@ -1287,6 +978,11 @@ public class Stage {
    *
    * @see Image#changeTint(double)
    * @param step a step value
+   *
+   * @example.preview StageChangeTint.gif
+   * @example.files StageChangeTint.java
+   *
+   * @scratchblock change [color v] effect by (step)
    */
   public void changeTint(double step) {
     if (this.backdrops.size() == 0)
@@ -1300,6 +996,11 @@ public class Stage {
    *
    * @see Image#setTransparency(double)
    * @param transparency a transparency value [0...1]
+   *
+   * @example.preview StageSetTransparency.gif
+   * @example.files StageSetTransparency.java
+   *
+   * @scratchblock set [ghost v] effect to (transparency)
    */
   public void setTransparency(double transparency) {
     this.backdrops.get(this.currentBackdrop).setTransparency(transparency);
@@ -1310,6 +1011,11 @@ public class Stage {
    *
    * @see Image#changeTransparency(double)
    * @param step a step value
+   *
+   * @example.preview StageChangeTransparency.gif
+   * @example.files StageChangeTransparency.java
+   *
+   * @scratchblock change [ghost v] effect by (step)
    */
   public void changeTransparency(double step) {
     if (this.backdrops.size() == 0)
@@ -1323,6 +1029,9 @@ public class Stage {
    * available.
    *
    * @return the width of the sprite
+   *
+   * @example.preview StageGetWidth.gif
+   * @example.files StageGetWidth.java
    */
   public int getWidth() {
     return Applet.getInstance().getRenderWidth();
@@ -1333,6 +1042,9 @@ public class Stage {
    * available.
    *
    * @return the height of the sprite
+   *
+   * @example.preview StageGetHeight.gif
+   * @example.files StageGetHeight.java
    */
   public int getHeight() {
     return Applet.getInstance().getRenderHeight();
@@ -1342,6 +1054,8 @@ public class Stage {
    * Returns the timer
    *
    * @return the timer
+   *
+   * @scratchblock (timer)
    */
   public Timer getTimer() {
     return this.timer.get("default");
@@ -1354,38 +1068,17 @@ public class Stage {
    * @return the timer
    */
   public Timer getTimer(String name) {
-    return this.timer.get(name);
+    // Created on first use, so that a timer never has to be declared up front.
+    return this.timer.computeIfAbsent(name, n -> new Timer());
   }
 
-  /**
-   * Add a new timer by name. Overwriting default is not permitted.
-   *
-   * @param name the name of the timer
-   */
-  public void addTimer(String name) {
-    if ("default".equals(name))
-      return;
 
-    this.timer.put(name, new Timer());
-  }
-
-  /**
-   * Remove a timer by name. Removing of default is not permitted.
-   *
-   * @param name the name of the timer
-   */
-  public void removeTimer(String name) {
-    if ("default".equals(name))
-      return;
-
-    this.timer.remove(name);
-  }
 
   /**
    * @ignore-in-docs
    * @param e
    */
-  public void mouseEvent(MouseEvent e) {
+  private void mouseEvent(MouseEvent e) {
     if (e.getAction() == MouseEvent.CLICK) {
       final MouseCode me;
       if (e.getButton() == PConstants.LEFT) {
@@ -1422,18 +1115,10 @@ public class Stage {
    * behavior.
    *
    * @param mouseEvent The mouse event that triggered this method.
+   *
+   * @scratchblock when stage clicked
    */
   public void whenMouseClicked(MouseCode mouseEvent) {
-    this.whenMouseClickedHandler.handle(this, mouseEvent);
-  }
-
-  /**
-   * Sets the handler for mouse click events.
-   *
-   * @param whenMouseClicked a handler that takes a Stage and MouseCode as
-   */
-  public void setWhenMouseClicked(WhenMouseClickedHandler whenMouseClicked) {
-    this.whenMouseClickedHandler = whenMouseClicked;
   }
 
   /**
@@ -1445,25 +1130,19 @@ public class Stage {
    *              indicate movement
    *              away from the user, while negative values indicate movement
    *              towards the user.
+   *
+   * @example.preview StageWhenMouseWheelMoved.gif
+   * @example.files StageWhenMouseWheelMoved.java
    */
   public void whenMouseWheelMoved(int steps) {
-    this.whenMouseWheelMovedHandler.handle(this, steps);
-  }
-
-  /**
-   * Sets the handler for mouse wheel movement events.
-   *
-   * @param whenMouseWheelMoved a handler that takes a Stage and an integer
-   */
-  public void setWhenMouseWheelMoved(
-      WhenMouseWheelMovedHandler whenMouseWheelMoved) {
-    this.whenMouseWheelMovedHandler = whenMouseWheelMoved;
   }
 
   /**
    * Returns the current x-position of the mouse cursor
    *
    * @return x-position
+   *
+   * @scratchblock (mouse x)
    */
   public double getMouseX() {
     return this.mouseX;
@@ -1473,6 +1152,8 @@ public class Stage {
    * Returns the current y-position of the mouse cursor
    *
    * @return y-position
+   *
+   * @scratchblock (mouse y)
    */
   public double getMouseY() {
     return this.mouseY;
@@ -1482,6 +1163,9 @@ public class Stage {
    * Returns the current position of the mouse cursor as a Vector2
    *
    * @return mouse position
+   *
+   * @example.preview StageGetMouse.gif
+   * @example.files StageGetMouse.java
    */
   public Vector2 getMouse() {
     return new Vector2(this.mouseX, this.mouseY);
@@ -1491,6 +1175,11 @@ public class Stage {
    * Returns true is the mouse button is down
    *
    * @return mouse button down
+   *
+   * @example.preview StageIsMouseDown.gif
+   * @example.files StageIsMouseDown.java
+   *
+   * @scratchblock &lt;mouse down?&gt;
    */
   public boolean isMouseDown() {
     return Applet.getInstance().isMouseDown();
@@ -1501,19 +1190,13 @@ public class Stage {
    * custom behavior.
    *
    * @param keyCode the key that was pressed
+   *
+   * @example.preview StageWhenKeyPressed.gif
+   * @example.files StageWhenKeyPressed.java
+   *
+   * @scratchblock when [space v] key pressed
    */
   public void whenKeyPressed(KeyCode keyCode) {
-    this.whenKeyPressedHandler.handle(this, keyCode);
-  }
-
-  /**
-   * Sets the handler for key press events.
-   *
-   * @param whenKeyPressed a handler that takes a Stage and a KeyCode as an argument
-   */
-  public void setWhenKeyPressed(
-      WhenKeyPressedHandler whenKeyPressed) {
-    this.whenKeyPressedHandler = whenKeyPressed;
   }
 
   /**
@@ -1523,24 +1206,21 @@ public class Stage {
    * @param keyCode the key that was released
    */
   public void whenKeyReleased(KeyCode keyCode) {
-    this.whenKeyReleasedHandler.handle(this, keyCode);
-  }
-
-  /**
-   * Sets the handler for key release events.
-   *
-   * @param whenKeyReleased a handler that takes a Stage and a KeyCode as an argument
-   */
-  public void setWhenKeyReleased(
-      WhenKeyReleasedHandler whenKeyReleased) {
-    this.whenKeyReleasedHandler = whenKeyReleased;
   }
 
   /**
    * @ignore-in-docs
    * @param e
    */
-  public void keyEvent(KeyEvent e) {
+  private void keyEvent(KeyEvent e) {
+    if (this.askQuestion != null) {
+      if (e.getAction() == KeyEvent.PRESS) {
+        this.typeIntoAnswer(e.getKey());
+      }
+      // While a question is on screen the keys belong to it, so sprites do not
+      // react to someone typing their name.
+      return;
+    }
     switch (e.getAction()) {
       case KeyEvent.PRESS:
         this.whenKeyPressed(KeyCode.fromCode(e.getKeyCode()));
@@ -1557,6 +1237,11 @@ public class Stage {
    *
    * @param keyCode a key
    * @return key pressed
+   *
+   * @example.preview StageIsKeyPressed.gif
+   * @example.files StageIsKeyPressed.java
+   *
+   * @scratchblock &lt;key [space v] pressed?&gt;
    */
   public boolean isKeyPressed(KeyCode keyCode) {
     var kp = Applet.getInstance().getKeyCodePressed();
@@ -1571,102 +1256,22 @@ public class Stage {
    * Gets the seconds passed since the last frame.
    *
    * @return secons since last frame
+   *
+   * @example.preview StageGetDeltaTime.gif
+   * @example.files StageGetDeltaTime.java
    */
   public double getDeltaTime() {
     return Window.getInstance().getDeltaTime();
   }
 
-  /**
-   * Returns the current year
-   *
-   * @return current year
-   */
-  public int getCurrentYear() {
-    LocalDateTime now = LocalDateTime.now();
-    return now.getYear();
-  }
 
-  /**
-   * Returns the current month
-   *
-   * @return current month
-   */
-  public int getCurrentMonth() {
-    LocalDateTime now = LocalDateTime.now();
-    return now.getMonthValue();
-  }
 
-  /**
-   * Returns the current day of the week
-   *
-   * @return current day of the week
-   */
-  public int getCurrentDayOfWeek() {
-    LocalDateTime now = LocalDateTime.now();
-    return now.getDayOfWeek().getValue();
-  }
 
-  /**
-   * Returns the current day of the month
-   *
-   * @return current day of the month
-   */
-  public int getCurrentDay() {
-    LocalDateTime now = LocalDateTime.now();
-    return now.getDayOfMonth();
-  }
 
-  /**
-   * Returns the current hour
-   *
-   * @return current hour
-   */
-  public int getCurrentHour() {
-    LocalDateTime now = LocalDateTime.now();
-    return now.getHour();
-  }
 
-  /**
-   * Returns the current minute
-   *
-   * @return current minute
-   */
-  public int getCurrentMinute() {
-    LocalDateTime now = LocalDateTime.now();
-    return now.getMinute();
-  }
 
-  /**
-   * Returns the current second
-   *
-   * @return current second
-   */
-  public int getCurrentSecond() {
-    LocalDateTime now = LocalDateTime.now();
-    return now.getSecond();
-  }
 
-  /**
-   * Returns the current millisecond
-   *
-   * @return current millisecond
-   */
-  public int getCurrentMillisecond() {
-    LocalDateTime now = LocalDateTime.now();
-    return (int) Math.round(now.getNano() / 1000000.0);
-  }
 
-  /**
-   * Returns the days since 2010/01/01
-   *
-   * @return days since 2010/01/01
-   */
-  public int getDaysSince2000() {
-    LocalDate now = LocalDate.now();
-    LocalDate then = LocalDate.of(2000, Month.JANUARY, 1);
-    long c = ChronoUnit.DAYS.between(then, now);
-    return (int) c;
-  }
 
   /**
    * Returns a random integer between the specified range (inclusive).
@@ -1674,6 +1279,11 @@ public class Stage {
    * @param from the lower bound of the range (inclusive)
    * @param to   the upper bound of the range (inclusive)
    * @return a random integer between {@code from} and {@code to} (inclusive)
+   *
+   * @example.preview StagePickRandom.gif
+   * @example.files StagePickRandom.java
+   *
+   * @scratchblock (pick random (from) to (to))
    */
   public int pickRandom(int from, final int to) {
     if (to < from) {
@@ -1686,6 +1296,9 @@ public class Stage {
    * Displays the given text on the stage.
    *
    * @param text the text to be displayed
+   *
+   * @example.preview StageDisplay.gif
+   * @example.files StageDisplay.java
    */
   public void display(String text) {
     this.display.showText(text);
@@ -1703,14 +1316,117 @@ public class Stage {
   }
 
   /**
-   * Broadcasts a message to all sprites in the stage. Each sprite will execute
-   * its `whenIReceive`
-   * method with the given message.
+   * Sets how loud every sound of this stage plays.
    *
-   * @param message The message to broadcast to all sprites.
+   * @param percent 0 for silent, 100 for full volume
+   *
+   * @scratchblock set volume to (percent) %
    */
-  public void broadcast(String message) {
-    this.sprites.stream().forEach(s -> s.whenIReceive(message));
+  public void setVolume(double percent) {
+    this.volume = Math.max(0, Math.min(100, percent));
+    for (Sound sound : this.sounds) {
+      sound.setVolume(this.volume / 100.0);
+    }
+  }
+
+  /**
+   * Makes every sound of this stage louder or quieter.
+   *
+   * @param step how much to add to the volume, in percent
+   *
+   * @scratchblock change volume by (step)
+   */
+  public void changeVolume(double step) {
+    this.setVolume(this.volume + step);
+  }
+
+  /**
+   * Returns how loud the sounds of this stage play.
+   *
+   * @return the volume, from 0 to 100
+   *
+   * @scratchblock (volume)
+   */
+  public double getVolume() {
+    return this.volume;
+  }
+
+  /**
+   * Asks a question and waits for an answer to be typed in. A box appears at the
+   * top of the stage; whatever is typed goes into it until Enter is pressed.
+   *
+   * <p>
+   * Unlike Scratch, this does not pause anything. Your `run()` keeps being
+   * called while the question is on screen, so check {@link #isAsking()} or wait
+   * for {@link #getAnswer()} to change:
+   *
+   * <pre>{@code
+   * public void run() {
+   *   if (!this.isAsking() && this.getAnswer().isEmpty()) {
+   *     this.ask("What is your name?");
+   *   }
+   *   if (!this.getAnswer().isEmpty()) {
+   *     this.display("Hello " + this.getAnswer() + "!");
+   *   }
+   * }
+   * }</pre>
+   *
+   * @param question the question to show
+   *
+   * @scratchblock ask [question] and wait
+   */
+  public void ask(String question) {
+    this.askQuestion = question == null ? "" : question;
+    this.askInput.setLength(0);
+    this.showAskBox();
+  }
+
+  /**
+   * Returns the last answer that was typed in.
+   *
+   * @return the answer, or an empty string if nothing has been answered yet
+   *
+   * @scratchblock (answer)
+   */
+  public String getAnswer() {
+    return this.answer;
+  }
+
+  /**
+   * Checks whether a question is on screen and still waiting for an answer.
+   *
+   * @return true while a question is waiting
+   */
+  public boolean isAsking() {
+    return this.askQuestion != null;
+  }
+
+  /** Puts the question and whatever has been typed so far on screen. */
+  private void showAskBox() {
+    this.askDisplay.showText(this.askQuestion + "\n> " + this.askInput);
+  }
+
+  /** Handles one keypress while a question is waiting for an answer. */
+  private void typeIntoAnswer(char key) {
+    if (key == '\n' || key == '\r') {
+      this.answer = this.askInput.toString();
+      this.askQuestion = null;
+      this.askInput.setLength(0);
+      this.askDisplay.showText(null);
+      return;
+    }
+    if (key == '\b') {
+      if (this.askInput.length() > 0) {
+        this.askInput.setLength(this.askInput.length() - 1);
+      }
+      this.showAskBox();
+      return;
+    }
+    // 65535 is what Processing reports for keys that produce no character.
+    if (key >= ' ' && key != 65535) {
+      this.askInput.append(key);
+      this.showAskBox();
+    }
   }
 
   /**
@@ -1719,10 +1435,13 @@ public class Stage {
    * method with the given message.
    *
    * @param message The message to broadcast to all sprites.
+   *
+   * @scratchblock broadcast [message v]
    */
-  public void broadcast(Object message) {
+  public void broadcast(String message) {
     this.sprites.stream().forEach(s -> s.whenIReceive(message));
   }
+
 
   /**
    * This method is called when a specific message is received. Override this
@@ -1730,34 +1449,20 @@ public class Stage {
    * behavior.
    *
    * @param message The message that triggers this method.
+   *
+   * @scratchblock when I receive [message v]
    */
   public void whenIReceive(String message) {
-    this.whenIReceiveHandler.handle(this, message);
   }
 
-  /**
-   * This method is called when a message is received.
-   *
-   * @param message The message object that is received.
-   */
-  public void whenIReceive(Object message) {
-    this.whenIReceiveHandler.handle(this, message);
-  }
-
-  /**
-   * Sets the handler for when a message is received.
-   *
-   * @param whenIReceive a handler that takes a Stage and a String (the message)
-   *                     as arguments
-   */
-  public void setWhenIReceive(WhenIReceiveHandler whenIReceive) {
-    this.whenIReceiveHandler = whenIReceive;
-  }
 
   /**
    * Sets the cursor image for the stage.
    *
    * @param path the file path to the cursor image
+   *
+   * @example.preview StageSetCursor.gif
+   * @example.files StageSetCursor.java
    */
   public void setCursor(String path) {
     this.cursor = path;
@@ -1791,11 +1496,41 @@ public class Stage {
    * Stop the execution of the whole applications for the given milliseconds.
    *
    * @param millis Milliseconds
+   *
+   * @scratchblock wait (millis) seconds
    */
   public void wait(int millis) {
     try {
       Thread.sleep(millis);
     } catch (InterruptedException e) {
+    }
+  }
+
+  /**
+   * Waits until something becomes true, then carries on.
+   *
+   * <p>
+   * Like {@link #wait(int)} this holds up the code that calls it, not the whole
+   * program: sprites keep running and the stage keeps drawing while it waits.
+   * That makes it useful for setting a scene up in a constructor, and a bad idea
+   * inside `run()`, which is called once per frame and should return quickly.
+   *
+   * <pre>{@code
+   * this.ask("What is your name?");
+   * this.waitUntil(() -> !this.isAsking());
+   * this.display("Hello " + this.getAnswer() + "!");
+   * }</pre>
+   *
+   * @param condition checked over and over until it is true
+   *
+   * @scratchblock wait until &lt;condition&gt;
+   */
+  public void waitUntil(java.util.function.BooleanSupplier condition) {
+    if (condition == null) {
+      return;
+    }
+    while (!condition.getAsBoolean()) {
+      this.wait(16);
     }
   }
 
@@ -1809,28 +1544,52 @@ public class Stage {
   }
 
   /**
-   * Get the Window object.
-   *
-   * @return the Window object
-   */
-  public Window getWindow() {
-    return Window.getInstance();
-  }
-
-  /**
    * Executes the main logic of the stage. This method should be overridden by
    * subclasses to define
    * the specific behavior of the stage.
+   *
+   * @example.preview StageRun.gif
+   * @example.files StageRun.java
    */
   public void run() {
-    this.runHandler.handle(this);
+  }
+
+  /**
+   * Lets {@code TiledMap} stamp a map's layers without {@link #stamp} having to
+   * be public. See {@link StageAccess}.
+   */
+  static {
+    StageAccess.install(new StageAccess() {
+      public void stamp(Stage stage, Queue<Stamp> stamps, Layer layer) {
+        stage.stamp(stamps, layer);
+      }
+    });
+  }
+
+  /**
+   * Stamps images permanently onto one of the stage's layers, so that a tile map
+   * gets drawn once instead of every frame. Reached from other packages through
+   * {@link StageAccess}; {@link Sprite#stamp(Layer)} is the stamp block.
+   *
+   * @param stamps the images to stamp
+   * @param layer  which layer to stamp them onto
+   */
+  void stamp(Queue<Stamp> stamps, Layer layer) {
+    if (stamps == null || layer == null) {
+      return;
+    }
+    switch (layer) {
+      case BACKGROUND -> this.addStampsToBackground(stamps);
+      case FOREGROUND -> this.addStampsToForeground(stamps);
+      case UI -> this.addStampsToUI(stamps);
+    }
   }
 
   /**
    * @ignore-in-docs
    * @param stamp
    */
-  public void addStampsToForeground(Stamp stamp) {
+  void addStampsToForeground(Stamp stamp) {
     if (stamp == null) {
       return;
     }
@@ -1841,7 +1600,7 @@ public class Stage {
    * @ignore-in-docs
    * @param stamps
    */
-  public void addStampsToForeground(Queue<Stamp> stamps) {
+  void addStampsToForeground(Queue<Stamp> stamps) {
     this.foregroundStamps.addAll(stamps);
   }
 
@@ -1849,7 +1608,7 @@ public class Stage {
    * @ignore-in-docs
    * @param stamp
    */
-  public void addStampsToBackground(Stamp stamp) {
+  void addStampsToBackground(Stamp stamp) {
     if (stamp == null) {
       return;
     }
@@ -1860,7 +1619,7 @@ public class Stage {
    * @ignore-in-docs
    * @param stamps
    */
-  public void addStampsToBackground(Queue<Stamp> stamps) {
+  void addStampsToBackground(Queue<Stamp> stamps) {
     this.backgroundStamps.addAll(stamps);
   }
 
@@ -1876,18 +1635,17 @@ public class Stage {
   }
 
   /**
-   * Sets the main logic of the stage to be executed during each frame.
-   *
-   * @param run the RunHandler that defines the main logic of the stage
+   * @ignore-in-docs
+   * @param stamps
    */
-  public void setRun(RunHandler run) {
-    this.runHandler = run;
+  void addStampsToUI(Queue<Stamp> stamps) {
+    this.uiStamps.addAll(stamps);
   }
 
   /**
    * @ignore-in-docs
    */
-  public void pre() {
+  private void pre() {
     Applet applet = Applet.getInstance();
     if (applet == null)
       return;
@@ -1912,6 +1670,8 @@ public class Stage {
     this.mouseX = this.getCamera().toLocalX(globalMouseX);
     this.mouseY = this.getCamera().toLocalY(globalMouseY);
 
+    var delta = this.getDeltaTime();
+    this.sprites.stream().forEach(s -> s.stepGlide(delta));
     this.run();
     this.sprites.stream().forEach(s -> s.run());
   }
@@ -1925,10 +1685,29 @@ public class Stage {
    * @ignore-in-docs
    * @param buffer
    */
-  public void draw(PGraphics buffer) {
+  private void draw(PGraphics buffer) {
     Applet applet = Applet.getInstance();
     if (applet == null || buffer == null)
       return;
+
+    // A buffer's OpenGL framebuffer is allocated the first time it is drawn to.
+    // Left alone, that happens further down, after the canvas has been painted
+    // black - and the allocation disturbs the renderer enough that the letterbox
+    // bars come out in the sketch's default grey instead, so the window flashed
+    // every time a stage was set. Allocating them all here, before the canvas is
+    // painted, costs one begin/end per buffer once in a stage's life. It has to
+    // happen on the animation thread, which is why it is not done in the
+    // constructor.
+    if (!this.buffersAllocated) {
+      for (PGraphics b : new PGraphics[] {
+          this.shaderBuffer, this.mainBuffer, this.backdropBuffer, this.backgroundBuffer,
+          this.foregroundBuffer, this.uiBuffer, this.debugBuffer }) {
+        b.beginDraw();
+        b.clear();
+        b.endDraw();
+      }
+      this.buffersAllocated = true;
+    }
 
     buffer.background(0);
 
@@ -1975,8 +1754,8 @@ public class Stage {
     }
     this.backgroundBuffer.endDraw();
 
-    if (this.sorter != null) {
-      this.sprites.sort(this.sorter);
+    if (this.sorting.isOn()) {
+      this.sprites.sort(this.sorting.getComparator());
     }
 
     if (this.cursor != null) {
@@ -2013,7 +1792,7 @@ public class Stage {
     this.foregroundBuffer.endDraw();
 
     shaderBuffer.beginDraw();
-    var shader = this.getCurrentShader();
+    var shader = this.shaders.getCurrent();
     if (shader != null) {
       shaderBuffer.shader(shader.getPShader());
     }
@@ -2039,6 +1818,9 @@ public class Stage {
     }
     if (this.display != null) {
       this.display.draw(this.uiBuffer);
+    }
+    if (this.askDisplay != null) {
+      this.askDisplay.draw(this.uiBuffer);
     }
     this.sprites.stream().filter(s -> s.isUI()).forEach(s -> s.draw(uiBuffer));
     this.texts.stream().filter(t -> t.isUI()).forEach(t -> t.draw(uiBuffer));

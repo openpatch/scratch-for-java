@@ -4,8 +4,8 @@ import org.openpatch.scratch.KeyCode;
 import org.openpatch.scratch.Sprite;
 import org.openpatch.scratch.Stage;
 import org.openpatch.scratch.Window;
-import org.openpatch.scratch.extensions.hitbox.Hitbox;
-import org.openpatch.scratch.extensions.shape.Ellipse;
+import org.openpatch.scratch.Hitbox;
+import org.openpatch.scratch.Ellipse;
 
 public class Sensing extends Stage {
   public static Hero h, m;
@@ -18,8 +18,7 @@ public class Sensing extends Stage {
     this.add(h);
     this.add(m);
 
-    var uiH = new Hero();
-    uiH.isUI(true);
+    var uiH = new UIHero();
     uiH.setPosition(300, 300);
     this.add(uiH);
   }
@@ -65,8 +64,7 @@ class MovableHero extends Hero {
     super();
     this.setPosition(-100, -100);
     this.setDirection(0);
-    var hb = new Hitbox(new Ellipse(0, 0, 615, 570));
-    this.setHitbox(hb);
+    this.setHitbox(new Ellipse(0, 0, 615, 570));
   }
 
   public void run() {
@@ -94,5 +92,12 @@ class MovableHero extends Hero {
     } else {
       this.say(null);
     }
+  }
+}
+
+/** A Hero pinned to the user interface layer. */
+class UIHero extends Hero {
+  public UIHero() {
+    this.setUI(true);
   }
 }

@@ -1,7 +1,7 @@
 package reference;
 import org.openpatch.scratch.*;
 import org.openpatch.scratch.extensions.recorder.GifRecorder;
-import org.openpatch.scratch.extensions.timer.Timer;
+import org.openpatch.scratch.Timer;
 
 public class WindowSetStage {
   public WindowSetStage() {

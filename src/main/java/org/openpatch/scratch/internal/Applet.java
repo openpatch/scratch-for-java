@@ -16,7 +16,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 import org.openpatch.scratch.KeyCode;
 import org.openpatch.scratch.Stage;
-import org.openpatch.scratch.extensions.text.Text;
+import org.openpatch.scratch.Text;
 import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PImage;
@@ -87,8 +87,15 @@ public class Applet extends PApplet {
   private long numberAssets;
   private long loadedAssets;
   private PImage loading;
+  /** How long the loading screen takes to fade in, and again to fade out. */
+  private static final int SPLASH_FADE_MS = 300;
+  private int splashStart;
+  private int splashFadeOutStart;
   private final String assets;
   private Stage stage;
+  /** How to reach each stage's render loop, without those methods being public. */
+  private final Map<Stage, StageHooks> stageHooks =
+      java.util.Collections.synchronizedMap(new java.util.WeakHashMap<>());
   private int transitionStart;
   private int transitionDuration;
   private Stage transitionToStage;
@@ -249,6 +256,21 @@ public class Applet extends PApplet {
    *
    * @param stage the new stage to be set
    */
+  /**
+   * Registers how the render loop reaches a stage. Called by the stage itself
+   * when it is created.
+   *
+   * @param stage the stage
+   * @param hooks the stage's render-loop entry points
+   */
+  public void registerHooks(Stage stage, StageHooks hooks) {
+    this.stageHooks.put(stage, hooks);
+  }
+
+  private StageHooks hooksFor(Stage stage) {
+    return stage == null ? null : this.stageHooks.get(stage);
+  }
+
   public void setStage(Stage stage) {
     this.stage = stage;
   }
@@ -317,13 +339,49 @@ public class Applet extends PApplet {
     this.rectMode(PConstants.CENTER);
     this.background(0x222222);
 
-    this.loading = this.loadImage("loading.png");
-    var loadingScaleX = this.RENDER_WIDTH / 480.0;
-    var loadingScaleY = this.RENDER_HEIGHT / (360.0 + 150); // normal height + padding for loading text
-    var scale = Math.min(1, Math.min(loadingScaleX, loadingScaleY));
+    this.loading = this.loadSplashLogo();
+    // Fit the picture into rather over half the window, and never enlarge it. For
+    // the built-in logo this comes out at the size it has always been drawn at;
+    // for a picture of any other size it keeps the loading text below it on
+    // screen.
+    var scale = Math.min(1, Math.min(
+        this.RENDER_WIDTH * 0.55 / this.loading.width,
+        this.RENDER_HEIGHT * 0.55 / this.loading.height));
     this.loading.resize((int) (this.loading.width * scale), (int) (this.loading.height * scale));
 
     this.isSetup = true;
+  }
+
+  /**
+   * Loads the picture for the loading screen: the one chosen with
+   * {@link org.openpatch.scratch.Window#useSplashLogo}, or the built-in logo.
+   * A picture that cannot be read falls back to the logo rather than stopping
+   * the project before it has started.
+   */
+  private PImage loadSplashLogo() {
+    String chosen = org.openpatch.scratch.Window.getSplashLogo();
+    if (chosen != null) {
+      PImage image = null;
+      try {
+        image = this.loadImage(getPath(chosen));
+      } catch (Exception e) {
+        // reported below
+      }
+      if (image != null && image.width > 0) {
+        return image;
+      }
+      System.err.println("\n==============================================");
+      System.err.println("WARNING: Could not load the splash logo!");
+      System.err.println("==============================================");
+      System.err.println("\nPath: " + chosen);
+      System.err.println("\nPossible reasons:");
+      System.err.println("  1. The file does not exist at this location");
+      System.err.println("  2. The file path is incorrect (check spelling)");
+      System.err.println("  3. It is not a PNG, JPG or GIF");
+      System.err.println("\nThe Scratch for Java logo is being shown instead.");
+      System.err.println("==============================================\n");
+    }
+    return this.loadImage("loading.png");
   }
 
   public boolean isSetup() {
@@ -341,7 +399,7 @@ public class Applet extends PApplet {
 
   /** Loads assets from the specified directory. */
   public void loadAssets() {
-    Font.loadFont(Text.DEFAULT_FONT);
+    Font.loadFont(Text.getDefaultFont());
     if (this.assets != null) {
       try {
         this.loadingText = "Finding files...";
@@ -402,7 +460,10 @@ public class Applet extends PApplet {
   public void mouseEvent(MouseEvent e) {
     mouseDown = e.getAction() == MouseEvent.PRESS;
     if (this.state == State.RUNNING && this.stage != null) {
-      this.stage.mouseEvent(e);
+      var hooks = this.hooksFor(this.stage);
+      if (hooks != null) {
+        hooks.mouseEvent(e);
+      }
     }
   }
 
@@ -417,7 +478,10 @@ public class Applet extends PApplet {
    */
   public void keyEvent(KeyEvent e) {
     if (this.state == State.RUNNING && this.stage != null) {
-      this.stage.keyEvent(e);
+      var hooks = this.hooksFor(this.stage);
+      if (hooks != null) {
+        hooks.keyEvent(e);
+      }
     }
     switch (e.getAction()) {
       case KeyEvent.PRESS:
@@ -448,19 +512,57 @@ public class Applet extends PApplet {
   }
 
   private void drawLoading() {
+    var now = millis();
+    if (this.splashStart == 0) {
+      this.splashStart = now;
+    }
+
+    // The fade out may only begin once the fade in has finished, so that a
+    // project with nothing to load still shows the logo arriving and leaving
+    // rather than blinking once.
+    var ready = this.loadingStatus() >= 1 && this.stage != null;
+    if (ready && this.splashFadeOutStart == 0 && now - this.splashStart >= SPLASH_FADE_MS) {
+      this.splashFadeOutStart = now;
+    }
+
+    float alpha;
+    if (this.splashFadeOutStart > 0) {
+      alpha = PApplet.map(now - this.splashFadeOutStart, 0, SPLASH_FADE_MS, 255, 0);
+      if (alpha <= 0) {
+        this.state = State.RUNNING;
+        return;
+      }
+      // Fade away over the stage that is about to take over. Only its draw is
+      // called, never its pre, so the project is not already being played
+      // underneath the logo.
+      var hooks = this.hooksFor(this.stage);
+      if (hooks != null) {
+        hooks.draw(this.getGraphics());
+      }
+    } else {
+      alpha = PApplet.map(now - this.splashStart, 0, SPLASH_FADE_MS, 0, 255);
+      this.background(0x222222);
+    }
+    alpha = PApplet.constrain(alpha, 0, 255);
+
+    this.push();
     this.translate(this.width / 2, this.height / 2);
-    this.background(0x222222);
+    if (this.splashFadeOutStart > 0) {
+      this.noStroke();
+      this.fill(0x22, 0x22, 0x22, alpha);
+      this.rect(0, 0, this.width, this.height);
+    }
+    this.tint(255, alpha);
     this.image(this.loading, 0, 0);
+    this.noTint();
     this.textAlign(CENTER);
     this.stroke(0xf58219);
+    this.fill(255, alpha);
     this.textFont(Font.getDefaultFont());
     this.textSize(14);
     this.text(this.loadingText, 0, this.loading.height / 2 + 20);
     this.text(round(this.loadingStatus() * 100) + "%", 0, this.loading.height / 2 + 40);
-    this.textSize(14);
-    if (this.loadingStatus() >= 1 && this.stage != null) {
-      this.state = State.RUNNING;
-    }
+    this.pop();
   }
 
   private void drawTransitionOut() {
@@ -481,8 +583,11 @@ public class Applet extends PApplet {
   private void drawTransitionIn() {
     var alpha = PApplet.lerp(255, 0, (lastMillis - transitionStart) / (float) transitionDuration / 2.0f);
     if (alpha > 0) {
-      this.stage.pre();
-      this.stage.draw(this.getGraphics());
+      var hooks = this.hooksFor(this.stage);
+      if (hooks != null) {
+        hooks.pre();
+        hooks.draw(this.getGraphics());
+      }
       this.push();
       this.translate(this.width / 2, this.height / 2);
       this.fill(0, 0, 0, alpha);
@@ -547,8 +652,11 @@ public class Applet extends PApplet {
         this.drawLoading();
         break;
       case RUNNING:
-        this.stage.pre();
-        this.stage.draw(this.getGraphics());
+        var hooks = this.hooksFor(this.stage);
+        if (hooks != null) {
+          hooks.pre();
+          hooks.draw(this.getGraphics());
+        }
         break;
       case TRANSITIONING_IN:
         this.drawTransitionIn();

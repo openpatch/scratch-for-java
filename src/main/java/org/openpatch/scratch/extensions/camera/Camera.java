@@ -1,6 +1,6 @@
 package org.openpatch.scratch.extensions.camera;
 
-import org.openpatch.scratch.extensions.math.Vector2;
+import org.openpatch.scratch.Vector2;
 
 /**
  * The Camera class represents a camera that can be used to view a scene. It provides methods to set

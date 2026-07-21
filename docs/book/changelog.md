@@ -1,8 +1,68 @@
 ---
 name: Changelog
-index: 4
+index: 60
 lang: en
 ---
+
+## 4.28.2
+
+
+
+`Sprite` (and therefore `AnimatedSprite`) can now be constructed and used without a running `Window`/`Applet`, which previously crashed the whole JVM via `System.exit()`.
+
+- **Root cause**: `Sprite()`'s constructor builds a `Text`, whose constructor eagerly loaded the library's default font through the Processing asset pipeline. With no live `Applet`, that load failed and the asset-error reporter called `System.exit()`. `Font` now defers loading the underlying font file until it is actually needed (the first `getFont()` call during rendering), instead of doing it synchronously in its constructor. This matches how the library already preloads assets in the background once a `Window` is running (`Applet.loadAssets()`), and doesn't change behavior for normal (non-test) usage.
+- **`Sprite.ifOnEdgeBounce()`** used to throw a `NullPointerException` if called before the sprite was added to a stage (it read stage border fields unconditionally). It's now a no-op in that case, consistent with how other stage-dependent drawing code already guards on `stage == null`.
+
+Together these make it possible to unit test a `Sprite` subclass's movement/geometry logic (and now `run()`, as long as it doesn't touch other stage-dependent queries) without spinning up a real window - which is exactly what the newly added `SpriteTest`, `AnimatedSpriteTest`, and `FontTest` do.
+
+Note: sprites with costumes still require a live `Applet` to construct, since loading actual image pixel data (width/height) is inherent to adding a costume - this only unblocks bare `Sprite`/`AnimatedSprite` construction and costume-free logic.
+
+
+## 4.28.1
+
+
+
+Fix incorrect math in `Operators` and `Color`, found while adding a unit test suite for the library's pure-logic classes (`Operators`, `extensions/math`, `extensions/shape`, `extensions/hitbox`, `extensions/color`).
+
+- **`Operators.asinOf`, `Operators.acosOf`, `Operators.atanOf`**: these applied the degrees conversion to the input before taking the inverse trig function, and never converted the result back to degrees, so `asinOf`/`acosOf` returned `NaN` for almost any real input, and `atanOf` returned radians instead of degrees. They now correctly return the degree-valued inverse of `sinOf`/`cosOf`/`tanOf` (e.g. `asinOf(1.0) == 90.0`).
+- **`Operators.max(double...)`**: seeded its accumulator with `Double.MIN_VALUE` (the smallest *positive* double) instead of `Double.NEGATIVE_INFINITY`, so it returned the wrong result whenever every input was negative. Fixed to seed with `Double.NEGATIVE_INFINITY`.
+- **`Color(double r, double g, double b)`**: passed `g` twice to `setRGB`, silently dropping the blue channel and replacing it with the green value. Fixed to pass `r, g, b`. This also corrects `GifRecorder.transparent`, which is constructed with this constructor.
+
+
+Fix `Sprite.DIRECTION_RIGHT`/`DIRECTION_UP`/`DIRECTION_LEFT`/`DIRECTION_DOWN` (introduced in the previous release) having their degree values swapped relative to how `Sprite.move()` and `setDirection()` actually behave. A sprite's default direction is `90`, which moves it along +x ("right"), and `move()`'s trig confirms the real convention — matching real Scratch — is `0 = up, 90 = right, 180 = down, 270 = left`. The constants previously claimed `0 = right, 90 = up, 180 = left, 270 = down`, the opposite of reality. Also corrected the matching descriptions in `setDirection()`'s and `pointInDirection()`'s Javadoc, which had the same swap.
+
+No shipped example or demo used these constants, so this only affects code written against the just-released values.
+
+
+`MapObject.getProperty()` now throws a helpful error message naming the missing property and, when available, the properties that do exist on that map object — instead of a bare `NoSuchElementException` with no context. It also now gives a clear message when the map object has no custom properties at all, rather than a raw `NullPointerException`. This matches the library's existing beginner-friendly error reporting for missing assets.
+
+
+## 4.28.0
+
+Improve beginner-friendliness of the library.
+
+- KeyCode enum: Replaced the static final int constants class with a proper Java enum. Key constants now have short, readable names (KeyCode.SPACE, KeyCode.UP, KeyCode.A, etc.) with full IDE auto-complete support. The whenKeyPressed(KeyCode), whenKeyReleased(KeyCode), and isKeyPressed(KeyCode) methods now accept KeyCode directly.
+- Direction constants: Added Sprite.DIRECTION_RIGHT, Sprite.DIRECTION_UP, Sprite.DIRECTION_LEFT, and Sprite.DIRECTION_DOWN as named constants for setDirection().
+- debug() method: Added debug(Object... values) to Sprite, Stage, and Window. Prints a prefixed message to stdout (e.g. [CatSprite] x = 100.0) only when debug mode is enabled (F12 or setDebug(true)).
+- Better asset error messages: When an image, sound, or font file cannot be loaded, the error now shows the resolved absolute path, checks whether the parent folder exists, lists files in the same folder, and suggests a "did you mean?" correction for case mismatches.
+- More helpful runtime warnings: Methods that previously failed silently now print a clear warning with a tip. Affected cases include calling broadcast(), layer methods, or visual methods (setTint, setTransparency, setHeight, setWidth) before a sprite is on a stage or has a costume; switchShader() with an unknown name; addTimer("default"); and setTextureSampling() with an invalid value.
+- Suppress Processing noise: Internal Processing and JOGL messages (window resize notices, missing-file messages, X11 shutdown output) are now filtered from the console so beginners only see output relevant to their code.
+- Fix debug mode font size: Enabling debug mode no longer changes the font size of sprites that display text.
+
+
+## 4.26.0
+
+- Update dependencies
+
+## 4.25.0
+
+- Add beginner-friendly error messages for common mistakes, such as missing
+assets or incorrect file paths. This will help new users to quickly identify
+and fix issues in their code.
+
+## 4.24.2
+
+- Fix jogl and gluegen dependencies.
 
 ## 4.24.1
 

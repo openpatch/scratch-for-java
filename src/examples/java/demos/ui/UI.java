@@ -2,6 +2,7 @@ package demos.ui;
 
 import org.openpatch.scratch.KeyCode;
 import org.openpatch.scratch.Sprite;
+import org.openpatch.scratch.UISprite;
 import org.openpatch.scratch.Stage;
 
 public class UI {
@@ -48,7 +49,7 @@ class MyStage extends Stage {
   }
 }
 
-class Button extends Sprite {
+class Button extends UISprite {
   public Button() {
     super();
     this.addCostume("metal-panel-green-corner", "demos/ui/metalPanel_greenCorner.png");
@@ -61,7 +62,7 @@ class Button extends Sprite {
   }
 }
 
-class Bar extends Sprite {
+class Bar extends UISprite {
   public Bar() {
     super();
     this.addCostume("bar", "demos/ui/bar_round_gloss_large.png");

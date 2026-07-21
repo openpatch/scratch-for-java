@@ -1,6 +1,6 @@
 package reference;
 import org.openpatch.scratch.Stage;
-import org.openpatch.scratch.extensions.pen.Pen;
+import org.openpatch.scratch.Pen;
 import org.openpatch.scratch.extensions.recorder.GifRecorder;
 
 public class PenChangeTransparency {
