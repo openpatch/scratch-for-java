@@ -194,63 +194,7 @@ public class Stage {
    * @param height the height of the stage
    * @param assets the path to the assets directory
    */
-  public Stage(int width, int height, String assets) {
-    this(width, height, false, assets);
-  }
-
-  /**
-   * Constructs a new Stage.
-   *
-   * @param fullScreen a boolean indicating whether the stage should be in full
-   *                   screen mode.
-   */
-  public Stage(boolean fullScreen) {
-    this(fullScreen, null);
-  }
-
-  /**
-   * Constructs a new Stage with the specified fullscreen mode and assets path.
-   *
-   * @param fullScreen a boolean indicating whether the stage should be in
-   *                   fullscreen mode
-   * @param assets     the path to the assets directory
-   */
-  public Stage(boolean fullScreen, String assets) {
-    this(0, 0, fullScreen, assets);
-  }
-
-  /**
-   * Constructs a new Stage with the specified width and height.
-   *
-   * @param width      the width of the stage
-   * @param height     the height of the stage
-   * @param fullScreen whether the stage should be in full screen mode
-   */
-  public Stage(boolean fullScreen, int width, int height) {
-    this(width, height, fullScreen, null);
-  }
-
-  /**
-   * Constructs a new Stage with the specified parameters.
-   *
-   * @param fullScreen whether the stage should be in full screen mode
-   * @param width      the width of the stage
-   * @param height     the height of the stage
-   * @param assets     the path to the assets directory
-   */
-  public Stage(boolean fullScreen, int width, int height, String assets) {
-    this(width, height, fullScreen, assets);
-  }
-
-  /**
-   * Constructs a new Stage with the specified parameters.
-   *
-   * @param width      the width of the stage
-   * @param height     the height of the stage
-   * @param fullScreen whether the stage should be in full screen mode
-   * @param assets     the path to the assets directory
-   */
-  private Stage(int width, final int height, boolean fullScreen, String assets) {
+  public Stage(int width, final int height, String assets) {
     this.cursor = null;
     this.camera = new Camera();
     this.texts = new CopyOnWriteArrayList<>();
@@ -262,11 +206,7 @@ public class Stage {
     this.timer = new ConcurrentHashMap<>();
 
     if (Window.getInstance() == null) {
-      if (fullScreen) {
-        new Window(fullScreen, width, height, assets);
-      } else {
-        new Window(width, height, assets);
-      }
+      new Window(width, height, assets);
       Applet a = Applet.getInstance();
       a.setStage(this);
     }

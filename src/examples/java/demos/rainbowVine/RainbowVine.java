@@ -4,13 +4,14 @@ import org.openpatch.scratch.*;
 
 public class RainbowVine extends Stage {
   public RainbowVine() {
-    super(true);
+    super();
     this.setColor(0, 0, 0);
     this.add(new VineSprite());
     this.getCamera().setPosition(-400, -300);
   }
 
   public static void main(String[] args) {
+    Window.FULL_SCREEN = true;
     new RainbowVine();
   }
 }

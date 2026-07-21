@@ -6,7 +6,7 @@ import org.openpatch.scratch.Text;
 public class Tiled extends Window {
 
   public Tiled() {
-    super(true, 640, 360, "demos/tiled/assets");
+    super(640, 360, "demos/tiled/assets");
 
     I18n.setup();
 
@@ -26,6 +26,7 @@ public class Tiled extends Window {
     Text.SMOOTHING = false;
 
     // Start the Game
+    Window.FULL_SCREEN = true;
     new Tiled();
   }
 }

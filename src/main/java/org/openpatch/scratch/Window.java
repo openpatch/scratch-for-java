@@ -75,6 +75,21 @@ public class Window {
    */
   public static int TEXTURE_SAMPLING_MODE = 4;
 
+  /**
+   * Whether the window fills the whole screen. Set it before the window or the
+   * first stage is created, the same way as {@link #TEXTURE_SAMPLING_MODE}:
+   *
+   * <pre>{@code
+   * Window.FULL_SCREEN = true;
+   * new MyStage();
+   * }</pre>
+   *
+   * <p>
+   * In full screen the size is taken from the screen, so any width and height
+   * you give are ignored.
+   */
+  public static boolean FULL_SCREEN = false;
+
   private static Window instance;
 
   /**
@@ -118,50 +133,12 @@ public class Window {
    * @throws Error if an instance of Window already exists
    */
   public Window(int width, int height, String assets) {
-    super();
-    if (Window.instance != null) {
-      System.err.println("\n==============================================");
-      System.err.println("ERROR: Cannot create multiple Windows!");
-      System.err.println("==============================================");
-      System.err.println("\nA Window instance already exists.");
-      System.err.println("\nPossible reasons:");
-      System.err.println("  1. You created 'new Window()' multiple times");
-      System.err.println("  2. Your code instantiates Window in multiple places");
-      System.err.println("\nTip: Scratch for Java only supports one Window.");
-      System.err.println("     Remove duplicate Window creation code.");
-      System.err.println("==============================================\n");
-      throw new Error("You can only have one Window.");
-    }
-
-    Window.instance = this;
-    new Applet(width, height, false, assets);
+    this(FULL_SCREEN, width, height, assets);
   }
 
-  /**
-   * Constructs a new Window.
-   *
-   * @param fullScreen a boolean indicating whether the window should be in full
-   *                   screen mode.
-   */
-  public Window(boolean fullScreen) {
-    this(fullScreen, null);
-  }
 
-  /**
-   * Constructs a new Window instance. If an instance of Window already exists, an
-   * Error is thrown
-   * to ensure only one Window instance is created.
-   *
-   * @param fullScreen a boolean indicating whether the window should be in full
-   *                   screen mode
-   * @param assets     a String specifying the path to the assets
-   * @throws Error if an instance of Window already exists
-   */
-  public Window(boolean fullScreen, String assets) {
-    this(fullScreen, 0, 0, assets);
-  }
 
-  public Window(boolean fullScreen, int width, int height, String assets) {
+  private Window(boolean fullScreen, int width, int height, String assets) {
     if (Window.instance != null) {
       System.err.println("\n==============================================");
       System.err.println("ERROR: Cannot create multiple Windows!");
@@ -180,9 +157,6 @@ public class Window {
     applet.setTextureSampling(TEXTURE_SAMPLING_MODE);
   }
 
-  public Window(boolean fullScreen, int width, int height) {
-    this(fullScreen, width, height, null);
-  }
 
   /**
    * Returns the singleton instance of the Window class.
