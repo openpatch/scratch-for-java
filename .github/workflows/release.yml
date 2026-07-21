@@ -67,21 +67,6 @@ jobs:
           files: |
             target/*.jar
 
-      - name: Generate Javadocs
-        run: mvn -B javadoc:javadoc
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v6
-
-      - name: Upload Javadocs artifact
-        uses: actions/upload-pages-artifact@v5
-        with:
-          path: target/site/apidocs
-
-      - name: Deploy Javadocs to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v5
-
       - name: Delete changeset branch
         run: |
           echo "Deleting branch 'changeset'"
