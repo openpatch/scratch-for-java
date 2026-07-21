@@ -182,7 +182,30 @@ a real user call in the tiled demo, so it was replaced by `stamp(Layer)` on
 From 293. Public and documented are now the same number, which was the goal
 behind the whole architecture question.
 
-Then: step 5 (docs).
+**Step 5 (docs) is under way.** The reference examples turned out to exist
+already — 126 of them under `src/examples/java/reference/` — but almost none
+were connected to a method. Only one method carried the `@example.*` tags the
+doclet needs, so the doclet emitted one worked example for the entire library.
+
+Wiring them by name (`SpriteSwitchCostume.java` → `Sprite.switchCostume`) hooked
+up **107** of them.
+
+While checking the result, the built pages still listed `addTimer()`,
+`changeWidth()`, `getCurrentDay()` and other methods deleted in steps 1–4: **the
+doclet only writes pages, it never removes them**, so `docs/book/reference` had
+been accumulating stale entries. A clean step before the doclet runs removed 429
+phantom pages.
+
+| | Before | After |
+|---|---:|---:|
+| Reference entries | 914 (429 stale) | **485** |
+| With a worked example | 1 | **108** |
+| With a scratch block | 23 | 31 |
+| Example coverage | 0.1% | **22%** |
+
+Still to do: `@scratchblock` on the ~150 documented methods that have a Scratch
+equivalent and no annotation yet, and new examples for the methods that never
+had one.
 
 ## Where it lands
 

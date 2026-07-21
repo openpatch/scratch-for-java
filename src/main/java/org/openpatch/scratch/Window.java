@@ -276,6 +276,9 @@ public class Window {
    * Sets the current stage of the application.
    *
    * @param stage the new stage to be set
+   *
+   * @example.preview WindowSetStage.gif
+   * @example.files WindowSetStage.java
    */
   public void setStage(Stage stage) {
     Applet.getInstance().setStage(stage);

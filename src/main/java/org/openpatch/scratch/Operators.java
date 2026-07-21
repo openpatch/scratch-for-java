@@ -30,6 +30,10 @@ public class Operators {
    * @param stop second value
    * @param amt double between 0.0 and 1.0
    * @return the interpolated value
+   *
+   * @example.preview OperatorsLerp.gif
+   * @example.folder OperatorsLerp
+   * @example.files MyStage.java;MyWindow.java
    */
   public static final double lerp(double start, double stop, double amt) {
     return start + (stop - start) * amt;

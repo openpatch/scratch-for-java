@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
  * File structure (base package: org.openpatch.scratch):
  * - /ClassName/methodName.md.json for classes in base package
  * - /extensions/animations/ClassName/methodName.md.json for
- * org.openpatch.scratch.extensions.animations
+ * org.openpatch.scratch
  * - /ClassName/index.md.json for class documentation
  * - /extensions/animations/index.md.json for package documentation
  * 

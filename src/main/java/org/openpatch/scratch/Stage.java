@@ -429,6 +429,9 @@ public class Stage {
    * Retrieves a list of all sprites in the current stage.
    *
    * @return a list containing all sp
+   *
+   * @example.preview StageGetAll.gif
+   * @example.files StageGetAll.java
    */
   public List<Sprite> getAll() {
     return new CopyOnWriteArrayList<>(this.sprites);
@@ -438,6 +441,9 @@ public class Stage {
    * Removes the specified sprite from the stage.
    *
    * @param sprite the sprite to be removed
+   *
+   * @example.preview StageRemove.gif
+   * @example.files StageRemove.java
    */
   public void remove(Sprite sprite) {
     this.sprites.remove(sprite);
@@ -526,7 +532,10 @@ public class Stage {
     this.pens.clear();
   }
 
-  /** Removes all elements from the stage. */
+  /** Removes all elements from the stage. *
+   * @example.preview StageRemoveAll.gif
+   * @example.files StageRemoveAll.java
+   */
   public void removeAll() {
     this.removeAllSprites();
     this.removeAllTexts();
@@ -551,6 +560,9 @@ public class Stage {
    * Find sprites of a given class.
    *
    * @param c Class
+   *
+   * @example.preview StageFind.gif
+   * @example.files StageFind.java
    */
   public <T extends Sprite> List<T> find(Class<T> c) {
     return this.sprites.stream().filter(c::isInstance).map(c::cast).collect(Collectors.toList());
@@ -574,6 +586,9 @@ public class Stage {
    * @param imagePath a image path, or the name of a built-in sprite such as
    *                  "bg_castle"
    * @param stretch   stretch image to window size
+   *
+   * @example.preview StageAddBackdrop.gif
+   * @example.files StageAddBackdrop.java
    */
   public void addBackdrop(String name, final String imagePath, boolean stretch) {
     for (Image backdrop : this.backdrops) {
@@ -626,6 +641,9 @@ public class Stage {
    * @scratchblock switch backdrop to [name v]
    *
    * @param name the name of a backdrop
+   *
+   * @example.preview StageSwitchBackdrop.gif
+   * @example.files StageSwitchBackdrop.java
    */
   public void switchBackdrop(String name) {
     for (int i = 0; i < this.backdrops.size(); i++) {
@@ -666,6 +684,9 @@ public class Stage {
    * add custom behavior.
    *
    * @param name the name of the backdrop to switch to
+   *
+   * @example.preview StageWhenBackdropSwitches.gif
+   * @example.files StageWhenBackdropSwitches.java
    */
   public void whenBackdropSwitches(String name) {
   }
@@ -674,6 +695,9 @@ public class Stage {
    * Switch to the next backdrop.
    *
    * @scratchblock next backdrop
+   *
+   * @example.preview StageNextBackdrop.gif
+   * @example.files StageNextBackdrop.java
    */
   public void nextBackdrop() {
     if (this.backdrops.isEmpty()) {
@@ -721,6 +745,9 @@ public class Stage {
    * Returns the current backdrop name
    *
    * @return a backdrop name
+   *
+   * @example.preview StageGetCurrentBackdropName.gif
+   * @example.files StageGetCurrentBackdropName.java
    */
   public String getCurrentBackdropName() {
     return this.backdrops.get(this.currentBackdrop).getName();
@@ -730,6 +757,9 @@ public class Stage {
    * Returns the current backdrop index
    *
    * @return a backdrop index
+   *
+   * @example.preview StageGetCurrentBackdropIndex.gif
+   * @example.files StageGetCurrentBackdropIndex.java
    */
   public int getCurrentBackdropIndex() {
     return this.currentBackdrop;
@@ -885,6 +915,9 @@ public class Stage {
    * Sets the background color via a hue value
    *
    * @param h a hue value [0...255]
+   *
+   * @example.preview StageSetColor.gif
+   * @example.files StageSetColor.java
    */
   public void setColor(double h) {
     this.color.setHSB(h);
@@ -913,7 +946,7 @@ public class Stage {
   /**
    * Sets the color of the stage.
    *
-   * @see org.openpatch.scratch.extensions.color.Color
+   * @see Color
    * @param c the new color to be set
    */
   public void setColor(Color c) {
@@ -924,6 +957,9 @@ public class Stage {
    * Changes the background color by adding a step to the hue value.
    *
    * @param h a step value
+   *
+   * @example.preview StageChangeColor.gif
+   * @example.files StageChangeColor.java
    */
   public void changeColor(double h) {
     this.color.changeColor(h);
@@ -936,6 +972,9 @@ public class Stage {
    * @param r a red value [0...255]
    * @param g a green value [0...255]
    * @param b a blue value [0...255]
+   *
+   * @example.preview StageSetTint.gif
+   * @example.files StageSetTint.java
    */
   public void setTint(double r, double g, double b) {
     if (this.backdrops.size() == 0)
@@ -959,6 +998,9 @@ public class Stage {
    *
    * @see Image#changeTint(double)
    * @param step a step value
+   *
+   * @example.preview StageChangeTint.gif
+   * @example.files StageChangeTint.java
    */
   public void changeTint(double step) {
     if (this.backdrops.size() == 0)
@@ -972,6 +1014,9 @@ public class Stage {
    *
    * @see Image#setTransparency(double)
    * @param transparency a transparency value [0...1]
+   *
+   * @example.preview StageSetTransparency.gif
+   * @example.files StageSetTransparency.java
    */
   public void setTransparency(double transparency) {
     this.backdrops.get(this.currentBackdrop).setTransparency(transparency);
@@ -982,6 +1027,9 @@ public class Stage {
    *
    * @see Image#changeTransparency(double)
    * @param step a step value
+   *
+   * @example.preview StageChangeTransparency.gif
+   * @example.files StageChangeTransparency.java
    */
   public void changeTransparency(double step) {
     if (this.backdrops.size() == 0)
@@ -995,6 +1043,9 @@ public class Stage {
    * available.
    *
    * @return the width of the sprite
+   *
+   * @example.preview StageGetWidth.gif
+   * @example.files StageGetWidth.java
    */
   public int getWidth() {
     return Applet.getInstance().getRenderWidth();
@@ -1005,6 +1056,9 @@ public class Stage {
    * available.
    *
    * @return the height of the sprite
+   *
+   * @example.preview StageGetHeight.gif
+   * @example.files StageGetHeight.java
    */
   public int getHeight() {
     return Applet.getInstance().getRenderHeight();
@@ -1086,6 +1140,9 @@ public class Stage {
    *              indicate movement
    *              away from the user, while negative values indicate movement
    *              towards the user.
+   *
+   * @example.preview StageWhenMouseWheelMoved.gif
+   * @example.files StageWhenMouseWheelMoved.java
    */
   public void whenMouseWheelMoved(int steps) {
   }
@@ -1112,6 +1169,9 @@ public class Stage {
    * Returns the current position of the mouse cursor as a Vector2
    *
    * @return mouse position
+   *
+   * @example.preview StageGetMouse.gif
+   * @example.files StageGetMouse.java
    */
   public Vector2 getMouse() {
     return new Vector2(this.mouseX, this.mouseY);
@@ -1121,6 +1181,9 @@ public class Stage {
    * Returns true is the mouse button is down
    *
    * @return mouse button down
+   *
+   * @example.preview StageIsMouseDown.gif
+   * @example.files StageIsMouseDown.java
    */
   public boolean isMouseDown() {
     return Applet.getInstance().isMouseDown();
@@ -1131,6 +1194,9 @@ public class Stage {
    * custom behavior.
    *
    * @param keyCode the key that was pressed
+   *
+   * @example.preview StageWhenKeyPressed.gif
+   * @example.files StageWhenKeyPressed.java
    */
   public void whenKeyPressed(KeyCode keyCode) {
   }
@@ -1165,6 +1231,9 @@ public class Stage {
    *
    * @param keyCode a key
    * @return key pressed
+   *
+   * @example.preview StageIsKeyPressed.gif
+   * @example.files StageIsKeyPressed.java
    */
   public boolean isKeyPressed(KeyCode keyCode) {
     var kp = Applet.getInstance().getKeyCodePressed();
@@ -1179,6 +1248,9 @@ public class Stage {
    * Gets the seconds passed since the last frame.
    *
    * @return secons since last frame
+   *
+   * @example.preview StageGetDeltaTime.gif
+   * @example.files StageGetDeltaTime.java
    */
   public double getDeltaTime() {
     return Window.getInstance().getDeltaTime();
@@ -1199,6 +1271,9 @@ public class Stage {
    * @param from the lower bound of the range (inclusive)
    * @param to   the upper bound of the range (inclusive)
    * @return a random integer between {@code from} and {@code to} (inclusive)
+   *
+   * @example.preview StagePickRandom.gif
+   * @example.files StagePickRandom.java
    */
   public int pickRandom(int from, final int to) {
     if (to < from) {
@@ -1211,6 +1286,9 @@ public class Stage {
    * Displays the given text on the stage.
    *
    * @param text the text to be displayed
+   *
+   * @example.preview StageDisplay.gif
+   * @example.files StageDisplay.java
    */
   public void display(String text) {
     this.display.showText(text);
@@ -1254,6 +1332,9 @@ public class Stage {
    * Sets the cursor image for the stage.
    *
    * @param path the file path to the cursor image
+   *
+   * @example.preview StageSetCursor.gif
+   * @example.files StageSetCursor.java
    */
   public void setCursor(String path) {
     this.cursor = path;
@@ -1308,6 +1389,9 @@ public class Stage {
    * Executes the main logic of the stage. This method should be overridden by
    * subclasses to define
    * the specific behavior of the stage.
+   *
+   * @example.preview StageRun.gif
+   * @example.files StageRun.java
    */
   public void run() {
   }

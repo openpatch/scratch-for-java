@@ -267,6 +267,9 @@ public class Sprite {
    * @param name the name of a built-in sprite, for example "bunny1_jump". Add
    *             the sheet in front of the name, for example
    *             "platformer/grass", if the same name exists on several sheets.
+   *
+   * @example.preview SpriteAddCostume.gif
+   * @example.files SpriteAddCostume.java
    */
   public void addCostume(String name) {
     this.addCostume(name, name);
@@ -381,6 +384,9 @@ public class Sprite {
    * @scratchblock switch costume to [name v]
    *
    * @param name the name of a costume
+   *
+   * @example.preview SpriteSwitchCostume.gif
+   * @example.files SpriteSwitchCostume.java
    */
   public void switchCostume(String name) {
     for (int i = 0; i < this.costumes.size(); i++) {
@@ -421,6 +427,9 @@ public class Sprite {
    * Switch to the next costume.
    *
    * @scratchblock next costume
+   *
+   * @example.preview SpriteNextCostume.gif
+   * @example.files SpriteNextCostume.java
    */
   public void nextCostume() {
     if (this.costumes.isEmpty()) {
@@ -459,6 +468,9 @@ public class Sprite {
    * Returns the current costume name
    *
    * @return a costume name
+   *
+   * @example.preview SpriteGetCurrentCostumeName.gif
+   * @example.files SpriteGetCurrentCostumeName.java
    */
   public String getCurrentCostumeName() {
     if (this.costumes.size() == 0)
@@ -471,6 +483,9 @@ public class Sprite {
    * Returns the current costume index
    *
    * @return a costume index
+   *
+   * @example.preview SpriteGetCurrentCostumeIndex.gif
+   * @example.files SpriteGetCurrentCostumeIndex.java
    */
   public int getCurrentCostumeIndex() {
     return this.currentCostume;
@@ -617,6 +632,9 @@ public class Sprite {
    *
    * @see Color
    * @param c a color object
+   *
+   * @example.preview SpriteSetTint.gif
+   * @example.files SpriteSetTint.java
    */
   public void setTint(Color c) {
     this.setTint(c.getRed(), c.getGreen(), c.getBlue());
@@ -668,6 +686,9 @@ public class Sprite {
    * Changes the tint for the sprite by a step.
    *
    * @param step a step value
+   *
+   * @example.preview SpriteChangeTint.gif
+   * @example.files SpriteChangeTint.java
    */
   public void changeTint(double step) {
     if (this.costumes.size() == 0) {
@@ -700,6 +721,9 @@ public class Sprite {
    *
    * @see Image#setTransparency(double)
    * @param transparency 0 full transparency, 255 no transparency
+   *
+   * @example.preview SpriteSetTransparency.gif
+   * @example.files SpriteSetTransparency.java
    */
   public void setTransparency(double transparency) {
     if (this.costumes.size() == 0) {
@@ -720,6 +744,9 @@ public class Sprite {
    *
    * @see Image#changeTransparency(double)
    * @param step a step value
+   *
+   * @example.preview SpriteChangeTransparency.gif
+   * @example.files SpriteChangeTransparency.java
    */
   public void changeTransparency(double step) {
     if (this.costumes.size() == 0) {
@@ -751,6 +778,9 @@ public class Sprite {
    * Hides the sprite. The pen is not effected.
    *
    * @scratchblock hide
+   *
+   * @example.preview SpriteHide.gif
+   * @example.files SpriteHide.java
    */
   public void hide() {
     this.show = false;
@@ -760,6 +790,9 @@ public class Sprite {
    * Shows the sprite.
    *
    * @scratchblock show
+   *
+   * @example.preview SpriteShow.gif
+   * @example.files SpriteShow.java
    */
   public void show() {
     this.show = true;
@@ -769,6 +802,9 @@ public class Sprite {
    * Returns if the sprite is visible
    *
    * @return is visible
+   *
+   * @example.preview SpriteIsVisible.gif
+   * @example.files SpriteIsVisible.java
    */
   public boolean isVisible() {
     return this.show;
@@ -789,6 +825,9 @@ public class Sprite {
    * @scratchblock set size to (percentage) %
    *
    * @param percentage a percentage [0...100]
+   *
+   * @example.preview SpriteSetSize.gif
+   * @example.files SpriteSetSize.java
    */
   public void setSize(double percentage) {
     this.size = percentage;
@@ -853,6 +892,9 @@ public class Sprite {
    * the hitbox is
    * disabled or if the sprite is a UI element. It also does nothing if the
    * sprite has not been added to a stage yet.
+   *
+   * @example.preview SpriteIfOnEdgeBounce.gif
+   * @example.files SpriteIfOnEdgeBounce.java
    */
   public void ifOnEdgeBounce() {
     if (this.hitboxDisabled || this.isUI || this.stage == null)
@@ -884,6 +926,9 @@ public class Sprite {
    *
    * @see RotationStyle
    * @param style the rotation style to be set
+   *
+   * @example.preview SpriteSetRotationStyle.gif
+   * @example.files SpriteSetRotationStyle.java
    */
   public void setRotationStyle(RotationStyle style) {
     this.rotationStyle = style;
@@ -896,6 +941,9 @@ public class Sprite {
    *
    * @param x a x coordinate
    * @param y a y coordinate
+   *
+   * @example.preview SpriteSetPosition.gif
+   * @example.files SpriteSetPosition.java
    */
   public void setPosition(double x, double y) {
     this.x = x;
@@ -937,6 +985,9 @@ public class Sprite {
    * @scratchblock turn left (degrees) degrees
    *
    * @param degrees between 0 and 360
+   *
+   * @example.preview SpriteTurnLeft.gif
+   * @example.files SpriteTurnLeft.java
    */
   public void turnLeft(double degrees) {
     this.setDirection(this.direction - degrees);
@@ -948,6 +999,9 @@ public class Sprite {
    * @scratchblock turn right (degrees) degrees
    *
    * @param degrees between 0 and 360
+   *
+   * @example.preview SpriteTurnRight.gif
+   * @example.files SpriteTurnRight.java
    */
   public void turnRight(double degrees) {
     this.setDirection(this.direction + degrees);
@@ -961,6 +1015,9 @@ public class Sprite {
    * @scratchblock point in direction (degrees)
    *
    * @param degrees between 0 and 360
+   *
+   * @example.preview SpriteSetDirection.gif
+   * @example.files SpriteSetDirection.java
    */
   public void setDirection(double degrees) {
     this.direction = degrees;
@@ -1006,6 +1063,9 @@ public class Sprite {
    * angle between the sprite's current position and the mouse pointer's position,
    * then sets the
    * sprite's direction accordingly.
+   *
+   * @example.preview SpritePointTowardsMousePointer.gif
+   * @example.files SpritePointTowardsMousePointer.java
    */
   public void pointTowardsMousePointer() {
     var mx = this.getMouseX();
@@ -1032,6 +1092,9 @@ public class Sprite {
    * Returns the direction of the sprite.
    *
    * @return the direction [0...360]
+   *
+   * @example.preview SpriteGetDirection.gif
+   * @example.files SpriteGetDirection.java
    */
   public double getDirection() {
     return this.direction;
@@ -1041,6 +1104,9 @@ public class Sprite {
    * Returns the pen of the sprite.
    *
    * @return
+   *
+   * @example.preview SpriteGetPen.gif
+   * @example.files SpriteGetPen.java
    */
   public Pen getPen() {
     return this.pen;
@@ -1052,6 +1118,9 @@ public class Sprite {
    * @scratchblock move (steps) steps
    *
    * @param steps a number of pixels
+   *
+   * @example.preview SpriteMove.gif
+   * @example.files SpriteMove.java
    */
   public void move(double steps) {
     // convert degrees to radians
@@ -1084,6 +1153,9 @@ public class Sprite {
    * Returns the x coordinate of the sprite
    *
    * @return a x coordinate
+   *
+   * @example.preview SpriteGetX.gif
+   * @example.files SpriteGetX.java
    */
   public double getX() {
     return this.x;
@@ -1095,6 +1167,9 @@ public class Sprite {
    * @scratchblock set x to (x)
    *
    * @param x a x coordinate
+   *
+   * @example.preview SpriteSetX.gif
+   * @example.files SpriteSetX.java
    */
   public void setX(double x) {
     this.x = x;
@@ -1107,6 +1182,9 @@ public class Sprite {
    * @scratchblock change x by (x)
    *
    * @param x number in pixels
+   *
+   * @example.preview SpriteChangeX.gif
+   * @example.files SpriteChangeX.java
    */
   public void changeX(double x) {
     this.x += x;
@@ -1117,6 +1195,9 @@ public class Sprite {
    * Returns the y coordinate of the sprite
    *
    * @return a y coordinate
+   *
+   * @example.preview SpriteGetY.gif
+   * @example.files SpriteGetY.java
    */
   public double getY() {
     return this.y;
@@ -1128,6 +1209,9 @@ public class Sprite {
    * @scratchblock set y to (y)
    *
    * @param y a y coordinate
+   *
+   * @example.preview SpriteSetY.gif
+   * @example.files SpriteSetY.java
    */
   public void setY(double y) {
     this.y = y;
@@ -1140,6 +1224,9 @@ public class Sprite {
    * @scratchblock change y by (y)
    *
    * @param y number in pixels
+   *
+   * @example.preview SpriteChangeY.gif
+   * @example.files SpriteChangeY.java
    */
   public void changeY(double y) {
     this.y += y;
@@ -1151,6 +1238,9 @@ public class Sprite {
    * available.
    *
    * @return the width of the sprite
+   *
+   * @example.preview SpriteGetWidth.gif
+   * @example.files SpriteGetWidth.java
    */
   public int getWidth() {
     if (this.costumes.size() == 0)
@@ -1164,6 +1254,9 @@ public class Sprite {
    * available.
    *
    * @return the height of the sprite
+   *
+   * @example.preview SpriteGetHeight.gif
+   * @example.files SpriteGetHeight.java
    */
   public int getHeight() {
     if (this.costumes.size() == 0)
@@ -1199,6 +1292,9 @@ public class Sprite {
    * @scratchblock &lt;touching [mouse-pointer v]?&gt;
    *
    * @return true if touching
+   *
+   * @example.preview SpriteIsTouchingMousePointer.gif
+   * @example.files SpriteIsTouchingMousePointer.java
    */
   public boolean isTouchingMousePointer() {
     if (this.hitboxDisabled)
@@ -1215,6 +1311,9 @@ public class Sprite {
    * stage
    *
    * @return true if outside
+   *
+   * @example.preview SpriteIsTouchingEdge.gif
+   * @example.files SpriteIsTouchingEdge.java
    */
   public boolean isTouchingEdge() {
     if (this.hitboxDisabled)
@@ -1230,6 +1329,9 @@ public class Sprite {
    * Calculates the distance from the current sprite to the mouse pointer.
    *
    * @return the distance to the mouse pointer as a double.
+   *
+   * @example.preview SpriteDistanceToMousePointer.gif
+   * @example.files SpriteDistanceToMousePointer.java
    */
   public double distanceToMousePointer() {
     var x2 = this.getMouseX();
@@ -1244,6 +1346,9 @@ public class Sprite {
    *
    * @param sprite the other sprite to which the distance is calculated
    * @return the distance between this sprite and the specified sprite
+   *
+   * @example.preview SpriteDistanceToSprite.gif
+   * @example.files SpriteDistanceToSprite.java
    */
   public double distanceToSprite(Sprite sprite) {
     var x2 = sprite.getX();
@@ -1263,6 +1368,9 @@ public class Sprite {
    *               The length of the array should be even, with each pair of
    *               integers representing a point (x,
    *               y).
+   *
+   * @example.preview SpriteSetHitbox.gif
+   * @example.files SpriteSetHitbox.java
    */
   public void setHitbox(double... points) {
     int l = points.length / 2;
@@ -1395,6 +1503,9 @@ public class Sprite {
    *         the specified sprite is the same as this sprite, if the stage is
    *         null, if the specified
    *         sprite is null, not shown, or has its hitbox disabled.
+   *
+   * @example.preview SpriteIsTouchingSprite.gif
+   * @example.files SpriteIsTouchingSprite.java
    */
   public boolean isTouchingSprite(Sprite sprite) {
     if (sprite == this)
@@ -1499,6 +1610,9 @@ public class Sprite {
    *         the x-coordinate
    *         obtained from getMouseX() and the y-coordinate obtained from
    *         getMouseY().
+   *
+   * @example.preview SpriteGetMouse.gif
+   * @example.files SpriteGetMouse.java
    */
   public Vector2 getMouse() {
     return new Vector2(this.getMouseX(), this.getMouseY());
@@ -1508,6 +1622,9 @@ public class Sprite {
    * Returns true is the mouse button is down
    *
    * @return mouse button down
+   *
+   * @example.preview SpriteIsMouseDown.gif
+   * @example.files SpriteIsMouseDown.java
    */
   public boolean isMouseDown() {
     if (this.stage == null)
@@ -1520,6 +1637,9 @@ public class Sprite {
    *
    * @param keyCode a key
    * @return key pressed
+   *
+   * @example.preview SpriteIsKeyPressed.gif
+   * @example.files SpriteIsKeyPressed.java
    */
   public boolean isKeyPressed(KeyCode keyCode) {
     if (this.stage == null)
@@ -1531,6 +1651,9 @@ public class Sprite {
    * Gets the seconds passed since the last frame.
    *
    * @return seconds since last frame
+   *
+   * @example.preview SpriteGetDeltaTime.gif
+   * @example.files SpriteGetDeltaTime.java
    */
   public double getDeltaTime() {
     return Window.getInstance().getDeltaTime();
@@ -1562,6 +1685,9 @@ public class Sprite {
    *
    * @see KeyCode
    * @param keyCode the key that was pressed
+   *
+   * @example.preview SpriteWhenKeyPressed.gif
+   * @example.files SpriteWhenKeyPressed.java
    */
   public void whenKeyPressed(KeyCode keyCode) {
   }
@@ -1590,6 +1716,9 @@ public class Sprite {
    *
    * @param x The x-coordinate of the mouse pointer.
    * @param y The y-coordinate of the mouse pointer.
+   *
+   * @example.preview SpriteWhenMouseMoved.gif
+   * @example.files SpriteWhenMouseMoved.java
    */
   public void whenMouseMoved(double x, double y) {
   }
@@ -1608,6 +1737,9 @@ public class Sprite {
    * This method is called when the sprite is clicked. Override this method to
    * define custom
    * behavior for the sprite when it is clicked.
+   *
+   * @example.preview SpriteWhenClicked.gif
+   * @example.files SpriteWhenClicked.java
    */
   public void whenClicked() {
   }
@@ -1646,6 +1778,9 @@ public class Sprite {
    * Moves this sprite to the front layer of the stage. If the sprite is not part
    * of any stage, the
    * method does nothing.
+   *
+   * @example.preview SpriteGoToFrontLayer.gif
+   * @example.files SpriteGoToFrontLayer.java
    */
   public void goToFrontLayer() {
     if (stage == null) {
@@ -1662,6 +1797,9 @@ public class Sprite {
    * Moves the sprite to the back layer of the stage. If the sprite is not
    * associated with any
    * stage, the method returns without performing any action.
+   *
+   * @example.preview SpriteGoToBackLayer.gif
+   * @example.files SpriteGoToBackLayer.java
    */
   public void goToBackLayer() {
     if (stage == null) {
@@ -1678,6 +1816,9 @@ public class Sprite {
    * Moves the sprite forward by a specified number of layers within its stage.
    *
    * @param number the number of layers to move the sprite forward
+   *
+   * @example.preview SpriteGoLayersForwards.gif
+   * @example.files SpriteGoLayersForwards.java
    */
   public void goLayersForwards(int number) {
     if (stage == null) {
@@ -1696,6 +1837,9 @@ public class Sprite {
    * part of a stage, the method does nothing.
    *
    * @param number the number of layers to move the sprite backwards
+   *
+   * @example.preview SpriteGoLayersBackwards.gif
+   * @example.files SpriteGoLayersBackwards.java
    */
   public void goLayersBackwards(int number) {
     if (stage == null) {
@@ -1714,6 +1858,9 @@ public class Sprite {
    * define custom behavior.
    *
    * @param name the name of the backdrop to switch to
+   *
+   * @example.preview SpriteWhenBackdropSwitches.gif
+   * @example.files SpriteWhenBackdropSwitches.java
    */
   public void whenBackdropSwitches(String name) {
   }
@@ -1724,6 +1871,9 @@ public class Sprite {
    * @param from the lower bound of the range (inclusive)
    * @param to   the upper bound of the range (exclusive)
    * @return a random integer between the specified range
+   *
+   * @example.preview SpritePickRandom.gif
+   * @example.files SpritePickRandom.java
    */
   public int pickRandom(int from, final int to) {
     if (from == to) {
@@ -1750,6 +1900,9 @@ public class Sprite {
    * @scratchblock think [text]
    *
    * @param text The text to be displayed in the thought bubble.
+   *
+   * @example.preview SpriteThink.gif
+   * @example.files SpriteThink.java
    */
   public void think(String text) {
     this.text.setStyle(TextStyle.THINK);
@@ -1774,6 +1927,9 @@ public class Sprite {
    * @scratchblock say [text]
    *
    * @param text The text to be displayed in the speech bubble.
+   *
+   * @example.preview SpriteSay.gif
+   * @example.files SpriteSay.java
    */
   public void say(String text) {
     this.text.setStyle(TextStyle.SPEAK);
@@ -1800,6 +1956,9 @@ public class Sprite {
    * @scratchblock broadcast [message v]
    *
    * @param message The message to broadcast to other sprites.
+   *
+   * @example.preview SpriteBroadcast.gif
+   * @example.files SpriteBroadcast.java
    */
   public void broadcast(String message) {
     if (stage == null) {
@@ -1830,6 +1989,9 @@ public class Sprite {
   /**
    * Stamps the current sprite to the background. A stamp is a non interactive
    * version of the sprite.
+   *
+   * @example.preview SpriteStamp.gif
+   * @example.files SpriteStamp.java
    */
   public void stamp() {
     this.stampToBackground();
@@ -1917,6 +2079,9 @@ public class Sprite {
    *
    * <p>
    * It is called every frame.
+   *
+   * @example.preview SpriteRun.gif
+   * @example.files SpriteRun.java
    */
   public void run() {
   }

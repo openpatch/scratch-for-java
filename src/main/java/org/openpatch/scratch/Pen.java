@@ -133,6 +133,9 @@ public class Pen {
    * Set the color of the pen
    *
    * @param c color of the pen
+   *
+   * @example.preview PenSetColor.gif
+   * @example.files PenSetColor.java
    */
   public void setColor(Color c) {
     this.color = c;
@@ -162,6 +165,9 @@ public class Pen {
    * Change color via a hue value, which is added to the current hue value
    *
    * @param c a hue value [0...255]
+   *
+   * @example.preview PenChangeColor.gif
+   * @example.files PenChangeColor.java
    */
   public void changeColor(double c) {
     this.color.changeColor(c);
@@ -198,6 +204,9 @@ public class Pen {
    * Set the size of the pen
    *
    * @param size size of the pen
+   *
+   * @example.preview PenSetSize.gif
+   * @example.files PenSetSize.java
    */
   public void setSize(double size) {
     this.size = size;
@@ -216,6 +225,9 @@ public class Pen {
    * Change the size of the pen
    *
    * @param size size to change
+   *
+   * @example.preview PenChangeSize.gif
+   * @example.files PenChangeSize.java
    */
   public void changeSize(double size) {
     this.size += size;
@@ -225,6 +237,9 @@ public class Pen {
    * Set the transparency
    *
    * @param transparency transparency of the pen
+   *
+   * @example.preview PenSetTransparency.gif
+   * @example.files PenSetTransparency.java
    */
   public void setTransparency(double transparency) {
     this.transparency = transparency;
@@ -234,6 +249,9 @@ public class Pen {
    * Change the transparency by a step
    *
    * @param step the step to change the transparency by
+   *
+   * @example.preview PenChangeTransparency.gif
+   * @example.files PenChangeTransparency.java
    */
   public void changeTransparency(double step) {
     this.setTransparency((this.transparency + step) % 255);
@@ -244,6 +262,9 @@ public class Pen {
    *
    * @param x x coordinate
    * @param y y coordinate
+   *
+   * @example.preview PenSetPosition.gif
+   * @example.files PenSetPosition.java
    */
   public void setPosition(double x, double y) {
     this.x = x;
@@ -279,7 +300,10 @@ public class Pen {
     this.setPosition(this.stage.getMouseX(), this.stage.getMouseY());
   }
 
-  /** Set the pen down. */
+  /** Set the pen down. *
+   * @example.preview PenDown.gif
+   * @example.files PenDown.java
+   */
   public void down() {
     this.down = true;
     if (this.currentPath == null || this.currentPath.closed) {
@@ -289,7 +313,10 @@ public class Pen {
     }
   }
 
-  /** Move the pen up. */
+  /** Move the pen up. *
+   * @example.preview PenUp.gif
+   * @example.files PenUp.java
+   */
   public void up() {
     this.down = false;
     if (this.currentPath != null) {
@@ -313,7 +340,10 @@ public class Pen {
     }
   }
 
-  /** Erases all. */
+  /** Erases all. *
+   * @example.preview PenEraseAll.gif
+   * @example.files PenEraseAll.java
+   */
   public void eraseAll() {
     this.pathsBuffer.clear();
     if (this.stage != null) {

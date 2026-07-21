@@ -41,7 +41,10 @@ public class Timer {
     this.currentInterval = 0;
   }
 
-  /** Resets the timer. */
+  /** Resets the timer. *
+   * @example.preview TimerReset.gif
+   * @example.files TimerReset.java
+   */
   public void reset() {
     this.startMillisEvery = -1;
     this.startMillisFor = -1;
@@ -66,6 +69,9 @@ public class Timer {
    * @param millis The number of milliseconds to wait before returning true.
    * @return true if the specified number of milliseconds has passed since the last call that
    *     returned true, false otherwise.
+   *
+   * @example.preview TimerEveryMillis.gif
+   * @example.files TimerEveryMillis.java
    */
   public boolean everyMillis(int millis) {
     int nowMillis = millis();
@@ -86,6 +92,9 @@ public class Timer {
    * @param millis the number of milliseconds to check against
    * @return true if the current time is less than the start time plus the specified milliseconds,
    *     false otherwise
+   *
+   * @example.preview TimerForMillis.gif
+   * @example.files TimerForMillis.java
    */
   public boolean forMillis(int millis) {
     int nowMillis = millis();
@@ -101,6 +110,9 @@ public class Timer {
    * @param millis the number of milliseconds to check against
    * @return true if the specified number of milliseconds has passed since the method was first
    *     called, false otherwise
+   *
+   * @example.preview TimerAfterMillis.gif
+   * @example.files TimerAfterMillis.java
    */
   public boolean afterMillis(int millis) {
     int nowMillis = millis();
@@ -115,6 +127,9 @@ public class Timer {
    *
    * @param millis the interval in milliseconds to check
    * @return true if the interval has passed, false otherwise
+   *
+   * @example.preview TimerIntervalMillis.gif
+   * @example.files TimerIntervalMillis.java
    */
   public boolean intervalMillis(int millis) {
     return this.intervalMillis(millis, millis, false);
