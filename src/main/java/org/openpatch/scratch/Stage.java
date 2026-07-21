@@ -1341,10 +1341,36 @@ public class Stage {
   }
 
   /**
+   * Stamps images permanently onto one of the stage's layers. A stamp stays
+   * where it is put until that layer is erased, so this is how a tile map or a
+   * painted background gets drawn once instead of every frame.
+   *
+   * <p>
+   * Example usage:
+   *
+   * <pre>{@code
+   * stage.stamp(stamps, Layer.BACKGROUND);
+   * }</pre>
+   *
+   * @param stamps the images to stamp
+   * @param layer  which layer to stamp them onto
+   */
+  public void stamp(Queue<Stamp> stamps, Layer layer) {
+    if (stamps == null || layer == null) {
+      return;
+    }
+    switch (layer) {
+      case BACKGROUND -> this.addStampsToBackground(stamps);
+      case FOREGROUND -> this.addStampsToForeground(stamps);
+      case UI -> this.addStampsToUI(stamps);
+    }
+  }
+
+  /**
    * @ignore-in-docs
    * @param stamp
    */
-  public void addStampsToForeground(Stamp stamp) {
+  void addStampsToForeground(Stamp stamp) {
     if (stamp == null) {
       return;
     }
@@ -1355,7 +1381,7 @@ public class Stage {
    * @ignore-in-docs
    * @param stamps
    */
-  public void addStampsToForeground(Queue<Stamp> stamps) {
+  void addStampsToForeground(Queue<Stamp> stamps) {
     this.foregroundStamps.addAll(stamps);
   }
 
@@ -1363,7 +1389,7 @@ public class Stage {
    * @ignore-in-docs
    * @param stamp
    */
-  public void addStampsToBackground(Stamp stamp) {
+  void addStampsToBackground(Stamp stamp) {
     if (stamp == null) {
       return;
     }
@@ -1374,7 +1400,7 @@ public class Stage {
    * @ignore-in-docs
    * @param stamps
    */
-  public void addStampsToBackground(Queue<Stamp> stamps) {
+  void addStampsToBackground(Queue<Stamp> stamps) {
     this.backgroundStamps.addAll(stamps);
   }
 
@@ -1387,6 +1413,14 @@ public class Stage {
       return;
     }
     this.uiStamps.add(stamp);
+  }
+
+  /**
+   * @ignore-in-docs
+   * @param stamps
+   */
+  void addStampsToUI(Queue<Stamp> stamps) {
+    this.uiStamps.addAll(stamps);
   }
 
   /**

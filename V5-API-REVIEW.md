@@ -106,12 +106,29 @@ exported, not member visibility on exported types, and `Sprite`/`Stage` must be
 exported. The `module-info.java_bak` in the repo says the library is not shipped
 as a module anyway, because Processing is not one.
 
-The remaining 10 hidden methods have two causes, both fixable the same way:
+**Update: the `TiledMap` third is now solved too.** The four
+`addStampsToBackground/Foreground` methods are package-private, and one
+documented method took their place:
 
-- `Pen` (in `extensions/pen`) calls `stampTo*` and `erase*` — fix by moving
-  `Pen` into the core package, where it belongs regardless.
-- `TiledMap` (in `extensions/tiled`) calls `addStampsTo*` — fix by replacing the
-  four plumbing methods with one documented `stamp(Stamp, Layer)`.
+```java
+stage.stamp(stamps, Layer.BACKGROUND);
+```
+
+`Layer` is a new core enum (`BACKGROUND`, `FOREGROUND`, `UI`). That turns four
+pieces of plumbing into one piece of real API, which is the better trade even
+before counting methods.
+
+| | Count |
+|---|---:|
+| Public methods | **192** |
+| Hidden from the docs | 6 |
+| **Documented surface** | **186** |
+
+The last 6 all have one cause: `Pen`, in `extensions/pen`, calls `Sprite.stampTo*`
+and `Stage.erase*`. Moving `Pen` into the core package fixes all six at once, and
+it belongs there regardless — pen blocks are core Scratch, and `Pen` already
+holds `Sprite` and `Stage` references. That is a package move, so it belongs
+with step 4.
 
 Still to move: spritesheet 1, input 2.
 
