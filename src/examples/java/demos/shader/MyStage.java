@@ -6,14 +6,14 @@ import org.openpatch.scratch.extensions.timer.Timer;
 
 public class MyStage extends Stage {
   public MyStage() {
-    var shader = this.addShader("blobby", "demos/shader/blobby.frag", "demos/shader/default.vert");
+    var shader = this.getShaders().add("blobby", "demos/shader/blobby.frag", "demos/shader/default.vert");
     shader.set("depth", 1.5);
     shader.set("rate", 1.5);
-    shader = this.addShader("glitch", "demos/shader/glitch.frag", "demos/shader/default.vert");
+    shader = this.getShaders().add("glitch", "demos/shader/glitch.frag", "demos/shader/default.vert");
     shader.set("rate", 0.0001);
-    shader = this.addShader("light", "demos/shader/light.frag", "demos/shader/default.vert");
-    shader = this.addShader("pixel", "demos/shader/pixel.frag", "demos/shader/default.vert");
-    this.switchShader("pixel");
+    shader = this.getShaders().add("light", "demos/shader/light.frag", "demos/shader/default.vert");
+    shader = this.getShaders().add("pixel", "demos/shader/pixel.frag", "demos/shader/default.vert");
+    this.getShaders().switchTo("pixel");
     this.add(new MySprite());
     this.add(new NormalSprite());
 
@@ -26,10 +26,10 @@ public class MyStage extends Stage {
 
   public void whenKeyPressed(KeyCode keyCode) {
     if (keyCode == KeyCode.A) {
-      this.nextShader();
+      this.getShaders().next();
     }
     if (keyCode == KeyCode.S) {
-      this.resetShader();
+      this.getShaders().reset();
     }
   }
 
@@ -37,7 +37,7 @@ public class MyStage extends Stage {
     this.display(
         "Press A for the next stage shader. Press S to remove the stage shader. Press N for the"
             + " next sprite shader. Press M to remove the sprite shader.");
-    var shader = this.getCurrentShader();
+    var shader = this.getShaders().getCurrent();
     if (shader != null) {
       shader.set("time", Timer.millis() / 1000.0);
       shader.set("resolution", (float) this.getWidth(), (float) this.getHeight());

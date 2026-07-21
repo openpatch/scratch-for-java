@@ -12,15 +12,15 @@ public class SpriteGetCurrentTime {
     recorder.start();
 
     while (myStage.getTimer().forMillis(3000)) {
-      int year = mySprite.getCurrentYear();
-      int month = mySprite.getCurrentMonth();
-      int day = mySprite.getCurrentDay();
-      int weekday = mySprite.getCurrentDayOfWeek();
-      int hour = mySprite.getCurrentHour();
-      int minute = mySprite.getCurrentMinute();
-      int second = mySprite.getCurrentSecond();
-      int millisecond = mySprite.getCurrentMillisecond();
-      int daysSince2000 = mySprite.getDaysSince2000();
+      int year = Clock.getYear();
+      int month = Clock.getMonth();
+      int day = Clock.getDay();
+      int weekday = Clock.getDayOfWeek();
+      int hour = Clock.getHour();
+      int minute = Clock.getMinute();
+      int second = Clock.getSecond();
+      int millisecond = Clock.getMillisecond();
+      int daysSince2000 = Clock.getDaysSince2000();
       mySprite.say(
           hour
               + ":"

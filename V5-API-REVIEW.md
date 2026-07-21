@@ -24,7 +24,23 @@ inline:
 | `Sprite.setWidth/setHeight/changeWidth/changeHeight/getWidth/getHeight` | DROP | **MOVE** | this is the sizing API for nine-slice UI sprites; belongs with nine-slice |
 | `Stage.goToFrontLayer` etc., `removeAllSprites` etc. | DROP | **made non-public** | they are the implementations behind the `Sprite` methods and `removeAll()` |
 
-Remaining: step 2 (MOVE, 80 methods), step 3 (overloads), step 4 (packages), step 5 (docs).
+**Step 2 (MOVE) is in progress.** 36 of 80 methods moved so far; the API is at **218**.
+
+| Group | Methods | Became |
+|---|---:|---|
+| Clock | 18 | `Clock` in the core package, 9 static methods (they are real Scratch blocks, so not an extension) |
+| Shaders | 18 | `extensions/shader/Shaders`, reached through one `getShaders()` accessor on each class |
+
+A refinement found while applying: several MOVE entries are *accessors*
+(`getPen`, `getText`, `getCamera`, `getHitbox`, `getTimer`), and that
+accessor-to-an-extension-object shape is exactly the pattern to move things
+*into*, not away. Those accessors stay as the door; the operations behind them
+move. `getShaders()` above is the model.
+
+Still to move (~44 methods): pen/stamp 13, ui + nine-slice sizing 10, hitbox 7,
+timer 4, sorting 4, pixels 3, window 3, spritesheet 1, input 2.
+
+Then: step 3 (overloads), step 4 (packages), step 5 (docs).
 
 ## Where it lands
 

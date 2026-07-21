@@ -19,6 +19,7 @@ import org.openpatch.scratch.extensions.hitbox.Hitbox;
 import org.openpatch.scratch.extensions.math.Vector2;
 import org.openpatch.scratch.extensions.pen.Pen;
 import org.openpatch.scratch.extensions.shader.Shader;
+import org.openpatch.scratch.extensions.shader.Shaders;
 import org.openpatch.scratch.extensions.shape.Polygon;
 import org.openpatch.scratch.extensions.text.Text;
 import org.openpatch.scratch.extensions.text.TextStyle;
@@ -44,12 +45,12 @@ import processing.opengl.PGraphicsOpenGL;
  * @index-in-docs 2
  */
 public class Stage {
+  private final Shaders shaders = new Shaders("stage");
+
   private final List<Image> backdrops = new CopyOnWriteArrayList<>();
   private Color color = new Color();
   private int currentBackdrop = 0;
   private final List<Sound> sounds = new CopyOnWriteArrayList<>();
-  private int currentShader = 0;
-  private List<Shader> shaders = new CopyOnWriteArrayList<>();
 
   private PGraphics shaderBuffer;
   private PGraphics mainBuffer;
@@ -97,6 +98,24 @@ public class Stage {
         System.err.println(line);
       System.err.println("==============================================\n");
     }
+  }
+
+  /**
+   * Returns the shaders of this stage. Shader handling lives behind this one
+   * method so that it does not crowd the everyday API.
+   *
+   * <p>
+   * Example usage:
+   *
+   * <pre>{@code
+   * this.getShaders().add("blur", "blur.frag", null);
+   * this.getShaders().switchTo("blur");
+   * }</pre>
+   *
+   * @return the shaders
+   */
+  public Shaders getShaders() {
+    return this.shaders;
   }
 
   /**
@@ -187,7 +206,6 @@ public class Stage {
     this.texts = new CopyOnWriteArrayList<>();
     this.pens = new CopyOnWriteArrayList<>();
     this.sprites = new CopyOnWriteArrayList<>();
-    this.shaders = new CopyOnWriteArrayList<>();
     this.backgroundStamps = new ConcurrentLinkedQueue<>();
     this.foregroundStamps = new ConcurrentLinkedQueue<>();
     this.uiStamps = new ConcurrentLinkedQueue<>();
@@ -382,125 +400,14 @@ public class Stage {
     ((PGraphicsOpenGL) this.foregroundBuffer).textureSampling(mode);
   }
 
-  /**
-   * Adds a new shader to the sprite. If a shader with the received name already
-   * exists, this method
-   *
-   * @param name
-   * @param fragmentShaderPath The path to the fragment shader
-   * @param vertexShaderPath   The path to the vertex shader
-   * @return the shader
-   */
-  public Shader addShader(
-      String name, final String fragmentShaderPath, final String vertexShaderPath) {
-    for (Shader shader : this.shaders) {
-      if (shader.getName().equals(name)) {
-        return shader;
-      }
-    }
 
-    Shader shader = new Shader(name, fragmentShaderPath, vertexShaderPath);
-    this.shaders.add(shader);
-    return shader;
-  }
 
-  /**
-   * Switch to a shader by name.
-   *
-   * @param name the name of a shader
-   */
-  public void switchShader(String name) {
-    for (int i = 0; i < this.shaders.size(); i++) {
-      Shader shader = this.shaders.get(i);
-      if (shader.getName().equals(name)) {
-        this.currentShader = i;
-        return;
-      }
-    }
 
-    System.err.println("\n==============================================");
-    System.err.println("WARNING: Shader not found!");
-    System.err.println("==============================================");
-    System.err.println("Shader name: '" + name + "'");
-    if (this.shaders.isEmpty()) {
-      System.err.println("\nThis stage has no shaders.");
-      System.err.println("\nTip: Use addShader() to add a shader first.");
-    } else {
-      System.err.println("\nAvailable shaders:");
-      for (Shader shader : this.shaders) {
-        System.err.println("  - '" + shader.getName() + "'");
-      }
-      System.err.println("\nTip: Check the spelling of your shader name.");
-    }
-    System.err.println("==============================================\n");
-  }
 
-  /**
-   * Switch to a shader by index.
-   *
-   * @param index the index of a shader
-   */
-  public void switchShader(double index) {
-    this.currentShader = (int) index % this.shaders.size();
-  }
 
-  public void resetShader() {
-    this.currentShader = -1;
-  }
 
-  /**
-   * Retrieves a shader by name.
-   *
-   * @param name the name of a shader
-   * @return the shader with the specified name, or null if no shader with that
-   *         name exists
-   */
-  public Shader getShader(String name) {
-    for (Shader shader : this.shaders) {
-      if (shader.getName().equals(name)) {
-        return shader;
-      }
-    }
-    return null;
-  }
 
-  /** Sets the next shader as the current shader. */
-  public void nextShader() {
-    this.currentShader = (this.currentShader + 1) % this.shaders.size();
-  }
 
-  /**
-   * Retrieves the name of the current shader.
-   *
-   * @return the name of the current shader, or null if no shaders exist
-   */
-  public String getCurrentShaderName() {
-    if (this.shaders.size() == 0 || this.currentShader == -1)
-      return null;
-
-    return this.shaders.get(this.currentShader).getName();
-  }
-
-  /**
-   * Retrieves the index of the current shader.
-   *
-   * @return the index of the current shader
-   */
-  public int getCurrentShaderIndex() {
-    return this.currentShader;
-  }
-
-  /**
-   * Retrieves the current shader.
-   *
-   * @return the current shader, or null if no shaders exist
-   */
-  public Shader getCurrentShader() {
-    if (this.shaders.size() == 0 || this.currentShader == -1)
-      return null;
-
-    return this.shaders.get(this.currentShader);
-  }
 
   /**
    * Moves the specified sprite to the UI layer by removing it from the current
@@ -1353,97 +1260,14 @@ public class Stage {
     return Window.getInstance().getDeltaTime();
   }
 
-  /**
-   * Returns the current year
-   *
-   * @return current year
-   */
-  public int getCurrentYear() {
-    LocalDateTime now = LocalDateTime.now();
-    return now.getYear();
-  }
 
-  /**
-   * Returns the current month
-   *
-   * @return current month
-   */
-  public int getCurrentMonth() {
-    LocalDateTime now = LocalDateTime.now();
-    return now.getMonthValue();
-  }
 
-  /**
-   * Returns the current day of the week
-   *
-   * @return current day of the week
-   */
-  public int getCurrentDayOfWeek() {
-    LocalDateTime now = LocalDateTime.now();
-    return now.getDayOfWeek().getValue();
-  }
 
-  /**
-   * Returns the current day of the month
-   *
-   * @return current day of the month
-   */
-  public int getCurrentDay() {
-    LocalDateTime now = LocalDateTime.now();
-    return now.getDayOfMonth();
-  }
 
-  /**
-   * Returns the current hour
-   *
-   * @return current hour
-   */
-  public int getCurrentHour() {
-    LocalDateTime now = LocalDateTime.now();
-    return now.getHour();
-  }
 
-  /**
-   * Returns the current minute
-   *
-   * @return current minute
-   */
-  public int getCurrentMinute() {
-    LocalDateTime now = LocalDateTime.now();
-    return now.getMinute();
-  }
 
-  /**
-   * Returns the current second
-   *
-   * @return current second
-   */
-  public int getCurrentSecond() {
-    LocalDateTime now = LocalDateTime.now();
-    return now.getSecond();
-  }
 
-  /**
-   * Returns the current millisecond
-   *
-   * @return current millisecond
-   */
-  public int getCurrentMillisecond() {
-    LocalDateTime now = LocalDateTime.now();
-    return (int) Math.round(now.getNano() / 1000000.0);
-  }
 
-  /**
-   * Returns the days since 2010/01/01
-   *
-   * @return days since 2010/01/01
-   */
-  public int getDaysSince2000() {
-    LocalDate now = LocalDate.now();
-    LocalDate then = LocalDate.of(2000, Month.JANUARY, 1);
-    long c = ChronoUnit.DAYS.between(then, now);
-    return (int) c;
-  }
 
   /**
    * Returns a random integer between the specified range (inclusive).
@@ -1759,7 +1583,7 @@ public class Stage {
     this.foregroundBuffer.endDraw();
 
     shaderBuffer.beginDraw();
-    var shader = this.getCurrentShader();
+    var shader = this.shaders.getCurrent();
     if (shader != null) {
       shaderBuffer.shader(shader.getPShader());
     }

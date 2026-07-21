@@ -12,6 +12,7 @@ import org.openpatch.scratch.extensions.math.Utils;
 import org.openpatch.scratch.extensions.math.Vector2;
 import org.openpatch.scratch.extensions.pen.Pen;
 import org.openpatch.scratch.extensions.shader.Shader;
+import org.openpatch.scratch.extensions.shader.Shaders;
 import org.openpatch.scratch.extensions.shape.Shape;
 import org.openpatch.scratch.extensions.text.Text;
 import org.openpatch.scratch.extensions.text.TextStyle;
@@ -73,6 +74,26 @@ import processing.event.MouseEvent;
  * @index-in-docs 1
  */
 public class Sprite {
+  private Shaders shaders = new Shaders("sprite");
+
+  /**
+   * Returns the shaders of this sprite. Shader handling lives behind this one
+   * method so that it does not crowd the everyday API.
+   *
+   * <p>
+   * Example usage:
+   *
+   * <pre>{@code
+   * this.getShaders().add("blur", "blur.frag", null);
+   * this.getShaders().switchTo("blur");
+   * }</pre>
+   *
+   * @return the shaders
+   */
+  public Shaders getShaders() {
+    return this.shaders;
+  }
+
   /** Direction constant pointing up (0 degrees).
    * @see #setDirection(double) */
   public static final double DIRECTION_UP = 0;
@@ -92,8 +113,6 @@ public class Sprite {
   private List<Image> costumes = new CopyOnWriteArrayList<>();
   private int currentCostume = 0;
   private List<Sound> sounds = new CopyOnWriteArrayList<>();
-  private List<Shader> shaders = new CopyOnWriteArrayList<>();
-  private int currentShader = 0;
   private boolean show = true;
   private double size = 100;
   private boolean onEdgeBounce = false;
@@ -159,10 +178,6 @@ public class Sprite {
     for (Sound sound : s.sounds) {
       this.sounds.add(new Sound(sound));
     }
-    this.shaders = new CopyOnWriteArrayList<>();
-    for (Shader shader : s.shaders) {
-      this.shaders.add(new Shader(shader));
-    }
     this.show = s.show;
     this.size = s.size;
     this.onEdgeBounce = s.onEdgeBounce;
@@ -174,6 +189,7 @@ public class Sprite {
     this.timer = new ConcurrentHashMap<>();
     this.timer.put("default", new Timer());
     this.pen = new Pen(s.pen);
+    this.shaders = new Shaders(s.shaders);
     this.hitbox = s.hitbox;
     this.hitboxDisabled = s.hitboxDisabled;
     this.text = new Text(s.text);
@@ -254,131 +270,14 @@ public class Sprite {
     return this.stage;
   }
 
-  /**
-   * Adds a new shader to the sprite. If a shader with the received name already
-   * exists, this method
-   * does nothing.
-   *
-   * @param name
-   * @param fragmentShaderPath the path to the fragment shader file
-   * @param vertexShaderPath   the path to the vertex shader file
-   * @return the shader
-   */
-  public Shader addShader(
-      String name, final String fragmentShaderPath, final String vertexShaderPath) {
-    for (Shader shader : this.shaders) {
-      if (shader.getName().equals(name)) {
-        return shader;
-      }
-    }
 
-    Shader shader = new Shader(name, fragmentShaderPath, vertexShaderPath);
-    this.shaders.add(shader);
-    return shader;
-  }
 
-  /**
-   * Switch to a shader by name.
-   *
-   * @param name the name of a shader
-   */
-  public void switchShader(String name) {
-    for (int i = 0; i < this.shaders.size(); i++) {
-      Shader shader = this.shaders.get(i);
-      if (shader.getName().equals(name)) {
-        this.currentShader = i;
-        return;
-      }
-    }
 
-    System.err.println("\n==============================================");
-    System.err.println("WARNING: Shader not found!");
-    System.err.println("==============================================");
-    System.err.println("Shader name: '" + name + "'");
-    if (this.shaders.isEmpty()) {
-      System.err.println("\nThis sprite has no shaders.");
-      System.err.println("\nTip: Use addShader() to add a shader first.");
-    } else {
-      System.err.println("\nAvailable shaders:");
-      for (Shader shader : this.shaders) {
-        System.err.println("  - '" + shader.getName() + "'");
-      }
-      System.err.println("\nTip: Check the spelling of your shader name.");
-    }
-    System.err.println("==============================================\n");
-  }
 
-  /**
-   * Switch to a shader by index.
-   *
-   * @param index the index of a shader
-   */
-  public void switchShader(double index) {
-    this.currentShader = (int) index % this.shaders.size();
-  }
 
-  /**
-   * Resets the current shader to -1, which means no shader is currently active.
-   * This method can be used
-   * to disable the shader effect on the sprite.
-   */
-  public void resetShader() {
-    this.currentShader = -1;
-  }
 
-  /**
-   * Retrieves a shader by name.
-   *
-   * @param name the name of a shader
-   * @return the shader with the specified name, or null if no shader with that
-   *         name exists
-   */
-  public Shader getShader(String name) {
-    for (Shader shader : this.shaders) {
-      if (shader.getName().equals(name)) {
-        return shader;
-      }
-    }
-    return null;
-  }
 
-  /** Sets the next shader as the current shader. */
-  public void nextShader() {
-    this.currentShader = (this.currentShader + 1) % this.shaders.size();
-  }
 
-  /**
-   * Retrieves the name of the current shader.
-   *
-   * @return the name of the current shader, or null if no shaders exist
-   */
-  public String getCurrentShaderName() {
-    if (this.shaders.size() == 0 || this.currentShader == -1)
-      return null;
-
-    return this.shaders.get(this.currentShader).getName();
-  }
-
-  /**
-   * Retrieves the index of the current shader.
-   *
-   * @return the index of the current shader
-   */
-  public int getCurrentShaderIndex() {
-    return this.currentShader;
-  }
-
-  /**
-   * Retrieves the current shader.
-   *
-   * @return the current shader, or null if no shaders exist
-   */
-  public Shader getCurrentShader() {
-    if (this.shaders.size() == 0 || this.currentShader == -1)
-      return null;
-
-    return this.shaders.get(this.currentShader);
-  }
 
   /**
    * Add one of the costumes that ship with Scratch for Java to the sprite. The
@@ -1732,104 +1631,14 @@ public class Sprite {
     return Window.getInstance().getDeltaTime();
   }
 
-  /**
-   * Returns the current year
-   *
-   * @return current year
-   */
-  public int getCurrentYear() {
-    if (stage == null)
-      return 0;
-    return this.stage.getCurrentYear();
-  }
 
-  /**
-   * Returns the current month
-   *
-   * @return current month
-   */
-  public int getCurrentMonth() {
-    if (stage == null)
-      return 0;
-    return this.stage.getCurrentMonth();
-  }
 
-  /**
-   * Returns the current day of the month
-   *
-   * @return current day of the month
-   */
-  public int getCurrentDay() {
-    if (stage == null)
-      return 0;
-    return this.stage.getCurrentDay();
-  }
 
-  /**
-   * Returns the current day of the week
-   *
-   * @return current day of the week
-   */
-  public int getCurrentDayOfWeek() {
-    if (stage == null)
-      return 0;
-    return this.stage.getCurrentDayOfWeek();
-  }
 
-  /**
-   * Returns the current hour
-   *
-   * @return current hour
-   */
-  public int getCurrentHour() {
-    if (stage == null)
-      return 0;
-    return this.stage.getCurrentHour();
-  }
 
-  /**
-   * Returns the current minute
-   *
-   * @return current minute
-   */
-  public int getCurrentMinute() {
-    if (stage == null)
-      return 0;
-    return this.stage.getCurrentMinute();
-  }
 
-  /**
-   * Returns the current second
-   *
-   * @return current second
-   */
-  public int getCurrentSecond() {
-    if (stage == null)
-      return 0;
-    return this.stage.getCurrentSecond();
-  }
 
-  /**
-   * Returns the current millisecond
-   *
-   * @return current millisecond
-   */
-  public int getCurrentMillisecond() {
-    if (stage == null)
-      return 0;
-    return this.stage.getCurrentMillisecond();
-  }
 
-  /**
-   * Returns the days since 2010/01/01
-   *
-   * @return days since 2010/01/01
-   */
-  public int getDaysSince2000() {
-    if (stage == null)
-      return 0;
-    return this.stage.getDaysSince2000();
-  }
 
   void keyEvent(KeyEvent e) {
     switch (e.getAction()) {
@@ -2230,7 +2039,7 @@ public class Sprite {
     if (this.stage == null)
       return;
     if (this.costumes.size() > 0 && this.show) {
-      var shader = this.getCurrentShader();
+      var shader = this.shaders.getCurrent();
       this.costumes
           .get(this.currentCostume)
           .draw(buffer, this.size, this.direction, this.x, this.y, this.rotationStyle, shader);

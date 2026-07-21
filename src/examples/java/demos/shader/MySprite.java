@@ -7,30 +7,30 @@ import org.openpatch.scratch.Sprite;
 public class MySprite extends Sprite {
   public MySprite() {
     this.addCostume("cat", "demos/shader/cat.png");
-    var shader = this.addShader("halftone", "demos/shader/halftone.frag", "demos/shader/default.vert");
-    shader = this.addShader("pixelate", "demos/shader/pixelate.frag", "demos/shader/default.vert");
+    var shader = this.getShaders().add("halftone", "demos/shader/halftone.frag", "demos/shader/default.vert");
+    shader = this.getShaders().add("pixelate", "demos/shader/pixelate.frag", "demos/shader/default.vert");
     shader.set("pixels", 20.0, 10.0);
-    shader = this.addShader("neon", "demos/shader/neon.frag", "demos/shader/default.vert");
+    shader = this.getShaders().add("neon", "demos/shader/neon.frag", "demos/shader/default.vert");
     shader.set("brt", 0.4);
     shader.set("rad", 1);
-    this.switchShader("halftone");
+    this.getShaders().switchTo("halftone");
   }
 
   public void whenKeyPressed(KeyCode keyCode) {
     if (keyCode == KeyCode.N) {
-      this.nextShader();
+      this.getShaders().next();
     }
     if (keyCode == KeyCode.M) {
-      this.resetShader();
+      this.getShaders().reset();
     }
   }
 
   public void run() {
-    if ("halftone".equals(this.getCurrentShaderName())) {
-      var shader = this.getShader("halftone");
+    if ("halftone".equals(this.getShaders().getCurrentName())) {
+      var shader = this.getShaders().get("halftone");
       shader.set("pixelsPerRow", Operators.round(Operators.absOf(this.getMouseX())));
-    } else if ("pixelate".equals(this.getCurrentShaderName())) {
-      var shader = this.getShader("pixelate");
+    } else if ("pixelate".equals(this.getShaders().getCurrentName())) {
+      var shader = this.getShaders().get("pixelate");
       shader.set("pixels", Operators.absOf(this.getX()), Operators.absOf(this.getX()));
     }
     this.ifOnEdgeBounce();
