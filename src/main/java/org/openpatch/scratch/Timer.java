@@ -41,9 +41,13 @@ public class Timer {
     this.currentInterval = 0;
   }
 
-  /** Resets the timer. *
+  /**
+   * Resets the timer.
+   *
    * @example.preview TimerReset.gif
    * @example.files TimerReset.java
+   *
+   * @scratchblock reset timer
    */
   public void reset() {
     this.startMillisEvery = -1;
@@ -57,6 +61,8 @@ public class Timer {
    * Returns the number of milliseconds since the program started.
    *
    * @return the number of milliseconds since the program started
+   *
+   * @scratchblock (timer)
    */
   public static int millis() {
     return Applet.getInstance().millis();

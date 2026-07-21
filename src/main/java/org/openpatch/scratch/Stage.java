@@ -532,7 +532,9 @@ public class Stage {
     this.pens.clear();
   }
 
-  /** Removes all elements from the stage. *
+  /**
+   * Removes all elements from the stage.
+   *
    * @example.preview StageRemoveAll.gif
    * @example.files StageRemoveAll.java
    */
@@ -714,7 +716,11 @@ public class Stage {
     this.emitBackdropSwitch();
   }
 
-  /** Switch to the previous backdrop. */
+  /**
+   * Switch to the previous backdrop.
+   *
+   * @scratchblock switch backdrop to [previous backdrop v]
+   */
   public void previousBackdrop() {
     if (this.backdrops.isEmpty()) {
       System.err.println("\n==============================================");
@@ -734,7 +740,11 @@ public class Stage {
     this.emitBackdropSwitch();
   }
 
-  /** Switch to a random backdrop. */
+  /**
+   * Switch to a random backdrop.
+   *
+   * @scratchblock switch backdrop to [random backdrop v]
+   */
   public void randomBackdrop() {
     int size = this.backdrops.size();
     this.currentBackdrop = this.pickRandom(0, size - 1) % size;
@@ -748,6 +758,8 @@ public class Stage {
    *
    * @example.preview StageGetCurrentBackdropName.gif
    * @example.files StageGetCurrentBackdropName.java
+   *
+   * @scratchblock (backdrop [name v])
    */
   public String getCurrentBackdropName() {
     return this.backdrops.get(this.currentBackdrop).getName();
@@ -760,26 +772,30 @@ public class Stage {
    *
    * @example.preview StageGetCurrentBackdropIndex.gif
    * @example.files StageGetCurrentBackdropIndex.java
+   *
+   * @scratchblock (backdrop [number v])
    */
   public int getCurrentBackdropIndex() {
     return this.currentBackdrop;
   }
 
-  /** Erases all lines on the pen layer. */
+  /**
+   * Erases all lines on the pen layer.
+   *
+   * @scratchblock erase all
+   */
   public void eraseAll() {
     this.eraseBackgroundBuffer = true;
     this.eraseForegroundBuffer = true;
     this.eraseUIBuffer = true;
   }
 
-  /** When this method is called, the background buffer will be erased. *
-   */
+  /** When this method is called, the background buffer will be erased. */
   void eraseBackground() {
     this.eraseBackgroundBuffer = true;
   }
 
-  /** When this method is called, the foreground buffer will be erased. *
-   */
+  /** When this method is called, the foreground buffer will be erased. */
   void eraseForeground() {
     this.eraseForegroundBuffer = true;
   }
@@ -837,6 +853,8 @@ public class Stage {
    * Plays a sound.
    *
    * @param name the sound name
+   *
+   * @scratchblock start sound [name v]
    */
   public void playSound(String name) {
     boolean found = false;
@@ -870,7 +888,11 @@ public class Stage {
     System.err.println("==============================================\n");
   }
 
-  /** Stops the playing of all sounds of the stage. */
+  /**
+   * Stops the playing of all sounds of the stage.
+   *
+   * @scratchblock stop all sounds
+   */
   public void stopAllSounds() {
     for (Sound sound : this.sounds) {
       sound.stop();
@@ -986,6 +1008,8 @@ public class Stage {
    * Sets the tint for the current backdrop with a hue.
    *
    * @see Image#setTint(double)
+   *
+   * @scratchblock set [color v] effect to (h)
    */
   public void setTint(double h) {
     if (this.backdrops.size() == 0)
@@ -1001,6 +1025,8 @@ public class Stage {
    *
    * @example.preview StageChangeTint.gif
    * @example.files StageChangeTint.java
+   *
+   * @scratchblock change [color v] effect by (step)
    */
   public void changeTint(double step) {
     if (this.backdrops.size() == 0)
@@ -1017,6 +1043,8 @@ public class Stage {
    *
    * @example.preview StageSetTransparency.gif
    * @example.files StageSetTransparency.java
+   *
+   * @scratchblock set [ghost v] effect to (transparency)
    */
   public void setTransparency(double transparency) {
     this.backdrops.get(this.currentBackdrop).setTransparency(transparency);
@@ -1030,6 +1058,8 @@ public class Stage {
    *
    * @example.preview StageChangeTransparency.gif
    * @example.files StageChangeTransparency.java
+   *
+   * @scratchblock change [ghost v] effect by (step)
    */
   public void changeTransparency(double step) {
     if (this.backdrops.size() == 0)
@@ -1068,6 +1098,8 @@ public class Stage {
    * Returns the timer
    *
    * @return the timer
+   *
+   * @scratchblock (timer)
    */
   public Timer getTimer() {
     return this.timer.get("default");
@@ -1127,6 +1159,8 @@ public class Stage {
    * behavior.
    *
    * @param mouseEvent The mouse event that triggered this method.
+   *
+   * @scratchblock when stage clicked
    */
   public void whenMouseClicked(MouseCode mouseEvent) {
   }
@@ -1151,6 +1185,8 @@ public class Stage {
    * Returns the current x-position of the mouse cursor
    *
    * @return x-position
+   *
+   * @scratchblock (mouse x)
    */
   public double getMouseX() {
     return this.mouseX;
@@ -1160,6 +1196,8 @@ public class Stage {
    * Returns the current y-position of the mouse cursor
    *
    * @return y-position
+   *
+   * @scratchblock (mouse y)
    */
   public double getMouseY() {
     return this.mouseY;
@@ -1184,6 +1222,8 @@ public class Stage {
    *
    * @example.preview StageIsMouseDown.gif
    * @example.files StageIsMouseDown.java
+   *
+   * @scratchblock &lt;mouse down?&gt;
    */
   public boolean isMouseDown() {
     return Applet.getInstance().isMouseDown();
@@ -1197,6 +1237,8 @@ public class Stage {
    *
    * @example.preview StageWhenKeyPressed.gif
    * @example.files StageWhenKeyPressed.java
+   *
+   * @scratchblock when [space v] key pressed
    */
   public void whenKeyPressed(KeyCode keyCode) {
   }
@@ -1234,6 +1276,8 @@ public class Stage {
    *
    * @example.preview StageIsKeyPressed.gif
    * @example.files StageIsKeyPressed.java
+   *
+   * @scratchblock &lt;key [space v] pressed?&gt;
    */
   public boolean isKeyPressed(KeyCode keyCode) {
     var kp = Applet.getInstance().getKeyCodePressed();
@@ -1274,6 +1318,8 @@ public class Stage {
    *
    * @example.preview StagePickRandom.gif
    * @example.files StagePickRandom.java
+   *
+   * @scratchblock (pick random (from) to (to))
    */
   public int pickRandom(int from, final int to) {
     if (to < from) {
@@ -1311,6 +1357,8 @@ public class Stage {
    * method with the given message.
    *
    * @param message The message to broadcast to all sprites.
+   *
+   * @scratchblock broadcast [message v]
    */
   public void broadcast(String message) {
     this.sprites.stream().forEach(s -> s.whenIReceive(message));
@@ -1323,6 +1371,8 @@ public class Stage {
    * behavior.
    *
    * @param message The message that triggers this method.
+   *
+   * @scratchblock when I receive [message v]
    */
   public void whenIReceive(String message) {
   }
@@ -1368,6 +1418,8 @@ public class Stage {
    * Stop the execution of the whole applications for the given milliseconds.
    *
    * @param millis Milliseconds
+   *
+   * @scratchblock wait (millis) seconds
    */
   public void wait(int millis) {
     try {

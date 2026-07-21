@@ -152,6 +152,8 @@ public class Random {
    * @param min the minimum integer
    * @param max the maximum integer
    * @return a random integer
+   *
+   * @scratchblock (pick random (min) to (max))
    */
   public static int randomInt(int min, int max) {
     max += 1;
@@ -164,6 +166,8 @@ public class Random {
    * @param min the minimum double
    * @param max the maximum double
    * @return a random double
+   *
+   * @scratchblock (pick random (min) to (max))
    */
   public static double random(double min, double max) {
     return getRandom().nextDouble() * (max - min) + min;

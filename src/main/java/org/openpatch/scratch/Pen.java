@@ -145,6 +145,8 @@ public class Pen {
    * Set color via hue value
    *
    * @param h a hue value [0...255]
+   *
+   * @scratchblock set pen [color v] to (h)
    */
   public void setColor(double h) {
     this.color.setHSB(h);
@@ -168,6 +170,8 @@ public class Pen {
    *
    * @example.preview PenChangeColor.gif
    * @example.files PenChangeColor.java
+   *
+   * @scratchblock change pen [color v] by (c)
    */
   public void changeColor(double c) {
     this.color.changeColor(c);
@@ -207,6 +211,8 @@ public class Pen {
    *
    * @example.preview PenSetSize.gif
    * @example.files PenSetSize.java
+   *
+   * @scratchblock set pen size to (size)
    */
   public void setSize(double size) {
     this.size = size;
@@ -228,6 +234,8 @@ public class Pen {
    *
    * @example.preview PenChangeSize.gif
    * @example.files PenChangeSize.java
+   *
+   * @scratchblock change pen size by (size)
    */
   public void changeSize(double size) {
     this.size += size;
@@ -300,9 +308,13 @@ public class Pen {
     this.setPosition(this.stage.getMouseX(), this.stage.getMouseY());
   }
 
-  /** Set the pen down. *
+  /**
+   * Set the pen down.
+   *
    * @example.preview PenDown.gif
    * @example.files PenDown.java
+   *
+   * @scratchblock pen down
    */
   public void down() {
     this.down = true;
@@ -313,9 +325,13 @@ public class Pen {
     }
   }
 
-  /** Move the pen up. *
+  /**
+   * Move the pen up.
+   *
    * @example.preview PenUp.gif
    * @example.files PenUp.java
+   *
+   * @scratchblock pen up
    */
   public void up() {
     this.down = false;
@@ -329,6 +345,8 @@ public class Pen {
    * Stamps the current sprite onto the canvas. If the sprite is not null, it will
    * stamp either to
    * the foreground or the background based on the value of the isForeground flag.
+   *
+   * @scratchblock stamp
    */
   public void stamp() {
     if (this.sprite != null) {
@@ -340,9 +358,13 @@ public class Pen {
     }
   }
 
-  /** Erases all. *
+  /**
+   * Erases all.
+   *
    * @example.preview PenEraseAll.gif
    * @example.files PenEraseAll.java
+   *
+   * @scratchblock erase all
    */
   public void eraseAll() {
     this.pathsBuffer.clear();

@@ -203,9 +203,23 @@ phantom pages.
 | With a scratch block | 23 | 31 |
 | Example coverage | 0.1% | **22%** |
 
-Still to do: `@scratchblock` on the ~150 documented methods that have a Scratch
-equivalent and no annotation yet, and new examples for the methods that never
-had one.
+**The `@scratchblock` pass is done too.** 91 methods were annotated with the
+Scratch block they mirror, chosen by walking the palette rather than the API:
+only methods with a genuine block equivalent got one, so `Vector2.dot`,
+`Color.getHSB` and `Operators.lerp` are deliberately left bare.
+
+| | Before v5 | Now |
+|---|---:|---:|
+| Reference entries | 914 (429 stale) | **485** |
+| With a scratch block | 23 | **113** |
+| With a worked example | 1 | **108** |
+| With both | 1 | **62** |
+
+A reference page now shows the Java call and the Scratch block side by side,
+which is the bridge the library exists to provide.
+
+Still open: examples for the entries that never had one. Many are getters where
+an example adds little, so this is a backlog rather than a blocker.
 
 ## Where it lands
 

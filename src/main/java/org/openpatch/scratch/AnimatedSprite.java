@@ -210,7 +210,9 @@ public class AnimatedSprite extends Sprite {
     }
   }
 
-  /** Resets the animation. The animation will start from the first frame. *
+  /**
+   * Resets the animation. The animation will start from the first frame.
+   *
    * @example.preview AnimatedSpriteResetAnimation.gif
    * @example.folder AnimatedSpriteResetAnimation
    * @example.files MySprite.java;MyStage.java;MyWindow.java
