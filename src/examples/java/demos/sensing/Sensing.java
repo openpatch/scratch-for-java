@@ -64,8 +64,7 @@ class MovableHero extends Hero {
     super();
     this.setPosition(-100, -100);
     this.setDirection(0);
-    var hb = new Hitbox(new Ellipse(0, 0, 615, 570));
-    this.setHitbox(hb);
+    this.setHitbox(new Ellipse(0, 0, 615, 570));
   }
 
   public void run() {

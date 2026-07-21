@@ -1249,16 +1249,6 @@ public class Stage {
     this.sprites.stream().forEach(s -> s.whenIReceive(message));
   }
 
-  /**
-   * Broadcasts a message to all sprites in the stage. Each sprite will execute
-   * its `whenIReceive`
-   * method with the given message.
-   *
-   * @param message The message to broadcast to all sprites.
-   */
-  public void broadcast(Object message) {
-    this.sprites.stream().forEach(s -> s.whenIReceive(message));
-  }
 
   /**
    * This method is called when a specific message is received. Override this
@@ -1270,13 +1260,6 @@ public class Stage {
   public void whenIReceive(String message) {
   }
 
-  /**
-   * This method is called when a message is received.
-   *
-   * @param message The message object that is received.
-   */
-  public void whenIReceive(Object message) {
-  }
 
   /**
    * Sets the cursor image for the stage.

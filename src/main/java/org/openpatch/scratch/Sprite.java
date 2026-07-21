@@ -204,15 +204,6 @@ public class Sprite {
   public void whenAddedToStage() {
   }
 
-  /**
-   * This method is called when the sprite is added to the stage. Override this
-   * method to define
-   * custom behavior when the sprite is added to the stage.
-   *
-   * @param stage The stage to which the sprite is added.
-   */
-  public void whenAddedToStage(Stage stage) {
-  }
 
   /**
    * This method is called when the sprite is removed from the stage. Override
@@ -222,15 +213,6 @@ public class Sprite {
   public void whenRemovedFromStage() {
   }
 
-  /**
-   * This method is called when the sprite is removed from the stage. Override
-   * this method to define
-   * custom behavior when the sprite is removed.
-   *
-   * @param stage The stage from which the sprite is removed from.
-   */
-  public void whenRemovedFromStage(Stage stage) {
-  }
 
   /** Removes this sprite from its current stage. */
   public void remove() {
@@ -1302,24 +1284,7 @@ public class Sprite {
     this.hitbox = new Hitbox(xPoints, yPoints);
   }
 
-  /**
-   * Sets the hitbox for the sprite using the provided x and y coordinates.
-   *
-   * @param xPoints an array of x coordinates for the hitbox
-   * @param yPoints an array of y coordinar the hitbox
-   */
-  public void setHitbox(double[] xPoints, double[] yPoints) {
-    this.hitbox = new Hitbox(xPoints, yPoints);
-  }
 
-  /**
-   * Sets the hitbox for the sprite using the provided Hitbox object.
-   *
-   * @param hitbox the Hitbox object to set
-   */
-  public void setHitbox(Hitbox hitbox) {
-    this.hitbox = hitbox;
-  }
 
   /**
    * Sets the hitbox for the sprite using the specified shape.
@@ -1858,25 +1823,6 @@ public class Sprite {
     this.stage.whenIReceive(message);
   }
 
-  /**
-   * Broadcasts a message to all sprites in the stage except the current sprite,
-   * and also to the
-   * stage itself.
-   *
-   * @param message The message to be broadcasted. It can be any object.
-   */
-  public void broadcast(Object message) {
-    if (stage == null) {
-      warnOnce("broadcast-obj",
-          "WARNING: broadcast() called but this sprite is not on a stage!",
-          "",
-          "Tip: Don't call broadcast() in the constructor.",
-          "     Add the sprite to a stage first, then broadcast.");
-      return;
-    }
-    this.stage.sprites.stream().filter(s -> s != this).forEach(s -> s.whenIReceive(message));
-    this.stage.whenIReceive(message);
-  }
 
   /**
    * This method is called when a message is received. Override this method to
@@ -1889,16 +1835,6 @@ public class Sprite {
   public void whenIReceive(String message) {
   }
 
-  /**
-   * This method is called when a message is received. Override this method to
-   * define custom
-   * behavior.
-   *
-   * @see Sprite#broadcast(String)
-   * @param message The message that is received.
-   */
-  public void whenIReceive(Object message) {
-  }
 
   /**
    * Stamps the current sprite to the background. A stamp is a non interactive
@@ -1978,7 +1914,6 @@ public class Sprite {
     this.pen.addedToStage(stage);
     this.text.addedToStage(stage);
     this.whenAddedToStage();
-    this.whenAddedToStage(stage);
   }
 
   protected void removedFromStage(Stage stage) {
@@ -1986,7 +1921,6 @@ public class Sprite {
     this.text.removedFromStage(stage);
     this.stage = null;
     this.whenRemovedFromStage();
-    this.whenRemovedFromStage(stage);
   }
 
   /** Draws the sprite if it is not hidden. */

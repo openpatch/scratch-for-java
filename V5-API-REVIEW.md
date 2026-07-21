@@ -132,7 +132,24 @@ with step 4.
 
 Still to move: spritesheet 1, input 2.
 
-Then: step 3 (overloads), step 4 (packages), step 5 (docs).
+**Step 3 (overloads) is done, and deliberately small.** Of 37 surplus overloads,
+only 8 were removed — the ones that cause confusion rather than the ones that
+merely add to the count:
+
+| Removed | Why |
+|---|---|
+| `broadcast(Object)` and `whenIReceive(Object)`, both classes | a silent-failure trap: broadcasting a non-String called only the `Object` handler, so a sprite overriding `whenIReceive(String)` heard nothing. Unused anywhere, and Scratch messages are names. |
+| `whenAddedToStage(Stage)`, `whenRemovedFromStage(Stage)` | two override points for one event; the argument is what `getStage()` already returns |
+| `setHitbox(Hitbox)`, `setHitbox(double[], double[])` | four spellings of two ideas. `setHitbox(Shape)` and `setHitbox(double...)` remain; the one `Hitbox` call site was wrapping an `Ellipse` the `Shape` form takes directly |
+
+The other 29 stay on purpose: `say(text)`/`say(text, millis)` mirrors Scratch's
+two blocks, `add(Sprite)`/`add(Text)`/`add(Pen)` is what Java requires for
+different types, and the `Vector2` forms of `move`/`setPosition`/`setDirection`
+are used across the demos.
+
+**184 public methods** across 155 distinct names.
+
+Then: step 4 (packages), step 5 (docs).
 
 ## Where it lands
 
