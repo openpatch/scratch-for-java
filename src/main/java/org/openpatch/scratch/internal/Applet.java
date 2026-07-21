@@ -89,6 +89,9 @@ public class Applet extends PApplet {
   private PImage loading;
   private final String assets;
   private Stage stage;
+  /** How to reach each stage's render loop, without those methods being public. */
+  private final Map<Stage, StageHooks> stageHooks =
+      java.util.Collections.synchronizedMap(new java.util.WeakHashMap<>());
   private int transitionStart;
   private int transitionDuration;
   private Stage transitionToStage;
@@ -249,6 +252,21 @@ public class Applet extends PApplet {
    *
    * @param stage the new stage to be set
    */
+  /**
+   * Registers how the render loop reaches a stage. Called by the stage itself
+   * when it is created.
+   *
+   * @param stage the stage
+   * @param hooks the stage's render-loop entry points
+   */
+  public void registerHooks(Stage stage, StageHooks hooks) {
+    this.stageHooks.put(stage, hooks);
+  }
+
+  private StageHooks hooksFor(Stage stage) {
+    return stage == null ? null : this.stageHooks.get(stage);
+  }
+
   public void setStage(Stage stage) {
     this.stage = stage;
   }
@@ -402,7 +420,10 @@ public class Applet extends PApplet {
   public void mouseEvent(MouseEvent e) {
     mouseDown = e.getAction() == MouseEvent.PRESS;
     if (this.state == State.RUNNING && this.stage != null) {
-      this.stage.mouseEvent(e);
+      var hooks = this.hooksFor(this.stage);
+      if (hooks != null) {
+        hooks.mouseEvent(e);
+      }
     }
   }
 
@@ -417,7 +438,10 @@ public class Applet extends PApplet {
    */
   public void keyEvent(KeyEvent e) {
     if (this.state == State.RUNNING && this.stage != null) {
-      this.stage.keyEvent(e);
+      var hooks = this.hooksFor(this.stage);
+      if (hooks != null) {
+        hooks.keyEvent(e);
+      }
     }
     switch (e.getAction()) {
       case KeyEvent.PRESS:
@@ -481,8 +505,11 @@ public class Applet extends PApplet {
   private void drawTransitionIn() {
     var alpha = PApplet.lerp(255, 0, (lastMillis - transitionStart) / (float) transitionDuration / 2.0f);
     if (alpha > 0) {
-      this.stage.pre();
-      this.stage.draw(this.getGraphics());
+      var hooks = this.hooksFor(this.stage);
+      if (hooks != null) {
+        hooks.pre();
+        hooks.draw(this.getGraphics());
+      }
       this.push();
       this.translate(this.width / 2, this.height / 2);
       this.fill(0, 0, 0, alpha);
@@ -547,8 +574,11 @@ public class Applet extends PApplet {
         this.drawLoading();
         break;
       case RUNNING:
-        this.stage.pre();
-        this.stage.draw(this.getGraphics());
+        var hooks = this.hooksFor(this.stage);
+        if (hooks != null) {
+          hooks.pre();
+          hooks.draw(this.getGraphics());
+        }
         break;
       case TRANSITIONING_IN:
         this.drawTransitionIn();

@@ -84,19 +84,34 @@ What was done instead: the six plumbing methods are tagged `@ignore-in-docs`, so
 they leave the reference site even though they remain callable. `Sprite.stamp()`
 and `Stage.eraseAll()` stay visible; both are genuine Scratch pen blocks.
 
-That gives two numbers worth tracking separately:
+**Update: the `Applet` third of this is now solved** with `internal.StageHooks`.
+
+`Applet` needed exactly four things from `Stage` — `pre`, `draw`, `keyEvent`,
+`mouseEvent`. `Stage` now hands the render loop a private object implementing
+`StageHooks` instead, so all four are **private**. `Stage` deliberately does not
+implement the interface itself; that would force the methods public again.
+
+This works without any new public API because every path that gives `Applet` a
+stage already starts inside the core package: `Stage`'s own constructor, and
+`Window.setStage`/`transitionToStage`/`addStage`.
 
 | | Count |
 |---|---:|
-| Public methods | 199 |
-| Hidden from the docs | 14 |
+| Public methods | **195** |
+| Hidden from the docs | 10 |
 | **Documented surface** | **185** |
 
-Getting the plumbing genuinely off the public API needs one of: merging
-`extensions/pen` into the core package, or a JPMS module descriptor that does
-not export the plumbing (there is a `module-info.java_bak` in the repo already),
-or an internal bridge type. That is an architecture decision, not a cleanup —
-worth deciding before step 4 moves packages around.
+A note on JPMS: it would **not** have helped. It controls which packages are
+exported, not member visibility on exported types, and `Sprite`/`Stage` must be
+exported. The `module-info.java_bak` in the repo says the library is not shipped
+as a module anyway, because Processing is not one.
+
+The remaining 10 hidden methods have two causes, both fixable the same way:
+
+- `Pen` (in `extensions/pen`) calls `stampTo*` and `erase*` — fix by moving
+  `Pen` into the core package, where it belongs regardless.
+- `TiledMap` (in `extensions/tiled`) calls `addStampsTo*` — fix by replacing the
+  four plumbing methods with one documented `stamp(Stamp, Layer)`.
 
 Still to move: spritesheet 1, input 2.
 

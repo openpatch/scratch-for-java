@@ -31,6 +31,7 @@ import org.openpatch.scratch.internal.Font;
 import org.openpatch.scratch.internal.Image;
 import org.openpatch.scratch.internal.Sound;
 import org.openpatch.scratch.internal.Stamp;
+import org.openpatch.scratch.internal.StageHooks;
 import processing.core.PConstants;
 import processing.core.PGraphics;
 import processing.event.KeyEvent;
@@ -47,6 +48,28 @@ import processing.opengl.PGraphicsOpenGL;
  * @index-in-docs 2
  */
 public class Stage {
+  /**
+   * Lets the render loop reach this stage without the four methods above having
+   * to be public. See {@link StageHooks}.
+   */
+  private final StageHooks hooks = new StageHooks() {
+    public void pre() {
+      Stage.this.pre();
+    }
+
+    public void draw(PGraphics buffer) {
+      Stage.this.draw(buffer);
+    }
+
+    public void keyEvent(KeyEvent e) {
+      Stage.this.keyEvent(e);
+    }
+
+    public void mouseEvent(MouseEvent e) {
+      Stage.this.mouseEvent(e);
+    }
+  };
+
   private final Shaders shaders = new Shaders("stage");
 
   private final List<Image> backdrops = new CopyOnWriteArrayList<>();
@@ -256,6 +279,7 @@ public class Stage {
       a.setStage(this);
     }
     Applet applet = Applet.getInstance();
+    applet.registerHooks(this, this.hooks);
 
     this.shaderBuffer = applet.createGraphics(
         applet.getRenderWidth(), applet.getRenderHeight(), applet.sketchRenderer());
@@ -1023,7 +1047,7 @@ public class Stage {
    * @ignore-in-docs
    * @param e
    */
-  public void mouseEvent(MouseEvent e) {
+  private void mouseEvent(MouseEvent e) {
     if (e.getAction() == MouseEvent.CLICK) {
       final MouseCode me;
       if (e.getButton() == PConstants.LEFT) {
@@ -1135,7 +1159,7 @@ public class Stage {
    * @ignore-in-docs
    * @param e
    */
-  public void keyEvent(KeyEvent e) {
+  private void keyEvent(KeyEvent e) {
     switch (e.getAction()) {
       case KeyEvent.PRESS:
         this.whenKeyPressed(KeyCode.fromCode(e.getKeyCode()));
@@ -1368,7 +1392,7 @@ public class Stage {
   /**
    * @ignore-in-docs
    */
-  public void pre() {
+  private void pre() {
     Applet applet = Applet.getInstance();
     if (applet == null)
       return;
@@ -1406,7 +1430,7 @@ public class Stage {
    * @ignore-in-docs
    * @param buffer
    */
-  public void draw(PGraphics buffer) {
+  private void draw(PGraphics buffer) {
     Applet applet = Applet.getInstance();
     if (applet == null || buffer == null)
       return;
