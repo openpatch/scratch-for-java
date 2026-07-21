@@ -15,7 +15,6 @@ public class PenSprite extends Sprite {
     this.getPen().setSize(2);
     color = Random.random(255);
     this.getPen().setColor(color);
-    this.setOnEdgeBounce(true);
     this.hide();
   }
 
@@ -53,6 +52,7 @@ public class PenSprite extends Sprite {
   public void run() {
     if (!this.finished) {
       this.move(1);
+      this.ifOnEdgeBounce();
       if (Math.random() < 0.05) {
         int newRotation = Random.randomInt(4) * 90;
         this.setDirection(newRotation);

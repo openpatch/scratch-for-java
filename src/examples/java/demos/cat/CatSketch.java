@@ -21,7 +21,6 @@ class CatSprite extends Sprite {
 
   CatSprite() {
     this.addCostume("cat", "demos/cat/sprites/cat.png");
-    this.setOnEdgeBounce(true);
     this.setDirection(0);
   }
 
@@ -33,5 +32,6 @@ class CatSprite extends Sprite {
 
   public void run() {
     this.move(2);
+    this.ifOnEdgeBounce();
   }
 }

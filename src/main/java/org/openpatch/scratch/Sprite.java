@@ -73,7 +73,6 @@ import processing.event.MouseEvent;
  * @index-in-docs 1
  */
 public class Sprite {
-
   /** Direction constant pointing up (0 degrees).
    * @see #setDirection(double) */
   public static final double DIRECTION_UP = 0;
@@ -89,76 +88,6 @@ public class Sprite {
   /** Direction constant pointing left (270 degrees).
    * @see #setDirection(double) */
   public static final double DIRECTION_LEFT = 270;
-
-  /**
-   * @ignore-in-docs
-   */
-  public interface WhenIReceiveHandler {
-    void handle(Sprite s, Object msg);
-  }
-
-  /**
-   * @ignore-in-docs
-   */
-  public interface WhenAddedToStageHandler {
-    void handle(Sprite s, Stage stage);
-  }
-
-  /**
-   * @ignore-in-docs
-   */
-  public interface WhenRemovedFromStageHandler {
-    void handle(Sprite s, Stage stage);
-  }
-
-  /**
-   * @ignore-in-docs
-   */
-  public interface RunHandler {
-    void handle(Sprite s);
-  }
-
-  /**
-   * @ignore-in-docs
-   */
-  public interface WhenBackdropSwitchesHandler {
-    void handle(Sprite s, String backdropName);
-  }
-
-  /**
-   * @ignore-in-docs
-   */
-  public interface WhenClickedHandler {
-    void handle(Sprite s);
-  }
-
-  /**
-   * @ignore-in-docs
-   */
-  public interface WhenMouseClickedHandler {
-    void handle(Sprite s, MouseCode mouseCode);
-  }
-
-  /**
-   * @ignore-in-docs
-   */
-  public interface WhenMouseMovedHandler {
-    void handle(Sprite s, double mouseX, double mouseY);
-  }
-
-  /**
-   * @ignore-in-docs
-   */
-  public interface WhenKeyReleasedHandler {
-    void handle(Sprite s, KeyCode keyCode);
-  }
-
-  /**
-   * @ignore-in-docs
-   */
-  public interface WhenKeyPressedHandler {
-    void handle(Sprite s, KeyCode keyCode);
-  }
 
   private List<Image> costumes = new CopyOnWriteArrayList<>();
   private int currentCostume = 0;
@@ -180,26 +109,6 @@ public class Sprite {
   private final Text text;
   private boolean isUI;
 
-  private WhenIReceiveHandler whenIReceiveHandler = (sprite, msg) -> {
-  };
-  private WhenAddedToStageHandler whenAddedToStageHandler = (sprite, stage) -> {
-  };
-  private WhenRemovedFromStageHandler whenRemovedFromStageHandler = (sprite, stage) -> {
-  };
-  private RunHandler runHandler = s -> {
-  };
-  private WhenBackdropSwitchesHandler whenBackdropSwitchesHandler = (sprite, backdropName) -> {
-  };
-  private WhenClickedHandler whenClickedHandler = (sprite) -> {
-  };
-  private WhenMouseClickedHandler whenMouseClickedHandler = (sprite, mouseCode) -> {
-  };
-  private WhenMouseMovedHandler whenMouseMovedHandler = (sprite, mouseX, mouseY) -> {
-  };
-  private WhenKeyReleasedHandler whenKeyReleasedHandler = (sprite, keyCode) -> {
-  };
-  private WhenKeyPressedHandler whenKeyPressedHandler = (sprite, keyCode) -> {
-  };
   private final java.util.Set<String> warnedOnce = java.util.Collections.synchronizedSet(new java.util.HashSet<>());
 
   private void warnOnce(String key, String... lines) {
@@ -268,16 +177,6 @@ public class Sprite {
     this.hitbox = s.hitbox;
     this.hitboxDisabled = s.hitboxDisabled;
     this.text = new Text(s.text);
-    this.whenIReceiveHandler = s.whenIReceiveHandler;
-    this.whenAddedToStageHandler = s.whenAddedToStageHandler;
-    this.whenRemovedFromStageHandler = s.whenRemovedFromStageHandler;
-    this.runHandler = s.runHandler;
-    this.whenBackdropSwitchesHandler = s.whenBackdropSwitchesHandler;
-    this.whenClickedHandler = s.whenClickedHandler;
-    this.whenMouseClickedHandler = s.whenMouseClickedHandler;
-    this.whenMouseMovedHandler = s.whenMouseMovedHandler;
-    this.whenKeyReleasedHandler = s.whenKeyReleasedHandler;
-    this.whenKeyPressedHandler = s.whenKeyPressedHandler;
     this.isUI = s.isUI;
   }
 
@@ -297,18 +196,6 @@ public class Sprite {
    * @param stage The stage to which the sprite is added.
    */
   public void whenAddedToStage(Stage stage) {
-    whenAddedToStageHandler.handle(this, stage);
-  }
-
-  /**
-   * Sets the handler for the whenAddedToStage event. This handler will be
-   * called when the sprite
-   * is added to a stage.
-   *
-   * @param handler an AddedToStageHandler that takes a Stage as an argument.
-   */
-  public void setWhenAddedToStageHandler(WhenAddedToStageHandler handler) {
-    this.whenAddedToStageHandler = handler;
   }
 
   /**
@@ -327,19 +214,6 @@ public class Sprite {
    * @param stage The stage from which the sprite is removed from.
    */
   public void whenRemovedFromStage(Stage stage) {
-    this.whenRemovedFromStageHandler.handle(this, stage);
-  }
-
-  /**
-   * Sets the handler for the whenRemovedFromStage event. This handler
-   * will be called when the sprite
-   * is removed from a stage.
-   *
-   * @param handler an RemovedFromStageHandler that takes a Stage as an
-   *
-   */
-  public void setWhenRemovedFromStageHandler(WhenRemovedFromStageHandler handler) {
-    this.whenRemovedFromStageHandler = handler;
   }
 
   /** Removes this sprite from its current stage. */
@@ -379,8 +253,6 @@ public class Sprite {
   public Stage getStage() {
     return this.stage;
   }
-
-
 
   /**
    * Adds a new shader to the sprite. If a shader with the received name already
@@ -770,21 +642,6 @@ public class Sprite {
   }
 
   /**
-   * Remove a sound from the sprite.
-   *
-   * @param name the sound name
-   */
-  public void removeSound(String name) {
-    for (int i = 0; i < this.sounds.size(); i++) {
-      Sound sound = this.sounds.get(i);
-      if (sound.getName().equals(name)) {
-        this.sounds.remove(i);
-        return;
-      }
-    }
-  }
-
-  /**
    * Plays a sound.
    *
    * @scratchblock start sound [name v]
@@ -1130,17 +987,6 @@ public class Sprite {
    */
   public void changeSize(double amount) {
     this.setSize(this.size + amount);
-  }
-
-  /**
-   * Sets if the sprite should bounce when hitting the edge of the screen. This
-   * method is for making
-   * is attribute perment.
-   *
-   * @param b true if the sprite should bounce
-   */
-  public void setOnEdgeBounce(boolean b) {
-    this.onEdgeBounce = b;
   }
 
   /**
@@ -1985,7 +1831,7 @@ public class Sprite {
     return this.stage.getDaysSince2000();
   }
 
-  public void keyEvent(KeyEvent e) {
+  void keyEvent(KeyEvent e) {
     switch (e.getAction()) {
       case KeyEvent.PRESS:
         this.whenKeyPressed(KeyCode.fromCode(e.getKeyCode()));
@@ -2004,18 +1850,6 @@ public class Sprite {
    * @param keyCode the key that was pressed
    */
   public void whenKeyPressed(KeyCode keyCode) {
-    this.whenKeyPressedHandler.handle(this, keyCode);
-  }
-
-  /**
-   * Sets the handler for when a key is pressed. This allows you to define custom
-   * behavior when
-   * a key is pressed.
-   *
-   * @param whenKeyPressed a handler that takes a Sprite and a KeyCode
-   */
-  public void setWhenKeyPressed(WhenKeyPressedHandler whenKeyPressed) {
-    this.whenKeyPressedHandler = whenKeyPressed;
   }
 
   /**
@@ -2026,18 +1860,6 @@ public class Sprite {
    * @param keyCode the key that was released
    */
   public void whenKeyReleased(KeyCode keyCode) {
-    this.whenKeyReleasedHandler.handle(this, keyCode);
-  }
-
-  /**
-   * Sets the handle for when a key is released. This allows you to define
-   * custom behavior when
-   * a key is released.
-   *
-   * @param whenKeyReleased a handler that takes a Sprite and a KeyCode
-   */
-  public void setWhenKeyReleased(WhenKeyReleasedHandler whenKeyReleased) {
-    this.whenKeyReleasedHandler = whenKeyReleased;
   }
 
   /**
@@ -2045,7 +1867,7 @@ public class Sprite {
    *
    * @param e the MouseEvent object containing details about the mouse event
    */
-  public void mouseEvent(MouseEvent e) {
+  void mouseEvent(MouseEvent e) {
   }
 
   /**
@@ -2056,19 +1878,6 @@ public class Sprite {
    * @param y The y-coordinate of the mouse pointer.
    */
   public void whenMouseMoved(double x, double y) {
-    this.whenMouseMovedHandler.handle(this, x, y);
-  }
-
-  /**
-   * Sets the handler for when the mouse is moved. This allows you to define
-   * custom behavior when
-   * the mouse is moved.
-   *
-   * @param whenMouseMoved A MouseMovedHandler that takes a Sprite, x, and y
-   *
-   */
-  public void setWhenMouseMoved(WhenMouseMovedHandler whenMouseMoved) {
-    this.whenMouseMovedHandler = whenMouseMoved;
   }
 
   /**
@@ -2079,18 +1888,6 @@ public class Sprite {
    * @param mouseCode The code representing the mouse button that was clicked.
    */
   public void whenMouseClicked(MouseCode mouseCode) {
-    this.whenMouseClickedHandler.handle(this, mouseCode);
-  }
-
-  /**
-   * Sets the handler for when the mouse is clicked. This allows you to define
-   * custom behavior
-   * when the mouse is clicked.
-   *
-   * @param whenMouseClicked A MouseClickedHandler that takes a Sprite and a
-   */
-  public void setWhenMouseClicked(WhenMouseClickedHandler whenMouseClicked) {
-    this.whenMouseClickedHandler = whenMouseClicked;
   }
 
   /**
@@ -2099,18 +1896,6 @@ public class Sprite {
    * behavior for the sprite when it is clicked.
    */
   public void whenClicked() {
-    this.whenClickedHandler.handle(this);
-  }
-
-  /**
-   * Sets the handler for when the sprite is clicked. This allows you to define
-   * custom behavior
-   * when the sprite is clicked.
-   *
-   * @param whenClicked A ClickedHandler that takes a Sprite as input and
-   */
-  public void setWhenClicked(WhenClickedHandler whenClicked) {
-    this.whenClickedHandler = whenClicked;
   }
 
   /**
@@ -2217,16 +2002,6 @@ public class Sprite {
    * @param name the name of the backdrop to switch to
    */
   public void whenBackdropSwitches(String name) {
-    this.whenBackdropSwitchesHandler.handle(this, name);
-  }
-
-  /**
-   * Sets the handler for when the backdrop switches to a specified name.
-   *
-   * @param whenBackdropSwitches A BackdropSwitchHandler that takes a Sprite and
-   */
-  public void setWhenBackdropSwitches(WhenBackdropSwitchesHandler whenBackdropSwitches) {
-    this.whenBackdropSwitchesHandler = whenBackdropSwitches;
   }
 
   /**
@@ -2354,7 +2129,6 @@ public class Sprite {
    * @param message The message that is received.
    */
   public void whenIReceive(String message) {
-    this.whenIReceiveHandler.handle(this, message);
   }
 
   /**
@@ -2366,28 +2140,6 @@ public class Sprite {
    * @param message The message that is received.
    */
   public void whenIReceive(Object message) {
-    this.whenIReceiveHandler.handle(this, message);
-  }
-
-  /**
-   * Sets the handler for when a message is received. This allows you to
-   * define custom behavior. This is useful when you do not want to extend the
-   * sprite class and want to use the sprite class directly.
-   *
-   * For example:
-   * 
-   * <pre>
-   * Sprite sprite = new Sprite();
-   * sprite.setWhenIReceive((message) -> {
-   *   System.out.println("Received message: " + message);
-   * });
-   * 
-   * </pre>
-   * 
-   * @param whenIReceive An IReceiveHandler that takes a Sprite and a message
-   */
-  public void setWhenIReceive(WhenIReceiveHandler whenIReceive) {
-    this.whenIReceiveHandler = whenIReceive;
   }
 
   /**
@@ -2447,15 +2199,6 @@ public class Sprite {
   }
 
   /**
-   * Get the Window object.
-   *
-   * @return the Window object
-   */
-  public Window getWindow() {
-    return Window.getInstance();
-  }
-
-  /**
    * This method is intended to be overridden by subclasses to define the behavior
    * of the sprite
    * when it is run. By default, this method does nothing.
@@ -2464,18 +2207,6 @@ public class Sprite {
    * It is called every frame.
    */
   public void run() {
-    this.runHandler.handle(this);
-  }
-
-  /**
-   * Sets the run handler for the sprite. This allows you to define custom
-   * behavior when the sprite
-   * is run.
-   *
-   * @param run A RunHandler that takes a Sprite as input and defines the
-   */
-  public void setRun(RunHandler run) {
-    this.runHandler = run;
   }
 
   protected void addedToStage(Stage stage) {

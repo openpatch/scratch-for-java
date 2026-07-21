@@ -42,7 +42,7 @@ public class MyStage extends Stage {
       shader.set("time", Timer.millis() / 1000.0);
       shader.set("resolution", (float) this.getWidth(), (float) this.getHeight());
       if ("light".equals(shader.getName())) {
-        var lights = this.findSpritesOf(LightSprite.class);
+        var lights = this.find(LightSprite.class);
         var lightPos = new double[lights.size() * 3 + 3];
         // light at mouse position
         lightPos[0] = this.getMouseX();

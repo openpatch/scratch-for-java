@@ -44,56 +44,6 @@ import processing.opengl.PGraphicsOpenGL;
  * @index-in-docs 2
  */
 public class Stage {
-
-  /**
-   * @ignore-in-docs
-   */
-  public interface WhenBackdropSwitchesHandler {
-    void handle(Stage stage, String name);
-  }
-
-  /**
-   * @ignore-in-docs
-   */
-  public interface WhenMouseClickedHandler {
-    void handle(Stage stage, MouseCode mouseCode);
-  }
-
-  /**
-   * @ignore-in-docs
-   */
-  public interface WhenMouseWheelMovedHandler {
-    void handle(Stage stage, int rotation);
-  }
-
-  /**
-   * @ignore-in-docs
-   */
-  public interface WhenKeyPressedHandler {
-    void handle(Stage stage, KeyCode keyCode);
-  }
-
-  /**
-   * @ignore-in-docs
-   */
-  public interface WhenKeyReleasedHandler {
-    void handle(Stage stage, KeyCode keyCode);
-  }
-
-  /**
-   * @ignore-in-docs
-   */
-  public interface WhenIReceiveHandler {
-    void handle(Stage stage, Object message);
-  }
-
-  /**
-   * @ignore-in-docs
-   */
-  public interface RunHandler {
-    void handle(Stage stage);
-  }
-
   private final List<Image> backdrops = new CopyOnWriteArrayList<>();
   private Color color = new Color();
   private int currentBackdrop = 0;
@@ -138,13 +88,6 @@ public class Stage {
   Hitbox bottomBorder;
 
   private Camera camera;
-  private WhenBackdropSwitchesHandler whenBackdropSwitchesHandler;
-  private WhenMouseClickedHandler whenMouseClickedHandler;
-  private WhenMouseWheelMovedHandler whenMouseWheelMovedHandler;
-  private WhenKeyPressedHandler whenKeyPressedHandler;
-  private WhenKeyReleasedHandler whenKeyReleasedHandler;
-  private WhenIReceiveHandler whenIReceiveHandler;
-  private RunHandler runHandler;
   private final java.util.Set<String> warnedOnce = java.util.Collections.synchronizedSet(new java.util.HashSet<>());
 
   private void warnOnce(String key, String... lines) {
@@ -249,21 +192,6 @@ public class Stage {
     this.foregroundStamps = new ConcurrentLinkedQueue<>();
     this.uiStamps = new ConcurrentLinkedQueue<>();
     this.timer = new ConcurrentHashMap<>();
-
-    this.whenBackdropSwitchesHandler = (stage, name) -> {
-    };
-    this.whenMouseClickedHandler = (stage, mouseCode) -> {
-    };
-    this.whenMouseWheelMovedHandler = (stage, rotation) -> {
-    };
-    this.whenKeyPressedHandler = (stage, keyCode) -> {
-    };
-    this.whenKeyReleasedHandler = (stage, keyCode) -> {
-    };
-    this.whenIReceiveHandler = (stage, message) -> {
-    };
-    this.runHandler = s -> {
-    };
 
     if (Window.getInstance() == null) {
       if (fullScreen) {
@@ -386,7 +314,6 @@ public class Stage {
     }
     System.out.println(sb);
   }
-
 
   public void add(Sprite sprite) {
     this.sprites.add(sprite);
@@ -576,70 +503,6 @@ public class Stage {
   }
 
   /**
-   * Moves the specified sprite backwards by a given number of layers in the
-   * sprite list. If the
-   * resulting position is less than zero, the sprite is moved to the first
-   * position. If the
-   * resulting position is greater than the last index, the sprite is moved to the
-   * last position.
-   *
-   * @param sprite the sprite to be moved backwards in the layer order
-   * @param number the number of layers to move the sprite backwards
-   */
-  public void goLayersBackwards(Sprite sprite, int number) {
-    int index = this.sprites.indexOf(sprite);
-    if (index == -1)
-      return;
-    int newIndex = index - number;
-    if (newIndex < 0)
-      newIndex = 0;
-    newIndex = Math.min(newIndex, this.sprites.size() - 1);
-    this.sprites.remove(index);
-    this.sprites.add(newIndex, sprite);
-  }
-
-  /**
-   * Moves the specified sprite forward by a given number of layers in the sprite
-   * list. If the
-   * resulting position is out of bounds, it will be adjusted to the nearest valid
-   * position.
-   *
-   * @param sprite the sprite to be moved forward in the layer order
-   * @param number the number of layers to move the sprite forward
-   */
-  public void goLayersForwards(Sprite sprite, int number) {
-    int index = this.sprites.indexOf(sprite);
-    if (index == -1)
-      return;
-    int newIndex = index + number;
-    if (newIndex < 0)
-      newIndex = 0;
-    newIndex = Math.min(newIndex, this.sprites.size() - 1);
-    this.sprites.remove(index);
-    this.sprites.add(newIndex, sprite);
-  }
-
-  /**
-   * Moves the specified sprite to the front layer.
-   *
-   * @param sprite the sprite to be moved to the front layer
-   */
-  public void goToFrontLayer(Sprite sprite) {
-    this.sprites.remove(sprite);
-    this.sprites.add(sprite);
-  }
-
-  /**
-   * Moves the specified sprite to the back layer of the stage.
-   *
-   * @param sprite the sprite to be moved to the back layer
-   */
-  public void goToBackLayer(Sprite sprite) {
-    this.sprites.remove(sprite);
-    this.sprites.add(0, sprite);
-  }
-
-  /**
    * Moves the specified sprite to the UI layer by removing it from the current
    * list of sprites.
    *
@@ -728,35 +591,73 @@ public class Stage {
     text.removedFromStage(this);
   }
 
-  /** Removes all elements from the stage. */
-  public void removeAll() {
-    this.removeAllSprites();
-    this.removeAllTexts();
-    this.removeAllPens();
+  // Package-private: the implementation behind Sprite.goToFrontLayer().
+  void goToFrontLayer(Sprite sprite) {
+    this.sprites.remove(sprite);
+    this.sprites.add(sprite);
   }
 
-  /** Removes all sprites from the stage. */
-  public void removeAllSprites() {
+  // Package-private: the implementation behind Sprite.goToBackLayer().
+  void goToBackLayer(Sprite sprite) {
+    this.sprites.remove(sprite);
+    this.sprites.add(0, sprite);
+  }
+
+  // Package-private: the implementation behind Sprite.goLayersForwards().
+  void goLayersForwards(Sprite sprite, int number) {
+    int index = this.sprites.indexOf(sprite);
+    if (index == -1)
+      return;
+    int newIndex = index + number;
+    if (newIndex < 0)
+      newIndex = 0;
+    newIndex = Math.min(newIndex, this.sprites.size() - 1);
+    this.sprites.remove(index);
+    this.sprites.add(newIndex, sprite);
+  }
+
+  // Package-private: the implementation behind Sprite.goLayersBackwards().
+  void goLayersBackwards(Sprite sprite, int number) {
+    int index = this.sprites.indexOf(sprite);
+    if (index == -1)
+      return;
+    int newIndex = index - number;
+    if (newIndex < 0)
+      newIndex = 0;
+    newIndex = Math.min(newIndex, this.sprites.size() - 1);
+    this.sprites.remove(index);
+    this.sprites.add(newIndex, sprite);
+  }
+
+  // Private helper for removeAll().
+  private void removeAllSprites() {
     for (Sprite sprite : this.sprites) {
       sprite.removedFromStage(this);
     }
     this.sprites.clear();
   }
 
-  /** Removes all texts from the stage. */
-  public void removeAllTexts() {
+  // Private helper for removeAll().
+  private void removeAllTexts() {
     for (Text text : this.texts) {
       text.removedFromStage(this);
     }
     this.texts.clear();
   }
 
-  /** Removes all pens from the stage. */
-  public void removeAllPens() {
+  // Private helper for removeAll().
+  private void removeAllPens() {
     for (Pen pen : this.pens) {
       pen.removedFromStage(this);
     }
     this.pens.clear();
+  }
+
+  /** Removes all elements from the stage. */
+  public void removeAll() {
+    this.removeAllSprites();
+    this.removeAllTexts();
+    this.removeAllPens();
   }
 
   /**
@@ -783,33 +684,6 @@ public class Stage {
   }
 
   /**
-   * Find sprites of a given class.
-   *
-   * @param c Class
-   */
-  public <T extends Sprite> List<T> findSpritesOf(Class<T> c) {
-    return this.find(c);
-  }
-
-  /**
-   * Find texts of a given class.
-   *
-   * @param c Class
-   */
-  public <T extends Text> List<T> findTextsOf(Class<T> c) {
-    return this.texts.stream().filter(c::isInstance).map(c::cast).collect(Collectors.toList());
-  }
-
-  /**
-   * Find texts of a given class.
-   *
-   * @param c Class
-   */
-  public <T extends Pen> List<T> findPensOf(Class<T> c) {
-    return this.pens.stream().filter(c::isInstance).map(c::cast).collect(Collectors.toList());
-  }
-
-  /**
    * Returns the number of sprites of the specified class.
    *
    * @param c the class of the sprites to count
@@ -817,61 +691,6 @@ public class Stage {
    */
   public <T extends Sprite> long count(Class<T> c) {
     return this.sprites.stream().filter(c::isInstance).count();
-  }
-
-  /**
-   * Returns the number of sprites in the stage.
-   *
-   * @return the number of sprites
-   */
-  public long countSprites() {
-    return this.sprites.size();
-  }
-
-  /**
-   * Returns the number of sprites of the specified class.
-   *
-   * @param c the class of the sprites to count
-   * @return the number of sprites of the specified class
-   */
-  public <T extends Sprite> long countSpritesOf(Class<T> c) {
-    return this.count(c);
-  }
-
-  /**
-   * Returns the number of texts in the stage.
-   *
-   * @return the number of texts
-   */
-  public long countTexts() {
-    return this.texts.size();
-  }
-
-  /**
-   * Returns the number of texts of the specified class.
-   *
-   * @param c the class of the texts to count
-   */
-  public <T extends Text> long countTextsOf(Class<T> c) {
-    return this.texts.stream().filter(c::isInstance).count();
-  }
-
-  /**
-   * Returns the number of pens
-   *
-   * @return the number of pens
-   */
-  public long countPens() {
-    return this.pens.size();
-  }
-
-  /**
-   * Returns the number of pens of the specified class.
-   *
-   * @param c the class of the pens to count
-   */
-  public <T extends Pen> long countPensOf(Class<T> c) {
-    return this.pens.stream().filter(c::isInstance).count();
   }
 
   /**
@@ -929,21 +748,6 @@ public class Stage {
   }
 
   /**
-   * Remove a backdrop from the stage.
-   *
-   * @param name of the backdrop
-   */
-  public void removeBackdrop(String name) {
-    for (int i = 0; i < this.backdrops.size(); i++) {
-      Image backdrop = this.backdrops.get(i);
-      if (backdrop.getName().equals(name)) {
-        this.backdrops.remove(i);
-        return;
-      }
-    }
-  }
-
-  /**
    * Switch to a backdrop by name.
    *
    * @scratchblock switch backdrop to [name v]
@@ -991,16 +795,6 @@ public class Stage {
    * @param name the name of the backdrop to switch to
    */
   public void whenBackdropSwitches(String name) {
-    this.whenBackdropSwitchesHandler.handle(this, name);
-  }
-
-  /**
-   * Sets the handler for when the backdrop switches.
-   *
-   * @param whenBackdropSwitches the handler to set
-   */
-  public void setWhenBackdropSwitches(WhenBackdropSwitchesHandler whenBackdropSwitches) {
-    this.whenBackdropSwitchesHandler = whenBackdropSwitches;
   }
 
   /**
@@ -1155,21 +949,6 @@ public class Stage {
    */
   public void addSound(String name) {
     this.addSound(name, name);
-  }
-
-  /**
-   * Remove a sound from the stage.
-   *
-   * @param name the sound name
-   */
-  public void removeSound(String name) {
-    for (int i = 0; i < this.sounds.size(); i++) {
-      Sound sound = this.sounds.get(i);
-      if (sound.getName().equals(name)) {
-        this.sounds.remove(i);
-        return;
-      }
-    }
   }
 
   /**
@@ -1465,16 +1244,6 @@ public class Stage {
    * @param mouseEvent The mouse event that triggered this method.
    */
   public void whenMouseClicked(MouseCode mouseEvent) {
-    this.whenMouseClickedHandler.handle(this, mouseEvent);
-  }
-
-  /**
-   * Sets the handler for mouse click events.
-   *
-   * @param whenMouseClicked a handler that takes a Stage and MouseCode as
-   */
-  public void setWhenMouseClicked(WhenMouseClickedHandler whenMouseClicked) {
-    this.whenMouseClickedHandler = whenMouseClicked;
   }
 
   /**
@@ -1488,17 +1257,6 @@ public class Stage {
    *              towards the user.
    */
   public void whenMouseWheelMoved(int steps) {
-    this.whenMouseWheelMovedHandler.handle(this, steps);
-  }
-
-  /**
-   * Sets the handler for mouse wheel movement events.
-   *
-   * @param whenMouseWheelMoved a handler that takes a Stage and an integer
-   */
-  public void setWhenMouseWheelMoved(
-      WhenMouseWheelMovedHandler whenMouseWheelMoved) {
-    this.whenMouseWheelMovedHandler = whenMouseWheelMoved;
   }
 
   /**
@@ -1544,17 +1302,6 @@ public class Stage {
    * @param keyCode the key that was pressed
    */
   public void whenKeyPressed(KeyCode keyCode) {
-    this.whenKeyPressedHandler.handle(this, keyCode);
-  }
-
-  /**
-   * Sets the handler for key press events.
-   *
-   * @param whenKeyPressed a handler that takes a Stage and a KeyCode as an argument
-   */
-  public void setWhenKeyPressed(
-      WhenKeyPressedHandler whenKeyPressed) {
-    this.whenKeyPressedHandler = whenKeyPressed;
   }
 
   /**
@@ -1564,17 +1311,6 @@ public class Stage {
    * @param keyCode the key that was released
    */
   public void whenKeyReleased(KeyCode keyCode) {
-    this.whenKeyReleasedHandler.handle(this, keyCode);
-  }
-
-  /**
-   * Sets the handler for key release events.
-   *
-   * @param whenKeyReleased a handler that takes a Stage and a KeyCode as an argument
-   */
-  public void setWhenKeyReleased(
-      WhenKeyReleasedHandler whenKeyReleased) {
-    this.whenKeyReleasedHandler = whenKeyReleased;
   }
 
   /**
@@ -1773,7 +1509,6 @@ public class Stage {
    * @param message The message that triggers this method.
    */
   public void whenIReceive(String message) {
-    this.whenIReceiveHandler.handle(this, message);
   }
 
   /**
@@ -1782,17 +1517,6 @@ public class Stage {
    * @param message The message object that is received.
    */
   public void whenIReceive(Object message) {
-    this.whenIReceiveHandler.handle(this, message);
-  }
-
-  /**
-   * Sets the handler for when a message is received.
-   *
-   * @param whenIReceive a handler that takes a Stage and a String (the message)
-   *                     as arguments
-   */
-  public void setWhenIReceive(WhenIReceiveHandler whenIReceive) {
-    this.whenIReceiveHandler = whenIReceive;
   }
 
   /**
@@ -1850,21 +1574,11 @@ public class Stage {
   }
 
   /**
-   * Get the Window object.
-   *
-   * @return the Window object
-   */
-  public Window getWindow() {
-    return Window.getInstance();
-  }
-
-  /**
    * Executes the main logic of the stage. This method should be overridden by
    * subclasses to define
    * the specific behavior of the stage.
    */
   public void run() {
-    this.runHandler.handle(this);
   }
 
   /**
@@ -1914,15 +1628,6 @@ public class Stage {
       return;
     }
     this.uiStamps.add(stamp);
-  }
-
-  /**
-   * Sets the main logic of the stage to be executed during each frame.
-   *
-   * @param run the RunHandler that defines the main logic of the stage
-   */
-  public void setRun(RunHandler run) {
-    this.runHandler = run;
   }
 
   /**
