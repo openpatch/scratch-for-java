@@ -32,9 +32,16 @@ public class Cat extends Sprite {
 ```
 
 
-- There is no Sprite library, you have to search the internet.
-- There is no Sound library, you have to search the internet.
-- There are no built-in editors, you have to use external tools like [GIMP](https://www.gimp.org/), [Inkscape](https://inkscape.org/), [Audacity](https://www.audacityteam.org/) and so on.
+- There **is** a sprite and sound library, like in Scratch: 838 pictures and 266
+  sounds ship with Scratch for Java, and you use them by name with
+  `addCostume("bunny1_stand")`. Browse them on the [Sprites](/sprites) and
+  [Sounds](/sounds) pages. What Scratch has and this does not is a *choose from
+  a categorised catalogue with previews inside the editor* - here it is a
+  documentation page you search.
+- There are no built-in editors, so for drawing or recording your own files you
+  need external tools like [GIMP](https://www.gimp.org/),
+  [Inkscape](https://inkscape.org/), [Audacity](https://www.audacityteam.org/)
+  and so on.
 - If you want to share your project with others, you have to used external sharing platforms like Nextcloud, iCloud, Dropbox or better a code sharing platform like GitHub.
 - You **can not** use a forever loop. This will halt you program.
 

@@ -19,19 +19,25 @@ So by using this approach you are trading simplicity with compatibility to the S
 ```java
 import org.openpatch.scratch.*;
 
-public class MyProgram {
-    public MyProgram() {
-        Stage myStage = new Stage();
-        Sprite zebra = new Sprite();
-        zebra.addCostume("walk_1", "assets/walk_1.png");
-        zebra.setOnEdgeBounce(true);
+public class MyProgram extends Stage {
+    private Sprite zebra = new Sprite();
 
-        zebra.setRun(s -> {
-            s.move(1);
-        })
+    public MyProgram() {
+        zebra.addCostume("bunny1_stand");
+        this.add(zebra);
+    }
+
+    // runs about 60 times a second, for every sprite on this stage
+    public void run() {
+        zebra.move(1);
+        zebra.ifOnEdgeBounce();
     }
 }
 ```
+
+The whole project is one class. There are no sprite classes to write, so
+students never meet inheritance beyond the single `extends Stage`, and every
+sprite is steered from one place.
 
 ## Object-oriented Approach (aka. Classes-first)
 
@@ -50,14 +56,14 @@ import org.openpatch.scratch.*;
 
 class Zebra extends Sprite {
     public Zebra() {
-        this.addCostume("walk_1", "assets/walk_1.png");
-        this.setOnEdgeBounce(true);
+        this.addCostume("bunny1_stand");
     }
 
     // runs 60-times a second
     // similar to a forever loop inside a when green flag pressed block
     public void run() {
-        zebra.move(1);
+        this.move(1);
+        this.ifOnEdgeBounce();
     }
 }
 
@@ -93,9 +99,9 @@ public class MyProject extends Window {
 Another enhancement is the class AnimatedSprite, which makes it easy to use an animated for Sprites. This class should be used early since it overcomes the downside of not having a per-sprite wait-block by abstracting the timing.
 
 ```java
-import org.openpatch.scratch.extensions.animation.*;
+import org.openpatch.scratch.*;
 
-public Zebra extends AnimatedSprite {
+public class Zebra extends AnimatedSprite {
     public Zebra() {
         this.addAnimation("walk", "walk_%d.png", 4);
     }
