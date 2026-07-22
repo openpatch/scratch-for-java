@@ -565,6 +565,11 @@ public class Sprite {
   /**
    * Plays a sound.
    *
+   * <p>
+   * Every sprite plays its own copy, so ten sprites playing the same sound are
+   * heard ten times at once. One sprite only plays a sound once at a time:
+   * playing it again while it is still going does nothing.
+   *
    * @scratchblock start sound [name v]
    *
    * @param name the sound name

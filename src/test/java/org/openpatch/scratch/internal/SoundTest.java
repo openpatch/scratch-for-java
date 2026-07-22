@@ -1,16 +1,20 @@
 package org.openpatch.scratch.internal;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.ByteArrayInputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Timeout;
 
 /**
  * Decoding is tested without ever opening a {@link javax.sound.sampled.Clip},
@@ -64,6 +68,81 @@ class SoundTest {
       }
     } finally {
       Files.deleteIfExists(wav);
+    }
+  }
+
+  @Test
+  void readsAWholeSoundIntoMemory() throws Exception {
+    try (AudioInputStream in = Sound.toPlayableStream(Sound.openStream(Applet.getPath(LONG_OGG)))) {
+      assertEquals(decodedBytes(LONG_OGG), Sound.readSamples(in).length);
+    }
+  }
+
+  @Test
+  void keepsReadingAfterAnEmptyRead() throws Exception {
+    // The Ogg decoder hands back 0 bytes now and then while it refills its
+    // buffer. Taking that for the end of the stream would cut sounds short.
+    byte[] audio = new byte[] { 1, 2, 3, 4, 5, 6, 7, 8 };
+    AudioFormat format = new AudioFormat(8000, 16, 1, true, false);
+
+    try (AudioInputStream in = new AudioInputStream(
+        new StallingStream(audio), format, audio.length / format.getFrameSize())) {
+      assertArrayEquals(audio, Sound.readSamples(in));
+    }
+  }
+
+  @Test
+  @Timeout(10)
+  void givesUpOnADecoderThatNeverDelivers() throws Exception {
+    // Reading on forever would hang the program while it loads its assets.
+    AudioFormat format = new AudioFormat(8000, 16, 1, true, false);
+
+    try (AudioInputStream in = new AudioInputStream(
+        new SilentStream(), format, AudioSystem.NOT_SPECIFIED)) {
+      assertEquals(0, Sound.readSamples(in).length);
+    }
+  }
+
+  @Test
+  void cutsOffAHalfFrameAtTheEnd() throws Exception {
+    // A Clip can only be opened with whole frames.
+    byte[] audio = new byte[] { 1, 2, 3, 4, 5 };
+    AudioFormat stereo = new AudioFormat(8000, 16, 2, true, false); // 4 bytes per frame
+
+    try (AudioInputStream in = new AudioInputStream(
+        new ByteArrayInputStream(audio), stereo, AudioSystem.NOT_SPECIFIED)) {
+      assertEquals(4, Sound.readSamples(in).length);
+    }
+  }
+
+  /** A stream that never reads anything and never ends either. */
+  private static class SilentStream extends java.io.InputStream {
+    @Override
+    public int read() {
+      return 0;
+    }
+
+    @Override
+    public int read(byte[] buffer, int offset, int length) {
+      return 0;
+    }
+  }
+
+  /** A stream that reads nothing at first, the way the Ogg decoder does. */
+  private static class StallingStream extends ByteArrayInputStream {
+    private boolean stalled = false;
+
+    StallingStream(byte[] data) {
+      super(data);
+    }
+
+    @Override
+    public synchronized int read(byte[] buffer, int offset, int length) {
+      if (!stalled) {
+        stalled = true;
+        return 0;
+      }
+      return super.read(buffer, offset, length);
     }
   }
 
