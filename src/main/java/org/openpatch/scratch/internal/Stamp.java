@@ -29,15 +29,18 @@ public class Stamp {
     g.push();
     g.imageMode(PConstants.CENTER);
     g.translate((float) this.x, (float) -this.y);
-    this.degrees -= 90;
+    // A heading of 90 points right, which is where the artwork already faces.
+    // Kept in a local: draw() must not mutate the stamp, or a stamp that is
+    // drawn more than once would keep turning.
+    double heading = this.degrees - 90;
     switch (this.style) {
       case DONT:
         break;
       case ALL_AROUND:
-        g.rotate(PApplet.radians((float) this.degrees));
+        g.rotate(PApplet.radians((float) heading));
         break;
       case LEFT_RIGHT:
-        if (this.degrees > -90 && this.degrees < 90) {
+        if (heading > -90 && heading < 90) {
           g.scale(1, 1);
         } else {
           g.scale(-1, 1);
@@ -49,7 +52,9 @@ public class Stamp {
         (float) this.image.tint.getGreen(),
         (float) this.image.tint.getBlue(),
         (float) this.image.transparency);
-    g.image(this.image.originalImage, 0, 0);
+    // Draw at the costume's current size, not the file's natural size, so a
+    // stamp matches the sprite it was taken from after setSize().
+    g.image(this.image.originalImage, 0, 0, this.image.getWidth(), this.image.getHeight());
     g.noTint();
     g.pop();
   }
