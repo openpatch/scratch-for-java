@@ -1,5 +1,5 @@
 ---
-type: major
+type: minor
 ---
 
 💥 BREAKING CHANGE: `Window.addStage`, `switchStage` and `removeStage` are gone.

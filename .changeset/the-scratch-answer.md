@@ -1,5 +1,5 @@
 ---
-type: major
+type: minor
 ---
 
 💥 BREAKING CHANGE: transparency and `mod` now answer the way the Scratch block does.
