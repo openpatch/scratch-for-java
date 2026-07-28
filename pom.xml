@@ -40,6 +40,7 @@
         <libs.processing>4.5.5</libs.processing>
         <libs.jackson>3.2.1</libs.jackson>
         <libs.junit>5.11.4</libs.junit>
+        <libs.imagecomparison>4.4.0</libs.imagecomparison>
     </properties>
 
     <dependencies>
@@ -92,6 +93,19 @@
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
             <version>${libs.junit}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!--
+            Compares the frames scripts/visual-parity.sh draws, and draws boxes
+            round whatever moved. Test scope on purpose: it is a tool for
+            checking this library, not something anyone using it should end up
+            with on their classpath.
+        -->
+        <dependency>
+            <groupId>com.github.romankh3</groupId>
+            <artifactId>image-comparison</artifactId>
+            <version>${libs.imagecomparison}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -412,6 +426,11 @@
                             <name>example.files</name>
                             <placement>X</placement>
                             <head>Example:</head>
+                        </tag>
+                        <tag>
+                            <name>desktop-only</name>
+                            <placement>X</placement>
+                            <head>Desktop only</head>
                         </tag>
                     </tags>
                     <excludePackageNames>
