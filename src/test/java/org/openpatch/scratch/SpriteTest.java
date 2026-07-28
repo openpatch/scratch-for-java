@@ -3,7 +3,6 @@ package org.openpatch.scratch;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
-import org.openpatch.scratch.Vector2;
 
 class SpriteTest {
 

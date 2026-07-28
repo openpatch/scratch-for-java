@@ -14,6 +14,8 @@ import processing.core.PGraphics;
  * and stamping the current sprite onto the canvas. The Pen can be associated
  * with a Sprite and can
  * draw on both the foreground and background.
+ *
+ * @example.files PenConstructors.java
  */
 public class Pen {
 
@@ -104,6 +106,8 @@ public class Pen {
    * pen's stage variable.
    *
    * @param stage The stage to which the pen is added.
+   *
+   * @ignore-in-docs The plumbing that calls whenAddedToStage(), which is the one to override.
    */
   public void addedToStage(Stage stage) {
     this.stage = stage;
@@ -115,6 +119,8 @@ public class Pen {
    * null.
    *
    * @param stage The stage from which the pen is removed.
+   *
+   * @ignore-in-docs The plumbing that calls whenRemovedFromStage(), which is the one to override.
    */
   public void removedFromStage(Stage stage) {
     this.stage = null;
@@ -124,6 +130,8 @@ public class Pen {
    * Retrieves the current color of the pen.
    *
    * @return the color of the pen
+   *
+   * @example.files PenGetColor.java
    */
   public Color getColor() {
     return this.color;
@@ -134,7 +142,6 @@ public class Pen {
    *
    * @param c color of the pen
    *
-   * @example.preview PenSetColor.gif
    * @example.files PenSetColor.java
    */
   public void setColor(Color c) {
@@ -168,7 +175,6 @@ public class Pen {
    *
    * @param c a hue value [0...255]
    *
-   * @example.preview PenChangeColor.gif
    * @example.files PenChangeColor.java
    *
    * @scratchblock change pen [color v] by (c)
@@ -181,6 +187,8 @@ public class Pen {
    * Sets the pen to the background. This method changes the state of the pen to
    * indicate that it is
    * no longer in the foreground.
+   *
+   * @example.files PenGoToBackground.java
    */
   public void goToBackground() {
     this.isForeground = false;
@@ -190,6 +198,8 @@ public class Pen {
    * Moves the pen to the foreground. This method sets the pen's state to indicate
    * that it is in the
    * foreground.
+   *
+   * @example.files PenGoToForeground.java
    */
   public void goToForeground() {
     this.isForeground = true;
@@ -199,6 +209,8 @@ public class Pen {
    * Returns true if the pen is in the background.
    *
    * @return true if the pen is in the background
+   *
+   * @example.files PenIsInBackground.java
    */
   public boolean isInBackground() {
     return !this.isForeground;
@@ -209,7 +221,6 @@ public class Pen {
    *
    * @param size size of the pen
    *
-   * @example.preview PenSetSize.gif
    * @example.files PenSetSize.java
    *
    * @scratchblock set pen size to (size)
@@ -222,6 +233,8 @@ public class Pen {
    * Returns the size of the pen
    *
    * @return the size of the pen
+   *
+   * @example.files PenGetSize.java
    */
   public double getSize() {
     return this.size;
@@ -232,7 +245,6 @@ public class Pen {
    *
    * @param size size to change
    *
-   * @example.preview PenChangeSize.gif
    * @example.files PenChangeSize.java
    *
    * @scratchblock change pen size by (size)
@@ -246,7 +258,6 @@ public class Pen {
    *
    * @param transparency transparency of the pen
    *
-   * @example.preview PenSetTransparency.gif
    * @example.files PenSetTransparency.java
    */
   public void setTransparency(double transparency) {
@@ -258,7 +269,6 @@ public class Pen {
    *
    * @param step the step to change the transparency by
    *
-   * @example.preview PenChangeTransparency.gif
    * @example.files PenChangeTransparency.java
    */
   public void changeTransparency(double step) {
@@ -271,7 +281,6 @@ public class Pen {
    * @param x x coordinate
    * @param y y coordinate
    *
-   * @example.preview PenSetPosition.gif
    * @example.files PenSetPosition.java
    */
   public void setPosition(double x, double y) {
@@ -296,6 +305,8 @@ public class Pen {
    * new position is
    * determined by generating random coordinates within the width and height of
    * the stage.
+   *
+   * @example.files PenGoToRandomPosition.java
    */
   public void goToRandomPosition() {
     this.setPosition(
@@ -303,7 +314,11 @@ public class Pen {
         Random.randomInt(-this.stage.getHeight() / 2, this.stage.getHeight() / 2));
   }
 
-  /** Moves the object to the current position of the mouse pointer. */
+  /**
+   * Moves the object to the current position of the mouse pointer.
+   *
+   * @example.files PenGoToMousePointer.java
+   */
   public void goToMousePointer() {
     this.setPosition(this.stage.getMouseX(), this.stage.getMouseY());
   }
@@ -311,7 +326,6 @@ public class Pen {
   /**
    * Set the pen down.
    *
-   * @example.preview PenDown.gif
    * @example.files PenDown.java
    *
    * @scratchblock pen down
@@ -328,7 +342,6 @@ public class Pen {
   /**
    * Move the pen up.
    *
-   * @example.preview PenUp.gif
    * @example.files PenUp.java
    *
    * @scratchblock pen up
@@ -347,6 +360,8 @@ public class Pen {
    * the foreground or the background based on the value of the isForeground flag.
    *
    * @scratchblock stamp
+   *
+   * @example.files PenStamp.java
    */
   public void stamp() {
     if (this.sprite != null) {
@@ -361,7 +376,6 @@ public class Pen {
   /**
    * Erases all.
    *
-   * @example.preview PenEraseAll.gif
    * @example.files PenEraseAll.java
    *
    * @scratchblock erase all
@@ -377,7 +391,10 @@ public class Pen {
     }
   }
 
-  /** Draw the line which the pen has drawn. */
+  /** Draw the line which the pen has drawn. 
+   * @ignore-in-docs Called by the render loop. It needs a Processing buffer, which nothing in
+   * the library hands out.
+   */
   public void draw(PGraphics buffer) {
     if (this.stage == null)
       return;

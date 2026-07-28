@@ -1,11 +1,6 @@
 package org.openpatch.scratch;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.Month;
-import java.time.temporal.ChronoUnit;
 import java.util.AbstractMap;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentHashMap;
@@ -15,7 +10,6 @@ import java.util.stream.Collectors;
 
 import org.openpatch.scratch.extensions.camera.Camera;
 import org.openpatch.scratch.extensions.pixels.Pixels;
-import org.openpatch.scratch.extensions.shader.Shader;
 import org.openpatch.scratch.extensions.shader.Shaders;
 import org.openpatch.scratch.extensions.sorting.Sorting;
 import org.openpatch.scratch.internal.Applet;
@@ -39,6 +33,8 @@ import processing.opengl.PGraphicsOpenGL;
  * events, and control the stage's appearance and behavior.
  * 
  * @index-in-docs 2
+ *
+ * @example.files StageConstructors.java
  */
 public class Stage {
   /**
@@ -115,17 +111,6 @@ public class Stage {
   Hitbox bottomBorder;
 
   private Camera camera;
-  private final java.util.Set<String> warnedOnce = java.util.Collections.synchronizedSet(new java.util.HashSet<>());
-
-  private void warnOnce(String key, String... lines) {
-    if (warnedOnce.add(key)) {
-      System.err.println("\n==============================================");
-      for (String line : lines)
-        System.err.println(line);
-      System.err.println("==============================================\n");
-    }
-  }
-
   /**
    * Returns the order in which the sprites of this stage are drawn.
    *
@@ -137,6 +122,8 @@ public class Stage {
    * }</pre>
    *
    * @return the sorting
+   *
+   * @example.files StageGetSorting.java
    */
   public Sorting getSorting() {
     return this.sorting;
@@ -153,6 +140,8 @@ public class Stage {
    * }</pre>
    *
    * @return the pixels
+   *
+   * @example.files StageGetPixels.java
    */
   public Pixels getPixels() {
     return this.pixels;
@@ -171,6 +160,8 @@ public class Stage {
    * }</pre>
    *
    * @return the shaders
+   *
+   * @example.files StageGetShaders.java
    */
   public Shaders getShaders() {
     return this.shaders;
@@ -260,6 +251,7 @@ public class Stage {
         -applet.getRenderHeight() / 2,
         applet.getRenderWidth(),
         TextStyle.BOX);
+    this.display.asDisplayBand();
     this.display.addedToStage(this);
     // Bottom of the stage, where Scratch puts its ask box too.
     this.askDisplay = new Text(
@@ -305,6 +297,8 @@ public class Stage {
    * @param debug a boolean value where {@code true} enables debug mode and
    *              {@code false} disables
    *              it.
+   *
+   * @example.files StageSetDebug.java
    */
   public void setDebug(boolean debug) {
     Applet.getInstance().setDebug(debug);
@@ -314,6 +308,8 @@ public class Stage {
    * Checks if the application is in debug mode.
    *
    * @return true if the application is in debug mode, false otherwise.
+   *
+   * @example.files StageIsDebug.java
    */
   public boolean isDebug() {
     return Applet.getInstance().isDebug();
@@ -331,6 +327,8 @@ public class Stage {
    * }</pre>
    *
    * @param values one or more values to print
+   *
+   * @example.files StageDebug.java
    */
   public void debug(Object... values) {
     if (!Applet.getInstance().isDebug()) return;
@@ -341,6 +339,14 @@ public class Stage {
     System.out.println(sb);
   }
 
+  /**
+   * Adds a sprite to the stage. Sprites are drawn in the order they were added, so a sprite added
+   * later is drawn on top of one added earlier.
+   *
+   * @param sprite the sprite to add
+   *
+   * @example.files StageAdd.java
+   */
   public void add(Sprite sprite) {
     this.sprites.add(sprite);
     sprite.addedToStage(this);
@@ -386,7 +392,6 @@ public class Stage {
    *
    * @return a list containing all sp
    *
-   * @example.preview StageGetAll.gif
    * @example.files StageGetAll.java
    */
   public List<Sprite> getAll() {
@@ -398,7 +403,6 @@ public class Stage {
    *
    * @param sprite the sprite to be removed
    *
-   * @example.preview StageRemove.gif
    * @example.files StageRemove.java
    */
   public void remove(Sprite sprite) {
@@ -491,7 +495,6 @@ public class Stage {
   /**
    * Removes all elements from the stage.
    *
-   * @example.preview StageRemoveAll.gif
    * @example.files StageRemoveAll.java
    */
   public void removeAll() {
@@ -519,7 +522,6 @@ public class Stage {
    *
    * @param c Class
    *
-   * @example.preview StageFind.gif
    * @example.files StageFind.java
    */
   public <T extends Sprite> List<T> find(Class<T> c) {
@@ -531,9 +533,14 @@ public class Stage {
    *
    * @param c the class of the sprites to count
    * @return the number of sprites of the specified class
+   *
+   * @example.files StageCount.java
    */
-  public <T extends Sprite> long count(Class<T> c) {
-    return this.sprites.stream().filter(c::isInstance).count();
+  public <T extends Sprite> int count(Class<T> c) {
+    // int rather than the long a Stream would hand back: how the counting is
+    // done is nobody's business, and `int coins = myStage.count(Coin.class)`
+    // is the line anyone would write.
+    return (int) this.sprites.stream().filter(c::isInstance).count();
   }
 
   /**
@@ -545,7 +552,6 @@ public class Stage {
    *                  "bg_castle"
    * @param stretch   stretch image to window size
    *
-   * @example.preview StageAddBackdrop.gif
    * @example.files StageAddBackdrop.java
    */
   public void addBackdrop(String name, final String imagePath, boolean stretch) {
@@ -600,7 +606,6 @@ public class Stage {
    *
    * @param name the name of a backdrop
    *
-   * @example.preview StageSwitchBackdrop.gif
    * @example.files StageSwitchBackdrop.java
    */
   public void switchBackdrop(String name) {
@@ -643,7 +648,6 @@ public class Stage {
    *
    * @param name the name of the backdrop to switch to
    *
-   * @example.preview StageWhenBackdropSwitches.gif
    * @example.files StageWhenBackdropSwitches.java
    */
   public void whenBackdropSwitches(String name) {
@@ -654,7 +658,6 @@ public class Stage {
    *
    * @scratchblock next backdrop
    *
-   * @example.preview StageNextBackdrop.gif
    * @example.files StageNextBackdrop.java
    */
   public void nextBackdrop() {
@@ -676,6 +679,8 @@ public class Stage {
    * Switch to the previous backdrop.
    *
    * @scratchblock switch backdrop to [previous backdrop v]
+   *
+   * @example.files StagePreviousBackdrop.java
    */
   public void previousBackdrop() {
     if (this.backdrops.isEmpty()) {
@@ -700,6 +705,8 @@ public class Stage {
    * Switch to a random backdrop.
    *
    * @scratchblock switch backdrop to [random backdrop v]
+   *
+   * @example.files StageRandomBackdrop.java
    */
   public void randomBackdrop() {
     int size = this.backdrops.size();
@@ -712,7 +719,6 @@ public class Stage {
    *
    * @return a backdrop name
    *
-   * @example.preview StageGetCurrentBackdropName.gif
    * @example.files StageGetCurrentBackdropName.java
    *
    * @scratchblock (backdrop [name v])
@@ -726,7 +732,6 @@ public class Stage {
    *
    * @return a backdrop index
    *
-   * @example.preview StageGetCurrentBackdropIndex.gif
    * @example.files StageGetCurrentBackdropIndex.java
    *
    * @scratchblock (backdrop [number v])
@@ -739,6 +744,8 @@ public class Stage {
    * Erases all lines on the pen layer.
    *
    * @scratchblock erase all
+   *
+   * @example.files StageEraseAll.java
    */
   public void eraseAll() {
     this.eraseBackgroundBuffer = true;
@@ -775,6 +782,8 @@ public class Stage {
    * @param name      a unique name
    * @param soundPath a sound path, or the name of a built-in sound such as
    *                  "footstep_carpet_000"
+   *
+   * @example.files StageAddSound.java
    */
   public void addSound(String name, final String soundPath) {
     for (Sound sound : this.sounds) {
@@ -811,6 +820,8 @@ public class Stage {
    * @param name the sound name
    *
    * @scratchblock start sound [name v]
+   *
+   * @example.files StagePlaySound.java
    */
   public void playSound(String name) {
     boolean found = false;
@@ -848,6 +859,8 @@ public class Stage {
    * Stops the playing of all sounds of the stage.
    *
    * @scratchblock stop all sounds
+   *
+   * @example.files StageStopAllSounds.java
    */
   public void stopAllSounds() {
     for (Sound sound : this.sounds) {
@@ -859,6 +872,8 @@ public class Stage {
    * Stops the playing of the sound with the given name
    *
    * @param name Name of the sound
+   *
+   * @example.files StageStopSound.java
    */
   public void stopSound(String name) {
     boolean found = false;
@@ -878,6 +893,8 @@ public class Stage {
    * Returns true if the sound if playing
    *
    * @return playing
+   *
+   * @example.files StageIsSoundPlaying.java
    */
   public boolean isSoundPlaying(String name) {
     for (Sound sound : this.sounds) {
@@ -894,7 +911,6 @@ public class Stage {
    *
    * @param h a hue value [0...255]
    *
-   * @example.preview StageSetColor.gif
    * @example.files StageSetColor.java
    */
   public void setColor(double h) {
@@ -916,6 +932,8 @@ public class Stage {
    * Returns the current color of the stage.
    *
    * @return the current color
+   *
+   * @example.files StageGetColor.java
    */
   public Color getColor() {
     return this.color;
@@ -936,7 +954,6 @@ public class Stage {
    *
    * @param h a step value
    *
-   * @example.preview StageChangeColor.gif
    * @example.files StageChangeColor.java
    */
   public void changeColor(double h) {
@@ -944,84 +961,87 @@ public class Stage {
   }
 
   /**
-   * Sets the tint for the current backdrop with rgb.
+   * Sets the colour the backdrop is tinted with.
    *
    * @see Image#setTint(double, double, double)
    * @param r a red value [0...255]
    * @param g a green value [0...255]
    * @param b a blue value [0...255]
    *
-   * @example.preview StageSetTint.gif
    * @example.files StageSetTint.java
    */
   public void setTint(double r, double g, double b) {
-    if (this.backdrops.size() == 0)
-      return;
-    this.backdrops.get(this.currentBackdrop).setTint(r, g, b);
+    // Every backdrop, as with the ghost effect above: in Scratch the colour
+    // effect belongs to the stage and survives a change of backdrop.
+    for (Image backdrop : this.backdrops) {
+      backdrop.setTint(r, g, b);
+    }
   }
 
   /**
-   * Sets the tint for the current backdrop with a hue.
+   * Sets the colour the backdrop is tinted with, as a hue.
    *
    * @see Image#setTint(double)
    *
    * @scratchblock set [color v] effect to (h)
    */
   public void setTint(double h) {
-    if (this.backdrops.size() == 0)
-      return;
-    this.backdrops.get(this.currentBackdrop).setTint(h);
+    for (Image backdrop : this.backdrops) {
+      backdrop.setTint(h);
+    }
   }
 
   /**
-   * Changes the tint for the current backdrop
+   * Changes the colour the backdrop is tinted with by a step.
    *
    * @see Image#changeTint(double)
    * @param step a step value
    *
-   * @example.preview StageChangeTint.gif
    * @example.files StageChangeTint.java
    *
    * @scratchblock change [color v] effect by (step)
    */
   public void changeTint(double step) {
-    if (this.backdrops.size() == 0)
-      return;
-
-    this.backdrops.get(this.currentBackdrop).changeTint(step);
+    for (Image backdrop : this.backdrops) {
+      backdrop.changeTint(step);
+    }
   }
 
   /**
-   * Sets the transparency of the current backdrop.
+   * Sets how see-through the backdrop is, as Scratch's ghost effect does: 0 is
+   * the solid backdrop you start with and 100 is invisible.
    *
    * @see Image#setTransparency(double)
-   * @param transparency a transparency value [0...1]
+   * @param transparency [0...100], 0 solid and 100 invisible
    *
-   * @example.preview StageSetTransparency.gif
    * @example.files StageSetTransparency.java
    *
    * @scratchblock set [ghost v] effect to (transparency)
    */
   public void setTransparency(double transparency) {
-    this.backdrops.get(this.currentBackdrop).setTransparency(transparency);
+    // Every backdrop, not only the one showing: in Scratch the ghost effect
+    // belongs to the stage, so switching backdrop does not undo it. This is also
+    // what setTransparency on a sprite has always done with its costumes.
+    for (Image backdrop : this.backdrops) {
+      backdrop.setTransparency(transparency);
+    }
   }
 
   /**
-   * Changes the transparency for the current costume.
+   * Changes how see-through the backdrop is by a step. A positive step fades it
+   * out, a negative one brings it back.
    *
    * @see Image#changeTransparency(double)
    * @param step a step value
    *
-   * @example.preview StageChangeTransparency.gif
    * @example.files StageChangeTransparency.java
    *
    * @scratchblock change [ghost v] effect by (step)
    */
   public void changeTransparency(double step) {
-    if (this.backdrops.size() == 0)
-      return;
-
-    this.backdrops.get(this.currentBackdrop).changeTransparency(step);
+    for (Image backdrop : this.backdrops) {
+      backdrop.changeTransparency(step);
+    }
   }
 
   /**
@@ -1030,7 +1050,6 @@ public class Stage {
    *
    * @return the width of the sprite
    *
-   * @example.preview StageGetWidth.gif
    * @example.files StageGetWidth.java
    */
   public int getWidth() {
@@ -1043,7 +1062,6 @@ public class Stage {
    *
    * @return the height of the sprite
    *
-   * @example.preview StageGetHeight.gif
    * @example.files StageGetHeight.java
    */
   public int getHeight() {
@@ -1056,6 +1074,8 @@ public class Stage {
    * @return the timer
    *
    * @scratchblock (timer)
+   *
+   * @example.files StageGetTimer.java
    */
   public Timer getTimer() {
     return this.timer.get("default");
@@ -1117,6 +1137,8 @@ public class Stage {
    * @param mouseEvent The mouse event that triggered this method.
    *
    * @scratchblock when stage clicked
+   *
+   * @example.files StageWhenMouseClicked.java
    */
   public void whenMouseClicked(MouseCode mouseEvent) {
   }
@@ -1131,7 +1153,6 @@ public class Stage {
    *              away from the user, while negative values indicate movement
    *              towards the user.
    *
-   * @example.preview StageWhenMouseWheelMoved.gif
    * @example.files StageWhenMouseWheelMoved.java
    */
   public void whenMouseWheelMoved(int steps) {
@@ -1143,6 +1164,8 @@ public class Stage {
    * @return x-position
    *
    * @scratchblock (mouse x)
+   *
+   * @example.files StageGetMouseX.java
    */
   public double getMouseX() {
     return this.mouseX;
@@ -1154,6 +1177,8 @@ public class Stage {
    * @return y-position
    *
    * @scratchblock (mouse y)
+   *
+   * @example.files StageGetMouseY.java
    */
   public double getMouseY() {
     return this.mouseY;
@@ -1164,7 +1189,6 @@ public class Stage {
    *
    * @return mouse position
    *
-   * @example.preview StageGetMouse.gif
    * @example.files StageGetMouse.java
    */
   public Vector2 getMouse() {
@@ -1176,7 +1200,6 @@ public class Stage {
    *
    * @return mouse button down
    *
-   * @example.preview StageIsMouseDown.gif
    * @example.files StageIsMouseDown.java
    *
    * @scratchblock &lt;mouse down?&gt;
@@ -1191,7 +1214,6 @@ public class Stage {
    *
    * @param keyCode the key that was pressed
    *
-   * @example.preview StageWhenKeyPressed.gif
    * @example.files StageWhenKeyPressed.java
    *
    * @scratchblock when [space v] key pressed
@@ -1204,6 +1226,8 @@ public class Stage {
    * custom behavior.
    *
    * @param keyCode the key that was released
+   *
+   * @example.files StageWhenKeyReleased.java
    */
   public void whenKeyReleased(KeyCode keyCode) {
   }
@@ -1238,7 +1262,6 @@ public class Stage {
    * @param keyCode a key
    * @return key pressed
    *
-   * @example.preview StageIsKeyPressed.gif
    * @example.files StageIsKeyPressed.java
    *
    * @scratchblock &lt;key [space v] pressed?&gt;
@@ -1257,7 +1280,6 @@ public class Stage {
    *
    * @return secons since last frame
    *
-   * @example.preview StageGetDeltaTime.gif
    * @example.files StageGetDeltaTime.java
    */
   public double getDeltaTime() {
@@ -1280,7 +1302,6 @@ public class Stage {
    * @param to   the upper bound of the range (inclusive)
    * @return a random integer between {@code from} and {@code to} (inclusive)
    *
-   * @example.preview StagePickRandom.gif
    * @example.files StagePickRandom.java
    *
    * @scratchblock (pick random (from) to (to))
@@ -1297,7 +1318,6 @@ public class Stage {
    *
    * @param text the text to be displayed
    *
-   * @example.preview StageDisplay.gif
    * @example.files StageDisplay.java
    */
   public void display(String text) {
@@ -1321,6 +1341,8 @@ public class Stage {
    * @param percent 0 for silent, 100 for full volume
    *
    * @scratchblock set volume to (percent) %
+   *
+   * @example.files StageSetVolume.java
    */
   public void setVolume(double percent) {
     this.volume = Math.max(0, Math.min(100, percent));
@@ -1335,6 +1357,8 @@ public class Stage {
    * @param step how much to add to the volume, in percent
    *
    * @scratchblock change volume by (step)
+   *
+   * @example.files StageChangeVolume.java
    */
   public void changeVolume(double step) {
     this.setVolume(this.volume + step);
@@ -1346,6 +1370,8 @@ public class Stage {
    * @return the volume, from 0 to 100
    *
    * @scratchblock (volume)
+   *
+   * @example.files StageGetVolume.java
    */
   public double getVolume() {
     return this.volume;
@@ -1374,6 +1400,8 @@ public class Stage {
    * @param question the question to show
    *
    * @scratchblock ask [question] and wait
+   *
+   * @example.files StageAsk.java
    */
   public void ask(String question) {
     this.askQuestion = question == null ? "" : question;
@@ -1387,6 +1415,8 @@ public class Stage {
    * @return the answer, or an empty string if nothing has been answered yet
    *
    * @scratchblock (answer)
+   *
+   * @example.files StageGetAnswer.java
    */
   public String getAnswer() {
     return this.answer;
@@ -1396,6 +1426,8 @@ public class Stage {
    * Checks whether a question is on screen and still waiting for an answer.
    *
    * @return true while a question is waiting
+   *
+   * @example.files StageIsAsking.java
    */
   public boolean isAsking() {
     return this.askQuestion != null;
@@ -1437,6 +1469,8 @@ public class Stage {
    * @param message The message to broadcast to all sprites.
    *
    * @scratchblock broadcast [message v]
+   *
+   * @example.files StageBroadcast.java
    */
   public void broadcast(String message) {
     this.sprites.stream().forEach(s -> s.whenIReceive(message));
@@ -1451,6 +1485,8 @@ public class Stage {
    * @param message The message that triggers this method.
    *
    * @scratchblock when I receive [message v]
+   *
+   * @example.files StageWhenIReceive.java
    */
   public void whenIReceive(String message) {
   }
@@ -1459,9 +1495,8 @@ public class Stage {
   /**
    * Sets the cursor image for the stage.
    *
-   * @param path the file path to the cursor image
+   * @param path a path to an image file, or the name of a built-in sprite
    *
-   * @example.preview StageSetCursor.gif
    * @example.files StageSetCursor.java
    */
   public void setCursor(String path) {
@@ -1473,7 +1508,7 @@ public class Stage {
   /**
    * Sets the cursor image and its active spot coordinates.
    *
-   * @param path the file path to the cursor image
+   * @param path a path to an image file, or the name of a built-in sprite
    * @param x    the x-coordinate of the cursor's active spot
    * @param y    the y-coordinate of the cursor's active spot
    */
@@ -1487,6 +1522,8 @@ public class Stage {
    * Retrieves the current camera instance associated with this stage.
    *
    * @return the current Camera object.
+   *
+   * @example.files StageGetCamera.java
    */
   public Camera getCamera() {
     return this.camera;
@@ -1498,6 +1535,8 @@ public class Stage {
    * @param millis Milliseconds
    *
    * @scratchblock wait (millis) seconds
+   *
+   * @example.files StageWait.java
    */
   public void wait(int millis) {
     try {
@@ -1524,6 +1563,8 @@ public class Stage {
    * @param condition checked over and over until it is true
    *
    * @scratchblock wait until &lt;condition&gt;
+   *
+   * @example.files StageWaitUntil.java
    */
   public void waitUntil(java.util.function.BooleanSupplier condition) {
     if (condition == null) {
@@ -1538,6 +1579,8 @@ public class Stage {
    * Get the frame rate of the application.
    *
    * @return the frame rate
+   *
+   * @example.files StageGetFrameRate.java
    */
   public double getFrameRate() {
     return Applet.getInstance().frameRate;
@@ -1548,7 +1591,6 @@ public class Stage {
    * subclasses to define
    * the specific behavior of the stage.
    *
-   * @example.preview StageRun.gif
    * @example.files StageRun.java
    */
   public void run() {
@@ -1676,7 +1718,11 @@ public class Stage {
     this.sprites.stream().forEach(s -> s.run());
   }
 
-  /** Close the window and therefore the whole application. */
+  /**
+   * Close the window and therefore the whole application.
+   *
+   * @example.files StageExit.java
+   */
   public void exit() {
     Window.getInstance().exit();
   }
@@ -1759,7 +1805,8 @@ public class Stage {
     }
 
     if (this.cursor != null) {
-      applet.cursor(Image.loadImage(this.cursor), this.cursorActiveSpotX, this.cursorActiveSpotY);
+      applet.cursor(Image.loadImageOrBuiltin(this.cursor), this.cursorActiveSpotX,
+          this.cursorActiveSpotY);
     }
 
     mainBuffer.beginDraw();

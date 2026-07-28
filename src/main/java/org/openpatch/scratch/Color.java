@@ -4,6 +4,8 @@ package org.openpatch.scratch;
  * The Color class represents a color in the Scratch environment. It supports various
  * functionalities such as setting color values in the RGB and HSB spectrum, changing the color
  * based on a hue value, and converting between RGB and HSB color codes.
+ *
+ * @example.files ColorConstructors.java
  */
 public class Color {
 
@@ -67,6 +69,8 @@ public class Color {
    * Get the color value as a hex code. This is useful for comparing pixels.
    *
    * @return hex code
+   *
+   * @example.files ColorGet.java
    */
   public int get() {
     var v1 = this.r;
@@ -87,6 +91,8 @@ public class Color {
    * Get the color value on the HSB spectrum.
    *
    * @return hue value [0...255]
+   *
+   * @example.files ColorGetHSB.java
    */
   public double getHSB() {
     return this.h;
@@ -96,6 +102,8 @@ public class Color {
    * Setting the color value after the HSB spectrum. Saturation and Luminosity are fixed at 255.
    *
    * @param h A hue value [0...255]
+   *
+   * @example.files ColorSetHSB.java
    */
   public void setHSB(double h) {
     this.setHSB(h, this.s, this.l);
@@ -139,6 +147,8 @@ public class Color {
    * @param r A red value [0...255]
    * @param g A green value [0...255]
    * @param b A blue value [0...255]
+   *
+   * @example.files ColorSetRGB.java
    */
   public void setRGB(double r, double g, double b) {
     this.r = r;
@@ -157,6 +167,8 @@ public class Color {
    * resulting value is greater than 255 it will be reset. For example: 285 => 30.
    *
    * @param h A hue value. Could be any positive or negative number.
+   *
+   * @example.files ColorChangeColor.java
    */
   public void changeColor(double h) {
     double newH = this.getH() + h;
@@ -202,6 +214,8 @@ public class Color {
    * Get the red value.
    *
    * @return red value [0...255]
+   *
+   * @example.files ColorGetRed.java
    */
   public double getRed() {
     return this.r;
@@ -211,6 +225,8 @@ public class Color {
    * Get the green value.
    *
    * @return green value [0...255]
+   *
+   * @example.files ColorGetGreen.java
    */
   public double getGreen() {
     return this.g;
@@ -220,6 +236,8 @@ public class Color {
    * Get the blue value.
    *
    * @return blue value [0...255]
+   *
+   * @example.files ColorGetBlue.java
    */
   public double getBlue() {
     return this.b;
@@ -229,6 +247,8 @@ public class Color {
    * Get the hue value.
    *
    * @return hue value [0...255]
+   *
+   * @example.files ColorGetH.java
    */
   public double getH() {
     return h;
@@ -238,6 +258,8 @@ public class Color {
    * Get the saturation value.
    *
    * @return saturation value [0...255]
+   *
+   * @example.files ColorGetS.java
    */
   public double getS() {
     return s;
@@ -247,8 +269,55 @@ public class Color {
    * Get the luminosity value.
    *
    * @return luminosity value [0...255]
+   *
+   * @example.files ColorGetL.java
    */
   public double getL() {
     return l;
+  }
+
+  /**
+   * The colour written out, so that printing one says something.
+   *
+   * <p>
+   * Without this a {@code System.out.println(mySprite.getTint())} printed
+   * {@code org.openpatch.scratch.Color@35432107}, which tells you nothing about
+   * the colour and is the first thing anyone tries when a tint looks wrong.
+   *
+   * @return the colour as {@code Color[r=255.0, g=128.0, b=0.0]}
+   *
+   * @example.files ColorToString.java
+   */
+  @Override
+  public String toString() {
+    return "Color[r=" + this.r + ", g=" + this.g + ", b=" + this.b + "]";
+  }
+
+  /**
+   * Two colours are the same when they are the same colour.
+   *
+   * @param other the object to compare with
+   * @return whether both are colours with the same red, green and blue
+   */
+  @Override
+  public boolean equals(Object other) {
+    if (this == other) {
+      return true;
+    }
+    if (!(other instanceof Color)) {
+      return false;
+    }
+    Color c = (Color) other;
+    return Double.compare(this.r, c.r) == 0
+        && Double.compare(this.g, c.g) == 0
+        && Double.compare(this.b, c.b) == 0;
+  }
+
+  /**
+   * @return a hash consistent with {@link #equals(Object)}
+   */
+  @Override
+  public int hashCode() {
+    return java.util.Objects.hash(this.r, this.g, this.b);
   }
 }

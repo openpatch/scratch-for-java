@@ -17,6 +17,8 @@ import java.time.temporal.ChronoUnit;
  * }</pre>
  *
  * @index-in-docs 5
+ *
+ * @example.files ClockAll.java
  */
 public final class Clock {
 
@@ -29,6 +31,8 @@ public final class Clock {
    * @return the year
    *
    * @scratchblock (current [year v])
+   *
+   * @example.files ClockGetYear.java
    */
   public static int getYear() {
     return LocalDateTime.now().getYear();
@@ -40,6 +44,8 @@ public final class Clock {
    * @return the month
    *
    * @scratchblock (current [month v])
+   *
+   * @example.files ClockGetMonth.java
    */
   public static int getMonth() {
     return LocalDateTime.now().getMonthValue();
@@ -51,6 +57,8 @@ public final class Clock {
    * @return the day of the month
    *
    * @scratchblock (current [date v])
+   *
+   * @example.files ClockGetDay.java
    */
   public static int getDay() {
     return LocalDateTime.now().getDayOfMonth();
@@ -62,6 +70,8 @@ public final class Clock {
    * @return the day of the week
    *
    * @scratchblock (current [day of week v])
+   *
+   * @example.files ClockGetDayOfWeek.java
    */
   public static int getDayOfWeek() {
     return LocalDateTime.now().getDayOfWeek().getValue();
@@ -73,6 +83,8 @@ public final class Clock {
    * @return the hour
    *
    * @scratchblock (current [hour v])
+   *
+   * @example.files ClockGetHour.java
    */
   public static int getHour() {
     return LocalDateTime.now().getHour();
@@ -84,6 +96,8 @@ public final class Clock {
    * @return the minute
    *
    * @scratchblock (current [minute v])
+   *
+   * @example.files ClockGetMinute.java
    */
   public static int getMinute() {
     return LocalDateTime.now().getMinute();
@@ -95,6 +109,8 @@ public final class Clock {
    * @return the second
    *
    * @scratchblock (current [second v])
+   *
+   * @example.files ClockGetSecond.java
    */
   public static int getSecond() {
     return LocalDateTime.now().getSecond();
@@ -104,6 +120,8 @@ public final class Clock {
    * Returns the milliseconds of the current second, from 0 to 999.
    *
    * @return the millisecond
+   *
+   * @example.files ClockGetMillisecond.java
    */
   public static int getMillisecond() {
     return (int) Math.round(LocalDateTime.now().getNano() / 1000000.0);
@@ -116,6 +134,8 @@ public final class Clock {
    * @return the days since 2000
    *
    * @scratchblock (days since 2000)
+   *
+   * @example.files ClockGetDaysSince2000.java
    */
   public static int getDaysSince2000() {
     LocalDate then = LocalDate.of(2000, Month.JANUARY, 1);

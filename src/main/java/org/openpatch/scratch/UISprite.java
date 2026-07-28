@@ -21,6 +21,8 @@ package org.openpatch.scratch;
  *   }
  * }
  * }</pre>
+ *
+ * @example.files UISpriteConstructors.java
  */
 public class UISprite extends Sprite {
 
@@ -33,6 +35,8 @@ public class UISprite extends Sprite {
    * Sets the width of the sprite in pixels.
    *
    * @param width the width in pixels
+   *
+   * @example.files UISpriteSetWidth.java
    */
   @Override
   public void setWidth(double width) {
@@ -43,6 +47,8 @@ public class UISprite extends Sprite {
    * Sets the height of the sprite in pixels.
    *
    * @param height the height in pixels
+   *
+   * @example.files UISpriteSetHeight.java
    */
   @Override
   public void setHeight(double height) {
@@ -53,6 +59,8 @@ public class UISprite extends Sprite {
    * Changes the width of the sprite by the given number of pixels.
    *
    * @param amount how many pixels to add to the width
+   *
+   * @example.files UISpriteChangeWidth.java
    */
   public void changeWidth(double amount) {
     this.setWidth(this.getWidth() + amount);
@@ -62,6 +70,8 @@ public class UISprite extends Sprite {
    * Changes the height of the sprite by the given number of pixels.
    *
    * @param amount how many pixels to add to the height
+   *
+   * @example.files UISpriteChangeHeight.java
    */
   public void changeHeight(double amount) {
     this.setHeight(this.getHeight() + amount);
@@ -75,13 +85,19 @@ public class UISprite extends Sprite {
    * @param right  how many pixels of the costume belong to the right edge
    * @param bottom how many pixels of the costume belong to the bottom edge
    * @param left   how many pixels of the costume belong to the left edge
+   *
+   * @example.files UISpriteSetNineSlice.java
    */
   @Override
   public void setNineSlice(int top, int right, int bottom, int left) {
     super.setNineSlice(top, right, bottom, left);
   }
 
-  /** Lets the whole costume stretch again. */
+  /**
+   * Lets the whole costume stretch again.
+   *
+   * @example.files UISpriteDisableNineSlice.java
+   */
   @Override
   public void disableNineSlice() {
     super.disableNineSlice();

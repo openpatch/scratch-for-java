@@ -22,6 +22,8 @@ import java.util.function.Function;
  * }</pre>
  *
  * @see Sprite
+ *
+ * @example.files AnimatedSpriteConstructors.java
  */
 public class AnimatedSprite extends Sprite {
 
@@ -45,7 +47,6 @@ public class AnimatedSprite extends Sprite {
   /**
    * Adds an animation to the sprite.
    * 
-   * @example.preview AnimatedSpriteAddAnimation.gif
    * @example.folder AnimatedSpriteAddAnimation
    * @example.files MySprite.java;MyStage.java;MyWindow.java
    *
@@ -180,7 +181,6 @@ public class AnimatedSprite extends Sprite {
    *
    * @param name the name of the animation to play
    *
-   * @example.preview AnimatedSpritePlayAnimation.gif
    * @example.folder AnimatedSpritePlayAnimation
    * @example.files MySprite.java;MyStage.java;MyWindow.java
    */
@@ -213,7 +213,6 @@ public class AnimatedSprite extends Sprite {
   /**
    * Resets the animation. The animation will start from the first frame.
    *
-   * @example.preview AnimatedSpriteResetAnimation.gif
    * @example.folder AnimatedSpriteResetAnimation
    * @example.files MySprite.java;MyStage.java;MyWindow.java
    */
@@ -227,7 +226,6 @@ public class AnimatedSprite extends Sprite {
    *
    * @param interval the interval between animation frames
    *
-   * @example.preview AnimatedSpriteSetAnimationInterval.gif
    * @example.folder AnimatedSpriteSetAnimationInterval
    * @example.files MySprite.java;MyStage.java;MyWindow.java
    */
@@ -240,7 +238,6 @@ public class AnimatedSprite extends Sprite {
    *
    * @return the interval between animation frames
    *
-   * @example.preview AnimatedSpriteGetAnimationInterval.gif
    * @example.folder AnimatedSpriteGetAnimationInterval
    * @example.files MySprite.java;MyStage.java;MyWindow.java
    */
@@ -253,7 +250,6 @@ public class AnimatedSprite extends Sprite {
    *
    * @return the current animation frame
    *
-   * @example.preview AnimatedSpriteGetAnimationFrame.gif
    * @example.folder AnimatedSpriteGetAnimationFrame
    * @example.files MySprite.java;MyStage.java;MyWindow.java
    */
@@ -266,7 +262,6 @@ public class AnimatedSprite extends Sprite {
    *
    * @param frame the current animation frame
    *
-   * @example.preview AnimatedSpriteSetAnimationFrame.gif
    * @example.folder AnimatedSpriteSetAnimationFrame
    * @example.files MySprite.java;MyStage.java;MyWindow.java
    */
@@ -279,7 +274,6 @@ public class AnimatedSprite extends Sprite {
    *
    * @return true if the animation is played, false otherwise
    *
-   * @example.preview AnimatedSpriteIsAnimationPlayed.gif
    * @example.folder AnimatedSpriteIsAnimationPlayed
    * @example.files MySprite.java;MyStage.java;MyWindow.java
    */
@@ -287,11 +281,26 @@ public class AnimatedSprite extends Sprite {
     return animationPlayed;
   }
 
+  /**
+   * Returns which animation is playing and how far into it.
+   *
+   * @return the sprite as a text
+   *
+   * @example.files AnimatedSpriteToString.java
+   */
   @Override
   public String toString() {
     return "AnimatedSprite []";
   }
 
+  /**
+   * Creates a copy of this sprite with the same animations, and adds it to the same stage.
+   *
+   * @return the copy
+   *
+   * @example.files AnimatedSpriteClone.java
+   */
+  @Override
   public AnimatedSprite clone() {
     return new AnimatedSprite(this);
   }

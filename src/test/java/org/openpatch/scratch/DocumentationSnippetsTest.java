@@ -153,4 +153,108 @@ class DocumentationSnippetsTest {
     Matcher m = CLASS_NAME.matcher(block);
     return m.find() ? m.group(1) : null;
   }
+
+  // ---------------------------------------------------------------------------
+  // Interactive examples
+  // ---------------------------------------------------------------------------
+
+  /** A ```java block carrying a file name, which is what a :::onlineide block holds. */
+  private static final Pattern ONLINE_BLOCK =
+      Pattern.compile("```java +\\S+\\n(.*?)```", Pattern.DOTALL);
+  private static final Pattern ONLINE_DIRECTIVE =
+      Pattern.compile(":::onlineide\\b.*?\\n(.*?)\\n:::", Pattern.DOTALL);
+  private static final Pattern TYPE_DECLARATION = Pattern.compile(
+      "^\\s*(?:(?:public|abstract|final|sealed|non-sealed|static)\\s+)*(?:class|interface|enum|record)\\s+\\w+");
+
+  /**
+   * Compiles the interactive examples — the ones in {@code :::onlineide} blocks,
+   * which readers run in the browser rather than in an editor.
+   *
+   * <p>
+   * They are written for the Online IDE, which has no packages and lets
+   * statements stand at the top of a file, so they are not valid compilation
+   * units as they are. Putting the imports back and moving the loose statements
+   * into a {@code main} gives back exactly the program a reader would write on
+   * the desktop, which is the thing worth checking: an interactive example that
+   * only works in the browser would teach the wrong Java.
+   */
+  @Test
+  void everyInteractiveExampleCompiles() throws IOException {
+    Path docs = Path.of("docs", "book");
+    if (!Files.isDirectory(docs)) {
+      return; // documentation is not part of every checkout
+    }
+
+    List<Path> pages;
+    try (Stream<Path> walk = Files.walk(docs)) {
+      pages = walk
+          .filter(p -> p.toString().endsWith(".md"))
+          .filter(p -> !p.getFileName().toString().equals("changelog.md"))
+          .sorted()
+          .collect(Collectors.toList());
+    }
+
+    var failures = new ArrayList<String>();
+    var checked = 0;
+
+    for (Path page : pages) {
+      String text = Files.readString(page);
+      Matcher directives = ONLINE_DIRECTIVE.matcher(text);
+      int index = 0;
+      while (directives.find()) {
+        Matcher blocks = ONLINE_BLOCK.matcher(directives.group(1));
+        while (blocks.find()) {
+          index++;
+          checked++;
+          String problem = compile(Map.of("Block" + index, asCompilationUnit(blocks.group(1))));
+          if (problem != null) {
+            failures.add(page + " (interactive example " + index + ")\n" + problem);
+          }
+        }
+      }
+    }
+
+    assertTrue(checked > 0, "no interactive examples were found to check");
+    assertTrue(failures.isEmpty(),
+        "interactive examples do not compile:\n\n" + String.join("\n\n", failures));
+  }
+
+  /**
+   * Turns an Online IDE program into a compilable file: the type declarations
+   * stay where they are, everything else becomes the body of a {@code main}.
+   */
+  private String asCompilationUnit(String block) {
+    var types = new StringBuilder();
+    var statements = new StringBuilder();
+    int depth = 0;
+    boolean inType = false;
+
+    for (String line : block.split("\n", -1)) {
+      if (depth == 0 && !inType && TYPE_DECLARATION.matcher(line).find()) {
+        inType = true;
+      }
+      (inType ? types : statements).append(line).append("\n");
+
+      depth += count(line, '{') - count(line, '}');
+      if (inType && depth == 0) {
+        inType = false;
+      }
+    }
+
+    return "import org.openpatch.scratch.*;\n"
+        + types.toString().replaceAll("\\bpublic class\\b", "class")
+        + "\nclass Block {\n  public static void main(String[] args) {\n"
+        + statements
+        + "\n  }\n}\n";
+  }
+
+  private int count(String line, char c) {
+    int n = 0;
+    for (int i = 0; i < line.length(); i++) {
+      if (line.charAt(i) == c) {
+        n++;
+      }
+    }
+    return n;
+  }
 }

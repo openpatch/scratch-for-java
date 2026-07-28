@@ -28,6 +28,8 @@ import org.openpatch.scratch.internal.OpenSimplex2S;
  *
  * @see java.util.Random
  * @see OpenSimplex2S
+ *
+ * @example.files RandomAll.java
  */
 public class Random {
   private static java.util.Random internalRandom;
@@ -35,12 +37,13 @@ public class Random {
 
   private Random() {}
 
-  /*
-   *
+  /**
    * Returns the Open Simplex noise value at specified coordinates
    *
    * @param x x-coordinate
+   * @return the noise value between 0 and 1
    *
+   * @example.files RandomNoise.java
    */
   public static double noise(double x) {
     return OpenSimplex2S.noise2(noiseSeed, x, x);
@@ -73,6 +76,8 @@ public class Random {
    * Sets the seed for the noise method.
    *
    * @param noiseSeed the seed
+   *
+   * @example.files RandomNoiseSeed.java
    */
   public static void noiseSeed(long noiseSeed) {
     Random.noiseSeed = noiseSeed;
@@ -82,6 +87,8 @@ public class Random {
    * Returns a random unit vector
    *
    * @return a random unit vector
+   *
+   * @example.files RandomRandomVector2.java
    */
   public static Vector2 randomVector2() {
     return new Vector2(random(), random()).unitVector();
@@ -91,6 +98,8 @@ public class Random {
    * Return a random x coordinate with respect to the width of the window.
    *
    * @return a random x coordinate
+   *
+   * @example.files RandomRandomX.java
    */
   public static double randomX() {
     return Random.random(
@@ -101,6 +110,8 @@ public class Random {
    * Return a random y coordinate with respect to the width of the window.
    *
    * @return a random y coordinate
+   *
+   * @example.files RandomRandomY.java
    */
   public static double randomY() {
     return Random.random(
@@ -112,6 +123,8 @@ public class Random {
    * Returns a random position with respect to the width of the window.
    *
    * @return a random position vector
+   *
+   * @example.files RandomRandomPosition.java
    */
   public static Vector2 randomPosition() {
     return new Vector2(randomX(), randomY());
@@ -121,6 +134,8 @@ public class Random {
    * Returns a random double between 0 and 1.
    *
    * @return a random double
+   *
+   * @example.files RandomRandom.java
    */
   public static double random() {
     return getRandom().nextDouble();
@@ -131,6 +146,8 @@ public class Random {
    *
    * @param max the maximum integer
    * @return a random integer
+   *
+   * @example.files RandomRandomInt.java
    */
   public static int randomInt(int max) {
     return getRandom().nextInt(max + 1);
@@ -184,6 +201,8 @@ public class Random {
    * Sets the seed for the random method.
    *
    * @param seed the seed
+   *
+   * @example.files RandomRandomSeed.java
    */
   public static void randomSeed(long seed) {
     getRandom().setSeed(seed);

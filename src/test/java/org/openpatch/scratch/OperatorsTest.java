@@ -88,15 +88,27 @@ class OperatorsTest {
   }
 
   @Test
-  void modReturnsRemainderForDoubles() {
+  void modTakesTheSignOfTheSecondInputForDoubles() {
     assertEquals(1.0, Operators.mod(10.0, 3.0), DELTA);
-    assertEquals(-1.0, Operators.mod(-10.0, 3.0), DELTA);
+    // the Scratch block says 2, where Java's own % would say -1
+    assertEquals(2.0, Operators.mod(-10.0, 3.0), DELTA);
+    assertEquals(-2.0, Operators.mod(10.0, -3.0), DELTA);
   }
 
   @Test
-  void modReturnsRemainderForInts() {
+  void modTakesTheSignOfTheSecondInputForInts() {
     assertEquals(1, Operators.mod(10, 3));
-    assertEquals(-1, Operators.mod(-7, 3));
+    assertEquals(2, Operators.mod(-7, 3));
+    assertEquals(0, Operators.mod(9, 3));
+  }
+
+  @Test
+  void modWrapsAValueIntoARange() {
+    // what it is for: a position that has gone off the left edge comes back
+    // round on the right, without a special case for negatives
+    assertEquals(9, Operators.mod(-1, 10));
+    assertEquals(0, Operators.mod(-10, 10));
+    assertEquals(5, Operators.mod(15, 10));
   }
 
   @Test

@@ -279,6 +279,20 @@
                                 <fileset>
                                     <directory>${project.basedir}/docs/book/reference</directory>
                                 </fileset>
+                                <!--
+                                    The javadoc plugin decides whether it has anything to do by
+                                    comparing against this file, not by looking at the pages it
+                                    wrote. Leaving it behind while the pages are deleted makes it
+                                    skip the run that was supposed to write them again, and the
+                                    documentation builds with no reference section at all. The two
+                                    have to go together.
+                                -->
+                                <fileset>
+                                    <directory>${project.build.directory}</directory>
+                                    <includes>
+                                        <include>maven-javadoc-plugin-stale-data.txt</include>
+                                    </includes>
+                                </fileset>
                             </filesets>
                         </configuration>
                     </execution>

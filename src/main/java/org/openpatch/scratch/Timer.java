@@ -24,6 +24,8 @@ import org.openpatch.scratch.internal.Applet;
  *   // Do something every second
  * }
  * </pre>
+ *
+ * @example.files TimerConstructors.java
  */
 public class Timer {
   private int startMillisEvery;
@@ -44,7 +46,6 @@ public class Timer {
   /**
    * Resets the timer.
    *
-   * @example.preview TimerReset.gif
    * @example.files TimerReset.java
    *
    * @scratchblock reset timer
@@ -63,6 +64,8 @@ public class Timer {
    * @return the number of milliseconds since the program started
    *
    * @scratchblock (timer)
+   *
+   * @example.files TimerMillis.java
    */
   public static int millis() {
     return Applet.getInstance().millis();
@@ -76,7 +79,6 @@ public class Timer {
    * @return true if the specified number of milliseconds has passed since the last call that
    *     returned true, false otherwise.
    *
-   * @example.preview TimerEveryMillis.gif
    * @example.files TimerEveryMillis.java
    */
   public boolean everyMillis(int millis) {
@@ -99,7 +101,6 @@ public class Timer {
    * @return true if the current time is less than the start time plus the specified milliseconds,
    *     false otherwise
    *
-   * @example.preview TimerForMillis.gif
    * @example.files TimerForMillis.java
    */
   public boolean forMillis(int millis) {
@@ -117,7 +118,6 @@ public class Timer {
    * @return true if the specified number of milliseconds has passed since the method was first
    *     called, false otherwise
    *
-   * @example.preview TimerAfterMillis.gif
    * @example.files TimerAfterMillis.java
    */
   public boolean afterMillis(int millis) {
@@ -134,7 +134,6 @@ public class Timer {
    * @param millis the interval in milliseconds to check
    * @return true if the interval has passed, false otherwise
    *
-   * @example.preview TimerIntervalMillis.gif
    * @example.files TimerIntervalMillis.java
    */
   public boolean intervalMillis(int millis) {

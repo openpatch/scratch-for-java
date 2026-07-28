@@ -4,6 +4,8 @@ import java.awt.geom.Rectangle2D;
 
 /**
  * Represents a rectangle shape defined by its position and size.
+ *
+ * @example.files RectangleConstructors.java
  */
 public class Rectangle extends Shape {
   /**

@@ -4,6 +4,8 @@ import java.awt.geom.Ellipse2D;
 
 /**
  * Represents an ellipse shape.
+ *
+ * @example.files EllipseConstructors.java
  */
 public class Ellipse extends Shape {
   /**

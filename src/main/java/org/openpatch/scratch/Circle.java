@@ -4,6 +4,8 @@ import java.awt.geom.Ellipse2D;
 
 /**
  * Represents a circle shape defined by its center and radius.
+ *
+ * @example.files CircleConstructors.java
  */
 public class Circle extends Shape {
   /**

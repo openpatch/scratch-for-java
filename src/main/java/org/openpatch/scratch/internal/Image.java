@@ -1,6 +1,8 @@
 package org.openpatch.scratch.internal;
 
 import java.util.AbstractMap;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import org.openpatch.scratch.RotationStyle;
 import org.openpatch.scratch.Window;
@@ -17,7 +19,8 @@ public class Image {
   String name;
   final PImage originalImage;
   Color tint = new Color();
-  double transparency = 255;
+  /** Scratch's ghost effect: 0 shows the image, 100 hides it completely. */
+  double transparency = 0;
 
   private int width = 0;
   private int height = 0;
@@ -99,6 +102,73 @@ public class Image {
       AssetErrorReporter.reportUnknownBuiltinAndFail(pathOrBuiltin, "sprite");
     }
     return new Image(name, pathOrBuiltin);
+  }
+
+  /**
+   * Loads a picture from either the name of a sprite bundled with Scratch for
+   * Java or a path to an image file.
+   *
+   * <p>
+   * This is {@link #ofNameOrPath} for the places that want the picture itself
+   * rather than a costume: the mouse cursor, the loading screen, and the sheet
+   * {@code addCostumes} cuts up. Without it a built-in name worked when naming
+   * a costume and nowhere else.
+   *
+   * @param pathOrBuiltin a bundled sprite name or a path to an image
+   * @return the picture
+   */
+  public static PImage loadImageOrBuiltin(String pathOrBuiltin) {
+    if (BuiltinAssets.isBuiltinName(pathOrBuiltin)) {
+      BuiltinAssets.Entry entry = BuiltinAssets.get(pathOrBuiltin);
+      if (entry != null) {
+        return loadImage(entry.sheetPath, entry.x, entry.y, entry.width, entry.height);
+      }
+      AssetErrorReporter.reportUnknownBuiltinAndFail(pathOrBuiltin, "sprite");
+    }
+    return loadImage(pathOrBuiltin);
+  }
+
+  /**
+   * Cuts a sheet into equally sized tiles, named {@code prefix0}, {@code
+   * prefix1} and so on.
+   *
+   * <p>
+   * A built-in name is a region of a shared sheet rather than a file of its
+   * own, so the tiles are cut from inside that region instead of from the top
+   * left corner of the file it happens to live in.
+   *
+   * @param prefix        the name every tile starts with
+   * @param pathOrBuiltin a bundled sprite name or a path to an image
+   * @param tileWidth     the width of a single tile
+   * @param tileHeight    the height of a single tile
+   * @return the tiles, in the order the sheet holds them
+   */
+  public static List<Image> tilesOf(String prefix, String pathOrBuiltin, int tileWidth,
+      int tileHeight) {
+    PImage sheet = loadImageOrBuiltin(pathOrBuiltin);
+    String sheetPath = pathOrBuiltin;
+    int originX = 0;
+    int originY = 0;
+    BuiltinAssets.Entry entry = BuiltinAssets.isBuiltinName(pathOrBuiltin)
+        ? BuiltinAssets.get(pathOrBuiltin)
+        : null;
+    if (entry != null) {
+      sheetPath = entry.sheetPath;
+      originX = entry.x;
+      originY = entry.y;
+    }
+
+    int nx = sheet.width / tileWidth;
+    int ny = sheet.height / tileHeight;
+    List<Image> tiles = new ArrayList<>();
+    for (int y = 0; y < ny; y += 1) {
+      for (int x = 0; x < nx; x += 1) {
+        int index = x * nx + y;
+        tiles.add(new Image(prefix + index, sheetPath,
+            originX + x * tileWidth, originY + y * tileHeight, tileWidth, tileHeight));
+      }
+    }
+    return tiles;
   }
 
   /**
@@ -319,12 +389,13 @@ public class Image {
   }
 
   /**
-   * Sets the transparency. 0 equals fully transparent.
+   * Sets the transparency, as Scratch's ghost effect: 0 shows the image and 100
+   * hides it. Values outside that are pinned to it, the way Scratch pins them.
    *
-   * @param transparency [0...255]
+   * @param transparency [0...100]
    */
   public void setTransparency(double transparency) {
-    this.transparency = transparency;
+    this.transparency = Math.max(0, Math.min(100, transparency));
   }
 
   /**
@@ -333,16 +404,25 @@ public class Image {
    * @param step a step value
    */
   public void changeTransparency(double step) {
-    this.setTransparency((this.transparency + step) % 255);
+    this.setTransparency(this.transparency + step);
   }
 
   /**
    * Returns the transparency
    *
-   * @return the transparency [0...255]
+   * @return the transparency [0...100]
    */
   public double getTransparency() {
     return this.transparency;
+  }
+
+  /**
+   * The transparency as Processing wants it when tinting: an alpha where 255 is
+   * the fully solid image and 0 is nothing at all - the other way round from the
+   * ghost effect the rest of the library speaks in.
+   */
+  private float alpha() {
+    return (float) (255 * (1 - this.transparency / 100));
   }
 
   /**
@@ -448,7 +528,7 @@ public class Image {
         (float) this.tint.getRed(),
         (float) this.tint.getGreen(),
         (float) this.tint.getBlue(),
-        (float) this.transparency);
+        this.alpha());
     buffer.noStroke();
     buffer.textureMode(PConstants.NORMAL);
     if (nineSlice) {
@@ -597,7 +677,7 @@ public class Image {
         (float) this.tint.getRed(),
         (float) this.tint.getGreen(),
         (float) this.tint.getBlue(),
-        (float) this.transparency);
+        this.alpha());
     buffer.noStroke();
     buffer.textureMode(PConstants.NORMAL);
     buffer.beginShape();

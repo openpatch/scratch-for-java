@@ -13,6 +13,8 @@ import processing.core.PGraphics;
  * Represents a generic shape that can be transformed and drawn.
  * This class serves as a base for specific shapes like Rectangle, Circle, and
  * Ellipse.
+ *
+ * @example.files ShapeConstructors.java
  */
 public class Shape {
   protected java.awt.Shape awtShape;
@@ -54,6 +56,8 @@ public class Shape {
    * @param y the y-coordinate of the point
    *
    * @return true if the shape contains the point, false otherwise
+   *
+   * @example.files ShapeContains.java
    */
   public boolean contains(double x, double y) {
     return awtShape.contains(x, y);
@@ -65,6 +69,8 @@ public class Shape {
    * @param other the other shape to check intersection with
    *
    * @return true if the shapes intersect, false otherwise
+   *
+   * @example.files ShapeIntersects.java
    */
   public boolean intersects(Shape other) {
     // Sprite hitboxes are almost always convex quads, and building two Areas to
@@ -194,6 +200,8 @@ public class Shape {
    * Check if the shape is empty.
    *
    * @return true if the shape is empty, false otherwise
+   *
+   * @example.files ShapeScale.java
    */
   public Shape scale(double scaleX, double scaleY) {
     AffineTransform at = AffineTransform.getScaleInstance(scaleX, scaleY);
@@ -208,6 +216,8 @@ public class Shape {
    * @param dy the distance to translate in the y direction
    *
    * @return a new Shape object that is translated
+   *
+   * @example.files ShapeTranslate.java
    */
   public Shape translate(double dx, double dy) {
     AffineTransform at = AffineTransform.getTranslateInstance(dx, dy);
@@ -223,6 +233,8 @@ public class Shape {
    * @param anchorY the y-coordinate of the anchor point
    *
    * @return a new Shape object that is rotated
+   *
+   * @example.files ShapeRotate.java
    */
   public Shape rotate(double theta, double anchorX, double anchorY) {
     AffineTransform at = AffineTransform.getRotateInstance(Utils.degreesToRadians(theta), anchorX, anchorY);
@@ -234,6 +246,8 @@ public class Shape {
    * Get the bounds of the shape.
    *
    * @return a Bounds object representing the bounding box of the shape
+   *
+   * @example.files ShapeGetBounds.java
    */
   public Bounds getBounds() {
     if (this.cachedBounds == null) {
@@ -243,6 +257,8 @@ public class Shape {
     return this.cachedBounds;
   }
 
+  /** @ignore-in-docs Called by the render loop. It needs a Processing buffer, which nothing in
+   * the library hands out. */
   public void draw(PGraphics buffer) {
     PathIterator path = this.awtShape.getPathIterator(null, 1);
     final float coord[] = new float[6];

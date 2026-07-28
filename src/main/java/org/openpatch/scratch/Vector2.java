@@ -16,6 +16,8 @@ package org.openpatch.scratch;
  * Vector2 sum = v1.add(v2);
  * double length = v1.length();
  * }</pre>
+ *
+ * @example.files Vector2Constructors.java
  */
 public class Vector2 {
   private final double x;
@@ -54,6 +56,8 @@ public class Vector2 {
    * @param magnitude of the vector
    * @param angle of the vector
    * @return a vector
+   *
+   * @example.files Vector2FromPolar.java
    */
   public static Vector2 fromPolar(double magnitude, double angle) {
     return new Vector2(magnitude * Operators.cosOf(angle), magnitude * Operators.sinOf(angle));
@@ -63,6 +67,8 @@ public class Vector2 {
    * Calculates the length of the vector.
    *
    * @return the length of the vector
+   *
+   * @example.files Vector2Length.java
    */
   public double length() {
     return Operators.sqrtOf(lengthSq());
@@ -72,6 +78,8 @@ public class Vector2 {
    * Calculates the squared length of the vector.
    *
    * @return the squared length of the vector
+   *
+   * @example.files Vector2LengthSq.java
    */
   public double lengthSq() {
     return x * x + y * y;
@@ -82,6 +90,8 @@ public class Vector2 {
    *
    * @param v a vector
    * @return the squared distance
+   *
+   * @example.files Vector2DistanceSq.java
    */
   public double distanceSq(Vector2 v) {
     double dx = v.x - x;
@@ -94,6 +104,8 @@ public class Vector2 {
    *
    * @param v a vector
    * @return the distance
+   *
+   * @example.files Vector2Distance.java
    */
   public double distance(Vector2 v) {
     return Operators.sqrtOf(distanceSq(v));
@@ -103,6 +115,8 @@ public class Vector2 {
    * Returns the angle of the vector.
    *
    * @return the angle
+   *
+   * @example.files Vector2Angle.java
    */
   public double angle() {
     return Math.atan2(y, x) * 180 / Math.PI;
@@ -112,6 +126,8 @@ public class Vector2 {
    * Returns the unit vector.
    *
    * @return a unit vector
+   *
+   * @example.files Vector2UnitVector.java
    */
   public Vector2 unitVector() {
     double mag = length();
@@ -126,6 +142,8 @@ public class Vector2 {
    * Returns the normal vector, which is perpendicular to the vector.
    *
    * @return a normal vector
+   *
+   * @example.files Vector2NormalVector.java
    */
   public Vector2 normalVector() {
     return new Vector2(-y, x);
@@ -135,6 +153,8 @@ public class Vector2 {
    * Adds another vector and returns the result
    *
    * @return the sum
+   *
+   * @example.files Vector2Add.java
    */
   public Vector2 add(Vector2 v) {
     return new Vector2(x + v.x, y + v.y);
@@ -144,6 +164,8 @@ public class Vector2 {
    * Substracts another vector and returns the result
    *
    * @return the difference
+   *
+   * @example.files Vector2Sub.java
    */
   public Vector2 sub(Vector2 v) {
     return new Vector2(x - v.x, y - v.y);
@@ -154,6 +176,8 @@ public class Vector2 {
    *
    * @param scalar a scalar
    * @return the vector
+   *
+   * @example.files Vector2Multiply.java
    */
   public Vector2 multiply(double scalar) {
     return new Vector2(x * scalar, y * scalar);
@@ -164,6 +188,8 @@ public class Vector2 {
    *
    * @param v a vector
    * @return the dot product
+   *
+   * @example.files Vector2Dot.java
    */
   public double dot(Vector2 v) {
     return x * v.x + y * v.y;
@@ -174,6 +200,8 @@ public class Vector2 {
    *
    * @param angle an angle between [0, ..., 360]
    * @return the rotated vector
+   *
+   * @example.files Vector2RotateBy.java
    */
   public Vector2 rotateBy(double angle) {
     angle = angle * Math.PI / 180;
@@ -188,6 +216,8 @@ public class Vector2 {
    *
    * @param angle an angle between [0,...,360]
    * @return the rotated vector
+   *
+   * @example.files Vector2RotateTo.java
    */
   public Vector2 rotateTo(double angle) {
     return fromPolar(length(), angle);
@@ -197,6 +227,8 @@ public class Vector2 {
    * Reverses a vector and returns the result.
    *
    * @return the reversed vector
+   *
+   * @example.files Vector2Reverse.java
    */
   public Vector2 reverse() {
     return new Vector2(-x, -y);
@@ -206,6 +238,8 @@ public class Vector2 {
    * Returns the x coordinate of the vector
    *
    * @return the x coordinate
+   *
+   * @example.files Vector2GetX.java
    */
   public double getX() {
     return x;
@@ -215,6 +249,8 @@ public class Vector2 {
    * Returns the y coordinate of the vector
    *
    * @return the y coordinate
+   *
+   * @example.files Vector2GetY.java
    */
   public double getY() {
     return y;
@@ -224,12 +260,22 @@ public class Vector2 {
    * Creates a clone of the vector
    *
    * @return the cloned vector
+   *
+   * @example.files Vector2Clone.java
    */
   @Override
   public Vector2 clone() {
     return new Vector2(x, y);
   }
 
+  /**
+   * Compares this vector with another object.
+   *
+   * @param obj the object to compare with
+   * @return true if the other object is a vector with the same x- and y-coordinate
+   *
+   * @example.files Vector2Equals.java
+   */
   @Override
   public boolean equals(Object obj) {
     if (obj == this) {
@@ -242,11 +288,26 @@ public class Vector2 {
     return false;
   }
 
+  /**
+   * Returns the hash code of the vector. Vectors that are equal have the same hash code, which is
+   * what lets them be used as keys in a {@code HashMap}.
+   *
+   * @return the hash code of the vector
+   *
+   * @example.files Vector2HashCode.java
+   */
   @Override
   public int hashCode() {
     return this.toString().hashCode();
   }
 
+  /**
+   * Returns the vector as a text, for example {@code Vector2[60.0, 80.0]}.
+   *
+   * @return the vector as a text
+   *
+   * @example.files Vector2ToString.java
+   */
   @Override
   public String toString() {
     return "Vector2[" + x + ", " + y + "]";

@@ -16,6 +16,8 @@ package org.openpatch.scratch;
  *  * 
  * double result = Operators.lerp(0.0, 10.0, 0.5); // result will be 5.0
  * }</pre>
+ *
+ * @example.files OperatorsAll.java
  */
 public class Operators {
   private Operators() {}
@@ -31,7 +33,6 @@ public class Operators {
    * @param amt double between 0.0 and 1.0
    * @return the interpolated value
    *
-   * @example.preview OperatorsLerp.gif
    * @example.folder OperatorsLerp
    * @example.files MyStage.java;MyWindow.java
    */
@@ -45,6 +46,8 @@ public class Operators {
    * @param amt the value to constrain
    * @param low minimum limit
    * @param high maximum limit
+   *
+   * @example.files OperatorsConstrain.java
    */
   public static final double constrain(double amt, double low, double high) {
     return (amt < low) ? low : ((amt > high) ? high : amt);
@@ -68,6 +71,8 @@ public class Operators {
    *
    * @param v values
    * @return the minimum
+   *
+   * @example.files OperatorsMin.java
    */
   public static final double min(double... v) {
     double m = Double.MAX_VALUE;
@@ -86,6 +91,8 @@ public class Operators {
    *
    * @param v values
    * @return the maximum
+   *
+   * @example.files OperatorsMax.java
    */
   public static final double max(double... v) {
     double m = Double.NEGATIVE_INFINITY;
@@ -148,6 +155,8 @@ public class Operators {
    * @param start2 lower bound of the value's target range
    * @param stop2 upper bound of the value's target range
    * @return the value mapped to the new range
+   *
+   * @example.files OperatorsMap.java
    */
   public static final double map(
       double value, double start1, double stop1, double start2, double stop2) {
@@ -162,6 +171,8 @@ public class Operators {
    * @return the rounded value
    *
    * @scratchblock (round (x))
+   *
+   * @example.files OperatorsRound.java
    */
   public static final int round(double x) {
     return (int) Math.round(x);
@@ -180,29 +191,38 @@ public class Operators {
   }
 
   /**
-   * "mod" is an abbreviation for "modulo". Modulo returns the remainder when the first input is
-   * divided by the second input.
+   * "mod" is an abbreviation for "modulo". Modulo returns what is left over when
+   * the first input is divided by the second.
+   *
+   * <p>
+   * The answer takes the sign of the second input, as the Scratch block does, so
+   * {@code mod(-7, 3)} is 2 rather than the -1 Java's own {@code %} would give.
+   * That is what makes it useful for wrapping a value into a range: a sprite
+   * whose x has gone negative still lands somewhere sensible.
    *
    * @param x first value
    * @param y second value
-   * @return reminder of first value divided by second value
+   * @return what is left of the first value after dividing by the second
    *
    * @scratchblock ((x) mod (y))
+   *
+   * @example.files OperatorsMod.java
    */
   public static final double mod(double x, double y) {
-    return x % y;
+    return ((x % y) + y) % y;
   }
 
   /**
-   * "mod" is an abbreviation for "modulo". Modulo returns the remainder when the first input is
-   * divided by the second input.
+   * "mod" is an abbreviation for "modulo". Modulo returns what is left over when
+   * the first input is divided by the second, with the sign of the second input,
+   * as the Scratch block does.
    *
    * @param x first value
    * @param y second value
-   * @return reminder of first value divided by second value
+   * @return what is left of the first value after dividing by the second
    */
   public static final int mod(int x, int y) {
-    return x % y;
+    return ((x % y) + y) % y;
   }
 
   /**
@@ -212,6 +232,8 @@ public class Operators {
    *
    * @param x a value
    * @return the absolute value
+   *
+   * @example.files OperatorsAbsOf.java
    */
   public static final int absOf(int x) {
     return Math.abs(x);
@@ -239,6 +261,8 @@ public class Operators {
    * @return the floor of that value
    *
    * @scratchblock ([floor v] of (x))
+   *
+   * @example.files OperatorsFloorOf.java
    */
   public static final double floorOf(double x) {
     return Math.floor(x);
@@ -252,6 +276,8 @@ public class Operators {
    * @return the ceiling of that value
    *
    * @scratchblock ([ceiling v] of (x))
+   *
+   * @example.files OperatorsCeilingOf.java
    */
   public static final double ceilingOf(double x) {
     return Math.ceil(x);
@@ -268,6 +294,8 @@ public class Operators {
    * @return the square root of the value
    *
    * @scratchblock ([sqrt v] of (x))
+   *
+   * @example.files OperatorsSqrtOf.java
    */
   public static final double sqrtOf(double x) {
     return Math.sqrt(x);
@@ -283,6 +311,8 @@ public class Operators {
    * @return the sin of the angle
    *
    * @scratchblock ([sin v] of (x))
+   *
+   * @example.files OperatorsSinOf.java
    */
   public static final double sinOf(double x) {
     return Math.sin(x / 180.0 * Math.PI);
@@ -297,6 +327,8 @@ public class Operators {
    * @return the cos of the angle
    *
    * @scratchblock ([cos v] of (x))
+   *
+   * @example.files OperatorsCosOf.java
    */
   public static final double cosOf(double x) {
     return Math.cos(x / 180.0 * Math.PI);
@@ -311,6 +343,8 @@ public class Operators {
    * @return the tan of the angle
    *
    * @scratchblock ([tan v] of (x))
+   *
+   * @example.files OperatorsTanOf.java
    */
   public static final double tanOf(double x) {
     return Math.tan(x / 180.0 * Math.PI);
@@ -325,6 +359,8 @@ public class Operators {
    * @return the angle of that value
    *
    * @scratchblock ([asin v] of (x))
+   *
+   * @example.files OperatorsAsinOf.java
    */
   public static final double asinOf(double x) {
     return Math.asin(x) * 180.0 / Math.PI;
@@ -339,6 +375,8 @@ public class Operators {
    * @return the angle of that value
    *
    * @scratchblock ([acos v] of (x))
+   *
+   * @example.files OperatorsAcosOf.java
    */
   public static final double acosOf(double x) {
     return Math.acos(x) * 180.0 / Math.PI;
@@ -353,6 +391,8 @@ public class Operators {
    * @return the angle of that value
    *
    * @scratchblock ([atan v] of (x))
+   *
+   * @example.files OperatorsAtanOf.java
    */
   public static final double atanOf(double x) {
     return Math.atan(x) * 180.0 / Math.PI;
@@ -367,6 +407,8 @@ public class Operators {
    * @return the ln of that value
    *
    * @scratchblock ([ln v] of (x))
+   *
+   * @example.files OperatorsLnOf.java
    */
   public static final double lnOf(double x) {
     return Math.log(x);
@@ -381,6 +423,8 @@ public class Operators {
    * @return the log to base 10 of that value
    *
    * @scratchblock ([log v] of (x))
+   *
+   * @example.files OperatorsLogOf.java
    */
   public static final double logOf(double x) {
     return Math.log10(x);
@@ -395,6 +439,8 @@ public class Operators {
    * @return e to the power of that value
    *
    * @scratchblock ([e ^ v] of (x))
+   *
+   * @example.files OperatorsEToThePowerOf.java
    */
   public static final double eToThePowerOf(double x) {
     return Math.pow(Math.E, x);
@@ -408,6 +454,8 @@ public class Operators {
    * @return 10 to the power of that value
    *
    * @scratchblock ([10 ^ v] of (x))
+   *
+   * @example.files OperatorsTenToThePowerOf.java
    */
   public static final double tenToThePowerOf(double x) {
     return Math.pow(10, x);

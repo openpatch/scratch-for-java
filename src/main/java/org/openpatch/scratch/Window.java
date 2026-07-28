@@ -29,6 +29,8 @@ import org.openpatch.scratch.internal.*;
  * @see Stage
  * 
  * @index-in-docs 3
+ *
+ * @example.files WindowConstructors.java
  */
 public class Window {
 
@@ -63,6 +65,8 @@ public class Window {
    *   new MyStage();
    * }
    * }</pre>
+   *
+   * @example.files WindowUseFullScreen.java
    */
   public static void useFullScreen() {
     if (instance != null) {
@@ -85,6 +89,8 @@ public class Window {
    * }</pre>
    *
    * @param sampling how to smooth pictures
+   *
+   * @example.files WindowUseTextureSampling.java
    */
   public static void useTextureSampling(TextureSampling sampling) {
     if (sampling == null) {
@@ -101,6 +107,8 @@ public class Window {
    * Returns how pictures are being smoothed.
    *
    * @return the current setting
+   *
+   * @example.files WindowGetTextureSampling.java
    */
   public static TextureSampling getTextureSampling() {
     return textureSampling;
@@ -126,8 +134,10 @@ public class Window {
    * }
    * }</pre>
    *
-   * @param path the picture to show, or {@code null} for the Scratch for Java
-   *             logo
+   * @param path a path to an image file or the name of a built-in sprite, or
+   *             {@code null} for the Scratch for Java logo
+   *
+   * @example.files WindowUseSplashLogo.java
    */
   public static void useSplashLogo(String path) {
     if (instance != null) {
@@ -233,6 +243,8 @@ public class Window {
    * Returns the singleton instance of the Window class.
    *
    * @return the singleton instance of Window
+   *
+   * @example.files WindowGetInstance.java
    */
   public static Window getInstance() {
     return instance;
@@ -242,6 +254,8 @@ public class Window {
    * Gets the seconds passed since the last frame.
    *
    * @return seconds since last frame
+   *
+   * @example.files WindowGetDeltaTime.java
    */
   public double getDeltaTime() {
     return Applet.getInstance().getDeltaTime();
@@ -253,6 +267,8 @@ public class Window {
    * <p>Debug mode can be toggled at runtime by pressing F12.
    *
    * @return true if the application is in debug mode, false otherwise.
+   *
+   * @example.files WindowIsDebug.java
    */
   public boolean isDebug() {
     return Applet.getInstance().isDebug();
@@ -267,6 +283,8 @@ public class Window {
    * @param debug a boolean value where {@code true} enables debug mode and
    *              {@code false} disables
    *              it.
+   *
+   * @example.files WindowSetDebug.java
    */
   public void setDebug(boolean debug) {
     Applet.getInstance().setDebug(debug);
@@ -283,6 +301,8 @@ public class Window {
    * }</pre>
    *
    * @param values one or more values to print
+   *
+   * @example.files WindowDebug.java
    */
   public void debug(Object... values) {
     if (!Applet.getInstance().isDebug()) return;
@@ -293,7 +313,13 @@ public class Window {
     System.out.println(sb);
   }
 
-
+  /**
+   * Retrieves the width of the current window.
+   *
+   * @return the width of the window in pixels
+   *
+   * @example.files WindowGetWidth.java
+   */
   public int getWidth() {
     return Applet.getInstance().getRenderWidth();
   }
@@ -302,6 +328,8 @@ public class Window {
    * Retrieves the height of the current window.
    *
    * @return the height of the window in pixels
+   *
+   * @example.files WindowGetHeight.java
    */
   public int getHeight() {
     return Applet.getInstance().getRenderHeight();
@@ -312,7 +340,6 @@ public class Window {
    *
    * @param stage the new stage to be set
    *
-   * @example.preview WindowSetStage.gif
    * @example.files WindowSetStage.java
    */
   public void setStage(Stage stage) {
@@ -324,43 +351,19 @@ public class Window {
    *
    * @param stage    the new stage to transition to
    * @param duration the duration of the transition in milliseconds
+   *
+   * @example.files WindowTransitionToStage.java
    */
   public void transitionToStage(Stage stage, int duration) {
     Applet.getInstance().transitionToStage(stage, duration);
   }
 
   /**
-   * @deprecated since 4.0.0. Use setStage instead.
-   * @param name  Name of the stage
-   * @param stage A stage object
-   */
-  @Deprecated(since = "4.0.0")
-  public void addStage(String name, Stage stage) {
-    Applet.getInstance().addStage(name, stage);
-  }
-
-  /**
-   * @deprecated since 4.0.0. Use setStage instead.
-   * @param name Name of the stage
-   */
-  @Deprecated(since = "4.0.0")
-  public void switchStage(String name) {
-    Applet.getInstance().switchStage(name);
-  }
-
-  /**
-   * @deprecated since 4.0.0. Use setStage instead.
-   * @param name Name of the stage
-   */
-  @Deprecated(since = "4.0.0")
-  public void removeStage(String name) {
-    Applet.getInstance().removeStage(name);
-  }
-
-  /**
    * Retrieves the current stage from the Applet instance.
    *
    * @return the current Stage object
+   *
+   * @example.files WindowGetStage.java
    */
   public Stage getStage() {
     return Applet.getInstance().getStage();
@@ -370,6 +373,8 @@ public class Window {
    * Exits the application by invoking the `whenExits` method and then calling the
    * `exit` method on
    * the `Applet` instance.
+   *
+   * @example.files WindowExit.java
    */
   public void exit() {
     this.whenExits();
@@ -380,6 +385,8 @@ public class Window {
    * This method is called when the window exits. Override this method to define
    * custom behavior
    * when the window is closed.
+   *
+   * @example.files WindowWhenExits.java
    */
   public void whenExits() {
   }
@@ -388,6 +395,8 @@ public class Window {
    * Returns the version of the library.
    *
    * @return the version of the library as a String
+   *
+   * @example.files WindowGetLibraryVersion.java
    */
   public String getLibraryVersion() {
     return this.getClass().getPackage().getImplementationVersion();
@@ -397,6 +406,8 @@ public class Window {
    * Returns the title of the library.
    *
    * @return the title of the library as a String
+   *
+   * @example.files WindowGetLibraryTitle.java
    */
   public String getLibraryTitle() {
     return this.getClass().getPackage().getImplementationTitle();

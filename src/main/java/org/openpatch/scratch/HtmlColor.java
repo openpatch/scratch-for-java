@@ -13,6 +13,8 @@ import java.util.Random;
  *  * 
  * Color myColor = HtmlColor.CORNFLOWER_BLUE;
  * }</pre>
+ *
+ * @example.files HtmlColorAll.java
  */
 public class HtmlColor {
   /** The color Alice Blue. */
@@ -586,6 +588,8 @@ public class HtmlColor {
    * Returns a random HTML color.
    *
    * @return a random Color from the predefined HTML colors
+   *
+   * @example.files HtmlColorGetRandom.java
    */
   public static Color getRandom() {
     return COLORS[RANDOM.nextInt(COLORS.length)];

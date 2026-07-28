@@ -7,6 +7,8 @@ import java.util.List;
 
 /**
  * Represents a polygon shape defined by its vertices.
+ *
+ * @example.files PolygonConstructors.java
  */
 public class Polygon extends Shape {
 
@@ -40,6 +42,8 @@ public class Polygon extends Shape {
    *
    * @param x the x-coordinate
    * @param y the y-coordinate
+   *
+   * @example.files PolygonAddPoint.java
    */
   public void addPoint(double x, double y) {
     points.add(new Point2D.Double(x, y));

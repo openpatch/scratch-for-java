@@ -99,7 +99,6 @@ public class Applet extends PApplet {
   private int transitionStart;
   private int transitionDuration;
   private Stage transitionToStage;
-  private Map<String, Stage> stages;
   private int lastMillis;
   private double deltaTime;
   private String loadingText = "";
@@ -135,8 +134,6 @@ public class Applet extends PApplet {
     }
     this.FULLSCREEN = fullscreen;
     this.assets = assets;
-
-    this.stages = new ConcurrentHashMap<>();
 
     this.registerMethod("mouseEvent", this);
     this.registerMethod("keyEvent", this);
@@ -209,37 +206,6 @@ public class Applet extends PApplet {
    */
   public double getTextSize() {
     return this.g.textSize;
-  }
-
-  /**
-   * @deprecated since 4.0.0. Use setStage instead.
-   * @param name  Name of the stage
-   * @param stage A stage object
-   */
-  @Deprecated(since = "4.0.0")
-  public void addStage(String name, Stage stage) {
-    this.stages.put(name, stage);
-    if (this.stage == null) {
-      this.stage = stage;
-    }
-  }
-
-  /**
-   * @deprecated since 4.0.0. Use setStage instead.
-   * @param name Name of the stage
-   */
-  @Deprecated(since = "4.0.0")
-  public void switchStage(String name) {
-    this.stage = this.stages.getOrDefault(name, this.stage);
-  }
-
-  /**
-   * @deprecated since 4.0.0. Use setStage instead.
-   * @param name Name of the stage
-   */
-  @Deprecated(since = "4.0.0")
-  public void removeStage(String name) {
-    this.stages.remove(name);
   }
 
   /**
@@ -363,7 +329,7 @@ public class Applet extends PApplet {
     if (chosen != null) {
       PImage image = null;
       try {
-        image = this.loadImage(getPath(chosen));
+        image = Image.loadImageOrBuiltin(chosen);
       } catch (Exception e) {
         // reported below
       }

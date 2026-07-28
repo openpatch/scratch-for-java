@@ -7,6 +7,8 @@ import processing.core.PGraphics;
  * Represents a hitbox with a shape that can be transformed by scaling,
  * translating, and rotating
  * it.
+ *
+ * @example.files HitboxConstructors.java
  */
 public class Hitbox {
   private final Shape originalShape;
@@ -37,6 +39,8 @@ public class Hitbox {
    * Returns the shape of the hitbox.
    *
    * @return The shape of the hitbox.
+   *
+   * @example.files HitboxGetShape.java
    */
   public Shape getShape() {
     return this.shape;
@@ -52,6 +56,8 @@ public class Hitbox {
    * @param translateY The y-coordinate to translate the shape.
    * @param size       The size to scale the shape, where 100.0 represents the
    *                   original size.
+   *
+   * @example.files HitboxTranslateAndRotateAndResize.java
    */
   public void translateAndRotateAndResize(
       double degrees,
@@ -79,6 +85,9 @@ public class Hitbox {
    * Draws the hitbox with a debug color.
    *
    * @param buffer The buffer to draw the hitbox on.
+   *
+   * @ignore-in-docs Called by the stage when debugging is on. It needs a Processing buffer,
+   * which nothing in the library hands out.
    */
   public void drawDebug(PGraphics buffer) {
     this.drawDebug(buffer, Window.DEBUG_COLOR[0], Window.DEBUG_COLOR[1], Window.DEBUG_COLOR[2]);
@@ -91,11 +100,20 @@ public class Hitbox {
    * @param y The y-coordinate of the point.
    * @return {@code true} if the hitbox contains the point, {@code false}
    *         otherwise.
+   *
+   * @example.files HitboxContains.java
    */
   public boolean contains(double x, double y) {
     return this.shape.contains(x, y);
   }
 
+  /**
+   * Returns the smallest upright rectangle the hitbox fits into.
+   *
+   * @return the bounding box of the hitbox
+   *
+   * @example.files HitboxGetBounds.java
+   */
   public Bounds getBounds() {
     return this.shape.getBounds();
   }
@@ -105,6 +123,8 @@ public class Hitbox {
    *
    * @param hitbox The hitbox to check for intersection.
    * @return {@code true} if the hitboxes intersect, {@code false} otherwise.
+   *
+   * @example.files HitboxIntersects.java
    */
   public boolean intersects(Hitbox hitbox) {
     if (this.getShape().getBounds().intersects(hitbox.getShape().getBounds())) {
@@ -118,6 +138,9 @@ public class Hitbox {
    * Draws the shape.
    *
    * @param buffer The buffer to draw the shape on.
+   *
+   * @ignore-in-docs Called by drawDebug(). It needs a Processing buffer, which nothing in the
+   * library hands out.
    */
   public void drawShape(PGraphics buffer) {
     if (shape == null) {

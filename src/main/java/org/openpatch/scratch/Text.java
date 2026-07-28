@@ -21,6 +21,8 @@ import processing.core.PGraphics;
  * text.setTextColor(0, 0, 0);
  * text.setStrokeColor(0, 0, 0);
  * }</pre>
+ *
+ * @example.files TextConstructors.java
  */
 public class Text {
 
@@ -47,6 +49,12 @@ public class Text {
   private Color backgroundColor;
   private Color strokeColor;
   private TextAlign textAlign = TextAlign.DEFAULT;
+  /**
+   * Set for the stage's display line. It is a band along the bottom edge rather
+   * than a label: it reaches from side to side and squares off the two corners
+   * that sit on the edge.
+   */
+  private boolean displayBand;
 
   /** SPEAK_BUBBLE_MAX_LIMIT is the maximum width of the speech bubble. */
   public static int SPEAK_BUBBLE_MAX_LIMIT = 330;
@@ -75,6 +83,8 @@ public class Text {
    *
    * @param path the path to a .ttf or .otf file
    * @param size the size to write in
+   *
+   * @example.files TextUseFont.java
    */
   public static void useFont(String path, int size) {
     if (warnIfTooLate("Text.useFont(\"assets/Retro Gaming.ttf\", 11);")) {
@@ -104,6 +114,8 @@ public class Text {
    * shown at more than one size, so that every size looks sharp.
    *
    * @param sizes the sizes to prepare
+   *
+   * @example.files TextUseFontSizes.java
    */
   public static void useFontSizes(int... sizes) {
     if (warnIfTooLate("Text.useFontSizes(14, 20);")) {
@@ -120,6 +132,8 @@ public class Text {
    * Chooses whether letters are smoothed. Turn it off for pixel fonts.
    *
    * @param smooth true to smooth the letters
+   *
+   * @example.files TextUseSmoothing.java
    */
   public static void useSmoothing(boolean smooth) {
     if (warnIfTooLate("Text.useSmoothing(false);")) {
@@ -153,6 +167,8 @@ public class Text {
    * Returns the font that text is written in by default.
    *
    * @return the path to the font file
+   *
+   * @example.files TextGetDefaultFont.java
    */
   public static String getDefaultFont() {
     return font;
@@ -162,6 +178,8 @@ public class Text {
    * Returns the size text is written in by default.
    *
    * @return the font size
+   *
+   * @example.files TextGetDefaultFontSize.java
    */
   public static int getDefaultFontSize() {
     return fontSize;
@@ -225,7 +243,12 @@ public class Text {
     this.textSize = fontSize;
     this.originalText = text;
     this.width = width;
-    this.show = false;
+    // A text built with words shows them. It used to wait for a showText(),
+    // so `new Text("Hello World", 0, 0, 400)` put nothing on the stage - which
+    // is how the documentation introduces the class. A text built with nothing
+    // to say still stays hidden: that is a speech bubble waiting for say(), or
+    // the stage's own display line waiting for display().
+    this.show = text != null && !text.isBlank();
     this.backgroundColor = new Color(255, 255, 255);
     this.textColor = new Color(120, 120, 120);
     this.strokeColor = new Color(218, 218, 218);
@@ -276,12 +299,14 @@ public class Text {
     }
   }
 
+  /** @ignore-in-docs The plumbing that calls whenAddedToStage(), which is the one to override. */
   public void addedToStage(Stage stage) {
     this.stage = stage;
     this.whenAddedToStage();
     this.whenAddedToStage(stage);
   }
 
+  /** @ignore-in-docs The plumbing that calls whenRemovedFromStage(), which is the one to override. */
   public void removedFromStage(Stage stage) {
     this.stage = null;
     this.whenRemovedFromStage();
@@ -291,6 +316,8 @@ public class Text {
   /**
    * This method is called when the object is added to the stage. Override this method to define
    * custom behavior when the object is added to the stage.
+   *
+   * @example.files TextWhenAddedToStage.java
    */
   public void whenAddedToStage() {}
 
@@ -305,6 +332,8 @@ public class Text {
   /**
    * This method is called when the object is removed from the stage. Override this method to define
    * custom behavior that should occur when the object is no longer part of the stage.
+   *
+   * @example.files TextWhenRemovedFromStage.java
    */
   public void whenRemovedFromStage() {}
 
@@ -319,6 +348,8 @@ public class Text {
   /**
    * Removes this object from its current stage if it is associated with one. If the object is not
    * associated with any stage, this method does nothing.
+   *
+   * @example.files TextRemove.java
    */
   public void remove() {
     if (this.stage != null) {
@@ -330,6 +361,8 @@ public class Text {
    * Retrieves the current stage associated with this object.
    *
    * @return the current stage
+   *
+   * @example.files TextGetStage.java
    */
   public Stage getStage() {
     return this.stage;
@@ -340,6 +373,8 @@ public class Text {
    *
    * @param name the name of the font to be added
    * @param path the path to the font file
+   *
+   * @example.files TextAddFont.java
    */
   public void addFont(String name, String path) {
     for (Font font : this.fonts) {
@@ -356,6 +391,8 @@ public class Text {
    * Switches the current font to the font with the specified name.
    *
    * @param name the name of the font to switch to
+   *
+   * @example.files TextSwitchFont.java
    */
   public void switchFont(String name) {
     for (int i = 0; i < this.fonts.size(); i++) {
@@ -371,6 +408,8 @@ public class Text {
    * Advances to the next font in the list of available fonts. The current font index is incremented
    * by one and wraps around to the beginning of the list if it exceeds the number of available
    * fonts.
+   *
+   * @example.files TextNextFont.java
    */
   public void nextFont() {
     this.currentFont = (this.currentFont + 1) % this.fonts.size();
@@ -380,6 +419,8 @@ public class Text {
    * Retrieves the name of the current font.
    *
    * @return the name of the current font, or {@code null} if no fonts are available.
+   *
+   * @example.files TextGetCurrentFontName.java
    */
   public String getCurrentFontName() {
     if (this.fonts.size() == 0) {
@@ -392,6 +433,8 @@ public class Text {
    * Returns the index of the current font.
    *
    * @return the index of the current font
+   *
+   * @example.files TextGetCurrentFontIndex.java
    */
   public int getCurrentFontIndex() {
     return this.currentFont;
@@ -402,6 +445,8 @@ public class Text {
    *
    * @param x a x coordinate
    * @param y a y coordinate
+   *
+   * @example.files TextSetPosition.java
    */
   public void setPosition(double x, double y) {
     this.x = x;
@@ -421,6 +466,8 @@ public class Text {
    * Retrieves the current position as a Vector2 object.
    *
    * @return a Vector2 object representing the current x and y coordinates.
+   *
+   * @example.files TextGetPosition.java
    */
   public Vector2 getPosition() {
     return new Vector2(x, y);
@@ -430,6 +477,8 @@ public class Text {
    * Sets the x-coordinate for this object.
    *
    * @param x the new x-coordinate value
+   *
+   * @example.files TextSetX.java
    */
   public void setX(double x) {
     this.x = x;
@@ -439,6 +488,8 @@ public class Text {
    * Returns the x-coordinate of this object.
    *
    * @return the x-coordinate as a double
+   *
+   * @example.files TextGetX.java
    */
   public double getX() {
     return this.x;
@@ -448,6 +499,8 @@ public class Text {
    * Sets the Y coordinate of the text.
    *
    * @param y the new Y coordinate value
+   *
+   * @example.files TextSetY.java
    */
   public void setY(double y) {
     this.y = y;
@@ -457,6 +510,8 @@ public class Text {
    * Returns the y-coordinate of this object.
    *
    * @return the y-coordinate as a double
+   *
+   * @example.files TextGetY.java
    */
   public double getY() {
     return this.y;
@@ -467,6 +522,8 @@ public class Text {
    *
    * @param text The text to be displayed. If the text is null or empty, the text will be set to
    *     null.
+   *
+   * @example.files TextShowText.java
    */
   public void showText(String text) {
     this.show = true;
@@ -493,6 +550,8 @@ public class Text {
    * Sets the style of the text.
    *
    * @param style the TextStyle to be applied to the text
+   *
+   * @example.files TextSetStyle.java
    */
   public void setStyle(TextStyle style) {
     this.style = style;
@@ -504,6 +563,8 @@ public class Text {
    * @param r the red component of the color (0-255)
    * @param g the green component of the color (0-255)
    * @param b the blue component of the color (0-255)
+   *
+   * @example.files TextSetBackgroundColor.java
    */
   public void setBackgroundColor(int r, int g, int b) {
     this.backgroundColor = new Color(r, g, b);
@@ -533,6 +594,8 @@ public class Text {
    * @param r the red component of the color (0-255)
    * @param g the green component of the color (0-255)
    * @param b the blue component of the color (0-255)
+   *
+   * @example.files TextSetTextColor.java
    */
   public void setTextColor(int r, int g, int b) {
     this.textColor = new Color(r, g, b);
@@ -562,6 +625,8 @@ public class Text {
    * @param r the red component of the color (0-255)
    * @param g the green component of the color (0-255)
    * @param b the blue component of the color (0-255)
+   *
+   * @example.files TextSetStrokeColor.java
    */
   public void setStrokeColor(int r, int g, int b) {
     this.strokeColor = new Color(r, g, b);
@@ -589,6 +654,8 @@ public class Text {
    * Sets the font name for the text.
    *
    * @param name the name of the font to be set
+   *
+   * @example.files TextSetFont.java
    */
   public void setFont(String name) {
     this.fontName = name;
@@ -598,6 +665,8 @@ public class Text {
    * Retrieves the name of the font.
    *
    * @return the name of the font as a String.
+   *
+   * @example.files TextGetFont.java
    */
   public String getFont() {
     return this.fontName;
@@ -607,6 +676,8 @@ public class Text {
    * Sets the size of the text.
    *
    * @param size the new size of the text
+   *
+   * @example.files TextSetTextSize.java
    */
   public void setTextSize(int size) {
     this.textSize = size;
@@ -616,6 +687,8 @@ public class Text {
    * Returns the size of the text.
    *
    * @return the size of the text as an integer
+   *
+   * @example.files TextGetTextSize.java
    */
   public int getTextSize() {
     return this.textSize;
@@ -625,6 +698,8 @@ public class Text {
    * Returns the width of the text.
    *
    * @return the width of the text as a double
+   *
+   * @example.files TextGetWidth.java
    */
   public double getWidth() {
     return this.width;
@@ -634,6 +709,8 @@ public class Text {
    * Sets the width of the text.
    *
    * @param width the new width to set
+   *
+   * @example.files TextSetWidth.java
    */
   public void setWidth(double width) {
     this.width = width;
@@ -643,6 +720,8 @@ public class Text {
    * Sets the alignment of the text.
    *
    * @param align where the text should sit relative to its position
+   *
+   * @example.files TextSetAlign.java
    */
   public void setAlign(TextAlign align) {
     this.textAlign = align == null ? TextAlign.DEFAULT : align;
@@ -652,6 +731,8 @@ public class Text {
    * Returns where the text sits relative to its position.
    *
    * @return the alignment
+   *
+   * @example.files TextGetAlign.java
    */
   public TextAlign getAlign() {
     return this.textAlign;
@@ -661,6 +742,8 @@ public class Text {
    * Sets the UI status of this object.
    *
    * @param isUI a boolean indicating whether this object is part of the UI
+   *
+   * @example.files TextSetIsUI.java
    */
   public void setIsUI(boolean isUI) {
     this.isUI = isUI;
@@ -670,6 +753,8 @@ public class Text {
    * Checks if the current instance is a UI element.
    *
    * @return {@code true} if this instance is a UI element, {@code false} otherwise.
+   *
+   * @example.files TextIsUI.java
    */
   public boolean isUI() {
     return this.isUI;
@@ -684,30 +769,94 @@ public class Text {
         .split("\n");
   }
 
-  private void drawBubble(PGraphics buffer) {
-    if (this.sprite == null) {
-      return;
-    }
+  /**
+   * Draws this text as the band the stage writes display() into: as wide as the
+   * width it was given rather than as wide as its words, and rounded only on the
+   * two corners that are not against the edge of the stage.
+   */
+  void asDisplayBand() {
+    this.displayBand = true;
+  }
 
-    var lines = this.wrap(this.originalText, SPEAK_BUBBLE_MAX_LIMIT, buffer);
-    var maxLineWidth = 0.0f;
+  /**
+   * How far a box of this width has to be moved so that the position it was
+   * given ends up on the side {@link #setAlign} asked for: its left edge by
+   * default, its middle when centred, its right edge when right-aligned.
+   */
+  private double alignOffset(double boxWidth) {
+    switch (this.textAlign) {
+      case CENTER:
+        return -boxWidth / 2;
+      case RIGHT:
+        return -boxWidth;
+      default:
+        return 0;
+    }
+  }
+
+  /**
+   * Draws the wrapped text inside a box of the given width, on the side the
+   * alignment asks for. The buffer is already aligned, so this only has to put
+   * the anchor on the correct edge of the box.
+   */
+  private void drawAlignedText(PGraphics buffer, double boxWidth) {
+    buffer.textLeading(this.textSize + 4);
+    var x = 8.0;
+    if (this.textAlign == TextAlign.CENTER) {
+      x = boxWidth / 2;
+    } else if (this.textAlign == TextAlign.RIGHT) {
+      x = boxWidth - 8;
+    }
+    buffer.text(this.text, (float) x, 8);
+  }
+
+  /** The width of the longest of the given lines, in the buffer's current font. */
+  private double longestLineWidth(String[] lines, PGraphics buffer) {
+    var longest = 0.0;
     for (var line : lines) {
       var lineWidth = buffer.textWidth(line);
-      if (lineWidth > maxLineWidth) {
-        maxLineWidth = lineWidth;
+      if (lineWidth > longest) {
+        longest = lineWidth;
       }
     }
-    maxLineWidth = Math.max(maxLineWidth, SPEAK_BUBBLE_MIN_LIMIT);
+    return longest;
+  }
 
-    this.y = this.sprite.getY() + this.sprite.getHeight() * 1.1 / 2.0;
-    this.x = this.sprite.getX() + this.sprite.getWidth() * 0.9 / 2.0;
+  private void drawBubble(PGraphics buffer) {
+    // A sprite's bubble wraps at the width a speech bubble is allowed to be; a
+    // text of its own wraps where it was told to, like the other styles.
+    var wrapWidth = this.sprite == null && this.width > 0
+        ? this.width
+        : SPEAK_BUBBLE_MAX_LIMIT;
+    var lines = this.wrap(this.originalText, wrapWidth, buffer);
+    var maxLineWidth = Math.max(longestLineWidth(lines, buffer), SPEAK_BUBBLE_MIN_LIMIT);
 
-    this.width = maxLineWidth + 16;
+    // A sprite's bubble hangs off the top right corner of its hitbox rather
+    // than off its costume. A costume is often drawn into a canvas bigger than
+    // what is painted on it, and a bubble placed by the canvas floats away from
+    // the sprite it belongs to; the hitbox is the sprite as it looks.
+    //
+    // A text that belongs to no sprite keeps the position it was given, the
+    // same way the other styles do, and the bubble grows up and to the right
+    // of it.
+    if (this.sprite != null) {
+      var bounds = this.sprite.getHitbox().getBounds();
+      this.x = bounds.x() + bounds.width();
+      // Hitboxes are built with y pointing down, the way the screen does.
+      this.y = -bounds.y();
+    }
+
+    // The bubble is as wide as the longest line it holds. Drawing used to write
+    // that back into the text's own width, so a box drawn after a bubble came
+    // out the size of the bubble and setWidth() was quietly forgotten.
+    var bubbleWidth = maxLineWidth + 16;
+    var bubbleHeight = (this.textSize + 4) * lines.length + 16;
+    this.height = bubbleHeight;
     this.text = String.join("\n", lines);
-    this.height = (this.textSize + 4) * lines.length + 16;
     buffer.rectMode(PConstants.CORNER);
     var mirror = false;
-    buffer.translate((float) x, (float) (-y - this.height));
+    buffer.translate(
+        (float) (this.x + alignOffset(bubbleWidth)), (float) (-this.y - bubbleHeight));
     buffer.stroke(
         (float) this.strokeColor.getRed(),
         (float) this.strokeColor.getGreen(),
@@ -716,7 +865,7 @@ public class Text {
         (float) this.backgroundColor.getRed(),
         (float) this.backgroundColor.getGreen(),
         (float) this.backgroundColor.getBlue());
-    buffer.rect(0, 0, (float) this.width, (float) this.height, 16, 16, 16, 16);
+    buffer.rect(0, 0, (float) bubbleWidth, (float) bubbleHeight, 16, 16, 16, 16);
     if (this.style == TextStyle.SPEAK) {
       buffer.push();
       buffer.fill(
@@ -724,10 +873,10 @@ public class Text {
           (float) this.backgroundColor.getGreen(),
           (float) this.backgroundColor.getBlue());
       if (mirror) {
-        buffer.translate((float) this.width - 40, (float) this.height);
+        buffer.translate((float) bubbleWidth - 40, (float) bubbleHeight);
         buffer.triangle(20, 0, 0, 0, 20, 20);
       } else {
-        buffer.translate(10, (float) this.height);
+        buffer.translate(10, (float) bubbleHeight);
         buffer.triangle(0, 20, 0, 0, 20, 0);
       }
       buffer.stroke(
@@ -740,14 +889,14 @@ public class Text {
     } else if (this.style == TextStyle.THINK) {
       buffer.push();
       if (mirror) {
-        buffer.translate((float) this.width - 10, 0);
-        buffer.circle(-20, (float) this.height, 10);
-        buffer.circle(-7, (float) this.height + 7, 6);
-        buffer.circle(0, (float) this.height + 10, 4);
+        buffer.translate((float) bubbleWidth - 10, 0);
+        buffer.circle(-20, (float) bubbleHeight, 10);
+        buffer.circle(-7, (float) bubbleHeight + 7, 6);
+        buffer.circle(0, (float) bubbleHeight + 10, 4);
       } else {
-        buffer.circle(20, (float) this.height, 10);
-        buffer.circle(7, (float) this.height + 7, 6);
-        buffer.circle(0, (float) this.height + 10, 4);
+        buffer.circle(20, (float) bubbleHeight, 10);
+        buffer.circle(7, (float) bubbleHeight + 7, 6);
+        buffer.circle(0, (float) bubbleHeight + 10, 4);
       }
       buffer.pop();
     }
@@ -757,24 +906,25 @@ public class Text {
         (float) this.textColor.getRed(),
         (float) this.textColor.getGreen(),
         (float) this.textColor.getBlue());
-    buffer.textLeading(this.textSize + 4);
-    buffer.text(this.text, 8, 8);
+    drawAlignedText(buffer, bubbleWidth);
   }
 
   private void drawBox(PGraphics buffer) {
-    var lines = this.originalText.split("\n");
+    // The width is where the words wrap, not how wide the box comes out: a box
+    // is drawn around the longest line it ended up with, so a short text in a
+    // wide text does not sit in a mostly empty frame. The stage's own display
+    // line is the exception - it is a band along an edge and has to reach from
+    // one side to the other whatever it says.
+    var wrapWidth = this.width > 0 ? this.width : buffer.width - 16;
+    var lines = this.wrap(this.originalText, wrapWidth - 16, buffer);
 
-    if (this.width == 0) {
-      this.width = buffer.width - 16; // padding
-    }
-    if (this.width > 0) {
-      lines = this.wrap(this.originalText, this.width - 16, buffer); // padding
-    }
-    this.height = (this.textSize + 4) * lines.length + 16;
+    var boxWidth = this.displayBand ? wrapWidth : longestLineWidth(lines, buffer) + 16;
+    var boxHeight = (this.textSize + 4) * lines.length + 16;
+    this.height = boxHeight;
     this.text = String.join("\n", lines);
 
     buffer.rectMode(PConstants.CORNER);
-    buffer.translate((float) this.x, (float) (-this.y - this.height));
+    buffer.translate((float) (this.x + alignOffset(boxWidth)), (float) (-this.y - boxHeight));
     buffer.stroke(
         (float) this.strokeColor.getRed(),
         (float) this.strokeColor.getGreen(),
@@ -784,14 +934,17 @@ public class Text {
         (float) this.backgroundColor.getGreen(),
         (float) this.backgroundColor.getBlue());
     buffer.strokeWeight(2);
-    buffer.rect(0, 0, (float) this.width, (float) this.height, 16, 16, 0, 0);
+    // A box is rounded all round. The stage's display band is the exception:
+    // its bottom two corners sit on the edge of the stage, where a curve would
+    // only show the stage behind it.
+    var bottomRadius = this.displayBand ? 0 : 16;
+    buffer.rect(0, 0, (float) boxWidth, (float) boxHeight, 16, 16, bottomRadius, bottomRadius);
 
     buffer.fill(
         (float) this.textColor.getRed(),
         (float) this.textColor.getGreen(),
         (float) this.textColor.getBlue());
-    buffer.textLeading(this.textSize + 4);
-    buffer.text(this.text, 8, 8);
+    drawAlignedText(buffer, boxWidth);
   }
 
   private void drawPlain(PGraphics buffer) {
@@ -819,16 +972,19 @@ public class Text {
     buffer.text(this.text, 8, 8);
   }
 
+  /** @ignore-in-docs Called by the render loop. It needs a Processing buffer, which nothing in
+   * the library hands out. */
   public void draw(PGraphics buffer) {
     if (this.stage == null) return;
     if (!this.show || this.originalText == null) return;
 
     buffer.push();
-    if (this.textAlign != TextAlign.DEFAULT) {
-      buffer.textAlign(this.textAlign.getMode());
-    } else {
-      buffer.textAlign(PApplet.LEFT, PApplet.TOP);
-    }
+    // The vertical alignment has to be given every time. Setting only the
+    // horizontal one puts the vertical back to the baseline, which drew an
+    // aligned text a line higher than an unaligned one.
+    buffer.textAlign(
+        this.textAlign == TextAlign.DEFAULT ? PApplet.LEFT : this.textAlign.getMode(),
+        PApplet.TOP);
     var currentFont = this.fonts.get(this.currentFont);
     buffer.textFont(currentFont.getFont(this.textSize));
 

@@ -4,6 +4,8 @@ import java.awt.geom.Path2D;
 
 /**
  * Represents a triangle shape defined by three vertices.
+ *
+ * @example.files TriangleConstructors.java
  */
 public class Triangle extends Shape {
   /**
