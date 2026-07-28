@@ -56,7 +56,17 @@
  *
  * This will create a window with a stage containing a sprite that moves 10 pixels every frame and
  * bounces off the edges of the window.
- * 
+ *
+ * <h2>Running the examples here</h2>
+ *
+ * Nearly every method on the following pages comes with an example you can start
+ * and change without leaving the page. Those run in your browser rather than on
+ * your own computer, and there is one difference worth knowing about: a whole
+ * number that is a {@code double} prints here without its decimal part, so
+ * {@code println("x: " + mySprite.getX())} says {@code x: 0} in the browser and
+ * {@code x: 0.0} when you run the same program yourself. The value is the same;
+ * only the way it is written out differs.
+ *
  * @name-in-docs Documentation
  */
 package org.openpatch.scratch;

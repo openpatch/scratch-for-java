@@ -205,10 +205,12 @@ public class Scratch4JDoclet implements Doclet {
         // Extract package description from package-info.java if available
         String description = "";
         Integer indexInDocs = null;
+        boolean desktopOnly = false;
         for (Element element : env.getIncludedElements()) {
             if (element.getKind() == ElementKind.PACKAGE) {
                 PackageElement pkg = (PackageElement) element;
                 if (pkg.getQualifiedName().toString().equals(packageName)) {
+                    desktopOnly = hasTag(pkg, "desktop-only", env);
                     DocCommentTree docComment = env.getDocTrees().getDocCommentTree(pkg);
                     if (docComment != null) {
                         description = extractDescription(docComment, packageName);
@@ -228,6 +230,9 @@ public class Scratch4JDoclet implements Doclet {
         json.put("description", convertToMarkdown(description, packageName).trim());
         if (indexInDocs != null) {
             json.put("index", indexInDocs);
+        }
+        if (desktopOnly) {
+            json.put("desktopOnly", true);
         }
 
         // List of classes in this package
@@ -254,6 +259,13 @@ public class Scratch4JDoclet implements Doclet {
         List<ExecutableElement> constructors = new ArrayList<>();
 
         for (Element member : classElement.getEnclosedElements()) {
+            // Only the API. `useStandardDocletOptions` is off, so the <show>public</show>
+            // in the pom never reaches javadoc and every member arrives here - which is
+            // how private helpers such as Color.HSBtoRGB() and Random.getRandom() ended
+            // up with reference pages of their own.
+            if (!isApi(member)) {
+                continue;
+            }
             if (member.getKind() == ElementKind.METHOD) {
                 ExecutableElement method = (ExecutableElement) member;
                 // Skip if method has @ignore tag
@@ -289,6 +301,51 @@ public class Scratch4JDoclet implements Doclet {
         }
     }
 
+    /**
+     * Whether a member is part of what someone using the library can call.
+     *
+     * Public only. Protected members are the seams subclasses inside the library
+     * are built on - Sprite's setWidth()/setUI()/draw(), Shape's
+     * invalidateCache() - and a reference page for one only invites overriding
+     * the wrong thing. The public face of the UI ones is UISprite; the public
+     * face of addedToStage() is whenAddedToStage().
+     */
+    private boolean isApi(Element member) {
+        return member.getModifiers().contains(Modifier.PUBLIC);
+    }
+
+    /**
+     * Whether a page should say it only works on the desktop. Read from the
+     * member, its class, and its package, so that marking a whole extension in
+     * package-info.java covers everything added to it later.
+     */
+    private boolean isDesktopOnly(Element element, DocletEnvironment env) {
+        for (Element e = element; e != null; e = e.getEnclosingElement()) {
+            if (hasTag(e, "desktop-only", env)) {
+                return true;
+            }
+            if (e.getKind() == ElementKind.PACKAGE) {
+                break;
+            }
+        }
+        return false;
+    }
+
+    /** Whether an element carries the given custom block tag. */
+    private boolean hasTag(Element element, String tagName, DocletEnvironment env) {
+        DocCommentTree docComment = env.getDocTrees().getDocCommentTree(element);
+        if (docComment == null) {
+            return false;
+        }
+        for (DocTree tree : docComment.getBlockTags()) {
+            if (tree.getKind() == DocTree.Kind.UNKNOWN_BLOCK_TAG
+                    && tagName.equals(((UnknownBlockTagTree) tree).getTagName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private void generateClassIndex(TypeElement classElement, List<ExecutableElement> constructors,
             Map<String, List<ExecutableElement>> methodGroups,
             DocletEnvironment env, Path classDir) throws IOException {
@@ -297,9 +354,12 @@ public class Scratch4JDoclet implements Doclet {
         String className = classElement.getSimpleName().toString();
         String currentPackage = getPackageName(classElement);
 
-        json.put("template", "class");
+        // The class is documented on its constructor page, which carries index 0
+        // so that it sorts in front of the methods. What is left here is the
+        // landing page of the section, which needs no more than its name.
+        json.put("template", "class-constructor");
         json.put("related", new ArrayList<>());
-        json.put("name", className);
+        json.put("name", className + "()");
 
         // Parse class documentation
         DocCommentTree docComment = env.getDocTrees().getDocCommentTree(classElement);
@@ -321,8 +381,8 @@ public class Scratch4JDoclet implements Doclet {
 
         json.put("scratchblock", customTags.getOrDefault("scratchblock", ""));
         json.put("description", convertToMarkdown(description, currentPackage).trim());
-        if (indexInDocs != null) {
-            json.put("index", indexInDocs);
+        if (isDesktopOnly(classElement, env)) {
+            json.put("desktopOnly", true);
         }
 
         // List of constructors
@@ -360,7 +420,17 @@ public class Scratch4JDoclet implements Doclet {
             json.put("fields", fields);
         }
 
-        writeJsonToFile(json, classDir.resolve("index.md.json"));
+        writeJsonToFile(json, classDir.resolve("constructor.md.json"));
+
+        // The section itself: a name for the navigation, and where the section
+        // sits among its siblings. Everything else is on the constructor page.
+        Map<String, Object> index = new LinkedHashMap<>();
+        index.put("template", "class");
+        index.put("name", className);
+        if (indexInDocs != null) {
+            index.put("index", indexInDocs);
+        }
+        writeJsonToFile(index, classDir.resolve("index.md.json"));
     }
 
     private void generateMethodJson(List<ExecutableElement> methods, String className,
@@ -440,6 +510,9 @@ public class Scratch4JDoclet implements Doclet {
         json.put("description", finalDescription.trim());
         if (indexInDocs != null) {
             json.put("index", indexInDocs);
+        }
+        if (isDesktopOnly(primaryMethod, env)) {
+            json.put("desktopOnly", true);
         }
 
         // Collect all syntax variations from overloaded methods
@@ -523,9 +596,14 @@ public class Scratch4JDoclet implements Doclet {
         for (int i = 0; i < 100; i++) { // Support up to 100 examples
             if (exampleMap.containsKey(i)) {
                 Map<String, String> exampleData = exampleMap.get(i);
-                if (exampleData.containsKey("preview")) {
+                // An example needs something to show: a recording, or a source
+                // file the reader can run. Older examples have both; the ones
+                // added since the pages became interactive only have the source.
+                if (exampleData.containsKey("preview") || exampleData.containsKey("files")) {
                     Map<String, Object> example = new LinkedHashMap<>();
-                    example.put("preview", exampleData.get("preview"));
+                    if (exampleData.containsKey("preview")) {
+                        example.put("preview", exampleData.get("preview"));
+                    }
                     example.put("folder", exampleData.getOrDefault("folder", ""));
 
                     // Parse example files with static pattern
@@ -533,15 +611,29 @@ public class Scratch4JDoclet implements Doclet {
                     String exampleFiles = exampleData.getOrDefault("files", "");
                     String examplePattern = exampleData.getOrDefault("lines", "reg:([Rr]ecorder|package|@ignore)");
 
+                    List<String> sources = new ArrayList<>();
                     if (!exampleFiles.isEmpty()) {
                         for (String fileName : exampleFiles.split(";")) {
                             Map<String, String> fileMap = new LinkedHashMap<>();
                             fileMap.put("src", fileName.trim());
                             fileMap.put("lines", examplePattern);
                             files.add(fileMap);
+                            sources.add(fileName.trim());
                         }
                     }
                     example.put("files", files);
+
+                    // The same example, rewritten as a program the Online IDE can
+                    // run, so the docs can show it running instead of a recording.
+                    // "false" turns it off for the handful of examples that use
+                    // something only a desktop program has.
+                    if (!"false".equals(exampleData.get("online"))) {
+                        String online =
+                                OnlineExample.of(example.get("folder").toString(), sources);
+                        if (online != null) {
+                            example.put("online", online);
+                        }
+                    }
                     examples.add(example);
                 }
             }
@@ -909,21 +1001,7 @@ public class Scratch4JDoclet implements Doclet {
      * @return true if the element should be ignored
      */
     private boolean shouldIgnore(Element element, DocletEnvironment env) {
-        DocCommentTree docComment = env.getDocTrees().getDocCommentTree(element);
-        if (docComment == null) {
-            return false;
-        }
-
-        for (DocTree tree : docComment.getBlockTags()) {
-            if (tree.getKind() == DocTree.Kind.UNKNOWN_BLOCK_TAG) {
-                UnknownBlockTagTree tag = (UnknownBlockTagTree) tree;
-                if ("ignore-in-docs".equals(tag.getTagName())) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
+        return hasTag(element, "ignore-in-docs", env);
     }
 
     /**

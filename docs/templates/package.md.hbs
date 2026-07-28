@@ -10,6 +10,17 @@ hide: true
 
 # {{ name }}
 
+{{#if desktopOnly}}
+:::alert{info}
+
+Everything in here works in a project you run on your own computer, but not in
+the examples you can start in the browser. There is no file system, no video
+encoder and no OpenGL behind a web page, so calling it there tells you as much
+and does nothing.
+
+:::
+{{/if}}
+
 {{{ description }}}
 
 {{#if examples}}

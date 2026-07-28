@@ -1,22 +1,20 @@
 ---
 name: {{ name }}
-{{#if index}}
-index: {{ index }}
-{{/if}}
+index: 0
 {{#if hide}}
 hide: true
 {{/if}}
 ---
 
-# {{ class }}::{{ name }}
+# {{ name }}
 
 {{#if desktopOnly}}
 :::alert{info}
 
-This works in a project you run on your own computer, but not in the examples
-you can start here in the browser. There is no file system, no video encoder and
-no OpenGL behind a web page, so calling it there tells you as much and does
-nothing.
+This class works in a project you run on your own computer, but not in the
+examples you can start here in the browser. There is no file system, no video
+encoder and no OpenGL behind a web page, so calling it there tells you as much
+and does nothing.
 
 :::
 {{/if}}
@@ -55,40 +53,27 @@ nothing.
 ::::
 {{/if}}
 
-{{! An example is either a folder of files or a single file next to them, and
-    the link has to point at whichever one it is - without the folder there is
-    nothing left of the path but the directory the examples all share. }}
 [View on GitHub](https://github.com/openpatch/scratch-for-java/blob/main/src/examples/java/reference/{{#if folder}}{{ folder }}{{else}}{{#with (lookup files 0)}}{{ src }}{{/with}}{{/if}})
 {{/each}}
 {{/if}}
 
+{{#if constructor}}
 ## Syntax
 
 ### Java
 ```java
-{{#each syntax}}
+{{#each constructor}}
 {{{this}}}
 {{/each}}
 ```
-
-{{#if scratchblock}}
-### Scratch
-
-:::scratchblock
-{{{scratchblock}}}
-:::
 {{/if}}
 
-{{#if parameters}}
-## Parameters
+{{#if fields}}
+## Static Fields
 
-| Name | Data Type | Description          |
-| --------- | --------- | -------------------- |
-{{#each parameters}}
-| {{ name }}      |  {{ type }}    | {{ description }} |
+| Name | Type | Description |
+|------|------|-------------|
+{{#each fields}}
+| `{{ name }}` | {{ type }} | {{ description }} |
 {{/each}}
 {{/if}}
-
-## Return
-
-{{ returns }}

@@ -1,3 +1,8 @@
+{{!
+  The landing page of a class section. It is deliberately empty: the class
+  itself is documented on its constructor page, which sorts first because it
+  carries index 0.
+}}
 ---
 name: {{ name }}
 {{#if index}}
@@ -7,46 +12,3 @@ index: {{ index }}
 hide: true
 {{/if}}
 ---
-
-# {{ name }}
-
-{{{ description }}}
-
-{{#if examples}}
-## Examples
-
-{{#each examples}}
-{{#if preview}}
-![]({{ concat "/reference/" preview }})
-{{/if}}
-
-```java
-{{#if lines}}
-{{{ rfile (concat "/src/examples/java/reference/" src) lines "" }}}
-{{else}}
-{{{ rfile (concat "/src/examples/java/reference" src) }}}
-{{/if}}
-```
-
-[View on GitHub](https://github.com/openpatch/scratch-for-java/blob/main/src/examples/java/reference/{{ src }})
-{{/each}}
-{{/if}}
-
-{{#if constructors}}
-## Constructors
-
-{{#each constructors}}
-- {{this}}
-{{/each}}
-{{/if}}
-
-{{#if fields}}
-## Static Fields
-
-| Name | Type | Description |
-|------|------|-------------|
-{{#each fields}}
-| `{{ name }}` | {{ type }} | {{ description }} |
-{{/each}}
-{{/if}}
-
