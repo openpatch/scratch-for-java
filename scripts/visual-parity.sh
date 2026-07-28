@@ -61,5 +61,20 @@ if [ ! -d "$EXPECTED" ]; then
   exit 1
 fi
 
-java -cp "target/test-classes:target/classes:$(cat "$CLASSPATH_FILE")" \
-  parity.VisualParity "$EXPECTED" "$ACTUAL" "$DIFFS"
+# Whatever failed last time is not what failed this time. Left lying around, an
+# old picture reads as a current one.
+rm -rf "$DIFFS"
+
+if java -cp "target/test-classes:target/classes:$(cat "$CLASSPATH_FILE")" \
+    parity.VisualParity "$EXPECTED" "$ACTUAL" "$DIFFS"; then
+  exit 0
+fi
+
+# The frames as this machine drew them, kept next to the differences. Two runs on
+# one machine are bit-identical, but two machines only agree if they rasterise
+# the same way - so where the change turns out to be the machine rather than the
+# library, these are the ones to record.
+mkdir -p "$DIFFS/as-drawn"
+cp "$ACTUAL"/*.png "$DIFFS/as-drawn/"
+echo "        - target/visual-parity/as-drawn/ has them as this machine drew them"
+exit 1

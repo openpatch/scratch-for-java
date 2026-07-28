@@ -1,0 +1,54 @@
+name: Visual
+
+# Draws the scenes in VisualProbe and checks they still look the way they were
+# recorded. Kept apart from the unit tests because it needs a screen, takes
+# longer, and can fail for a reason the tests never can: a different machine
+# drawing the same thing slightly differently.
+#
+# The recorded frames in src/test/resources/parity/frames are pixel-for-pixel.
+# Two runs on one machine are bit-identical, but two different machines are only
+# identical if they rasterise the same way, and the runner is not the machine the
+# frames were recorded on. If this job fails on something nobody changed, take
+# the drawn-frames artifact below, put it in src/test/resources/parity/frames,
+# and commit that: the runner then becomes what the frames are recorded against.
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+jobs:
+  visual:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Set up Java
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 17
+          cache: maven
+
+      # A costume cannot be loaded without a window, so there has to be a screen
+      # even though nobody is going to look at it.
+      - name: Install Xvfb
+        run: sudo apt-get update && sudo apt-get install -y xvfb
+
+      - name: Check the scenes still look the same
+        run: ./scripts/visual-parity.sh
+
+      # Both halves of the story: each scene that differs, boxed where it moved,
+      # and under as-drawn/ the same scenes as this machine drew them.
+      - name: Upload what differed
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-parity
+          path: target/visual-parity/
+          if-no-files-found: ignore
