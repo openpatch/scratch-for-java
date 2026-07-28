@@ -216,6 +216,141 @@ public class GameStage extends Stage {
 }
 ```
 
+All four classes together. Press SPACE to start, arrow keys to dodge — and when
+a rock gets you, SPACE again, on a stage that is genuinely new:
+
+:::onlineide{height="600px" libraries="scratch"}
+
+```java DodgeWindow.java
+
+new DodgeWindow();
+
+class DodgeWindow extends Window {
+  public DodgeWindow() {
+    super(600, 400);
+    this.setStage(new TitleStage("Dodge the Rocks"));
+  }
+}
+
+class TitleStage extends Stage {
+  public TitleStage(String message) {
+    this.addBackdrop("background");
+
+    Text title = new Text();
+    title.setPosition(0, 60);
+    title.setTextSize(30);
+    title.showText(message);
+    this.add(title);
+
+    Text hint = new Text();
+    hint.setPosition(0, 10);
+    hint.setTextSize(18);
+    hint.showText("Press SPACE to play");
+    this.add(hint);
+  }
+
+  public void whenKeyPressed(KeyCode keyCode) {
+    if (keyCode == KeyCode.SPACE) {
+      Window.getInstance().setStage(new GameStage());
+    }
+  }
+}
+
+class GameStage extends Stage {
+  private Text scoreText = new Text();
+  private int dodged = 0;
+
+  public GameStage() {
+    this.addBackdrop("background");
+
+    this.scoreText.setPosition(0, 165);
+    this.scoreText.setTextSize(20);
+    this.add(this.scoreText);
+    this.showScore();
+
+    this.add(new Alien());
+    for (int i = 0; i < 3; i++) {
+      this.add(new Rock());
+    }
+  }
+
+  public void addDodge() {
+    this.dodged = this.dodged + 1;
+    this.showScore();
+  }
+
+  public void gameOver() {
+    Window.getInstance().setStage(new TitleStage("You dodged " + this.dodged));
+  }
+
+  private void showScore() {
+    this.scoreText.showText("Dodged: " + this.dodged);
+  }
+}
+
+class Alien extends AnimatedSprite {
+  public Alien() {
+    this.addCostume("alienGreen_stand");
+    this.addAnimation("walk", "alienGreen_walk%d", 2);
+    this.setAnimationInterval(150);
+    this.setSize(45);
+    this.setRotationStyle(RotationStyle.LEFT_RIGHT);
+    this.setY(-140);
+  }
+
+  public void run() {
+    boolean walking = false;
+
+    if (this.isKeyPressed(KeyCode.RIGHT)) {
+      this.setDirection(90);
+      this.move(4);
+      walking = true;
+    }
+    if (this.isKeyPressed(KeyCode.LEFT)) {
+      this.setDirection(-90);
+      this.move(4);
+      walking = true;
+    }
+
+    if (walking) {
+      this.playAnimation("walk");
+    } else {
+      this.switchCostume("alienGreen_stand");
+    }
+
+    this.ifOnEdgeBounce();
+  }
+}
+
+class Rock extends Sprite {
+  public Rock() {
+    this.addCostume("rock");
+    this.setSize(40);
+    this.dropFromTop();
+  }
+
+  private void dropFromTop() {
+    this.setX(Random.randomInt(-280, 280));
+    this.setY(Random.randomInt(220, 420));
+  }
+
+  public void run() {
+    this.changeY(-3);
+
+    if (this.isTouchingSprite(Alien.class)) {
+      ((GameStage) this.getStage()).gameOver();
+    }
+
+    if (this.getY() < -200) {
+      ((GameStage) this.getStage()).addDodge();
+      this.dropFromTop();
+    }
+  }
+}
+```
+
+:::
+
 Notice what `gameOver` does **not** do. It does not stop the rocks, empty the
 score, or put the alien back in the middle. It builds a `TitleStage` and hands
 it to the window, and the old game — alien, rocks, score and all — is simply

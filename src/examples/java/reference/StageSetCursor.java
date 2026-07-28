@@ -1,25 +1,22 @@
 package reference;
 import org.openpatch.scratch.*;
-import org.openpatch.scratch.extensions.recorder.*;
 
 public class StageSetCursor {
 
   public StageSetCursor() {
     Stage myStage = new Stage(600, 240);
-    GifRecorder recorder =
-        new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
-    recorder.start();
-    while (myStage.getTimer().forMillis(5000)) {
+    // The cursor can be a picture next to the program, or the name of a
+    // built-in sprite. The second pair of numbers is the point of the picture
+    // that does the pointing - here the middle of the 128 by 128 jewel.
+    while (true) {
       if (myStage.getMouseX() < 0) {
-        myStage.setCursor("assets/cursor_hand.png");
+        myStage.setCursor("hudJewel_blue");
       } else {
-        myStage.setCursor("assets/cursor_sword.png", 30, 30);
+        myStage.setCursor("hudJewel_red", 22, 20);
       }
       myStage.display("Mouse: " + myStage.getMouseX() + ", " + myStage.getMouseY());
       myStage.wait(16);
     }
-    recorder.stop();
-    myStage.exit();
   }
 
   public static void main(String[] args) {

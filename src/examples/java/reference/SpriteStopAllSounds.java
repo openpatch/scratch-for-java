@@ -1,19 +1,20 @@
 package reference;
 import org.openpatch.scratch.*;
-import org.openpatch.scratch.Sprite;
+
 
 public class SpriteStopAllSounds {
-
   public SpriteStopAllSounds() {
     Stage myStage = new Stage(600, 240);
-    Sprite zeta = new Sprite("green", "assets/zeta_green_badge.png");
-    zeta.addSound("bump", "assets/bump.wav");
-    zeta.addSound("music", "assets/music.mp3");
-    zeta.playSound("bump");
-    zeta.playSound("music");
-    myStage.wait(300);
-    zeta.stopAllSounds();
-    myStage.exit();
+    Sprite mySprite = new Sprite("slime", "slimeGreen");
+    myStage.add(mySprite);
+
+    mySprite.addSound("music", "jingles_STEEL16");
+    mySprite.addSound("bump", "impactWood_heavy_001");
+    mySprite.playSound("music");
+    mySprite.playSound("bump");
+    myStage.wait(2000);
+    // Everything this sprite is playing, at once.
+    mySprite.stopAllSounds();
   }
 
   public static void main(String[] args) {

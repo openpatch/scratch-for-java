@@ -1,23 +1,16 @@
 package reference;
 import org.openpatch.scratch.*;
-import org.openpatch.scratch.extensions.recorder.*;
 
 public class SpriteMove {
   public SpriteMove() {
     Stage myStage = new Stage(600, 240);
-    Sprite gamma = new Sprite("gamma", "assets/gamma_purple_badge.png");
+    Sprite gamma = new Sprite("gamma", "slimePurple");
     myStage.add(gamma);
     gamma.turnLeft(20);
-
-    GifRecorder recorder =
-        new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
-    recorder.start();
-    while (myStage.getTimer().forMillis(3000)) {
+    while (true) {
       gamma.move(5);
       myStage.wait(100);
     }
-    recorder.stop();
-    myStage.exit();
   }
 
   public static void main(String[] args) {

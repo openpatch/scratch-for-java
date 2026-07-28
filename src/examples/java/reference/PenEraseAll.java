@@ -1,15 +1,11 @@
 package reference;
 import org.openpatch.scratch.*;
-import org.openpatch.scratch.*;
-import org.openpatch.scratch.extensions.recorder.*;
 
 public class PenEraseAll {
   public PenEraseAll() {
     Stage myStage = new Stage(600, 240);
     Pen myPen = new Pen();
     myStage.add(myPen);
-    GifRecorder recorder =
-        new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
     myPen.down();
     myPen.setSize(10);
     myPen.setPosition(120, 45);
@@ -17,13 +13,11 @@ public class PenEraseAll {
     myPen.setPosition(50, 45);
     myPen.up();
     myPen.setPosition(50, 0);
-    while (myStage.getTimer().forMillis(3000)) {
+    while (true) {
       if (myStage.isKeyPressed(KeyCode.SPACE)) {
         myPen.eraseAll();
       }
     }
-    recorder.snapshot();
-    myStage.exit();
   }
 
   public static void main(String[] args) {

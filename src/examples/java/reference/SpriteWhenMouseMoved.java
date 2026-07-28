@@ -1,15 +1,12 @@
 package reference;
 import org.openpatch.scratch.Sprite;
 import org.openpatch.scratch.Stage;
-import org.openpatch.scratch.extensions.recorder.*;
 
 public class SpriteWhenMouseMoved {
-
   class CustomSprite extends Sprite {
-
     public CustomSprite() {
-      this.addCostume("zeta", "assets/zeta_green_badge.png");
-      this.addCostume("gamma", "assets/gamma_purple_badge.png");
+      this.addCostume("zeta", "slimeGreen");
+      this.addCostume("gamma", "slimePurple");
     }
 
     @Override
@@ -21,12 +18,7 @@ public class SpriteWhenMouseMoved {
   public SpriteWhenMouseMoved() {
     Stage myStage = new Stage(600, 240);
     myStage.add(new CustomSprite());
-    GifRecorder recorder =
-        new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
-    recorder.start();
-    while (myStage.getTimer().forMillis(3000)) {}
-    recorder.stop();
-    myStage.exit();
+    while (true) {}
   }
 
   public static void main(String[] args) {

@@ -1,28 +1,20 @@
 package reference;
 import org.openpatch.scratch.Sprite;
 import org.openpatch.scratch.Stage;
-import org.openpatch.scratch.extensions.recorder.*;
 
 public class SpriteWhenBackdropSwitches {
-
   public SpriteWhenBackdropSwitches() {
     Stage myStage = new Stage(600, 240);
-    myStage.addBackdrop("forest", "assets/background_forest.png");
-    myStage.addBackdrop("sea", "assets/background_sea.png");
+    myStage.addBackdrop("forest", "background");
+    myStage.addBackdrop("sea", "UIbg");
     myStage.add(new CustomSprite());
-
-    GifRecorder recorder =
-        new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
-    recorder.start();
-    while (myStage.getTimer().forMillis(3000)) {
+    while (true) {
       if (myStage.getTimer("backdrop").intervalMillis(1000)) {
         myStage.switchBackdrop("sea");
       } else {
         myStage.switchBackdrop("forest");
       }
     }
-    recorder.stop();
-    myStage.exit();
   }
 
   public static void main(String[] args) {
@@ -31,10 +23,9 @@ public class SpriteWhenBackdropSwitches {
 }
 
 class CustomSprite extends Sprite {
-
   public CustomSprite() {
-    this.addCostume("zeta", "assets/zeta_green_badge.png");
-    this.addCostume("gamma", "assets/gamma_purple_badge.png");
+    this.addCostume("zeta", "slimeGreen");
+    this.addCostume("gamma", "slimePurple");
   }
 
   @Override

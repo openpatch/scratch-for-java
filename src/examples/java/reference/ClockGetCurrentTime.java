@@ -1,15 +1,10 @@
 package reference;
 import org.openpatch.scratch.*;
-import org.openpatch.scratch.extensions.recorder.*;
 
 public class ClockGetCurrentTime {
   public ClockGetCurrentTime() {
     Stage myStage = new Stage(600, 240);
-
-    GifRecorder recorder =
-        new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
-    recorder.start();
-    while (myStage.getTimer().forMillis(3000)) {
+    while (true) {
       int year = Clock.getYear();
       int month = Clock.getMonth();
       int day = Clock.getDay();
@@ -39,8 +34,6 @@ public class ClockGetCurrentTime {
               + " "
               + daysSince2000);
     }
-    recorder.stop();
-    myStage.exit();
   }
 
   public static void main(String[] args) {

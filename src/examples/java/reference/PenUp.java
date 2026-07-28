@@ -1,38 +1,29 @@
 package reference;
 import org.openpatch.scratch.*;
-import org.openpatch.scratch.*;
-import org.openpatch.scratch.extensions.recorder.*;
 
-public class PenUp extends Window {
-
-  private Recorder recorder;
-
+public class PenUp {
   public PenUp() {
-    super(600, 240);
-    this.setStage(new MyStage());
-    recorder = new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
-    recorder.start();
-  }
+    Stage myStage = new Stage(600, 240);
+    Pen myPen = new Pen();
+    myStage.add(myPen);
+    myPen.setSize(6);
 
-  public void whenExits() {
-    recorder.stop();
-  }
-
-  class MyStage extends Stage {
-    private Pen myPen;
-
-    public MyStage() {
-      super(600, 240);
-      myPen = new Pen();
-      this.add(myPen);
+    // With the pen down every move draws a line. Lifting it up moves the pen
+    // without leaving anything behind, which is how a drawing gets a gap.
+    while (true) {
+      myPen.setPosition(-200, 0);
       myPen.down();
-    }
+      myPen.setPosition(-60, 0);
+      myPen.up();
 
-    public void run() {
-      myPen.setPosition(this.getMouseX(), this.getMouseY());
-      if (this.getTimer().afterMillis(3000)) {
-        this.exit();
-      }
+      myPen.setPosition(60, 0);
+      myPen.down();
+      myPen.setPosition(200, 0);
+      myPen.up();
+
+      myStage.wait(1500);
+      myStage.eraseAll();
+      myStage.wait(500);
     }
   }
 

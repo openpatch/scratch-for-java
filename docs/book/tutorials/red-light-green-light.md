@@ -159,6 +159,92 @@ The costume name is a parameter too, and because every creature in the built-in
 library has a matching `_move` costume, `creature + "_move"` gives the racer its
 second picture without you naming it twice.
 
+Here is the whole race. Nobody has to touch the keyboard for this one — watch the
+sign, and add a fourth racer to see that the referee really does not care:
+
+:::onlineide{height="560px" libraries="scratch"}
+
+```java RaceStage.java
+
+new RaceStage();
+
+class RaceStage extends Stage {
+  public RaceStage() {
+    super(600, 340);
+    this.addBackdrop("background");
+
+    this.add(new Referee());
+    this.add(new Racer("bee", 60, 2.2));
+    this.add(new Racer("ladybug", 0, 1.6));
+    this.add(new Racer("snail", -60, 1.0));
+  }
+}
+
+class Referee extends Sprite {
+  private boolean green = false;
+
+  public Referee() {
+    this.addCostume("sign");
+    this.setSize(45);
+    this.setPosition(-250, 110);
+  }
+
+  public void run() {
+    if (this.getTimer().everyMillis(2200)) {
+      this.green = !this.green;
+      if (this.green) {
+        this.say("Go!");
+        this.broadcast("go");
+      } else {
+        this.say("Stop!");
+        this.broadcast("stop");
+      }
+    }
+  }
+}
+
+class Racer extends Sprite {
+  private String creature;
+  private double speed;
+  private boolean running = false;
+
+  public Racer(String creature, double y, double speed) {
+    this.creature = creature;
+    this.speed = speed;
+    this.addCostume(creature);
+    this.addCostume(creature + "_move");
+    this.setSize(45);
+    this.setPosition(-260, y);
+  }
+
+  public void whenIReceive(String message) {
+    if (message.equals("go")) {
+      this.running = true;
+    }
+    if (message.equals("stop")) {
+      this.running = false;
+      this.switchCostume(this.creature);
+    }
+  }
+
+  public void run() {
+    if (!this.running) {
+      return;
+    }
+    this.changeX(this.speed);
+    if (this.getTimer().everyMillis(150)) {
+      this.nextCostume();
+    }
+    if (this.getX() > 170) {
+      this.say("I win!");
+      this.running = false;
+    }
+  }
+}
+```
+
+:::
+
 In Scratch this would have been three separate sprites, each with its own copy of
 the same scripts, and a change to one meaning three edits.
 

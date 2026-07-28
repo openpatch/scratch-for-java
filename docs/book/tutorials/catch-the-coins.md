@@ -142,6 +142,96 @@ public class CatchStage extends Stage {
 
 Run it by right-clicking `CatchStage` and choosing `new CatchStage()`.
 
+All three classes together, running here — click the stage and use the arrow
+keys:
+
+:::onlineide{height="560px" libraries="scratch"}
+
+```java CatchStage.java
+
+new CatchStage();
+
+class CatchStage extends Stage {
+  private Text scoreText = new Text();
+  private int score = 0;
+
+  public CatchStage() {
+    super(600, 400);
+    this.addBackdrop("background");
+    this.addSound("handleCoins");
+
+    this.scoreText.setPosition(0, 170);
+    this.scoreText.setTextSize(22);
+    this.add(this.scoreText);
+    this.showScore();
+
+    this.add(new Basket());
+    for (int i = 0; i < 4; i++) {
+      this.add(new Coin());
+    }
+  }
+
+  public void addPoint() {
+    this.score = this.score + 1;
+    this.playSound("handleCoins");
+    this.showScore();
+  }
+
+  private void showScore() {
+    this.scoreText.showText("Coins: " + this.score);
+  }
+}
+
+class Basket extends Sprite {
+  public Basket() {
+    this.addCostume("alienGreen_stand");
+    this.setSize(35);
+    this.setY(-150);
+    this.setRotationStyle(RotationStyle.LEFT_RIGHT);
+  }
+
+  public void run() {
+    if (this.isKeyPressed(KeyCode.RIGHT)) {
+      this.setDirection(90);
+      this.move(5);
+    }
+    if (this.isKeyPressed(KeyCode.LEFT)) {
+      this.setDirection(-90);
+      this.move(5);
+    }
+    this.ifOnEdgeBounce();
+  }
+}
+
+class Coin extends Sprite {
+  public Coin() {
+    this.addCostume("coinGold");
+    this.setSize(40);
+    this.dropFromTop();
+  }
+
+  private void dropFromTop() {
+    this.setX(Random.randomInt(-270, 270));
+    this.setY(Random.randomInt(200, 400));
+  }
+
+  public void run() {
+    this.changeY(-3);
+
+    if (this.isTouchingSprite(Basket.class)) {
+      ((CatchStage) this.getStage()).addPoint();
+      this.dropFromTop();
+    }
+
+    if (this.getY() < -200) {
+      this.dropFromTop();
+    }
+  }
+}
+```
+
+:::
+
 Three things worth noticing:
 
 - **`private int score`** is a variable that belongs to the stage. In Scratch you

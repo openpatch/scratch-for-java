@@ -1,19 +1,21 @@
 package reference;
 import org.openpatch.scratch.*;
 
-public class SpritePlaySound {
 
+public class SpritePlaySound {
   public SpritePlaySound() {
     Stage myStage = new Stage(600, 240);
-    Sprite zeta = new Sprite("green", "assets/zeta_green_badge.png");
-    zeta.addSound("bump", "assets/bump.wav");
-    myStage.add(zeta);
+    Sprite mySprite = new Sprite("slime", "slimeGreen");
+    myStage.add(mySprite);
 
-    while (myStage.getTimer().forMillis(3000)) {
-      zeta.playSound("bump");
+    mySprite.addSound("bump", "impactWood_heavy_001");
+    while (true) {
+      mySprite.changeY(40);
+      mySprite.playSound("bump");
+      myStage.wait(500);
+      mySprite.changeY(-40);
       myStage.wait(500);
     }
-    myStage.exit();
   }
 
   public static void main(String[] args) {

@@ -13,6 +13,8 @@ import org.openpatch.scratch.Vector2;
  * camera.setPosition(0, 0);
  * camera.setZoom(200);
  * }</pre>
+ *
+ * @example.files CameraConstructors.java
  */
 public class Camera {
   private double x;
@@ -38,6 +40,8 @@ public class Camera {
    *
    * @param x a x coordinate
    * @param y a y coordinate
+   *
+   * @example.files CameraSetPosition.java
    */
   public void setPosition(double x, double y) {
     this.x = x;
@@ -57,6 +61,8 @@ public class Camera {
    * Returns the position of the sprite
    *
    * @return a vector
+   *
+   * @example.files CameraGetPosition.java
    */
   public Vector2 getPosition() {
     return new Vector2(x, y);
@@ -67,6 +73,8 @@ public class Camera {
    *
    * @param v screen coordinates
    * @return local coordinates
+   *
+   * @example.files CameraToLocalPosition.java
    */
   public Vector2 toLocalPosition(Vector2 v) {
     return new Vector2(
@@ -79,6 +87,8 @@ public class Camera {
    *
    * @param x screen x coordinate
    * @return local x coordinate
+   *
+   * @example.files CameraToLocalX.java
    */
   public double toLocalX(double x) {
     return toLocalPosition(new Vector2(x, 0)).getX();
@@ -89,6 +99,8 @@ public class Camera {
    *
    * @param y screen y coordinate
    * @return local y coordinate
+   *
+   * @example.files CameraToLocalY.java
    */
   public double toLocalY(double y) {
     return toLocalPosition(new Vector2(0, y)).getY();
@@ -99,6 +111,8 @@ public class Camera {
    *
    * @param v local camera coordinates
    * @return screen coordinates
+   *
+   * @example.files CameraToGlobalPosition.java
    */
   public Vector2 toGlobalPosition(Vector2 v) {
     return new Vector2(
@@ -111,6 +125,8 @@ public class Camera {
    *
    * @param x local camera x coordinate
    * @return screen x coordinate
+   *
+   * @example.files CameraToGlobalX.java
    */
   public double toGlobalX(double x) {
     return this.toGlobalPosition(new Vector2(x, 0)).getX();
@@ -121,6 +137,8 @@ public class Camera {
    *
    * @param y local camera y coordinate
    * @return screen y coordinate
+   *
+   * @example.files CameraToGlobalY.java
    */
   public double toGlobalY(double y) {
     return this.toGlobalPosition(new Vector2(0, y)).getY();
@@ -130,6 +148,8 @@ public class Camera {
    * Returns the x coordinate of the sprite
    *
    * @return a x coordinate
+   *
+   * @example.files CameraGetX.java
    */
   public double getX() {
     return this.x;
@@ -139,6 +159,8 @@ public class Camera {
    * Sets the x coordinate
    *
    * @param x a x coordinate
+   *
+   * @example.files CameraSetX.java
    */
   public void setX(double x) {
     this.x = x;
@@ -148,6 +170,8 @@ public class Camera {
    * Changes x by a certain amount
    *
    * @param x number in pixels
+   *
+   * @example.files CameraChangeX.java
    */
   public void changeX(double x) {
     this.setX(this.getX() + y);
@@ -157,6 +181,8 @@ public class Camera {
    * Returns the y coordinate of the sprite
    *
    * @return a y coordinate
+   *
+   * @example.files CameraGetY.java
    */
   public double getY() {
     return this.y;
@@ -166,6 +192,8 @@ public class Camera {
    * Sets the y coordinate
    *
    * @param y a y coordinate
+   *
+   * @example.files CameraSetY.java
    */
   public void setY(double y) {
     this.y = y;
@@ -175,6 +203,8 @@ public class Camera {
    * Changes y by a certain amount
    *
    * @param y number in pixels
+   *
+   * @example.files CameraChangeY.java
    */
   public void changeY(double y) {
     this.setY(this.getY() + y);
@@ -185,6 +215,8 @@ public class Camera {
    *
    * @param low the lower limit
    * @param high the upper limit
+   *
+   * @example.files CameraSetZoomLimit.java
    */
   public void setZoomLimit(double low, double high) {
     this.zoomLimitL = low;
@@ -195,6 +227,8 @@ public class Camera {
    * Sets the zoom
    *
    * @param zoom the zoom level
+   *
+   * @example.files CameraSetZoom.java
    */
   public void setZoom(double zoom) {
     this.zoom = Math.max(Math.min(zoom, zoomLimitH), zoomLimitL);
@@ -204,12 +238,18 @@ public class Camera {
    * Returns the zoom level
    *
    * @return the zoom level
+   *
+   * @example.files CameraGetZoom.java
    */
   public double getZoom() {
     return this.zoom;
   }
 
-  /** Resets the zoom level to 100 */
+  /**
+   * Resets the zoom level to 100
+   *
+   * @example.files CameraResetZoom.java
+   */
   public void resetZoom() {
     this.zoom = 100;
   }
@@ -218,6 +258,8 @@ public class Camera {
    * Changes the zoom level by a certain amount
    *
    * @param dz the amount to change the zoom level by
+   *
+   * @example.files CameraChangeZoom.java
    */
   public void changeZoom(double dz) {
     this.setZoom(this.getZoom() + dz);

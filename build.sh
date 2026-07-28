@@ -6,12 +6,10 @@ ROOT=$(cd "$(dirname "$0")" && pwd)
 VERSION=$(grep -m1 '<version>' ./pom.xml | sed -E 's/.*<version>([^<]+)<\/version>.*/\1/')
 
 cp ./CHANGELOG.md ./docs/book/changelog.md
-folder=$PWD/docs/public/reference/
-rm -rf $folder
-mkdir $folder
-pushd ./src/examples/java/reference
-find . -name "*.gif" | cpio -pdm $folder
-popd
+
+# The reference examples used to be recorded as GIFs and copied in here. They
+# are run in the browser now, so there is nothing left to copy.
+rm -rf "$PWD/docs/public/reference"
 
 # The version is written into these pages for the build and taken out again
 # afterwards. Substituting in place without restoring would burn one version

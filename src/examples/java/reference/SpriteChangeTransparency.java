@@ -1,23 +1,21 @@
 package reference;
 import org.openpatch.scratch.*;
-import org.openpatch.scratch.extensions.recorder.*;
 
 public class SpriteChangeTransparency {
   public SpriteChangeTransparency() {
     Stage myStage = new Stage(600, 240);
-    Sprite mySprite = new Sprite("zeta", "assets/zeta_green_badge.png");
+    Sprite mySprite = new Sprite("zeta", "slimeGreen");
     myStage.add(mySprite);
 
-    GifRecorder recorder =
-        new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
-    recorder.start();
-
-    myStage.wait(2000);
-    mySprite.changeTransparency(150);
-    myStage.wait(2000);
-
-    recorder.stop();
-    myStage.exit();
+    // A sprite starts at 0, fully solid. Stepping up towards 100 fades it out.
+    while (true) {
+      for (int i = 0; i < 10; i++) {
+        mySprite.changeTransparency(10);
+        myStage.wait(100);
+      }
+      mySprite.setTransparency(0);
+      myStage.wait(500);
+    }
   }
 
   public static void main(String[] args) {

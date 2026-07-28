@@ -173,6 +173,67 @@ public class HedgehogSprite extends Sprite {
 
 Based on the method names (isTouchingSprite, pointInDirection), think about what happens when the project is executed. Run the project and check your assumptions.
 
+Here is the finished game running in this page. It is the same code, with two
+changes: the downloaded pictures are swapped for built-in ones — `spring` for the
+trampoline, `bunny1_stand` for the hedgehog — because the browser has no folder
+to load your `.png` files from. Use the arrow keys.
+
+:::onlineide{height="560px" libraries="scratch"}
+
+```java BouncyHedgehogStage.java
+
+new BouncyHedgehogStage();
+
+class BouncyHedgehogStage extends Stage {
+    public BouncyHedgehogStage() {
+        this.addBackdrop("background");
+        this.add(new TrampolineSprite());
+        this.add(new HedgehogSprite());
+    }
+}
+
+class TrampolineSprite extends Sprite {
+    public TrampolineSprite() {
+        this.addCostume("spring");
+        this.setPosition(0, -120);
+    }
+
+    public void whenKeyPressed(KeyCode keyCode) {
+        if (keyCode == KeyCode.LEFT) {
+            this.changeX(-10);
+        } else if (keyCode == KeyCode.RIGHT) {
+            this.changeX(10);
+        }
+    }
+}
+
+class HedgehogSprite extends Sprite {
+
+    public HedgehogSprite() {
+        this.addCostume("bunny1_stand");
+        this.setSize(50);
+
+        this.pointInDirection(15);
+        this.setPosition(-180, 140);
+    }
+
+    public void run() {
+        if (this.getY() > -120) {
+            this.move(1);
+            this.ifOnEdgeBounce();
+
+            if (this.isTouchingSprite(TrampolineSprite.class)) {
+                this.pointInDirection(Random.random(-45, 45));
+            }
+        } else {
+            this.say("Ouch!", 2000);
+        }
+    }
+}
+```
+
+:::
+
 ## Conclusion
 
 Congratulations, you have programmed your first game with Scratch4j! Even if everything isn't clear to you yet, stick with it – practice makes perfect.

@@ -39,9 +39,28 @@ public class MyStage extends Stage {
 ```
 
 Compile, then right-click the `MyStage` box and choose `new MyStage()`. A window
-opens with a rabbit in it:
+opens with a rabbit in it.
 
-![a rabbit standing in the middle of the stage](/assets/getting-started-1.gif)
+Here is that same program running in this page. Press **▶** to start it — and
+edit it, it is a real editor. The only difference to the code above is the
+missing `import`: in the browser every class is there already.
+
+:::onlineide{height="440px" libraries="scratch"}
+
+```java MyStage.java
+
+new MyStage();
+
+class MyStage extends Stage {
+  public MyStage() {
+    Sprite bunny = new Sprite();
+    bunny.addCostume("bunny1_stand");
+    this.add(bunny);
+  }
+}
+```
+
+:::
 
 That is a whole program. Seven lines, and no image files anywhere.
 
@@ -128,7 +147,45 @@ public class MyStage extends Stage {
 
 Run it again and hold the left and right arrow keys:
 
-![a rabbit walking left and right in front of a sky backdrop](/assets/getting-started-2.gif)
+:::onlineide{height="520px" libraries="scratch"}
+
+```java MyStage.java
+
+new MyStage();
+
+class MyStage extends Stage {
+  public MyStage() {
+    this.addBackdrop("background");
+    this.add(new Bunny());
+  }
+}
+
+class Bunny extends Sprite {
+  public Bunny() {
+    this.addCostume("bunny1_stand");
+    this.setSize(50);
+    this.setRotationStyle(RotationStyle.LEFT_RIGHT);
+  }
+
+  public void run() {
+    if (this.isKeyPressed(KeyCode.RIGHT)) {
+      this.setDirection(90);
+      this.move(4);
+    }
+    if (this.isKeyPressed(KeyCode.LEFT)) {
+      this.setDirection(-90);
+      this.move(4);
+    }
+    this.ifOnEdgeBounce();
+  }
+}
+```
+
+:::
+
+Click the stage once so it takes the keyboard, then hold the arrow keys. Try
+changing `4` to `12`, or `bunny1_stand` to `alienGreen_stand`, and start it
+again.
 
 ## What just happened
 

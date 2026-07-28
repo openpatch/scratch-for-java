@@ -148,6 +148,60 @@ public class WalkStage extends Stage {
 }
 ```
 
+Here it is running. Click **Start**, then use the arrow keys — the code is
+editable, so change `3` to `8` and start it again.
+
+:::onlineide{height="520px" libraries="scratch"}
+
+```java WalkStage.java
+
+new WalkStage();
+
+class WalkStage extends Stage {
+  public WalkStage() {
+    super(500, 260);
+    this.addBackdrop("background");
+    this.add(new Walker());
+  }
+}
+
+class Walker extends AnimatedSprite {
+  public Walker() {
+    this.addCostume("alienGreen_stand");
+    this.addAnimation("walk", "alienGreen_walk%d", 2);
+    this.setAnimationInterval(150);
+    this.setSize(60);
+    this.setRotationStyle(RotationStyle.LEFT_RIGHT);
+    this.setY(-50);
+  }
+
+  public void run() {
+    boolean walking = false;
+
+    if (this.isKeyPressed(KeyCode.RIGHT)) {
+      this.setDirection(90);
+      this.move(3);
+      walking = true;
+    }
+    if (this.isKeyPressed(KeyCode.LEFT)) {
+      this.setDirection(-90);
+      this.move(3);
+      walking = true;
+    }
+
+    if (walking) {
+      this.playAnimation("walk");
+    } else {
+      this.switchCostume("alienGreen_stand");
+    }
+
+    this.ifOnEdgeBounce();
+  }
+}
+```
+
+:::
+
 Three things are new here:
 
 - **`extends AnimatedSprite`** instead of `extends Sprite`. It can still do

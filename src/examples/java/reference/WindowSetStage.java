@@ -1,37 +1,26 @@
 package reference;
 import org.openpatch.scratch.*;
-import org.openpatch.scratch.extensions.recorder.GifRecorder;
-import org.openpatch.scratch.Timer;
 
 public class WindowSetStage {
   public WindowSetStage() {
     Window myWindow = new Window(500, 200);
 
     Stage firstLevel = new Stage();
-    Sprite gamma = new Sprite("gamma", "assets/gamma_purple_badge.png");
+    Sprite gamma = new Sprite("gamma", "slimePurple");
     firstLevel.add(gamma);
 
     Stage secondLevel = new Stage();
-    Sprite zeta = new Sprite("zeta", "assets/zeta_green_badge.png");
+    Sprite zeta = new Sprite("zeta", "slimeGreen");
     secondLevel.add(zeta);
 
-    Timer switchTimer = new Timer();
-    GifRecorder recorder =
-        new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
-    recorder.start();
-
-    while (switchTimer.forMillis(2000)) {
+    // The window shows one stage at a time. Setting another puts it on screen
+    // in place of the one before it.
+    while (true) {
       myWindow.setStage(secondLevel);
-    }
-
-    switchTimer.reset();
-
-    while (switchTimer.forMillis(2000)) {
+      secondLevel.wait(2000);
       myWindow.setStage(firstLevel);
+      firstLevel.wait(2000);
     }
-    recorder.stop();
-
-    myWindow.exit();
   }
 
   public static void main(String[] args) {

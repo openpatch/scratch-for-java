@@ -1,19 +1,12 @@
 package reference;
 import org.openpatch.scratch.*;
-import org.openpatch.scratch.extensions.recorder.*;
 
 public class SpriteBroadcast {
-
   public SpriteBroadcast() {
     Stage myStage = new ReceiveStage();
     myStage.add(new BroadcastSprite());
     myStage.add(new ReceiveSprite());
-    GifRecorder recorder =
-        new GifRecorder("examples/reference/" + this.getClass().getName() + ".gif");
-    recorder.start();
-    while (myStage.getTimer().forMillis(3000)) {}
-    recorder.stop();
-    myStage.exit();
+    while (true) {}
   }
 
   public static void main(String[] args) {
@@ -34,10 +27,9 @@ class ReceiveStage extends Stage {
 }
 
 class BroadcastSprite extends Sprite {
-
   public BroadcastSprite() {
-    this.addCostume("zeta", "assets/zeta_green_badge.png");
-    this.addCostume("gamma", "assets/gamma_purple_badge.png");
+    this.addCostume("zeta", "slimeGreen");
+    this.addCostume("gamma", "slimePurple");
   }
 
   public void whenClicked() {
@@ -47,10 +39,9 @@ class BroadcastSprite extends Sprite {
 }
 
 class ReceiveSprite extends Sprite {
-
   public ReceiveSprite() {
-    this.addCostume("zeta", "assets/zeta_green_badge.png");
-    this.addCostume("gamma", "assets/gamma_purple_badge.png");
+    this.addCostume("zeta", "slimeGreen");
+    this.addCostume("gamma", "slimePurple");
     this.changeX(50);
   }
 
