@@ -4,10 +4,12 @@ import com.github.romankh3.image.comparison.ImageComparison;
 import com.github.romankh3.image.comparison.ImageComparisonUtil;
 import com.github.romankh3.image.comparison.model.ImageComparisonResult;
 import com.github.romankh3.image.comparison.model.ImageComparisonState;
+import com.github.romankh3.image.comparison.model.Rectangle;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.TreeSet;
 
 /**
@@ -33,6 +35,19 @@ public final class VisualParity {
 
   /** Boxes smaller than this are noise rather than something that moved. */
   private static final int SMALLEST_BOX = 4;
+
+  /**
+   * Corners of a scene that are allowed to differ, because what is drawn there
+   * is not the same twice however still the scene is.
+   *
+   * <p>
+   * There is one: the debug overlay prints the frame rate, which is a different
+   * number on every run. The rest of that scene - the hitbox outline, the
+   * direction, the position - is worth keeping an eye on, so the frame counter
+   * is cut out rather than the whole scene being given up.
+   */
+  private static final Map<String, List<Rectangle>> ALLOWED_TO_DIFFER = Map.of(
+      "debug", List.of(new Rectangle(10, 4, 210, 30)));
 
   private VisualParity() {
   }
@@ -99,6 +114,7 @@ public final class VisualParity {
         new File(differencesDir, scene + ".png"))
         .setPixelToleranceLevel(PIXEL_TOLERANCE)
         .setMinimalRectangleSize(SMALLEST_BOX)
+        .setExcludedAreas(ALLOWED_TO_DIFFER.getOrDefault(scene, List.of()))
         .compareImages();
 
     ImageComparisonState state = result.getImageComparisonState();

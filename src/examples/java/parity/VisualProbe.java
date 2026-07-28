@@ -35,7 +35,14 @@ public class VisualProbe extends Stage {
 
   private final FrameRecorder recorder;
   private final String[] scenes = {
-      "sprite", "scaled", "turned", "ghost", "say", "think", "text-box", "display",
+      // sprites
+      "sprite", "scaled", "turned", "ghost", "tint", "rotation-styles", "costumes",
+      // what a sprite says
+      "say", "think", "say-wraps",
+      // text of its own
+      "text-plain", "text-box", "text-speak", "text-think", "text-align", "text-colours",
+      // the rest of what a stage draws
+      "backdrop", "pen", "stamps", "display", "debug", "camera",
   };
   private int scene = -1;
   private int frames = 0;
@@ -64,6 +71,10 @@ public class VisualProbe extends Stage {
   private void next() {
     this.removeAll();
     this.display("");
+    // whatever the last scene turned on, so that the next one starts clean
+    this.setDebug(false);
+    this.getCamera().setPosition(0, 0);
+    this.getCamera().resetZoom();
     this.scene++;
     this.frames = 0;
     if (this.scene >= this.scenes.length) {
@@ -113,10 +124,124 @@ public class VisualProbe extends Stage {
         this.add(s);
         s.think("Hmm");
       }
+      case "tint" -> {
+        // the colour effect, by hue and by rgb
+        var plain = slime(-140, 0);
+        var hue = slime(0, 0);
+        hue.setTint(160);
+        var rgb = slime(140, 0);
+        rgb.setTint(255, 120, 120);
+        this.add(plain);
+        this.add(hue);
+        this.add(rgb);
+      }
+      case "rotation-styles" -> {
+        // the same direction drawn three ways
+        var around = slime(-140, 0);
+        around.setRotationStyle(RotationStyle.ALL_AROUND);
+        around.setDirection(200);
+        var leftRight = slime(0, 0);
+        leftRight.setRotationStyle(RotationStyle.LEFT_RIGHT);
+        leftRight.setDirection(200);
+        var dont = slime(140, 0);
+        dont.setRotationStyle(RotationStyle.DONT);
+        dont.setDirection(200);
+        this.add(around);
+        this.add(leftRight);
+        this.add(dont);
+      }
+      case "costumes" -> {
+        // a second costume, switched to by name
+        var s = slime(0, 0);
+        s.addCostume("blue", "slimeBlue");
+        s.switchCostume("blue");
+        this.add(s);
+      }
+      case "say-wraps" -> {
+        // long enough to wrap, which sizes the bubble rather than the words
+        var s = slime(-40, -60);
+        this.add(s);
+        s.say("A sentence long enough that the bubble has to grow to hold it");
+      }
+      case "text-plain" -> {
+        var t = new Text("Plain words, no box", -200, 40, 260);
+        this.add(t);
+      }
       case "text-box" -> {
         var t = new Text("A box of words that wraps onto a second line", -200, 60, 260);
         t.setStyle(TextStyle.BOX);
         this.add(t);
+      }
+      case "text-speak" -> {
+        // a speech bubble with no sprite behind it, which once drew nothing
+        var t = new Text("Speaking without a sprite", -120, 40, 240);
+        t.setStyle(TextStyle.SPEAK);
+        this.add(t);
+      }
+      case "text-think" -> {
+        var t = new Text("Thinking without a sprite", -120, 40, 240);
+        t.setStyle(TextStyle.THINK);
+        this.add(t);
+      }
+      case "text-align" -> {
+        // three texts on the same x, laid out three ways
+        this.add(aligned("left", TextAlign.LEFT, 90));
+        this.add(aligned("centre", TextAlign.CENTER, 20));
+        this.add(aligned("right", TextAlign.RIGHT, -50));
+      }
+      case "text-colours" -> {
+        var t = new Text("Words, box and edge, each its own colour", -200, 50, 260);
+        t.setStyle(TextStyle.BOX);
+        t.setTextColor(20, 40, 120);
+        t.setBackgroundColor(250, 240, 180);
+        t.setStrokeColor(200, 60, 60);
+        this.add(t);
+      }
+      case "backdrop" -> {
+        // stretched to the stage rather than centred at its own size
+        this.addBackdrop("forest", "background", true);
+        this.add(slime(0, -20));
+      }
+      case "pen" -> {
+        var pen = new Pen();
+        this.add(pen);
+        pen.setSize(6);
+        pen.setColor(200, 40, 40);
+        pen.setPosition(-160, -80);
+        pen.down();
+        pen.setPosition(-60, 80);
+        pen.setPosition(40, -80);
+        pen.setPosition(140, 80);
+        pen.up();
+        pen.setSize(2);
+        pen.setColor(30, 80, 200);
+        pen.setPosition(-160, 0);
+        pen.down();
+        pen.setPosition(160, 0);
+        pen.up();
+      }
+      case "stamps" -> {
+        // prints of a sprite left behind on the background
+        var s = slime(-140, 0);
+        this.add(s);
+        s.stamp();
+        s.setPosition(0, 40);
+        s.stamp();
+        s.setPosition(140, -40);
+      }
+      case "debug" -> {
+        // the hitbox outline, the direction and the position
+        this.setDebug(true);
+        var s = slime(-60, 20);
+        s.setDirection(135);
+        this.add(s);
+      }
+      case "camera" -> {
+        // the whole stage seen closer and off centre
+        this.add(slime(-80, 30));
+        this.add(slime(90, -40));
+        this.getCamera().setPosition(40, 0);
+        this.getCamera().setZoom(1.6);
       }
       case "display" -> {
         // the band along the bottom, left to right
@@ -125,6 +250,13 @@ public class VisualProbe extends Stage {
       }
       default -> throw new IllegalStateException("no such scene: " + name);
     }
+  }
+
+  /** A text at a fixed x, laid out the given way, for the alignment scene. */
+  private static Text aligned(String words, TextAlign align, double y) {
+    var t = new Text(words, 0, y, 200);
+    t.setAlign(align);
+    return t;
   }
 
   private static Sprite slime(double x, double y) {

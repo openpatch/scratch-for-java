@@ -118,6 +118,16 @@ public class ParityProbe {
     p("volume", s.getVolume());
     p("stage.volume", myStage.getVolume());
 
+    Text t = new Text("Hello", 0, 0, 200);
+    myStage.add(t);
+    p("text.size", t.getTextSize());
+    p("text.width", t.getWidth());
+    p("text.align", t.getAlign());
+    // a text built this way once had no style at all, and drawing one threw a
+    // NullPointerException on every frame from inside the loading screen
+    p("text.style", t.getStyle());
+    p("text.defaultSize", Text.getDefaultFontSize());
+
     p("count", myStage.count(Sprite.class));
     p("find", myStage.find(Sprite.class).size());
 

@@ -44,7 +44,14 @@ public class Text {
   private String fontName;
   private int textSize;
   private boolean show;
-  private TextStyle style;
+  /**
+   * Plain from the start, so that a text drawn before anyone has chosen a style
+   * has one. {@code new Text(words, x, y, width)} never set this, and draw()
+   * switches on it: a text built that way threw a NullPointerException on every
+   * frame, from inside the loading screen, so the program never got past it and
+   * the stage stayed empty.
+   */
+  private TextStyle style = TextStyle.PLAIN;
   private Color textColor;
   private Color backgroundColor;
   private Color strokeColor;
@@ -555,6 +562,17 @@ public class Text {
    */
   public void setStyle(TextStyle style) {
     this.style = style;
+  }
+
+  /**
+   * Returns the style the text is drawn in.
+   *
+   * @return the style, never null
+   *
+   * @example.files TextGetStyle.java
+   */
+  public TextStyle getStyle() {
+    return this.style;
   }
 
   /**
