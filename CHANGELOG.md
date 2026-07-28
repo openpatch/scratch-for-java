@@ -1,8 +1,303 @@
 ---
 name: Changelog
-index: 64
+index: 65
 lang: en
 ---
+
+## 5.1.0
+
+
+
+The reference lists only what someone using the library can actually call.
+
+Twenty-three pages documented the library's own plumbing. Nine of them took a
+Processing `PGraphics` — `draw`, `drawDebug`, `drawShape` — which nothing in the
+library hands out, so there was no way to call them and no example to show.
+`addedToStage`/`removedFromStage` are the methods that *call* the documented
+`whenAddedToStage`/`whenRemovedFromStage`, and having both listed invited
+overriding the wrong one; on `Text` and `Pen` they carried no description at all,
+so those pages were a bare signature. The rest were `Sprite`'s protected
+`setWidth`, `setHeight`, `setNineSlice`, `disableNineSlice`, `setUI` and `isUI`
+— the seams `UISprite` is built on — plus `Shape.invalidateCache`.
+
+The doclet now documents public members only, so a protected helper added later
+cannot leak into the reference on its own.
+
+The extension pages that have no example keep them, because the reason is
+different: `File`, `Pixels`, the recorders, `Shader`, `Sorting` and `Tiled` are
+real API that simply cannot run inside a web page. Those 66 pages now say so, in
+a note the doclet places from a single `@desktop-only` tag in each extension's
+`package-info.java`.
+
+
+A parity probe, so the two runtimes stop drifting apart unnoticed.
+
+The desktop library and the browser port have disagreed several times now, and
+never in a way a signature could catch: a transparency that counted the other way
+round, a `getWidth()` that measured the rotated bounding box rather than the
+costume, a hitbox reported in screen pixels rather than around the middle of the
+stage. Every one was found by running the same program in both and reading the
+two outputs side by side.
+
+That program is now written down. `src/examples/java/parity/ParityProbe.java`
+prints 77 values that have to read the same in both places;
+`./scripts/parity.sh` runs it on the desktop and holds it to
+`src/test/resources/parity/expected.txt`, and `--record` writes that file when a
+change is meant.
+
+`python3 scripts/parity-fixture.py` carries the stage-free half of it into the
+online IDE's own test suite, where it runs on every `npm test`. Only half,
+because a `Stage` needs WebGL and the browser's tests run in node — the rest is
+held to the recorded values on the desktop, and to the same signatures in the
+browser by its `ScratchTest.java`. Anything that can be written without a stage
+should be, because that half is checked by a machine.
+
+
+Gave each class's constructor a page of its own.
+
+A class used to be documented on the landing page of its own section, which no
+navigation ever pointed at. It now has a `constructor` page carrying `index: 0`,
+so it sits at the top of the class in the sidebar next to the methods -
+`Sprite()` above `addCostume()` - and reads like one of them. The class
+description, the example, the constructor syntax and the static fields all moved
+there with it. The section's `index` page is left empty; it is the landing page
+of the section and nothing more.
+
+The constructor syntax had never appeared on any page: the template asked for
+`constructors` while the doclet writes `constructor`, so the block was silently
+skipped. It is on the new page, under Syntax, the way a method's syntax is.
+
+A link to a class page, e.g. `/reference/Sprite/`, now arrives at an empty page
+rather than at the class documentation, which has moved to
+`/reference/Sprite/constructor`. Nothing in the book linked to one.
+
+
+A text shows the words it was built with, in every style.
+
+`new Text("Hello World", 0, 0, 400)` put nothing on the stage. The constructor
+left the text hidden, and only `showText()` ever revealed it - so the obvious way
+to write the obvious first program drew a blank stage. A text built with words is
+visible now. One built with nothing to say still starts hidden, which is what a
+speech bubble waiting for `say()` and the stage's own display line both want.
+
+Speech and thought bubbles also work on a text of their own. `drawBubble` gave up
+unless the text belonged to a sprite, because it took its position from that
+sprite, so `setStyle(TextStyle.SPEAK)` on a text you placed yourself drew
+nothing. Such a text now keeps the position it was given, the way the other two
+styles do, and the bubble grows up and to the right of it.
+
+A framed text is drawn around the words it holds rather than filling the width it
+was given, which is what the browser has always done. The width is where the
+words wrap: `new Text("Hello World", 0, 0, 400)` wraps at 400 and comes out as
+wide as "Hello World", instead of as a mostly empty 400 pixel frame running off
+the side of the stage. The stage's own display line still reaches from edge to
+edge - it is a band, not a label.
+
+Drawing no longer writes the measured size back into the text. A box drawn after
+a bubble used to come out the size of that bubble, and `getWidth()` answered with
+whatever was last drawn instead of the width that was set.
+
+`setAlign` works on the framed styles. It only ever reached the words inside the
+frame, and the frame itself always started at the position it was given, so a
+centred box was not centred on anything - and its words were centred eight pixels
+from its left edge, half of them outside it. The box now sits where the alignment
+asks: its left edge on the position, its middle, or its right edge.
+
+An aligned text also sat a line too high. Choosing a horizontal alignment put the
+vertical one back to the baseline, and only a text that was left alone kept the
+top edge it was drawn against.
+
+A box is rounded on all four corners. The stage's display line keeps its two
+bottom corners square, because they sit on the edge of the stage, where a curve
+would only show what is behind it.
+
+
+💥 BREAKING CHANGE: `Window.addStage`, `switchStage` and `removeStage` are gone.
+
+They were deprecated in 4.0.0 in favour of `setStage`, which holds the stage you
+give it rather than a name you have to remember, and `transitionToStage` when you
+want the change to fade. Keeping them meant the window carried a second, parallel
+list of stages that nothing else in the library ever looked at.
+
+Replace
+
+```java
+myWindow.addStage("menu", menu);
+myWindow.addStage("level", level);
+myWindow.switchStage("level");
+```
+
+with a variable and one call:
+
+```java
+Stage menu = new Stage();
+Stage level = new Stage();
+myWindow.setStage(level);
+```
+
+`removeStage` has no replacement and needs none: a stage the window is not
+showing is not running, and one nothing refers to any more is collected.
+
+
+Took the GIF recording apparatus out of the reference examples.
+
+Every example is now the example and nothing else. The `GifRecorder`, the
+`exit()` that closed the recording, and the `while (stage.getTimer().forMillis(
+3000))` loop that timed it are gone; a loop that was doing the work runs on as
+`while (true)`, and a loop that had no body at all - it only held the desktop
+program open while the GIF was taken - is gone with the rest. 28 MB of recordings
+went with them, and `build.sh` no longer copies any.
+
+The rewriter that turns an example into an Online IDE program loses the same
+amount: it existed largely to undo the recording again.
+
+Two examples were wrong because of the recording, and are right now:
+
+- `Stage.exit()`, `Window.exit()` and `Window.whenExits()` showed a program with
+  no `exit()` in it. The rewriter treated every line calling `exit()` as
+  recording scaffolding and dropped it, including the one line those three pages
+  are about.
+- `Pen.up()` had no interactive example and its source never called `up()`. It
+  draws two lines with a gap between them now.
+
+`GifRecorder` itself is unchanged - it is still there for anyone recording their
+own project.
+
+
+Speech and thought bubbles hang off the sprite's hitbox.
+
+They were placed from the size of the costume, at nine tenths of its width and
+eleven tenths of its height. A costume is usually drawn into a canvas bigger than
+what is painted on it — a standing pose in a canvas tall enough to also hold a
+jumping one — so the bubble floated up and to the right of the sprite it belonged
+to, with its tail pointing at nothing. It now sits on the top right corner of the
+hitbox, which is the sprite as it looks.
+
+For the built-in slime, whose painted pixels fill 88 by 62 of a 128 by 128
+costume, that moves the bubble 14 pixels left and 72 pixels down, onto its
+shoulder.
+
+
+A built-in sprite name now works everywhere a picture is named.
+
+`new Sprite("player", "slimeGreen")` threw `Could not load image: slimeGreen`.
+The constructor loaded its costume straight from a path while `addCostume()`
+went through the built-in lookup, so the same name worked in one and not the
+other - and worked in the browser, where the Online IDE has always resolved it.
+The constructor now does the same lookup.
+
+Three more places took a path where a built-in name was the natural thing to
+write, and now take either:
+
+- `Stage.setCursor(...)`, which the browser had already been resolving as a
+  built-in name and nothing else
+- `Window.useSplashLogo(...)`
+- `Sprite.addCostumes(...)`, which cuts the named sheet into tiles. A built-in
+  sprite is a region of a shared sheet rather than a file of its own, so the
+  tiles are cut from inside that region instead of from the corner of the file
+  it happens to share.
+
+A string with a file extension is still treated as a path, so projects that name
+their own artwork keep working.
+
+
+💥 BREAKING CHANGE: transparency and `mod` now answer the way the Scratch block does.
+
+Both claimed a Scratch block in their documentation and then did something else.
+
+**`setTransparency` is the ghost effect.** It ran from 0 to 255, where 0 was
+invisible and 255 the solid sprite you start with — upside down and on the wrong
+scale next to `set [ghost v] effect to`, which the javadoc has always shown
+beside it. It now runs from 0 to 100, 0 solid and 100 invisible, and a value
+outside that is pinned rather than wrapped. `changeTransparency` used
+`(current + step) % 255`, so stepping past the end came back round or went
+negative; it now stops at the ends.
+
+```java
+mySprite.setTransparency(50);    // was nearly invisible, now half see-through
+mySprite.setTransparency(100);   // gone
+```
+
+**`Operators.mod` is the Scratch modulo.** It was Java's `%`, whose answer takes
+the sign of the first input, so `mod(-7, 3)` was -1 where the block says 2. The
+answer now takes the sign of the second input, which is what makes it useful for
+wrapping a value into a range:
+
+```java
+Operators.mod(-1, 10);   // was -1, now 9
+```
+
+**The stage's effects belong to the stage.** `setTransparency`, `setTint` and
+`changeTint` on a `Stage` reached only the backdrop that was showing, so
+switching backdrop quietly undid them. They now apply to all of them, as
+`Sprite` has always done with its costumes and as Scratch does.
+
+Two smaller ones that go with it: `Stage.count` returns an `int` rather than the
+`long` a `Stream` happened to hand back, so `int coins = myStage.count(Coin.class)`
+compiles; and `Color` has `toString`, `equals` and `hashCode`, so printing one
+says `Color[r=255.0, g=128.0, b=0.0]` instead of `org.openpatch.scratch.Color@35432107`.
+
+
+Run the documentation's examples in the browser instead of watching them.
+
+The reference pages now embed the example itself in an editor that compiles and
+runs it, in place of the GIF that used to stand there. A new doclet step rewrites
+each example under `src/examples/java/reference` into the shape the Online IDE
+wants - no package, no imports, the constructor body as the program - so there is
+still one source per example, still compiled by the build and still runnable on
+the desktop. Every example uses built-in costumes and sounds, which resolve the
+same way on both sides; only the Tiled map example still needs a file next to
+it, because a map is not something the library bundles.
+
+Nearly every documented method and constructor has one now, not only the hundred
+that had a recording: `Sprite`, `Stage`, `Window`, `Text`, `UISprite`, `Pen`,
+`Color`, `Vector2`, `Operators`, `Random`, `Clock`, `Timer`, `HtmlColor`,
+`Shape` and its four kinds, `Hitbox`, `AnimatedSprite` and the `Camera`
+extension. The ones that are only about a number - a vector's length, a random
+seed - print it into the output panel next to the stage, where it can be read;
+the ones that are about something on screen show it.
+
+The tutorials gained the same thing at the point where each one first has a
+finished program, so a reader can play the game before building it, and change a
+number and see what happens without installing anything.
+
+`mvn test` compiles both kinds of interactive example, so one that stops
+compiling fails the build rather than the reader's first click.
+
+Also fixed in the documentation itself:
+
+- The reference documented private members. `useStandardDocletOptions` is off,
+  so the `<show>public</show>` in the pom never reached javadoc and every member
+  arrived at the doclet - which is how `Color.HSBtoRGB()`, `Color.RGBtoHSB()`
+  and `Random.getRandom()` came to have reference pages of their own. Forty
+  pages for things nobody can call are gone.
+- `Random.noise(double)` was written with `/*` rather than `/**`, so its
+  description never reached the page.
+- `Sprite.previousCostume()` said "Switch to the next costume".
+- `Stage.add(Sprite)` and `Window.getWidth()` had no documentation at all.
+- The `View on GitHub` link under an example that is a single file pointed at
+  the directory the examples share rather than at the file.
+- `build.sh` could build the documentation with no reference section at all. The
+  reference pages are deleted before being written again, but the javadoc plugin
+  decides whether it has anything to do by looking at its own state file in
+  `target`, which the deletion left behind - so every build that did not start
+  from a clean `target` skipped the run that was supposed to write the pages
+  back.
+
+
+`changePosition(double x, double y)` sits alongside `changePosition(Vector2 v)`.
+
+Moving by an amount only worked when the amount was already a `Vector2`, even
+though `setPosition` has taken two numbers all along. Sprites moved by a step
+worked out on the spot had to build a throwaway vector first, or fall back to two
+`changeX`/`changeY` calls.
+
+The documentation for the transparency methods has also been corrected.
+`Stage.setTransparency` claimed a range of `[0...1]`; it is `[0...255]`, and it is
+an opacity rather than a ghost effect — 255 is the fully solid sprite you start
+with, and 0 is invisible. The reference examples for the four transparency
+methods passed values that read as if the scale ran the other way.
+
 
 ## 5.0.3
 
