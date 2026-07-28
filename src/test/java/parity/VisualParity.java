@@ -30,8 +30,34 @@ import java.util.TreeSet;
  */
 public final class VisualParity {
 
-  /** A difference of a single pixel is a difference. */
-  private static final double PIXEL_TOLERANCE = 0.0;
+  /**
+   * How far two pixels may be apart before they count as different, as a
+   * fraction of full brightness.
+   *
+   * <p>
+   * Not zero, because the frames have to survive being drawn on another machine.
+   * Two runs here are bit-identical, but the software rasteriser on a CI runner
+   * rounds interpolated samples differently: scenes that scale, rotate or zoom a
+   * costume came out up to 9/255 apart, which is roughly 3.5% and invisible.
+   * Scenes that draw a costume at its natural size were identical to the pixel.
+   *
+   * <p>
+   * A change worth catching is nowhere near this small - moving a speech bubble
+   * turns white background into dark outline, which is most of the way to 100%.
+   */
+  private static final double PIXEL_TOLERANCE = 0.05;
+
+  /**
+   * Scenes that need a looser one, and why.
+   *
+   * <p>
+   * The debug overlay draws the hitbox as a thin bright line. Where a thin line
+   * lands half a pixel differently, the pixels along it swing much further than
+   * a filtered costume does - 36/255 measured, about 14% - so this one scene is
+   * held to a looser standard rather than the other twenty-one being loosened
+   * for its sake.
+   */
+  private static final Map<String, Double> LOOSER = Map.of("debug", 0.15);
 
   /** Boxes smaller than this are noise rather than something that moved. */
   private static final int SMALLEST_BOX = 4;
@@ -112,7 +138,7 @@ public final class VisualParity {
     differencesDir.mkdirs();
     ImageComparisonResult result = new ImageComparison(expected, actual,
         new File(differencesDir, scene + ".png"))
-        .setPixelToleranceLevel(PIXEL_TOLERANCE)
+        .setPixelToleranceLevel(LOOSER.getOrDefault(scene, PIXEL_TOLERANCE))
         .setMinimalRectangleSize(SMALLEST_BOX)
         .setExcludedAreas(ALLOWED_TO_DIFFER.getOrDefault(scene, List.of()))
         .compareImages();
