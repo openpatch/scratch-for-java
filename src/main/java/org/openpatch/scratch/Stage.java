@@ -251,6 +251,9 @@ public class Stage {
         -applet.getRenderHeight() / 2,
         applet.getRenderWidth(),
         TextStyle.BOX);
+    // A band reaching from side to side is anchored by its left edge, not
+    // centred on it: centring would push it half a stage off screen.
+    this.display.setAlign(TextAlign.LEFT);
     this.display.asDisplayBand();
     this.display.addedToStage(this);
     // Bottom of the stage, where Scratch puts its ask box too.
@@ -260,6 +263,12 @@ public class Stage {
         -applet.getRenderHeight() / 2,
         applet.getRenderWidth(),
         TextStyle.BOX);
+    this.askDisplay.setAlign(TextAlign.LEFT);
+    // The question is the same band display() writes into, so it has to be told
+    // so too: without this it was only as wide as the longest line it happened
+    // to hold, and it curved away at the bottom two corners where the stage
+    // ends.
+    this.askDisplay.asDisplayBand();
     this.askDisplay.addedToStage(this);
 
     var p = new Polygon();
@@ -1379,7 +1388,7 @@ public class Stage {
 
   /**
    * Asks a question and waits for an answer to be typed in. A box appears at the
-   * top of the stage; whatever is typed goes into it until Enter is pressed.
+   * bottom of the stage; whatever is typed goes into it until Enter is pressed.
    *
    * <p>
    * Unlike Scratch, this does not pause anything. Your `run()` keeps being

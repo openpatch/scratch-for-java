@@ -31,7 +31,7 @@ public class GuessStage extends Stage {
     int guess = 0;
     try {
       guess = Integer.parseInt(this.getAnswer().trim());
-    } catch (NumberFormatException e) {
+    } catch (Exception e) {
       this.hint.showText("That is not a number. Try again!");
       this.ask("Guess a number between 1 and 10");
       return;

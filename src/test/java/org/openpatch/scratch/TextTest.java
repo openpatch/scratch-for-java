@@ -38,6 +38,37 @@ class TextTest {
   }
 
   @Test
+  @DisplayName("every way of building a text centres it on its position")
+  void everyConstructorCentres() {
+    // Only new Text() used to be centred. Every other text sat to the left of
+    // its position, so the same words landed somewhere else depending on which
+    // constructor had built them - while the sprite next to them, put at the
+    // same place, was centred there like everything in Scratch is.
+    assertEquals(TextAlign.CENTER, new Text().getAlign());
+    assertEquals(TextAlign.CENTER, new Text("Hello", 0, 0, 200).getAlign());
+    assertEquals(TextAlign.CENTER, new Text("Hello", 0, 0, 200, TextStyle.BOX).getAlign());
+    assertEquals(TextAlign.CENTER, new Text("Hello", 0, 0, 200, TextStyle.SPEAK).getAlign());
+    assertEquals(TextAlign.CENTER, new Text(new Text()).getAlign());
+  }
+
+  @Test
+  @DisplayName("a speech bubble hangs off its sprite instead")
+  void aBubbleIsAnchoredByItsTail() {
+    // The tail sits in the bottom left corner, so the bubble has to grow to the
+    // right of the sprite rather than around it.
+    assertEquals(TextAlign.LEFT, new Text(new Sprite()).getAlign());
+  }
+
+  @Test
+  @DisplayName("the alignment asked for is the alignment kept")
+  void theAlignAskedForIsKept() {
+    var text = new Text();
+    text.setAlign(TextAlign.LEFT);
+    assertEquals(TextAlign.LEFT, text.getAlign());
+    assertEquals(TextAlign.LEFT, new Text(text).getAlign());
+  }
+
+  @Test
   @DisplayName("the style asked for is the style kept")
   void theStyleAskedForIsKept() {
     assertEquals(TextStyle.BOX, new Text("Hello", 0, 0, 200, TextStyle.BOX).getStyle());

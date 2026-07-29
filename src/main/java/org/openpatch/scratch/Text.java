@@ -55,7 +55,14 @@ public class Text {
   private Color textColor;
   private Color backgroundColor;
   private Color strokeColor;
-  private TextAlign textAlign = TextAlign.DEFAULT;
+  /**
+   * Centred on its position, like everything else in a Scratch project: a
+   * sprite put at (0, 60) has its middle there, and a text put at (0, 60) now
+   * does too. The texts the library builds for itself - the stage's display and
+   * ask bands, a sprite's speech bubble - are anchored by an edge instead and
+   * say so where they are built.
+   */
+  private TextAlign textAlign = TextAlign.CENTER;
   /**
    * Set for the stage's display line. It is a band along the bottom edge rather
    * than a label: it reaches from side to side and squares off the two corners
@@ -217,12 +224,12 @@ public class Text {
   /**
    * Constructs a new Text object with default values. The text is initialized to an empty string,
    * positioned at (0, 0), with a default size of 0. The text style is set to plain and the text
-   * alignment is set to center.
+   * is centred on its position, as every text is. Call {@link #setAlign(TextAlign)} for anything
+   * else.
    */
   public Text() {
     this("", 0, 0, 0);
     this.style = TextStyle.PLAIN;
-    this.textAlign = TextAlign.CENTER;
   }
 
   /**
@@ -234,6 +241,9 @@ public class Text {
     this(null, 0, 0, 0);
     this.sprite = s;
     this.style = TextStyle.SPEAK;
+    // A bubble hangs off its sprite by the tail in its bottom left corner, so it
+    // grows to the right rather than around the point it is pinned to.
+    this.textAlign = TextAlign.LEFT;
   }
 
   /**
