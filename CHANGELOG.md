@@ -1,8 +1,39 @@
 ---
 name: Changelog
-index: 65
+index: 66
 lang: en
 ---
+
+## 5.2.0
+
+
+
+Every `Text` is now centred on its position, whichever constructor built it and
+whichever style it is in — the way a sprite put at the same place is, and the way
+everything in a Scratch project is placed. Only `new Text()` used to be centred:
+`new Text(words, x, y, width)` and the framed styles sat to the left of their
+position instead, so the same words moved sideways depending on how they had been
+created, and the browser port drew them somewhere else again.
+
+The texts the library builds for itself keep the edge they are anchored by and
+now say so where they are built: the stage's `display()` and `ask()` bands reach
+from side to side, and a sprite's speech bubble hangs off the tail in its bottom
+left corner.
+
+Add `setAlign(TextAlign.LEFT)` to text that was relying on starting at its
+position rather than being centred on it.
+
+
+The box `Stage.ask()` puts the question in now reaches from one side of the
+stage to the other and squares off the two corners sitting on the bottom edge,
+the way the band `display()` writes into already did. It used to be only as wide
+as the longest line it happened to hold, and it curved away at the bottom where
+the stage ends.
+
+
+Fix the `Stage.ask()` Javadoc, which said the question box appears at the top of
+the stage. It appears at the bottom, where Scratch puts it too.
+
 
 ## 5.1.0
 
