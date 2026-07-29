@@ -149,7 +149,9 @@ keys:
 
 ```java CatchStage.java
 
-new CatchStage();
+void main() {
+  new CatchStage();
+}
 
 class CatchStage extends Stage {
   private Text scoreText = new Text();

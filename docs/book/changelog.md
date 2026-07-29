@@ -1,8 +1,197 @@
 ---
 name: Changelog
-index: 63
+index: 66
 lang: en
 ---
+
+## 5.2.0
+
+
+
+Every `Text` is now centred on its position, whichever constructor built it and
+whichever style it is in — the way a sprite put at the same place is, and the way
+everything in a Scratch project is placed. Only `new Text()` used to be centred:
+`new Text(words, x, y, width)` and the framed styles sat to the left of their
+position instead, so the same words moved sideways depending on how they had been
+created, and the browser port drew them somewhere else again.
+
+The texts the library builds for itself keep the edge they are anchored by and
+now say so where they are built: the stage's `display()` and `ask()` bands reach
+from side to side, and a sprite's speech bubble hangs off the tail in its bottom
+left corner.
+
+Add `setAlign(TextAlign.LEFT)` to text that was relying on starting at its
+position rather than being centred on it.
+
+
+The box `Stage.ask()` puts the question in now reaches from one side of the
+stage to the other and squares off the two corners sitting on the bottom edge,
+the way the band `display()` writes into already did. It used to be only as wide
+as the longest line it happened to hold, and it curved away at the bottom where
+the stage ends.
+
+
+Fix the `Stage.ask()` Javadoc, which said the question box appears at the top of
+the stage. It appears at the bottom, where Scratch puts it too.
+
+
+## 5.1.0
+
+
+
+A text shows the words it was built with.
+
+`new Text("Hello World", 0, 0, 400)` put nothing on the stage - the constructor
+left it hidden until `showText()`. A text built with words is visible now; one
+built with nothing to say still starts hidden, which is what a speech bubble
+waiting for `say()` wants.
+
+
+`Text.getStyle()` answers with the style a text is drawn in.
+
+`setStyle` had no counterpart.
+
+
+`changePosition` takes two numbers as well as a vector.
+
+Moving by an amount worked only when the amount was already a `Vector2`, though
+`setPosition` has taken two numbers all along.
+
+
+Transparency is the Scratch ghost effect.
+
+It ran from 0 to 255, where 0 was invisible and 255 the solid sprite you start
+with — upside down and on the wrong scale next to the `set [ghost v] effect to`
+shown beside it. It now runs 0 to 100, 0 solid and 100 invisible, and a value
+outside that is pinned rather than wrapped.
+
+`mySprite.setTransparency(50)` used to be nearly invisible; it is now half
+see-through.
+
+
+A `Color` says which colour it is.
+
+Printing one gave `org.openpatch.scratch.Color@35432107`, which is the first
+thing anyone tries when a tint looks wrong. It now reads
+`Color[r=255.0, g=128.0, b=0.0]`, and two colours with the same channels are
+equal.
+
+
+A built-in sprite name works everywhere a picture is named.
+
+`new Sprite("player", "slimeGreen")` threw `Could not load image: slimeGreen`:
+the constructor took a path where `addCostume()` took either. It now takes
+either, as do `Stage.setCursor`, `Window.useSplashLogo` and
+`Sprite.addCostumes`. A string with a file extension is still a path.
+
+
+A framed text is rounded on all four corners.
+
+Only the top two were. The stage's display line keeps its bottom two square,
+because they sit on the edge of the stage where a curve would only show what is
+behind it.
+
+
+Speech and thought bubbles work on a text of their own.
+
+`setStyle(TextStyle.SPEAK)` on a text you placed yourself drew nothing: the
+drawing gave up unless the text belonged to a sprite, because it took its
+position from that sprite. Such a text now keeps the position it was given.
+
+
+Speech and thought bubbles hang off the sprite's hitbox.
+
+They were placed from the size of the costume, which is usually a canvas bigger
+than what is painted on it, so the bubble floated up and to the right of its
+sprite with its tail pointing at nothing. It now sits on the top right corner of
+the hitbox. For the built-in slime that moves it 14 pixels left and 72 down, onto
+its shoulder.
+
+
+`setAlign` moves the frame, not only the words inside it.
+
+The frame always started at the position it was given, so a centred box was not
+centred on anything and its words sat half outside it. An aligned text also sat a
+line too high, because choosing a horizontal alignment put the vertical one back
+to the baseline.
+
+
+`Stage.count` returns an `int`.
+
+It returned the `long` a `Stream` happened to hand back, so
+`int coins = myStage.count(Coin.class)` did not compile.
+
+
+A stage's ghost and colour effects survive a change of backdrop.
+
+`setTransparency`, `setTint` and `changeTint` reached only the backdrop that was
+showing, so switching backdrop quietly undid them. They now reach all of them, as
+a sprite's have always reached all its costumes.
+
+
+`Window.addStage`, `switchStage` and `removeStage` are gone.
+
+Deprecated since 4.0.0 in favour of `setStage`, which holds the stage you give it
+rather than a name you have to remember, and `transitionToStage` when the change
+should fade.
+
+    myWindow.addStage("level", level);   // was
+    myWindow.switchStage("level");
+    myWindow.setStage(level);            // now
+
+`removeStage` needs no replacement: a stage the window is not showing does not
+run.
+
+
+Operators.mod answers the way the Scratch block does.
+
+It was Java's `%`, whose answer takes the sign of the first input, so
+`mod(-7, 3)` was -1 where the block says 2. The answer now takes the sign of the
+second input, which is what makes it wrap a value into a range without a special
+case: `mod(-1, 10)` is 9.
+
+
+Drawing a text no longer writes its measured size back into it.
+
+A box drawn after a bubble came out the size of that bubble, and `getWidth()`
+answered with whatever was last drawn rather than the width that was set.
+
+
+A framed text is drawn around its words rather than filling the width it was given.
+
+The width is where the words wrap. `new Text("Hello World", 0, 0, 400)` came out
+as a mostly empty 400 pixel frame running off the side of the stage; it now comes
+out as wide as "Hello World". The stage's display line still reaches from edge to
+edge, because it is a band rather than a label.
+
+
+A text built with words can be drawn at all.
+
+`new Text(words, x, y, width)` never set a style, and drawing switches on one, so
+a text built that way threw on every frame - from inside the loading screen,
+which the program then never left. A white stage, nothing drawn, and no error
+where anyone would look for it.
+
+
+## 5.0.3
+
+
+
+Draw stamps at the sprite's size.
+
+A sprite scaled with `setSize` left stamps at the costume file's natural size:
+shrink a sprite to a quarter and every stamp it left behind was still four
+times too big. The stamp was drawn straight from the untouched source image,
+which ignores the costume's current width and height.
+
+Stamps now use the costume's size, so a stamp looks like the sprite that left
+it.
+
+A stamp drawn more than once also kept turning. Each draw subtracted 90 degrees
+from the stamp's own heading and stored it back, so the angle drifted a quarter
+turn per frame and a stamp on screen spun. The heading is now worked out
+without changing the stamp.
+
 
 ## 5.0.2
 

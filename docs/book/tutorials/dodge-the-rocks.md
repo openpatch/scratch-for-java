@@ -225,7 +225,9 @@ a rock gets you, SPACE again, on a stage that is genuinely new:
 :::onlineide{height="600px" libraries="scratch"}
 
 ```java DodgeWindow.java
-new DodgeWindow();
+void main() {
+  new DodgeWindow();
+}
 
 class DodgeWindow extends Window {
    public DodgeWindow() {

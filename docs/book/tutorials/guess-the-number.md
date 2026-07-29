@@ -133,7 +133,9 @@ Enter:
 
 ```java GuessStage.java
 
-new GuessStage();
+void main() {
+  new GuessStage();
+}
 
 class GuessStage extends Stage {
   private int secret = Random.randomInt(1, 10);

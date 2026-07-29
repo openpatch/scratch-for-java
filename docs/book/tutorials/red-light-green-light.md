@@ -166,7 +166,9 @@ sign, and add a fourth racer to see that the referee really does not care:
 
 ```java RaceStage.java
 
-new RaceStage();
+void main() {
+  new RaceStage();
+}
 
 class RaceStage extends Stage {
   public RaceStage() {

@@ -1,6 +1,7 @@
 package doclets;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,7 +11,6 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -42,14 +42,17 @@ class OnlineExampleTest {
 
   private static final Path REFERENCE = Path.of("src", "examples", "java", "reference");
 
-  private static final Pattern TYPE_DECLARATION = Pattern.compile(
-      "^\\s*(?:(?:public|abstract|final|static)\\s+)*(?:class|interface|enum|record)\\s+\\w+");
-
   @Test
   void everyReferenceExampleStaysAProgram() throws IOException {
     if (!Files.isDirectory(REFERENCE)) {
       return; // the examples are not part of every checkout
     }
+    // The examples are compiled the way they are shown, and the way they are
+    // shown is a compact source file: a `void main()` with the classes beside
+    // it. That is Java 25, so an older compiler cannot judge them.
+    assumeTrue(Runtime.version().feature() >= 25,
+        "the interactive examples are Java 25 programs; this JDK is "
+            + Runtime.version().feature());
 
     var failures = new ArrayList<String>();
     var checked = 0;
@@ -103,27 +106,12 @@ class OnlineExampleTest {
   }
 
   /**
-   * Puts back what the Online IDE does not need: the imports, and a {@code main}
-   * around the statements that stand at the top of the program.
+   * Puts back the one thing the Online IDE does not need: the imports. What is
+   * left is compiled as it stands, because a {@code void main()} beside the
+   * classes is a whole Java program - the reader can paste the example into a
+   * file and run it, and this is what proves it.
    */
   private String asCompilationUnit(String online) {
-    var types = new StringBuilder();
-    var statements = new StringBuilder();
-    int depth = 0;
-    boolean inType = false;
-
-    for (String line : online.split("\n", -1)) {
-      if (depth == 0 && !inType && TYPE_DECLARATION.matcher(line).find()) {
-        inType = true;
-      }
-      (inType ? types : statements).append(line).append("\n");
-
-      depth += count(line, '{') - count(line, '}');
-      if (inType && depth == 0) {
-        inType = false;
-      }
-    }
-
     // In the Online IDE every class is in scope without an import, which is
     // why the rewrite drops them. Putting the extensions back here is what
     // lets the same program be compiled against the desktop library.
@@ -134,10 +122,7 @@ class OnlineExampleTest {
         + "import org.openpatch.scratch.extensions.shader.*;\n"
         + "import org.openpatch.scratch.extensions.sorting.*;\n"
         + "import org.openpatch.scratch.extensions.tiled.*;\n"
-        + types
-        + "\nclass Example {\n  public static void main(String[] args) {\n"
-        + statements
-        + "\n  }\n}\n";
+        + online;
   }
 
   private String compile(String source) throws IOException {
@@ -168,15 +153,5 @@ class OnlineExampleTest {
         .map(d -> "    line " + d.getLineNumber() + " " + d.getMessage(Locale.ENGLISH))
         .limit(4)
         .collect(Collectors.joining("\n"));
-  }
-
-  private int count(String line, char c) {
-    int n = 0;
-    for (int i = 0; i < line.length(); i++) {
-      if (line.charAt(i) == c) {
-        n++;
-      }
-    }
-    return n;
   }
 }

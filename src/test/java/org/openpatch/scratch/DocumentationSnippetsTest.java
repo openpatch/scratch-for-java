@@ -1,6 +1,7 @@
 package org.openpatch.scratch;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 import java.io.File;
 import java.io.IOException;
@@ -127,7 +128,25 @@ class DocumentationSnippetsTest {
     if (files.isEmpty()) {
       return null;
     }
+    return compile(dir, files);
+  }
 
+  /**
+   * Compiles one whole program, in one file, as the page shows it - which for an
+   * interactive example means a compact source file.
+   */
+  private String compileProgram(String name, String source) throws IOException {
+    if (ToolProvider.getSystemJavaCompiler() == null) {
+      return null; // no compiler on this JVM, nothing to say
+    }
+    Path dir = Files.createTempDirectory("scratch-docs-");
+    Path file = dir.resolve(name + ".java");
+    Files.writeString(file, source);
+    return compile(dir, List.of(file.toFile()));
+  }
+
+  private String compile(Path dir, List<File> files) throws IOException {
+    JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
     var diagnostics = new DiagnosticCollector<JavaFileObject>();
     try (StandardJavaFileManager manager =
         compiler.getStandardFileManager(diagnostics, Locale.ENGLISH, StandardCharsets.UTF_8)) {
@@ -163,20 +182,18 @@ class DocumentationSnippetsTest {
       Pattern.compile("```java +\\S+\\n(.*?)```", Pattern.DOTALL);
   private static final Pattern ONLINE_DIRECTIVE =
       Pattern.compile(":::onlineide\\b.*?\\n(.*?)\\n:::", Pattern.DOTALL);
-  private static final Pattern TYPE_DECLARATION = Pattern.compile(
-      "^\\s*(?:(?:public|abstract|final|sealed|non-sealed|static)\\s+)*(?:class|interface|enum|record)\\s+\\w+");
 
   /**
    * Compiles the interactive examples — the ones in {@code :::onlineide} blocks,
    * which readers run in the browser rather than in an editor.
    *
    * <p>
-   * They are written for the Online IDE, which has no packages and lets
-   * statements stand at the top of a file, so they are not valid compilation
-   * units as they are. Putting the imports back and moving the loose statements
-   * into a {@code main} gives back exactly the program a reader would write on
-   * the desktop, which is the thing worth checking: an interactive example that
-   * only works in the browser would teach the wrong Java.
+   * They are written for the Online IDE, which has no packages and no imports,
+   * so the imports are put back. Everything else is compiled as it is shown: a
+   * {@code void main()} beside the classes is a compact source file, a whole
+   * Java program, so a reader can paste the example into a file of their own and
+   * run it. That is the thing worth checking - an interactive example that only
+   * works in the browser would teach the wrong Java.
    */
   @Test
   void everyInteractiveExampleCompiles() throws IOException {
@@ -184,6 +201,10 @@ class DocumentationSnippetsTest {
     if (!Files.isDirectory(docs)) {
       return; // documentation is not part of every checkout
     }
+    // Compact source files are Java 25; an older compiler cannot judge them.
+    assumeTrue(Runtime.version().feature() >= 25,
+        "the interactive examples are Java 25 programs; this JDK is "
+            + Runtime.version().feature());
 
     List<Path> pages;
     try (Stream<Path> walk = Files.walk(docs)) {
@@ -206,7 +227,7 @@ class DocumentationSnippetsTest {
         while (blocks.find()) {
           index++;
           checked++;
-          String problem = compile(Map.of("Block" + index, asCompilationUnit(blocks.group(1))));
+          String problem = compileProgram("Block" + index, asCompilationUnit(blocks.group(1)));
           if (problem != null) {
             failures.add(page + " (interactive example " + index + ")\n" + problem);
           }
@@ -220,41 +241,10 @@ class DocumentationSnippetsTest {
   }
 
   /**
-   * Turns an Online IDE program into a compilable file: the type declarations
-   * stay where they are, everything else becomes the body of a {@code main}.
+   * Puts back the one thing the Online IDE does not need, and the desktop does:
+   * the import. The program itself is left exactly as the page shows it.
    */
   private String asCompilationUnit(String block) {
-    var types = new StringBuilder();
-    var statements = new StringBuilder();
-    int depth = 0;
-    boolean inType = false;
-
-    for (String line : block.split("\n", -1)) {
-      if (depth == 0 && !inType && TYPE_DECLARATION.matcher(line).find()) {
-        inType = true;
-      }
-      (inType ? types : statements).append(line).append("\n");
-
-      depth += count(line, '{') - count(line, '}');
-      if (inType && depth == 0) {
-        inType = false;
-      }
-    }
-
-    return "import org.openpatch.scratch.*;\n"
-        + types.toString().replaceAll("\\bpublic class\\b", "class")
-        + "\nclass Block {\n  public static void main(String[] args) {\n"
-        + statements
-        + "\n  }\n}\n";
-  }
-
-  private int count(String line, char c) {
-    int n = 0;
-    for (int i = 0; i < line.length(); i++) {
-      if (line.charAt(i) == c) {
-        n++;
-      }
-    }
-    return n;
+    return "import org.openpatch.scratch.*;\n" + block;
   }
 }

@@ -15,13 +15,14 @@ import java.util.regex.Pattern;
  * <p>
  * The examples under {@code src/examples/java/reference} are ordinary desktop
  * programs. The Online IDE has no packages and no imports - every class is in
- * scope - and it lets statements stand at the top of a file, which is where the
- * program begins. Two shapes of example have to be turned into that:
+ * scope - and the program itself is a {@code void main()} beside the classes,
+ * the Java 25 form, which is also what a reader can copy into a file and run.
+ * Two shapes of example have to be turned into that:
  *
  * <ul>
  * <li>A single file whose class extends nothing is a wrapper: it exists only to
  * give the example a {@code main}. Its constructor body <em>is</em> the program,
- * so it becomes the top-level statements, and any class nested inside it is
+ * so it becomes the body of that {@code main}, and any class nested inside it is
  * lifted out to the top level.</li>
  * <li>A folder of files - {@code MyStage}, {@code MySprite}, {@code MyWindow} -
  * is already a set of top-level classes. They are kept as they are, the window
@@ -128,9 +129,17 @@ final class OnlineExample {
             return null;
         }
 
+        // The program goes in a `void main()` beside the classes, which is a
+        // whole program in Java 25 - a compact source file. Copied into a file
+        // of the reader's own it stays one; the loose statements it used to be
+        // were only ever a program in the browser.
         var out = new StringBuilder();
-        for (String statement : statements) {
-            out.append(statement).append("\n");
+        if (!statements.isEmpty()) {
+            out.append("void main() {\n");
+            for (String statement : statements) {
+                out.append(statement.isBlank() ? statement : "  " + statement).append("\n");
+            }
+            out.append("}\n");
         }
         for (String type : types) {
             out.append("\n").append(type).append("\n");

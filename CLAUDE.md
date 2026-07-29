@@ -35,7 +35,10 @@ documentation GIFs are recorded. Note that under Xvfb the window is exactly the 
 letterbox bars never appear — a bug that only shows on a scaled or HiDPI display will not reproduce
 there.
 
-Java 17 is required (`maven.compiler.release` in `pom.xml`).
+Java 17 is required to build the library (`maven.compiler.release` in `pom.xml`), but the tests want
+Java 25: the documentation's interactive examples are compact source files (`void main()` beside the
+classes), and the two tests that compile them — `DocumentationSnippetsTest.everyInteractiveExampleCompiles`
+and `OnlineExampleTest` — skip on anything older. CI runs 25 for that reason.
 
 ## Source layout
 
@@ -113,7 +116,9 @@ will not generate a page without both.
 Releases are changeset-driven (see `.changeset/README.md`):
 
 1. Add a Markdown file to `.changeset/` with frontmatter `type: patch|minor|major` and a description
-   of the change, as part of the PR.
+   of the change, as part of the PR. **Only when the change reaches the user**: the public API moved,
+   or a bug is gone. Documentation, tests, examples, tooling and CI changes get no changeset — they
+   would put a release note in front of readers about something they cannot see from the library.
 2. Merging to `main` triggers `.github/workflows/version.yml`, which bumps `pom.xml`'s version and
    opens a version-bump PR (updates `CHANGELOG.md` too).
 3. Merging that PR triggers `.github/workflows/release.yml`, which publishes to Maven Central and

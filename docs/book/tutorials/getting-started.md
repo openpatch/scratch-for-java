@@ -42,14 +42,18 @@ Compile, then right-click the `MyStage` box and choose `new MyStage()`. A window
 opens with a rabbit in it.
 
 Here is that same program running in this page. Press **▶** to start it — and
-edit it, it is a real editor. The only difference to the code above is the
-missing `import`: in the browser every class is there already.
+edit it, it is a real editor. Two small differences to the code above: there is
+no `import`, because in the browser every class is there already, and the line
+that builds the stage sits in a `void main()`, which is where a Java program
+starts.
 
 :::onlineide{height="440px" libraries="scratch"}
 
 ```java MyStage.java
 
-new MyStage();
+void main() {
+  new MyStage();
+}
 
 class MyStage extends Stage {
   public MyStage() {
@@ -63,6 +67,13 @@ class MyStage extends Stage {
 :::
 
 That is a whole program. Seven lines, and no image files anywhere.
+
+The rest of this site works like that box. Every tutorial ends with its project
+running in the page, and the [documentation](/reference) has a small program for
+each method — `move`, `say`, `whenKeyPressed` — to start and change right there,
+which is the quickest way to find out what a method does. Put the `import` back
+on top of a copy and it runs in your own project too: the `void main()` is where
+Java starts it.
 
 :::alert{info}
 
@@ -151,7 +162,9 @@ Run it again and hold the left and right arrow keys:
 
 ```java MyStage.java
 
-new MyStage();
+void main() {
+  new MyStage();
+}
 
 class MyStage extends Stage {
   public MyStage() {
@@ -206,8 +219,13 @@ It needs no assets, only the library itself.
 
 ## Where to go next
 
+- **[Make it Walk](/tutorials/make-it-walk)** — the next chapter: several
+  costumes, timers, animation. All [seven tutorials](/tutorials) build on this
+  page, and each one ends with its project running in the browser.
 - **[Bouncing Hedgehog](/tutorials/bouncy-hedgehog)** — your first real game,
   step by step.
+- **[Documentation](/reference)** — every method, the Scratch block it replaces,
+  and an example you can run and edit right there.
 - **[Sprites](/sprites)** and **[Sounds](/sounds)** — everything built in, with
   a search box.
 - **[Differences to Scratch](/differences-scratch)** — the few places where Java

@@ -155,7 +155,9 @@ editable, so change `3` to `8` and start it again.
 
 ```java WalkStage.java
 
-new WalkStage();
+void main() {
+  new WalkStage();
+}
 
 class WalkStage extends Stage {
   public WalkStage() {

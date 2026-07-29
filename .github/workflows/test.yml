@@ -17,10 +17,14 @@ jobs:
         uses: actions/checkout@v7
 
       - name: Set up Java
+        # The library is still built for 17 (maven.compiler.release), but the
+        # tests that compile the documentation's interactive examples need a
+        # compiler that understands them: they are Java 25 compact source files,
+        # and on an older JDK those two tests can only skip.
         uses: actions/setup-java@v5
         with:
           distribution: temurin
-          java-version: 17
+          java-version: 25
           cache: maven
 
       - name: Run tests

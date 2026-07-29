@@ -182,7 +182,9 @@ to load your `.png` files from. Use the arrow keys.
 
 ```java BouncyHedgehogStage.java
 
-new BouncyHedgehogStage();
+void main() {
+  new BouncyHedgehogStage();
+}
 
 class BouncyHedgehogStage extends Stage {
     public BouncyHedgehogStage() {

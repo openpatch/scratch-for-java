@@ -27,6 +27,45 @@ public class MyStage extends Stage {
 That is a complete program, and it needs no image files: **838 pictures and 266
 sounds are built in**.
 
+Here is one running. Press **▶** — then change a number or a costume name and
+start it again, it is a real editor. Every tutorial and every method in the
+[documentation](/reference) comes with a box like this one.
+
+:::onlineide{height="420px" libraries="scratch"}
+
+```java MyStage.java
+
+void main() {
+  new MyStage();
+}
+
+class MyStage extends Stage {
+  public MyStage() {
+    super(500, 260);
+    this.addBackdrop("background");
+    this.add(new Walker());
+  }
+}
+
+class Walker extends AnimatedSprite {
+  public Walker() {
+    this.addAnimation("walk", "alienGreen_walk%d", 2);
+    this.setAnimationInterval(150);
+    this.setSize(60);
+    this.setRotationStyle(RotationStyle.LEFT_RIGHT);
+    this.setY(-50);
+  }
+
+  public void run() {
+    this.playAnimation("walk");
+    this.move(3);
+    this.ifOnEdgeBounce();
+  }
+}
+```
+
+:::
+
 - **[Your first program](/tutorials/getting-started)** — ten minutes, nothing to
   download
 - **[Setup](/setup)** — BlueJ, VS Code or plain Java
