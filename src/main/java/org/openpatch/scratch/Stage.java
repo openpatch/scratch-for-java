@@ -439,42 +439,70 @@ public class Stage {
     text.removedFromStage(this);
   }
 
+  /**
+   * Moves one thing to the given place in the order the things of its kind are
+   * drawn in. Drawing walks the list from front to back, so the last of them is
+   * the one on top.
+   *
+   * <p>
+   * Something that is not on this stage is left alone rather than added to it:
+   * the layer of a text that was never added is not a place in this list.
+   */
+  private static <T> void moveToLayer(List<T> drawnInOrder, T thing, int index) {
+    if (!drawnInOrder.remove(thing)) {
+      return;
+    }
+    drawnInOrder.add(Math.max(0, Math.min(index, drawnInOrder.size())), thing);
+  }
+
+  /** Moves one thing the given number of layers forwards, or backwards if negative. */
+  private static <T> void moveLayersBy(List<T> drawnInOrder, T thing, int number) {
+    int index = drawnInOrder.indexOf(thing);
+    if (index == -1) {
+      return;
+    }
+    moveToLayer(drawnInOrder, thing, index + number);
+  }
+
   // Package-private: the implementation behind Sprite.goToFrontLayer().
   void goToFrontLayer(Sprite sprite) {
-    this.sprites.remove(sprite);
-    this.sprites.add(sprite);
+    moveToLayer(this.sprites, sprite, this.sprites.size());
   }
 
   // Package-private: the implementation behind Sprite.goToBackLayer().
   void goToBackLayer(Sprite sprite) {
-    this.sprites.remove(sprite);
-    this.sprites.add(0, sprite);
+    moveToLayer(this.sprites, sprite, 0);
   }
 
   // Package-private: the implementation behind Sprite.goLayersForwards().
   void goLayersForwards(Sprite sprite, int number) {
-    int index = this.sprites.indexOf(sprite);
-    if (index == -1)
-      return;
-    int newIndex = index + number;
-    if (newIndex < 0)
-      newIndex = 0;
-    newIndex = Math.min(newIndex, this.sprites.size() - 1);
-    this.sprites.remove(index);
-    this.sprites.add(newIndex, sprite);
+    moveLayersBy(this.sprites, sprite, number);
   }
 
   // Package-private: the implementation behind Sprite.goLayersBackwards().
   void goLayersBackwards(Sprite sprite, int number) {
-    int index = this.sprites.indexOf(sprite);
-    if (index == -1)
-      return;
-    int newIndex = index - number;
-    if (newIndex < 0)
-      newIndex = 0;
-    newIndex = Math.min(newIndex, this.sprites.size() - 1);
-    this.sprites.remove(index);
-    this.sprites.add(newIndex, sprite);
+    moveLayersBy(this.sprites, sprite, -number);
+  }
+
+  // Package-private: the implementation behind Text.goToFrontLayer(). Texts are
+  // drawn after the sprites, so this orders a text against the other texts.
+  void goToFrontLayer(Text text) {
+    moveToLayer(this.texts, text, this.texts.size());
+  }
+
+  // Package-private: the implementation behind Text.goToBackLayer().
+  void goToBackLayer(Text text) {
+    moveToLayer(this.texts, text, 0);
+  }
+
+  // Package-private: the implementation behind Text.goLayersForwards().
+  void goLayersForwards(Text text, int number) {
+    moveLayersBy(this.texts, text, number);
+  }
+
+  // Package-private: the implementation behind Text.goLayersBackwards().
+  void goLayersBackwards(Text text, int number) {
+    moveLayersBy(this.texts, text, -number);
   }
 
   // Private helper for removeAll().

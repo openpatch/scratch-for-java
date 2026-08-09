@@ -1,5 +1,8 @@
 package org.openpatch.scratch;
 
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 import org.davidmoten.text.utils.WordWrap;
 import org.openpatch.scratch.internal.Applet;
@@ -69,6 +72,9 @@ public class Text {
    * that sit on the edge.
    */
   private boolean displayBand;
+
+  /** Warnings already printed, so that one every frame is printed once. */
+  private final Set<String> warnedOnce = Collections.synchronizedSet(new HashSet<>());
 
   /** SPEAK_BUBBLE_MAX_LIMIT is the maximum width of the speech bubble. */
   public static int SPEAK_BUBBLE_MAX_LIMIT = 330;
@@ -383,6 +389,97 @@ public class Text {
    */
   public Stage getStage() {
     return this.stage;
+  }
+
+  /**
+   * Moves this text to the front layer of the stage, in front of every other
+   * text on it. If the text is not on a stage, the method does nothing.
+   *
+   * <p>
+   * Texts are drawn on top of the sprites, so this orders a text against the
+   * other texts rather than against the sprites.
+   *
+   * @example.files TextGoToFrontLayer.java
+   *
+   * @scratchblock go to [front v] layer
+   */
+  public void goToFrontLayer() {
+    if (this.warnIfNotOnAStage("goToFrontLayer")) {
+      return;
+    }
+    this.stage.goToFrontLayer(this);
+  }
+
+  /**
+   * Moves this text to the back layer of the stage, behind every other text on
+   * it. If the text is not on a stage, the method does nothing.
+   *
+   * <p>
+   * Texts are drawn on top of the sprites, so this orders a text against the
+   * other texts rather than against the sprites.
+   *
+   * @example.files TextGoToBackLayer.java
+   *
+   * @scratchblock go to [back v] layer
+   */
+  public void goToBackLayer() {
+    if (this.warnIfNotOnAStage("goToBackLayer")) {
+      return;
+    }
+    this.stage.goToBackLayer(this);
+  }
+
+  /**
+   * Moves the text forward by a specified number of layers within its stage. If
+   * the text is not on a stage, the method does nothing.
+   *
+   * @param number the number of layers to move the text forward
+   *
+   * @example.files TextGoLayersForwards.java
+   *
+   * @scratchblock go [forward v] (number) layers
+   */
+  public void goLayersForwards(int number) {
+    if (this.warnIfNotOnAStage("goLayersForwards")) {
+      return;
+    }
+    this.stage.goLayersForwards(this, number);
+  }
+
+  /**
+   * Moves the text backwards by a specified number of layers in the stage. If
+   * the text is not on a stage, the method does nothing.
+   *
+   * @param number the number of layers to move the text backwards
+   *
+   * @example.files TextGoLayersBackwards.java
+   *
+   * @scratchblock go [backward v] (number) layers
+   */
+  public void goLayersBackwards(int number) {
+    if (this.warnIfNotOnAStage("goLayersBackwards")) {
+      return;
+    }
+    this.stage.goLayersBackwards(this, number);
+  }
+
+  /**
+   * Says so, once per method, when a layer is changed on a text that is not on a
+   * stage - where there is nothing to order it against and the call does
+   * nothing.
+   */
+  private boolean warnIfNotOnAStage(String method) {
+    if (this.stage != null) {
+      return false;
+    }
+    if (this.warnedOnce.add(method)) {
+      System.err.println("\n==============================================");
+      System.err.println("WARNING: " + method + "() called but this text is not on a stage!");
+      System.err.println("");
+      System.err.println("Tip: Add the text to a stage before changing its layer.");
+      System.err.println("==============================================\n");
+    }
+    return true;
   }
 
   /**
@@ -789,12 +886,37 @@ public class Text {
   }
 
   private String[] wrap(String text, double maxWidth, PGraphics buffer) {
+    // A width with no room for even one letter is not a width to wrap at: there
+    // is no line it could make, so it makes a column of single letters instead.
+    // `new Text("42", x, y, 1)` asks for one, and it drew a 4 above a 2. Where
+    // the width cannot hold the widest letter of the text, the words are left
+    // as they are and only the line breaks already in them are kept.
+    // A letter is never much wider than the size it is written at, so anything
+    // that roomy wraps without measuring - this runs on every frame.
+    if (maxWidth < this.textSize * 1.5 && maxWidth < this.widestLetter(text, buffer)) {
+      return text.split("\n");
+    }
     return WordWrap.from(text)
         .maxWidth(maxWidth)
         .breakWords(true)
         .stringWidth(s -> buffer.textWidth(s.toString()))
         .wrap()
         .split("\n");
+  }
+
+  /** How wide the widest letter of the given text is, in the buffer's current font. */
+  private double widestLetter(String text, PGraphics buffer) {
+    var widest = 0.0;
+    for (var letter : text.toCharArray()) {
+      if (letter == '\n') {
+        continue;
+      }
+      var letterWidth = buffer.textWidth(letter);
+      if (letterWidth > widest) {
+        widest = letterWidth;
+      }
+    }
+    return widest;
   }
 
   /**
@@ -990,6 +1112,7 @@ public class Text {
       buffer.pop();
     }
     this.text = String.join("\n", lines);
+    this.height = (this.textSize + 4) * lines.length;
 
     buffer.translate((float) this.x, (float) -this.y);
     buffer.fill(
@@ -997,7 +1120,12 @@ public class Text {
         (float) this.textColor.getGreen(),
         (float) this.textColor.getBlue());
     buffer.textLeading(this.textSize + 4);
-    buffer.text(this.text, 8, 8);
+    // On its position, not eight pixels down and to the right of it. Those
+    // eight are the padding a frame needs between its border and its words;
+    // plain words have no frame, and the offset only moved a centred text off
+    // the thing it was labelling - a number under a line came out beside the
+    // middle of the line rather than on it.
+    buffer.text(this.text, 0, 0);
   }
 
   /** @ignore-in-docs Called by the render loop. It needs a Processing buffer, which nothing in
@@ -1010,9 +1138,13 @@ public class Text {
     // The vertical alignment has to be given every time. Setting only the
     // horizontal one puts the vertical back to the baseline, which drew an
     // aligned text a line higher than an unaligned one.
+    //
+    // Plain words are centred on their position, the way a sprite put there is;
+    // the framed styles hang below the top edge of their frame, which is what
+    // the padding in drawAlignedText() measures from.
     buffer.textAlign(
         this.textAlign == TextAlign.DEFAULT ? PApplet.LEFT : this.textAlign.getMode(),
-        PApplet.TOP);
+        this.style == TextStyle.PLAIN ? PApplet.CENTER : PApplet.TOP);
     var currentFont = this.fonts.get(this.currentFont);
     buffer.textFont(currentFont.getFont(this.textSize));
 

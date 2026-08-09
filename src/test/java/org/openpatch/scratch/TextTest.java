@@ -2,6 +2,7 @@ package org.openpatch.scratch;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -66,6 +67,21 @@ class TextTest {
     text.setAlign(TextAlign.LEFT);
     assertEquals(TextAlign.LEFT, text.getAlign());
     assertEquals(TextAlign.LEFT, new Text(text).getAlign());
+  }
+
+  @Test
+  @DisplayName("changing the layer of a text that is on no stage is harmless")
+  void layersWithoutAStageDoNothing() {
+    // There is nothing to order it against, so the call has nothing to do. It
+    // must not be an exception either: a text is often laid out before it is
+    // added, and a program that says goToBackLayer() a line too early should
+    // print a warning and carry on, not stop.
+    var text = new Text("Hello", 0, 0, 200);
+    text.goToFrontLayer();
+    text.goToBackLayer();
+    text.goLayersForwards(2);
+    text.goLayersBackwards(2);
+    assertNull(text.getStage());
   }
 
   @Test

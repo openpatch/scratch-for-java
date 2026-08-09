@@ -41,6 +41,7 @@ public class VisualProbe extends Stage {
       "say", "think", "say-wraps",
       // text of its own
       "text-plain", "text-box", "text-speak", "text-think", "text-align", "text-colours",
+      "text-layers",
       // the rest of what a stage draws
       "backdrop", "pen", "stamps", "display", "debug", "camera",
   };
@@ -196,6 +197,24 @@ public class VisualProbe extends Stage {
         t.setBackgroundColor(250, 240, 180);
         t.setStrokeColor(200, 60, 60);
         this.add(t);
+      }
+      case "text-layers" -> {
+        // Which of three overlapping texts is on top. The one added last covers
+        // the others until it is sent to the back.
+        var back = new Text("One", -30, 15, 200);
+        back.setStyle(TextStyle.BOX);
+        back.setBackgroundColor(250, 240, 180);
+        this.add(back);
+        var middle = new Text("Two", 0, 0, 200);
+        middle.setStyle(TextStyle.BOX);
+        middle.setBackgroundColor(180, 220, 250);
+        this.add(middle);
+        var front = new Text("Three", 30, -15, 200);
+        front.setStyle(TextStyle.BOX);
+        front.setBackgroundColor(200, 240, 200);
+        this.add(front);
+        front.goToBackLayer();
+        back.goLayersForwards(1);
       }
       case "backdrop" -> {
         // stretched to the stage rather than centred at its own size
