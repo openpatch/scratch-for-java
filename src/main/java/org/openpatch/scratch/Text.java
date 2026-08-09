@@ -78,7 +78,7 @@ public class Text {
 
   private static String font = "UbuntuMono-Regular.ttf";
   private static int fontSize = 14;
-  private static int[] fontSizes = { 14 };
+  private static int[] fontSizes = { 8, 10, 12, 14, 16, 18, 20, 24, 28, 32, 36, 40, 48, 56, 64 };
   private static boolean smoothing = true;
 
   /**

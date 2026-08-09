@@ -174,6 +174,43 @@ public class Window {
   private static Window instance;
 
   /**
+   * Whether the JVM itself built {@link #instance}, in order to call a
+   * {@code main} method that is not static.
+   */
+  private static boolean instanceBuiltByJava;
+
+  /**
+   * Tells whether the object being constructed right now was built by the JVM
+   * itself rather than by a {@code new} in the project.
+   *
+   * <p>
+   * Since Java 21 a class whose {@code main} method is not static is
+   * instantiated by the launcher before {@code main} is called. That call comes
+   * from the launcher, not from any Java code, so the constructor is the
+   * outermost thing on the stack — which is what this looks for.
+   */
+  private static boolean builtByJava() {
+    var stack = StackWalker.getInstance().walk(frames -> frames.toList());
+    return "<init>".equals(stack.get(stack.size() - 1).getMethodName());
+  }
+
+  /** Explains the window Java built on its own, and what to change to be rid of it. */
+  private static void noteWindowBuiltByJava(String name) {
+    System.err.println("\n==============================================");
+    System.err.println("NOTE: Java built a " + name + " before main() ran");
+    System.err.println("==============================================");
+    System.err.println("\nThe main() of " + name + " is not static, so Java created a");
+    System.err.println(name + " of its own before calling it. The 'new " + name + "()'");
+    System.err.println("inside main() would be a second window, so the first one is");
+    System.err.println("being reused. The project runs, but its constructor runs twice.");
+    System.err.println("\nTip: Make main() static, and Java will build no window itself:");
+    System.err.println("       public static void main(String[] args) {");
+    System.err.println("         new " + name + "();");
+    System.err.println("       }");
+    System.err.println("==============================================\n");
+  }
+
+  /**
    * Constructs a new Window with default dimensions. The default width is 480
    * pixels and the
    * default height is 360 pixels.
@@ -208,6 +245,13 @@ public class Window {
    * Ensures that only
    * one instance of Window can be created.
    *
+   * <p>
+   * The single exception is the window Java builds by itself: a class that
+   * extends Window and has a {@code main} method which is not static is
+   * instantiated by the JVM before {@code main} is called, so the
+   * {@code new MyWindow()} in that {@code main} would be the second window. That
+   * one reuses the first instead of failing.
+   *
    * @param width  the width of the window
    * @param height the height of the window
    * @param assets the path to the assets
@@ -221,6 +265,15 @@ public class Window {
 
   private Window(boolean fullScreen, int width, int height, String assets) {
     if (Window.instance != null) {
+      // The one window Java built by itself, to call a main() that is not
+      // static, is not a window the project asked for: reuse it for the window
+      // the project does ask for, instead of failing on it.
+      if (Window.instanceBuiltByJava && Window.instance.getClass() == this.getClass()) {
+        noteWindowBuiltByJava(this.getClass().getSimpleName());
+        Window.instance = this;
+        Window.instanceBuiltByJava = false;
+        return;
+      }
       System.err.println("\n==============================================");
       System.err.println("ERROR: Cannot create multiple Windows!");
       System.err.println("==============================================");
@@ -234,6 +287,7 @@ public class Window {
       throw new Error("You can only have one Window.");
     }
     Window.instance = this;
+    Window.instanceBuiltByJava = builtByJava();
     var applet = new Applet(width, height, fullScreen, assets);
     applet.setTextureSampling(textureSampling.getMode());
   }
