@@ -421,7 +421,7 @@ public class Image {
    * the fully solid image and 0 is nothing at all - the other way round from the
    * ghost effect the rest of the library speaks in.
    */
-  private float alpha() {
+  float alpha() {
     return (float) (255 * (1 - this.transparency / 100));
   }
 

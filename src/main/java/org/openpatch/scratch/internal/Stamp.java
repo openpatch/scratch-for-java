@@ -51,7 +51,7 @@ public class Stamp {
         (float) this.image.tint.getRed(),
         (float) this.image.tint.getGreen(),
         (float) this.image.tint.getBlue(),
-        (float) this.image.transparency);
+        this.image.alpha());
     // Draw at the costume's current size, not the file's natural size, so a
     // stamp matches the sprite it was taken from after setSize().
     g.image(this.image.originalImage, 0, 0, this.image.getWidth(), this.image.getHeight());
