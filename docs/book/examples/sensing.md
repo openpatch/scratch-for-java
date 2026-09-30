@@ -15,10 +15,11 @@ S and D, turn it with R and let it walk forward with space; it says "Hit" while 
 touches another hero. Point at a hero and it changes its costume. 0 and 1 zoom
 out and in.
 
+<!-- demo: sensing -->
 :::onlineide{height="640px" libraries="scratch" speed="-1"}
 
-@file dest="sprites/hero2.png" src="/examples/sensing/sprites/hero2.png"
 @file dest="sprites/hero.png" src="/examples/sensing/sprites/hero.png"
+@file dest="sprites/hero2.png" src="/examples/sensing/sprites/hero2.png"
 
 ```java Sensing.java
 

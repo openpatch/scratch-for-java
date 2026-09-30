@@ -1,29 +1,22 @@
 package demos.ui;
 
 import org.openpatch.scratch.KeyCode;
-import org.openpatch.scratch.Sprite;
 import org.openpatch.scratch.UISprite;
 import org.openpatch.scratch.Stage;
 
-public class UI {
-  public static void main(String[] args) {
-    new MyStage();
-  }
-}
-
-class MyStage extends Stage {
+public class UI extends Stage {
 
   private Bar bar;
 
-  public MyStage() {
+  public UI() {
     super(800, 600);
 
     this.setCursor("demos/ui/crosshair_color_c.png");
 
-    var b = new Button();
-    b.setWidth(600);
-    b.setHeight(480);
-    this.add(b);
+    var panel = new Panel();
+    panel.setWidth(600);
+    panel.setHeight(480);
+    this.add(panel);
 
     var backgroundBar = new Bar();
     backgroundBar.setWidth(600);
@@ -47,10 +40,14 @@ class MyStage extends Stage {
       bar.changeWidth(+1);
     }
   }
+
+  public static void main(String[] args) {
+    new UI();
+  }
 }
 
-class Button extends UISprite {
-  public Button() {
+class Panel extends UISprite {
+  public Panel() {
     super();
     this.addCostume("metal-panel-green-corner", "demos/ui/metalPanel_greenCorner.png");
     this.setNineSlice(30, 25, 30, 70);

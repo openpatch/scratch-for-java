@@ -329,6 +329,17 @@
                             <classpathScope>compile</classpathScope>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>generate-demo-assets</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                        <configuration>
+                            <mainClass>docs.GenerateDemoPages</mainClass>
+                            <classpathScope>compile</classpathScope>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
 

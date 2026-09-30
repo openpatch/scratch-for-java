@@ -25,6 +25,12 @@ the documentation:
 - `DocumentationSnippetsTest` pulls every ```java block out of the hand-written pages under
   `docs/book` and compiles them, a page at a time. **If you change a public API, this is what tells
   you which tutorial you just broke.** Two examples had rotted unnoticed before it existed.
+- `DemoPagesTest` checks that the interactive examples on `docs/book/examples/*.md` still match
+  the demos under `src/examples/java/demos` they are generated from. A page opts in with
+  `<!-- demo: <folder> -->` above its `:::onlineide` block; everything inside that block is
+  generated. **After changing a demo, run `./scripts/update-demo-pages.sh`** and commit the pages
+  it touches. The demos' assets are copied to `docs/public/examples` (ignored, not committed)
+  by the same script and by `mvn prepare-package`.
 
 Most of the library still cannot be unit-tested, because anything with a costume needs a live
 `Window`. So verifying a change usually also means running something: the affected

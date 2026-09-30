@@ -24,9 +24,9 @@ public class StressTest extends Stage {
 
   public void whenKeyPressed(KeyCode keyCode) {
     if (keyCode == KeyCode.SPACE) {
-      var characters = this.find(Character.class);
-      for (var character : characters) {
-        ((Character) character).state = CharacterState.RUN;
+      var figures = this.find(Figure.class);
+      for (var figure : figures) {
+        ((Figure) figure).state = FigureState.RUN;
       }
     }
   }

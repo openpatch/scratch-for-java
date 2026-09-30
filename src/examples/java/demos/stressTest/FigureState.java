@@ -1,6 +1,6 @@
 package demos.stressTest;
 
-public enum CharacterState {
+public enum FigureState {
   IDLE,
   RUN,
   WALK

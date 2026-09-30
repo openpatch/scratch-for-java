@@ -13,6 +13,7 @@ An example which makes use of timers.
 A dot every tenth of a second, in the next colour along, wherever the sprite
 happened to land.
 
+<!-- demo: randomDot -->
 :::onlineide{height="640px" libraries="scratch"}
 
 ```java RandomDot.java

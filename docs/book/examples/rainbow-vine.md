@@ -10,10 +10,9 @@ An example which makes use of mouse events and timers.
 
 ## Run it here
 
-Move the mouse across the stage. This is the project without
-`Window.useFullScreen()` and the camera move that went with it, so that it
-fits in a box.
+Move the mouse across the stage.
 
+<!-- demo: rainbowVine -->
 :::onlineide{height="560px" libraries="scratch"}
 
 ```java RainbowVine.java

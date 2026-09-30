@@ -13,6 +13,7 @@ An example with a simple one file setup.
 The cat walks and bounces off the edges. Press space and it leaves a stamp of
 itself behind.
 
+<!-- demo: cat -->
 :::onlineide{height="560px" libraries="scratch" speed="-1"}
 
 @file dest="sprites/cat.png" src="/examples/cat/sprites/cat.png"

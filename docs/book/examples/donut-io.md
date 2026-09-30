@@ -15,6 +15,7 @@ Click the stage and press space to start. Your donut follows the mouse. Eat the
 smaller donuts and stay away from the bigger ones; 0 and 1 zoom out and in, R
 resets the zoom.
 
+<!-- demo: donutIO -->
 :::onlineide{height="560px" libraries="scratch" speed="-1"}
 
 @file dest="assets/donut.png" src="/examples/donut-io/assets/donut.png"

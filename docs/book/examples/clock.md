@@ -13,6 +13,7 @@ This example demonstrates the usage of the sensing time methods.
 The hands show the time of your computer. Hold space and the second hand sweeps
 smoothly instead of ticking.
 
+<!-- demo: clock -->
 :::onlineide{height="560px" libraries="scratch" speed="-1"}
 
 @file dest="sprites/clock.png" src="/examples/clock/sprites/clock.png"
@@ -20,14 +21,20 @@ smoothly instead of ticking.
 @file dest="sprites/minute.png" src="/examples/clock/sprites/minute.png"
 @file dest="sprites/second.png" src="/examples/clock/sprites/second.png"
 
-```java Clock.java
+```java ClockStage.java
 
 void main() {
-  Stage myStage = new Stage(800, 800);
-  myStage.add(new ClockSprite());
-  myStage.add(new SecondHandSprite());
-  myStage.add(new MinuteHandSprite());
-  myStage.add(new HourHandSprite());
+  new ClockStage();
+}
+
+class ClockStage extends Stage {
+  public ClockStage() {
+    super(800, 800);
+    this.add(new ClockSprite());
+    this.add(new SecondHandSprite());
+    this.add(new MinuteHandSprite());
+    this.add(new HourHandSprite());
+  }
 }
 
 class ClockSprite extends Sprite {

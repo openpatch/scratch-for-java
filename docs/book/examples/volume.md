@@ -25,6 +25,7 @@ first.
 Click the stage so it takes the keyboard, then press space for the sound and
 the up and down arrows to change how loud it is.
 
+<!-- demo: volume -->
 :::onlineide{height="480px" libraries="scratch"}
 
 ```java Volume.java
@@ -33,6 +34,14 @@ void main() {
   new Volume();
 }
 
+/**
+ * Turning sounds up and down with setVolume() and changeVolume().
+ *
+ * <p>
+ * Press space to play a sound, the up and down arrows to change how loud it is.
+ * The sound is one of the ones built into Scratch for Java, so there is no file
+ * to find.
+ */
 class Volume extends Stage {
 
   private final Text label = new Text();

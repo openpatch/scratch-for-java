@@ -14,6 +14,7 @@ A population of 5000 random phrases evolves, generation by generation, until one
 of them is the line it is looking for. The best phrase so far is written in a
 font loaded from a file.
 
+<!-- demo: shakespeare -->
 :::onlineide{height="560px" libraries="scratch" speed="-1"}
 
 @file dest="assets/Singkong.ttf" src="/examples/shakespeare/assets/Singkong.ttf"

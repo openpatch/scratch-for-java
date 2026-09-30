@@ -12,6 +12,7 @@ The panel and the bars are stretched from small pictures without distorting thei
 corners, and the mouse pointer is a crosshair. Click the stage and hold the left or
 right arrow key to shrink or grow the green bar.
 
+<!-- demo: ui -->
 :::onlineide{height="560px" libraries="scratch" speed="-1"}
 
 @file dest="bar_round_gloss_large.png" src="/examples/ui/bar_round_gloss_large.png"
@@ -22,14 +23,14 @@ right arrow key to shrink or grow the green bar.
 ```java UI.java
 
 void main() {
-  new MyStage();
+  new UI();
 }
 
-class MyStage extends Stage {
+class UI extends Stage {
 
   private Bar bar;
 
-  public MyStage() {
+  public UI() {
     super(800, 600);
 
     this.setCursor("crosshair_color_c.png");

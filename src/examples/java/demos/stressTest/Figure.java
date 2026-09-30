@@ -2,13 +2,13 @@ package demos.stressTest;
 
 import org.openpatch.scratch.*;
 
-public class Character extends AnimatedSprite {
-  public CharacterState state;
+public class Figure extends AnimatedSprite {
+  public FigureState state;
   int tintColor;
   boolean hasTouchedEdge = false;
 
-  public Character(String pathBase, int idleAnimations, int runAnimations, int walkAnimations) {
-    state = CharacterState.IDLE;
+  public Figure(String pathBase, int idleAnimations, int runAnimations, int walkAnimations) {
+    state = FigureState.IDLE;
 
     this.addAnimation("idle", pathBase + "Idle (%d).png", idleAnimations);
     this.addAnimation("run", pathBase + "Run (%d).png", runAnimations);
@@ -24,9 +24,9 @@ public class Character extends AnimatedSprite {
     this.setTint(this.tintColor);
 
     if (isTouchingMousePointer()) {
-      state = CharacterState.WALK;
-    } else if (state == CharacterState.WALK) {
-      state = CharacterState.IDLE;
+      state = FigureState.WALK;
+    } else if (state == FigureState.WALK) {
+      state = FigureState.IDLE;
     }
 
     if (isTouchingEdge() && !hasTouchedEdge) {

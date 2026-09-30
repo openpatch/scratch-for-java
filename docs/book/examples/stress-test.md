@@ -15,6 +15,7 @@ It also shows how to animate a sprite.
 Hundreds of animated sprites at once. Point at one and it walks; press space and
 all of them run. How fast does it still go in your browser?
 
+<!-- demo: stressTest -->
 :::onlineide{height="560px" libraries="scratch" speed="-1"}
 
 @file dest="assets/dino/Idle (1).png" src="/examples/stress-test/assets/dino/Idle (1).png"
@@ -196,12 +197,6 @@ class Figure extends AnimatedSprite {
   }
 }
 
-enum FigureState {
-  IDLE,
-  RUN,
-  WALK
-}
-
 class Dino extends Figure {
   public Dino() {
     super("assets/dino/", 10, 8, 10);
@@ -219,6 +214,12 @@ class Ninja extends Figure {
   public Ninja() {
     super("assets/ninja/", 10, 10, 10);
   }
+}
+
+enum FigureState {
+  IDLE,
+  RUN,
+  WALK
 }
 ```
 

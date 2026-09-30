@@ -11,9 +11,10 @@ An example which makes use of the many methods of the timer.
 ## Run it here
 
 One row per timer method, all of them running at the same time. The stage class is
-called `TimerStage` here, because in the browser the library's own `Timer` is
-already in scope. The stage is 1800 pixels wide, so it is scaled down to fit.
+called `TimerStage` rather than `Timer`, because the library has a `Timer` of its
+own. The stage is 1800 pixels wide, so it is scaled down to fit.
 
+<!-- demo: timer -->
 :::onlineide{height="520px" libraries="scratch"}
 
 ```java TimerStage.java

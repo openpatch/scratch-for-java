@@ -28,6 +28,7 @@ public void run() {
 Hold the mouse down anywhere and the alien glides to it over one second. The
 coin needs nobody: it patrols between the two corners on its own.
 
+<!-- demo: glide -->
 :::onlineide{height="560px" libraries="scratch"}
 
 ```java Glide.java
@@ -36,6 +37,13 @@ void main() {
   new Glide();
 }
 
+/**
+ * Sprites sliding to a new place with glide(), instead of jumping there.
+ *
+ * <p>
+ * Click anywhere and the alien glides to the mouse over one second. The coin
+ * glides between two corners for as long as the program runs.
+ */
 class Glide extends Stage {
 
   public Glide() {

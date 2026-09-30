@@ -14,6 +14,7 @@ class has a file of its own; here they share one.
 The robot bounces around the stage. Debug mode is on, so you see its hitbox and
 its position while it moves.
 
+<!-- demo: robot -->
 :::onlineide{height="560px" libraries="scratch" speed="-1"}
 
 @file dest="sprites/robot.png" src="/examples/robot/sprites/robot.png"

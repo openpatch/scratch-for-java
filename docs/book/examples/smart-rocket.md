@@ -14,6 +14,7 @@ Every rocket flies by its own random genes. After each generation the rockets
 that came closest to the target have the most children, and the swarm learns to
 find it. Hold the mouse down to move the target.
 
+<!-- demo: smartRocket -->
 :::onlineide{height="560px" libraries="scratch" speed="-1"}
 
 @file dest="assets/rocket.png" src="/examples/smart-rocket/assets/rocket.png"
@@ -85,6 +86,14 @@ class Level extends Stage {
 
       this.statistiken.showText(statistikText);
     }
+  }
+}
+
+class Ziel extends Sprite {
+
+  public Ziel() {
+    this.addCostume("target", "assets/target.png");
+    this.setHitbox(10, 38, 10, 10, 38, 10, 38, 38);
   }
 }
 
@@ -276,14 +285,6 @@ class DNA {
 
   public Vector2[] gibGene() {
     return gene;
-  }
-}
-
-class Ziel extends Sprite {
-
-  public Ziel() {
-    this.addCostume("target", "assets/target.png");
-    this.setHitbox(10, 38, 10, 10, 38, 10, 38, 38);
   }
 }
 ```

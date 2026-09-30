@@ -3,14 +3,14 @@ package demos.timer;
 import org.openpatch.scratch.Sprite;
 import org.openpatch.scratch.Stage;
 
-public class Timer extends Stage {
-  public Timer() {
+public class TimerStage extends Stage {
+  public TimerStage() {
     super(1800, 360);
     this.add(new TimerSprite());
   }
 
   public static void main(String[] args) {
-    new Timer();
+    new TimerStage();
   }
 }
 

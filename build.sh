@@ -11,10 +11,6 @@ cp ./CHANGELOG.md ./docs/book/changelog.md
 # are run in the browser now, so there is nothing left to copy.
 rm -rf "$PWD/docs/public/reference"
 
-# The online examples load their sprites and sounds from docs/public/examples,
-# which is copied from the demos rather than committed twice.
-"$ROOT/scripts/sync-example-assets.sh"
-
 # The version is written into these pages for the build and taken out again
 # afterwards. Substituting in place without restoring would burn one version
 # number into the sources, and every later release would ship the wrong one.
@@ -35,9 +31,10 @@ for page in $VERSIONED_PAGES; do
 done
 
 # Regenerates everything the docs are built from: the reference pages written by
-# the doclet, and the built-in sprite and sound pages. Running only `compile`
-# here would leave the reference pages as they were after the last `mvn package`,
-# which is how pages for deleted methods used to survive.
+# the doclet, the built-in sprite and sound pages, and the demo assets the
+# example pages load. Running only `compile` here would leave the reference
+# pages as they were after the last `mvn package`, which is how pages for
+# deleted methods used to survive.
 mvn -q -DskipTests prepare-package
 
 # Any jar linked in for local testing by scripts/link-jar.sh is taken out again

@@ -30,6 +30,7 @@ public void run() {
 
 Type an answer into the box at the bottom of the stage and press Enter.
 
+<!-- demo: quiz -->
 :::onlineide{height="560px" libraries="scratch"}
 
 ```java Quiz.java
@@ -38,6 +39,13 @@ void main() {
   new Quiz();
 }
 
+/**
+ * Asks a question and answers back, using ask() and getAnswer().
+ *
+ * <p>
+ * The question box appears at the bottom of the stage. Type an answer and press
+ * Enter. Nothing here needs an image or sound file.
+ */
 class Quiz extends Stage {
 
   private final String[] questions = {

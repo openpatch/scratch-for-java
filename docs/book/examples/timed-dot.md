@@ -13,6 +13,7 @@ An example which makes use of timers.
 Two timers drawing at different rates, and a third on the stage that wipes
 everything every 2.4 seconds.
 
+<!-- demo: timedDot -->
 :::onlineide{height="460px" libraries="scratch"}
 
 ```java TimedDot.java

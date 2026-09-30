@@ -39,6 +39,7 @@ You can look up every available name here:
 Click the stage so it takes the keyboard, then walk with the left and right
 arrow keys, jump with space, and collect all six coins.
 
+<!-- demo: coinCollector -->
 :::onlineide{height="640px" libraries="scratch"}
 
 ```java CoinCollector.java
@@ -47,6 +48,16 @@ void main() {
   new CoinCollector();
 }
 
+/**
+ * A small game that only uses assets built into Scratch for Java.
+ *
+ * <p>
+ * There is no images or sounds folder next to these files. Every costume,
+ * backdrop and sound is addressed by its name, for example
+ * {@code addCostume("coinGold")}. All available names are listed at
+ * https://scratch4j.openpatch.org/sprites and
+ * https://scratch4j.openpatch.org/sounds
+ */
 class CoinCollector extends Stage {
 
   /** The height the ground reaches up to. Sprites stand on this line. */
@@ -98,6 +109,38 @@ class CoinCollector extends Stage {
       won.showText("You got them all!");
       this.add(won);
     }
+  }
+}
+
+/** One grass tile of the ground. */
+class Ground extends Sprite {
+
+  public Ground(double x) {
+    this.addCostume("grassMid");
+    this.setSize(50);
+    this.setX(x);
+    // The tile is 128 pixels high, so its middle sits 32 below its top edge.
+    this.setY(CoinCollector.GROUND_TOP - 32);
+  }
+}
+
+/** A coin the player can pick up. It bobs up and down a little. */
+class Coin extends Sprite {
+
+  private final double startY;
+  private double angle = 0;
+
+  public Coin(double x, double y) {
+    this.addCostume("coinGold");
+    this.setSize(50);
+    this.setX(x);
+    this.setY(y);
+    this.startY = y;
+  }
+
+  public void run() {
+    this.angle += 3;
+    this.setY(this.startY + Math.sin(Math.toRadians(this.angle)) * 8);
   }
 }
 
@@ -187,38 +230,6 @@ class Player extends AnimatedSprite {
       coin.remove();
       ((CoinCollector) this.getStage()).collect();
     }
-  }
-}
-
-/** A coin the player can pick up. It bobs up and down a little. */
-class Coin extends Sprite {
-
-  private final double startY;
-  private double angle = 0;
-
-  public Coin(double x, double y) {
-    this.addCostume("coinGold");
-    this.setSize(50);
-    this.setX(x);
-    this.setY(y);
-    this.startY = y;
-  }
-
-  public void run() {
-    this.angle += 3;
-    this.setY(this.startY + Math.sin(Math.toRadians(this.angle)) * 8);
-  }
-}
-
-/** One grass tile of the ground. */
-class Ground extends Sprite {
-
-  public Ground(double x) {
-    this.addCostume("grassMid");
-    this.setSize(50);
-    this.setX(x);
-    // The tile is 128 pixels high, so its middle sits 32 below its top edge.
-    this.setY(CoinCollector.GROUND_TOP - 32);
   }
 }
 ```

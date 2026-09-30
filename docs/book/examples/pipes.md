@@ -14,6 +14,7 @@ The pens wander over a chalk board and split into new pens as they go. Click the
 stage, then press space for a new colour and H to show or hide the pens. The
 browser only plays the music after that first click.
 
+<!-- demo: pipes -->
 :::onlineide{height="560px" libraries="scratch" speed="-1"}
 
 @file dest="backdrops/chalk_board.jpg" src="/examples/pipes/backdrops/chalk_board.jpg"
