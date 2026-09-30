@@ -8,14 +8,78 @@ This example demonstrates the usage of the sensing time methods.
 
 ![clock](/assets/clock.gif)
 
-:::alert{info}
+## Run it here
 
-**On your own computer only.** This project loads its pictures from the folder
-next to the code, and a web page has no folder to read them from. The examples
-that do run in the browser — the [tutorials](/tutorials) and every page of the
-[documentation](/reference) — use built-in pictures and sounds instead.
+The hands show the time of your computer. Hold space and the second hand sweeps
+smoothly instead of ticking.
+
+:::onlineide{height="560px" libraries="scratch" speed="-1"}
+
+@file dest="sprites/clock.png" src="/examples/clock/sprites/clock.png"
+@file dest="sprites/hour.png" src="/examples/clock/sprites/hour.png"
+@file dest="sprites/minute.png" src="/examples/clock/sprites/minute.png"
+@file dest="sprites/second.png" src="/examples/clock/sprites/second.png"
+
+```java Clock.java
+
+void main() {
+  Stage myStage = new Stage(800, 800);
+  myStage.add(new ClockSprite());
+  myStage.add(new SecondHandSprite());
+  myStage.add(new MinuteHandSprite());
+  myStage.add(new HourHandSprite());
+}
+
+class ClockSprite extends Sprite {
+  public ClockSprite() {
+    this.addCostume("clock", "sprites/clock.png");
+  }
+}
+
+class SecondHandSprite extends Sprite {
+
+  public SecondHandSprite() {
+    this.addCostume("hand", "sprites/second.png");
+  }
+
+  public void run() {
+    int second = Clock.getSecond();
+    if (this.isKeyPressed(KeyCode.SPACE)) {
+      int millisecond = Clock.getMillisecond();
+      this.setDirection(90 + (second + millisecond / 1000.0) / 60.0 * 360);
+    } else {
+      this.setDirection(90 + second / 60.0 * 360);
+    }
+  }
+}
+
+class MinuteHandSprite extends Sprite {
+  public MinuteHandSprite() {
+    this.addCostume("hand", "sprites/minute.png");
+  }
+
+  public void run() {
+    int minute = Clock.getMinute();
+    this.setDirection(90 + minute / 60.0 * 360);
+  }
+}
+
+class HourHandSprite extends Sprite {
+  public HourHandSprite() {
+    this.addCostume("hand", "sprites/hour.png");
+  }
+
+  public void run() {
+    int hour = Clock.getHour();
+    this.setDirection(90 + hour / 12.0 * 360);
+  }
+}
+```
 
 :::
+
+To run it on your own computer, copy the folder `sprites` of the
+[source code](https://github.com/openpatch/scratch-for-java/tree/main/src/examples/java/demos/clock) next to the program.
 
 ## Source Code
 

@@ -4,18 +4,54 @@ name: Robot
 
 # Robot
 
-An example with a class in another file.
+An example with a stage and a sprite class of its own. In the source code each
+class has a file of its own; here they share one.
 
 ![robot example](/assets/robot.gif)
 
-:::alert{info}
+## Run it here
 
-**On your own computer only.** This project loads its pictures from the folder
-next to the code, and a web page has no folder to read them from. The examples
-that do run in the browser — the [tutorials](/tutorials) and every page of the
-[documentation](/reference) — use built-in pictures and sounds instead.
+The robot bounces around the stage. Debug mode is on, so you see its hitbox and
+its position while it moves.
+
+:::onlineide{height="560px" libraries="scratch" speed="-1"}
+
+@file dest="sprites/robot.png" src="/examples/robot/sprites/robot.png"
+
+```java RobotStage.java
+
+void main() {
+  new RobotStage();
+}
+
+class RobotStage extends Stage {
+  public RobotStage() {
+    super(800, 600);
+    this.setDebug(true);
+    this.add(new RobotSprite());
+  }
+}
+
+class RobotSprite extends Sprite {
+
+  public RobotSprite() {
+    this.addCostume("robot", "sprites/robot.png");
+    this.setSize(20);
+    this.changeY(20);
+    this.setDirection(45);
+  }
+
+  public void run() {
+    this.move(2);
+    this.ifOnEdgeBounce();
+  }
+}
+```
 
 :::
+
+To run it on your own computer, copy the folder `sprites` of the
+[source code](https://github.com/openpatch/scratch-for-java/tree/main/src/examples/java/demos/robot) next to the program.
 
 ## Source Code:
 

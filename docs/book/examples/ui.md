@@ -6,15 +6,95 @@ name: UI
 
 An example which changes the mouse pointer and demonstrates the 9-slice scaling of sprites.
 
-:::alert{info}
+## Run it here
 
-**On your own computer only.** This project loads its panels and its mouse
-pointer from the folder next to the code, and a web page has no folder to read
-them from. The examples that do run in the browser — the [tutorials](/tutorials)
-and every page of the [documentation](/reference) — use built-in pictures and
-sounds instead.
+The panel and the bars are stretched from small pictures without distorting their
+corners, and the mouse pointer is a crosshair. Click the stage and hold the left or
+right arrow key to shrink or grow the green bar.
+
+:::onlineide{height="560px" libraries="scratch" speed="-1"}
+
+@file dest="bar_round_gloss_large.png" src="/examples/ui/bar_round_gloss_large.png"
+@file dest="bar_round_gloss_large_gray.png" src="/examples/ui/bar_round_gloss_large_gray.png"
+@file dest="crosshair_color_c.png" src="/examples/ui/crosshair_color_c.png"
+@file dest="metalPanel_greenCorner.png" src="/examples/ui/metalPanel_greenCorner.png"
+
+```java UI.java
+
+void main() {
+  new MyStage();
+}
+
+class MyStage extends Stage {
+
+  private Bar bar;
+
+  public MyStage() {
+    super(800, 600);
+
+    this.setCursor("crosshair_color_c.png");
+
+    var panel = new Panel();
+    panel.setWidth(600);
+    panel.setHeight(480);
+    this.add(panel);
+
+    var backgroundBar = new Bar();
+    backgroundBar.setWidth(600);
+    backgroundBar.setHeight(40);
+    backgroundBar.setY(100);
+    backgroundBar.switchCostume("bar-gray");
+    this.add(backgroundBar);
+
+    bar = new Bar();
+    bar.setWidth(100);
+    bar.setHeight(40);
+    bar.setY(100);
+    bar.setSize(70);
+    this.add(bar);
+  }
+
+  public void run() {
+    if (this.isKeyPressed(KeyCode.LEFT)) {
+      bar.changeWidth(-1);
+    } else if (this.isKeyPressed(KeyCode.RIGHT)) {
+      bar.changeWidth(+1);
+    }
+  }
+}
+
+class Panel extends UISprite {
+  public Panel() {
+    super();
+    this.addCostume("metal-panel-green-corner", "metalPanel_greenCorner.png");
+    this.setNineSlice(30, 25, 30, 70);
+  }
+
+  @Override
+  public void run() {
+    // Logic for button interaction can be added here
+  }
+}
+
+class Bar extends UISprite {
+  public Bar() {
+    super();
+    this.addCostume("bar", "bar_round_gloss_large.png");
+    this.addCostume("bar-gray", "bar_round_gloss_large_gray.png");
+    this.setNineSlice(12, 24, 12, 24);
+  }
+
+  @Override
+  public void run() {
+    // Logic for progress bar can be added here
+  }
+}
+```
 
 :::
+
+To run it on your own computer, put the pictures of the
+[source code](https://github.com/openpatch/scratch-for-java/tree/main/src/examples/java/demos/ui) next to the program.
 
 ## Source Code:
 

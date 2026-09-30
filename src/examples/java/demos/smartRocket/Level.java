@@ -29,7 +29,9 @@ public class Level extends Stage {
         this.lebenszeit);
 
     this.statistiken = new Text();
-    this.statistiken.setPosition(-this.getWidth() / 2 + 10, this.getHeight() / 2 - 10);
+    // the four lines are centred on this point, so it is far enough below the
+    // top edge for the first one to fit
+    this.statistiken.setPosition(-this.getWidth() / 2 + 10, this.getHeight() / 2 - 40);
     this.statistiken.setAlign(TextAlign.LEFT);
     this.add(this.statistiken);
   }

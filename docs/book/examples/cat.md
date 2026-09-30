@@ -8,14 +8,54 @@ An example with a simple one file setup.
 
 ![cat example](/assets/cat.gif)
 
-:::alert{info}
+## Run it here
 
-**On your own computer only.** This project loads its pictures from the folder
-next to the code, and a web page has no folder to read them from. The examples
-that do run in the browser — the [tutorials](/tutorials) and every page of the
-[documentation](/reference) — use built-in pictures and sounds instead.
+The cat walks and bounces off the edges. Press space and it leaves a stamp of
+itself behind.
+
+:::onlineide{height="560px" libraries="scratch" speed="-1"}
+
+@file dest="sprites/cat.png" src="/examples/cat/sprites/cat.png"
+
+```java CatSketch.java
+
+void main() {
+  new CatSketch();
+}
+
+class CatSketch extends Stage {
+
+  public CatSketch() {
+    super(800, 600);
+    Sprite myCat = new CatSprite();
+    this.add(myCat);
+  }
+}
+
+class CatSprite extends Sprite {
+
+  CatSprite() {
+    this.addCostume("cat", "sprites/cat.png");
+    this.setDirection(0);
+  }
+
+  public void whenKeyPressed(KeyCode keyCode) {
+    if (keyCode == KeyCode.SPACE) {
+      this.stamp();
+    }
+  }
+
+  public void run() {
+    this.move(2);
+    this.ifOnEdgeBounce();
+  }
+}
+```
 
 :::
+
+To run it on your own computer, put [cat.png](/examples/cat/sprites/cat.png) in
+a folder `sprites` next to the program.
 
 ## Source Code
 
