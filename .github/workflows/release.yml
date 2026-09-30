@@ -46,7 +46,15 @@ jobs:
           MAVEN_PASSWORD: ${{ secrets.MAVEN_PASSWORD }}
           MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
 
-      - name: Build fat jar
+      - name: Build NRW jar
+        # The NRW build returns the List of the NRW Zentralabitur from find,
+        # getAll and getTouchingSprites. It is only offered as a download, and
+        # the next step cleans target/, so the jars are put aside first.
+        run: |
+          mvn -B clean package -Pall,nrw
+          mkdir -p dist
+          cp target/*-nrw-all.jar target/*-nrw-sources.jar dist/
+
         # Tests already ran as part of the deploy step above; skip them here
         # to avoid paying for the full suite twice in the same job.
         run: mvn -B clean package -Pall -DskipTests
@@ -66,6 +74,7 @@ jobs:
           body: ${{ github.event.pull_request.body || format('Automated release of version {0}', env.VERSION) }}
           files: |
             target/*.jar
+            dist/*.jar
 
       - name: Delete changeset branch
         run: |
