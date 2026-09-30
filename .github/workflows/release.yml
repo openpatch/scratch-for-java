@@ -67,12 +67,27 @@ jobs:
           echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "Detected version: $VERSION"
 
+      - name: Take the release notes from CHANGELOG.md
+        # The notes are the version's entry in the changelog, which the version
+        # bump wrote from the changesets. Not the merged PR's description: when a
+        # release run fails, the PR that fixes it is the one that releases.
+        run: |
+          awk -v heading="## $VERSION" '
+            $0 == heading { found = 1; next }
+            found && /^## / { exit }
+            found { print }
+          ' CHANGELOG.md | sed -e '/./,$!d' | sed -e ':a' -e '/^\n*$/{$d;N;ba' -e '}' > "$RUNNER_TEMP/release-notes.md"
+          if [ ! -s "$RUNNER_TEMP/release-notes.md" ]; then
+            echo "Automated release of version $VERSION" > "$RUNNER_TEMP/release-notes.md"
+          fi
+          cat "$RUNNER_TEMP/release-notes.md"
+
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v3
         with:
           tag_name: v${{ env.VERSION }}
           name: v${{ env.VERSION }}
-          body: ${{ github.event.pull_request.body || format('Automated release of version {0}', env.VERSION) }}
+          body_path: ${{ runner.temp }}/release-notes.md
           files: |
             target/*.jar
             dist/*.jar
