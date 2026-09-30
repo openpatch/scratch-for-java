@@ -15,6 +15,7 @@ import org.openpatch.scratch.extensions.sorting.Sorting;
 import org.openpatch.scratch.internal.Applet;
 import org.openpatch.scratch.internal.Font;
 import org.openpatch.scratch.internal.Image;
+import org.openpatch.scratch.internal.NrwList;
 import org.openpatch.scratch.internal.Sound;
 import org.openpatch.scratch.internal.Stamp;
 import org.openpatch.scratch.internal.StageAccess;
@@ -396,6 +397,7 @@ public class Stage {
 
 
 
+  // nrw-standard-begin
   /**
    * Retrieves a list of all sprites in the current stage.
    *
@@ -406,6 +408,20 @@ public class Stage {
   public List<Sprite> getAll() {
     return new CopyOnWriteArrayList<>(this.sprites);
   }
+  // nrw-standard-end
+  // nrw: /**
+  // nrw:  * Retrieves a list of all sprites in the current stage.
+  // nrw:  *
+  // nrw:  * <p>
+  // nrw:  * The list is the {@code List} of the NRW Zentralabitur, which has to be in
+  // nrw:  * your project next to your own classes.
+  // nrw:  *
+  // nrw:  * @param <L> your {@code List} type
+  // nrw:  * @return a new list containing all sprites
+  // nrw:  */
+  // nrw: public <L> L getAll() {
+  // nrw:   return NrwList.of(new CopyOnWriteArrayList<>(this.sprites), this.getClass());
+  // nrw: }
 
   /**
    * Removes the specified sprite from the stage.
@@ -554,6 +570,7 @@ public class Stage {
     this.sprites.removeIf(c::isInstance);
   }
 
+  // nrw-standard-begin
   /**
    * Find sprites of a given class.
    *
@@ -564,6 +581,25 @@ public class Stage {
   public <T extends Sprite> List<T> find(Class<T> c) {
     return this.sprites.stream().filter(c::isInstance).map(c::cast).collect(Collectors.toList());
   }
+  // nrw-standard-end
+  // nrw: /**
+  // nrw:  * Find sprites of a given class.
+  // nrw:  *
+  // nrw:  * <p>
+  // nrw:  * The list is the {@code List} of the NRW Zentralabitur, which has to be in
+  // nrw:  * your project next to your own classes.
+  // nrw:  *
+  // nrw:  * @param c   Class
+  // nrw:  * @param <T> the type of sprites to find
+  // nrw:  * @param <L> your {@code List} type
+  // nrw:  * @return a new list containing the sprites of that class
+  // nrw:  */
+  // nrw: public <T extends Sprite, L> L find(Class<T> c) {
+  // nrw:   return NrwList.of(
+  // nrw:       this.sprites.stream().filter(c::isInstance).map(c::cast).collect(Collectors.toList()),
+  // nrw:       c,
+  // nrw:       this.getClass());
+  // nrw: }
 
   /**
    * Returns the number of sprites of the specified class.

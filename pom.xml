@@ -5,7 +5,7 @@
 
     <groupId>org.openpatch</groupId>
     <artifactId>scratch</artifactId>
-    <version>5.3.1</version>
+    <version>5.4.0</version>
     <packaging>jar</packaging>
 
     <name>Scratch for Java</name>
@@ -41,6 +41,9 @@
         <libs.jackson>3.2.1</libs.jackson>
         <libs.junit>5.11.4</libs.junit>
         <libs.imagecomparison>4.4.0</libs.imagecomparison>
+        <!-- The nrw profile compiles a rewritten copy of the sources instead. -->
+        <scratch.sourceDirectory>src/main/java</scratch.sourceDirectory>
+        <scratch.allClassifier>all</scratch.allClassifier>
     </properties>
 
     <dependencies>
@@ -221,7 +224,7 @@
                                 <configuration>
                                     <createDependencyReducedPom>false</createDependencyReducedPom>
                                     <shadedArtifactAttached>true</shadedArtifactAttached>
-                                    <shadedClassifierName>all</shadedClassifierName>
+                                    <shadedClassifierName>${scratch.allClassifier}</shadedClassifierName>
                                     <transformers>
                                         <!--
                                             Merges META-INF/services instead of letting one jar
@@ -239,9 +242,80 @@
                 </plugins>
             </build>
         </profile>
+
+        <!--
+            The NRW build: find, getAll and getTouchingSprites return the List
+            of the NRW Zentralabitur instead of java.util.List. The sources are
+            rewritten by src/tools/java/variants/NrwVariant.java and compiled in
+            place of src/main/java. Examples, tests and the documentation are
+            written against the normal build, so they are left out.
+
+                mvn clean package -Pall,nrw   ->  target/scratch-<version>-nrw-all.jar
+        -->
+        <profile>
+            <id>nrw</id>
+            <properties>
+                <scratch.sourceDirectory>${project.build.directory}/nrw-sources</scratch.sourceDirectory>
+                <scratch.allClassifier>nrw-all</scratch.allClassifier>
+                <maven.test.skip>true</maven.test.skip>
+                <maven.javadoc.skip>true</maven.javadoc.skip>
+            </properties>
+            <build>
+                <finalName>${project.artifactId}-${project.version}-nrw</finalName>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>generate-nrw-sources</id>
+                                <phase>generate-sources</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <executable>${java.home}/bin/java</executable>
+                                    <workingDirectory>${project.basedir}</workingDirectory>
+                                    <arguments>
+                                        <argument>src/tools/java/variants/NrwVariant.java</argument>
+                                        <argument>src/main/java</argument>
+                                        <argument>${project.build.directory}/nrw-sources</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>generate-asset-pages</id>
+                                <phase>none</phase>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>build-helper-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>add-examples-source</id>
+                                <phase>none</phase>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-clean-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>clean-reference-docs</id>
+                                <phase>none</phase>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
     </profiles>
 
     <build>
+        <sourceDirectory>${scratch.sourceDirectory}</sourceDirectory>
         <plugins>
             <!-- Compiler -->
             <plugin>
@@ -265,6 +339,7 @@
                         <exclude>demos/**</exclude>
                         <exclude>reference/**</exclude>
                         <exclude>tools/**</exclude>
+                        <exclude>variants/**</exclude>
                     </excludes>
                 </configuration>
             </plugin>
@@ -445,7 +520,7 @@
                         </tag>
                     </tags>
                     <excludePackageNames>
-                        demos.*:demos:reference.*:reference,doclets.*:doclets,docs.*:docs
+                        demos.*:demos:reference.*:reference,doclets.*:doclets,docs.*:docs,variants.*:variants
                     </excludePackageNames>
                     <doclint>all,-missing</doclint>
                 </configuration>

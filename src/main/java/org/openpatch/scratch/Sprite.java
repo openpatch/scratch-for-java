@@ -7,6 +7,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 import org.openpatch.scratch.internal.Utils;
 import org.openpatch.scratch.extensions.shader.Shaders;
+import org.openpatch.scratch.internal.NrwList;
 import org.openpatch.scratch.internal.Image;
 import org.openpatch.scratch.internal.Sound;
 import org.openpatch.scratch.internal.Stamp;
@@ -1716,6 +1717,7 @@ public class Sprite {
         .orElse(null);
   }
 
+  // nrw-standard-begin
   /**
    * Returns a list of sprites of the specified type that are currently touching
    * this sprite.
@@ -1729,6 +1731,30 @@ public class Sprite {
    * @example.files SpriteGetTouchingSprites.java
    */
   public <T extends Sprite> List<T> getTouchingSprites(Class<T> c) {
+    return this.touchingSprites(c);
+  }
+  // nrw-standard-end
+  // nrw: /**
+  // nrw:  * Returns a list of sprites of the specified type that are currently touching
+  // nrw:  * this sprite.
+  // nrw:  *
+  // nrw:  * <p>
+  // nrw:  * The list is the {@code List} of the NRW Zentralabitur, which has to be in
+  // nrw:  * your project next to your own classes.
+  // nrw:  *
+  // nrw:  * @param <T> the type of sprites to return
+  // nrw:  * @param <L> your {@code List} type
+  // nrw:  * @param c   the class of the type of sprites to return
+  // nrw:  * @return a new list of the touching sprites, or null if the stage is not set
+  // nrw:  */
+  // nrw: public <T extends Sprite, L> L getTouchingSprites(Class<T> c) {
+  // nrw:   List<T> touching = this.touchingSprites(c);
+  // nrw:   if (touching == null)
+  // nrw:     return null;
+  // nrw:   return NrwList.of(touching, c, this.getClass());
+  // nrw: }
+
+  private <T extends Sprite> List<T> touchingSprites(Class<T> c) {
     if (stage == null)
       return null;
     return this.stage.sprites.stream()

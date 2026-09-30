@@ -1,8 +1,15 @@
 ---
 name: Changelog
-index: 68
+index: 69
 lang: en
 ---
+
+## 5.4.0
+
+
+
+Add an NRW version of the library, `scratch-<version>-nrw-all.jar`, for courses that use the classes of the NRW Zentralabitur. In it, `Stage.find`, `Stage.getAll` and `Sprite.getTouchingSprites` return the Abitur's `List` instead of `java.util.List`, so students can write `List<Gegner> gegner = find(Gegner.class);`. `List.java` from the Abitur classes has to be in the project's default package. The normal JAR is unchanged.
+
 
 ## 5.3.1
 
