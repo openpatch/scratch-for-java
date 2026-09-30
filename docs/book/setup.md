@@ -5,6 +5,12 @@ index: 2
 
 # Setup
 
+:::alert{info}
+Does your course use the Abiturklassen of the NRW Zentralabitur (`List`, `Queue`,
+`Graph`, …)? Then read [Abiturklassen NRW](/abitur-nrw) first. There is a version
+of Scratch for Java made for them.
+:::
+
 ## VS Code (Recommended)
 
 First make sure you have the Java Extension Pack installed. You can find it in the Extensions view by searching for `redhat.java`.

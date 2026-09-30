@@ -28,6 +28,16 @@ If you also need the JavaDoc, i.e., the documentation of the classes, it can be 
 
 It is best to add all three JAR files so that autocomplete and documentation lookup work correctly in your IDE.
 
+### NRW Abitur version
+
+If your course uses the classes of the NRW Zentralabitur, there is a version in
+which `find`, `getAll` and `getTouchingSprites` return their `List`. See
+[Abiturklassen NRW](/abitur-nrw).
+
+::download[All Operating Systems (NRW)]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch-{{VERSION}}-nrw-all.jar"}
+
+::download[Sources (NRW)]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch-{{VERSION}}-nrw-sources.jar"}
+
 ## Maven Central
 
 ```xml
