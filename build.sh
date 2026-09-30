@@ -11,6 +11,10 @@ cp ./CHANGELOG.md ./docs/book/changelog.md
 # are run in the browser now, so there is nothing left to copy.
 rm -rf "$PWD/docs/public/reference"
 
+# The online examples load their sprites and sounds from docs/public/examples,
+# which is copied from the demos rather than committed twice.
+"$ROOT/scripts/sync-example-assets.sh"
+
 # The version is written into these pages for the build and taken out again
 # afterwards. Substituting in place without restoring would burn one version
 # number into the sources, and every later release would ship the wrong one.

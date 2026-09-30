@@ -9,7 +9,7 @@ public class Pipes extends Stage {
     this.addBackdrop("chalkBoard", "demos/pipes/backdrops/chalk_board.jpg");
     this.setTint(60);
     this.add(new PenSprite());
-    this.addSound("bg", "demos/pipes/sounds/bensound-enigmatic.wav");
+    this.addSound("bg", "demos/pipes/sounds/bensound-enigmatic.ogg");
   }
 
   public void whenKeyPressed(KeyCode keyCode) {
