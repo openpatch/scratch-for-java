@@ -287,6 +287,10 @@
                                 <id>generate-asset-pages</id>
                                 <phase>none</phase>
                             </execution>
+                            <execution>
+                                <id>generate-demo-assets</id>
+                                <phase>none</phase>
+                            </execution>
                         </executions>
                     </plugin>
                     <plugin>
