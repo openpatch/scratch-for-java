@@ -30,6 +30,8 @@ public class Sorting {
    * Draws sprites in an order of your own.
    *
    * @param comparator decides which of two sprites is drawn first
+   *
+   * @desktop-only
    */
   public void by(Comparator<? super Sprite> comparator) {
     this.comparator = comparator;
@@ -53,6 +55,8 @@ public class Sorting {
    * Returns the order currently used.
    *
    * @return the comparator, or null if the sprites are not sorted
+   *
+   * @desktop-only
    */
   public Comparator<? super Sprite> getComparator() {
     return this.comparator;
