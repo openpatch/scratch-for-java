@@ -1,8 +1,76 @@
 ---
 name: Changelog
-index: 71
+index: 72
 lang: en
 ---
+
+## 5.5.0
+
+
+
+A sprite with rotation style `LEFT_RIGHT` that faces left now has its hitbox
+mirrored along with its costume. The costume was drawn flipped but the hitbox
+was not, so a costume whose painted part is not in the middle of its canvas
+collided with the empty side - and a hitbox set with `setHitbox` to cover, say,
+only the front of a sprite stayed at its back after it turned around. Speech
+and thought bubbles follow the mirrored costume as well. The Online IDE already
+mirrored the hitbox.
+
+
+Sprites can sense colours, like Scratch's `touching color?` and
+`color is touching color?` blocks:
+
+```java
+if (this.isTouchingColor(HtmlColor.RED)) { ... }
+if (this.isTouchingColor(255, 0, 0)) { ... }
+if (this.isColorTouchingColor(HtmlColor.YELLOW, HtmlColor.BLUE)) { ... }
+```
+
+A sprite touches a colour when anything it paints lies over that colour on the
+stage: on the backdrop, on what the pen drew, or on another sprite. Nearly
+equal colours count, with the same tolerance as Scratch, so anti-aliased edges
+still match. The check only looks at the pixels the sprite covers, so it costs
+the same on a 480 x 360 stage as on a 1920 x 1080 one; a 128 x 128 sprite takes
+well under a millisecond.
+
+
+A sprite can turn around a point of its own choosing, like Scratch's rotation
+center:
+
+```java
+this.setRotationCenter(54, 239); // in the costume's pixels, from its top left corner
+```
+
+The point sits at the sprite's position, the costume turns and mirrors around
+it, and the hitbox, stamps, speech bubbles and colour sensing follow. It is
+given like the points of `setHitbox`, grows with the sprite's size and holds
+for every costume. Without it, a sprite turns around the middle of its costume
+as before.
+
+
+`getShaders().add(name, fragmentShaderPath, null)` works. Leaving out the
+vertex shader is what the documentation shows, but it stopped the program with
+a `NullPointerException`; Processing's default vertex shader is now used.
+
+
+Every built-in sprite with a front now faces right, the way a sprite with
+direction 90 faces in Scratch. The ships, lasers and other parts of the space
+shooter sheet were drawn pointing up (the enemies down), and the bee, fly,
+fishes, frog, ladybug, mouse, slimes, snail and worms of the platformer sheet
+facing left. So a slime walking right with `move` walked backwards, and a ship
+told to `pointTowardsMousePointer` pointed its side at the mouse. They are now
+turned when they are loaded. A program that showed a ship pointing up at
+direction 90 now shows it pointing right; `setDirection(0)` points it up, and
+then `move` flies it up as well.
+
+
+A broadcast now reaches every sprite on the stage and the stage itself, as in
+Scratch and in the Online IDE. `Sprite.broadcast` left out the sprite that sent
+it, and `Stage.broadcast` left out the stage, so a sprite or stage that reacts
+to its own message in `whenIReceive` never heard it. A sprite that broadcasts
+the same message from its own `whenIReceive` now calls itself again, as the
+same script does in Scratch.
+
 
 ## 5.4.2
 
