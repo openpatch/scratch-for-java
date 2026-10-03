@@ -49,6 +49,11 @@ final class ColorSensing {
     this.stage = stage;
   }
 
+  /** Whether a sprite has asked about colours, so the pen layers are worth watching. */
+  boolean isWanted() {
+    return this.wanted;
+  }
+
   /**
    * Called by the stage once it has drawn its pen layers for a frame.
    *

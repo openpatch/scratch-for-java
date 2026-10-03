@@ -1871,15 +1871,19 @@ public class Stage {
 
     // Whether a pen layer changes this frame, so that colour sensing knows when
     // its copy went stale. Pen strokes stay where they were drawn on screen,
-    // so moving the camera does not change a layer.
-    boolean backgroundChanges = this.eraseBackgroundBuffer || !this.backgroundStamps.isEmpty()
+    // so moving the camera does not change a layer. Until a sprite asks about
+    // colours there is no copy to keep fresh, and the sprites are not walked.
+    boolean sensing = this.colorSensing.isWanted();
+    boolean backgroundChanges = sensing && (this.eraseBackgroundBuffer
+        || !this.backgroundStamps.isEmpty()
         || this.pens.stream().anyMatch(p -> p.isInBackground() && p.hasSomethingToDraw())
         || this.sprites.stream().anyMatch(
-            s -> s.getPen().isInBackground() && s.getPen().hasSomethingToDraw());
-    boolean foregroundChanges = this.eraseForegroundBuffer || !this.foregroundStamps.isEmpty()
+            s -> s.getPen().isInBackground() && s.getPen().hasSomethingToDraw()));
+    boolean foregroundChanges = sensing && (this.eraseForegroundBuffer
+        || !this.foregroundStamps.isEmpty()
         || this.pens.stream().anyMatch(p -> !p.isInBackground() && p.hasSomethingToDraw())
         || this.sprites.stream().anyMatch(
-            s -> !s.getPen().isInBackground() && s.getPen().hasSomethingToDraw());
+            s -> !s.getPen().isInBackground() && s.getPen().hasSomethingToDraw()));
 
     this.backgroundBuffer.beginDraw();
     this.backgroundBuffer.noStroke();
