@@ -57,9 +57,9 @@
 	<SubTexture name="barnacle.png" x="1950" y="910" width="128" height="128"/>
 	<SubTexture name="barnacle_attack.png" x="3250" y="650" width="128" height="128"/>
 	<SubTexture name="barnacle_dead.png" x="3250" y="520" width="128" height="128"/>
-	<SubTexture name="bee.png" x="3510" y="130" width="128" height="128"/>
-	<SubTexture name="bee_dead.png" x="3510" y="0" width="128" height="128"/>
-	<SubTexture name="bee_move.png" x="3380" y="1820" width="128" height="128"/>
+	<SubTexture name="bee.png" x="3510" y="130" width="128" height="128" direction="-90"/>
+	<SubTexture name="bee_dead.png" x="3510" y="0" width="128" height="128" direction="-90"/>
+	<SubTexture name="bee_move.png" x="3380" y="1820" width="128" height="128" direction="-90"/>
 	<SubTexture name="bomb.png" x="2470" y="520" width="128" height="128"/>
 	<SubTexture name="bombWhite.png" x="2470" y="390" width="128" height="128"/>
 	<SubTexture name="boxCoin.png" x="2470" y="260" width="128" height="128"/>
@@ -113,16 +113,16 @@
 	<SubTexture name="doorOpen_top.png" x="2210" y="910" width="128" height="128"/>
 	<SubTexture name="fence.png" x="2210" y="780" width="128" height="128"/>
 	<SubTexture name="fenceBroken.png" x="2210" y="650" width="128" height="128"/>
-	<SubTexture name="fireball.png" x="2470" y="650" width="128" height="128"/>
-	<SubTexture name="fishBlue.png" x="3380" y="1690" width="128" height="128"/>
-	<SubTexture name="fishBlue_dead.png" x="3380" y="1560" width="128" height="128"/>
-	<SubTexture name="fishBlue_fall.png" x="3380" y="1430" width="128" height="128"/>
-	<SubTexture name="fishGreen.png" x="3380" y="1300" width="128" height="128"/>
-	<SubTexture name="fishGreen_dead.png" x="3380" y="1170" width="128" height="128"/>
-	<SubTexture name="fishGreen_move.png" x="3380" y="1040" width="128" height="128"/>
-	<SubTexture name="fishPink.png" x="3380" y="910" width="128" height="128"/>
-	<SubTexture name="fishPink_dead.png" x="3380" y="780" width="128" height="128"/>
-	<SubTexture name="fishPink_move.png" x="3380" y="650" width="128" height="128"/>
+	<SubTexture name="fireball.png" x="2470" y="650" width="128" height="128" direction="-90"/>
+	<SubTexture name="fishBlue.png" x="3380" y="1690" width="128" height="128" direction="0"/>
+	<SubTexture name="fishBlue_dead.png" x="3380" y="1560" width="128" height="128" direction="0"/>
+	<SubTexture name="fishBlue_fall.png" x="3380" y="1430" width="128" height="128" direction="0"/>
+	<SubTexture name="fishGreen.png" x="3380" y="1300" width="128" height="128" direction="-90"/>
+	<SubTexture name="fishGreen_dead.png" x="3380" y="1170" width="128" height="128" direction="-90"/>
+	<SubTexture name="fishGreen_move.png" x="3380" y="1040" width="128" height="128" direction="-90"/>
+	<SubTexture name="fishPink.png" x="3380" y="910" width="128" height="128" direction="-90"/>
+	<SubTexture name="fishPink_dead.png" x="3380" y="780" width="128" height="128" direction="-90"/>
+	<SubTexture name="fishPink_move.png" x="3380" y="650" width="128" height="128" direction="-90"/>
 	<SubTexture name="flagBlue1.png" x="2600" y="1690" width="128" height="128"/>
 	<SubTexture name="flagBlue2.png" x="2600" y="1560" width="128" height="128"/>
 	<SubTexture name="flagBlue_down.png" x="2600" y="1430" width="128" height="128"/>
@@ -135,12 +135,12 @@
 	<SubTexture name="flagYellow1.png" x="2600" y="520" width="128" height="128"/>
 	<SubTexture name="flagYellow2.png" x="2600" y="390" width="128" height="128"/>
 	<SubTexture name="flagYellow_down.png" x="2600" y="260" width="128" height="128"/>
-	<SubTexture name="fly.png" x="3380" y="520" width="128" height="128"/>
-	<SubTexture name="fly_dead.png" x="3380" y="390" width="128" height="128"/>
-	<SubTexture name="fly_move.png" x="3380" y="260" width="128" height="128"/>
-	<SubTexture name="frog.png" x="3380" y="130" width="128" height="128"/>
-	<SubTexture name="frog_dead.png" x="3380" y="0" width="128" height="128"/>
-	<SubTexture name="frog_move.png" x="3250" y="1820" width="128" height="128"/>
+	<SubTexture name="fly.png" x="3380" y="520" width="128" height="128" direction="-90"/>
+	<SubTexture name="fly_dead.png" x="3380" y="390" width="128" height="128" direction="-90"/>
+	<SubTexture name="fly_move.png" x="3380" y="260" width="128" height="128" direction="-90"/>
+	<SubTexture name="frog.png" x="3380" y="130" width="128" height="128" direction="-90"/>
+	<SubTexture name="frog_dead.png" x="3380" y="0" width="128" height="128" direction="-90"/>
+	<SubTexture name="frog_move.png" x="3250" y="1820" width="128" height="128" direction="-90"/>
 	<SubTexture name="gemBlue.png" x="2600" y="130" width="128" height="128"/>
 	<SubTexture name="gemGreen.png" x="2600" y="0" width="128" height="128"/>
 	<SubTexture name="gemRed.png" x="2470" y="1820" width="128" height="128"/>
@@ -206,9 +206,9 @@
 	<SubTexture name="keyYellow.png" x="2470" y="1170" width="128" height="128"/>
 	<SubTexture name="ladderMid.png" x="2210" y="390" width="128" height="128"/>
 	<SubTexture name="ladderTop.png" x="2210" y="260" width="128" height="128"/>
-	<SubTexture name="ladybug.png" x="3250" y="1690" width="128" height="128"/>
-	<SubTexture name="ladybug_fly.png" x="3250" y="1560" width="128" height="128"/>
-	<SubTexture name="ladybug_move.png" x="3250" y="1430" width="128" height="128"/>
+	<SubTexture name="ladybug.png" x="3250" y="1690" width="128" height="128" direction="-90"/>
+	<SubTexture name="ladybug_fly.png" x="3250" y="1560" width="128" height="128" direction="-90"/>
+	<SubTexture name="ladybug_move.png" x="3250" y="1430" width="128" height="128" direction="-90"/>
 	<SubTexture name="lava.png" x="2210" y="130" width="128" height="128"/>
 	<SubTexture name="lavaTop_high.png" x="2210" y="0" width="128" height="128"/>
 	<SubTexture name="lavaTop_low.png" x="2080" y="1820" width="128" height="128"/>
@@ -219,9 +219,9 @@
 	<SubTexture name="lockGreen.png" x="2080" y="1170" width="128" height="128"/>
 	<SubTexture name="lockRed.png" x="2080" y="1040" width="128" height="128"/>
 	<SubTexture name="lockYellow.png" x="2080" y="910" width="128" height="128"/>
-	<SubTexture name="mouse.png" x="3250" y="1300" width="128" height="128"/>
-	<SubTexture name="mouse_dead.png" x="3250" y="1170" width="128" height="128"/>
-	<SubTexture name="mouse_move.png" x="3250" y="1040" width="128" height="128"/>
+	<SubTexture name="mouse.png" x="3250" y="1300" width="128" height="128" direction="-90"/>
+	<SubTexture name="mouse_dead.png" x="3250" y="1170" width="128" height="128" direction="-90"/>
+	<SubTexture name="mouse_move.png" x="3250" y="1040" width="128" height="128" direction="-90"/>
 	<SubTexture name="mushroomBrown.png" x="2080" y="780" width="128" height="128"/>
 	<SubTexture name="mushroomRed.png" x="2080" y="650" width="128" height="128"/>
 	<SubTexture name="planet.png" x="1560" y="130" width="128" height="128"/>
@@ -275,21 +275,21 @@
 	<SubTexture name="slimeBlock.png" x="3250" y="130" width="128" height="128"/>
 	<SubTexture name="slimeBlock_dead.png" x="3250" y="0" width="128" height="128"/>
 	<SubTexture name="slimeBlock_move.png" x="3120" y="1820" width="128" height="128"/>
-	<SubTexture name="slimeBlue.png" x="3120" y="1690" width="128" height="128"/>
-	<SubTexture name="slimeBlue_dead.png" x="3120" y="1560" width="128" height="128"/>
-	<SubTexture name="slimeBlue_hit.png" x="3120" y="1430" width="128" height="128"/>
-	<SubTexture name="slimeBlue_move.png" x="3120" y="1300" width="128" height="128"/>
-	<SubTexture name="slimeGreen.png" x="3120" y="1170" width="128" height="128"/>
-	<SubTexture name="slimeGreen_dead.png" x="3120" y="1040" width="128" height="128"/>
-	<SubTexture name="slimeGreen_hit.png" x="3120" y="910" width="128" height="128"/>
-	<SubTexture name="slimeGreen_move.png" x="3120" y="780" width="128" height="128"/>
-	<SubTexture name="slimePurple.png" x="3120" y="650" width="128" height="128"/>
-	<SubTexture name="slimePurple_dead.png" x="3120" y="520" width="128" height="128"/>
-	<SubTexture name="slimePurple_hit.png" x="3120" y="390" width="128" height="128"/>
-	<SubTexture name="slimePurple_move.png" x="3120" y="260" width="128" height="128"/>
-	<SubTexture name="snail.png" x="3120" y="130" width="128" height="128"/>
-	<SubTexture name="snail_move.png" x="3120" y="0" width="128" height="128"/>
-	<SubTexture name="snail_shell.png" x="2990" y="1820" width="128" height="128"/>
+	<SubTexture name="slimeBlue.png" x="3120" y="1690" width="128" height="128" direction="-90"/>
+	<SubTexture name="slimeBlue_dead.png" x="3120" y="1560" width="128" height="128" direction="-90"/>
+	<SubTexture name="slimeBlue_hit.png" x="3120" y="1430" width="128" height="128" direction="-90"/>
+	<SubTexture name="slimeBlue_move.png" x="3120" y="1300" width="128" height="128" direction="-90"/>
+	<SubTexture name="slimeGreen.png" x="3120" y="1170" width="128" height="128" direction="-90"/>
+	<SubTexture name="slimeGreen_dead.png" x="3120" y="1040" width="128" height="128" direction="-90"/>
+	<SubTexture name="slimeGreen_hit.png" x="3120" y="910" width="128" height="128" direction="-90"/>
+	<SubTexture name="slimeGreen_move.png" x="3120" y="780" width="128" height="128" direction="-90"/>
+	<SubTexture name="slimePurple.png" x="3120" y="650" width="128" height="128" direction="-90"/>
+	<SubTexture name="slimePurple_dead.png" x="3120" y="520" width="128" height="128" direction="-90"/>
+	<SubTexture name="slimePurple_hit.png" x="3120" y="390" width="128" height="128" direction="-90"/>
+	<SubTexture name="slimePurple_move.png" x="3120" y="260" width="128" height="128" direction="-90"/>
+	<SubTexture name="snail.png" x="3120" y="130" width="128" height="128" direction="-90"/>
+	<SubTexture name="snail_move.png" x="3120" y="0" width="128" height="128" direction="-90"/>
+	<SubTexture name="snail_shell.png" x="2990" y="1820" width="128" height="128" direction="-90"/>
 	<SubTexture name="snow.png" x="1170" y="1300" width="128" height="128"/>
 	<SubTexture name="snow.png" x="1170" y="1300" width="128" height="128"/>
 	<SubTexture name="snowCenter.png" x="1170" y="1170" width="128" height="128"/>
@@ -348,10 +348,10 @@
 	<SubTexture name="weight.png" x="1820" y="1300" width="128" height="128"/>
 	<SubTexture name="weightAttached.png" x="1820" y="1170" width="128" height="128"/>
 	<SubTexture name="window.png" x="1820" y="1040" width="128" height="128"/>
-	<SubTexture name="wormGreen.png" x="2990" y="1690" width="128" height="128"/>
-	<SubTexture name="wormGreen_dead.png" x="2990" y="1560" width="128" height="128"/>
-	<SubTexture name="wormGreen_move.png" x="2990" y="1430" width="128" height="128"/>
-	<SubTexture name="wormPink.png" x="2990" y="1300" width="128" height="128"/>
-	<SubTexture name="wormPink_dead.png" x="2990" y="1170" width="128" height="128"/>
-	<SubTexture name="wormPink_move.png" x="2990" y="1040" width="128" height="128"/>
+	<SubTexture name="wormGreen.png" x="2990" y="1690" width="128" height="128" direction="-90"/>
+	<SubTexture name="wormGreen_dead.png" x="2990" y="1560" width="128" height="128" direction="-90"/>
+	<SubTexture name="wormGreen_move.png" x="2990" y="1430" width="128" height="128" direction="-90"/>
+	<SubTexture name="wormPink.png" x="2990" y="1300" width="128" height="128" direction="-90"/>
+	<SubTexture name="wormPink_dead.png" x="2990" y="1170" width="128" height="128" direction="-90"/>
+	<SubTexture name="wormPink_move.png" x="2990" y="1040" width="128" height="128" direction="-90"/>
 </TextureAtlas>

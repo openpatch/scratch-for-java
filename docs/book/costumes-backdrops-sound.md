@@ -38,6 +38,18 @@ this.addCostume("hero", "assets/hero.png");
 Anything with a file ending is treated as a path, anything without one is looked
 up in the built-in library.
 
+## Which way a costume faces
+
+A sprite with direction 90 faces right, just like in Scratch. That is why every
+built-in sprite with a front - a ship, a fish, a laser - is drawn facing right:
+`move` takes it where it is looking, and `pointTowardsMousePointer` turns its
+nose to the mouse.
+
+Draw your own costumes the same way, facing right. A picture drawn facing up
+would otherwise fly sideways. If you found one that faces another way, turn or
+mirror it in an image editor, such as one of those listed below, before you use
+it.
+
 What Scratch for Java does *not* have is Scratch's paint and sound editors, so
 for making or changing files you need separate tools. The rest of this page is a
 list of places to find and edit them.

@@ -123,6 +123,27 @@ class BuiltinAssetsTest {
   }
 
   @Test
+  void spritesWithAFrontAreTurnedToFaceRight() {
+    // drawn pointing up, down and left on their sheets
+    assertEquals(0, BuiltinAssets.get("playerShip1_blue").direction);
+    assertEquals(180, BuiltinAssets.get("enemyRed1").direction);
+    assertEquals(-90, BuiltinAssets.get("snail").direction);
+    // drawn facing right, or with no front to speak of
+    assertEquals(90, BuiltinAssets.get("planeRed1").direction);
+    assertEquals(90, BuiltinAssets.get("alienGreen_walk1").direction);
+    assertEquals(90, BuiltinAssets.get("coinGold").direction);
+  }
+
+  @Test
+  void everyDirectionInTheAtlasesIsOneAPictureCanBeTurnedFrom() {
+    for (BuiltinAssets.Entry entry : BuiltinAssets.getEntries()) {
+      assertTrue(
+          java.util.List.of(0.0, 90.0, 180.0, -90.0).contains(entry.direction),
+          entry.sheet + "/" + entry.name + " faces " + entry.direction);
+    }
+  }
+
+  @Test
   void suggestsCloseNamesForATypo() {
     List<String> suggestions = BuiltinAssets.suggest("bunny1_jmp", 6);
 

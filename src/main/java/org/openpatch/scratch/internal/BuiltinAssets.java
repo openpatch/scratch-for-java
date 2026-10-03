@@ -32,6 +32,15 @@ import tools.jackson.dataformat.xml.annotation.JacksonXmlProperty;
  * more than one sheet; for those, the bare form resolves against the first
  * sheet in {@link #SHEETS} and the qualified form is needed to reach the
  * others. Lookup ignores case.
+ *
+ * <p>
+ * Every sprite with a front - a ship, a fish, a laser - faces right, the way a
+ * sprite in Scratch faces when its direction is 90. Kenney drew some of them
+ * facing another way, so the atlas may give a sprite a {@code direction}
+ * attribute naming the way it is drawn ({@code 0} up, {@code 180} down,
+ * {@code -90} left), and {@link Image} turns it to face right when it is
+ * loaded. A sprite without the attribute is drawn facing right already, or has
+ * no front at all.
  */
 public final class BuiltinAssets {
 
@@ -55,8 +64,11 @@ public final class BuiltinAssets {
     public final int y;
     public final int width;
     public final int height;
+    /** The direction the sprite is drawn facing on its sheet, as in Scratch. */
+    public final double direction;
 
-    private Entry(String name, String sheet, int x, int y, int width, int height) {
+    private Entry(String name, String sheet, int x, int y, int width, int height,
+        double direction) {
       this.name = name;
       this.sheet = sheet;
       this.sheetPath = BASE + sheet + ".png";
@@ -64,6 +76,7 @@ public final class BuiltinAssets {
       this.y = y;
       this.width = width;
       this.height = height;
+      this.direction = direction;
     }
   }
 
@@ -100,7 +113,8 @@ public final class BuiltinAssets {
           if (loaded.containsKey(qualified)) {
             continue;
           }
-          Entry entry = new Entry(simpleName, sheet, sub.x, sub.y, sub.width, sub.height);
+          Entry entry = new Entry(simpleName, sheet, sub.x, sub.y, sub.width, sub.height,
+              sub.direction == null ? 90 : sub.direction);
           // The qualified name is always unique, the bare one is first-come.
           loaded.put(qualified, entry);
           loaded.putIfAbsent(key(simpleName), entry);
@@ -259,5 +273,9 @@ public final class BuiltinAssets {
 
     @JacksonXmlProperty(isAttribute = true)
     public int height;
+
+    /** Our addition to Kenney's format: the way the sprite is drawn facing. */
+    @JacksonXmlProperty(isAttribute = true)
+    public Double direction;
   }
 }

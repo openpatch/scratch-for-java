@@ -32,6 +32,7 @@ public class Image {
 
   private static final AbstractMap<String, PImage> originalImages = new ConcurrentHashMap<>();
   private static final AbstractMap<String, PImage> originalImageTiles = new ConcurrentHashMap<>();
+  private static final AbstractMap<String, PImage> turnedImages = new ConcurrentHashMap<>();
   private static final AbstractMap<PImage, int[]> contentBounds = new ConcurrentHashMap<>();
 
   /**
@@ -65,6 +66,20 @@ public class Image {
   }
 
   /**
+   * Construct a ScratchImage object by a name and a picture that is already
+   * loaded.
+   *
+   * @param name  a name
+   * @param image the picture
+   */
+  public Image(String name, PImage image) {
+    this.name = name;
+    this.originalImage = image;
+    this.width = image.width;
+    this.height = image.height;
+  }
+
+  /**
    * Copies a ScratchImage object
    *
    * @param i the ScratchImage object to copy
@@ -94,14 +109,7 @@ public class Image {
    * @return the image
    */
   public static Image ofNameOrPath(String name, String pathOrBuiltin) {
-    if (BuiltinAssets.isBuiltinName(pathOrBuiltin)) {
-      BuiltinAssets.Entry entry = BuiltinAssets.get(pathOrBuiltin);
-      if (entry != null) {
-        return new Image(name, entry.sheetPath, entry.x, entry.y, entry.width, entry.height);
-      }
-      AssetErrorReporter.reportUnknownBuiltinAndFail(pathOrBuiltin, "sprite");
-    }
-    return new Image(name, pathOrBuiltin);
+    return new Image(name, loadImageOrBuiltin(pathOrBuiltin));
   }
 
   /**
@@ -114,6 +122,10 @@ public class Image {
    * {@code addCostumes} cuts up. Without it a built-in name worked when naming
    * a costume and nowhere else.
    *
+   * <p>
+   * A built-in is turned to face right, the way its atlas says it is drawn. A
+   * file is taken as it is: costumes of your own are expected to face right.
+   *
    * @param pathOrBuiltin a bundled sprite name or a path to an image
    * @return the picture
    */
@@ -121,7 +133,12 @@ public class Image {
     if (BuiltinAssets.isBuiltinName(pathOrBuiltin)) {
       BuiltinAssets.Entry entry = BuiltinAssets.get(pathOrBuiltin);
       if (entry != null) {
-        return loadImage(entry.sheetPath, entry.x, entry.y, entry.width, entry.height);
+        PImage picture = loadImage(entry.sheetPath, entry.x, entry.y, entry.width, entry.height);
+        if (entry.direction == FACING_RIGHT) {
+          return picture;
+        }
+        return turnedImages.computeIfAbsent(BuiltinAssets.getReferenceName(entry),
+            k -> turnToFaceRight(picture, entry.direction));
       }
       AssetErrorReporter.reportUnknownBuiltinAndFail(pathOrBuiltin, "sprite");
     }
@@ -146,17 +163,9 @@ public class Image {
   public static List<Image> tilesOf(String prefix, String pathOrBuiltin, int tileWidth,
       int tileHeight) {
     PImage sheet = loadImageOrBuiltin(pathOrBuiltin);
-    String sheetPath = pathOrBuiltin;
-    int originX = 0;
-    int originY = 0;
     BuiltinAssets.Entry entry = BuiltinAssets.isBuiltinName(pathOrBuiltin)
         ? BuiltinAssets.get(pathOrBuiltin)
         : null;
-    if (entry != null) {
-      sheetPath = entry.sheetPath;
-      originX = entry.x;
-      originY = entry.y;
-    }
 
     int nx = sheet.width / tileWidth;
     int ny = sheet.height / tileHeight;
@@ -164,8 +173,22 @@ public class Image {
     for (int y = 0; y < ny; y += 1) {
       for (int x = 0; x < nx; x += 1) {
         int index = x * nx + y;
-        tiles.add(new Image(prefix + index, sheetPath,
-            originX + x * tileWidth, originY + y * tileHeight, tileWidth, tileHeight));
+        if (entry != null && entry.direction != FACING_RIGHT) {
+          // A built-in that had to be turned is no longer laid out like the
+          // region it was cut from, so its tiles come from the turned picture.
+          int tx = x * tileWidth;
+          int ty = y * tileHeight;
+          String key = BuiltinAssets.getReferenceName(entry) + "@tile" + tx + "," + ty + ","
+              + tileWidth + "," + tileHeight;
+          tiles.add(new Image(prefix + index, originalImageTiles.computeIfAbsent(key,
+              k -> sheet.get(tx, ty, tileWidth, tileHeight))));
+        } else if (entry != null) {
+          tiles.add(new Image(prefix + index, entry.sheetPath,
+              entry.x + x * tileWidth, entry.y + y * tileHeight, tileWidth, tileHeight));
+        } else {
+          tiles.add(new Image(prefix + index, pathOrBuiltin,
+              x * tileWidth, y * tileHeight, tileWidth, tileHeight));
+        }
       }
     }
     return tiles;
@@ -217,6 +240,65 @@ public class Image {
       originalImageTiles.put(key, image);
     }
     return image;
+  }
+
+  /** The direction a picture faces when it needs no turning. */
+  private static final double FACING_RIGHT = 90;
+
+  /**
+   * Turns a picture that is drawn facing {@code direction} so that it faces
+   * right, the way a sprite faces in Scratch when its direction is 90.
+   *
+   * <p>
+   * A picture facing up is turned a quarter clockwise, one facing down a
+   * quarter anticlockwise. A picture facing left is mirrored rather than turned
+   * half way round: turned, a fish facing left would swim on its back.
+   *
+   * @param image     the picture
+   * @param direction the way it is drawn facing: 0 up, 90 right, 180 down, -90
+   *                  left. 270 and -180 work as well.
+   * @return a new picture facing right, or {@code image} itself if it already
+   *         did
+   * @throws IllegalArgumentException if the direction is not one of the four
+   */
+  public static PImage turnToFaceRight(PImage image, double direction) {
+    int facing = normaliseDirection(direction);
+    if (facing == 90) {
+      return image;
+    }
+
+    image.loadPixels();
+    int w = image.width;
+    int h = image.height;
+    boolean quarter = facing != 270;
+    PImage result = new PImage(quarter ? h : w, quarter ? w : h, PConstants.ARGB);
+    result.loadPixels();
+    for (int y = 0; y < h; y++) {
+      for (int x = 0; x < w; x++) {
+        int pixel = image.pixels[y * w + x];
+        switch (facing) {
+          // up: the top edge becomes the right edge
+          case 0 -> result.pixels[x * h + (h - 1 - y)] = pixel;
+          // down: the bottom edge becomes the right edge
+          case 180 -> result.pixels[(w - 1 - x) * h + y] = pixel;
+          // left: mirrored
+          default -> result.pixels[y * w + (w - 1 - x)] = pixel;
+        }
+      }
+    }
+    result.updatePixels();
+    return result;
+  }
+
+  /** Maps a direction onto 0, 90, 180 or 270, or explains why it cannot. */
+  private static int normaliseDirection(double direction) {
+    double degrees = ((direction % 360) + 360) % 360;
+    if (degrees % 90 != 0) {
+      throw new IllegalArgumentException(
+          "A picture can only be drawn facing up (0), right (90), down (180) or left (-90), not "
+              + direction + ".");
+    }
+    return (int) degrees;
   }
 
   /**

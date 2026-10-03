@@ -163,15 +163,28 @@ public final class GenerateAssetPages {
     // seeing that a coin is tiny next to a player is worth keeping.
     double scale = Math.min(1.0, (double) TILE / Math.max(width, height));
 
+    // The sheet holds a sprite the way Kenney drew it, so one the library turns
+    // to face right is turned here as well. A transform leaves the layout alone,
+    // and the frame centres the sprite, so it turns about its own middle.
+    String transform = switch ((int) entry.direction) {
+      case 0 -> "scale(" + round(scale) + ") rotate(90deg)";
+      case 180 -> "scale(" + round(scale) + ") rotate(-90deg)";
+      case -90 -> "scale(-" + round(scale) + "," + round(scale) + ")";
+      default -> "scale(" + round(scale) + ")";
+    };
+    boolean quarterTurn = entry.direction == 0 || entry.direction == 180;
+    int shownWidth = quarterTurn ? entry.height : entry.width;
+    int shownHeight = quarterTurn ? entry.width : entry.height;
+
     return "<button class=\"ba-tile\" data-name=\"" + escape(reference.toLowerCase()) + "\""
         + " data-copy=\"" + escape("this.addCostume(\"" + reference + "\");") + "\""
-        + " title=\"" + escape(reference + "  (" + entry.width + "x" + entry.height + ")") + "\">"
+        + " title=\"" + escape(reference + "  (" + shownWidth + "x" + shownHeight + ")") + "\">"
         + "<span class=\"ba-frame\">"
         + "<span class=\"ba-sprite ba-sheet-" + escape(entry.sheet) + "\" style=\""
         + "width:" + width + "px;"
         + "height:" + height + "px;"
         + "background-position:-" + x + "px -" + y + "px;"
-        + "transform:scale(" + round(scale) + ")\"></span>"
+        + "transform:" + transform + "\"></span>"
         + "</span>"
         + "<span class=\"ba-name\">" + escape(reference) + "</span>"
         + "</button>\n";
