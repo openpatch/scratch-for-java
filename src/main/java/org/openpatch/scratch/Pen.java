@@ -391,6 +391,19 @@ public class Pen {
     }
   }
 
+  /**
+   * Whether the next {@link #draw} puts anything on its layer, so that a copy
+   * of the layer kept for colour sensing knows it went stale.
+   */
+  boolean hasSomethingToDraw() {
+    for (Path path : this.pathsBuffer) {
+      if (!path.points.isEmpty()) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   /** Draw the line which the pen has drawn. 
    * @ignore-in-docs Called by the render loop. It needs a Processing buffer, which nothing in
    * the library hands out.

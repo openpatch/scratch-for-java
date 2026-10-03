@@ -1408,6 +1408,80 @@ public class Sprite {
   }
 
   /**
+   * Checks whether the sprite is touching a colour: whether anything it paints
+   * lies over that colour on the stage - on the backdrop, on what the pen drew,
+   * or on another sprite.
+   *
+   * <p>
+   * As in Scratch, colours that are nearly the same count, so anti-aliased
+   * edges still match. Only what is under the painted part of the costume
+   * counts, not the empty space around it, and not the hitbox.
+   *
+   * <pre>{@code
+   * if (this.isTouchingColor(HtmlColor.RED)) {
+   *   this.say("Ouch!");
+   * }
+   * }</pre>
+   *
+   * <p>
+   * The time it takes grows with the size of the sprite, not of the stage.
+   *
+   * @param color the colour to look for
+   * @return true if the sprite is touching the colour
+   *
+   * @example.files SpriteIsTouchingColor.java
+   *
+   * @scratchblock &lt;touching color [#ff0000]?&gt;
+   */
+  public boolean isTouchingColor(Color color) {
+    if (this.stage == null) {
+      return false;
+    }
+    return this.stage.getColorSensing().isTouching(this, null, color);
+  }
+
+  /**
+   * Checks whether the sprite is touching a colour given by its red, green and
+   * blue parts.
+   *
+   * @param r the red part [0...255]
+   * @param g the green part [0...255]
+   * @param b the blue part [0...255]
+   * @return true if the sprite is touching the colour
+   *
+   * @see #isTouchingColor(Color)
+   */
+  public boolean isTouchingColor(double r, double g, double b) {
+    return this.isTouchingColor(new Color(r, g, b));
+  }
+
+  /**
+   * Checks whether a colour of the sprite is touching a colour on the stage:
+   * only the parts of the costume painted in {@code color} count. A car whose
+   * front bumper is red can ask whether the bumper touches the grass.
+   *
+   * <pre>{@code
+   * if (this.isColorTouchingColor(HtmlColor.RED, HtmlColor.GREEN)) {
+   *   this.say("Off the road!");
+   * }
+   * }</pre>
+   *
+   * @param color a colour of this sprite's costume
+   * @param other the colour to look for under it
+   * @return true if the colour touches the other colour
+   *
+   * @example.files SpriteIsColorTouchingColor.java
+   *
+   * @scratchblock &lt;color [#ff0000] is touching [#00ff00]?&gt;
+   */
+  public boolean isColorTouchingColor(Color color, Color other) {
+    if (this.stage == null) {
+      return false;
+    }
+    return this.stage.getColorSensing().isTouching(this, color, other);
+  }
+
+  /**
    * Returns true if the rectangle which contains the image is outside of the
    * stage
    *
@@ -2543,6 +2617,18 @@ public class Sprite {
     this.costumes
         .get(this.currentCostume)
         .draw(buffer, this.size, this.direction, this.x, this.y, this.rotationStyle, shader);
+  }
+
+  /** The costume the sprite wears, or null if it has none. */
+  Image getCurrentCostume() {
+    if (this.costumes.isEmpty() || this.currentCostume >= this.costumes.size()) {
+      return null;
+    }
+    return this.costumes.get(this.currentCostume);
+  }
+
+  RotationStyle getRotationStyle() {
+    return this.rotationStyle;
   }
 
   /** A question mark where a sprite without a costume would have been. */

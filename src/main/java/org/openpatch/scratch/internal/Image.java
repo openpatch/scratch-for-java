@@ -320,6 +320,19 @@ public class Image {
   }
 
   /**
+   * Returns the pixels of the image before it was resized, row by row, as ARGB
+   * colours. The array belongs to the image and must not be changed.
+   *
+   * @return the pixels, {@link #getOriginalWidth()} per row
+   */
+  public int[] getOriginalPixels() {
+    if (this.originalImage.pixels == null) {
+      this.originalImage.loadPixels();
+    }
+    return this.originalImage.pixels;
+  }
+
+  /**
    * Returns the smallest rectangle that holds every pixel which is not fully
    * transparent, in coordinates of the image before it was resized.
    *

@@ -112,6 +112,7 @@ public class Stage {
   Hitbox bottomBorder;
 
   private Camera camera;
+  private final ColorSensing colorSensing = new ColorSensing(this);
   /**
    * Returns the order in which the sprites of this stage are drawn.
    *
@@ -1592,6 +1593,18 @@ public class Stage {
     this.cursorActiveSpotY = y;
   }
 
+  /** The backdrop on show, or null if the stage has none. */
+  Image getCurrentBackdrop() {
+    if (this.backdrops.isEmpty() || this.currentBackdrop >= this.backdrops.size()) {
+      return null;
+    }
+    return this.backdrops.get(this.currentBackdrop);
+  }
+
+  ColorSensing getColorSensing() {
+    return this.colorSensing;
+  }
+
   /**
    * Retrieves the current camera instance associated with this stage.
    *
@@ -1856,6 +1869,18 @@ public class Stage {
     this.backdropBuffer.pop();
     this.backdropBuffer.endDraw();
 
+    // Whether a pen layer changes this frame, so that colour sensing knows when
+    // its copy went stale. Pen strokes stay where they were drawn on screen,
+    // so moving the camera does not change a layer.
+    boolean backgroundChanges = this.eraseBackgroundBuffer || !this.backgroundStamps.isEmpty()
+        || this.pens.stream().anyMatch(p -> p.isInBackground() && p.hasSomethingToDraw())
+        || this.sprites.stream().anyMatch(
+            s -> s.getPen().isInBackground() && s.getPen().hasSomethingToDraw());
+    boolean foregroundChanges = this.eraseForegroundBuffer || !this.foregroundStamps.isEmpty()
+        || this.pens.stream().anyMatch(p -> !p.isInBackground() && p.hasSomethingToDraw())
+        || this.sprites.stream().anyMatch(
+            s -> !s.getPen().isInBackground() && s.getPen().hasSomethingToDraw());
+
     this.backgroundBuffer.beginDraw();
     this.backgroundBuffer.noStroke();
     this.backgroundBuffer.translate(this.getWidth() / 2.0f, this.getHeight() / 2.0f);
@@ -1911,6 +1936,8 @@ public class Stage {
       this.foregroundStamps.poll().draw(this.foregroundBuffer);
     }
     this.foregroundBuffer.endDraw();
+    this.colorSensing.penLayersDrawn(
+        this.backgroundBuffer, backgroundChanges, this.foregroundBuffer, foregroundChanges);
 
     shaderBuffer.beginDraw();
     var shader = this.shaders.getCurrent();
