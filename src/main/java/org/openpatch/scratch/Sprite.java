@@ -2361,13 +2361,13 @@ public class Sprite {
   }
 
   /**
-   * Broadcasts a message to all sprites in the stage except the current sprite.
-   * If the stage is not
-   * set, the method returns immediately.
+   * Broadcasts a message to every sprite on the stage, this one included, and
+   * to the stage itself, as in Scratch. If the sprite is not on a stage, nothing
+   * happens.
 
    * @scratchblock broadcast [message v]
    *
-   * @param message The message to broadcast to other sprites.
+   * @param message The message to broadcast.
    *
    * @example.files SpriteBroadcast.java
    */
@@ -2380,8 +2380,7 @@ public class Sprite {
           "     Add the sprite to a stage first, then broadcast.");
       return;
     }
-    this.stage.sprites.stream().filter(s -> s != this).forEach(s -> s.whenIReceive(message));
-    this.stage.whenIReceive(message);
+    this.stage.broadcast(message);
   }
 
 

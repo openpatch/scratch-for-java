@@ -1535,11 +1535,11 @@ public class Stage {
   }
 
   /**
-   * Broadcasts a message to all sprites in the stage. Each sprite will execute
-   * its `whenIReceive`
-   * method with the given message.
+   * Broadcasts a message to every sprite on the stage and to the stage itself,
+   * as in Scratch. Each of them runs its {@code whenIReceive} method with the
+   * message.
    *
-   * @param message The message to broadcast to all sprites.
+   * @param message The message to broadcast.
    *
    * @scratchblock broadcast [message v]
    *
@@ -1547,6 +1547,7 @@ public class Stage {
    */
   public void broadcast(String message) {
     this.sprites.stream().forEach(s -> s.whenIReceive(message));
+    this.whenIReceive(message);
   }
 
 
