@@ -341,6 +341,7 @@ final class ColorSensing {
       double y = sprite.getY();
       double scaleU = costume.getOriginalWidth() / w;
       double scaleV = costume.getOriginalHeight() / h;
+      double[] center = sprite.getDrawnRotationCenter(costume);
 
       // A stage point back in the costume's own frame (y down, centred), then
       // in its pixels. Every step is linear, so three points pin the map down.
@@ -353,8 +354,8 @@ final class ColorSensing {
         double dy = (points[i][1] - view.height / 2.0) / view.zoom - view.cameraY + y;
         double lx = (dx * cos + dy * sin) * mirror;
         double ly = -dx * sin + dy * cos;
-        us[i] = (lx + w / 2) * scaleU;
-        vs[i] = (ly + h / 2) * scaleV;
+        us[i] = (lx + center[0]) * scaleU;
+        vs[i] = (ly + center[1]) * scaleV;
       }
       at[0] = us[1] - us[0];
       at[1] = us[2] - us[0];
@@ -365,8 +366,9 @@ final class ColorSensing {
       Picture picture = new Picture(costume, at, withTransparency);
 
       for (int corner = 0; corner < 4; corner++) {
-        double lx = (corner % 2 == 0 ? -0.5 : 0.5) * w;
-        double ly = (corner < 2 ? -0.5 : 0.5) * h;
+        double lx = (corner % 2 == 0 ? 0 : w) - center[0];
+        double ly = (corner < 2 ? 0 : h) - center[1];
+        lx *= mirror;
         double dx = lx * cos - ly * sin;
         double dy = lx * sin + ly * cos;
         picture.cornersX[corner] = view.width / 2.0 + view.zoom * (x + dx - view.cameraX);

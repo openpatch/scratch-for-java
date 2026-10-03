@@ -610,6 +610,33 @@ public class Image {
       double y,
       RotationStyle style,
       Shader shader) {
+    this.draw(buffer, size, degrees, x, y, style, shader, this.width / 2.0, this.height / 2.0);
+  }
+
+  /**
+   * Draw the scaled image so that a given point of it - its rotation center -
+   * sits at a given position, turned or mirrored about that point.
+   *
+   * @param buffer  a buffer
+   * @param size    a percentage value
+   * @param degrees direction
+   * @param x       a x coordinate
+   * @param y       a y coordinate
+   * @param style   a rotation style
+   * @param shader  a shader
+   * @param centerX the rotation center's distance from the left edge, in drawn pixels
+   * @param centerY the rotation center's distance from the top edge, in drawn pixels
+   */
+  public void draw(
+      PGraphics buffer,
+      double size,
+      double degrees,
+      double x,
+      double y,
+      RotationStyle style,
+      Shader shader,
+      double centerX,
+      double centerY) {
     buffer.push();
     buffer.translate((float) x, (float) -y);
     switch (style) {
@@ -629,7 +656,7 @@ public class Image {
       buffer.shader(pshader);
     }
 
-    buffer.translate(-this.width / 2.0f, -this.height / 2.0f);
+    buffer.translate((float) -centerX, (float) -centerY);
     buffer.tint(
         (float) this.tint.getRed(),
         (float) this.tint.getGreen(),

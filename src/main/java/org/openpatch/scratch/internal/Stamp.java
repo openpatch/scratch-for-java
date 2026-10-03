@@ -12,22 +12,32 @@ public class Stamp {
   private double y;
   private RotationStyle style;
   private double degrees;
+  // the point of the image at (x, y), in drawn pixels from its top left corner
+  private double centerX;
+  private double centerY;
 
   public Stamp(Image image, double x2, double y2) {
     this(image, 0, x2, y2, RotationStyle.DONT);
   }
 
   public Stamp(Image image, double degrees, double x, double y, RotationStyle style) {
+    this(image, degrees, x, y, style, image.getWidth() / 2.0, image.getHeight() / 2.0);
+  }
+
+  public Stamp(Image image, double degrees, double x, double y, RotationStyle style,
+      double centerX, double centerY) {
     this.image = image;
     this.x = x;
     this.y = y;
     this.style = style;
     this.degrees = degrees;
+    this.centerX = centerX;
+    this.centerY = centerY;
   }
 
   public void draw(PGraphics g) {
     g.push();
-    g.imageMode(PConstants.CENTER);
+    g.imageMode(PConstants.CORNER);
     g.translate((float) this.x, (float) -this.y);
     // A heading of 90 points right, which is where the artwork already faces.
     // Kept in a local: draw() must not mutate the stamp, or a stamp that is
@@ -40,9 +50,7 @@ public class Stamp {
         g.rotate(PApplet.radians((float) heading));
         break;
       case LEFT_RIGHT:
-        if (heading > -90 && heading < 90) {
-          g.scale(1, 1);
-        } else {
+        if (Image.isMirrored(this.degrees, this.style)) {
           g.scale(-1, 1);
         }
         break;
@@ -54,7 +62,8 @@ public class Stamp {
         this.image.alpha());
     // Draw at the costume's current size, not the file's natural size, so a
     // stamp matches the sprite it was taken from after setSize().
-    g.image(this.image.originalImage, 0, 0, this.image.getWidth(), this.image.getHeight());
+    g.image(this.image.originalImage, (float) -this.centerX, (float) -this.centerY,
+        this.image.getWidth(), this.image.getHeight());
     g.noTint();
     g.pop();
   }

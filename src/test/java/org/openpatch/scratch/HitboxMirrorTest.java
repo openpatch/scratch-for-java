@@ -92,4 +92,66 @@ class HitboxMirrorTest {
     Bounds bounds = sprite.getHitbox().getBounds();
     assertEquals(-5, bounds.x(), DELTA);
   }
+
+  // ---- rotation center ----
+
+  @Test
+  void theRotationCenterIsThePointAtTheSpritesPosition() throws Exception {
+    Sprite sprite = spritePaintedOnTheLeft();
+    sprite.setRotationCenter(0, 0); // the top left corner
+
+    Bounds bounds = sprite.getHitbox().getBounds();
+    assertEquals(0, bounds.x(), DELTA);
+    assertEquals(0, bounds.y(), DELTA);
+    assertEquals(2, bounds.width(), DELTA);
+  }
+
+  @Test
+  void theRotationCenterGrowsWithTheSprite() throws Exception {
+    Sprite sprite = spritePaintedOnTheLeft();
+    sprite.setRotationCenter(10, 4); // the bottom right corner
+    sprite.setSize(200);
+
+    Bounds bounds = sprite.getHitbox().getBounds();
+    assertEquals(-20, bounds.x(), DELTA);
+    assertEquals(-8, bounds.y(), DELTA);
+    assertEquals(4, bounds.width(), DELTA);
+  }
+
+  @Test
+  void aSpriteFacingLeftIsMirroredAboutItsRotationCenter() throws Exception {
+    Sprite sprite = spritePaintedOnTheLeft();
+    sprite.setRotationCenter(0, 0);
+    sprite.setDirection(-90);
+
+    Bounds bounds = sprite.getHitbox().getBounds();
+    assertEquals(-2, bounds.x(), DELTA);
+    assertEquals(2, bounds.width(), DELTA);
+  }
+
+  @Test
+  void aHitboxOfYourOwnFollowsTheRotationCenter() throws Exception {
+    Sprite sprite = spritePaintedOnTheLeft();
+    sprite.setHitbox(0, 0, 2, 0, 2, 4, 0, 4);
+    sprite.setRotationCenter(0, 0);
+
+    Bounds bounds = sprite.getHitbox().getBounds();
+    assertEquals(0, bounds.x(), DELTA);
+    assertEquals(0, bounds.y(), DELTA);
+  }
+
+  @Test
+  void aSpriteTurnsAboutItsRotationCenter() throws Exception {
+    Sprite sprite = spritePaintedOnTheLeft();
+    sprite.setRotationStyle(RotationStyle.ALL_AROUND);
+    sprite.setRotationCenter(0, 0);
+    sprite.setDirection(180); // a quarter turn clockwise
+
+    // the 2 x 4 painted columns hang down from the corner, now lying to its left
+    Bounds bounds = sprite.getHitbox().getBounds();
+    assertEquals(-4, bounds.x(), DELTA);
+    assertEquals(0, bounds.y(), DELTA);
+    assertEquals(4, bounds.width(), DELTA);
+    assertEquals(2, bounds.height(), DELTA);
+  }
 }

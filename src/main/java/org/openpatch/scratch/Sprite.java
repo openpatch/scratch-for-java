@@ -127,6 +127,9 @@ public class Sprite {
   private final AbstractMap<String, Timer> timer;
   private final Pen pen;
   private Hitbox hitbox;
+  // The point of the costume that sits at (x, y) and that it turns around, in
+  // the costume's own pixels from its top left corner; null for its middle.
+  private double[] rotationCenter;
   private boolean hitboxDisabled = false;
 
   // Last hitbox handed out by getHitbox(), plus the sprite state it was built
@@ -238,6 +241,7 @@ public class Sprite {
     this.pen = new Pen(s.pen);
     this.shaders = new Shaders(s.shaders);
     this.hitbox = s.hitbox;
+    this.rotationCenter = s.rotationCenter;
     this.hitboxDisabled = s.hitboxDisabled;
     this.text = new Text(s.text);
     this.isUI = s.isUI;
@@ -1005,6 +1009,50 @@ public class Sprite {
   }
 
   /**
+   * Sets the point of the costume the sprite turns around - Scratch's rotation
+   * center. It is also the point that sits at the sprite's position, so it is
+   * where the pen draws from and what {@code goTo} puts in place.
+   *
+   * <p>
+   * The point is given in the costume's own pixels, counted from its top left
+   * corner, the same way as {@link #setHitbox(double...)}: a sword whose hilt
+   * is 12 pixels from the left and 60 from the top swings around the hilt with
+   * {@code setRotationCenter(12, 60)}. It grows and shrinks with the sprite's
+   * size and holds for every costume of the sprite. Without it, a sprite turns
+   * around the middle of its costume.
+   *
+   * <pre>{@code
+   * this.addCostume("hand", "assets/clock-hand.png");
+   * this.setRotationCenter(8, 100); // the end of the hand
+   * }</pre>
+   *
+   * @param x the x-coordinate in the costume, from its left edge
+   * @param y the y-coordinate in the costume, from its top edge
+   *
+   * @example.files SpriteSetRotationCenter.java
+   */
+  public void setRotationCenter(double x, double y) {
+    this.rotationCenter = new double[] { x, y };
+    this.cachedHitbox = null;
+  }
+
+  /**
+   * The rotation center of a costume as it is drawn now: in its drawn pixels,
+   * from its top left corner.
+   */
+  double[] getDrawnRotationCenter(Image costume) {
+    double width = costume.getWidth();
+    double height = costume.getHeight();
+    if (this.rotationCenter == null || costume.getOriginalWidth() == 0
+        || costume.getOriginalHeight() == 0) {
+      return new double[] { width / 2.0, height / 2.0 };
+    }
+    return new double[] {
+        this.rotationCenter[0] * width / costume.getOriginalWidth(),
+        this.rotationCenter[1] * height / costume.getOriginalHeight() };
+  }
+
+  /**
    * Sets the rotation style for the sprite.
    *
    * @see RotationStyle
@@ -1629,12 +1677,15 @@ public class Sprite {
     }
 
     if (this.hitbox != null) {
+      double[] center = currentCostume != null && this.show
+          ? this.getDrawnRotationCenter(currentCostume)
+          : new double[] { spriteWidth / 2.0, spriteHeight / 2.0 };
       this.hitbox.translateAndRotateAndResize(
           rotation,
           this.x,
           -this.y,
-          this.x - spriteWidth / 2.0f,
-          -this.y - spriteHeight / 2.0f,
+          this.x - center[0],
+          -this.y - center[1],
           this.size);
       if (Image.isMirrored(this.direction, this.rotationStyle)) {
         this.hitbox.mirror(this.x);
@@ -1687,15 +1738,16 @@ public class Sprite {
       var content = currentCostume.getContentBounds();
       var scaleX = spriteWidth / (double) currentCostume.getOriginalWidth();
       var scaleY = spriteHeight / (double) currentCostume.getOriginalHeight();
+      var center = this.getDrawnRotationCenter(currentCostume);
 
-      // A costume drawn mirrored has its painted part on the other side.
-      var contentX = Image.isMirrored(this.direction, this.rotationStyle)
-          ? currentCostume.getOriginalWidth() - content[0] - content[2]
-          : content[0];
-      left += contentX * scaleX;
-      top += content[1] * scaleY;
       boundsWidth = content[2] * scaleX;
       boundsHeight = content[3] * scaleY;
+      // A costume drawn mirrored is mirrored about its rotation center, so its
+      // painted part lands on the other side of it.
+      left = Image.isMirrored(this.direction, this.rotationStyle)
+          ? this.x + center[0] - content[0] * scaleX - boundsWidth
+          : this.x - center[0] + content[0] * scaleX;
+      top = -this.y - center[1] + content[1] * scaleY;
     }
 
     var right = left + boundsWidth;
@@ -2614,9 +2666,10 @@ public class Sprite {
       return;
     }
     var shader = this.shaders.getCurrent();
-    this.costumes
-        .get(this.currentCostume)
-        .draw(buffer, this.size, this.direction, this.x, this.y, this.rotationStyle, shader);
+    var costume = this.costumes.get(this.currentCostume);
+    var center = this.getDrawnRotationCenter(costume);
+    costume.draw(buffer, this.size, this.direction, this.x, this.y, this.rotationStyle, shader,
+        center[0], center[1]);
   }
 
   /** The costume the sprite wears, or null if it has none. */
@@ -2667,12 +2720,16 @@ public class Sprite {
   }
 
   private Stamp getStamp() {
+    var costume = this.costumes.get(this.currentCostume);
+    var center = this.getDrawnRotationCenter(costume);
     var stamp = new Stamp(
-        this.costumes.get(this.currentCostume),
+        costume,
         this.direction,
         this.x,
         this.y,
-        this.rotationStyle);
+        this.rotationStyle,
+        center[0],
+        center[1]);
 
     return stamp;
   }
