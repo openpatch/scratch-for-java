@@ -49,10 +49,20 @@ public class Shaders {
    * Adds a shader. If a shader with the given name already exists, that one is
    * returned instead.
    *
+   * <p>
+   * The first shader added is drawn with right away; the ones after it wait
+   * until {@link #switchTo(String)} or {@link #next()} picks them.
+   *
+   * <p>
+   * The vertex shader is usually {@code null}, which uses Processing's default
+   * one. In the browser any other vertex shader is ignored.
+   *
    * @param name               a unique name
    * @param fragmentShaderPath the path to the fragment shader
    * @param vertexShaderPath   the path to the vertex shader, may be null
    * @return the shader
+   *
+   * @example.files ShadersAdd.java
    */
   public Shader add(String name, final String fragmentShaderPath, final String vertexShaderPath) {
     for (Shader shader : this.shaders) {
@@ -82,9 +92,13 @@ public class Shaders {
   }
 
   /**
-   * Switches to the shader with the given name.
+   * Switches to the shader with the given name, or with the given position in
+   * the order the shaders were added. A name that is not there leaves the
+   * current shader and prints which ones there are.
    *
    * @param name the name of the shader
+   *
+   * @example.files ShadersSwitchTo.java
    */
   public void switchTo(String name) {
     for (int i = 0; i < this.shaders.size(); i++) {
@@ -124,7 +138,12 @@ public class Shaders {
     this.current = (int) index % this.shaders.size();
   }
 
-  /** Switches to the next shader. */
+  /**
+   * Switches to the next shader, in the order they were added. After the last
+   * one comes the first one again.
+   *
+   * @example.files ShadersNext.java
+   */
   public void next() {
     if (this.shaders.isEmpty()) {
       return;
@@ -132,7 +151,13 @@ public class Shaders {
     this.current = (this.current + 1) % this.shaders.size();
   }
 
-  /** Stops drawing with a shader. */
+  /**
+   * Stops drawing with a shader, so the sprite or stage looks as it does
+   * without one. The shaders are kept: {@link #switchTo(String)} or
+   * {@link #next()} brings one back.
+   *
+   * @example.files ShadersReset.java
+   */
   public void reset() {
     this.current = -1;
   }

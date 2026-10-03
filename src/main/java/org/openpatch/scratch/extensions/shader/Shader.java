@@ -8,6 +8,41 @@ import org.openpatch.scratch.internal.Applet;
 
 import processing.opengl.PShader;
 
+/**
+ * A fragment shader a sprite or the stage can be drawn with.
+ *
+ * <p>
+ * A shader is a small program in GLSL, the language of the graphics card. It is
+ * run once for every pixel and decides the pixel's colour. Processing hands it
+ * the picture being drawn as {@code texture}, and where on that picture the
+ * pixel is as {@code vertTexCoord}:
+ *
+ * <pre>{@code
+ * #ifdef GL_ES
+ * precision mediump float;
+ * #endif
+ *
+ * uniform sampler2D texture;
+ * varying vec4 vertTexCoord;
+ *
+ * void main(void) {
+ *   vec4 color = texture2D(texture, vertTexCoord.st);
+ *   float grey = (color.r + color.g + color.b) / 3.0;
+ *   gl_FragColor = vec4(grey, grey, grey, color.a);
+ * }
+ * }</pre>
+ *
+ * <p>
+ * A shader is not made with {@code new} but added to a sprite or the stage with
+ * {@code getShaders().add(...)}, which returns it. Its {@code uniform} values
+ * are given from Java with {@link #set(String, int)}.
+ *
+ * <p>
+ * In the browser the shader is translated for WebGL, which is stricter than a
+ * desktop graphics card: a float has to be written as {@code 1.0}, not
+ * {@code 1}. A vertex shader other than Processing's default one is ignored
+ * there.
+ */
 public class Shader {
 
   private String name;
@@ -106,6 +141,28 @@ public class Shader {
     return this.shader;
   }
 
+  /**
+   * Sets a {@code uniform} of the shader: a value the shader reads but the
+   * program decides, such as the time for an animation or a position on the
+   * stage.
+   *
+   * <p>
+   * The name is the one the shader file declares, {@code uniform float blocks;}
+   * is set with {@code set("blocks", 20)}. There is a {@code set} for one or two
+   * numbers or booleans, a {@link org.openpatch.scratch.Vector2}, a
+   * {@link org.openpatch.scratch.Color} (as a {@code vec3}), and an array of
+   * numbers, {@code ncoords} at a time, for an array uniform like
+   * {@code uniform vec3 lights[10];}.
+   *
+   * <p>
+   * A uniform keeps its value until it is set again, so a value that changes is
+   * set in {@code run()}.
+   *
+   * @param name the name of the uniform in the shader file
+   * @param x    the value
+   *
+   * @example.files ShaderSet.java
+   */
   public void set(String name, int x) {
     this.shader.set(name, x);
   }

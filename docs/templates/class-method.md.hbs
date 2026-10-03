@@ -30,6 +30,10 @@ nothing.
 {{#if online}}
 :::onlineide{height="460px" libraries="scratch"}
 
+{{#each onlineFiles}}
+@file dest="{{{ this }}}" src="/reference/{{{ this }}}"
+{{/each}}
+
 ```java Example.java
 {{{ online }}}
 ```

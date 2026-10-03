@@ -3,6 +3,7 @@ package doclets;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -80,30 +81,39 @@ final class OnlineExample {
     private static final Pattern MAIN_METHOD = Pattern.compile(
             "^\\s*public static void main\\s*\\(");
 
+    /** A file under {@code reference/assets} that an example loads by path. */
+    private static final Pattern ASSET = Pattern.compile("\"(assets/[^\"]+)\"");
+
+    /**
+     * Shader sources are text the Online IDE reads from a file of the project,
+     * so an example can bring them along. Other assets - a Tiled map, a cursor
+     * image - belong to things only a desktop program has.
+     */
+    private static final Pattern SHADER = Pattern.compile(".*\\.(?:frag|vert|glsl)");
+
+    /** Where the files an example brings along are served from. */
+    private static final Path PUBLIC = REFERENCE.resolve("../../../../docs/public/reference").normalize();
+
     /**
      * The example as one Online IDE program, or {@code null} when it cannot be
      * expressed as one - a Tiled map or a mouse cursor needs files the browser
-     * has no way to reach.
+     * has no way to reach. Shader files it can: see {@link #files}.
      */
     static String of(String folder, List<String> fileNames) {
         if (fileNames.isEmpty()) {
             return null;
         }
 
-        var sources = new ArrayList<String>();
-        for (String fileName : fileNames) {
-            Path path = folder.isEmpty()
-                    ? REFERENCE.resolve(fileName)
-                    : REFERENCE.resolve(folder).resolve(fileName);
-            try {
-                sources.add(Files.readString(path));
-            } catch (IOException e) {
-                return null; // no source, no interactive example
-            }
+        List<String> sources = read(folder, fileNames);
+        if (sources == null) {
+            return null; // no source, no interactive example
         }
         for (String source : sources) {
-            if (source.contains("assets/")) {
-                return null; // needs a file the browser cannot load
+            Matcher asset = ASSET.matcher(source);
+            while (asset.find()) {
+                if (!SHADER.matcher(asset.group(1)).matches()) {
+                    return null; // needs a file the browser cannot load
+                }
             }
         }
 
@@ -145,6 +155,53 @@ final class OnlineExample {
             out.append("\n").append(type).append("\n");
         }
         return out.toString().strip() + "\n";
+    }
+
+    /**
+     * The files under {@code reference/assets} the example loads, as the paths
+     * it loads them by - {@code assets/waves.frag}. The page hands them to the
+     * Online IDE with an {@code @file} line each, from where {@link #publish}
+     * put them.
+     */
+    static List<String> files(String folder, List<String> fileNames) {
+        List<String> sources = read(folder, fileNames);
+        var files = new ArrayList<String>();
+        if (sources == null) {
+            return files;
+        }
+        for (String source : sources) {
+            Matcher asset = ASSET.matcher(source);
+            while (asset.find()) {
+                if (!files.contains(asset.group(1))) {
+                    files.add(asset.group(1));
+                }
+            }
+        }
+        return files;
+    }
+
+    /** Copies the files an example brings along to where its page loads them. */
+    static void publish(List<String> files) throws IOException {
+        for (String file : files) {
+            Path destination = PUBLIC.resolve(file);
+            Files.createDirectories(destination.getParent());
+            Files.copy(REFERENCE.resolve(file), destination, StandardCopyOption.REPLACE_EXISTING);
+        }
+    }
+
+    private static List<String> read(String folder, List<String> fileNames) {
+        var sources = new ArrayList<String>();
+        for (String fileName : fileNames) {
+            Path path = folder.isEmpty()
+                    ? REFERENCE.resolve(fileName)
+                    : REFERENCE.resolve(folder).resolve(fileName);
+            try {
+                sources.add(Files.readString(path));
+            } catch (IOException e) {
+                return null;
+            }
+        }
+        return sources;
     }
 
     /** Whether a file declares a class extending {@code Stage}. */

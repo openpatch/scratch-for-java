@@ -213,12 +213,12 @@ public final class GenerateDemoPages {
   }
 
   /**
-   * Images, sounds and fonts the program loads. Sources, BlueJ's leftovers, the
-   * SVGs the PNGs were drawn from and licence texts stay behind.
+   * Images, sounds, fonts and shaders the program loads. Sources, BlueJ's
+   * leftovers, the SVGs the PNGs were drawn from and licence texts stay behind.
    */
   private static boolean isAsset(String path) {
     String lower = path.toLowerCase();
-    return lower.matches(".*\\.(png|jpe?g|gif|ogg|wav|mp3|aiff?|au|ttf|otf|json|tmx|tsx|txt|csv)")
+    return lower.matches(".*\\.(png|jpe?g|gif|ogg|wav|mp3|aiff?|au|ttf|otf|json|tmx|tsx|txt|csv|frag|vert|glsl)")
         && !lower.endsWith("license.txt");
   }
 

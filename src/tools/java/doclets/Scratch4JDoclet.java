@@ -10,6 +10,7 @@ import javax.lang.model.element.*;
 import javax.tools.Diagnostic;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
@@ -632,6 +633,16 @@ public class Scratch4JDoclet implements Doclet {
                                 OnlineExample.of(example.get("folder").toString(), sources);
                         if (online != null) {
                             example.put("online", online);
+                            List<String> onlineFiles =
+                                    OnlineExample.files(example.get("folder").toString(), sources);
+                            if (!onlineFiles.isEmpty()) {
+                                try {
+                                    OnlineExample.publish(onlineFiles);
+                                } catch (IOException e) {
+                                    throw new UncheckedIOException(e);
+                                }
+                                example.put("onlineFiles", onlineFiles);
+                            }
                         }
                     }
                     examples.add(example);
