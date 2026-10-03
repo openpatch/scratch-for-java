@@ -18,7 +18,7 @@ public class Shader {
    *
    * @param name               unique name
    * @param fragmentShaderPath path to the fragment shader file
-   * @param vertexShaderPath   path to the vertex shader file
+   * @param vertexShaderPath   path to the vertex shader file, or null for Processing's default one
    */
   public Shader(String name, String fragmentShaderPath, String vertexShaderPath) {
     this.name = name;
@@ -42,7 +42,10 @@ public class Shader {
    * @return shader
    */
   private static PShader loadPShader(String fragementShaderPath, String vertexShaderPath) {
-    vertexShaderPath = vertexShaderPath.replaceFirst("^~", System.getProperty("user.home"));
+    // Without a vertex shader, Processing uses its default one.
+    if (vertexShaderPath != null) {
+      vertexShaderPath = vertexShaderPath.replaceFirst("^~", System.getProperty("user.home"));
+    }
     fragementShaderPath = fragementShaderPath.replaceFirst("^~", System.getProperty("user.home"));
 
     // The surface context may not be initialized yet.
@@ -55,7 +58,9 @@ public class Shader {
       }
     }
     try {
-      var shader = Applet.getInstance().loadShader(fragementShaderPath, vertexShaderPath);
+      var shader = vertexShaderPath == null
+          ? Applet.getInstance().loadShader(fragementShaderPath)
+          : Applet.getInstance().loadShader(fragementShaderPath, vertexShaderPath);
       return shader;
     } catch (Exception e) {
       System.err.println("\n==============================================");

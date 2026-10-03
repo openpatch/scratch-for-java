@@ -23,7 +23,7 @@ void main(void) {
     float diffuse = 0.0;
     float combined_intensity = 1.0;
     for(int i = 0; i < lights.length(); i++) {
-        if(lights[i].z == 1) {
+        if(lights[i].z == 1.0) {
             vec2 light = lights[i].xy;
             light = (light + resolution * 0.5) / resolution;
 
@@ -33,7 +33,7 @@ void main(void) {
 
             if(d <= intensity) {
                 combined_intensity *= abs(d / intensity);
-                diffuse = min(1, 1-combined_intensity);
+                diffuse = min(1.0, 1.0 - combined_intensity);
             }
         }
     }
