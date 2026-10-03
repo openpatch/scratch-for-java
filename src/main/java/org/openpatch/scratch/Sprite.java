@@ -360,6 +360,8 @@ public class Sprite {
     }
 
     Image costume = Image.ofNameOrPath(name, imagePath);
+    // A costume added after setSize() has to come in at that size, too.
+    costume.setSize(this.size);
     this.costumes.add(costume);
   }
 
@@ -390,6 +392,7 @@ public class Sprite {
     }
 
     Image costume = new Image(name, spriteSheetPath, x, y, width, height);
+    costume.setSize(this.size);
     this.costumes.add(costume);
   }
 
@@ -408,7 +411,10 @@ public class Sprite {
    * @example.files SpriteAddCostumes.java
    */
   public void addCostumes(String prefix, String spriteSheet, int tileWidth, int tileHeight) {
-    this.costumes.addAll(Image.tilesOf(prefix, spriteSheet, tileWidth, tileHeight));
+    for (Image costume : Image.tilesOf(prefix, spriteSheet, tileWidth, tileHeight)) {
+      costume.setSize(this.size);
+      this.costumes.add(costume);
+    }
   }
 
   /**
