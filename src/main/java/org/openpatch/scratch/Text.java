@@ -981,16 +981,18 @@ public class Text {
     var lines = this.wrap(this.originalText, wrapWidth, buffer);
     var maxLineWidth = Math.max(longestLineWidth(lines, buffer), SPEAK_BUBBLE_MIN_LIMIT);
 
-    // A sprite's bubble hangs off the top right corner of its hitbox rather
-    // than off its costume. A costume is often drawn into a canvas bigger than
-    // what is painted on it, and a bubble placed by the canvas floats away from
-    // the sprite it belongs to; the hitbox is the sprite as it looks.
+    // A sprite's bubble hangs off the top right corner of the painted pixels of
+    // its costume rather than off the costume canvas or the hitbox. A costume
+    // is often drawn into a canvas bigger than what is painted on it, and a
+    // bubble placed by the canvas floats away from the sprite it belongs to. A
+    // hitbox is often set to just the feet, and a bubble placed by it comes out
+    // of the sprite's knees.
     //
     // A text that belongs to no sprite keeps the position it was given, the
     // same way the other styles do, and the bubble grows up and to the right
     // of it.
     if (this.sprite != null) {
-      var bounds = this.sprite.getHitbox().getBounds();
+      var bounds = this.sprite.getPaintedOutline().getBounds();
       this.x = bounds.x() + bounds.width();
       // Hitboxes are built with y pointing down, the way the screen does.
       this.y = -bounds.y();

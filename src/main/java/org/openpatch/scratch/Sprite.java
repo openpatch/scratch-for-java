@@ -1570,6 +1570,36 @@ public class Sprite {
     // whole costume. Costumes are often drawn into a larger canvas - a standing
     // pose in a costume tall enough to also hold a jumping one - and colliding
     // with that empty space looks like a bug to whoever plays the game.
+    Hitbox hitbox = this.paintedOutline(currentCostume, spriteWidth, spriteHeight, rotation);
+    this.cachedHitbox = hitbox;
+    return hitbox;
+  }
+
+  /**
+   * The outline of the painted pixels of the current costume, where the sprite
+   * stands, as big as it is drawn and turned the way it is drawn. It is what the
+   * sprite looks like, whatever hitbox it was given: a hitbox set to just the
+   * feet still leaves the sprite its head, and that is where a speech bubble
+   * belongs.
+   */
+  Hitbox getPaintedOutline() {
+    Image currentCostume = null;
+    if (this.costumes.size() > this.getCurrentCostumeIndex()) {
+      currentCostume = this.costumes.get(this.getCurrentCostumeIndex());
+    }
+    var spriteWidth = this.show && currentCostume != null ? currentCostume.getWidth() : this.pen.getSize();
+    var spriteHeight = this.show && currentCostume != null ? currentCostume.getHeight() : this.pen.getSize();
+
+    var rotation = this.direction - 90;
+    if (this.rotationStyle == RotationStyle.DONT
+        || this.rotationStyle == RotationStyle.LEFT_RIGHT) {
+      rotation = 0;
+    }
+    return this.paintedOutline(currentCostume, spriteWidth, spriteHeight, rotation);
+  }
+
+  private Hitbox paintedOutline(
+      Image currentCostume, double spriteWidth, double spriteHeight, double rotation) {
     var left = this.x - spriteWidth / 2.0;
     var top = -this.y - spriteHeight / 2.0;
     var boundsWidth = spriteWidth;
@@ -1606,9 +1636,7 @@ public class Sprite {
     xPoints[3] = cornerBottomLeft[0];
     yPoints[3] = cornerBottomLeft[1];
 
-    Hitbox hitbox = new Hitbox(xPoints, yPoints);
-    this.cachedHitbox = hitbox;
-    return hitbox;
+    return new Hitbox(xPoints, yPoints);
   }
 
   /**
