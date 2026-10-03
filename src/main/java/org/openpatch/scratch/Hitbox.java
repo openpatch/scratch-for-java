@@ -72,6 +72,16 @@ public class Hitbox {
     this.shape = this.shape.rotate(degrees, originX, originY);
   }
 
+  /**
+   * Mirrors the hitbox as it stands now along a vertical line, the way a sprite
+   * with rotation style LEFT_RIGHT is mirrored when it faces left.
+   *
+   * @param axisX the x-coordinate of the line
+   */
+  void mirror(double axisX) {
+    this.shape = this.shape.translate(-axisX, 0).scale(-1, 1).translate(axisX, 0);
+  }
+
   private void drawDebug(PGraphics buffer, double r, double g, double b) {
     buffer.push();
     buffer.stroke((float) r, (float) g, (float) b);

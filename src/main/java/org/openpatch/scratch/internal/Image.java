@@ -565,6 +565,20 @@ public class Image {
   }
 
   /**
+   * Whether a costume is drawn mirrored: with rotation style LEFT_RIGHT, a
+   * sprite that does not face right shows its costume flipped. Its hitbox has
+   * to be flipped the same way, so both ask here.
+   *
+   * @param direction the sprite's direction
+   * @param style     the sprite's rotation style
+   * @return true if the costume is drawn mirrored
+   */
+  public static boolean isMirrored(double direction, RotationStyle style) {
+    double degrees = direction - 90;
+    return style == RotationStyle.LEFT_RIGHT && !(degrees > -90 && degrees < 90);
+  }
+
+  /**
    * Draw the scaled image at a given position.
    *
    * @param buffer  a buffer
@@ -585,17 +599,14 @@ public class Image {
       Shader shader) {
     buffer.push();
     buffer.translate((float) x, (float) -y);
-    degrees -= 90;
     switch (style) {
       case DONT:
         break;
       case ALL_AROUND:
-        buffer.rotate(PApplet.radians((float) degrees));
+        buffer.rotate(PApplet.radians((float) (degrees - 90)));
         break;
       case LEFT_RIGHT:
-        if (degrees > -90 && degrees < 90) {
-          buffer.scale(1, 1);
-        } else {
+        if (isMirrored(degrees, style)) {
           buffer.scale(-1, 1);
         }
         break;

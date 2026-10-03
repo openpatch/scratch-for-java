@@ -1562,6 +1562,9 @@ public class Sprite {
           this.x - spriteWidth / 2.0f,
           -this.y - spriteHeight / 2.0f,
           this.size);
+      if (Image.isMirrored(this.direction, this.rotationStyle)) {
+        this.hitbox.mirror(this.x);
+      }
       this.cachedHitbox = this.hitbox;
       return this.hitbox;
     }
@@ -1611,7 +1614,11 @@ public class Sprite {
       var scaleX = spriteWidth / (double) currentCostume.getOriginalWidth();
       var scaleY = spriteHeight / (double) currentCostume.getOriginalHeight();
 
-      left += content[0] * scaleX;
+      // A costume drawn mirrored has its painted part on the other side.
+      var contentX = Image.isMirrored(this.direction, this.rotationStyle)
+          ? currentCostume.getOriginalWidth() - content[0] - content[2]
+          : content[0];
+      left += contentX * scaleX;
       top += content[1] * scaleY;
       boundsWidth = content[2] * scaleX;
       boundsHeight = content[3] * scaleY;
