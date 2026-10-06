@@ -13,6 +13,8 @@ index: 1
 
 ## Scratch for Java Studio (alpha)
 
+![Scratch for Java Studio with the code editor and the visual stage designer side by side](/assets/studio-screenshot.png)
+
 Scratch for Java Studio includes Java, so no separate JDK installation is needed.
 Choose the download for your operating system:
 
