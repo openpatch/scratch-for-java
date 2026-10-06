@@ -1,8 +1,15 @@
 ---
 name: Changelog
-index: 72
+index: 73
 lang: en
 ---
+
+## 5.6.0
+
+
+
+Tiled maps now load CSV and Base64 tile layers, including zlib and gzip compression, tile flips, external tilesets, grouped layers, and class properties. Unsupported map formats now give clearer errors.
+
 
 ## 5.5.0
 
