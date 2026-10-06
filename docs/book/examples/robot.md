@@ -26,17 +26,27 @@ void main() {
 }
 
 class RobotStage extends Stage {
+
+  // scratch4j:begin fields (managed by the stage designer)
+  private RobotSprite robotSprite;
+  // scratch4j:end fields
+
   public RobotStage() {
     super(800, 600);
     this.setDebug(true);
-    this.add(new RobotSprite());
+    // scratch4j:begin setup (managed by the stage designer)
+    robotSprite = new RobotSprite();
+    this.add(robotSprite);
+    // scratch4j:end setup
   }
 }
 
 class RobotSprite extends Sprite {
 
   public RobotSprite() {
+    // scratch4j:begin setup (managed by the stage designer)
     this.addCostume("robot", "sprites/robot.png");
+    // scratch4j:end setup
     this.setSize(20);
     this.changeY(20);
     this.setDirection(45);

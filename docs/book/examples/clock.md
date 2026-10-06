@@ -28,25 +28,43 @@ void main() {
 }
 
 class ClockStage extends Stage {
+
+  // scratch4j:begin fields (managed by the stage designer)
+  private ClockSprite clockSprite;
+  private SecondHandSprite secondHandSprite;
+  private MinuteHandSprite minuteHandSprite;
+  private HourHandSprite hourHandSprite;
+  // scratch4j:end fields
+
   public ClockStage() {
     super(800, 800);
-    this.add(new ClockSprite());
-    this.add(new SecondHandSprite());
-    this.add(new MinuteHandSprite());
-    this.add(new HourHandSprite());
+    // scratch4j:begin setup (managed by the stage designer)
+    clockSprite = new ClockSprite();
+    this.add(clockSprite);
+    secondHandSprite = new SecondHandSprite();
+    this.add(secondHandSprite);
+    minuteHandSprite = new MinuteHandSprite();
+    this.add(minuteHandSprite);
+    hourHandSprite = new HourHandSprite();
+    this.add(hourHandSprite);
+    // scratch4j:end setup
   }
 }
 
 class ClockSprite extends Sprite {
   public ClockSprite() {
+    // scratch4j:begin setup (managed by the stage designer)
     this.addCostume("clock", "sprites/clock.png");
+    // scratch4j:end setup
   }
 }
 
 class SecondHandSprite extends Sprite {
 
   public SecondHandSprite() {
+    // scratch4j:begin setup (managed by the stage designer)
     this.addCostume("hand", "sprites/second.png");
+    // scratch4j:end setup
   }
 
   public void run() {
@@ -62,7 +80,9 @@ class SecondHandSprite extends Sprite {
 
 class MinuteHandSprite extends Sprite {
   public MinuteHandSprite() {
+    // scratch4j:begin setup (managed by the stage designer)
     this.addCostume("hand", "sprites/minute.png");
+    // scratch4j:end setup
   }
 
   public void run() {
@@ -73,7 +93,9 @@ class MinuteHandSprite extends Sprite {
 
 class HourHandSprite extends Sprite {
   public HourHandSprite() {
+    // scratch4j:begin setup (managed by the stage designer)
     this.addCostume("hand", "sprites/hour.png");
+    // scratch4j:end setup
   }
 
   public void run() {

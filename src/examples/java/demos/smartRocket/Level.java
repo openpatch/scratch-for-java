@@ -5,6 +5,10 @@ import org.openpatch.scratch.*;
 import org.openpatch.scratch.*;
 
 public class Level extends Stage {
+
+  // scratch4j:begin fields (managed by the stage designer)
+  // scratch4j:end fields
+
   private Text statistiken;
 
   private Ziel ziel;
@@ -34,6 +38,9 @@ public class Level extends Stage {
     this.statistiken.setPosition(-this.getWidth() / 2 + 10, this.getHeight() / 2 - 40);
     this.statistiken.setAlign(TextAlign.LEFT);
     this.add(this.statistiken);
+
+    // scratch4j:begin setup (managed by the stage designer)
+    // scratch4j:end setup
   }
 
   public void run() {

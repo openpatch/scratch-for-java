@@ -4,12 +4,17 @@ import org.openpatch.scratch.*;
 
 public class StressTest extends Stage {
 
+  // scratch4j:begin fields (managed by the stage designer)
+  // scratch4j:end fields
+
   private static int dinos = 180;
   private static int knights = 180;
   private static int ninjas = 180;
 
   public StressTest() {
+    // scratch4j:begin setup (managed by the stage designer)
     this.addBackdrop("outback", "demos/stressTest/assets/outback.png");
+    // scratch4j:end setup
 
     for (int i = 0; i < dinos; i++) {
       this.add(new Dino());

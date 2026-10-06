@@ -12,6 +12,9 @@ public class Racer extends Sprite {
     this.addCostume(creature + "_move");
     this.setSize(45);
     this.setPosition(-260, y);
+
+    // scratch4j:begin setup (managed by the stage designer)
+    // scratch4j:end setup
   }
 
   public void whenIReceive(String message) {

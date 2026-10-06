@@ -23,9 +23,17 @@ void main() {
 }
 
 class TimedDot extends Stage {
+
+  // scratch4j:begin fields (managed by the stage designer)
+  private DotSprite dotSprite;
+  // scratch4j:end fields
+
   public TimedDot() {
     super(400, 200);
-    this.add(new DotSprite());
+    // scratch4j:begin setup (managed by the stage designer)
+    dotSprite = new DotSprite();
+    this.add(dotSprite);
+    // scratch4j:end setup
   }
 
   public void run() {

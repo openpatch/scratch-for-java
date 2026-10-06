@@ -1,6 +1,11 @@
 import org.openpatch.scratch.*;
 
 public class GuessStage extends Stage {
+
+  // scratch4j:begin fields (managed by the stage designer)
+  private Sprite wizard;
+  // scratch4j:end fields
+
   private int secret = Random.randomInt(1, 10);
   private int tries = 0;
   private boolean solved = false;
@@ -8,17 +13,19 @@ public class GuessStage extends Stage {
 
   public GuessStage() {
     super(500, 300);
-    this.addBackdrop("background");
 
     this.hint.setPosition(0, 60);
     this.hint.setTextSize(20);
     this.add(this.hint);
 
-    Sprite wizard = new Sprite();
+    // scratch4j:begin setup (managed by the stage designer)
+    this.addBackdrop("background");
+    wizard = new Sprite();
     wizard.addCostume("alienBlue_front");
+    wizard.setPosition(0, -40);
     wizard.setSize(40);
-    wizard.setY(-40);
     this.add(wizard);
+    // scratch4j:end setup
 
     this.ask("Guess a number between 1 and 10");
   }

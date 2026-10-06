@@ -11,6 +11,10 @@ import org.openpatch.scratch.*;
  */
 public class Quiz extends Stage {
 
+  // scratch4j:begin fields (managed by the stage designer)
+  private Sprite host;
+  // scratch4j:end fields
+
   private final String[] questions = {
       "What is your name?",
       "What is 7 * 6?",
@@ -24,17 +28,19 @@ public class Quiz extends Stage {
 
   public Quiz() {
     super(600, 360);
-    this.addBackdrop("background");
 
     this.score.setPosition(0, 120);
     this.score.setTextSize(22);
     this.add(this.score);
 
-    Sprite host = new Sprite();
+    // scratch4j:begin setup (managed by the stage designer)
+    this.addBackdrop("background");
+    host = new Sprite();
     host.addCostume("alienGreen_stand");
+    host.setPosition(0, -20);
     host.setSize(40);
-    host.setY(-20);
     this.add(host);
+    // scratch4j:end setup
 
     this.nextQuestion();
   }

@@ -15,6 +15,10 @@ import org.openpatch.scratch.Text;
  */
 public class CoinCollector extends Stage {
 
+  // scratch4j:begin fields (managed by the stage designer)
+  private Player player;
+  // scratch4j:end fields
+
   /** The height the ground reaches up to. Sprites stand on this line. */
   public static final double GROUND_TOP = -176;
 
@@ -27,8 +31,6 @@ public class CoinCollector extends Stage {
     super(800, 480);
 
     // A backdrop and a sound, by name - no files needed.
-    this.addBackdrop("background");
-    this.addSound("jingles_NES00");
 
     // A row of grass tiles along the bottom.
     for (int x = -400; x < 400; x += 64) {
@@ -41,7 +43,12 @@ public class CoinCollector extends Stage {
       this.add(new Coin(-240 + i * 112, GROUND_TOP + 45));
     }
 
-    this.add(new Player());
+    // scratch4j:begin setup (managed by the stage designer)
+    this.addBackdrop("background");
+    this.addSound("jingles_NES00");
+    player = new Player();
+    this.add(player);
+    // scratch4j:end setup
 
     this.score = new Text();
     this.score.setPosition(-330, 200);

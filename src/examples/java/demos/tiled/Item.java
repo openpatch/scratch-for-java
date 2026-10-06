@@ -7,8 +7,10 @@ public class Item extends Sprite {
 
   // Constructor for displaying the inventory
   public Item() {
+    // scratch4j:begin setup (managed by the stage designer)
     this.addCostume("scroll-water", "demos/tiled/assets/ScrollWater.png");
     this.addCostume("scroll-fire", "demos/tiled/assets/ScrollFire.png");
+    // scratch4j:end setup
     this.hide();
   }
 

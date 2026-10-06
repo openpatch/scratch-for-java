@@ -9,7 +9,9 @@ public class Coin extends Sprite {
   private double angle = 0;
 
   public Coin(double x, double y) {
+    // scratch4j:begin setup (managed by the stage designer)
     this.addCostume("coinGold");
+    // scratch4j:end setup
     this.setSize(50);
     this.setX(x);
     this.setY(y);

@@ -14,7 +14,9 @@ public class Donut extends Sprite {
   }
 
   public Donut(double x, double y, int strength) {
+    // scratch4j:begin setup (managed by the stage designer)
     this.addCostume("donut", "demos/donutIO/assets/donut.png");
+    // scratch4j:end setup
     this.setHitbox(new Ellipse(0, 0, 512, 480));
     this.setX(x);
     this.setY(y);

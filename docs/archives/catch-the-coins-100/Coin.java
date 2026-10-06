@@ -2,7 +2,9 @@ import org.openpatch.scratch.*;
 
 public class Coin extends Sprite {
   public Coin() {
+    // scratch4j:begin setup (managed by the stage designer)
     this.addCostume("coinGold");
+    // scratch4j:end setup
     this.setSize(40);
     this.dropFromTop();
   }

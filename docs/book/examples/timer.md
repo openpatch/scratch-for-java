@@ -24,9 +24,17 @@ void main() {
 }
 
 class TimerStage extends Stage {
+
+  // scratch4j:begin fields (managed by the stage designer)
+  private TimerSprite timerSprite;
+  // scratch4j:end fields
+
   public TimerStage() {
     super(1800, 360);
-    this.add(new TimerSprite());
+    // scratch4j:begin setup (managed by the stage designer)
+    timerSprite = new TimerSprite();
+    this.add(timerSprite);
+    // scratch4j:end setup
   }
 }
 

@@ -19,16 +19,16 @@ public class Player extends AnimatedSprite {
   private double fallSpeed = 0;
 
   public Player() {
-    // Costumes and animations by name. "alienGreen_walk%d" stands for
+    // Costumes, animations and sounds by name. "alienGreen_walk%d" stands for
     // alienGreen_walk1 and alienGreen_walk2.
+    // scratch4j:begin setup (managed by the stage designer)
     this.addCostume("alienGreen_stand");
     this.addCostume("alienGreen_jump");
     this.addAnimation("walk", "alienGreen_walk%d", 2);
     this.setAnimationInterval(120);
-
-    // Sounds by name, just like costumes.
     this.addSound("handleCoins");
     this.addSound("footstep_grass_000");
+    // scratch4j:end setup
 
     this.setSize(SIZE);
     this.setRotationStyle(RotationStyle.LEFT_RIGHT);

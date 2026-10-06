@@ -12,24 +12,30 @@ import org.openpatch.scratch.*;
  */
 public class Volume extends Stage {
 
+  // scratch4j:begin fields (managed by the stage designer)
+  private Sprite speaker;
+  // scratch4j:end fields
+
   private final Text label = new Text();
 
   public Volume() {
     super(480, 260);
-    this.addBackdrop("background");
 
-    this.addSound("handleCoins");
     this.setVolume(100);
 
     this.label.setPosition(0, 40);
     this.label.setTextSize(20);
     this.add(this.label);
 
-    Sprite speaker = new Sprite();
+    // scratch4j:begin setup (managed by the stage designer)
+    this.addBackdrop("background");
+    this.addSound("handleCoins");
+    speaker = new Sprite();
     speaker.addCostume("hudCoin");
+    speaker.setPosition(0, -40);
     speaker.setSize(60);
-    speaker.setY(-40);
     this.add(speaker);
+    // scratch4j:end setup
 
     this.showVolume();
   }

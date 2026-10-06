@@ -4,12 +4,20 @@ import org.openpatch.scratch.*;
 import org.openpatch.scratch.*;
 
 public class Pipes extends Stage {
+
+  // scratch4j:begin fields (managed by the stage designer)
+  private PenSprite penSprite;
+  // scratch4j:end fields
+
   public Pipes() {
     super(1280, 800);
-    this.addBackdrop("chalkBoard", "demos/pipes/backdrops/chalk_board.jpg");
     this.setTint(60);
-    this.add(new PenSprite());
+    // scratch4j:begin setup (managed by the stage designer)
+    this.addBackdrop("chalkBoard", "demos/pipes/backdrops/chalk_board.jpg");
     this.addSound("bg", "demos/pipes/sounds/bensound-enigmatic.ogg");
+    penSprite = new PenSprite();
+    this.add(penSprite);
+    // scratch4j:end setup
   }
 
   public void whenKeyPressed(KeyCode keyCode) {

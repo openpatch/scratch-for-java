@@ -1,17 +1,19 @@
 import org.openpatch.scratch.*;
 
 public class HalloweenStage extends Stage {
-  int numberPumpkins = 10;
-  HouseSprite house;
-  GhostSprite ghost;
+
+  // scratch4j:begin fields (managed by the stage designer)
+  private HouseSprite house;
+  // scratch4j:end fields
+  private int numberPumpkins = 10;
+  private GhostSprite ghost;
 
   public HalloweenStage() {
     super(400, 400);
-    this.addBackdrop("bg", "sprites/background.jpg");
-    this.addSound("bg", "sounds/background.wav");
-
-    this.house = new HouseSprite();
-    this.add(this.house);
+    // scratch4j:begin setup (managed by the stage designer)
+    house = new HouseSprite();
+    this.add(house);
+    // scratch4j:end setup
 
     for (int i = 0; i < this.numberPumpkins; i++) {
       PumpkinSprite p = new PumpkinSprite();

@@ -117,12 +117,17 @@ void main() {
 
 class StressTest extends Stage {
 
+  // scratch4j:begin fields (managed by the stage designer)
+  // scratch4j:end fields
+
   private static int dinos = 180;
   private static int knights = 180;
   private static int ninjas = 180;
 
   public StressTest() {
+    // scratch4j:begin setup (managed by the stage designer)
     this.addBackdrop("outback", "assets/outback.png");
+    // scratch4j:end setup
 
     for (int i = 0; i < dinos; i++) {
       this.add(new Dino());
@@ -160,6 +165,9 @@ class Figure extends AnimatedSprite {
     this.tintColor = (int) this.pickRandom(0, 256);
     this.setPosition(this.pickRandom(-200, 200), this.pickRandom(-200, 200));
     this.setDirection(this.pickRandom(0, 360));
+
+    // scratch4j:begin setup (managed by the stage designer)
+    // scratch4j:end setup
   }
 
   public void run() {
@@ -200,12 +208,18 @@ class Figure extends AnimatedSprite {
 class Dino extends Figure {
   public Dino() {
     super("assets/dino/", 10, 8, 10);
+
+    // scratch4j:begin setup (managed by the stage designer)
+    // scratch4j:end setup
   }
 }
 
 class Knight extends Figure {
   public Knight() {
     super("assets/knight/", 10, 10, 10);
+
+    // scratch4j:begin setup (managed by the stage designer)
+    // scratch4j:end setup
   }
 }
 
@@ -213,6 +227,9 @@ class Ninja extends Figure {
 
   public Ninja() {
     super("assets/ninja/", 10, 10, 10);
+
+    // scratch4j:begin setup (managed by the stage designer)
+    // scratch4j:end setup
   }
 }
 

@@ -15,17 +15,22 @@ public class Tiled extends Window {
     I18n.select(GameState.get().locale);
 
     this.setStage(new World(GameState.get().map, null));
+
+    // scratch4j:begin window (managed by the project settings)
+    // scratch4j:end window
   }
 
   public static void main(String[] args) {
     // These global settings must be set before starting the game.
-    Window.useTextureSampling(TextureSampling.POINT);
     Text.useFont("demos/tiled/assets/Retro Gaming.ttf", 11);
     Text.useSmoothing(false);
     Text.SPEAK_BUBBLE_MAX_LIMIT = 200;
 
     // Start the Game
+    // scratch4j:begin options (managed by the project settings)
+    Window.useTextureSampling(TextureSampling.POINT);
     Window.useFullScreen();
+    // scratch4j:end options
     new Tiled();
   }
 }

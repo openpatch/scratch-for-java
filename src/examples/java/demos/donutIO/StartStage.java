@@ -6,6 +6,10 @@ import org.openpatch.scratch.Window;
 import org.openpatch.scratch.Text;
 
 public class StartStage extends Stage {
+
+  // scratch4j:begin fields (managed by the stage designer)
+  // scratch4j:end fields
+
   public StartStage() {
     var bg = new Background();
     bg.setTransparency(50);
@@ -32,6 +36,9 @@ public class StartStage extends Stage {
     text.showText("Press Space to start.");
     text.setPosition(0, -20);
     this.add(text);
+
+    // scratch4j:begin setup (managed by the stage designer)
+    // scratch4j:end setup
   }
 
   public void whenKeyPressed(KeyCode keyCode) {

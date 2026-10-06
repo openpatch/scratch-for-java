@@ -4,7 +4,9 @@ import org.openpatch.scratch.Random;
 public class HedgehogSprite extends Sprite {
 
   public HedgehogSprite() {
+    // scratch4j:begin setup (managed by the stage designer)
     this.addCostume("hedgehog", "hedgehog.png");
+    // scratch4j:end setup
 
     this.pointInDirection(15);
     this.setPosition(-180, 140);

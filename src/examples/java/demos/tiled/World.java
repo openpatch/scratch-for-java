@@ -7,10 +7,12 @@ import org.openpatch.scratch.extensions.tiled.TiledMap;
 
 public class World extends Stage {
 
+  // scratch4j:begin fields (managed by the stage designer)
+  private UIItem inventory;
+  // scratch4j:end fields
+
   private TiledMap map;
   private Player player;
-  private Item inventory;
-
   public World(String mapFile, Player player) {
     map = new TiledMap("demos/tiled/" + mapFile + ".tmx", this);
     for (var object : map.getObjectsFromLayer("Objects")) {
@@ -61,9 +63,12 @@ public class World extends Stage {
     this.add(player);
 
     GameState.get().map = mapFile;
+    // scratch4j:begin setup (managed by the stage designer)
     inventory = new UIItem();
     this.add(inventory);
+    // scratch4j:end setup
     this.player = player;
+
   }
 
   public void whenKeyPressed(KeyCode keyCode) {

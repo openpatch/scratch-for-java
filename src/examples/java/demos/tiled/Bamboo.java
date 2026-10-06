@@ -7,10 +7,12 @@ public class Bamboo extends Enemy {
   public Bamboo(double x, double y) {
     super(x, y);
 
+    // scratch4j:begin setup (managed by the stage designer)
     this.addAnimation("walk-down", "demos/tiled/assets/Bamboo.png", 4, 32, 32, 0, true);
     this.addAnimation("walk-up", "demos/tiled/assets/Bamboo.png", 4, 32, 32, 1, true);
     this.addAnimation("walk-left", "demos/tiled/assets/Bamboo.png", 4, 32, 32, 2, true);
     this.addAnimation("walk-right", "demos/tiled/assets/Bamboo.png", 4, 32, 32, 3, true);
+    // scratch4j:end setup
   }
 
   public void run() {

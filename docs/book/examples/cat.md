@@ -26,10 +26,16 @@ void main() {
 
 class CatSketch extends Stage {
 
+  // scratch4j:begin fields (managed by the stage designer)
+  private CatSprite myCat;
+  // scratch4j:end fields
+
   public CatSketch() {
     super(800, 600);
-    Sprite myCat = new CatSprite();
+    // scratch4j:begin setup (managed by the stage designer)
+    myCat = new CatSprite();
     this.add(myCat);
+    // scratch4j:end setup
   }
 }
 

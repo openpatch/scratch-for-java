@@ -11,11 +11,20 @@ import org.openpatch.scratch.*;
  */
 public class Glide extends Stage {
 
+  // scratch4j:begin fields (managed by the stage designer)
+  private Walker walker;
+  private Patroller patroller;
+  // scratch4j:end fields
+
   public Glide() {
     super(600, 400);
+    // scratch4j:begin setup (managed by the stage designer)
     this.addBackdrop("background");
-    this.add(new Walker());
-    this.add(new Patroller());
+    walker = new Walker();
+    this.add(walker);
+    patroller = new Patroller();
+    this.add(patroller);
+    // scratch4j:end setup
   }
 
   public static void main(String[] args) {

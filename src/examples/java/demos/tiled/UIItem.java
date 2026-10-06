@@ -4,5 +4,8 @@ package demos.tiled;
 public class UIItem extends Item {
   public UIItem() {
     this.setUI(true);
+
+    // scratch4j:begin setup (managed by the stage designer)
+    // scratch4j:end setup
   }
 }

@@ -2,9 +2,11 @@ import org.openpatch.scratch.*;
 
 public class Walker extends AnimatedSprite {
   public Walker() {
+    // scratch4j:begin setup (managed by the stage designer)
     this.addCostume("alienGreen_stand");
     this.addAnimation("walk", "alienGreen_walk%d", 2);
     this.setAnimationInterval(150);
+    // scratch4j:end setup
     this.setSize(60);
     this.setRotationStyle(RotationStyle.LEFT_RIGHT);
     this.setY(-50);

@@ -23,17 +23,26 @@ find it. Hold the mouse down to move the target.
 ```java SmartRocket.java
 
 void main() {
+  // scratch4j:begin options (managed by the project settings)
+  // scratch4j:end options
   new SmartRocket();
 }
 
 class SmartRocket extends Window {
   public SmartRocket() {
     super(800, 600, "assets");
+
+    // scratch4j:begin window (managed by the project settings)
     this.setStage(new Level());
+    // scratch4j:end window
   }
 }
 
 class Level extends Stage {
+
+  // scratch4j:begin fields (managed by the stage designer)
+  // scratch4j:end fields
+
   private Text statistiken;
 
   private Ziel ziel;
@@ -63,6 +72,9 @@ class Level extends Stage {
     this.statistiken.setPosition(-this.getWidth() / 2 + 10, this.getHeight() / 2 - 40);
     this.statistiken.setAlign(TextAlign.LEFT);
     this.add(this.statistiken);
+
+    // scratch4j:begin setup (managed by the stage designer)
+    // scratch4j:end setup
   }
 
   public void run() {
@@ -92,8 +104,10 @@ class Level extends Stage {
 class Ziel extends Sprite {
 
   public Ziel() {
+    // scratch4j:begin setup (managed by the stage designer)
     this.addCostume("target", "assets/target.png");
     this.setHitbox(10, 38, 10, 10, 38, 10, 38, 38);
+    // scratch4j:end setup
   }
 }
 
@@ -205,9 +219,11 @@ class Rocket extends Sprite {
   private Ziel ziel;
 
   public Rocket(Vector2 pPosition, DNA pDna, Ziel pZiel) {
+    // scratch4j:begin setup (managed by the stage designer)
     this.addCostume("rocket", "assets/rocket.png");
-    this.setPosition(pPosition);
     this.setHitbox(68, 27, 68, 20, 76, 21, 76, 26);
+    // scratch4j:end setup
+    this.setPosition(pPosition);
     this.beschleunigung = new Vector2();
     this.geschwindigkeit = new Vector2();
     this.dna = pDna;

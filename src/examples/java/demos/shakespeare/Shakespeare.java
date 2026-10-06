@@ -5,6 +5,9 @@ import org.openpatch.scratch.*;
 
 public class Shakespeare extends Stage {
 
+  // scratch4j:begin fields (managed by the stage designer)
+  // scratch4j:end fields
+
   private Text bestPhrase;
   private Text allPhrases;
   private Text statistics;
@@ -42,6 +45,9 @@ public class Shakespeare extends Stage {
     this.statistics.setPosition(-390, 100);
     this.statistics.setAlign(TextAlign.LEFT);
     this.add(this.statistics);
+
+    // scratch4j:begin setup (managed by the stage designer)
+    // scratch4j:end setup
   }
 
   public void run() {

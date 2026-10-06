@@ -3,10 +3,18 @@ package demos.rainbowVine;
 import org.openpatch.scratch.*;
 
 public class RainbowVine extends Stage {
+
+  // scratch4j:begin fields (managed by the stage designer)
+  private VineSprite vineSprite;
+  // scratch4j:end fields
+
   public RainbowVine() {
     super(600, 400);
     this.setColor(0, 0, 0);
-    this.add(new VineSprite());
+    // scratch4j:begin setup (managed by the stage designer)
+    vineSprite = new VineSprite();
+    this.add(vineSprite);
+    // scratch4j:end setup
   }
 
   public static void main(String[] args) {

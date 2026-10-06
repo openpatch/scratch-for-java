@@ -11,7 +11,9 @@ public class Fireball extends AnimatedSprite {
     this.setY(y);
     this.dir = dir;
 
+    // scratch4j:begin setup (managed by the stage designer)
     this.addAnimation("default", "demos/tiled/assets/Fireball.png", 4, 32, 32);
+    // scratch4j:end setup
   }
 
   public void run() {

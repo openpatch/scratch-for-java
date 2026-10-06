@@ -6,31 +6,35 @@ import org.openpatch.scratch.Stage;
 
 public class UI extends Stage {
 
+  // scratch4j:begin fields (managed by the stage designer)
+  private Panel panel;
+  private Bar backgroundBar;
   private Bar bar;
+  // scratch4j:end fields
 
   public UI() {
     super(800, 600);
 
     this.setCursor("demos/ui/crosshair_color_c.png");
 
-    var panel = new Panel();
+    // scratch4j:begin setup (managed by the stage designer)
+    panel = new Panel();
     panel.setWidth(600);
     panel.setHeight(480);
     this.add(panel);
-
-    var backgroundBar = new Bar();
+    backgroundBar = new Bar();
+    backgroundBar.switchCostume("bar-gray");
+    backgroundBar.setPosition(0, 100);
     backgroundBar.setWidth(600);
     backgroundBar.setHeight(40);
-    backgroundBar.setY(100);
-    backgroundBar.switchCostume("bar-gray");
     this.add(backgroundBar);
-
     bar = new Bar();
+    bar.setPosition(0, 100);
+    bar.setSize(70);
     bar.setWidth(100);
     bar.setHeight(40);
-    bar.setY(100);
-    bar.setSize(70);
     this.add(bar);
+    // scratch4j:end setup
   }
 
   public void run() {

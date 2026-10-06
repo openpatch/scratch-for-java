@@ -28,12 +28,20 @@ void main() {
 }
 
 class Pipes extends Stage {
+
+  // scratch4j:begin fields (managed by the stage designer)
+  private PenSprite penSprite;
+  // scratch4j:end fields
+
   public Pipes() {
     super(1280, 800);
-    this.addBackdrop("chalkBoard", "backdrops/chalk_board.jpg");
     this.setTint(60);
-    this.add(new PenSprite());
+    // scratch4j:begin setup (managed by the stage designer)
+    this.addBackdrop("chalkBoard", "backdrops/chalk_board.jpg");
     this.addSound("bg", "sounds/bensound-enigmatic.ogg");
+    penSprite = new PenSprite();
+    this.add(penSprite);
+    // scratch4j:end setup
   }
 
   public void whenKeyPressed(KeyCode keyCode) {
@@ -68,6 +76,9 @@ class PenSprite extends Sprite {
     color = Random.random(255);
     this.getPen().setColor(color);
     this.hide();
+
+    // scratch4j:begin setup (managed by the stage designer)
+    // scratch4j:end setup
   }
 
   public static void setColor(double color) {

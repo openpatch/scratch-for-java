@@ -25,6 +25,8 @@ resets the zoom.
 
 void main() {
   Text.useFontSizes(32, 48);
+  // scratch4j:begin options (managed by the project settings)
+  // scratch4j:end options
   new Game();
 }
 
@@ -34,11 +36,18 @@ class Game extends Window {
 
   public Game() {
     super(800, 600, "assets");
+
+    // scratch4j:begin window (managed by the project settings)
     this.setStage(new StartStage());
+    // scratch4j:end window
   }
 }
 
 class StartStage extends Stage {
+
+  // scratch4j:begin fields (managed by the stage designer)
+  // scratch4j:end fields
+
   public StartStage() {
     var bg = new Background();
     bg.setTransparency(50);
@@ -65,6 +74,9 @@ class StartStage extends Stage {
     text.showText("Press Space to start.");
     text.setPosition(0, -20);
     this.add(text);
+
+    // scratch4j:begin setup (managed by the stage designer)
+    // scratch4j:end setup
   }
 
   public void whenKeyPressed(KeyCode keyCode) {
@@ -77,20 +89,23 @@ class StartStage extends Stage {
 
 class WorldStage extends Stage {
 
+  // scratch4j:begin fields (managed by the stage designer)
+  private Background background;
+  private PlayerDonut player;
+  // scratch4j:end fields
+
   public static Vector2 CAM = new Vector2(0, 0);
   public boolean manualZoom;
   public double zoomInc = 0.1;
   public double targetZoom;
-
-  public PlayerDonut player;
-
   public WorldStage() {
-    this.add(new Background());
-
     manualZoom = false;
-
+    // scratch4j:begin setup (managed by the stage designer)
+    background = new Background();
+    this.add(background);
     player = new PlayerDonut();
     this.add(player);
+    // scratch4j:end setup
 
     for (int i = 0; i < 5 * (Game.LEVEL + 1); i++) {
       var m = new FollowDonut(player);
@@ -103,6 +118,7 @@ class WorldStage extends Stage {
         m.setPosition(v);
       } while (m.isTouchingSprite(player));
     }
+
   }
 
   public void run() {
@@ -154,6 +170,10 @@ class WorldStage extends Stage {
 }
 
 class WinStage extends Stage {
+
+  // scratch4j:begin fields (managed by the stage designer)
+  // scratch4j:end fields
+
   public WinStage() {
     var bg = new Background();
     bg.setTransparency(50);
@@ -172,6 +192,9 @@ class WinStage extends Stage {
     text.showText("Press Space for the next level!");
     text.setPosition(0, -40);
     this.add(text);
+
+    // scratch4j:begin setup (managed by the stage designer)
+    // scratch4j:end setup
   }
 
   public void whenKeyPressed(KeyCode keyCode) {
@@ -183,6 +206,10 @@ class WinStage extends Stage {
 }
 
 class GameOverStage extends Stage {
+
+  // scratch4j:begin fields (managed by the stage designer)
+  // scratch4j:end fields
+
   public GameOverStage() {
     var bg = new Background();
     bg.setTransparency(50);
@@ -201,6 +228,9 @@ class GameOverStage extends Stage {
     text.showText("Press Space to start again!");
     text.setPosition(0, -40);
     this.add(text);
+
+    // scratch4j:begin setup (managed by the stage designer)
+    // scratch4j:end setup
   }
 
   public void whenKeyPressed(KeyCode keyCode) {
@@ -215,7 +245,9 @@ class GameOverStage extends Stage {
 class Background extends Sprite {
 
   public Background() {
+    // scratch4j:begin setup (managed by the stage designer)
     this.addCostume("grid", "assets/grid.png");
+    // scratch4j:end setup
   }
 
   public void run() {
@@ -235,7 +267,9 @@ class Donut extends Sprite {
   }
 
   public Donut(double x, double y, int strength) {
+    // scratch4j:begin setup (managed by the stage designer)
     this.addCostume("donut", "assets/donut.png");
+    // scratch4j:end setup
     this.setHitbox(new Ellipse(0, 0, 512, 480));
     this.setX(x);
     this.setY(y);
@@ -268,6 +302,9 @@ class PlayerDonut extends Donut {
 
   public PlayerDonut() {
     super(0, 0, 10);
+
+    // scratch4j:begin setup (managed by the stage designer)
+    // scratch4j:end setup
   }
 
   public void run() {
@@ -285,6 +322,9 @@ class FollowDonut extends Donut {
 
   public FollowDonut(PlayerDonut player) {
     this.player = player;
+
+    // scratch4j:begin setup (managed by the stage designer)
+    // scratch4j:end setup
   }
 
   public void run() {

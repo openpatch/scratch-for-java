@@ -8,20 +8,23 @@ import org.openpatch.scratch.Vector2;
 
 public class WorldStage extends Stage {
 
+  // scratch4j:begin fields (managed by the stage designer)
+  private Background background;
+  private PlayerDonut player;
+  // scratch4j:end fields
+
   public static Vector2 CAM = new Vector2(0, 0);
   public boolean manualZoom;
   public double zoomInc = 0.1;
   public double targetZoom;
-
-  public PlayerDonut player;
-
   public WorldStage() {
-    this.add(new Background());
-
     manualZoom = false;
-
+    // scratch4j:begin setup (managed by the stage designer)
+    background = new Background();
+    this.add(background);
     player = new PlayerDonut();
     this.add(player);
+    // scratch4j:end setup
 
     for (int i = 0; i < 5 * (Game.LEVEL + 1); i++) {
       var m = new FollowDonut(player);
@@ -34,6 +37,7 @@ public class WorldStage extends Stage {
         m.setPosition(v);
       } while (m.isTouchingSprite(player));
     }
+
   }
 
   public void run() {

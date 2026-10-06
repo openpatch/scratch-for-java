@@ -8,6 +8,11 @@ import org.openpatch.scratch.Hitbox;
 import org.openpatch.scratch.Ellipse;
 
 public class Sensing extends Stage {
+
+  // scratch4j:begin fields (managed by the stage designer)
+  private UIHero uiH;
+  // scratch4j:end fields
+
   public static Hero h, m;
 
   public Sensing() {
@@ -18,9 +23,11 @@ public class Sensing extends Stage {
     this.add(h);
     this.add(m);
 
-    var uiH = new UIHero();
+    // scratch4j:begin setup (managed by the stage designer)
+    uiH = new UIHero();
     uiH.setPosition(300, 300);
     this.add(uiH);
+    // scratch4j:end setup
   }
 
   public void run() {

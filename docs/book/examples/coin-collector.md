@@ -60,6 +60,10 @@ void main() {
  */
 class CoinCollector extends Stage {
 
+  // scratch4j:begin fields (managed by the stage designer)
+  private Player player;
+  // scratch4j:end fields
+
   /** The height the ground reaches up to. Sprites stand on this line. */
   public static final double GROUND_TOP = -176;
 
@@ -72,8 +76,6 @@ class CoinCollector extends Stage {
     super(800, 480);
 
     // A backdrop and a sound, by name - no files needed.
-    this.addBackdrop("background");
-    this.addSound("jingles_NES00");
 
     // A row of grass tiles along the bottom.
     for (int x = -400; x < 400; x += 64) {
@@ -86,7 +88,12 @@ class CoinCollector extends Stage {
       this.add(new Coin(-240 + i * 112, GROUND_TOP + 45));
     }
 
-    this.add(new Player());
+    // scratch4j:begin setup (managed by the stage designer)
+    this.addBackdrop("background");
+    this.addSound("jingles_NES00");
+    player = new Player();
+    this.add(player);
+    // scratch4j:end setup
 
     this.score = new Text();
     this.score.setPosition(-330, 200);
@@ -112,38 +119,6 @@ class CoinCollector extends Stage {
   }
 }
 
-/** One grass tile of the ground. */
-class Ground extends Sprite {
-
-  public Ground(double x) {
-    this.addCostume("grassMid");
-    this.setSize(50);
-    this.setX(x);
-    // The tile is 128 pixels high, so its middle sits 32 below its top edge.
-    this.setY(CoinCollector.GROUND_TOP - 32);
-  }
-}
-
-/** A coin the player can pick up. It bobs up and down a little. */
-class Coin extends Sprite {
-
-  private final double startY;
-  private double angle = 0;
-
-  public Coin(double x, double y) {
-    this.addCostume("coinGold");
-    this.setSize(50);
-    this.setX(x);
-    this.setY(y);
-    this.startY = y;
-  }
-
-  public void run() {
-    this.angle += 3;
-    this.setY(this.startY + Math.sin(Math.toRadians(this.angle)) * 8);
-  }
-}
-
 /** The alien you steer with the arrow keys. */
 class Player extends AnimatedSprite {
 
@@ -159,16 +134,16 @@ class Player extends AnimatedSprite {
   private double fallSpeed = 0;
 
   public Player() {
-    // Costumes and animations by name. "alienGreen_walk%d" stands for
+    // Costumes, animations and sounds by name. "alienGreen_walk%d" stands for
     // alienGreen_walk1 and alienGreen_walk2.
+    // scratch4j:begin setup (managed by the stage designer)
     this.addCostume("alienGreen_stand");
     this.addCostume("alienGreen_jump");
     this.addAnimation("walk", "alienGreen_walk%d", 2);
     this.setAnimationInterval(120);
-
-    // Sounds by name, just like costumes.
     this.addSound("handleCoins");
     this.addSound("footstep_grass_000");
+    // scratch4j:end setup
 
     this.setSize(SIZE);
     this.setRotationStyle(RotationStyle.LEFT_RIGHT);
@@ -230,6 +205,42 @@ class Player extends AnimatedSprite {
       coin.remove();
       ((CoinCollector) this.getStage()).collect();
     }
+  }
+}
+
+/** One grass tile of the ground. */
+class Ground extends Sprite {
+
+  public Ground(double x) {
+    // scratch4j:begin setup (managed by the stage designer)
+    this.addCostume("grassMid");
+    // scratch4j:end setup
+    this.setSize(50);
+    this.setX(x);
+    // The tile is 128 pixels high, so its middle sits 32 below its top edge.
+    this.setY(CoinCollector.GROUND_TOP - 32);
+  }
+}
+
+/** A coin the player can pick up. It bobs up and down a little. */
+class Coin extends Sprite {
+
+  private final double startY;
+  private double angle = 0;
+
+  public Coin(double x, double y) {
+    // scratch4j:begin setup (managed by the stage designer)
+    this.addCostume("coinGold");
+    // scratch4j:end setup
+    this.setSize(50);
+    this.setX(x);
+    this.setY(y);
+    this.startY = y;
+  }
+
+  public void run() {
+    this.angle += 3;
+    this.setY(this.startY + Math.sin(Math.toRadians(this.angle)) * 8);
   }
 }
 ```

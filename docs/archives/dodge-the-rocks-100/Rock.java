@@ -2,7 +2,9 @@ import org.openpatch.scratch.*;
 
 public class Rock extends Sprite {
   public Rock() {
+    // scratch4j:begin setup (managed by the stage designer)
     this.addCostume("rock");
+    // scratch4j:end setup
     this.setSize(40);
     this.dropFromTop();
   }

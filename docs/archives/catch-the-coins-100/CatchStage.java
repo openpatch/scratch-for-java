@@ -1,20 +1,28 @@
 import org.openpatch.scratch.*;
 
 public class CatchStage extends Stage {
+
+  // scratch4j:begin fields (managed by the stage designer)
+  private Basket basket;
+  // scratch4j:end fields
+
   private Text scoreText = new Text();
   private int score = 0;
 
   public CatchStage() {
     super(600, 400);
-    this.addBackdrop("background");
-    this.addSound("handleCoins");
 
     this.scoreText.setPosition(0, 170);
     this.scoreText.setTextSize(22);
     this.add(this.scoreText);
     this.showScore();
 
-    this.add(new Basket());
+    // scratch4j:begin setup (managed by the stage designer)
+    this.addBackdrop("background");
+    this.addSound("handleCoins");
+    basket = new Basket();
+    this.add(basket);
+    // scratch4j:end setup
     for (int i = 0; i < 4; i++) {
       this.add(new Coin());
     }

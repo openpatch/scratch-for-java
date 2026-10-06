@@ -1,8 +1,14 @@
 import org.openpatch.scratch.*;
 
 public class TitleStage extends Stage {
+
+  // scratch4j:begin fields (managed by the stage designer)
+  // scratch4j:end fields
+
   public TitleStage(String message) {
+    // scratch4j:begin setup (managed by the stage designer)
     this.addBackdrop("background");
+    // scratch4j:end setup
 
     Text title = new Text();
     title.setPosition(0, 60);
