@@ -3,10 +3,10 @@ package org.openpatch.scratch.extensions.tiled;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import tools.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 
-class Map {
-  public int compressionlevel;
-  public int height;
-  public int infinite;
+/** A group layer: tile layers, object layers and further groups. */
+class LayerGroup {
+  public String name;
+  public boolean visible = true;
 
   @JacksonXmlElementWrapper(useWrapping = false)
   @JsonProperty("layer")
@@ -16,20 +16,6 @@ class Map {
   @JsonProperty("objectgroup")
   public ObjectGroup[] objectGroups;
 
-  public String orientation;
-  public String renderorder;
-  public String tiledversion;
-  public int tileheight;
-
-  @JacksonXmlElementWrapper(useWrapping = false)
-  @JsonProperty("tileset")
-  public Tileset[] tilesets;
-
-  public int tilewidth;
-  public String type;
-  public int width;
-
-  /** Group layers (Tiled 1.2+); their layers count as the map's own. */
   @JacksonXmlElementWrapper(useWrapping = false)
   @JsonProperty("group")
   public LayerGroup[] groups;

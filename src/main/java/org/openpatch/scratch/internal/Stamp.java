@@ -15,9 +15,31 @@ public class Stamp {
   // the point of the image at (x, y), in drawn pixels from its top left corner
   private double centerX;
   private double centerY;
+  // Tiled's flip flags: mirrored across the diagonal first, then horizontally/vertically
+  private boolean flipHorizontal;
+  private boolean flipVertical;
+  private boolean flipDiagonal;
 
   public Stamp(Image image, double x2, double y2) {
     this(image, 0, x2, y2, RotationStyle.DONT);
+  }
+
+  /**
+   * A map tile, possibly flipped the way Tiled stores it.
+   *
+   * @param image      the tile
+   * @param x          the x position
+   * @param y          the y position
+   * @param horizontal mirrored left/right
+   * @param vertical   mirrored up/down
+   * @param diagonal   mirrored across the diagonal (with the others: turned)
+   */
+  public Stamp(Image image, double x, double y, boolean horizontal, boolean vertical,
+      boolean diagonal) {
+    this(image, 0, x, y, RotationStyle.DONT);
+    this.flipHorizontal = horizontal;
+    this.flipVertical = vertical;
+    this.flipDiagonal = diagonal;
   }
 
   public Stamp(Image image, double degrees, double x, double y, RotationStyle style) {
@@ -54,6 +76,13 @@ public class Stamp {
           g.scale(-1, 1);
         }
         break;
+    }
+    if (this.flipHorizontal || this.flipVertical || this.flipDiagonal) {
+      // the last transform applies first: transpose, then the mirror flips
+      g.scale(this.flipHorizontal ? -1 : 1, this.flipVertical ? -1 : 1);
+      if (this.flipDiagonal) {
+        g.applyMatrix(0, 1, 0, 1, 0, 0);
+      }
     }
     g.tint(
         (float) this.image.tint.getRed(),

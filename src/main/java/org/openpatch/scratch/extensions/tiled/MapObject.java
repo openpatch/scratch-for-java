@@ -37,6 +37,17 @@ public class MapObject {
   /** The type of the map object. */
   public String type;
 
+  /**
+   * Tiled 1.9 renamed an object's type to class; both end up in {@link #type}
+   * (an explicit type wins).
+   */
+  @com.fasterxml.jackson.annotation.JsonProperty("class")
+  public void setClassName(String className) {
+    if (this.type == null || this.type.isEmpty()) {
+      this.type = className;
+    }
+  }
+
   /** The x-coordinate of the map object. */
   public double x;
 
