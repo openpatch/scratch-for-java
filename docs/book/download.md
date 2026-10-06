@@ -11,6 +11,16 @@ index: 1
 
 ::archive[VS Code Starter]{name="vs-code-starter"}
 
+## Scratch for Java Studio (alpha)
+
+Scratch for Java Studio includes Java, so no separate JDK installation is needed.
+Choose the download for your operating system:
+
+- **Windows (64-bit):** [MSI installer](https://github.com/openpatch/scratch-for-java-ide/releases/latest/download/scratch4j-studio-windows-x64.msi) or [portable ZIP](https://github.com/openpatch/scratch-for-java-ide/releases/latest/download/scratch4j-studio-windows-x64-portable.zip)
+- **macOS Apple Silicon:** [DMG](https://github.com/openpatch/scratch-for-java-ide/releases/latest/download/scratch4j-studio-macos-arm64.dmg)
+- **macOS Intel:** [DMG](https://github.com/openpatch/scratch-for-java-ide/releases/latest/download/scratch4j-studio-macos-x64.dmg)
+- **Linux (64-bit):** [AppImage](https://github.com/openpatch/scratch-for-java-ide/releases/latest/download/scratch4j-studio-linux-x64.AppImage) or [DEB package](https://github.com/openpatch/scratch-for-java-ide/releases/latest/download/scratch4j-studio-linux-x64.deb)
+
 
 ## GitHub Releases
 
