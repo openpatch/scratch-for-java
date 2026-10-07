@@ -26,8 +26,8 @@ The library is structured around three core concepts:
 ## Build Instructions
 
 ### Prerequisites
-- Java 17+ (CI builds with Temurin; `docs.yml` uses Java 25, `release.yml` uses Java 17 — either works locally, but match `maven.compiler.release=17` for compatibility)
-- Maven
+- Java 17+ to compile/run the library; Java 25 for generating and checking shared catalogs (CI documentation, validation, and release jobs use Temurin 25; `maven.compiler.release=17` preserves runtime compatibility)
+- Maven (release publication uses pinned Maven 3.9.16 to keep local metadata out of Central bundles)
 - Node.js + npm (for the documentation site only)
 
 ### Maven Build Commands
