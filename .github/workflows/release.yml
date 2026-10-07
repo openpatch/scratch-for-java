@@ -12,6 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+      - uses: ./.github/actions/setup-maven
       - uses: actions/setup-java@v5
         with:
           distribution: temurin
@@ -35,6 +36,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v7
 
+      # Maven 3.10 writes Resolver metadata into the Central staging tree,
+      # which makes the portal reject an otherwise complete release bundle.
+      - uses: ./.github/actions/setup-maven
+
       - name: Set up Java
         uses: actions/setup-java@v5
         with:
@@ -54,7 +59,9 @@ jobs:
           GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
 
       - name: Deploy to Maven Central (signed)
-        run: mvn -B clean deploy -Pcentral -Dgpg.executable=gpg
+        run: |
+          mvn --version
+          mvn -B clean deploy -Pcentral -Dgpg.executable=gpg
         env:
           MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.MAVEN_PASSWORD }}
