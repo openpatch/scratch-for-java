@@ -15,7 +15,7 @@ teacher notes, assessment criteria and a classroom pilot form. Studio's
 project. Prepare both standard and NRW flavors before disconnecting the school
 computer from the internet.
 
-The implementation targets desktop library **5.7.0**, browser **5.7.0-browser.2**,
+The implementation targets desktop library **5.8.0**, browser **5.8.0-browser.1**,
 Java **17** for named library projects and Java **25** for Studio/compact files.
 ZIP transfer, test adaptation and course import require the coordinated IDE
 update. Check [compatibility](/compatibility) and the downloaded IDE's release notes;

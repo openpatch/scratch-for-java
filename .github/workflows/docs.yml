@@ -31,6 +31,13 @@ jobs:
       - name: Check browser compatibility before publishing
         uses: ./.github/actions/check-browser
 
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install the released Hyperbook toolchain
+        run: npm install --global hyperbook@0.112.0
+
       - name: Build Docs
         run:  bash ./build.sh
 

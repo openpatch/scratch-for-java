@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "libraryVersion": "5.7.0",
-  "browserVersion": "5.7.0-browser.2",
+  "libraryVersion": "5.8.0",
+  "browserVersion": "5.8.0-browser.1",
   "methods": [
     {
       "id": "AnimatedSprite/addAnimation(String,String,int)",

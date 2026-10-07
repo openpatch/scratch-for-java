@@ -56,4 +56,4 @@ expects it, or test both working copies locally while preparing the changes.
 
 `build.sh` generates availability annotations and publishes `/compatibility.json`.
 Browser builds publish `/scratch-compatibility.json`; `Window.getLibraryVersion()`
-reports its browser revision, currently `5.7.0-browser.1`.
+reports its browser revision, currently `5.8.0-browser.1`.

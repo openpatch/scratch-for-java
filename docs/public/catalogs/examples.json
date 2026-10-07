@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
-  "libraryVersion": "5.7.0",
-  "browserVersion": "5.7.0-browser.2",
+  "libraryVersion": "5.8.0",
+  "browserVersion": "5.8.0-browser.1",
   "examples": [
     {
       "id": "demo/cat",
       "kind": "demo",
       "source": "src/examples/java/demos/cat",
-      "libraryVersion": "5.7.0",
+      "libraryVersion": "5.8.0",
       "flavour": "standard",
       "requiredSheets": [],
       "files": [
@@ -29,7 +29,7 @@
       "id": "demo/catPlatformer",
       "kind": "demo",
       "source": "src/examples/java/demos/catPlatformer",
-      "libraryVersion": "5.7.0",
+      "libraryVersion": "5.8.0",
       "flavour": "standard",
       "requiredSheets": [
         "cat",
@@ -79,7 +79,7 @@
       "id": "demo/clock",
       "kind": "demo",
       "source": "src/examples/java/demos/clock",
-      "libraryVersion": "5.7.0",
+      "libraryVersion": "5.8.0",
       "flavour": "standard",
       "requiredSheets": [],
       "files": [
@@ -169,7 +169,7 @@
       "id": "demo/coinCollector",
       "kind": "demo",
       "source": "src/examples/java/demos/coinCollector",
-      "libraryVersion": "5.7.0",
+      "libraryVersion": "5.8.0",
       "flavour": "standard",
       "requiredSheets": [
         "platformer",
@@ -198,7 +198,7 @@
       "id": "demo/donutIO",
       "kind": "demo",
       "source": "src/examples/java/demos/donutIO",
-      "libraryVersion": "5.7.0",
+      "libraryVersion": "5.8.0",
       "flavour": "standard",
       "requiredSheets": [],
       "files": [
@@ -292,7 +292,7 @@
       "id": "demo/glide",
       "kind": "demo",
       "source": "src/examples/java/demos/glide",
-      "libraryVersion": "5.7.0",
+      "libraryVersion": "5.8.0",
       "flavour": "standard",
       "requiredSheets": [
         "platformer",
@@ -309,7 +309,7 @@
       "id": "demo/pipes",
       "kind": "demo",
       "source": "src/examples/java/demos/pipes",
-      "libraryVersion": "5.7.0",
+      "libraryVersion": "5.8.0",
       "flavour": "standard",
       "requiredSheets": [],
       "files": [
@@ -347,7 +347,7 @@
       "id": "demo/quiz",
       "kind": "demo",
       "source": "src/examples/java/demos/quiz",
-      "libraryVersion": "5.7.0",
+      "libraryVersion": "5.8.0",
       "flavour": "standard",
       "requiredSheets": [
         "platformer",
@@ -364,7 +364,7 @@
       "id": "demo/rainbowVine",
       "kind": "demo",
       "source": "src/examples/java/demos/rainbowVine",
-      "libraryVersion": "5.7.0",
+      "libraryVersion": "5.8.0",
       "flavour": "standard",
       "requiredSheets": [],
       "files": [
@@ -382,7 +382,7 @@
       "id": "demo/randomDot",
       "kind": "demo",
       "source": "src/examples/java/demos/randomDot",
-      "libraryVersion": "5.7.0",
+      "libraryVersion": "5.8.0",
       "flavour": "standard",
       "requiredSheets": [],
       "files": [
@@ -400,7 +400,7 @@
       "id": "demo/robot",
       "kind": "demo",
       "source": "src/examples/java/demos/robot",
-      "libraryVersion": "5.7.0",
+      "libraryVersion": "5.8.0",
       "flavour": "standard",
       "requiredSheets": [],
       "files": [
@@ -422,7 +422,7 @@
       "id": "demo/saving",
       "kind": "demo",
       "source": "src/examples/java/demos/saving",
-      "libraryVersion": "5.7.0",
+      "libraryVersion": "5.8.0",
       "flavour": "standard",
       "requiredSheets": [],
       "files": [
@@ -456,7 +456,7 @@
       "id": "demo/sensing",
       "kind": "demo",
       "source": "src/examples/java/demos/sensing",
-      "libraryVersion": "5.7.0",
+      "libraryVersion": "5.8.0",
       "flavour": "standard",
       "requiredSheets": [],
       "files": [
@@ -478,7 +478,7 @@
       "id": "demo/shader",
       "kind": "demo",
       "source": "src/examples/java/demos/shader",
-      "libraryVersion": "5.7.0",
+      "libraryVersion": "5.8.0",
       "flavour": "standard",
       "requiredSheets": [],
       "files": [
@@ -568,7 +568,7 @@
       "id": "demo/shakespeare",
       "kind": "demo",
       "source": "src/examples/java/demos/shakespeare",
-      "libraryVersion": "5.7.0",
+      "libraryVersion": "5.8.0",
       "flavour": "standard",
       "requiredSheets": [],
       "files": [
@@ -594,7 +594,7 @@
       "id": "demo/smartRocket",
       "kind": "demo",
       "source": "src/examples/java/demos/smartRocket",
-      "libraryVersion": "5.7.0",
+      "libraryVersion": "5.8.0",
       "flavour": "standard",
       "requiredSheets": [],
       "files": [
@@ -660,7 +660,7 @@
       "id": "demo/stressTest",
       "kind": "demo",
       "source": "src/examples/java/demos/stressTest",
-      "libraryVersion": "5.7.0",
+      "libraryVersion": "5.8.0",
       "flavour": "standard",
       "requiredSheets": [],
       "files": [
@@ -1110,7 +1110,7 @@
       "id": "demo/tiled",
       "kind": "demo",
       "source": "src/examples/java/demos/tiled",
-      "libraryVersion": "5.7.0",
+      "libraryVersion": "5.8.0",
       "flavour": "standard",
       "requiredSheets": [
         "platformer"
@@ -1318,7 +1318,7 @@
       "id": "demo/timedDot",
       "kind": "demo",
       "source": "src/examples/java/demos/timedDot",
-      "libraryVersion": "5.7.0",
+      "libraryVersion": "5.8.0",
       "flavour": "standard",
       "requiredSheets": [],
       "files": [
@@ -1332,7 +1332,7 @@
       "id": "demo/timer",
       "kind": "demo",
       "source": "src/examples/java/demos/timer",
-      "libraryVersion": "5.7.0",
+      "libraryVersion": "5.8.0",
       "flavour": "standard",
       "requiredSheets": [],
       "files": [
@@ -1346,7 +1346,7 @@
       "id": "demo/ui",
       "kind": "demo",
       "source": "src/examples/java/demos/ui",
-      "libraryVersion": "5.7.0",
+      "libraryVersion": "5.8.0",
       "flavour": "standard",
       "requiredSheets": [],
       "files": [
@@ -1376,7 +1376,7 @@
       "id": "demo/volume",
       "kind": "demo",
       "source": "src/examples/java/demos/volume",
-      "libraryVersion": "5.7.0",
+      "libraryVersion": "5.8.0",
       "flavour": "standard",
       "requiredSheets": [
         "platformer",
@@ -1393,7 +1393,7 @@
       "id": "tutorial/Halloween",
       "kind": "tutorial",
       "source": "docs/archives/Halloween",
-      "libraryVersion": "5.7.0",
+      "libraryVersion": "5.8.0",
       "flavour": "standard",
       "requiredSheets": [],
       "files": [
@@ -1495,7 +1495,7 @@
       "id": "tutorial/bluej-starter",
       "kind": "tutorial",
       "source": "docs/archives/bluej-starter",
-      "libraryVersion": "5.7.0",
+      "libraryVersion": "5.8.0",
       "flavour": "standard",
       "requiredSheets": [],
       "files": [
@@ -1529,7 +1529,7 @@
       "id": "tutorial/bouncy-hedgehog",
       "kind": "tutorial",
       "source": "docs/archives/bouncy-hedgehog",
-      "libraryVersion": "5.7.0",
+      "libraryVersion": "5.8.0",
       "flavour": "standard",
       "requiredSheets": [],
       "files": [
@@ -1579,7 +1579,7 @@
       "id": "tutorial/bouncy-hedgehog-100",
       "kind": "tutorial",
       "source": "docs/archives/bouncy-hedgehog-100",
-      "libraryVersion": "5.7.0",
+      "libraryVersion": "5.8.0",
       "flavour": "standard",
       "requiredSheets": [],
       "files": [
@@ -1629,7 +1629,7 @@
       "id": "tutorial/cat",
       "kind": "tutorial",
       "source": "docs/archives/cat",
-      "libraryVersion": "5.7.0",
+      "libraryVersion": "5.8.0",
       "flavour": "standard",
       "requiredSheets": [],
       "files": [
@@ -1655,7 +1655,7 @@
       "id": "tutorial/catch-the-coins-100",
       "kind": "tutorial",
       "source": "docs/archives/catch-the-coins-100",
-      "libraryVersion": "5.7.0",
+      "libraryVersion": "5.8.0",
       "flavour": "standard",
       "requiredSheets": [
         "platformer",
@@ -1692,7 +1692,7 @@
       "id": "tutorial/dodge-the-rocks-100",
       "kind": "tutorial",
       "source": "docs/archives/dodge-the-rocks-100",
-      "libraryVersion": "5.7.0",
+      "libraryVersion": "5.8.0",
       "flavour": "standard",
       "requiredSheets": [
         "platformer",
@@ -1737,7 +1737,7 @@
       "id": "tutorial/getting-started-100",
       "kind": "tutorial",
       "source": "docs/archives/getting-started-100",
-      "libraryVersion": "5.7.0",
+      "libraryVersion": "5.8.0",
       "flavour": "standard",
       "requiredSheets": [
         "jumper",
@@ -1770,7 +1770,7 @@
       "id": "tutorial/guess-the-number-100",
       "kind": "tutorial",
       "source": "docs/archives/guess-the-number-100",
-      "libraryVersion": "5.7.0",
+      "libraryVersion": "5.8.0",
       "flavour": "standard",
       "requiredSheets": [
         "platformer",
@@ -1799,7 +1799,7 @@
       "id": "tutorial/make-it-walk-100",
       "kind": "tutorial",
       "source": "docs/archives/make-it-walk-100",
-      "libraryVersion": "5.7.0",
+      "libraryVersion": "5.8.0",
       "flavour": "standard",
       "requiredSheets": [
         "platformer",
@@ -1832,7 +1832,7 @@
       "id": "tutorial/red-light-green-light-100",
       "kind": "tutorial",
       "source": "docs/archives/red-light-green-light-100",
-      "libraryVersion": "5.7.0",
+      "libraryVersion": "5.8.0",
       "flavour": "standard",
       "requiredSheets": [
         "platformer",
@@ -1869,7 +1869,7 @@
       "id": "tutorial/vs-code-starter",
       "kind": "tutorial",
       "source": "docs/archives/vs-code-starter",
-      "libraryVersion": "5.7.0",
+      "libraryVersion": "5.8.0",
       "flavour": "standard",
       "requiredSheets": [],
       "files": [

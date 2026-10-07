@@ -1,8 +1,25 @@
 ---
 name: Changelog
-index: 74
+index: 76
 lang: en
 ---
+
+## 5.8.0
+
+Add the Scratch for Java cat as built-in sprites. Its animations - idle, walk, crouch, jump, fall, land, punch, hurt, ko, cheer and climb - load by name, for example `addAnimation("walk", "cat_walk_%d", 6)`. Coffee beans, a bug, a goal mug and hearts for a platformer come with it. The new Cat Platformer example shows them all in a game.
+
+Distribute versioned API, asset and example catalogs, with stable documentation
+identifiers, translation overrides and offline example artifacts.
+
+Treat non-finite game speeds as zero and ignore negative elapsed frame time, keeping timers usable after invalid speed input.
+
+
+## 5.7.1
+
+
+
+Fix windows on Windows with display scaling: `Window.useFullScreen()` now fills the whole screen instead of a borderless part of it, and windows are centred on the screen instead of partly off it.
+
 
 ## 5.7.0
 
