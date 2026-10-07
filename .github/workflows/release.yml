@@ -49,7 +49,9 @@ jobs:
         uses: actions/setup-java@v5
         with:
           distribution: temurin
-          java-version: 17
+          # Match the Javadoc toolchain used by validation and shared catalogs.
+          # maven.compiler.release still targets Java 17 for the library.
+          java-version: 25
           cache: maven
           server-id: central
           server-username: MAVEN_USERNAME
@@ -90,11 +92,6 @@ jobs:
 
       - name: Require current catalogs and assemble offline examples
         run: |
-          # The release job uses the Java 17 toolchain for Maven Central
-          # signing. Javadoc can normalize generated reference metadata on a
-          # different JDK, so refresh derived compatibility files before the
-          # read-only gate instead of publishing stale JSON.
-          python3 scripts/browser-compatibility.py
           python3 scripts/browser-compatibility.py --check
           python3 scripts/release-catalogs.py --check
           python3 scripts/release-catalogs.py --archive dist/scratch-catalogs.zip
