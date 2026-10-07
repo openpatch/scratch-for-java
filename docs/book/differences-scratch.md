@@ -42,8 +42,8 @@ public class Cat extends Sprite {
   imported as ordinary assets. Browser workspaces can carry image, audio, font
   and shader files; project ZIPs preserve their bytes.
 - Save and share a project ZIP or its ordinary Java folder. The browser also
-  supports workspace JSON. Review [compatibility](/compatibility) before
-  switching environments: file-system, recording and Tiled APIs require desktop.
+  supports workspace JSON. File-system, recording and Tiled APIs require the
+  desktop, so check for them before switching environments.
 - A tight `while (true)` inside `run()` blocks later frames. Put one frame's work
   in `run()` and use timers or state fields for sequencing. Finite loops that
   finish quickly are useful in constructors and methods.
@@ -136,5 +136,4 @@ public class Player extends Sprite {
 Studio keeps the original `.sb3` and records migration tasks beside generated
 Java. Open a task to locate its original block and the Java line that needs
 attention. Timed and concurrent scripts need decisions about frame updates,
-timers and shared state. See [Migration lessons](/migration) and test each
-sequence before sharing the result.
+timers and shared state. Test each sequence before sharing the result.

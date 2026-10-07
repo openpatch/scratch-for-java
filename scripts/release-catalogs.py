@@ -194,16 +194,6 @@ def main():
     translations = json.loads(translations_path.read_text())
     catalogs = generate(translations)
     outputs = {}
-    lines = ["---", "name: Release catalogs", "---", "", "# Release catalogs", "",
-             "Library " + catalogs["api.json"]["libraryVersion"] + "; browser " + catalogs["api.json"]["browserVersion"] + ".", "",
-             "Generated release metadata is available offline inside the library JAR and Studio.", "",
-             "- [API signatures, documentation and translations](/catalogs/api.json)",
-             "- [Images, atlas geometry and sounds](/catalogs/assets.json)",
-             "- [Examples and source checksums](/catalogs/examples.json)", "",
-             "## Examples", "", "| Example | Flavor | Library |", "| --- | --- | --- |"]
-    for example in catalogs["examples.json"]["examples"]:
-        lines.append("| " + example["id"] + " | " + example["flavour"] + " | " + example["libraryVersion"] + " |")
-    outputs[ROOT / "docs/book/catalogs.md"] = "\n".join(lines) + "\n"
     for name, content in catalogs.items():
         for folder in [CATALOGS, ROOT / "src/main/resources/catalogs", ROOT / "docs/public/catalogs"]:
             outputs[folder / name] = encoded(content)

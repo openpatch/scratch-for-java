@@ -524,7 +524,7 @@
                         </tag>
                     </tags>
                     <excludePackageNames>
-                        demos.*:demos:reference.*:reference,doclets.*:doclets,docs.*:docs,variants.*:variants
+                        demos.*:demos:reference.*:reference,doclets.*:doclets,docs.*:docs,parity.*:parity,variants.*:variants
                     </excludePackageNames>
                     <doclint>all,-missing</doclint>
                 </configuration>

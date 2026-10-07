@@ -18,7 +18,7 @@ computer from the internet.
 The implementation targets desktop library **5.8.0**, browser **5.8.0-browser.1**,
 Java **17** for named library projects and Java **25** for Studio/compact files.
 ZIP transfer, test adaptation and course import require the coordinated IDE
-update. Check [compatibility](/compatibility) and the downloaded IDE's release notes;
+update. Check the downloaded IDE's release notes;
 these capabilities are not present in every older build.
 
 ## Prepare a class

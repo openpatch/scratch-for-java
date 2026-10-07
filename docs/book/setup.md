@@ -30,7 +30,7 @@ The desktop **library runs on Java 17 or newer**. Ordinary named classes with
 `public static void main(String[] args)` work with Java 17. Compact source files
 with `void main()` require **Java 25**; Studio uses Java 25 and includes its
 runtime. Its installer needs no separate JDK. The browser runs its own Java
-compiler and interpreter; see the [compatibility contract](/compatibility).
+compiler and interpreter.
 
 Use **standard** unless your course uses the NRW Abiturklassen. Select **NRW**
 consistently in Studio and the browser. The browser provides NRW classes; desktop

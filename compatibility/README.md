@@ -5,7 +5,7 @@ library flavors, intentional desktop limitations and known behavioral gaps.
 `browser-api.json` is a snapshot of the browser compiler's declarations for both
 flavors. The Javadoc doclet adds structured owners and overloads to generated
 reference pages; `scripts/browser-compatibility.py` combines them into
-`contract.json`, the documentation table and browser reference fixtures.
+`contract.json`, the table in `browser-compatibility.md` and browser reference fixtures.
 
 The contract covers documented public constructors and method groups. Overload
 matching uses simple erased parameter names and static/constructor kinds. The
