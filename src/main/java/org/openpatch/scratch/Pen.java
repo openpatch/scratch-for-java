@@ -83,11 +83,6 @@ public class Pen {
   }
 
   /**
-   * Copies a Pen object.
-   *
-   * @param p Pen object to copy
-   */
-  /**
    * A copy for another sprite (a clone): the same colour, size and up or down,
    * but drawing where that sprite is.
    */
@@ -103,6 +98,11 @@ public class Pen {
     return copy;
   }
 
+  /**
+   * Copies a Pen object.
+   *
+   * @param p Pen object to copy
+   */
   public Pen(Pen p) {
     this.color = new Color(p.color);
     this.size = p.size;
