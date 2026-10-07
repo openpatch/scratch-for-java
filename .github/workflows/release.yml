@@ -76,6 +76,11 @@ jobs:
 
       - name: Require current catalogs and assemble offline examples
         run: |
+          # The release job uses the Java 17 toolchain for Maven Central
+          # signing. Javadoc can normalize generated reference metadata on a
+          # different JDK, so refresh derived compatibility files before the
+          # read-only gate instead of publishing stale JSON.
+          python3 scripts/browser-compatibility.py
           python3 scripts/browser-compatibility.py --check
           python3 scripts/release-catalogs.py --check
           python3 scripts/release-catalogs.py --archive dist/scratch-catalogs.zip
