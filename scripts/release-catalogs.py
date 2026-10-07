@@ -147,6 +147,7 @@ def generate(translations):
             if not project.is_dir() or not list(project.glob("*.java")):
                 continue
             files = [p for p in sorted(project.rglob("*")) if p.is_file()
+                     and p.suffix not in {".class", ".ctxt"} and p.name != ".DS_Store"
                      and not any(part in {"+libs", ".git", "target", ".scratch4j"} for part in p.relative_to(project).parts)]
             examples.append({"id": kind + "/" + project.name, "kind": kind,
                              "source": project.relative_to(ROOT).as_posix(),

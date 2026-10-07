@@ -12,10 +12,6 @@
       "requiredSheets": [],
       "files": [
         {
-          "path": "CatSketch.ctxt",
-          "sha256": "f0425f9eda65280859247b795144aa7570088d0c95635b7ac4d8f21a494a5282"
-        },
-        {
           "path": "CatSketch.java",
           "sha256": "720ccf8f24d9c87beaf05c0e130dee65da5c8e2a31d98352a21ea319577df3ea"
         },
@@ -84,22 +80,6 @@
       "requiredSheets": [],
       "files": [
         {
-          "path": "Clock.class",
-          "sha256": "e2385a27deb9148840fd3970d3eebc1afe9435ccac77d267e768263e92c7d0b6"
-        },
-        {
-          "path": "Clock.ctxt",
-          "sha256": "a960e294f7621fb7227cc21a5bc5e761bd30b49afc2406a0b39b4bd4b710d9ea"
-        },
-        {
-          "path": "ClockSprite.class",
-          "sha256": "d8b2710f3fa9c2bf05ce42bd37cb8345601e3c6212d20a33a076c8c3c6f1d25d"
-        },
-        {
-          "path": "ClockSprite.ctxt",
-          "sha256": "e0fdbbe2e22df1af27e684de6846215e261693cf1f48357945ea5a67978473aa"
-        },
-        {
           "path": "ClockSprite.java",
           "sha256": "498b9a3b87b2863f054895e9cc4d668274f15e7b555cc82025e3715fc68dc79b"
         },
@@ -108,36 +88,12 @@
           "sha256": "1b1a9a5cfbec16b86956258fad2e1243df6f8d70d20a9570a5152a513371577b"
         },
         {
-          "path": "HourHandSprite.class",
-          "sha256": "e42303dd06146e30882eefe6fa672cf087993441b9347acdd68d465370c72133"
-        },
-        {
-          "path": "HourHandSprite.ctxt",
-          "sha256": "e4563507c584bd87322f84a7bb3aac369554eb8358ad5226d1b708350cf54add"
-        },
-        {
           "path": "HourHandSprite.java",
           "sha256": "afbdbddccfa8e4e2faa0e498d13d8175fb8ccca82f38a6792a9e7b4fe3e9e54b"
         },
         {
-          "path": "MinuteHandSprite.class",
-          "sha256": "69a6d94a87a4ee79eb1eeae4d77fa1417f916f57ff02eec415c3066e8b8ef3c5"
-        },
-        {
-          "path": "MinuteHandSprite.ctxt",
-          "sha256": "c1c794edc010292c0271a543c16f7c8bbe380a189e5e74b8c7dede318a592914"
-        },
-        {
           "path": "MinuteHandSprite.java",
           "sha256": "654e62b72e7e03b1df52077eefac3b077894f1a64a9f2176c9b72c1fac32a6ef"
-        },
-        {
-          "path": "SecondHandSprite.class",
-          "sha256": "0eafa22bfa3e4635e5861972c84aa6e7f14f11bbc1f9db82647a95be749b9952"
-        },
-        {
-          "path": "SecondHandSprite.ctxt",
-          "sha256": "ba3487ee3509b252d581a4984334ac1ffb85b7b1f8188eef5cb1987e4747bdf1"
         },
         {
           "path": "SecondHandSprite.java",
@@ -203,72 +159,36 @@
       "requiredSheets": [],
       "files": [
         {
-          "path": "Background.ctxt",
-          "sha256": "928fffee1697b0af11be67b58f6b21913f484c87bb1b6e567436ec4327c8ce8a"
-        },
-        {
           "path": "Background.java",
           "sha256": "1309869222dd8488b6215aa09da058dfafc753d741584c73dfcd33e50a59adfe"
-        },
-        {
-          "path": "Donut.ctxt",
-          "sha256": "f43e48901fa8e514397d4ef9a2aa8ae68822546815012ca47195f7f6997e27f4"
         },
         {
           "path": "Donut.java",
           "sha256": "0b4f61e3f7d46d341c2002ebabe8f5039878c2ce189f0621880fa77bfcc71a41"
         },
         {
-          "path": "FollowDonut.ctxt",
-          "sha256": "041ce42c129381a457e1e6ffe9bc524fd0cfa1410f26ff96a15cd6494e66796b"
-        },
-        {
           "path": "FollowDonut.java",
           "sha256": "07e45838abc4aa1053b1b3cef7e85850924cbd668ff601c1691063e27875a136"
-        },
-        {
-          "path": "Game.ctxt",
-          "sha256": "32f617410e6cd0068706aafc86086cf4ae5ec7ca0f4e274db220f56d4ee7c762"
         },
         {
           "path": "Game.java",
           "sha256": "74d613db1055f1bbcdf4e90b26c7edeb971066be49614ef3b8f5036330649190"
         },
         {
-          "path": "GameOverStage.ctxt",
-          "sha256": "3b56ea634fcbda7cb669f9e41a7dfd2cd29decbd8b043ec7593a9d860c0ea26d"
-        },
-        {
           "path": "GameOverStage.java",
           "sha256": "913c81a99e0a8f3b92c8c7bf8889def04cd765a3ec563fdbba9057a45cfc5ab6"
-        },
-        {
-          "path": "PlayerDonut.ctxt",
-          "sha256": "8a21359b0e1b2fde96c7e335146bbb2e04a5da4139bf5b9391f6fbba7c54e0d5"
         },
         {
           "path": "PlayerDonut.java",
           "sha256": "dbb1026901d854e2c728ecec7f8d49d83e31e75db93c56a755f7d0d93a9bed97"
         },
         {
-          "path": "StartStage.ctxt",
-          "sha256": "cc4e75d1c25e1d9e5728c2a582fa1fef347902811a3a391f41bafbe410a63b84"
-        },
-        {
           "path": "StartStage.java",
           "sha256": "f8419017ad70bb40949a78b17888188b091e57f347898ca495a6dc80c649c896"
         },
         {
-          "path": "WinStage.ctxt",
-          "sha256": "ddc4334a25724a3df7c614643591d09c9058763b65ce9e9e175eff8e0e3c4b6f"
-        },
-        {
           "path": "WinStage.java",
           "sha256": "c4c9fa066d10fc19215d56763ec5a67e09f296764dc1f1d57c7023dda269e86f"
-        },
-        {
-          "path": "WorldStage.ctxt",
-          "sha256": "8588835d2b413a0e603786d8c1bb55b0600836208bb916eabd99337a6c9b1b96"
         },
         {
           "path": "WorldStage.java",
@@ -314,16 +234,8 @@
       "requiredSheets": [],
       "files": [
         {
-          "path": "PenSprite.ctxt",
-          "sha256": "04b2796df4f437a74936fee3614e5cb54f896b266db1028c7723802283a6cc69"
-        },
-        {
           "path": "PenSprite.java",
           "sha256": "d582f5bc29738b2d69f9433c4b7a40b9fae7d6451b8f938fba2768b028a9b736"
-        },
-        {
-          "path": "Pipes.ctxt",
-          "sha256": "0ad6a99a6b2b6c5641ef9e6a744240851853eadc5d9bc234c711e91184585611"
         },
         {
           "path": "Pipes.java",
@@ -369,10 +281,6 @@
       "requiredSheets": [],
       "files": [
         {
-          "path": "RainbowVine.ctxt",
-          "sha256": "893b65df4e627e0e41fe61c83451a4cf9fb9e309aed93db3164c3c28a169fabd"
-        },
-        {
           "path": "RainbowVine.java",
           "sha256": "a6fc438d97c957b62e0499fb63fbdd970cab0abd744374049158f233693593bb"
         }
@@ -386,10 +294,6 @@
       "flavour": "standard",
       "requiredSheets": [],
       "files": [
-        {
-          "path": "RandomDot.ctxt",
-          "sha256": "4ae975d6ed03fa370334ddc03c86924b1f8bbdb488bd89ba80d5b113ff6ea354"
-        },
         {
           "path": "RandomDot.java",
           "sha256": "ea0ad9068e6bc875f94aaee7c5e15528c8409b4d4d0b3f819ae795a541cdb0bc"
@@ -427,24 +331,8 @@
       "requiredSheets": [],
       "files": [
         {
-          "path": "ExampleSettings.class",
-          "sha256": "9ed58f7c1ffaade0add634819a1dd8308f7636632144b3a285815ce17c0b87d4"
-        },
-        {
-          "path": "ExampleSettings.ctxt",
-          "sha256": "c9ddd1270673bc58cbf59167f9b5f39e680f16bb08f6ddd0f3319872937e0823"
-        },
-        {
           "path": "ExampleSettings.java",
           "sha256": "45cefc5bb42d659e1d077f6cb08d5a61b64b05d80fc65e8d71b8e4aad740b75d"
-        },
-        {
-          "path": "Saving.class",
-          "sha256": "b23649e8611ce04e037ec21761fac333edbafd74e01f90908be8d20f89a246f2"
-        },
-        {
-          "path": "Saving.ctxt",
-          "sha256": "d87b7c8939e43df7044652428bc71292949d82bf3e1080a45719fe51c9a7b3c3"
         },
         {
           "path": "Saving.java",
@@ -483,36 +371,16 @@
       "requiredSheets": [],
       "files": [
         {
-          "path": "LightSprite.ctxt",
-          "sha256": "ae5012fbc67213f2cb843984467c3eab8cd203ede506a7bff3cc29aee2943743"
-        },
-        {
           "path": "LightSprite.java",
           "sha256": "3e8e37f53699f06e7d6c1e9838670b9a52f4eeab8289cabf94e5e7f86a5d2bd0"
-        },
-        {
-          "path": "MySprite.ctxt",
-          "sha256": "528b4e6b95dcdcbb7064d7a3867fedca6db69f968a4d3d6929506c67bfb0ded7"
         },
         {
           "path": "MySprite.java",
           "sha256": "fbc85f8ec07d603cc62e7fcf2d47a8eb1a9e6e17ccc60bab4508f6feab2ce60f"
         },
         {
-          "path": "MyStage.ctxt",
-          "sha256": "fb7fcc3280c829e9aee2eb6ea0f7fa9e2b098b7f2951749a492faff83c0aded4"
-        },
-        {
           "path": "MyStage.java",
           "sha256": "d4cfacd6f2749b5e703b3f2f6668d46f30340356d6787f629b744b833a7899a1"
-        },
-        {
-          "path": "MyWindow.ctxt",
-          "sha256": "48638300d8d294aaef715d2aa33a0057a13de7880d217a4c852c99aebe88c56c"
-        },
-        {
-          "path": "NormalSprite.ctxt",
-          "sha256": "ce8686adf891caaab2d194fd31b4a29d34360f5202b45e871c3e47c86c045432"
         },
         {
           "path": "NormalSprite.java",
@@ -599,48 +467,24 @@
       "requiredSheets": [],
       "files": [
         {
-          "path": "DNA.ctxt",
-          "sha256": "98794aa9e549f0edaeed468e530fd4cd55e99601b2a30713c35be97d2c2c5cf0"
-        },
-        {
           "path": "DNA.java",
           "sha256": "a032039dcd704fd3d7cabc8899cd3f94938aa74e767f0211560124612b38f59b"
-        },
-        {
-          "path": "Level.ctxt",
-          "sha256": "a048cdb9d29e029b5f6dec0ad60a050e336cdf11572195d92c25c71331ea0399"
         },
         {
           "path": "Level.java",
           "sha256": "6d65f2fda636d2f51f9184cfc87650491e0f31690cf374c9fff7ef6cfd48aa59"
         },
         {
-          "path": "Population.ctxt",
-          "sha256": "a5fd04c02b7c3f63c5a3e14a70073b743ef60187b2f725ecab8f6046ec38fe37"
-        },
-        {
           "path": "Population.java",
           "sha256": "eb21b9da4d7c03a1e6b8b5042a7d48ec5d16c80417915d80710d9ef011df7203"
-        },
-        {
-          "path": "Rocket.ctxt",
-          "sha256": "42435a32b0244f81eadc863452dffc7bbe18be9bf74fc58da1aee46825a9686b"
         },
         {
           "path": "Rocket.java",
           "sha256": "a6245304fc1ae2d9824e5c325ff2dcc697e61eb498d8808df165836ad46514b8"
         },
         {
-          "path": "SmartRocket.ctxt",
-          "sha256": "16a36a50aafe1b7ada036a7b9e61354aafb0423677ba0c5626ed05265f12f4dc"
-        },
-        {
           "path": "SmartRocket.java",
           "sha256": "865b4f7ecd65133e52d9e00d0a94ef248eee2ce1462af6109ca307d4aaaff9be"
-        },
-        {
-          "path": "Ziel.ctxt",
-          "sha256": "37e64e2c172d4e8263b83b0b603d94e200f47cd38496d28c0c4300b8079e452f"
         },
         {
           "path": "Ziel.java",
@@ -665,34 +509,6 @@
       "requiredSheets": [],
       "files": [
         {
-          "path": "Character$1.class",
-          "sha256": "c54b3302c596103fbb7c10ff55575d27278e6df2d0a7c26fde7fab8a6b6cee43"
-        },
-        {
-          "path": "Character.class",
-          "sha256": "2d20a2d119b2a2b31e395a16c61d3af8f80ea0559deb86fb4b2e8b7aba001c0d"
-        },
-        {
-          "path": "Character.ctxt",
-          "sha256": "2d221a16e536712cdd95b8772539e5ca0ceb203aa1b12b123ccac427780e70da"
-        },
-        {
-          "path": "CharacterState.class",
-          "sha256": "850c11afb05ad164fa316d2edfad7478ff36d5d865a159c8702e3cff0e13af4f"
-        },
-        {
-          "path": "CharacterState.ctxt",
-          "sha256": "7b6d2b9e8f1ba867699553cc6b946185eee057d3e8d07316df78bcfd64730a2e"
-        },
-        {
-          "path": "Dino.class",
-          "sha256": "9a4f79cb8e642b3dae71afc717fb98ca9ff00d54761567747257cfcce8370d47"
-        },
-        {
-          "path": "Dino.ctxt",
-          "sha256": "ebfd59731c6410ab84c229bc2ed240fdf9d781e0c3b092e8d36d8b08d0bcf9f4"
-        },
-        {
           "path": "Dino.java",
           "sha256": "d65f08c55ec15351ff77d625e3d8797d12dc24e877ea7dfe2c05ba576153c7d1"
         },
@@ -705,36 +521,12 @@
           "sha256": "5dcedf8f434d2d16809700a117377e7a527feecc48c4267d61206c2c0cf72a69"
         },
         {
-          "path": "Knight.class",
-          "sha256": "eff5f2da50488896b663e4fd1895a60766bddea06b82988e19f09c83138498c7"
-        },
-        {
-          "path": "Knight.ctxt",
-          "sha256": "b99051a2ba771b2ec034ec583f18a56f9263c1b5a1980b58ce9a4c1b86adf060"
-        },
-        {
           "path": "Knight.java",
           "sha256": "5984f9ce9d6ce09247f0b5ae45b752e809e7fe1bffdf0a0f2b468cd2360470f3"
         },
         {
-          "path": "Ninja.class",
-          "sha256": "d3b1c73c1efe9839fbe8105a2ca3251356f228e2cd97f3e096716c2622891216"
-        },
-        {
-          "path": "Ninja.ctxt",
-          "sha256": "f52f8ff8464b4abe32573730ea4adc43471e20a4c707e1ff99f01233df024be3"
-        },
-        {
           "path": "Ninja.java",
           "sha256": "cf6cf2d953366cd7b11c186a1fe01103788a2c9ad221c9ad58531ba402e9dbb5"
-        },
-        {
-          "path": "StressTest.class",
-          "sha256": "42bc2bf49062b8fe6d78db099858c0c4381338b06a3a43f353ababa8591e9896"
-        },
-        {
-          "path": "StressTest.ctxt",
-          "sha256": "390de6aefa294d1cb9d2b405ed8d39b1f239d5a0b4aac273c20f375615083ee6"
         },
         {
           "path": "StressTest.java",
@@ -1117,72 +909,24 @@
       ],
       "files": [
         {
-          "path": "Bamboo.class",
-          "sha256": "c26b6f104820f8af4a28b7c584ce5e3c2a75391779fbe1ea81f5b0061c115af9"
-        },
-        {
-          "path": "Bamboo.ctxt",
-          "sha256": "2a39143d1cf20a56edbcdeb1b8cbf854a6a1cd5f5ffcd541bb69cc727fd85413"
-        },
-        {
           "path": "Bamboo.java",
           "sha256": "46ec44f8d28c5a0eaec1fb30f5c42d35ed9b6962b75a9c08105f770e4ee2df08"
-        },
-        {
-          "path": "Enemy.class",
-          "sha256": "8c299d6a3c10413bbba0dbbfa3117fb8a3e3692eb9d5ff16193706512842867e"
-        },
-        {
-          "path": "Enemy.ctxt",
-          "sha256": "04c8b38d50c18e54af9910661234395c755647c3abe112b7efd31968c4eea226"
         },
         {
           "path": "Enemy.java",
           "sha256": "936060f67fbea9d35ce80ea0c829c120b7863eca6d775d97aea9fd5b7b7365cf"
         },
         {
-          "path": "Fireball.class",
-          "sha256": "9295f82784260315454e89e833d3026722a73e7e8c8c66bff92968d84e9f050f"
-        },
-        {
-          "path": "Fireball.ctxt",
-          "sha256": "a1c973e135a1b16087b5c274e57b9889ea3608209929261e1faf90f28545689a"
-        },
-        {
           "path": "Fireball.java",
           "sha256": "9064b7fc0b8f286026ed08125db9c5b4fb77bc15c7add1dc51760732e346ecb2"
-        },
-        {
-          "path": "GameState.class",
-          "sha256": "733989ae6ce95a5cd213c8e054479b75d6cb659ce22534907ef5e54f178bd7a0"
-        },
-        {
-          "path": "GameState.ctxt",
-          "sha256": "dbb84dad708d630c1742ea7db99de5969e8f8f60b0c02070a874f73f954365dc"
         },
         {
           "path": "GameState.java",
           "sha256": "816c40b0209a5f9dafd418e98238cb1d1f3296998e33b2e5eb397cc1a3be88ae"
         },
         {
-          "path": "I18n.class",
-          "sha256": "a4d0a154874b6272dd68c86f50f5e6fe7c3cad9b91936118bd1ed0780416d87f"
-        },
-        {
-          "path": "I18n.ctxt",
-          "sha256": "60c0ee8f6d6db7e07f6285c40639dffd399a90cc4d70c9ae66a24556e745f505"
-        },
-        {
           "path": "I18n.java",
           "sha256": "c430cf0eb4d31e17a702971553b6f6bc629085fd197d7ac3bb3444a683920e55"
-        },
-        {
-          "path": "Item.class",
-          "sha256": "1143e34a6338a38fb2e06fb68e8d0eb385301cf2eaf89cf670c6b98edc2541a9"
-        },
-        {
-          "path": "Item.ctxt",
-          "sha256": "6ba89206c1707eb33b0096dcbbcf3c2fce18c964ed89d8c4f20debcc5d4904c6"
         },
         {
           "path": "Item.java",
@@ -1197,24 +941,8 @@
           "sha256": "d3d104297fd78a7c1c85699d295b645ae21b7c8ff0ff0d9e11d556aca88641e3"
         },
         {
-          "path": "Player.class",
-          "sha256": "495c890aeff50f812eb2c322ce793717e01dee09ba6ae91ea9c56c10a14337e5"
-        },
-        {
-          "path": "Player.ctxt",
-          "sha256": "e96a1822d023b73fe3e7360e15793ad9b5a8375af898fad8905c05f4d59a54db"
-        },
-        {
           "path": "Player.java",
           "sha256": "8731b294011650eb0f9f8e89562a820972c0a0457de6c2e21a73a5560310cc74"
-        },
-        {
-          "path": "Tiled.class",
-          "sha256": "ed1dffc627fd2dd3c4e39d00ef788b881397390f11ddc97642399aa9292f5271"
-        },
-        {
-          "path": "Tiled.ctxt",
-          "sha256": "ca7d54283b0c374cdd2c95f27fb82b64280c5da3ea3acdeb0f46fa679db94e0e"
         },
         {
           "path": "Tiled.java",
@@ -1225,48 +953,16 @@
           "sha256": "f1177f7cfd7c7147ed3ef2e10b475c53c5de228c8ba2ab118bd9058563c17479"
         },
         {
-          "path": "Wall.class",
-          "sha256": "7673195e6d30d0706583a98faeade7f6c0e64f6b9d2fd16bde130e2fbb8bcf0f"
-        },
-        {
-          "path": "Wall.ctxt",
-          "sha256": "68d498fd9b3b2e81b3294aa50951ee9bd8866f4ada25e503badbcb844da84ae7"
-        },
-        {
           "path": "Wall.java",
           "sha256": "b226bdddba1cc32e7ccabbe3c686161a2b04060acff79b769c34f6af53487bb0"
-        },
-        {
-          "path": "Warp.class",
-          "sha256": "13bddf0b6ed387b51f2ceea6d1abe5ed05921867cbf1b92bb795395603d63233"
-        },
-        {
-          "path": "Warp.ctxt",
-          "sha256": "103c797aaf7c290b62e01b4ccea36e0f8193d9ac9b30d67fc47133c5b322301c"
         },
         {
           "path": "Warp.java",
           "sha256": "5749bb006f674e1a3aab8c3bb14933dd517edadb4ab1a38d213e7040c9791eab"
         },
         {
-          "path": "Water.class",
-          "sha256": "1ed25c488dedb5ba53394aec075e1fdd82e0039ef0f132ee84790497754170b9"
-        },
-        {
-          "path": "Water.ctxt",
-          "sha256": "2ff25af7e4be086febc0986f6f777cafdabbfbb81ec0966fa0965e7514a3624c"
-        },
-        {
           "path": "Water.java",
           "sha256": "aee560ddb396dd81e10d84dfa4769b31dbf3cd8433955068886c436581c03b17"
-        },
-        {
-          "path": "World.class",
-          "sha256": "993ca3729bd777ad7acec0f648c41c30b8d40a42b94a1584bff5c62f411ea71d"
-        },
-        {
-          "path": "World.ctxt",
-          "sha256": "2f2969200a5664660259551bd4ee40aa6a523d8aa5c898c5916da50e2cf9808f"
         },
         {
           "path": "World.java",
