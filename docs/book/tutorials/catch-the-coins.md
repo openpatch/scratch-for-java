@@ -255,7 +255,162 @@ It needs no assets, only the library itself.
 
 ## Things to try
 
-- Make the coins fall faster the more you have caught.
-- Add a second kind of sprite that costs you a point — `bomb` is in the
-  [built-in sprites](/sprites).
-- Stop the game after 30 seconds using `getTimer()`.
+### Faster and faster
+
+Make the coins fall faster the more you have caught.
+
+:::collapsible{title="Hint"}
+Give `Coin` a :t[field]{#field} `speed` and use it in `changeY`. Every time the
+coin is caught, make `speed` a little bigger.
+:::
+
+:::collapsible{title="Solution"}
+Each coin speeds up every time it is caught, so the more you catch, the faster
+they fall.
+
+```java
+import org.openpatch.scratch.*;
+
+public class Coin extends Sprite {
+  private double speed = 3;
+
+  public Coin() {
+    this.addCostume("coinGold");
+    this.setSize(40);
+    this.dropFromTop();
+  }
+
+  private void dropFromTop() {
+    this.setX(Random.randomInt(-270, 270));
+    this.setY(Random.randomInt(200, 400));
+  }
+
+  public void run() {
+    this.changeY(-this.speed);
+
+    if (this.isTouchingSprite(Basket.class)) {
+      ((CatchStage) this.getStage()).addPoint();
+      this.speed = this.speed + 0.5;
+      this.dropFromTop();
+    }
+
+    if (this.getY() < -200) {
+      this.dropFromTop();
+    }
+  }
+}
+```
+
+:::
+
+### Watch out for bombs
+
+Add a bomb that costs you a point. `bomb` is one of the
+[built-in sprites](/sprites).
+
+:::collapsible{title="Hint"}
+A bomb behaves almost like a coin, so start with a copy of the `Coin` class and
+call it `Bomb`. The stage needs a second method, `removePoint()`, next to
+`addPoint()`.
+:::
+
+:::collapsible{title="Solution"}
+
+```java
+import org.openpatch.scratch.*;
+
+public class Bomb extends Sprite {
+  public Bomb() {
+    this.addCostume("bomb");
+    this.setSize(40);
+    this.dropFromTop();
+  }
+
+  private void dropFromTop() {
+    this.setX(Random.randomInt(-270, 270));
+    this.setY(Random.randomInt(300, 600));
+  }
+
+  public void run() {
+    this.changeY(-4);
+
+    if (this.isTouchingSprite(Basket.class)) {
+      ((CatchStage) this.getStage()).removePoint();
+      this.dropFromTop();
+    }
+
+    if (this.getY() < -200) {
+      this.dropFromTop();
+    }
+  }
+}
+```
+
+The stage adds a bomb and gets the new method:
+
+```java
+import org.openpatch.scratch.*;
+
+public class CatchStage extends Stage {
+  private Text scoreText = new Text();
+  private int score = 0;
+
+  public CatchStage() {
+    super(600, 400);
+    this.addBackdrop("background");
+    this.addSound("handleCoins");
+
+    this.scoreText.setPosition(0, 170);
+    this.scoreText.setTextSize(22);
+    this.add(this.scoreText);
+    this.showScore();
+
+    this.add(new Basket());
+    for (int i = 0; i < 4; i++) {
+      this.add(new Coin());
+    }
+    this.add(new Bomb());
+  }
+
+  public void addPoint() {
+    this.score = this.score + 1;
+    this.playSound("handleCoins");
+    this.showScore();
+  }
+
+  public void removePoint() {
+    this.score = this.score - 1;
+    this.showScore();
+  }
+
+  private void showScore() {
+    this.scoreText.showText("Coins: " + this.score);
+  }
+}
+```
+
+:::
+
+### Thirty seconds
+
+Stop the game after 30 seconds.
+
+:::collapsible{title="Hint"}
+The stage has a `run()` too, and a timer: `this.getTimer().afterMillis(30000)` is
+true once 30 seconds have passed. `Window.getInstance().pause()` stops the game
+and leaves the last picture on the screen.
+:::
+
+:::collapsible{title="Solution"}
+Add this method to `CatchStage`:
+
+```java
+public void run() {
+  if (this.getTimer().afterMillis(30000)) {
+    this.scoreText.showText("Time's up! Coins: " + this.score);
+    Window.getInstance().pause();
+  }
+}
+```
+
+:::

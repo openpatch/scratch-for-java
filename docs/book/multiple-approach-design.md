@@ -1,10 +1,11 @@
 ---
 name: Multiple Approach Design
+index: 11
 ---
 
 # Multiple Approach Design
 
-Scratch for Java is build for supporting different approaches to teaching object-oriented programming and to structure the transition from Scratch to Java.
+Scratch for Java is built to support different approaches to teaching object-oriented programming, and to structure the transition from Scratch to Java.
 
 ## Imperative Approach (aka. Classes-later)
 
@@ -79,7 +80,7 @@ public class MyStage extends Stage {
 
 ## Enhanced Scratch Approach
 
-The enhanced Scratch approach is based on the object-oriented approach, but introduces other concepts and classes, which differ from Scratch. This approach is build in such a way, that you can start with the object-oriented approach and move to the enhanced approach when you reach a limit.
+The enhanced Scratch approach is based on the object-oriented approach, but introduces other concepts and classes, which differ from Scratch. It is built so that you can start with the object-oriented approach and move to the enhanced approach when you reach a limit.
 
 For example in Scratch for Java you can create an object from the Window-class. This object can hold multiple stages and can switch between those. You can also define the size of the window - by default it uses the same size as a Scratch project.
 

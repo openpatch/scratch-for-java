@@ -13,18 +13,11 @@ that you write them instead of dragging them.
 This page gets a character moving on screen. It takes about ten minutes, and you
 do not have to download a single picture.
 
-## Choose your environment
-
-- **Browser:** use the editor on this page; the library is already loaded.
-- **Studio:** [download Studio](/download), create a project, and use the same
-  `MyStage` and rabbit code below. Studio includes Java and the library.
-- **Existing Java IDE:** follow [Setup](/setup), add the library, then create
-  `MyStage`. In BlueJ, construct the class with `new MyStage()`.
-
-The example's named classes work with Java 17. The browser's compact entry
-`void main()` needs Java 25 when saved as a desktop source file; Studio supports
-it. Use standard or NRW according to your course and keep that selection when
-transferring projects. Save a workspace file or project ZIP before moving computers.
+:::alert{info}
+You can do this whole page in the browser: every code box with a **▶** is a
+real editor. Working in Studio, BlueJ or VS Code instead? Get it ready with
+[Setup](/setup) first, then come back.
+:::
 
 ## Step 1: A sprite on the stage
 
@@ -213,6 +206,13 @@ again.
 | dropped blocks under `when green flag clicked` | write them inside `run()` |
 | used a `forever` loop | let `run()` repeat for you |
 | gave a sprite a name you rarely used | need the name to talk to it at all |
+
+Four new words came up on this page. `MyStage` and `Bunny` are
+:t[classes]{#class}, building plans. `new Bunny()` makes an :t[object]{#object}
+from the plan. `public Bunny() { ... }` is the :t[constructor]{#constructor},
+which sets the object up once. `run()` is a :t[method]{#method} that the library
+calls for you in every :t[frame]{#frame}. Click a word to read what it means, or see
+the [glossary](/glossary).
 
 ## The finished project
 

@@ -259,8 +259,106 @@ It needs no assets, only the library itself.
 
 ## Things to try
 
-- Add a fourth racer — `frog` and `fishGreen` both have `_move` costumes. Notice
-  that the referee needs no change at all.
-- Broadcast a `"reset"` message that sends everyone back to the start.
-- Make the referee wait a random time instead of always 2.2 seconds, so the stop
-  cannot be predicted.
+### A fourth racer
+
+Add a fourth racer. `frog` and `fishGreen` both have `_move` costumes.
+
+:::collapsible{title="Hint"}
+`Racer` already works for any creature. All you need is one more line in the
+stage.
+:::
+
+:::collapsible{title="Solution"}
+In the constructor of `RaceStage`:
+
+```java
+this.add(new Racer("frog", -120, 1.3));
+```
+
+Notice that the referee needs no change at all. It broadcasts to everyone who
+listens, however many that are.
+:::
+
+### Back to the start
+
+Press R to send everyone back to the start.
+
+:::collapsible{title="Hint"}
+The referee can broadcast a third message, `"reset"`, from `whenKeyPressed`. The
+racers already listen in `whenIReceive`. They need one more `if`.
+:::
+
+:::collapsible{title="Solution"}
+In `Referee`:
+
+```java
+public void whenKeyPressed(KeyCode key) {
+  if (key == KeyCode.R) {
+    this.broadcast("reset");
+  }
+}
+```
+
+In `Racer`:
+
+```java
+public void whenIReceive(String message) {
+  if (message.equals("go")) {
+    this.running = true;
+  }
+  if (message.equals("stop")) {
+    this.running = false;
+    this.switchCostume(this.creature);
+  }
+  if (message.equals("reset")) {
+    this.running = false;
+    this.switchCostume(this.creature);
+    this.setX(-260);
+  }
+}
+```
+
+:::
+
+### Unpredictable
+
+Make the referee wait a random time instead of always 2.2 seconds, so the stop
+cannot be predicted.
+
+:::collapsible{title="Hint"}
+Keep the waiting time in a :t[field]{#field} instead of writing `2200`. Every
+time the light changes, pick a new random time with `Random.randomInt`.
+:::
+
+:::collapsible{title="Solution"}
+
+```java
+import org.openpatch.scratch.*;
+
+public class Referee extends Sprite {
+  private boolean green = false;
+  private int delay = 2200;
+
+  public Referee() {
+    this.addCostume("sign");
+    this.setSize(45);
+    this.setPosition(-250, 110);
+  }
+
+  public void run() {
+    if (this.getTimer().everyMillis(this.delay)) {
+      this.green = !this.green;
+      this.delay = Random.randomInt(800, 3000);
+      if (this.green) {
+        this.say("Go!");
+        this.broadcast("go");
+      } else {
+        this.say("Stop!");
+        this.broadcast("stop");
+      }
+    }
+  }
+}
+```
+
+:::

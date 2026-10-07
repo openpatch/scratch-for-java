@@ -1,5 +1,6 @@
 ---
 name: Tutorials
+index: 2
 ---
 
 # Tutorials
@@ -7,8 +8,9 @@ name: Tutorials
 Seven small projects, meant to be done in order. Each one introduces one new idea
 and reuses everything before it.
 
-All but the sixth need **no downloads at all** — every picture and sound they use
-is built into Scratch for Java.
+All of them run right here in the browser, with **no downloads at all**: every
+picture and sound they use is built into Scratch for Java. The sixth shows at the
+end how to use pictures of your own.
 
 | | Chapter | What is new |
 |---|---|---|
@@ -17,17 +19,17 @@ is built into Scratch for Java.
 | 3 | **[Catch the Coins](/tutorials/catch-the-coins)** | A score, random numbers, collisions |
 | 4 | **[Red Light, Green Light](/tutorials/red-light-green-light)** | Messages between sprites |
 | 5 | **[Guess the Number](/tutorials/guess-the-number)** | Asking the player something |
-| 6 | **[Bouncing Hedgehog](/tutorials/bouncy-hedgehog)** | A full game, from a project template |
+| 6 | **[Bouncing Hedgehog](/tutorials/bouncy-hedgehog)** | A whole game on your own, and your own pictures |
 | 7 | **[Dodge the Rocks](/tutorials/dodge-the-rocks)** | A window with a title, a game and a game over screen |
+
+Each chapter ends with **Things to try**: small extensions, each with a hint
+and a solution you can unfold. Stuck? [It doesn't work!](/troubleshooting) has the
+most common mistakes, and the [cheat sheet](/scratch-to-java) shows which Java
+line replaces which block.
 
 ## For teachers
 
-Chapters 1 to 5 and chapter 7 were written to be worked through at a keyboard in
-roughly a lesson each, and every code block on those pages is compiled as part of
-building this site, so nothing on them can quietly stop working.
-
-Each chapter names the Scratch block it is replacing wherever there is one, so a
-class that came from Scratch can keep using the vocabulary it already has. The
-[Differences to Scratch](/differences-scratch) page collects the handful of
-places where Java genuinely asks you to think differently — the most important
-being that there is no `forever` loop and no per-sprite `wait`.
+Every code block on these pages is compiled as part of building this site, so
+nothing on them can quietly stop working. [For teachers](/classroom) has a plan
+for the unit, with the learning goal and the typical stumbling blocks of each
+chapter.

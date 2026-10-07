@@ -9,10 +9,10 @@ public class TrampolineSprite extends Sprite {
     this.setPosition(0, -120);
   }
 
-  public void whenKeyPressed(KeyCode keyCode) {
-    if (keyCode == KeyCode.LEFT) {
+  public void whenKeyPressed(KeyCode key) {
+    if (key == KeyCode.LEFT) {
       this.changeX(-10);
-    } else if (keyCode == KeyCode.RIGHT) {
+    } else if (key == KeyCode.RIGHT) {
       this.changeX(10);
     }
   }

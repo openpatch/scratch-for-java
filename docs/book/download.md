@@ -1,15 +1,9 @@
 ---
 name: Download
-index: 1
+index: 13
 ---
 
 # Download
-
-## Templates
-
-::archive[BlueJ Starter]{name="bluej-starter"}
-
-::archive[VS Code Starter]{name="vs-code-starter"}
 
 ## Scratch for Java Studio (alpha)
 
@@ -24,7 +18,15 @@ Choose the download for your operating system:
 - **Linux (64-bit):** [AppImage](https://github.com/openpatch/scratch-for-java-ide/releases/latest/download/scratch4j-studio-linux-x64.AppImage) or [DEB package](https://github.com/openpatch/scratch-for-java-ide/releases/latest/download/scratch4j-studio-linux-x64.deb)
 
 
-## GitHub Releases
+## Starter projects
+
+Ready-made projects for BlueJ and VS Code, with the library already inside.
+
+::archive[BlueJ Starter]{name="bluej-starter"}
+
+::archive[VS Code Starter]{name="vs-code-starter"}
+
+## The library on its own
 
 This JAR file is platform-independent and can be used on any operating system that supports Java 17.
 
@@ -50,9 +52,12 @@ which `find`, `getAll` and `getTouchingSprites` return their `List`. See
 
 ::download[Sources (NRW)]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch-{{VERSION}}-nrw-sources.jar"}
 
-## Offline examples
+## Course pack for teachers
 
-Use the [course pack](/classroom) for prepared projects and offline teaching notes.
+Every tutorial as a ready Java project, with teacher notes, for working offline.
+See [For teachers](/classroom#working-offline-the-course-pack).
+
+::download[Course pack]{src="/scratch-to-java-course.zip"}
 
 ## Maven Central
 

@@ -1,6 +1,6 @@
 ---
 name: Costumes, Backdrops and Sounds
-index: 4
+index: 6
 ---
 
 # Costumes, Backdrops and Sounds
@@ -8,7 +8,7 @@ index: 4
 In Scratch you pick costumes, backdrops and sounds from built-in libraries, and
 you can upload your own as well.
 
-Scratch for Java has a built-in library too. **838 pictures and 266 sounds ship
+Scratch for Java has a built-in library too. **922 pictures and 266 sounds ship
 inside the library**, so you can start a project without downloading anything:
 
 ```java

@@ -6,177 +6,196 @@ lang: en
 
 # Bouncing Hedgehog
 
-Spike, the bouncing hedgehog, loves to jump on his trampoline, but he's a bit clumsy. Can you move the trampoline so that he doesn't fall to the ground anymore?
+Spike the hedgehog loves to roll up into a spiky ball and bounce on his
+trampoline, but he is a bit clumsy. Can you move the trampoline so that he never
+falls to the ground?
 
-In this chapter, you will program your first game. In this game, you will be able to use the arrow keys to move a trampoline from left to right. Your goal is to catch a bouncing target with the trampoline. This project will show you how to add new sprites and backgrounds, and how to control behavior in your project using conditional statements. These skills will also help you with the following projects.
+In this chapter you build a whole game on your own, using everything from the
+chapters before: sprites of your own classes, positions, keys, `run()`, `if` and
+touching. At the end you swap in your own pictures.
 
-## Step 1: Download Project Template
+A few steps are marked **Your turn**. Try them yourself before you open the
+solution.
 
-You can download the images along with a basic framework for your BlueJ project here.
+## Step 1: The stage
 
-::archive[Project: Bouncy Hedgehog]{name="bouncy-hedgehog"}
-
-## Step 2: Run the Project
-
-Let's take a look at what the project looks like in its initial state. Right-click on the `BouncyHedgehogStage` class and create a new object by clicking on `new BouncyHedgehogStage()`.
-
-A window should open where you can see the playground.
-
-## Step 3: Add the Trampoline to the Stage
-
-Open the TrampolineSprite class in BlueJ by double-clicking. The class is already prepared for you. We will now go through it line by line so you understand what each line means. Don't worry, you don't have to understand everything right away – understanding grows over time.
+Create a class `BouncyHedgehogStage`:
 
 ```java
-import org.openpatch.scratch.Sprite;
-
-public class TrampolineSprite extends Sprite {
-    public TrampolineSprite() {
-        this.addCostume("trampoline", "trampoline.png");
-    }
-}
-```
-
-- Line 1: Here a class is imported. This means we are using source code from someone else to make our work easier. We use the Sprite class from Scratch4j so we don't have to worry about how, for example, images can be displayed on the screen.
-
-- Line 3: Here we define our own class named `TrampolineSprite` and this class should extend the `Sprite` class. In other words, use the functions of the already implemented `Sprite` class.
-
-- Lines 4-6: Here we define a constructor. This is executed as soon as we create a trampoline - more on that later. Here we define that we want to add a costume, which we call `trampoline` and should use the file `trampoline.png`.
-
-Now let's add the trampoline to our stage. Double-click on the `BouncyHedgehogStage` class. Here you see similar lines of source code.
-
-```java
-import org.openpatch.scratch.Stage;
+import org.openpatch.scratch.*;
 
 public class BouncyHedgehogStage extends Stage {
-    
-    public BouncyHedgehogStage() {
-        this.addBackdrop("playground", "playground.jpg");
-    }
+  public BouncyHedgehogStage() {
+    this.addBackdrop("background");
+  }
 }
 ```
 
-This time, however, the class inherits from Stage (line 3), since this should be a stage. Therefore, no costume is added in the constructor, but a background (see line 6).
+Run it. You see the backdrop, and nothing else yet.
 
-So that we can now also see the trampoline, we add a line of source code to the constructor.
+## Step 2: The trampoline
+
+The trampoline is a sprite, so it gets a class of its own:
 
 ```java
-import org.openpatch.scratch.Stage;
+import org.openpatch.scratch.*;
+
+public class TrampolineSprite extends Sprite {
+  public TrampolineSprite() {
+    this.addCostume("spring");
+    this.setSize(70);
+  }
+}
+```
+
+Line by line:
+
+- `public class TrampolineSprite extends Sprite` says that a trampoline is a kind
+  of sprite. It can do everything a sprite can do.
+- `public TrampolineSprite() { ... }` is the :t[constructor]{#constructor}. It
+  runs once, when a trampoline is made, and sets it up: a costume and a size.
+
+A class is only a plan, so nothing has changed on the stage. Make a trampoline
+with `new` and add it to the stage:
+
+```java
+import org.openpatch.scratch.*;
 
 public class BouncyHedgehogStage extends Stage {
-    
-    public BouncyHedgehogStage() {
-        this.addBackdrop("playground", "playground.jpg");
-        this.add(new TrampolineSprite());
-    }
+  public BouncyHedgehogStage() {
+    this.addBackdrop("background");
+    this.add(new TrampolineSprite());
+  }
 }
 ```
 
-The new line first calls the constructor of the `TrampolineSprite` class and then adds the newly created object to the stage with the method call `this.add(new TrampolineSprite())`.
+Run it again. The trampoline is in the middle of the stage.
 
-Run the project again now. The trampoline should now be visible in the center of the stage.
+## Step 3: Your turn: the hedgehog
 
-## Step 4: Add the Hedgehog
+Add Spike the same way: a class `HedgehogSprite` with the costume `spikeBall1`
+and a size of `40`, and a line in the stage that adds him.
 
-Can you manage to add the hedgehog? Follow the previous steps and this time use the `HedgehogSprite` class.
-
-## Step 5: Move the Trampoline
-
-So far, both sprites are placed in the center of the stage. Now we will first move the trampoline to a good starting position. Then we will program it so that we can control it with the arrow keys.
-
-To position the trampoline, we add another line to the constructor of the `TrampolineSprite` class.
+:::collapsible{title="Solution"}
 
 ```java
-import org.openpatch.scratch.Sprite;
-
-public class TrampolineSprite extends Sprite {
-    public TrampolineSprite() {
-        this.addCostume("trampoline", "trampoline.png");
-        this.setPosition(0, -120);
-    }
-}
-```
-
-With this line, we position the trampoline in the x-direction (left-right) at 0, which means in the center, and in the y-direction (up-down) at -120, which means 120 pixels down from the center.
-
-Look at the result by running the project. To do this, right-click on the `BouncyHedgehogStage` class and select `new BouncyHedgehogStage()`.
-
-## Step 6: Position the Hedgehog
-
-Try to position the hedgehog at position (x: -180, y: 140).
-
-## Step 7: Move the Trampoline
-
-We want to move the trampoline with the arrow keys. To do this, we extend the `TrampolineSprite` class as follows:
-
-```java
-import org.openpatch.scratch.KeyCode;
-import org.openpatch.scratch.Sprite;
-
-public class TrampolineSprite extends Sprite {
-    public TrampolineSprite() {
-        this.addCostume("trampoline", "trampoline.png");
-        this.setPosition(0, -120);
-    }
-
-    public void whenKeyPressed(KeyCode keyCode) {
-        if (keyCode == KeyCode.LEFT) {
-            this.changeX(-10);
-        } else if (keyCode == KeyCode.RIGHT) {
-            this.changeX(10);
-        }
-    }
-}
-```
-
-We have added a new method `whenKeyPressed` to the class. Methods allow us to implement certain behaviors for the objects of a class. In this case, `whenKeyPressed` is a special method - predefined by Scratch4j. It is always called when a key on the keyboard is pressed. The variable `keyCode` then tells you which key it was.
-
-For example, if you press the key `A`, then the variable `keyCode` contains the value `65`. So that we don't have to remember all the values of individual keys, there is the `KeyCode` class. For example, behind `KeyCode.A` would be the value `65`. This also makes the source code more comprehensible. Since this is again a class from Scratch4j, we must also import it (see first line).
-
-Now we can define what should happen when a key is pressed.
-
-If the pressed key is the left arrow key, then we change the x-position by -10 pixels. So we move the trampoline to the left.
-Otherwise, if the pressed key is the right arrow key, then we change the x-position by 10 pixels. So we move the trampoline to the right.
-
-So, now it's time to try out the project again. You already know the steps for that.
-
-## Step 8: Make the Hedgehog Bounce
-
-The hedgehog should automatically fall down and move back up when it touches the trampoline. We achieve this with the following code:
-
-```java
-import org.openpatch.scratch.Sprite;
-import org.openpatch.scratch.Random;
+import org.openpatch.scratch.*;
 
 public class HedgehogSprite extends Sprite {
-
-    public HedgehogSprite() {
-        this.addCostume("hedgehog", "hedgehog.png");
-
-        this.pointInDirection(15);
-        this.setPosition(-180, 140);
-    }
-
-    public void run() {
-        if (this.getY() > -120) {
-            this.move(1);
-            this.ifOnEdgeBounce();
-
-            if (this.isTouchingSprite(TrampolineSprite.class)) {
-                this.pointInDirection(Random.random(-45, 45));
-            }
-        } else {
-            this.say("Ouch!", 2000);
-        }
-    }
+  public HedgehogSprite() {
+    this.addCostume("spikeBall1");
+    this.setSize(40);
+  }
 }
 ```
 
-Based on the method names (isTouchingSprite, pointInDirection), think about what happens when the project is executed. Run the project and check your assumptions.
+And in `BouncyHedgehogStage`, below the trampoline:
 
-Here is the finished game running in this page. It is the same code, with two
-changes: the downloaded pictures are swapped for built-in ones — `spring` for the
-trampoline, `bunny1_stand` for the hedgehog — because the browser has no folder
-to load your `.png` files from. Use the arrow keys.
+```java
+this.add(new HedgehogSprite());
+```
+
+:::
+
+## Step 4: Starting positions
+
+Both sprites are in the middle, on top of each other. The trampoline belongs at
+the bottom. Add a line to its constructor:
+
+```java
+this.setPosition(0, -120);
+```
+
+x: 0 is the middle from left to right, and y: -120 is 120 steps down from the
+middle.
+
+**Your turn:** put Spike at the top left, at x: -180, y: 140.
+
+:::collapsible{title="Solution"}
+
+In the constructor of `HedgehogSprite`:
+
+```java
+this.setPosition(-180, 140);
+```
+
+:::
+
+## Step 5: Move the trampoline
+
+The arrow keys should move the trampoline. `whenKeyPressed` is called by the
+library every time a key is pressed, and `key` says which one it was:
+
+```java
+import org.openpatch.scratch.*;
+
+public class TrampolineSprite extends Sprite {
+  public TrampolineSprite() {
+    this.addCostume("spring");
+    this.setSize(70);
+    this.setPosition(0, -120);
+  }
+
+  public void whenKeyPressed(KeyCode key) {
+    if (key == KeyCode.LEFT) {
+      this.changeX(-10);
+    } else if (key == KeyCode.RIGHT) {
+      this.changeX(10);
+    }
+  }
+}
+```
+
+This is Scratch's *when [left arrow] key pressed*, but one method handles every
+key, and the `if` decides what to do. Run it, click the stage so it gets the
+keys, and move the trampoline.
+
+## Step 6: Make Spike bounce
+
+Spike should keep moving, bounce off the edges, and fly back up when he lands on
+the trampoline. If he gets past it, he hits the ground:
+
+```java
+import org.openpatch.scratch.*;
+
+public class HedgehogSprite extends Sprite {
+  public HedgehogSprite() {
+    this.addCostume("spikeBall1");
+    this.setSize(40);
+    this.setPosition(-180, 140);
+    this.setDirection(160);
+  }
+
+  public void run() {
+    if (this.getY() > -100) {
+      this.move(2);
+      this.ifOnEdgeBounce();
+
+      if (this.isTouchingSprite(TrampolineSprite.class)) {
+        this.setDirection(Random.randomInt(-45, 45));
+      }
+    } else {
+      this.say("Ouch!");
+    }
+  }
+}
+```
+
+Before you run it, read the code and predict what will happen. Then run it and
+check.
+
+- `setDirection(160)` points Spike down and a little to the right. 0 is up,
+  90 is right, 180 is down.
+- `run()` is called in every frame. As long as Spike is above y: -100 he keeps
+  moving. Below that he is lower than the top of the trampoline, so he has missed
+  it: he stops and says "Ouch!".
+- `isTouchingSprite(TrampolineSprite.class)` asks: am I touching any trampoline?
+  If so, Spike gets a random direction between -45 and 45, which is always
+  upwards.
+
+## The finished game
+
+Here it is running. Click the stage and use the arrow keys.
 
 :::onlineide{height="560px" libraries="scratch"}
 
@@ -187,61 +206,174 @@ void main() {
 }
 
 class BouncyHedgehogStage extends Stage {
-    public BouncyHedgehogStage() {
-        this.addBackdrop("background");
-        this.add(new TrampolineSprite());
-        this.add(new HedgehogSprite());
-    }
+  public BouncyHedgehogStage() {
+    this.addBackdrop("background");
+    this.add(new TrampolineSprite());
+    this.add(new HedgehogSprite());
+  }
 }
 
 class TrampolineSprite extends Sprite {
-    public TrampolineSprite() {
-        this.addCostume("spring");
-        this.setPosition(0, -120);
-    }
+  public TrampolineSprite() {
+    this.addCostume("spring");
+    this.setSize(70);
+    this.setPosition(0, -120);
+  }
 
-    public void whenKeyPressed(KeyCode keyCode) {
-        if (keyCode == KeyCode.LEFT) {
-            this.changeX(-10);
-        } else if (keyCode == KeyCode.RIGHT) {
-            this.changeX(10);
-        }
+  public void whenKeyPressed(KeyCode key) {
+    if (key == KeyCode.LEFT) {
+      this.changeX(-10);
+    } else if (key == KeyCode.RIGHT) {
+      this.changeX(10);
     }
+  }
 }
 
 class HedgehogSprite extends Sprite {
+  public HedgehogSprite() {
+    this.addCostume("spikeBall1");
+    this.setSize(40);
+    this.setPosition(-180, 140);
+    this.setDirection(160);
+  }
 
-    public HedgehogSprite() {
-        this.addCostume("bunny1_stand");
-        this.setSize(50);
+  public void run() {
+    if (this.getY() > -100) {
+      this.move(2);
+      this.ifOnEdgeBounce();
 
-        this.pointInDirection(15);
-        this.setPosition(-180, 140);
+      if (this.isTouchingSprite(TrampolineSprite.class)) {
+        this.setDirection(Random.randomInt(-45, 45));
+      }
+    } else {
+      this.say("Ouch!");
     }
-
-    public void run() {
-        if (this.getY() > -120) {
-            this.move(1);
-            this.ifOnEdgeBounce();
-
-            if (this.isTouchingSprite(TrampolineSprite.class)) {
-                this.pointInDirection(Random.random(-45, 45));
-            }
-        } else {
-            this.say("Ouch!", 2000);
-        }
-    }
+  }
 }
 ```
 
 :::
 
-## Conclusion
+## Step 7: Your own pictures
 
-Congratulations, you have programmed your first game with Scratch4j! Even if everything isn't clear to you yet, stick with it – practice makes perfect.
+So far every picture was built in. You can use your own just as well: a drawing
+of yours, a photo, or a picture from the internet that you are allowed to use.
 
-Feel free to continue experimenting: Make the hedgehog faster, reset the trampoline to the center with the spacebar, or swap out the graphics. When you become more confident, try out the [setTint](/reference/sprite/looks/setTint) method.
+This needs Studio, BlueJ or VS Code, because the browser editor cannot load files
+from your computer. Download the project with a hedgehog, a trampoline and a
+playground as picture files:
 
-Keep having fun :smiley:!
+::archive[Project: Bouncy Hedgehog]{name="bouncy-hedgehog"}
+
+The pictures are in the project folder, next to the Java files. Give each one a
+name of your choice, followed by its file name:
+
+```java
+this.addCostume("hedgehog", "hedgehog.png");
+```
+
+```java
+this.addCostume("trampoline", "trampoline.png");
+```
+
+```java
+this.addBackdrop("playground", "playground.jpg");
+```
+
+The name is what you use later with `switchCostume`. File names must match
+exactly, including capital letters and the ending. You may need a different
+`setSize`, because these pictures are smaller than the built-in ones.
+[Costumes, Backdrops and Sounds](/costumes-backdrops-sound) explains more, also
+about sounds.
+
+The finished game with these pictures:
 
 ::archive[Project: Bouncy Hedgehog 100%]{name="bouncy-hedgehog-100"}
+
+## Things to try
+
+### Make Spike faster
+
+:::collapsible{title="Hint"}
+How far Spike moves in each frame is the number in `move`.
+:::
+
+:::collapsible{title="Solution"}
+In `run()`, change `this.move(2);` to `this.move(4);`. The game gets harder, so
+the trampoline may need to be faster as well: change the `10` in
+`whenKeyPressed`.
+:::
+
+### Space puts the trampoline back in the middle
+
+:::collapsible{title="Hint"}
+Add a third case to the `if` in `whenKeyPressed`. `KeyCode.SPACE` is the space
+bar, and `setX` sets the position from left to right.
+:::
+
+:::collapsible{title="Solution"}
+
+```java
+public void whenKeyPressed(KeyCode key) {
+  if (key == KeyCode.LEFT) {
+    this.changeX(-10);
+  } else if (key == KeyCode.RIGHT) {
+    this.changeX(10);
+  } else if (key == KeyCode.SPACE) {
+    this.setX(0);
+  }
+}
+```
+
+:::
+
+### Count the bounces
+
+Show how often Spike has landed on the trampoline.
+
+:::collapsible{title="Hint"}
+You need a :t[field]{#field} `bounces` in `HedgehogSprite`, and `showVariable`
+shows it on the stage. Careful: Spike touches the trampoline for several frames
+in a row, so count only in the frame where the touching **starts**. A second
+field can remember whether he was touching it in the frame before.
+:::
+
+:::collapsible{title="Solution"}
+
+```java
+import org.openpatch.scratch.*;
+
+public class HedgehogSprite extends Sprite {
+  private int bounces = 0;
+  private boolean wasTouching = false;
+
+  public HedgehogSprite() {
+    this.addCostume("spikeBall1");
+    this.setSize(40);
+    this.setPosition(-180, 140);
+    this.setDirection(160);
+    this.showVariable("Bounces", () -> this.bounces);
+  }
+
+  public void run() {
+    if (this.getY() > -100) {
+      this.move(2);
+      this.ifOnEdgeBounce();
+
+      boolean touching = this.isTouchingSprite(TrampolineSprite.class);
+      if (touching && !this.wasTouching) {
+        this.bounces = this.bounces + 1;
+        this.setDirection(Random.randomInt(-45, 45));
+      }
+      this.wasTouching = touching;
+    } else {
+      this.say("Ouch!");
+    }
+  }
+}
+```
+
+:::
+
+When you are confident, try [setTint](/reference/Sprite/setTint) to change
+Spike's colour every time he bounces.

@@ -20,7 +20,7 @@ LESSONS = [
     ("catch-the-coins", "Score, randomness, collisions", "Catch coins and test when the score changes."),
     ("red-light-green-light", "Messages and shared state", "Coordinate sprites through a broadcast and explain its order."),
     ("guess-the-number", "Input, conditions, feedback", "Read an answer and give useful feedback for several guesses."),
-    ("bouncy-hedgehog", "A game with imported assets", "Build and test the hedgehog bounce using the supplied project."),
+    ("bouncy-hedgehog", "A whole game, then your own pictures", "Bounce the hedgehog off the trampoline, then swap in the supplied pictures."),
     ("dodge-the-rocks", "Stages and game over", "Switch stages when a collision ends the game."),
 ]
 SELECTED = ["spielwerkstatt", "spielwerkstatt-ef-02-variablen",

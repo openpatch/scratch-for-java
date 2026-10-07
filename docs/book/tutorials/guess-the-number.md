@@ -210,6 +210,108 @@ It needs no assets, only the library itself.
 
 ## Things to try
 
-- Give the player only five tries.
-- Let the wizard `say()` the hints instead of writing them at the top.
-- Ask for a name first and use it in the hints.
+### Only five tries
+
+Give the player only five tries.
+
+:::collapsible{title="Hint"}
+`tries` already counts. After a wrong guess, check whether it has reached `5`. If
+so, tell the player the number and set `solved` to `true`, so the game stops
+asking.
+:::
+
+:::collapsible{title="Solution"}
+The end of `run()`:
+
+```java
+this.tries = this.tries + 1;
+
+if (guess == this.secret) {
+  this.hint.showText("Yes! It was " + this.secret + ", in " + this.tries + " tries.");
+  this.solved = true;
+} else if (this.tries >= 5) {
+  this.hint.showText("No more tries. It was " + this.secret + ".");
+  this.solved = true;
+} else if (guess < this.secret) {
+  this.hint.showText(guess + " is too small.");
+  this.ask("Guess again");
+} else {
+  this.hint.showText(guess + " is too big.");
+  this.ask("Guess again");
+}
+```
+
+The check for the right answer now comes first, so a correct fifth guess still
+wins.
+:::
+
+### The wizard speaks
+
+Let the wizard `say()` the hints instead of writing them at the top.
+
+:::collapsible{title="Hint"}
+`wizard` is a local variable in the constructor, so `run()` cannot reach it. Make
+it a :t[field]{#field} of the stage, like `hint`.
+:::
+
+:::collapsible{title="Solution"}
+At the top of `GuessStage`, next to `hint`:
+
+```java
+private Sprite wizard = new Sprite();
+```
+
+In the constructor, use `this.wizard` instead of creating a new sprite:
+
+```java
+this.wizard.addCostume("alienBlue_front");
+this.wizard.setSize(40);
+this.wizard.setY(-40);
+this.add(this.wizard);
+```
+
+In `run()`, replace each `this.hint.showText(...)` with `this.wizard.say(...)`,
+for example:
+
+```java
+this.wizard.say(guess + " is too small.");
+```
+
+:::
+
+### What's your name?
+
+Ask for the player's name first and use it in the hints.
+
+:::collapsible{title="Hint"}
+Ask for the name in the constructor instead of the number. Keep the name in a
+field that starts out as `null`, which means "not known yet". The first answer
+that arrives in `run()` is the name.
+:::
+
+:::collapsible{title="Solution"}
+A new field:
+
+```java
+private String name = null;
+```
+
+In the constructor, the first question becomes:
+
+```java
+this.ask("What's your name?");
+```
+
+At the start of `run()`, right after the check for `isAsking()`:
+
+```java
+if (this.name == null) {
+  this.name = this.getAnswer();
+  this.ask("Guess a number between 1 and 10, " + this.name);
+  return;
+}
+```
+
+Now `this.name` can go into every hint, for example
+`this.name + ", " + guess + " is too small."`.
+:::

@@ -393,11 +393,130 @@ It needs no assets, only the library itself.
 
 ## Things to try
 
-- The game over screen says "You dodged 1" when you only dodged one rock. Make
-  it say "1 rock" and "2 rocks" using an `if`.
-- Add a third screen between the title and the game that explains the controls,
-  and make SPACE walk through title, help, game.
-- Speed the rocks up as the score climbs. `dodged` is on the stage, and the rocks
-  can already reach the stage — they call `addDodge` on it.
-- Keep the best score so far. It cannot live on `GameStage`, because that object
-  is thrown away every game. Where does it have to go instead?
+### One rock, two rocks
+
+The game over screen says "You dodged 1" when you only dodged one rock. Make it
+say "1 rock" and "2 rocks".
+
+:::collapsible{title="Hint"}
+Build the text in `gameOver` with an `if`: one text when `dodged` is `1`, another
+one otherwise.
+:::
+
+:::collapsible{title="Solution"}
+
+```java
+public void gameOver() {
+  String text = "You dodged " + this.dodged + " rocks";
+  if (this.dodged == 1) {
+    text = "You dodged 1 rock";
+  }
+  Window.getInstance().setStage(new TitleStage(text));
+}
+```
+
+:::
+
+### A help screen
+
+Add a screen between the title and the game that explains the controls, and make
+SPACE walk through title, help and game.
+
+:::collapsible{title="Hint"}
+A screen is a stage. Write a `HelpStage` like `TitleStage`, and let SPACE on the
+title screen open the help screen instead of the game.
+:::
+
+:::collapsible{title="Solution"}
+
+```java
+import org.openpatch.scratch.*;
+
+public class HelpStage extends Stage {
+  public HelpStage() {
+    this.addBackdrop("background");
+
+    Text help = new Text();
+    help.setPosition(0, 20);
+    help.setTextSize(18);
+    help.setAlign(TextAlign.CENTER);
+    help.showText("Move with the arrow keys. Do not get hit!");
+    this.add(help);
+  }
+
+  public void whenKeyPressed(KeyCode keyCode) {
+    if (keyCode == KeyCode.SPACE) {
+      Window.getInstance().setStage(new GameStage());
+    }
+  }
+}
+```
+
+In `TitleStage`, SPACE now opens the help screen:
+
+```java
+public void whenKeyPressed(KeyCode keyCode) {
+  if (keyCode == KeyCode.SPACE) {
+    Window.getInstance().setStage(new HelpStage());
+  }
+}
+```
+
+:::
+
+### Faster rocks
+
+Speed the rocks up as the score climbs.
+
+:::collapsible{title="Hint"}
+`dodged` is on the stage, and the rocks can already reach the stage: they call
+`addDodge` on it. Give `GameStage` a method that returns `dodged`, and let the
+rocks use it in `changeY`.
+:::
+
+:::collapsible{title="Solution"}
+In `GameStage`:
+
+```java
+public int getDodged() {
+  return this.dodged;
+}
+```
+
+In `run()` of `Rock`, instead of `this.changeY(-3);`:
+
+```java
+GameStage game = (GameStage) this.getStage();
+this.changeY(-3 - game.getDodged() / 5.0);
+```
+
+Every five rocks dodged make the rocks one step per frame faster.
+:::
+
+### Best score
+
+Keep the best score so far. It cannot live on `GameStage`, because that object
+is thrown away every game. Where does it have to go instead?
+
+:::collapsible{title="Hint"}
+It needs to live somewhere that is not thrown away. The window stays for the
+whole program. Or use a `static` field: it belongs to the class, not to one
+object, so there is only one, however many games are played.
+:::
+
+:::collapsible{title="Solution"}
+In `GameStage`:
+
+```java
+private static int best = 0;
+
+public void gameOver() {
+  if (this.dodged > best) {
+    best = this.dodged;
+  }
+  Window.getInstance().setStage(
+      new TitleStage("You dodged " + this.dodged + ". Best: " + best));
+}
+```
+
+:::

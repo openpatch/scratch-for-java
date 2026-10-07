@@ -30,11 +30,6 @@
           "href": "mailto:contact@openpatch.org"
         },
         {
-          "label": "Twitter",
-          "icon": "🐦",
-          "href": "https://twitter.com/openpatchorg"
-        },
-        {
           "label": "Mastodon",
           "icon": "🐘",
           "href": "https://fosstodon.org/@openpatch"

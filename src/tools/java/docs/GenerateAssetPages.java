@@ -86,7 +86,7 @@ public final class GenerateAssetPages {
     out.append("""
         ---
         name: Sprites
-        index: 5
+        index: 8
         styles:
           - /builtin.css
         scripts:
@@ -198,7 +198,7 @@ public final class GenerateAssetPages {
     out.append("""
         ---
         name: Sounds
-        index: 6
+        index: 9
         styles:
           - /builtin.css
         scripts:

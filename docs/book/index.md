@@ -66,26 +66,51 @@ class Walker extends AnimatedSprite {
 
 :::
 
-- **[Your first program](/tutorials/getting-started)** — ten minutes, nothing to
-  download
-- **[Setup](/setup)** — browser, Studio, BlueJ, VS Code or plain Java
-- **[Erste Schritte](/erste-schritte)** — Einstieg auf Deutsch
-- **[Classroom course pack](/classroom)** — prepared offline projects and teacher notes
-- **[Sprites](/sprites)** and **[Sounds](/sounds)** — the built-in library
-- **[Documentation](/reference)** — every method with the Scratch block it
-  replaces
+## I'm learning
+
+1. **[Your first program](/tutorials/getting-started)**: ten minutes, right here
+   in the browser, nothing to install.
+2. **[Seven tutorials](/tutorials)**: from a walking alien to a game with a
+   title screen, one new idea at a time.
+3. **[Scratch → Java cheat sheet](/scratch-to-java)**: which Java line
+   replaces which block.
+4. **[It doesn't work!](/troubleshooting)**: the most common mistakes and
+   how to fix them.
+5. **[Glossary](/glossary)**: class, object, method and the other new words.
+
+Then pick a picture from the [built-in sprites](/sprites) and [sounds](/sounds),
+look at the [examples](/examples), or look up any method in the
+[documentation](/reference). Every method there shows the Scratch block it replaces
+and an example you can run.
+
+## I'm teaching
+
+- **[For teachers](/classroom)**: planning a unit, what each tutorial covers,
+  assessment and working offline.
+- **[Setup](/setup)**: browser, Studio, BlueJ or VS Code.
+- **[Multiple Approach Design](/multiple-approach-design)**: classes first or
+  classes later.
+- **[Abiturklassen NRW](/abitur-nrw)**: the version for the NRW Zentralabitur.
+
+:::alert{info}
+**Deutschsprachiges Material** findest du in
+[Hyperbook Informatik](https://informatik.openpatch.org): den Lernpfad
+[Grundlagen der Programmierung mit Java](https://informatik.openpatch.org/oberstufe/oop/01-grundlagen)
+und die [Spielwerkstatt](https://informatik.openpatch.org/projekte/spielwerkstatt),
+in der du über ein ganzes Schuljahr dein eigenes Spiel entwickelst.
+:::
 
 ## Seeing it side by side
 
 The following video shows a Scratch project and a similar BlueJ project using
 the Scratch for Java library.
 
-::youtube[Comparision Scratch and Scratch for Java]{#3wKw2WWQcXk}
+::youtube[Comparison of Scratch and Scratch for Java]{#3wKw2WWQcXk}
 
 If you want to compare it yourself, you can take a look inside both projects:
 
 - Scratch: https://scratch.mit.edu/projects/338613208
-- BlueJ: [Source Code on GitHub](https://github.com/openpatch/scratch-for-java/blob/main/examples/archives/Halloween/) or [Project Halloween.zip](/archives/Halloween.zip)
+- BlueJ: [Source Code on GitHub](https://github.com/openpatch/scratch-for-java/tree/main/docs/archives/Halloween) or [Project Halloween.zip](/archives/Halloween.zip)
 
 ## Special Thanks
 

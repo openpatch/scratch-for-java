@@ -1,18 +1,47 @@
 ---
 name: Differences to Scratch
-index: 3
+index: 4
 ---
 
 # Differences to Scratch
 
-Scratch for Java keeps stages, sprites, costumes and events. Java gives each
-object fields and methods; the library calls `run()` once per game frame. At
-normal speed that is about 60 frames per second. Pause, single-step and game
-speed control game time, including timers, animation and timed speech.
+Most of Scratch carries over to Scratch for Java unchanged: the stage, sprites,
+costumes, events and messages. This page is about the few places where Java asks
+you to think differently. If you remember only one thing, remember this:
 
-- Use [Timers](/reference/Sprite/getTimer) to delay a sprite's next action across frames. Keep each `run()` call short.
+:::alert{info}
+**`run()` is called again and again, about 60 times a second.** Every call should
+do one frame's worth of work and then finish. There is no `forever`, and a sprite
+never waits.
+:::
 
-If you want to achieve something like this inside a Sprite:
+## No `forever`: use `run()`
+
+:::scratchblock
+when green flag clicked
+forever
+move (10) steps
+:::
+
+Everything you would put in a `forever` loop goes into `run()`. The library calls
+it for you, once per frame, for as long as the program runs:
+
+```java
+public class Cat extends Sprite {
+  public Cat() {
+    this.addCostume("cat", "cat_idle_1");
+  }
+
+  public void run() {
+    this.move(10);
+  }
+}
+```
+
+Do not write a `while (true)` loop inside `run()`. It never finishes, so the
+next frame is never drawn and the program freezes.
+
+## No `wait` in a sprite: use a timer
 
 :::scratchblock
 when green flag clicked
@@ -21,72 +50,104 @@ next costume
 wait (1) seconds
 :::
 
-You can use a timer.
+A sprite cannot stop and wait, because `run()` has to finish every frame. Instead
+you ask a timer whether enough time has passed:
 
 ```java
-public class Cat extends Sprite {
-    // Called once per game frame while the sprite is on a running stage.
-    public void run() {
-        if (this.getTimer().everyMillis(1000)) {
-            this.nextCostume();
-        }
+public class Blinker extends Sprite {
+  public Blinker() {
+    this.addCostume("closed", "alienGreen_stand");
+    this.addCostume("open", "alienGreen_front");
+  }
+
+  public void run() {
+    if (this.getTimer().everyMillis(1000)) {
+      this.nextCostume();
     }
+  }
 }
 ```
 
+`everyMillis(1000)` is true once every second and false in all the frames in
+between. Times in Scratch for Java are usually in **milliseconds**: 1000 is one
+second. [Make it Walk](/tutorials/make-it-walk) builds on this.
 
-- **922 pictures and 266 sounds** ship with the library. Studio's asset browser
-  provides previews; the [Sprites](/sprites) and [Sounds](/sounds) pages show the
-  same assets. Call `addCostume("bunny1_stand")` to use one.
-- Studio includes costume and sound tools. Files created in other tools can be
-  imported as ordinary assets. Browser workspaces can carry image, audio, font
-  and shader files; project ZIPs preserve their bytes.
-- Save and share a project ZIP or its ordinary Java folder. The browser also
-  supports workspace JSON. File-system, recording and Tiled APIs require the
-  desktop, so check for them before switching environments.
-- A tight `while (true)` inside `run()` blocks later frames. Put one frame's work
-  in `run()` and use timers or state fields for sequencing. Finite loops that
-  finish quickly are useful in constructors and methods.
+## Things that do not hold up the script
 
-If you want to achieve something like this inside a Sprite:
+In Scratch some blocks pause the script until they are done. In Java they start
+something and return straight away, and `run()` carries on:
 
-:::scratchblock
-when green flag clicked
-forever
-move (10) steps
-:::
+| Block | In Java | How to find out that it is done |
+| --- | --- | --- |
+| `ask [] and wait` | `ask("...")` | `isAsking()` becomes false, see [Guess the Number](/tutorials/guess-the-number) |
+| `glide () secs to x: () y: ()` | `glide(1, 100, 0)` | `isGliding()` becomes false |
+| `say [] for () seconds` | `say("Hi!", 2000)` | The speech bubble disappears by itself |
 
-You can use the run-method of the Sprite-class.
+If something should happen one after another, keep a variable that remembers
+which step you are at, and move on to the next step when the current one is done.
+
+## Variables belong to an object
+
+In Scratch you choose between *for this sprite only* and *for all sprites*. In
+Java a variable is written at the top of a class, and every object of that class
+gets its own.
+
+- **For this sprite only** is a variable in the sprite's class. Each coin of the
+  class `Coin` has its own `speed`.
+- **For all sprites** is a variable in the stage's class. The sprites reach it
+  through their stage, like the score in
+  [Catch the Coins](/tutorials/catch-the-coins).
 
 ```java
-public class Cat extends Sprite {
-    // Called once per game frame while the sprite is on a running stage.
-    public void run() {
-        this.move(10);
+public class Coin extends Sprite {
+  private int speed = 3;
+
+  public Coin() {
+    this.addCostume("coin", "coinGold");
+  }
+
+  public void run() {
+    this.changeY(-this.speed);
+    if (this.isTouchingEdge()) {
+      ((CoinStage) this.getStage()).addPoint();
+      this.setY(180);
     }
+  }
+}
+
+public class CoinStage extends Stage {
+  private int points = 0;
+
+  public CoinStage() {
+    this.add(new Coin());
+  }
+
+  public void addPoint() {
+    this.points = this.points + 1;
+  }
 }
 ```
 
-- Shared state can live in a stage object passed to its sprites, or in a static
-  field. Instance fields belong to one object. Clones copy field values; a copied
-  reference still points to the same array or object, so plan shared state.
+Variables are not shown on the stage by themselves, because a Java variable has
+no checkbox. `showVariable` puts one in the top left corner, like in Scratch:
 
 ```java
-public class Cat extends Sprite {
-    public static int hitCounter = 1;
-}
+public class Player extends Sprite {
+  private int lives = 3;
 
-public class MyProgram {
-    public MyProgram() {
-        Cat.hitCounter += 1;
-    }
+  public Player() {
+    this.addCostume("player", "bunny1_stand");
+    this.showVariable("lives", () -> this.lives);
+  }
 }
 ```
 
-- Clones work like in Scratch: `clone()` creates a clone of the same class,
-  `whenStartsAsClone()` is "when I start as a clone", and `deleteThisClone()`
-  removes it again. The clone gets a copy of your variables; the constructor
-  does not run again.
+## Clones
+
+Clones work like in Scratch. `clone()` is *create clone of myself*,
+`whenStartsAsClone()` is *when I start as a clone*, and `deleteThisClone()`
+removes it again. A clone starts with a copy of the original's variables. Its
+constructor does not run again.
 
 :::scratchblock
 when green flag clicked
@@ -100,40 +161,36 @@ go to [random position v]
 
 ```java
 public class Star extends Sprite {
-    public Star() {
-        this.addCostume("star", "star1");
-    }
+  public Star() {
+    this.addCostume("star", "star1");
+  }
 
-    public void whenStartsAsClone() {
-        this.goToRandomPosition();
-    }
+  public void whenStartsAsClone() {
+    this.goToRandomPosition();
+  }
 
-    public void run() {
-        if (!this.isClone() && this.getTimer().everyMillis(1000)) {
-            this.clone();
-        }
+  public void run() {
+    if (!this.isClone() && this.getTimer().everyMillis(1000)) {
+      this.clone();
     }
+  }
 }
 ```
 
-- Variable monitors are not shown automatically: a variable in Java has no
-  checkbox. Show one with `showVariable`, and it appears in the top left corner
-  of the stage like in Scratch.
+Often you do not need clones at all: in Java you can simply create several
+objects of the same class with `new`, as the coins in
+[Catch the Coins](/tutorials/catch-the-coins) do.
 
-```java
-public class Player extends Sprite {
-    int lives = 3;
+## Pictures and sounds
 
-    public Player() {
-        this.addCostume("player", "bunny1_stand");
-        this.showVariable("lives", () -> lives);
-    }
-}
-```
+**922 pictures and 266 sounds are built in.** Browse them on the
+[Sprites](/sprites) and [Sounds](/sounds) pages and use them by name, for example
+`addCostume("bunny1_stand")`. You can also use your own files, see
+[Costumes, Backdrops and Sounds](/costumes-backdrops-sound).
 
-## Importing a Scratch project
+## Bringing a Scratch project along
 
-Studio keeps the original `.sb3` and records migration tasks beside generated
-Java. Open a task to locate its original block and the Java line that needs
-attention. Timed and concurrent scripts need decisions about frame updates,
-timers and shared state. Test each sequence before sharing the result.
+Studio can import a `.sb3` file from Scratch. It turns costumes, sounds and many
+scripts into Java and makes a list of the places that need your attention, such
+as waits and scripts running at the same time.
+[Continue a Scratch project](/migration) explains how to work through that list.

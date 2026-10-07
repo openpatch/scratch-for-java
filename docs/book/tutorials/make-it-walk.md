@@ -223,9 +223,119 @@ It needs no assets, only the library itself.
 
 ## Things to try
 
-- Give the alien a third state. `alienGreen_jump` is a costume; show it while the
-  alien is off the ground.
-- Swap the alien for a different character. The
-  [built-in sprites](/sprites) page has walk cycles for `bunny1_walk%d`,
-  `alienBlue_walk%d` and several others — the pattern is always the same.
-- Make the alien walk faster *and* animate faster when you hold shift.
+### Jump with the up arrow
+
+Make the alien jump when you press the up arrow, and wear `alienGreen_jump` while
+it is in the air.
+
+:::collapsible{title="Hint"}
+A jump needs a :t[field]{#field} for the speed upwards, `ySpeed`. Pressing the up
+arrow on the ground sets it to `10`. In every frame the alien moves up by
+`ySpeed`, and `ySpeed` gets a little smaller, so the alien slows down and falls
+back. When it is back on the ground (y: -50), it stops.
+:::
+
+:::collapsible{title="Solution"}
+
+```java
+import org.openpatch.scratch.*;
+
+public class Walker extends AnimatedSprite {
+  private double ySpeed = 0;
+
+  public Walker() {
+    this.addCostume("alienGreen_stand");
+    this.addCostume("alienGreen_jump");
+    this.addAnimation("walk", "alienGreen_walk%d", 2);
+    this.setAnimationInterval(150);
+    this.setSize(60);
+    this.setRotationStyle(RotationStyle.LEFT_RIGHT);
+    this.setY(-50);
+  }
+
+  public void run() {
+    boolean walking = false;
+
+    if (this.isKeyPressed(KeyCode.RIGHT)) {
+      this.setDirection(90);
+      this.move(3);
+      walking = true;
+    }
+    if (this.isKeyPressed(KeyCode.LEFT)) {
+      this.setDirection(-90);
+      this.move(3);
+      walking = true;
+    }
+
+    boolean onGround = this.getY() <= -50;
+    if (onGround && this.isKeyPressed(KeyCode.UP)) {
+      this.ySpeed = 10;
+    }
+    this.changeY(this.ySpeed);
+    this.ySpeed = this.ySpeed - 0.5;
+    if (this.getY() <= -50) {
+      this.setY(-50);
+      this.ySpeed = 0;
+    }
+
+    if (this.getY() > -50) {
+      this.switchCostume("alienGreen_jump");
+    } else if (walking) {
+      this.playAnimation("walk");
+    } else {
+      this.switchCostume("alienGreen_stand");
+    }
+
+    this.ifOnEdgeBounce();
+  }
+}
+```
+
+:::
+
+### Another character
+
+Swap the alien for a different character.
+
+:::collapsible{title="Hint"}
+The [built-in sprites](/sprites) page has walk cycles for `bunny1_walk%d`,
+`alienBlue_walk%d`, `alienPink_walk%d` and others. The pattern is always the same.
+:::
+
+:::collapsible{title="Solution"}
+Replace `alienGreen` with `alienPink` in all three places: `alienPink_stand`
+twice, and `alienPink_walk%d` in `addAnimation`.
+:::
+
+### Run with shift
+
+Make the alien walk faster *and* animate faster while you hold shift.
+
+:::collapsible{title="Hint"}
+Use a variable `speed` instead of the `3` in `move`. Set it to `6` while
+`KeyCode.SHIFT` is pressed, and set the animation interval to half as long.
+:::
+
+:::collapsible{title="Solution"}
+The start of `run()`:
+
+```java
+public void run() {
+  boolean walking = false;
+  int speed = 3;
+  this.setAnimationInterval(150);
+  if (this.isKeyPressed(KeyCode.SHIFT)) {
+    speed = 6;
+    this.setAnimationInterval(75);
+  }
+
+  if (this.isKeyPressed(KeyCode.RIGHT)) {
+    this.setDirection(90);
+    this.move(speed);
+    walking = true;
+  }
+  // and move(speed) for the left arrow as well
+}
+```
+
+:::

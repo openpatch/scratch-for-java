@@ -1,6 +1,6 @@
 ---
 name: Abiturklassen NRW
-index: 5
+index: 12
 ---
 
 # Abiturklassen NRW
