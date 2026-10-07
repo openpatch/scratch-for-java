@@ -1293,7 +1293,7 @@
         },
         {
           "path": "HedgehogSprite.java",
-          "sha256": "ec727a72eac0f5d5ef58ff7093c0852a2031aeb5ea40702b3e7c50af928c8cbf"
+          "sha256": "aa019ff6c69cc668a1de856eec4085bf81437f7a9412f4df9387ba7946b3d15d"
         },
         {
           "path": "README.md",
@@ -1301,7 +1301,7 @@
         },
         {
           "path": "TrampolineSprite.java",
-          "sha256": "a5f262e0116c12f34e18bdcad56395ac0a1da5f8517266f6b1eaf69321ce9fbc"
+          "sha256": "377dda28f63140e198ee14b2da35cc5fd5b2917dbddb7fd3cbcc2bde48ca2362"
         },
         {
           "path": "hedgehog.png",
