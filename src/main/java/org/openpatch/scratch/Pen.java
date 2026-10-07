@@ -87,6 +87,22 @@ public class Pen {
    *
    * @param p Pen object to copy
    */
+  /**
+   * A copy for another sprite (a clone): the same colour, size and up or down,
+   * but drawing where that sprite is.
+   */
+  Pen copyFor(Sprite owner) {
+    Pen copy = new Pen(owner);
+    copy.color = new Color(this.color);
+    copy.size = this.size;
+    copy.transparency = this.transparency;
+    copy.isForeground = this.isForeground;
+    if (this.down) {
+      copy.down();
+    }
+    return copy;
+  }
+
   public Pen(Pen p) {
     this.color = new Color(p.color);
     this.size = p.size;

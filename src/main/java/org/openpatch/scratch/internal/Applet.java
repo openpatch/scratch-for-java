@@ -101,6 +101,9 @@ public class Applet extends PApplet {
   private Stage transitionToStage;
   private int lastMillis;
   private double deltaTime;
+
+  /** Game time: paused, slowed down or sped up (see {@link GameClock}). */
+  private final GameClock clock = new GameClock();
   private String loadingText = "";
 
   private final AbstractMap<Integer, Boolean> keyCodePressed = new ConcurrentHashMap<>();
@@ -267,12 +270,22 @@ public class Applet extends PApplet {
   }
 
   /**
-   * Returns the time since the last frame in seconds.
+   * Returns the game time since the last game step in seconds.
    *
-   * @return the time since the last frame in seconds
+   * @return the time since the last step in seconds
    */
   public double getDeltaTime() {
     return deltaTime;
+  }
+
+  /** Milliseconds of game time since the program started. */
+  public int getGameMillis() {
+    return (int) this.clock.millis();
+  }
+
+  /** The game clock: pause, single steps and the game speed. */
+  public GameClock getClock() {
+    return this.clock;
   }
 
   /** Pauses the sketch. */
@@ -610,17 +623,23 @@ public class Applet extends PApplet {
     if (lastMillis == 0) {
       lastMillis = currentMillis;
     }
-    deltaTime = (currentMillis - lastMillis) / 1000.0;
+    double realSeconds = (currentMillis - lastMillis) / 1000.0;
     lastMillis = currentMillis;
 
     switch (state) {
       case LOADING:
+        this.deltaTime = realSeconds;
         this.drawLoading();
         break;
       case RUNNING:
         var hooks = this.hooksFor(this.stage);
         if (hooks != null) {
-          hooks.pre();
+          int steps = this.clock.frame(realSeconds);
+          this.deltaTime = this.clock.stepSeconds();
+          for (int i = 0; i < steps; i++) {
+            this.clock.advance();
+            hooks.pre();
+          }
           hooks.draw(this.getGraphics());
         }
         break;

@@ -195,6 +195,24 @@ public class Image {
   }
 
   /**
+   * Reads an image without a window, for tests and tools: the same files and
+   * built-in sheets a running program finds, as an ARGB picture.
+   */
+  static PImage loadWithoutWindow(String path) throws java.io.IOException {
+    java.awt.image.BufferedImage read = javax.imageio.ImageIO.read(
+        new java.io.File(Applet.getPath(path)));
+    if (read == null) {
+      return null;
+    }
+    int width = read.getWidth();
+    int height = read.getHeight();
+    PImage image = new PImage(width, height, processing.core.PConstants.ARGB);
+    read.getRGB(0, 0, width, height, image.pixels, 0, width);
+    image.updatePixels();
+    return image;
+  }
+
+  /**
    * Loads an image from a given path and returns it.
    *
    * @param path the path to the image
@@ -207,7 +225,8 @@ public class Image {
       // add support for ~
       path = path.replaceFirst("^~", System.getProperty("user.home"));
       try {
-        image = Applet.getInstance().loadImage(path);
+        Applet applet = Applet.getInstance();
+        image = applet != null ? applet.loadImage(path) : loadWithoutWindow(path);
       } catch (Exception e) {
         // fall through to null check below
       }

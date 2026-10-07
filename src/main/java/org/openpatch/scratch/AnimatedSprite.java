@@ -294,14 +294,22 @@ public class AnimatedSprite extends Sprite {
   }
 
   /**
-   * Creates a copy of this sprite with the same animations, and adds it to the same stage.
+   * Creates a clone of this sprite with the same animations, playing the same
+   * one, and puts it on the stage right behind this sprite. See
+   * {@link Sprite#clone()}.
    *
-   * @return the copy
+   * @return the clone, of the same class as this sprite
    *
    * @example.files AnimatedSpriteClone.java
    */
   @Override
   public AnimatedSprite clone() {
-    return new AnimatedSprite(this);
+    return (AnimatedSprite) super.clone();
+  }
+
+  @Override
+  void cloneStateFrom(Sprite original) {
+    super.cloneStateFrom(original);
+    this.animations = new ConcurrentHashMap<>(((AnimatedSprite) original).animations);
   }
 }

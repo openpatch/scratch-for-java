@@ -15,6 +15,7 @@ import org.openpatch.scratch.extensions.sorting.Sorting;
 import org.openpatch.scratch.internal.Applet;
 import org.openpatch.scratch.internal.Font;
 import org.openpatch.scratch.internal.Image;
+import org.openpatch.scratch.internal.Monitor;
 import org.openpatch.scratch.internal.NrwList;
 import org.openpatch.scratch.internal.Sound;
 import org.openpatch.scratch.internal.Stamp;
@@ -93,6 +94,9 @@ public class Stage {
   private int cursorActiveSpotX;
   private int cursorActiveSpotY;
   private final Text display;
+  /** Variable monitors of the stage itself, by variable name, in the order shown. */
+  private final java.util.Map<String, Monitor> monitors =
+      java.util.Collections.synchronizedMap(new java.util.LinkedHashMap<>());
   private final Text askDisplay;
   private String askQuestion = null;
   private final StringBuilder askInput = new StringBuilder();
@@ -361,6 +365,13 @@ public class Stage {
   public void add(Sprite sprite) {
     this.sprites.add(sprite);
     sprite.addedToStage(this);
+  }
+
+  /** A clone goes right behind the sprite it was made from, as in Scratch. */
+  void addClone(Sprite clone, Sprite original) {
+    int index = this.sprites.indexOf(original);
+    this.sprites.add(Math.max(index, 0), clone);
+    clone.addedToStageAsClone(this);
   }
 
   /**
@@ -1388,6 +1399,67 @@ public class Stage {
   }
 
   /**
+   * Shows a monitor for a variable in the top left corner of the stage, like
+   * Scratch's variable monitors: the name and the current value, updated every
+   * frame. Showing the same name again replaces the monitor.
+   *
+   * <pre>{@code
+   * this.showVariable("score", () -> score);
+   * }</pre>
+   *
+   * @param name  what the monitor says
+   * @param value gives the value to show; asked for it every frame
+   *
+   * @scratchblock show variable [name v]
+   *
+   * @example.files StageShowVariable.java
+   */
+  public void showVariable(String name, java.util.function.Supplier<?> value) {
+    this.monitors.put(name, new Monitor(name, value));
+  }
+
+  /**
+   * Hides the monitor of a variable that {@link #showVariable(String,
+   * java.util.function.Supplier)} showed.
+   *
+   * @param name the name the monitor was shown with
+   *
+   * @scratchblock hide variable [name v]
+   *
+   * @example.files StageHideVariable.java
+   */
+  public void hideVariable(String name) {
+    this.monitors.remove(name);
+  }
+
+  /**
+   * The monitors drawn over the stage: the stage's own, then those of its
+   * sprites, top to bottom in the top left corner. They are drawn on the
+   * window's own buffer, which is cleared every frame, so a shorter value
+   * leaves nothing of a longer one behind.
+   */
+  private void drawMonitors(PGraphics buffer, Applet applet, int width) {
+    List<Monitor> all = new java.util.ArrayList<>();
+    synchronized (this.monitors) {
+      all.addAll(this.monitors.values());
+    }
+    for (Sprite sprite : this.sprites) {
+      all.addAll(sprite.monitors());
+    }
+    if (all.isEmpty()) return;
+    float ratio = width / (float) applet.getRenderWidth();
+    buffer.push();
+    buffer.translate((applet.width - width) / 2.0f, (applet.height - applet.getRenderHeight() * ratio) / 2.0f);
+    buffer.scale(ratio);
+    float y = 6;
+    for (Monitor monitor : all) {
+      monitor.draw(buffer, 6, y);
+      y += Monitor.HEIGHT;
+    }
+    buffer.pop();
+  }
+
+  /**
    * Displays the given text on the stage.
    *
    * @param text the text to be displayed
@@ -1987,6 +2059,7 @@ public class Stage {
       } catch (Exception e) {
       }
     }
+    this.drawMonitors(buffer, applet, width);
 
     if (applet.isDebug()) {
       this.debugBuffer.beginDraw();

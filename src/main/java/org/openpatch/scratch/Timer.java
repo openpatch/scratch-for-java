@@ -59,16 +59,21 @@ public class Timer {
   }
 
   /**
-   * Returns the number of milliseconds since the program started.
+   * Returns the number of milliseconds of game time since the program started.
+   * Game time stands still while the game is paused and runs slower or faster
+   * with the game speed (see {@link Window#pause()} and
+   * {@link Window#setGameSpeed(double)}); without either, it is the real time.
    *
-   * @return the number of milliseconds since the program started
+   * @return the milliseconds of game time since the program started
    *
    * @scratchblock (timer)
    *
    * @example.files TimerMillis.java
    */
   public static int millis() {
-    return Applet.getInstance().millis();
+    Applet applet = Applet.getInstance();
+    // without a window (unit tests) no game time passes
+    return applet == null ? 0 : applet.getGameMillis();
   }
 
   /**

@@ -67,7 +67,7 @@ import processing.event.MouseEvent;
  *
  * @example.files SpriteConstructors.java
  */
-public class Sprite {
+public class Sprite implements Cloneable {
   private Shaders shaders = new Shaders("sprite");
 
   /**
@@ -124,8 +124,8 @@ public class Sprite {
   private double y = 0;
   private double direction = 90;
   private Stage stage;
-  private final AbstractMap<String, Timer> timer;
-  private final Pen pen;
+  private AbstractMap<String, Timer> timer;
+  private Pen pen;
   private Hitbox hitbox;
   // The point of the costume that sits at (x, y) and that it turns around, in
   // the costume's own pixels from its top left corner; null for its middle.
@@ -147,10 +147,15 @@ public class Sprite {
   private boolean hitboxCacheShow;
   private Hitbox hitboxCacheCustom;
 
-  private final Text text;
+  private Text text;
   private boolean isUI;
+  /** Made by {@link #clone()}: {@link #deleteThisClone()} removes it. */
+  private boolean isClone;
+  /** Variable monitors of this sprite, by variable name; drawn by its stage. */
+  private java.util.Map<String, org.openpatch.scratch.internal.Monitor> monitors =
+      java.util.Collections.synchronizedMap(new java.util.LinkedHashMap<>());
 
-  private final java.util.Set<String> warnedOnce = java.util.Collections.synchronizedSet(new java.util.HashSet<>());
+  private java.util.Set<String> warnedOnce = java.util.Collections.synchronizedSet(new java.util.HashSet<>());
 
   /**
    * Whether there is a costume to work on, complaining once if there is not.
@@ -238,12 +243,13 @@ public class Sprite {
     this.stage = s.stage;
     this.timer = new ConcurrentHashMap<>();
     this.timer.put("default", new Timer());
-    this.pen = new Pen(s.pen);
+    // the copy's pen draws where the copy is, not where s is
+    this.pen = s.pen.copyFor(this);
     this.shaders = new Shaders(s.shaders);
     this.hitbox = s.hitbox;
     this.rotationCenter = s.rotationCenter;
     this.hitboxDisabled = s.hitboxDisabled;
-    this.text = new Text(s.text);
+    this.text = new Text(this);
     this.isUI = s.isUI;
   }
 
@@ -270,15 +276,61 @@ public class Sprite {
 
 
   /**
-   * Removes this sprite from its current stage.
-   *
-   * @scratchblock delete this clone
+   * Removes this sprite from its current stage. For "delete this clone", see
+   * {@link #deleteThisClone()}.
    *
    * @example.files SpriteRemove.java
    */
   public void remove() {
     if (this.stage != null) {
       this.stage.remove(this);
+    }
+  }
+
+  /**
+   * Shows a monitor for one of this sprite's variables in the top left corner
+   * of the stage, like Scratch's variable monitors: "Cat: score" and the
+   * current value, updated every frame. Showing the same name again replaces
+   * the monitor; it goes away with the sprite.
+   *
+   * <pre>{@code
+   * public Cat() {
+   *   this.addCostume("cat", "bunny1_stand");
+   *   this.showVariable("lives", () -> lives);
+   * }
+   * }</pre>
+   *
+   * @param name  the variable's name, shown after the sprite's
+   * @param value gives the value to show; asked for it every frame
+   *
+   * @scratchblock show variable [name v]
+   *
+   * @example.files SpriteShowVariable.java
+   */
+  public void showVariable(String name, java.util.function.Supplier<?> value) {
+    String owner = this.getClass().getSimpleName();
+    if (owner.isEmpty()) owner = "Sprite";
+    this.monitors.put(name, new org.openpatch.scratch.internal.Monitor(owner + ": " + name, value));
+  }
+
+  /**
+   * Hides the monitor of a variable that {@link #showVariable(String,
+   * java.util.function.Supplier)} showed.
+   *
+   * @param name the name the monitor was shown with
+   *
+   * @scratchblock hide variable [name v]
+   *
+   * @example.files SpriteHideVariable.java
+   */
+  public void hideVariable(String name) {
+    this.monitors.remove(name);
+  }
+
+  /** The monitors to draw, a copy (the stage draws them on another thread). */
+  java.util.List<org.openpatch.scratch.internal.Monitor> monitors() {
+    synchronized (this.monitors) {
+      return new java.util.ArrayList<>(this.monitors.values());
     }
   }
 
@@ -2735,17 +2787,118 @@ public class Sprite {
   }
 
   /**
-   * Creates a clone of the current sprite. The cloned sprite will have the same
-   * properties as the
-   * original sprite, including its costumes, position, direction, and pen.
+   * Creates a clone of this sprite, like Scratch's "create clone of myself": a
+   * new sprite of the same class (a clone of a {@code Cat} is a {@code Cat}),
+   * with the same costume, position, direction, size and pen, and a copy of
+   * the variables of your class. It is put on the stage right behind this
+   * sprite, and its {@link #whenStartsAsClone()} runs; the constructor does
+   * not run again.
    *
-   * @return a new Sprite object that is a clone of the current sprite
+   * <p>
+   * Numbers, text and booleans in your variables are the clone's own. A list
+   * or another object is shared with the original: give the clone its own in
+   * {@link #whenStartsAsClone()} if it needs one.
+   *
+   * <pre>{@code
+   * Bullet bullet = (Bullet) this.clone();
+   * }</pre>
+   *
+   * @return the clone, of the same class as this sprite
    *
    * @scratchblock create clone of [myself v]
    *
    * @example.files SpriteClone.java
    */
+  @Override
   public Sprite clone() {
-    return new Sprite(this);
+    Sprite copy;
+    try {
+      copy = (Sprite) super.clone();
+    } catch (CloneNotSupportedException e) {
+      throw new IllegalStateException(e);
+    }
+    copy.cloneStateFrom(this);
+    copy.isClone = true;
+    if (this.stage != null) {
+      this.stage.addClone(copy, this);
+    }
+    copy.whenStartsAsClone();
+    return copy;
+  }
+
+  /**
+   * Gives a clone its own copies of everything that must not be shared with
+   * the sprite it was made from. Subclasses in the library add theirs.
+   */
+  void cloneStateFrom(Sprite original) {
+    this.costumes = new CopyOnWriteArrayList<>();
+    for (Image costume : original.costumes) {
+      this.costumes.add(new Image(costume));
+    }
+    this.sounds = new CopyOnWriteArrayList<>();
+    for (Sound sound : original.sounds) {
+      this.sounds.add(new Sound(sound));
+    }
+    this.timer = new ConcurrentHashMap<>();
+    this.timer.put("default", new Timer());
+    this.pen = original.pen.copyFor(this);
+    this.text = new Text(this);
+    this.shaders = new Shaders(original.shaders);
+    this.cachedHitbox = null;
+    this.warnedOnce = java.util.Collections.synchronizedSet(new java.util.HashSet<>());
+    // a sprite's variable monitors belong to the sprite, not to its clones
+    this.monitors = java.util.Collections.synchronizedMap(new java.util.LinkedHashMap<>());
+    this.stage = null;
+  }
+
+  /** On the stage as a clone: no {@link #whenAddedToStage()}, it did not start fresh. */
+  void addedToStageAsClone(Stage stage) {
+    this.stage = stage;
+    this.pen.addedToStage(stage);
+    this.text.addedToStage(stage);
+  }
+
+  /**
+   * Runs when this sprite was just made as a clone, like Scratch's "when I
+   * start as a clone". Override it to give clones their own behaviour, for
+   * example to send a bullet on its way.
+   *
+   * <pre>{@code
+   * public void whenStartsAsClone() {
+   *   this.show();
+   *   this.goToRandomPosition();
+   * }
+   * }</pre>
+   *
+   * @scratchblock when I start as a clone
+   *
+   * @example.files SpriteWhenStartsAsClone.java
+   */
+  public void whenStartsAsClone() {
+  }
+
+  /**
+   * Whether this sprite is a clone, made by {@link #clone()}.
+   *
+   * @return true for a clone, false for the original
+   *
+   * @example.files SpriteIsClone.java
+   */
+  public boolean isClone() {
+    return this.isClone;
+  }
+
+  /**
+   * Removes this sprite from the stage if it is a clone, like Scratch's
+   * "delete this clone". The original stays.
+   *
+   * @scratchblock delete this clone
+   *
+   * @example.files SpriteDeleteThisClone.java
+   */
+  public void deleteThisClone() {
+    if (this.isClone) {
+      this.remove();
+    }
   }
 }

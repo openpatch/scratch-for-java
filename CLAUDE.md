@@ -33,9 +33,12 @@ the documentation:
   it touches. The demos' assets are copied to `docs/public/examples` (ignored, not committed)
   by the same script and by `mvn prepare-package`.
 
-Most of the library still cannot be unit-tested, because anything with a costume needs a live
-`Window`. So verifying a change usually also means running something: the affected
-reference/demo example under `src/examples/java`, or `./scripts/run.sh` to pick one.
+Sprites load costumes without a window (`Image.loadWithoutWindow`), so sizes, costume switching,
+hitboxes and clones can be unit-tested (`HeadlessCostumeTest`, `SpriteCloneTest`); the game clock
+behind pause and game speed is `internal/GameClock` (`GameClockTest`). A `Stage` still needs a
+live `Window` (its buffers are OpenGL), so verifying drawing, input or anything on a stage still
+means running something: the affected reference/demo example under `src/examples/java`, or
+`./scripts/run.sh` to pick one.
 
 Running a windowed example headlessly works with `xvfb-run -a java ...`, which is how the
 documentation GIFs are recorded. Note that under Xvfb the window is exactly the render size, so

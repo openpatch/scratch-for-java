@@ -648,6 +648,12 @@ public class Text {
     this.originalText = text;
   }
 
+  /** Game time, so a timed bubble waits while the game is paused; real time without a window. */
+  private static long now() {
+    var applet = org.openpatch.scratch.internal.Applet.getInstance();
+    return applet == null ? System.currentTimeMillis() : applet.getGameMillis();
+  }
+
   /**
    * Displays the specified text for a given duration.
    *
@@ -657,7 +663,7 @@ public class Text {
   public void showText(String text, int millis) {
     this.showText(text);
     this.hasLifetime = true;
-    this.lifetime = System.currentTimeMillis() + millis;
+    this.lifetime = now() + millis;
   }
 
   /**
@@ -1170,7 +1176,7 @@ public class Text {
     }
     buffer.pop();
 
-    if (this.hasLifetime && this.lifetime < System.currentTimeMillis()) {
+    if (this.hasLifetime && this.lifetime < now()) {
       this.show = false;
     }
   }

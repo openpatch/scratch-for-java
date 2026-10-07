@@ -305,7 +305,8 @@ public class Window {
   }
 
   /**
-   * Gets the seconds passed since the last frame.
+   * Gets the seconds of game time passed since the last frame. While the game
+   * is paused this is 0, and at half speed half the real time.
    *
    * @return seconds since last frame
    *
@@ -313,6 +314,74 @@ public class Window {
    */
   public double getDeltaTime() {
     return Applet.getInstance().getDeltaTime();
+  }
+
+  /**
+   * Pauses the game: {@code run()} is no longer called, and timers, gliding
+   * and animations stand still. The window keeps drawing, so the paused
+   * picture stays visible, and keys and clicks still reach methods like
+   * {@code whenKeyPressed}, so a key can {@link #resume()} the game.
+   *
+   * @example.files WindowPause.java
+   */
+  public void pause() {
+    Applet.getInstance().getClock().pause();
+  }
+
+  /**
+   * Lets a paused game go on where it stopped.
+   *
+   * @example.files WindowPause.java
+   */
+  public void resume() {
+    Applet.getInstance().getClock().resume();
+  }
+
+  /**
+   * Whether the game is paused.
+   *
+   * @return true while paused
+   *
+   * @example.files WindowPause.java
+   */
+  public boolean isPaused() {
+    return Applet.getInstance().getClock().isPaused();
+  }
+
+  /**
+   * While the game is paused: runs it for exactly one frame (every
+   * {@code run()} once) and pauses again. Useful to watch closely what
+   * happens, for example when two sprites touch.
+   *
+   * @example.files WindowStep.java
+   */
+  public void step() {
+    Applet.getInstance().getClock().step();
+  }
+
+  /**
+   * Makes the game run slower or faster: 1 is normal, 0.5 half as fast, 2
+   * twice as fast. {@code run()}, timers, gliding and animations all follow,
+   * so the whole game looks like slow motion; the window keeps drawing
+   * smoothly.
+   *
+   * @param speed 1 for normal speed, smaller for slower, larger for faster
+   *
+   * @example.files WindowSetGameSpeed.java
+   */
+  public void setGameSpeed(double speed) {
+    Applet.getInstance().getClock().setSpeed(speed);
+  }
+
+  /**
+   * The game speed set with {@link #setGameSpeed(double)}.
+   *
+   * @return 1 for normal speed
+   *
+   * @example.files WindowSetGameSpeed.java
+   */
+  public double getGameSpeed() {
+    return Applet.getInstance().getClock().getSpeed();
   }
 
   /**

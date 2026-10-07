@@ -77,3 +77,51 @@ public class MyProgram {
     }
 }
 ```
+
+- Clones work like in Scratch: `clone()` creates a clone of the same class,
+  `whenStartsAsClone()` is "when I start as a clone", and `deleteThisClone()`
+  removes it again. The clone gets a copy of your variables; the constructor
+  does not run again.
+
+:::scratchblock
+when green flag clicked
+forever
+create clone of [myself v]
+wait (1) seconds
+
+when I start as a clone
+go to [random position v]
+:::
+
+```java
+public class Star extends Sprite {
+    public Star() {
+        this.addCostume("star", "star1");
+    }
+
+    public void whenStartsAsClone() {
+        this.goToRandomPosition();
+    }
+
+    public void run() {
+        if (!this.isClone() && this.getTimer().everyMillis(1000)) {
+            this.clone();
+        }
+    }
+}
+```
+
+- Variable monitors are not shown automatically: a variable in Java has no
+  checkbox. Show one with `showVariable`, and it appears in the top left corner
+  of the stage like in Scratch.
+
+```java
+public class Player extends Sprite {
+    int lives = 3;
+
+    public Player() {
+        this.addCostume("player", "bunny1_stand");
+        this.showVariable("lives", () -> lives);
+    }
+}
+```
