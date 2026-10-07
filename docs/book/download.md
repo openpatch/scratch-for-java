@@ -50,6 +50,14 @@ which `find`, `getAll` and `getTouchingSprites` return their `List`. See
 
 ::download[Sources (NRW)]{src="https://github.com/openpatch/scratch-for-java/releases/latest/download/scratch-{{VERSION}}-nrw-sources.jar"}
 
+## Release metadata and offline examples
+
+The [catalogs](/catalogs) describe the tested library and browser revisions.
+API and asset catalogs also ship inside the library JAR and Studio. Use the
+[course pack](/classroom) for prepared projects and offline teaching notes.
+Published browser features depend on the embedded IDE revision; check its
+compatibility version before using ZIP transfer, clone lifecycle or frame control.
+
 ## Maven Central
 
 ```xml

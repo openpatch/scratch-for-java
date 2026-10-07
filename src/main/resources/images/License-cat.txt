@@ -1,0 +1,7 @@
+cat.png / cat.xml - the Scratch for Java mascot and the props of its platformer
+
+	License: (Creative Commons Zero, CC0)
+	http://creativecommons.org/publicdomain/zero/1.0/
+
+	Drawn for Scratch for Java (https://scratch4j.openpatch.org).
+	You can use this content for personal, educational, and commercial purposes.

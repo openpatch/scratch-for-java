@@ -13,18 +13,22 @@ that you write them instead of dragging them.
 This page gets a character moving on screen. It takes about ten minutes, and you
 do not have to download a single picture.
 
-## What you need
+## Choose your environment
 
-1. A development environment. [BlueJ](https://bluej.org) is the friendliest one
-   to start with, and this page assumes it.
-2. The Scratch for Java library, added to BlueJ once.
+- **Browser:** use the editor on this page; the library is already loaded.
+- **Studio:** [download Studio](/download), create a project, and use the same
+  `MyStage` and rabbit code below. Studio includes Java and the library.
+- **Existing Java IDE:** follow [Setup](/setup), add the library, then create
+  `MyStage`. In BlueJ, construct the class with `new MyStage()`.
 
-Both are on the [Setup](/setup) page. Come back here when BlueJ is running.
+The example's named classes work with Java 17. The browser's compact entry
+`void main()` needs Java 25 when saved as a desktop source file; Studio supports
+it. Use standard or NRW according to your course and keep that selection when
+transferring projects. Save a workspace file or project ZIP before moving computers.
 
 ## Step 1: A sprite on the stage
 
-In BlueJ, create a new class called `MyStage` and replace everything in it with
-these lines:
+Create a class called `MyStage` and use these lines:
 
 ```java
 import org.openpatch.scratch.*;

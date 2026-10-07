@@ -106,9 +106,10 @@ public final class GenerateAssetPages {
 
         :::alert{info}
 
-        The artwork is made by [Kenney](https://kenney.nl) and is released under
-        CC0, which means you may use it for anything, also without saying where
-        it came from.
+        The artwork is made by [Kenney](https://kenney.nl), except for the cat
+        sheet with the Scratch for Java mascot, which was drawn for this library.
+        All of it is released under CC0, which means you may use it for anything,
+        also without saying where it came from.
 
         :::
 

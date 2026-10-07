@@ -1,8 +1,195 @@
 ---
 name: Changelog
-index: 66
+index: 74
 lang: en
 ---
+
+## 5.7.0
+
+
+
+Sprites load their costumes without a window, so sizes, costume switching,
+hitboxes and clones can be checked in plain unit tests. Without a window,
+timers stand at 0.
+
+
+Variable monitors, like Scratch's "show variable": `showVariable("score", () ->
+score)` on a stage or a sprite shows the name and the current value in the top
+left corner of the stage, updated every frame, and `hideVariable("score")`
+takes it away. A sprite's monitor says whose variable it is, for example "Cat:
+lives".
+
+
+The game can be paused, stepped and slowed down: `Window.getInstance().pause()`,
+`resume()`, `isPaused()`, `step()` (one frame while paused) and
+`setGameSpeed(0.5)` for half speed. `run()`, timers, gliding, animations and
+timed speech bubbles all follow, so the whole game stands still or runs in slow
+motion while the window keeps drawing; keys and clicks still arrive, so a key
+can resume the game. `Timer.millis()` and `getDeltaTime()` count game time,
+which is the real time as long as the game is neither paused nor sped up.
+
+
+Clones work like Scratch's. `clone()` makes a clone of the same class (a clone
+of a `Cat` is a `Cat`, with a copy of its variables), puts it on the stage right
+behind the original and runs its new `whenStartsAsClone()`, "when I start as a
+clone". `deleteThisClone()` removes a clone and leaves the original alone, and
+`isClone()` tells them apart.
+
+```java
+public void whenStartsAsClone() {
+  this.goToRandomPosition();
+}
+```
+
+Before, `clone()` returned a plain `Sprite` that was not on the stage, so it
+neither showed up nor ran the class's `run()`. A copy made with `new
+Sprite(other)` also drew with the other sprite's pen; it has its own now.
+
+
+## 5.6.0
+
+
+
+Tiled maps now load CSV and Base64 tile layers, including zlib and gzip compression, tile flips, external tilesets, grouped layers, and class properties. Unsupported map formats now give clearer errors.
+
+
+## 5.5.0
+
+
+
+A sprite with rotation style `LEFT_RIGHT` that faces left now has its hitbox
+mirrored along with its costume. The costume was drawn flipped but the hitbox
+was not, so a costume whose painted part is not in the middle of its canvas
+collided with the empty side - and a hitbox set with `setHitbox` to cover, say,
+only the front of a sprite stayed at its back after it turned around. Speech
+and thought bubbles follow the mirrored costume as well. The Online IDE already
+mirrored the hitbox.
+
+
+Sprites can sense colours, like Scratch's `touching color?` and
+`color is touching color?` blocks:
+
+```java
+if (this.isTouchingColor(HtmlColor.RED)) { ... }
+if (this.isTouchingColor(255, 0, 0)) { ... }
+if (this.isColorTouchingColor(HtmlColor.YELLOW, HtmlColor.BLUE)) { ... }
+```
+
+A sprite touches a colour when anything it paints lies over that colour on the
+stage: on the backdrop, on what the pen drew, or on another sprite. Nearly
+equal colours count, with the same tolerance as Scratch, so anti-aliased edges
+still match. The check only looks at the pixels the sprite covers, so it costs
+the same on a 480 x 360 stage as on a 1920 x 1080 one; a 128 x 128 sprite takes
+well under a millisecond.
+
+
+A sprite can turn around a point of its own choosing, like Scratch's rotation
+center:
+
+```java
+this.setRotationCenter(54, 239); // in the costume's pixels, from its top left corner
+```
+
+The point sits at the sprite's position, the costume turns and mirrors around
+it, and the hitbox, stamps, speech bubbles and colour sensing follow. It is
+given like the points of `setHitbox`, grows with the sprite's size and holds
+for every costume. Without it, a sprite turns around the middle of its costume
+as before.
+
+
+`getShaders().add(name, fragmentShaderPath, null)` works. Leaving out the
+vertex shader is what the documentation shows, but it stopped the program with
+a `NullPointerException`; Processing's default vertex shader is now used.
+
+
+Every built-in sprite with a front now faces right, the way a sprite with
+direction 90 faces in Scratch. The ships, lasers and other parts of the space
+shooter sheet were drawn pointing up (the enemies down), and the bee, fly,
+fishes, frog, ladybug, mouse, slimes, snail and worms of the platformer sheet
+facing left. So a slime walking right with `move` walked backwards, and a ship
+told to `pointTowardsMousePointer` pointed its side at the mouse. They are now
+turned when they are loaded. A program that showed a ship pointing up at
+direction 90 now shows it pointing right; `setDirection(0)` points it up, and
+then `move` flies it up as well.
+
+
+A broadcast now reaches every sprite on the stage and the stage itself, as in
+Scratch and in the Online IDE. `Sprite.broadcast` left out the sprite that sent
+it, and `Stage.broadcast` left out the stage, so a sprite or stage that reacts
+to its own message in `whenIReceive` never heard it. A sprite that broadcasts
+the same message from its own `whenIReceive` now calls itself again, as the
+same script does in Scratch.
+
+
+## 5.4.2
+
+
+
+A speech or thought bubble now hangs off the top right corner of what is
+painted on the sprite's costume, not off its hitbox. A sprite whose hitbox was
+set to just its feet - so that it can stand in front of a tree without getting
+stuck on it - got its bubble at its feet instead of above its head. The Online
+IDE already placed the bubble this way. Collisions still use the hitbox.
+
+
+## 5.4.1
+
+
+
+A sprite's size now also applies to costumes added after `setSize(...)`.
+`setSize` only resized the costumes the sprite already had, so a sprite that
+set its size in the constructor and got its costume later, for example from a
+subclass, was drawn at 100 %. `addCostume(...)` and `addCostumes(...)` now give
+a new costume the sprite's current size, as the Online IDE already did.
+
+
+## 5.4.0
+
+
+
+Add an NRW version of the library, `scratch-<version>-nrw-all.jar`, for courses that use the classes of the NRW Zentralabitur. In it, `Stage.find`, `Stage.getAll` and `Sprite.getTouchingSprites` return the Abitur's `List` instead of `java.util.List`, so students can write `List<Gegner> gegner = find(Gegner.class);`. `List.java` from the Abitur classes has to be in the project's default package. The normal JAR is unchanged.
+
+
+## 5.3.1
+
+
+
+Stamps are visible again. Everything drawn with a stamp — the layers of a
+`TiledMap`, and `Sprite.stamp(...)` — passed the ghost effect straight to
+Processing as an alpha value, where 0 means "draw nothing" instead of "no ghost
+effect". A fully opaque image was therefore stamped fully transparent, which is
+why a tile map rendered as an empty stage.
+
+
+## 5.3.0
+
+
+
+Plain text now sits on the position it was given. It used to be drawn eight
+pixels down and to the right of it - the padding a framed style needs between
+its border and its words, which plain words have no use for - so a centred label
+never landed on the thing it labelled: a number put at the middle of a line came
+out beside it. The words are now centred on their position, the way a sprite put
+there is.
+
+A width too narrow to hold a single letter no longer wraps the words at all. It
+used to turn them into a column of one letter per line: `new Text("42", x, y, 1)`
+drew a 4 above a 2. Line breaks written into the text are still kept.
+
+`Text` can also be layered like a sprite: `goToFrontLayer()`, `goToBackLayer()`,
+`goLayersForwards(int)` and `goLayersBackwards(int)` decide which of several
+overlapping texts is on top. Texts are drawn above the sprites, so this orders a
+text against the other texts.
+
+
+A class that extends `Window` and has a `main` method which is not static no
+longer fails with "Cannot create multiple Windows!". Since Java 21 the JVM
+builds an instance of such a class before it calls `main`, so the
+`new MyWindow()` inside `main` was the second window and the project stopped
+before it started. That window is now reused, and a note explains how to be rid
+of the extra one by making `main` static. Two windows asked for by the project
+itself are still an error.
+
 
 ## 5.2.0
 

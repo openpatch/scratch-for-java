@@ -361,6 +361,7 @@ public class Scratch4JDoclet implements Doclet {
         json.put("template", "class-constructor");
         json.put("related", new ArrayList<>());
         json.put("name", className + "()");
+        json.put("api", apiMetadata(classElement, constructors, env));
 
         // Parse class documentation
         DocCommentTree docComment = env.getDocTrees().getDocCommentTree(classElement);
@@ -447,6 +448,7 @@ public class Scratch4JDoclet implements Doclet {
         json.put("template", "class-method");
         json.put("related", new ArrayList<>());
         json.put("name", primaryMethod.getSimpleName().toString() + "()");
+        json.put("api", apiMetadata((TypeElement) primaryMethod.getEnclosingElement(), methods, env));
 
         // --- Combine descriptions for overloaded methods ---
         StringBuilder combinedDescription = new StringBuilder();
@@ -562,6 +564,42 @@ public class Scratch4JDoclet implements Doclet {
         // Write to file: ClassName/methodName.md.json
         String filename = primaryMethod.getSimpleName() + ".md.json";
         writeJsonToFile(json, classDir.resolve(filename));
+    }
+
+    private Map<String, Object> apiMetadata(TypeElement owner, List<ExecutableElement> members, DocletEnvironment env) {
+        Map<String, Object> api = new LinkedHashMap<>();
+        api.put("owner", owner.getQualifiedName().toString());
+        List<Map<String, Object>> signatures = new ArrayList<>();
+        for (ExecutableElement member : members) {
+            Map<String, Object> signature = new LinkedHashMap<>();
+            boolean constructor = member.getKind() == ElementKind.CONSTRUCTOR;
+            signature.put("name", constructor ? owner.getSimpleName().toString() : member.getSimpleName().toString());
+            signature.put("constructor", constructor);
+            signature.put("static", member.getModifiers().contains(Modifier.STATIC));
+            signature.put("parameters", member.getParameters().stream()
+                    .map(parameter -> parameter.asType().toString()).collect(Collectors.toList()));
+            signature.put("returns", constructor ? owner.getQualifiedName().toString() : member.getReturnType().toString());
+            DocCommentTree doc = env.getDocTrees().getDocCommentTree(member);
+            String currentPackage = getPackageName(owner);
+            signature.put("parameterNames", member.getParameters().stream()
+                    .map(parameter -> parameter.getSimpleName().toString()).collect(Collectors.toList()));
+            signature.put("parameterDescriptions", member.getParameters().stream()
+                    .map(parameter -> convertToMarkdown(extractParamDescription(doc, parameter.getSimpleName().toString()), currentPackage))
+                    .collect(Collectors.toList()));
+            signature.put("description", doc == null ? "" : convertToMarkdown(extractDescriptionRaw(doc), currentPackage).trim());
+            signature.put("returnDescription", doc == null ? "" : doc.getBlockTags().stream()
+                    .filter(tag -> tag.getKind() == com.sun.source.doctree.DocTree.Kind.RETURN)
+                    .map(tag -> convertToMarkdown(((com.sun.source.doctree.ReturnTree) tag).getDescription().stream()
+                            .map(Object::toString).collect(Collectors.joining("")), currentPackage).trim())
+                    .findFirst().orElse(""));
+            signature.put("scratchblock", doc == null ? "" : extractCustomTags(doc).getOrDefault("scratchblock", ""));
+            signature.put("since", doc == null ? "" : doc.getBlockTags().stream()
+                    .filter(tag -> tag.getKind() == com.sun.source.doctree.DocTree.Kind.SINCE)
+                    .map(tag -> tag.toString().replaceFirst("^@since\\s+", "")).findFirst().orElse(""));
+            signatures.add(signature);
+        }
+        api.put("signatures", signatures);
+        return api;
     }
 
     private List<Map<String, Object>> buildExamples(Map<String, String> customTags) {

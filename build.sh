@@ -36,6 +36,9 @@ done
 # pages as they were after the last `mvn package`, which is how pages for
 # deleted methods used to survive.
 mvn -q -DskipTests prepare-package
+python3 scripts/browser-compatibility.py
+python3 scripts/release-catalogs.py
+python3 scripts/build-course-pack.py --output docs/public/scratch-to-java-course.zip
 
 # Any jar linked in for local testing by scripts/link-jar.sh is taken out again
 # here. Zipping one in would put a 19 MB library inside every project download.

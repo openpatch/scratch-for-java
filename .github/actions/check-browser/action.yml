@@ -1,0 +1,40 @@
+name: Check browser compatibility
+description: Require the browser checkout, current generated contract, parity fixture and reference compilation
+runs:
+  using: composite
+  steps:
+    - uses: actions/checkout@v7
+      with:
+        repository: openpatch/online-ide
+        path: .validation/online-ide
+    - uses: actions/setup-node@v4
+      with:
+        node-version: '22'
+        cache: npm
+        cache-dependency-path: .validation/online-ide/package-lock.json
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+    - name: Regenerate Javadoc metadata
+      shell: bash
+      run: mvn -q -DskipTests prepare-package
+    - name: Require current compatibility artifacts and parity fixture
+      shell: bash
+      run: |
+        python3 scripts/browser-compatibility.py --check --online-ide .validation/online-ide
+        python3 scripts/parity-fixture.py --check --strict --online-ide .validation/online-ide
+        python3 scripts/release-catalogs.py --check --online-ide .validation/online-ide
+    - name: Compile reference examples and check browser inventories
+      shell: bash
+      working-directory: .validation/online-ide
+      run: |
+        npm ci
+        npm run test:ci -- src/test/ScratchCompatibilityTest.test.ts
+        npm run browser:install -- --with-deps
+        npm run test:browser
+    - name: Match desktop lifecycle behavior
+      shell: bash
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y xvfb libgl1-mesa-dri
+        bash scripts/lifecycle-parity.sh

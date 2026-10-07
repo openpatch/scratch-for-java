@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "desktopVersion": "5.7.0",
+  "browserVersion": "5.7.0-browser.2",
+  "flavors": {
+    "standard": {
+      "libraries": [
+        "scratch"
+      ],
+      "listType": "java.util.List"
+    },
+    "nrw": {
+      "libraries": [
+        "scratch",
+        "nrw"
+      ],
+      "listType": "nrw.List"
+    }
+  },
+  "limitations": [
+    "Availability describes documented member groups and browser declarations. Compilation tests do not prove rendering, timing or complete behavioral parity.",
+    "Fragment shaders use WebGL. Custom vertex shaders are desktop-only; the browser substitutes its default vertex shader.",
+    "File-system, pixel-buffer, recorder and Tiled APIs are desktop-only. Browser declarations can be stubs that report the limitation.",
+    "Reference examples are compiled with the standard flavor. Existing NRW runtime fixtures and a separate declaration inventory cover the NRW flavor.",
+    "Java compiler dialect differences also apply, including Java package access and unsupported standard-library methods."
+  ],
+  "overrides": {
+    "Stage/getPixels": {
+      "status": "desktop-only",
+      "reason": "The desktop pixel buffer is not exposed by the browser renderer."
+    },
+    "Window/useFullScreen": {
+      "status": "desktop-only",
+      "reason": "The embedded browser output uses its enclosing page; this desktop window option only reports a limitation."
+    },
+    "Window/useSplashLogo": {
+      "status": "desktop-only",
+      "reason": "The browser has no desktop splash window. This option only reports a limitation."
+    },
+    "extensions/shader/Shader/getPShader": {
+      "status": "desktop-only",
+      "reason": "Processing's PShader object belongs to the desktop renderer. The browser uses WebGL filters."
+    }
+  }
+}

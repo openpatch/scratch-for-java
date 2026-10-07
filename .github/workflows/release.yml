@@ -7,7 +7,21 @@ on:
       - main
 
 jobs:
+  validate:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 25
+          cache: maven
+      - run: mvn -B test
+      - uses: ./.github/actions/check-browser
+
   release:
+    needs: validate
     if: github.event.pull_request.merged == true  # only run if PR was merged
     runs-on: ubuntu-latest
 
@@ -60,6 +74,21 @@ jobs:
         # to avoid paying for the full suite twice in the same job.
         run: mvn -B clean package -Pall -DskipTests
 
+      - name: Require current catalogs and assemble offline examples
+        run: |
+          python3 scripts/browser-compatibility.py --check
+          python3 scripts/release-catalogs.py --check
+          python3 scripts/release-catalogs.py --archive dist/scratch-catalogs.zip
+
+      - name: Checkout curriculum for the release course pack
+        uses: actions/checkout@v7
+        with:
+          repository: openpatch/hyperbook-informatik
+          path: .validation/curriculum
+
+      - name: Assemble offline course pack
+        run: python3 scripts/build-course-pack.py --curriculum .validation/curriculum --output dist/scratch-to-java-course.zip
+
       - name: Get project version
         id: get-version
         run: |
@@ -91,9 +120,9 @@ jobs:
           files: |
             target/*.jar
             dist/*.jar
+            dist/*.zip
 
       - name: Delete changeset branch
         run: |
           echo "Deleting branch 'changeset'"
           git push origin --delete changeset || true
-

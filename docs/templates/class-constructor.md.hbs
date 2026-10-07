@@ -8,13 +8,14 @@ hide: true
 
 # {{ name }}
 
-{{#if desktopOnly}}
+{{#if browser.unavailable}}
 :::alert{info}
 
-This class works in a project you run on your own computer, but not in the
-examples you can start here in the browser. There is no file system, no video
-encoder and no OpenGL behind a web page, so calling it there tells you as much
-and does nothing.
+Browser availability: **{{ browser.status }}**.
+
+{{ browser.reason }}
+
+See [browser compatibility](/compatibility) for versions and supported library flavors.
 
 :::
 {{/if}}
@@ -26,6 +27,7 @@ and does nothing.
 
 {{#each examples}}
 {{#if online}}
+{{#if browserRunnable}}
 :::onlineide{height="460px" libraries="scratch"}
 
 {{#each onlineFiles}}
@@ -37,6 +39,19 @@ and does nothing.
 ```
 
 :::
+{{else}}
+This example requires the desktop runtime in the current browser revision.
+
+```java Example.java
+{{{ online }}}
+```
+{{#each browserFiles}}
+
+```java {{ name }}
+{{{ source }}}
+```
+{{/each}}
+{{/if}}
 {{else}}
 {{#if preview}}
 ![]({{ concat "/reference/" preview }})

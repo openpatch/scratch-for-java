@@ -24,7 +24,7 @@ public class MyStage extends Stage {
 }
 ```
 
-That is a complete program, and it needs no image files: **838 pictures and 266
+That is a complete program, and it needs no image files: **922 pictures and 266
 sounds are built in**.
 
 Here is one running. Press **▶** — then change a number or a costume name and
@@ -68,7 +68,9 @@ class Walker extends AnimatedSprite {
 
 - **[Your first program](/tutorials/getting-started)** — ten minutes, nothing to
   download
-- **[Setup](/setup)** — BlueJ, VS Code or plain Java
+- **[Setup](/setup)** — browser, Studio, BlueJ, VS Code or plain Java
+- **[Erste Schritte](/erste-schritte)** — Einstieg auf Deutsch
+- **[Classroom course pack](/classroom)** — prepared offline projects and teacher notes
 - **[Sprites](/sprites)** and **[Sounds](/sounds)** — the built-in library
 - **[Documentation](/reference)** — every method with the Scratch block it
   replaces

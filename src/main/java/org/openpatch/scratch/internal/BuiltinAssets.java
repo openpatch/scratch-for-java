@@ -16,8 +16,10 @@ import tools.jackson.dataformat.xml.annotation.JacksonXmlProperty;
  * Registry for the sprite sheets that ship inside the Scratch for Java jar.
  *
  * <p>
- * The bundled artwork comes from <a href="https://kenney.nl">kenney.nl</a> and
- * is released under CC0, so it can be used for any purpose without attribution.
+ * The bundled artwork comes from <a href="https://kenney.nl">kenney.nl</a>, apart
+ * from the cat sheet with the Scratch for Java mascot and the props of its
+ * platformer, which was drawn for this library. All of it is released under
+ * CC0, so it can be used for any purpose without attribution.
  * Each sheet has an XML atlas next to it describing where every single sprite
  * sits on the sheet; this class reads those atlases and lets a sprite be
  * addressed by plain name:
@@ -51,7 +53,7 @@ public final class BuiltinAssets {
    * The bundled sheets, in lookup order. When the same bare name exists on
    * several sheets, the one listed first wins.
    */
-  private static final String[] SHEETS = { "platformer", "jumper", "space_shooter", "tappy_plane" };
+  private static final String[] SHEETS = { "platformer", "jumper", "space_shooter", "tappy_plane", "cat" };
 
   private static final String BASE = "images/";
 

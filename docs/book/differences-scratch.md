@@ -5,9 +5,12 @@ index: 3
 
 # Differences to Scratch
 
-Probably the most noticeable differences to Scratch are the following:
+Scratch for Java keeps stages, sprites, costumes and events. Java gives each
+object fields and methods; the library calls `run()` once per game frame. At
+normal speed that is about 60 frames per second. Pause, single-step and game
+speed control game time, including timers, animation and timed speech.
 
-- There is not wait-block on a Sprite-level, you need to use [Timers](/reference/sprite/sensing/getTimer).
+- Use [Timers](/reference/Sprite/getTimer) to delay a sprite's next action across frames. Keep each `run()` call short.
 
 If you want to achieve something like this inside a Sprite:
 
@@ -22,7 +25,7 @@ You can use a timer.
 
 ```java
 public class Cat extends Sprite {
-    // executes 60-times a second, if the sprite is added to a stage.
+    // Called once per game frame while the sprite is on a running stage.
     public void run() {
         if (this.getTimer().everyMillis(1000)) {
             this.nextCostume();
@@ -32,18 +35,18 @@ public class Cat extends Sprite {
 ```
 
 
-- There **is** a sprite and sound library, like in Scratch: 838 pictures and 266
-  sounds ship with Scratch for Java, and you use them by name with
-  `addCostume("bunny1_stand")`. Browse them on the [Sprites](/sprites) and
-  [Sounds](/sounds) pages. What Scratch has and this does not is a *choose from
-  a categorised catalogue with previews inside the editor* - here it is a
-  documentation page you search.
-- There are no built-in editors, so for drawing or recording your own files you
-  need external tools like [GIMP](https://www.gimp.org/),
-  [Inkscape](https://inkscape.org/), [Audacity](https://www.audacityteam.org/)
-  and so on.
-- If you want to share your project with others, you have to used external sharing platforms like Nextcloud, iCloud, Dropbox or better a code sharing platform like GitHub.
-- You **can not** use a forever loop. This will halt you program.
+- **922 pictures and 266 sounds** ship with the library. Studio's asset browser
+  provides previews; the [Sprites](/sprites) and [Sounds](/sounds) pages show the
+  same assets. Call `addCostume("bunny1_stand")` to use one.
+- Studio includes costume and sound tools. Files created in other tools can be
+  imported as ordinary assets. Browser workspaces can carry image, audio, font
+  and shader files; project ZIPs preserve their bytes.
+- Save and share a project ZIP or its ordinary Java folder. The browser also
+  supports workspace JSON. Review [compatibility](/compatibility) before
+  switching environments: file-system, recording and Tiled APIs require desktop.
+- A tight `while (true)` inside `run()` blocks later frames. Put one frame's work
+  in `run()` and use timers or state fields for sequencing. Finite loops that
+  finish quickly are useful in constructors and methods.
 
 If you want to achieve something like this inside a Sprite:
 
@@ -57,14 +60,16 @@ You can use the run-method of the Sprite-class.
 
 ```java
 public class Cat extends Sprite {
-    // executes 60-times a second, if the sprite is added to a stage.
+    // Called once per game frame while the sprite is on a running stage.
     public void run() {
         this.move(10);
     }
 }
 ```
 
-- If you want to have a variable for all sprites, you have to use a static attribute. Static attributes are available across all objects.
+- Shared state can live in a stage object passed to its sprites, or in a static
+  field. Instance fields belong to one object. Clones copy field values; a copied
+  reference still points to the same array or object, so plan shared state.
 
 ```java
 public class Cat extends Sprite {
@@ -125,3 +130,11 @@ public class Player extends Sprite {
     }
 }
 ```
+
+## Importing a Scratch project
+
+Studio keeps the original `.sb3` and records migration tasks beside generated
+Java. Open a task to locate its original block and the Java line that needs
+attention. Timed and concurrent scripts need decisions about frame updates,
+timers and shared state. See [Migration lessons](/migration) and test each
+sequence before sharing the result.
