@@ -143,6 +143,15 @@ public class Applet extends PApplet {
     if (Applet.instance == null) {
       Applet.instance = this;
     }
+    // On Windows with display scaling, AWT reports the screen in scaled pixels
+    // (1280x720 for 1920x1080 at 150%), while JOGL places its window in real
+    // ones: fullScreen() then covers only part of the screen and windows are
+    // centred off it. Processing turns AWT's scaling off itself, but only when
+    // it finds fenster.exe, which ships with the Processing IDE and not with
+    // this library. It must happen before anything starts AWT.
+    if (PApplet.platform == PConstants.WINDOWS && System.getProperty("sun.java2d.uiScale") == null) {
+      System.setProperty("sun.java2d.uiScale", "1");
+    }
     this.runSketch();
     this.thread("loadAssets");
   }
