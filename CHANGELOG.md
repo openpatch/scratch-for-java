@@ -1,8 +1,15 @@
 ---
 name: Changelog
-index: 74
+index: 75
 lang: en
 ---
+
+## 5.7.1
+
+
+
+Fix windows on Windows with display scaling: `Window.useFullScreen()` now fills the whole screen instead of a borderless part of it, and windows are centred on the screen instead of partly off it.
+
 
 ## 5.7.0
 
