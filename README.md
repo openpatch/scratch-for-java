@@ -22,6 +22,10 @@ npx hyperbook dev
 
 ## Library
 
+Browser versions, API availability and synchronization commands are documented in
+[compatibility/README.md](compatibility/README.md). The generated contract is
+[compatibility/contract.json](compatibility/contract.json).
+
 If you want to work on the library. You need a Java environment and Maven. Then you can use the following command to build
 the library.
 
@@ -132,3 +136,23 @@ Scratch for Java is maintained by [OpenPatch](https://openpatch.org), an organiz
 The Scratch for Java library is profiled using [Java Profiler](https://www.ej-technologies.com/products/jprofiler/overview.html)
 
 [![Java Profiler](https://www.ej-technologies.com/images/product_banners/jprofiler_large.png)](https://www.ej-technologies.com/products/jprofiler/overview.html)
+
+
+## Shared release data and offline course
+
+Javadoc generates the API catalog; atlas and example sources generate the asset
+and project catalogs. Run `scripts/release-catalogs.py` after documentation
+metadata generation. `--check`, `--studio` and `--online-ide` verify consumer
+snapshots without requiring a particular checkout layout. `--archive` creates
+an offline artifact used by Studio's template synchronizer.
+
+Build the tutorial/Spielwerkstatt pack with:
+
+```sh
+python3 scripts/build-course-pack.py --curriculum /path/to/hyperbook-informatik \
+  --output target/scratch-to-java-course.zip
+```
+
+See `compatibility/portable-project.md`, `compatibility/behavioral-checks.md`
+and `course/` for transfer/test formats, teacher notes and the pending pilot form.
+The canonical behavioral check runs unchanged in desktop JUnit and Chromium.

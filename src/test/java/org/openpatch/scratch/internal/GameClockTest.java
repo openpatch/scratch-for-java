@@ -78,4 +78,18 @@ class GameClockTest {
     clock.setSpeed(-3);
     assertEquals(0, clock.getSpeed());
   }
+
+  @Test
+  void nonFiniteSpeedCannotPoisonTimersOrFreezeTheWindow() {
+    GameClock clock = new GameClock();
+    for (double speed : new double[] { Double.NaN, Double.POSITIVE_INFINITY, Double.NEGATIVE_INFINITY }) {
+      clock.setSpeed(speed);
+      assertEquals(0, clock.getSpeed());
+      assertEquals(0, clock.frame(FRAME));
+    }
+    clock.setSpeed(1);
+    assertEquals(1, clock.frame(-1));
+    clock.advance();
+    assertEquals(0, clock.millis());
+  }
 }

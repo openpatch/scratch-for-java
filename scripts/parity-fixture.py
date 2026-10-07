@@ -2,15 +2,16 @@
 """
 Carries ParityProbe and its expected values into the online IDE's test suite.
 
-The desktop probe is the original. The browser cannot run it as it stands - there
-are no packages, no imports and no main() in that dialect - so the statements are
-lifted out and the print helper is inlined. Doing that by hand would let the two
+The desktop probe is the original. The synchronous Node test harness runs its
+stage-free statements with an inline print helper. Doing that by hand would let the two
 drift, which is the very thing the probe exists to catch, so it is done here and
 the result is generated, never edited.
 
     python3 scripts/parity-fixture.py            write the fixture
     python3 scripts/parity-fixture.py --check    fail if the committed one is stale
 """
+import argparse
+import os
 import re
 import sys
 from pathlib import Path
@@ -18,7 +19,6 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 PROBE = ROOT / "src/examples/java/parity/ParityProbe.java"
 EXPECTED = ROOT / "src/test/resources/parity/expected.txt"
-FIXTURE = ROOT.parent / "online-ide/src/test/java/ScratchParityTest.java"
 
 def statements() -> list[str]:
     """
@@ -108,25 +108,31 @@ def build() -> str:
 
 
 def main() -> None:
-    check = "--check" in sys.argv
-    if not FIXTURE.parent.exists():
-        message = f"the online IDE is not beside this repository ({FIXTURE.parent})"
-        if check:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--check", action="store_true")
+    parser.add_argument("--online-ide", type=Path, default=ROOT.parent / "online-ide")
+    parser.add_argument("--strict", action="store_true", help="fail if the required browser checkout is absent (automatic in CI)")
+    args = parser.parse_args()
+    fixture = args.online_ide / "src/test/java/ScratchParityTest.java"
+    strict = args.strict or os.environ.get("CI", "").lower() in {"1", "true"}
+    if not fixture.parent.exists():
+        message = f"required browser checkout is missing ({fixture.parent})"
+        if args.check and not strict:
             print(f"parity-fixture: skipped, {message}")
             return
         sys.exit(f"parity-fixture: {message}")
 
     wanted = build()
-    if check:
-        current = FIXTURE.read_text() if FIXTURE.exists() else ""
+    if args.check:
+        current = fixture.read_text() if fixture.exists() else ""
         if current != wanted:
             sys.exit("parity-fixture: the online IDE's copy is out of date - "
                      "run python3 scripts/parity-fixture.py")
         print("parity-fixture: the online IDE's copy is up to date.")
         return
 
-    FIXTURE.write_text(wanted)
-    print(f"parity-fixture: wrote {FIXTURE} "
+    fixture.write_text(wanted)
+    print(f"parity-fixture: wrote {fixture} "
           f"({len(statements())} lines, {len(keys())} of "
           f"{len(EXPECTED.read_text().splitlines())} values)")
 

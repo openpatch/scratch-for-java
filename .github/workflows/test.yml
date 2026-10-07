@@ -11,6 +11,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
 
     steps:
       - name: Checkout repository
@@ -29,3 +30,6 @@ jobs:
 
       - name: Run tests
         run: mvn -B test
+
+      - name: Check browser compatibility and generated references
+        uses: ./.github/actions/check-browser

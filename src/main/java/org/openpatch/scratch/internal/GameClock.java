@@ -66,7 +66,7 @@ public final class GameClock {
 
   /** 1 is normal, 0.5 half as fast, 2 twice as fast; never below 0. */
   public void setSpeed(double speed) {
-    this.speed = Math.max(0, speed);
+    this.speed = Double.isFinite(speed) ? Math.max(0, speed) : 0;
   }
 
   public double getSpeed() {
@@ -89,7 +89,7 @@ public final class GameClock {
       this.stepSeconds = 0;
       return 0;
     }
-    this.owed += realSeconds * this.speed;
+    this.owed += Math.max(0, realSeconds) * this.speed;
     this.credit += this.speed;
     int steps = (int) Math.min(Math.floor(this.credit), MAX_STEPS_PER_FRAME);
     if (steps == 0) {

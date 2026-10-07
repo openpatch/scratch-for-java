@@ -8,6 +8,7 @@ on:
 jobs:
   documentation:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
 
     permissions:
       pages: write      # needed to publish to GitHub Pages
@@ -21,11 +22,21 @@ jobs:
         uses: actions/setup-java@v5
         with:
           distribution: temurin
-          java-version: 17
+          java-version: 25
           cache: maven
 
       - name: Build Java Project
         run: mvn clean package
+
+      - name: Check browser compatibility before publishing
+        uses: ./.github/actions/check-browser
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install the released Hyperbook toolchain
+        run: npm install --global hyperbook@0.112.0
 
       - name: Build Docs
         run:  bash ./build.sh

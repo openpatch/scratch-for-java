@@ -16,14 +16,15 @@ class BuiltinAssetsTest {
   void readsEverySubTextureFromEveryBundledAtlas() {
     // The four Kenney atlases hold 845 sub textures, but four of them are listed
     // twice within platformer.xml and three names exist on two sheets, leaving
-    // 838 distinct bare names.
-    assertEquals(838, BuiltinAssets.getNames().size());
+    // 838 distinct bare names. The cat sheet adds 81 names of its own.
+    assertEquals(919, BuiltinAssets.getNames().size());
   }
 
   @Test
   void listsEveryDistinctSprite() {
-    // 845 sub textures minus the four listed twice inside platformer.xml.
-    assertEquals(841, BuiltinAssets.getEntries().size());
+    // 845 Kenney sub textures minus the four listed twice inside platformer.xml,
+    // plus the 81 frames of the cat sheet.
+    assertEquals(922, BuiltinAssets.getEntries().size());
   }
 
   @Test
@@ -120,6 +121,27 @@ class BuiltinAssetsTest {
     } catch (java.io.IOException e) {
       throw new IllegalStateException("could not read " + resourcePath, e);
     }
+  }
+
+  @Test
+  void theMascotsAnimationsAreNumberedFromOneWithFramesOfOneSize() {
+    // AnimatedSprite.addAnimation("walk", "cat_walk_%d", 6) counts from 1
+    String[][] animations = {
+        { "idle", "26" }, { "walk", "6" }, { "crouch", "4" }, { "jump", "3" }, { "fall", "2" },
+        { "land", "2" }, { "punch", "6" }, { "hurt", "3" }, { "ko", "5" }, { "cheer", "4" },
+        { "climb", "4" } };
+    for (String[] animation : animations) {
+      int frames = Integer.parseInt(animation[1]);
+      for (int i = 1; i <= frames; i++) {
+        BuiltinAssets.Entry entry = BuiltinAssets.get("cat_" + animation[0] + "_" + i);
+        assertNotNull(entry, "cat_" + animation[0] + "_" + i);
+        assertEquals("cat", entry.sheet);
+        assertEquals(64, entry.width);
+        assertEquals(64, entry.height);
+      }
+      assertFalse(BuiltinAssets.contains("cat_" + animation[0] + "_" + (frames + 1)));
+    }
+    assertEquals(90, BuiltinAssets.get("cat_walk_1").direction);
   }
 
   @Test
