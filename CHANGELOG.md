@@ -1,8 +1,50 @@
 ---
 name: Changelog
-index: 73
+index: 74
 lang: en
 ---
+
+## 5.7.0
+
+
+
+Sprites load their costumes without a window, so sizes, costume switching,
+hitboxes and clones can be checked in plain unit tests. Without a window,
+timers stand at 0.
+
+
+Variable monitors, like Scratch's "show variable": `showVariable("score", () ->
+score)` on a stage or a sprite shows the name and the current value in the top
+left corner of the stage, updated every frame, and `hideVariable("score")`
+takes it away. A sprite's monitor says whose variable it is, for example "Cat:
+lives".
+
+
+The game can be paused, stepped and slowed down: `Window.getInstance().pause()`,
+`resume()`, `isPaused()`, `step()` (one frame while paused) and
+`setGameSpeed(0.5)` for half speed. `run()`, timers, gliding, animations and
+timed speech bubbles all follow, so the whole game stands still or runs in slow
+motion while the window keeps drawing; keys and clicks still arrive, so a key
+can resume the game. `Timer.millis()` and `getDeltaTime()` count game time,
+which is the real time as long as the game is neither paused nor sped up.
+
+
+Clones work like Scratch's. `clone()` makes a clone of the same class (a clone
+of a `Cat` is a `Cat`, with a copy of its variables), puts it on the stage right
+behind the original and runs its new `whenStartsAsClone()`, "when I start as a
+clone". `deleteThisClone()` removes a clone and leaves the original alone, and
+`isClone()` tells them apart.
+
+```java
+public void whenStartsAsClone() {
+  this.goToRandomPosition();
+}
+```
+
+Before, `clone()` returned a plain `Sprite` that was not on the stage, so it
+neither showed up nor ran the class's `run()`. A copy made with `new
+Sprite(other)` also drew with the other sprite's pen; it has its own now.
+
 
 ## 5.6.0
 
