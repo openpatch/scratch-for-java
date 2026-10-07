@@ -1,14 +1,19 @@
 name: Release
 
 on:
+  workflow_dispatch:
   pull_request:
     types: [closed]
     branches:
       - main
 
+concurrency:
+  group: scratch-library-release
+  cancel-in-progress: false
+
 jobs:
   validate:
-    if: github.event.pull_request.merged == true
+    if: github.event.pull_request.merged == true || (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -23,7 +28,7 @@ jobs:
 
   release:
     needs: validate
-    if: github.event.pull_request.merged == true  # only run if PR was merged
+    if: github.event.pull_request.merged == true || (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main')
     runs-on: ubuntu-latest
 
     permissions:
@@ -61,7 +66,9 @@ jobs:
       - name: Deploy to Maven Central (signed)
         run: |
           mvn --version
-          mvn -B clean deploy -Pcentral -Dgpg.executable=gpg
+          # A previous attempt may have published to Central before a later
+          # catalog or GitHub upload failed. Reuse immutable published versions.
+          mvn -B clean deploy -Pcentral -Dgpg.executable=gpg -DignorePublishedComponents=true -DwaitUntil=published
         env:
           MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.MAVEN_PASSWORD }}
