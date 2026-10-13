@@ -64,9 +64,13 @@ public class MapObject {
   public Object point;
 
   /** A Polygon object representing a polygon shape. */
+  // read from the map file although it is not public (the reader only fills
+  // public fields by itself, so polygon objects used to come without their shape)
+  @com.fasterxml.jackson.annotation.JsonProperty("polygon")
   protected Polygon polygon;
 
   /** A Polyline object representing a polyline shape. */
+  @com.fasterxml.jackson.annotation.JsonProperty("polyline")
   protected Polyline polyline;
 
   /**

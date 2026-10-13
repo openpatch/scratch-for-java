@@ -2,6 +2,7 @@ package org.openpatch.scratch.extensions.tiled;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -48,6 +49,25 @@ class TiledFormatsTest {
       buffer.putInt((int) v);
     }
     return buffer.array();
+  }
+
+  @Test
+  void polygonObjectsKeepTheirShape() throws Exception {
+    Map m = load(map("""
+        <objectgroup id="2" name="Objects">
+          <object id="1" type="Wall" x="10" y="20">
+            <polygon points="0,0 30,0 30,-10"/>
+          </object>
+          <object id="2" type="Fence" x="0" y="0">
+            <polyline points="0,0 5,5"/>
+          </object>
+        </objectgroup>
+        """));
+    MapObject wall = TiledMap.objectsFromLayer(m, "Objects")[0];
+    assertNotNull(wall.polygon, "the polygon is read");
+    assertEquals(3, wall.polygon.getPoints().length);
+    assertEquals(org.openpatch.scratch.Polygon.class, wall.getShape().getClass());
+    assertNotNull(TiledMap.objectsFromLayer(m, "Objects")[1].polyline, "the polyline is read");
   }
 
   @Test
