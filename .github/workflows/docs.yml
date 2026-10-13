@@ -35,8 +35,9 @@ jobs:
         with:
           node-version: '22'
 
-      - name: Install the released Hyperbook toolchain
-        run: npm install --global hyperbook@0.112.0
+      # docs/package.json pins Hyperbook; update it there, not here
+      - name: Install the pinned Hyperbook toolchain
+        run: npm ci --prefix docs
 
       - name: Build Docs
         run:  bash ./build.sh

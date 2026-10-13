@@ -1,0 +1,11 @@
+{
+  "name": "scratch-for-java-docs",
+  "private": true,
+  "scripts": {
+    "dev": "hyperbook dev",
+    "build": "hyperbook build"
+  },
+  "devDependencies": {
+    "hyperbook": "0.113.1"
+  }
+}

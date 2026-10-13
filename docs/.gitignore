@@ -9,3 +9,4 @@ book/sprites.md
 book/sounds.md
 public/builtin
 archives/*/+libs/*.jar
+node_modules

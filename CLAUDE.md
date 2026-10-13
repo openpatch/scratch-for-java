@@ -17,7 +17,8 @@ keeping the same mental model (Window / Stage / Sprite, costumes, backdrops, bro
 - `mvn clean package -Pall,nrw` — build the NRW Abitur version (`target/scratch-<version>-nrw-all.jar`), in which `find`, `getAll` and `getTouchingSprites` return the `List` of the NRW Zentralabitur. The sources are rewritten from the `// nrw-standard-begin` / `// nrw:` markers in `Stage.java` and `Sprite.java` by `src/tools/java/variants/NrwVariant.java`; tests, examples and docs are skipped in that build
 - `mvn deploy -Pcentral` — release to Maven Central (GPG signing + central-publishing-maven-plugin); not something to run casually
 - `./build.sh` — full doc site build: copies CHANGELOG into the docs book, regenerates reference GIFs from `src/examples/java/reference`, substitutes the version into docs, then runs `npx hyperbook build` inside `docs/`
-- `cd docs && npx hyperbook dev` — run the documentation site locally
+- `cd docs && npm ci && npx hyperbook dev` — run the documentation site locally. The Hyperbook
+  version is pinned in `docs/package.json` (CI installs it with `npm ci --prefix docs`); update it there
 
 Tests live in `src/test/java` and run under JUnit 5. They cover the parts that can be checked
 without a window — geometry, operators, colours, the built-in asset registry — plus one that guards
