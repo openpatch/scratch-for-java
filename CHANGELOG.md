@@ -1,8 +1,17 @@
 ---
 name: Changelog
-index: 79
+index: 80
 lang: en
 ---
+
+## 6.1.2
+
+
+
+Jackson 3.2.3, which fixes the denial-of-service and validation issues in
+jackson-core and jackson-databind 3.2.1 that Scratch for Java used to read Tiled
+maps and JSON files.
+
 
 ## 6.1.1
 
