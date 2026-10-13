@@ -13,18 +13,15 @@ did. This chapter is about **several screens in one window**.
 
 Nothing here needs a downloaded file.
 
-## Step 1: The window is not the stage
+## Step 1: A window of its own
 
-You have been writing `super(500, 260)` inside a stage since the first chapter,
-and it has been doing two jobs at once. A stage is one screen of your project.
-The **window** is the thing on your desktop that the screen is drawn in.
+Since the first chapter, `main` has opened a window and put a stage into it. A
+stage is one screen of your project. The **window** is the thing on your desktop
+that the screen is drawn in. This game gets three screens - a title, the game
+and a game-over screen - but it still has one window.
 
-Up to now you never said which was which, because a stage that finds no window
-quietly makes one for itself. That is what the size was for.
-
-As soon as you want a second screen, the two have to be told apart — otherwise
-the second stage would try to make a second window. So the window gets a class
-of its own:
+With more than one screen it helps to give the window a class of its own, which
+decides what is shown first:
 
 ```java
 import org.openpatch.scratch.*;
@@ -41,9 +38,8 @@ public class DodgeWindow extends Window {
 }
 ```
 
-The size moved to the window, where it belonged all along, and `setStage` says
-which screen to show first. From here on the stages take no size at all — they
-are all drawn in the same window.
+The size is the window's, and `setStage` says which screen to show first. The
+stages take no size - they are all drawn in the same window.
 
 :::alert{info}
 
@@ -515,7 +511,8 @@ public void gameOver() {
     best = this.dodged;
   }
   Window.getInstance().setStage(
-      new TitleStage("You dodged " + this.dodged + ". Best: " + best));
+      Window myWindow = new Window(480, 360);
+      myWindow.setStage(new TitleStage("You dodged " + this.dodged + ". Best: " + best)));
 }
 ```
 

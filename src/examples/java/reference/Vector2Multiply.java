@@ -4,7 +4,9 @@ import org.openpatch.scratch.*;
 
 public class Vector2Multiply {
   public Vector2Multiply() {
-    Stage myStage = new Stage(600, 240);
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
     Pen myPen = new Pen();
     myStage.add(myPen);
     myPen.setSize(4);

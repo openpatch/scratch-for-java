@@ -3,7 +3,9 @@ import org.openpatch.scratch.*;
 
 public class StageSwitchBackdrop {
   public StageSwitchBackdrop() {
-    Stage myStage = new Stage(600, 240);
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
     myStage.addBackdrop("forest", "background");
     myStage.addBackdrop("sea", "UIbg");
     myStage.wait(2000);

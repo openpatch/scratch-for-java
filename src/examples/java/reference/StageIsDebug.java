@@ -4,7 +4,9 @@ import org.openpatch.scratch.*;
 
 public class StageIsDebug {
   public StageIsDebug() {
-    Stage myStage = new Stage(600, 240);
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
 
     myStage.setDebug(true);
     System.out.println("Debug mode is on: " + myStage.isDebug());

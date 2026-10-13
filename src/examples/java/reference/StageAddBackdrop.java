@@ -1,9 +1,12 @@
 package reference;
 import org.openpatch.scratch.Stage;
+import org.openpatch.scratch.Window;
 
 public class StageAddBackdrop {
   public StageAddBackdrop() {
-    Stage myStage = new Stage(600, 240);
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
     myStage.addBackdrop("forest", "background", true);
     myStage.wait(1000);
   }

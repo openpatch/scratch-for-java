@@ -31,7 +31,8 @@ the up and down arrows to change how loud it is.
 ```java Volume.java
 
 void main() {
-  new Volume();
+  Window myWindow = new Window(480, 260);
+  myWindow.setStage(new Volume());
 }
 
 /**
@@ -44,14 +45,13 @@ void main() {
  */
 class Volume extends Stage {
 
-  // scratch4j:begin fields (managed by the stage designer)
+  // begin stage designer
   private Sprite speaker;
-  // scratch4j:end fields
+  // end stage designer
 
   private final Text label = new Text();
 
   public Volume() {
-    super(480, 260);
 
     this.setVolume(100);
 
@@ -59,7 +59,7 @@ class Volume extends Stage {
     this.label.setTextSize(20);
     this.add(this.label);
 
-    // scratch4j:begin setup (managed by the stage designer)
+    // begin stage designer
     this.addBackdrop("background");
     this.addSound("handleCoins");
     speaker = new Sprite();
@@ -67,7 +67,7 @@ class Volume extends Stage {
     speaker.setPosition(0, -40);
     speaker.setSize(60);
     this.add(speaker);
-    // scratch4j:end setup
+    // end stage designer
 
     this.showVolume();
   }

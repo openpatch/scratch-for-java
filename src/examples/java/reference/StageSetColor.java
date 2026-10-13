@@ -3,7 +3,9 @@ import org.openpatch.scratch.*;
 
 public class StageSetColor {
   public StageSetColor() {
-    Stage myStage = new Stage(600, 240);
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
     myStage.wait(2000);
     myStage.setColor(200);
     myStage.wait(2000);

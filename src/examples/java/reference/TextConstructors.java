@@ -4,7 +4,9 @@ import org.openpatch.scratch.*;
 
 public class TextConstructors {
   public TextConstructors() {
-    Stage myStage = new Stage(600, 240);
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
     // A text needs the words, where it sits and how wide it may grow before it
     // wraps onto the next line.
     Text myText = new Text("Hello World", 0, 60, 400);

@@ -4,9 +4,9 @@ import org.openpatch.scratch.Sprite;
 public class HedgehogSprite extends Sprite {
 
   public HedgehogSprite() {
-    // scratch4j:begin setup (managed by the stage designer)
+    // begin sprite editor
     this.addCostume("hedgehog", "hedgehog.png");
-    // scratch4j:end setup
+    // end sprite editor
 
     this.setPosition(-180, 140);
     this.setDirection(160);

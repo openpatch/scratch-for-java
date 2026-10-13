@@ -36,12 +36,12 @@ start it again, it is a real editor. Every tutorial and every method in the
 ```java MyStage.java
 
 void main() {
-  new MyStage();
+  Window myWindow = new Window(500, 260);
+  myWindow.setStage(new MyStage());
 }
 
 class MyStage extends Stage {
   public MyStage() {
-    super(500, 260);
     this.addBackdrop("background");
     this.add(new Walker());
   }

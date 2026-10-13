@@ -3,7 +3,9 @@ import org.openpatch.scratch.*;
 
 public class TextGoToBackLayer {
   public TextGoToBackLayer() {
-    Stage myStage = new Stage(600, 240);
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
 
     Text hello = new Text("Hello", -25, 12, 200);
     hello.setStyle(TextStyle.BOX);

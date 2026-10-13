@@ -4,7 +4,9 @@ import org.openpatch.scratch.*;
 
 public class StageAdd {
   public StageAdd() {
-    Stage myStage = new Stage(600, 240);
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
 
     // Sprites, texts and pens all go onto the stage the same way, and are drawn
     // in the order they were added.

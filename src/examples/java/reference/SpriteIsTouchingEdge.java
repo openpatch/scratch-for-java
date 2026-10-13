@@ -3,7 +3,9 @@ import org.openpatch.scratch.*;
 
 public class SpriteIsTouchingEdge {
   public SpriteIsTouchingEdge() {
-    Stage myStage = new Stage(600, 240);
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
     Sprite mySprite = new Sprite("zeta", "slimeGreen");
     mySprite.changeY(-10);
     mySprite.changeX(-80);

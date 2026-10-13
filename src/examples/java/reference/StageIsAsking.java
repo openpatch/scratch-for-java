@@ -4,7 +4,9 @@ import org.openpatch.scratch.*;
 
 public class StageIsAsking {
   public StageIsAsking() {
-    Stage myStage = new Stage(600, 240);
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
 
     myStage.ask("Are you still there?");
     // True for as long as the box is on the stage waiting to be filled in.

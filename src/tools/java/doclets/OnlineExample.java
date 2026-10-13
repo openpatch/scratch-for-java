@@ -74,6 +74,9 @@ final class OnlineExample {
     private static final Pattern SCAFFOLDING = Pattern.compile(
             "^\\s*(?:package\\b|import\\b).*");
 
+    private static final Pattern WINDOW_SIZE = Pattern.compile(
+            "^\\s*super\\(\\s*(\\d+\\s*,\\s*\\d+)\\s*\\)\\s*;");
+
     private static final Pattern TYPE_DECLARATION = Pattern.compile(
             "^\\s*(?:(?:public|private|protected|static|abstract|final)\\s+)*"
                     + "(?:class|interface|enum|record)\\s+(\\w+)(\\s+extends\\s+(\\w+))?");
@@ -126,14 +129,17 @@ final class OnlineExample {
         var types = new ArrayList<String>();
         var statements = new ArrayList<String>();
         var stages = new ArrayList<String>();
+        var windowSize = new ArrayList<String>();
         for (String source : sources) {
-            unwrap(source, types, statements, stages, windowIsAWrapper);
+            unwrap(source, types, statements, stages, windowIsAWrapper, windowSize);
         }
 
         // A folder example has no loose statements of its own: the window built
-        // the stage, and here that one line is the whole program.
+        // the stage, and here those two lines are the whole program.
         if (statements.isEmpty() && !stages.isEmpty()) {
-            statements.add("new " + stages.get(0) + "();");
+            String size = windowSize.isEmpty() ? "480, 360" : windowSize.get(0);
+            statements.add("Window myWindow = new Window(" + size + ");");
+            statements.add("myWindow.setStage(new " + stages.get(0) + "());");
         }
         if (statements.isEmpty() && types.isEmpty()) {
             return null;
@@ -217,7 +223,7 @@ final class OnlineExample {
 
     /** Splits one example file into the classes it declares and the program itself. */
     private static void unwrap(String source, List<String> types, List<String> statements,
-            List<String> stages, boolean windowIsAWrapper) {
+            List<String> stages, boolean windowIsAWrapper, List<String> windowSize) {
         var lines = List.of(source.split("\n", -1));
 
         int depth = 0;
@@ -236,6 +242,11 @@ final class OnlineExample {
 
             // a class being dropped whole (the Window wrapper of a folder example)
             if (skipDepth >= 0) {
+                // the dropped window's size is the one the program's window gets
+                Matcher size = WINDOW_SIZE.matcher(line);
+                if (size.find() && windowSize.isEmpty()) {
+                    windowSize.add(size.group(1));
+                }
                 if (depth <= skipDepth) {
                     skipDepth = -1;
                 }

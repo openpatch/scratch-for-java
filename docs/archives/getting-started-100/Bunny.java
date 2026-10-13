@@ -2,9 +2,9 @@ import org.openpatch.scratch.*;
 
 public class Bunny extends Sprite {
   public Bunny() {
-    // scratch4j:begin setup (managed by the stage designer)
+    // begin sprite editor
     this.addCostume("bunny1_stand");
-    // scratch4j:end setup
+    // end sprite editor
     this.setSize(50);
     this.setRotationStyle(RotationStyle.LEFT_RIGHT);
   }

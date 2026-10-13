@@ -4,7 +4,9 @@ import org.openpatch.scratch.*;
 
 public class StageGetMouseY {
   public StageGetMouseY() {
-    Stage myStage = new Stage(600, 240);
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
 
     while (true) {
       myStage.display("mouse y: " + myStage.getMouseY());

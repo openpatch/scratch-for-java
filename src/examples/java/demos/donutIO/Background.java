@@ -5,9 +5,9 @@ import org.openpatch.scratch.Sprite;
 public class Background extends Sprite {
 
   public Background() {
-    // scratch4j:begin setup (managed by the stage designer)
+    // begin sprite editor
     this.addCostume("grid", "demos/donutIO/assets/grid.png");
-    // scratch4j:end setup
+    // end sprite editor
   }
 
   public void run() {

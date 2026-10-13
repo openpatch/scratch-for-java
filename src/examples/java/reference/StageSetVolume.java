@@ -4,7 +4,9 @@ import org.openpatch.scratch.*;
 
 public class StageSetVolume {
   public StageSetVolume() {
-    Stage myStage = new Stage(600, 240);
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
 
     myStage.addSound("music", "jingles_STEEL16");
     // Half as loud. This is the volume of the stage, not of the sprites on it.

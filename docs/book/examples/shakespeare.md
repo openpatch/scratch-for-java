@@ -23,13 +23,14 @@ font loaded from a file.
 
 void main() {
   Text.useFontSizes(14, 20);
-  new Shakespeare();
+  Window myWindow = new Window(800, 600);
+  myWindow.setStage(new Shakespeare());
 }
 
 class Shakespeare extends Stage {
 
-  // scratch4j:begin fields (managed by the stage designer)
-  // scratch4j:end fields
+  // begin stage designer
+  // end stage designer
 
   private Text bestPhrase;
   private Text allPhrases;
@@ -42,7 +43,6 @@ class Shakespeare extends Stage {
   private Population population;
 
   public Shakespeare() {
-    super(800, 600);
 
     this.target = "To be, or not to be, that is the question.";
     this.populationsize = 5000;
@@ -69,8 +69,8 @@ class Shakespeare extends Stage {
     this.statistics.setAlign(TextAlign.LEFT);
     this.add(this.statistics);
 
-    // scratch4j:begin setup (managed by the stage designer)
-    // scratch4j:end setup
+    // begin stage designer
+    // end stage designer
   }
 
   public void run() {

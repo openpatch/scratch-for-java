@@ -46,9 +46,9 @@ the keys.
 ```java ShaderExample.java
 
 void main() {
-  // scratch4j:begin options (managed by the project settings)
+  // begin project settings
   Window.useFullScreen();
-  // scratch4j:end options
+  // end project settings
   new ShaderExample();
 }
 
@@ -56,18 +56,18 @@ class ShaderExample extends Window {
   public ShaderExample() {
     super(800, 400);
 
-    // scratch4j:begin window (managed by the project settings)
+    // begin project settings
     this.setStage(new MyStage());
-    // scratch4j:end window
+    // end project settings
   }
 }
 
 class MyStage extends Stage {
 
-  // scratch4j:begin fields (managed by the stage designer)
+  // begin stage designer
   private MySprite mySprite;
   private NormalSprite normalSprite;
-  // scratch4j:end fields
+  // end stage designer
 
   public MyStage() {
     var shader = this.getShaders().add("blobby", "blobby.frag", "default.vert");
@@ -78,12 +78,12 @@ class MyStage extends Stage {
     shader = this.getShaders().add("light", "light.frag", "default.vert");
     shader = this.getShaders().add("pixel", "pixel.frag", "default.vert");
     this.getShaders().switchTo("pixel");
-    // scratch4j:begin setup (managed by the stage designer)
+    // begin stage designer
     mySprite = new MySprite();
     this.add(mySprite);
     normalSprite = new NormalSprite();
     this.add(normalSprite);
-    // scratch4j:end setup
+    // end stage designer
 
     for (int i = 0; i < 8; i++) {
       var sprite = new LightSprite();
@@ -134,9 +134,9 @@ class MyStage extends Stage {
 
 class MySprite extends Sprite {
   public MySprite() {
-    // scratch4j:begin setup (managed by the stage designer)
+    // begin sprite editor
     this.addCostume("cat", "cat.png");
-    // scratch4j:end setup
+    // end sprite editor
     var shader = this.getShaders().add("halftone", "halftone.frag", "default.vert");
     shader = this.getShaders().add("pixelate", "pixelate.frag", "default.vert");
     shader.set("pixels", 20.0, 10.0);
@@ -171,9 +171,9 @@ class MySprite extends Sprite {
 
 class NormalSprite extends Sprite {
   public NormalSprite() {
-    // scratch4j:begin setup (managed by the stage designer)
+    // begin sprite editor
     this.addCostume("cat", "cat.png");
-    // scratch4j:end setup
+    // end sprite editor
   }
 
   public void run() {
@@ -184,9 +184,9 @@ class NormalSprite extends Sprite {
 
 class LightSprite extends Sprite {
   public LightSprite() {
-    // scratch4j:begin setup (managed by the stage designer)
+    // begin sprite editor
     this.addCostume("light", "light.png");
-    // scratch4j:end setup
+    // end sprite editor
   }
 }
 ```

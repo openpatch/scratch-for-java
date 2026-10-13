@@ -4,7 +4,6 @@ import org.openpatch.scratch.*;
 public class StageRun {
   class CustomStage extends Stage {
     public CustomStage() {
-      super(600, 240);
       this.setColor(255, 0, 0);
     }
 

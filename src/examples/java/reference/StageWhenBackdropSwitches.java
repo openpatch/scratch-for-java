@@ -13,7 +13,6 @@ public class StageWhenBackdropSwitches {
 
   class CustomStage extends Stage {
     public CustomStage() {
-      super(600, 240);
       this.addBackdrop("forest", "background");
       this.addBackdrop("sea", "UIbg");
     }

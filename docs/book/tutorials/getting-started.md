@@ -32,24 +32,31 @@ public class MyStage extends Stage {
     bunny.addCostume("bunny1_stand");
     this.add(bunny);
   }
+
+  public static void main(String[] args) {
+    Window myWindow = new Window(480, 360);
+    myWindow.setStage(new MyStage());
+  }
 }
 ```
 
-Compile, then right-click the `MyStage` box and choose `new MyStage()`. A window
-opens with a rabbit in it.
+`main` is where the program starts. Its first line opens a window, 480 pixels
+wide and 360 high; the second puts your stage into it. Compile, then right-click
+the `MyStage` box and choose `void main(String[] args)`. A window opens with a
+rabbit in it.
 
 Here is that same program running in this page. Press **▶** to start it — and
 edit it, it is a real editor. Two small differences to the code above: there is
-no `import`, because in the browser every class is there already, and the line
-that builds the stage sits in a `void main()`, which is where a Java program
-starts.
+no `import`, because in the browser every class is there already, and `main` is
+written the short way, as `void main()`, which Java allows since version 25.
 
 :::onlineide{height="440px" libraries="scratch"}
 
 ```java MyStage.java
 
 void main() {
-  new MyStage();
+  Window myWindow = new Window(480, 360);
+  myWindow.setStage(new MyStage());
 }
 
 class MyStage extends Stage {
@@ -148,7 +155,8 @@ public class MyStage extends Stage {
   }
 
   public static void main(String[] args) {
-    new MyStage();
+    Window myWindow = new Window(480, 360);
+    myWindow.setStage(new MyStage());
   }
 }
 ```
@@ -160,7 +168,8 @@ Run it again and hold the left and right arrow keys:
 ```java MyStage.java
 
 void main() {
-  new MyStage();
+  Window myWindow = new Window(480, 360);
+  myWindow.setStage(new MyStage());
 }
 
 class MyStage extends Stage {

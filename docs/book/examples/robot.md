@@ -22,31 +22,31 @@ its position while it moves.
 ```java RobotStage.java
 
 void main() {
-  new RobotStage();
+  Window myWindow = new Window(800, 600);
+  myWindow.setStage(new RobotStage());
 }
 
 class RobotStage extends Stage {
 
-  // scratch4j:begin fields (managed by the stage designer)
+  // begin stage designer
   private RobotSprite robotSprite;
-  // scratch4j:end fields
+  // end stage designer
 
   public RobotStage() {
-    super(800, 600);
     this.setDebug(true);
-    // scratch4j:begin setup (managed by the stage designer)
+    // begin stage designer
     robotSprite = new RobotSprite();
     this.add(robotSprite);
-    // scratch4j:end setup
+    // end stage designer
   }
 }
 
 class RobotSprite extends Sprite {
 
   public RobotSprite() {
-    // scratch4j:begin setup (managed by the stage designer)
+    // begin sprite editor
     this.addCostume("robot", "sprites/robot.png");
-    // scratch4j:end setup
+    // end sprite editor
     this.setSize(20);
     this.changeY(20);
     this.setDirection(45);

@@ -5,9 +5,9 @@ import org.openpatch.scratch.Sprite;
 
 public class HourHandSprite extends Sprite {
   public HourHandSprite() {
-    // scratch4j:begin setup (managed by the stage designer)
+    // begin sprite editor
     this.addCostume("hand", "demos/clock/sprites/hour.png");
-    // scratch4j:end setup
+    // end sprite editor
   }
 
   public void run() {

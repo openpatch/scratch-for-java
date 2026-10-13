@@ -19,9 +19,17 @@ Bunny bunny = new Bunny();
 this.add(bunny);   // without this line, the bunny exists but is not on the stage
 ```
 
-**The stage is never created.** Something has to run `new MyStage()`. In the
-browser and in Studio that is the `void main()` at the top. In BlueJ, right-click
-`MyStage` and choose `new MyStage()`.
+**The stage is never shown.** Something has to open the window and put the stage
+into it:
+
+```java
+Window myWindow = new Window(480, 360);
+myWindow.setStage(new MyStage());
+```
+
+In the browser and in Studio those lines are in the `void main()` at the top. In
+BlueJ, right-click `MyStage` and choose `void main(String[] args)`. Without
+`setStage` the window stays empty, and the library says so in the terminal.
 
 **It is off the stage or very small.** The middle of the stage is x: 0, y: 0. A
 stage is usually 480 wide and 360 high, so x goes from -240 to 240 and y from -180

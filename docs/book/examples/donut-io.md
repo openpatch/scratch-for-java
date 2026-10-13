@@ -25,8 +25,8 @@ resets the zoom.
 
 void main() {
   Text.useFontSizes(32, 48);
-  // scratch4j:begin options (managed by the project settings)
-  // scratch4j:end options
+  // begin project settings
+  // end project settings
   new Game();
 }
 
@@ -37,16 +37,16 @@ class Game extends Window {
   public Game() {
     super(800, 600, "assets");
 
-    // scratch4j:begin window (managed by the project settings)
+    // begin project settings
     this.setStage(new StartStage());
-    // scratch4j:end window
+    // end project settings
   }
 }
 
 class StartStage extends Stage {
 
-  // scratch4j:begin fields (managed by the stage designer)
-  // scratch4j:end fields
+  // begin stage designer
+  // end stage designer
 
   public StartStage() {
     var bg = new Background();
@@ -75,8 +75,8 @@ class StartStage extends Stage {
     text.setPosition(0, -20);
     this.add(text);
 
-    // scratch4j:begin setup (managed by the stage designer)
-    // scratch4j:end setup
+    // begin stage designer
+    // end stage designer
   }
 
   public void whenKeyPressed(KeyCode keyCode) {
@@ -89,10 +89,10 @@ class StartStage extends Stage {
 
 class WorldStage extends Stage {
 
-  // scratch4j:begin fields (managed by the stage designer)
+  // begin stage designer
   private Background background;
   private PlayerDonut player;
-  // scratch4j:end fields
+  // end stage designer
 
   public static Vector2 CAM = new Vector2(0, 0);
   public boolean manualZoom;
@@ -100,12 +100,12 @@ class WorldStage extends Stage {
   public double targetZoom;
   public WorldStage() {
     manualZoom = false;
-    // scratch4j:begin setup (managed by the stage designer)
+    // begin stage designer
     background = new Background();
     this.add(background);
     player = new PlayerDonut();
     this.add(player);
-    // scratch4j:end setup
+    // end stage designer
 
     for (int i = 0; i < 5 * (Game.LEVEL + 1); i++) {
       var m = new FollowDonut(player);
@@ -171,8 +171,8 @@ class WorldStage extends Stage {
 
 class WinStage extends Stage {
 
-  // scratch4j:begin fields (managed by the stage designer)
-  // scratch4j:end fields
+  // begin stage designer
+  // end stage designer
 
   public WinStage() {
     var bg = new Background();
@@ -193,8 +193,8 @@ class WinStage extends Stage {
     text.setPosition(0, -40);
     this.add(text);
 
-    // scratch4j:begin setup (managed by the stage designer)
-    // scratch4j:end setup
+    // begin stage designer
+    // end stage designer
   }
 
   public void whenKeyPressed(KeyCode keyCode) {
@@ -207,8 +207,8 @@ class WinStage extends Stage {
 
 class GameOverStage extends Stage {
 
-  // scratch4j:begin fields (managed by the stage designer)
-  // scratch4j:end fields
+  // begin stage designer
+  // end stage designer
 
   public GameOverStage() {
     var bg = new Background();
@@ -229,8 +229,8 @@ class GameOverStage extends Stage {
     text.setPosition(0, -40);
     this.add(text);
 
-    // scratch4j:begin setup (managed by the stage designer)
-    // scratch4j:end setup
+    // begin stage designer
+    // end stage designer
   }
 
   public void whenKeyPressed(KeyCode keyCode) {
@@ -245,9 +245,9 @@ class GameOverStage extends Stage {
 class Background extends Sprite {
 
   public Background() {
-    // scratch4j:begin setup (managed by the stage designer)
+    // begin sprite editor
     this.addCostume("grid", "assets/grid.png");
-    // scratch4j:end setup
+    // end sprite editor
   }
 
   public void run() {
@@ -267,9 +267,9 @@ class Donut extends Sprite {
   }
 
   public Donut(double x, double y, int strength) {
-    // scratch4j:begin setup (managed by the stage designer)
+    // begin sprite editor
     this.addCostume("donut", "assets/donut.png");
-    // scratch4j:end setup
+    // end sprite editor
     this.setHitbox(new Ellipse(0, 0, 512, 480));
     this.setX(x);
     this.setY(y);
@@ -303,8 +303,8 @@ class PlayerDonut extends Donut {
   public PlayerDonut() {
     super(0, 0, 10);
 
-    // scratch4j:begin setup (managed by the stage designer)
-    // scratch4j:end setup
+    // begin sprite editor
+    // end sprite editor
   }
 
   public void run() {
@@ -323,8 +323,8 @@ class FollowDonut extends Donut {
   public FollowDonut(PlayerDonut player) {
     this.player = player;
 
-    // scratch4j:begin setup (managed by the stage designer)
-    // scratch4j:end setup
+    // begin sprite editor
+    // end sprite editor
   }
 
   public void run() {

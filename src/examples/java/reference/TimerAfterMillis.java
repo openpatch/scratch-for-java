@@ -4,7 +4,9 @@ import org.openpatch.scratch.Timer;
 
 public class TimerAfterMillis {
   public TimerAfterMillis() {
-    Stage myStage = new Stage(600, 240);
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
     Timer myTimer = new Timer();
     while (true) {
       myStage.display("Waiting...");

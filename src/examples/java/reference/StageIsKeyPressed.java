@@ -3,7 +3,9 @@ import org.openpatch.scratch.*;
 
 public class StageIsKeyPressed {
   public StageIsKeyPressed() {
-    Stage myStage = new Stage(600, 240);
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
     while (true) {
       myStage.display("Space pressed? " + myStage.isKeyPressed(KeyCode.SPACE));
     }

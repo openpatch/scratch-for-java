@@ -7,7 +7,6 @@ public class StageHideVariable {
       int clicks = 0;
 
       public MyStage() {
-        super(600, 240);
         this.showVariable("clicks", () -> clicks);
       }
 
@@ -20,7 +19,8 @@ public class StageHideVariable {
       }
     }
 
-    new MyStage();
+    Window myWindow = new Window(600, 240);
+    myWindow.setStage(new MyStage());
   }
 
   public static void main(String[] args) {

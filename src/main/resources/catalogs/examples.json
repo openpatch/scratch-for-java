@@ -13,7 +13,7 @@
       "files": [
         {
           "path": "CatSketch.java",
-          "sha256": "720ccf8f24d9c87beaf05c0e130dee65da5c8e2a31d98352a21ea319577df3ea"
+          "sha256": "e54d85ba904f818a463a08d1eebeeed56cab8a87360aaef9eb2d3abf988c209a"
         },
         {
           "path": "sprites/cat.png",
@@ -47,7 +47,7 @@
         },
         {
           "path": "CatPlatformer.java",
-          "sha256": "bbe3fe14eee8152747818462485beb514870dc2a5f57a6bec9c164a2c294ecb2"
+          "sha256": "2ebe08c710db91cfd5c3544cb502cff7aab96c513a457b93f7db77c47c79fc1b"
         },
         {
           "path": "Goal.java",
@@ -81,23 +81,23 @@
       "files": [
         {
           "path": "ClockSprite.java",
-          "sha256": "498b9a3b87b2863f054895e9cc4d668274f15e7b555cc82025e3715fc68dc79b"
+          "sha256": "683cb2d2f9dbe3009170a129ef78035ae6afa2a62ec4b1fb52b534bd0b0b26f2"
         },
         {
           "path": "ClockStage.java",
-          "sha256": "1b1a9a5cfbec16b86956258fad2e1243df6f8d70d20a9570a5152a513371577b"
+          "sha256": "099ac9d9c1e463273b322f1dc71ad4b9dd9c83e6613b331811ec6ec9b58c2a6e"
         },
         {
           "path": "HourHandSprite.java",
-          "sha256": "afbdbddccfa8e4e2faa0e498d13d8175fb8ccca82f38a6792a9e7b4fe3e9e54b"
+          "sha256": "7320884d0e2748e012eb7130f088f2fe72a52d5b3fb22b8c552455a0390cd574"
         },
         {
           "path": "MinuteHandSprite.java",
-          "sha256": "654e62b72e7e03b1df52077eefac3b077894f1a64a9f2176c9b72c1fac32a6ef"
+          "sha256": "6cdaf9c9ed329cc44f206151261cba171a8b4225fedd3943306dfd5230de6c5c"
         },
         {
           "path": "SecondHandSprite.java",
-          "sha256": "1404a90a1da7fb355b662b7ae5d6d46c4b370d99ea4888cacc3be93e5bb653dd"
+          "sha256": "2df622e1b9e4dbe78fc9567f2adc79077d3c4a976f55311fcbd027cbd200bfb2"
         },
         {
           "path": "sprites/clock.png",
@@ -134,19 +134,19 @@
       "files": [
         {
           "path": "Coin.java",
-          "sha256": "968265215317ce300737ad31da7e07d0b3aff9f09d98f783e5a599bf28203957"
+          "sha256": "8e613d3e815a0f388ade38cb9e2fdf115162edfbfd5714751000103333d9b284"
         },
         {
           "path": "CoinCollector.java",
-          "sha256": "f8100c3e5db0378bb30a3ff74e7c455e4de3a1781dd23e565ff8c604404c3688"
+          "sha256": "7ea50c78169a962f75a35e72d36b355b52af9f4b1b1233218d98e040318503b7"
         },
         {
           "path": "Ground.java",
-          "sha256": "6599317ccac9c3c7535da8dd63e4ffa3aed4e59d02a331ae810aec7c5fb54e3a"
+          "sha256": "5fcea438f03a6d53d766b4dd43bac32dee1d5d1538c7ece78bb7326671fad372"
         },
         {
           "path": "Player.java",
-          "sha256": "7727f61aba83dfc7e368f0f924d313571d7030af54a587eba2c72ba1236129af"
+          "sha256": "0693a09310284af5d2fd58693ac1430d34ea9b09f210e91422d63449bb25497d"
         }
       ]
     },
@@ -160,39 +160,39 @@
       "files": [
         {
           "path": "Background.java",
-          "sha256": "1309869222dd8488b6215aa09da058dfafc753d741584c73dfcd33e50a59adfe"
+          "sha256": "240f3eee3a70b9a9ffcd23d731400300ad1dccb2b9402d820ee9ec7fe250b258"
         },
         {
           "path": "Donut.java",
-          "sha256": "0b4f61e3f7d46d341c2002ebabe8f5039878c2ce189f0621880fa77bfcc71a41"
+          "sha256": "72e4ed699fc1de18ee2a48644d3c5425b762c667a7a7fdfa82aab7038a65a362"
         },
         {
           "path": "FollowDonut.java",
-          "sha256": "07e45838abc4aa1053b1b3cef7e85850924cbd668ff601c1691063e27875a136"
+          "sha256": "0f825e184a975a8caf9131392d3927a7bf87206d0a697418ef41f2dee4b8179a"
         },
         {
           "path": "Game.java",
-          "sha256": "74d613db1055f1bbcdf4e90b26c7edeb971066be49614ef3b8f5036330649190"
+          "sha256": "dd47d147b288eb68780451f6f6c3a1234ff162d63039ec925a455092ccc3bddb"
         },
         {
           "path": "GameOverStage.java",
-          "sha256": "913c81a99e0a8f3b92c8c7bf8889def04cd765a3ec563fdbba9057a45cfc5ab6"
+          "sha256": "8b03b31cb932b6972803e49a58501e5c7b04f0e7b2c4bc0473b7cfa2cf20089c"
         },
         {
           "path": "PlayerDonut.java",
-          "sha256": "dbb1026901d854e2c728ecec7f8d49d83e31e75db93c56a755f7d0d93a9bed97"
+          "sha256": "4db83c6274a49fdb3e506ec7e7a90cba0699410fc7a71c4909dcde55d6ba1ab0"
         },
         {
           "path": "StartStage.java",
-          "sha256": "f8419017ad70bb40949a78b17888188b091e57f347898ca495a6dc80c649c896"
+          "sha256": "9d4a0085c2377ad6e9fcba5fbd05936c1f344b6b12aeb6ec36c3579325b28821"
         },
         {
           "path": "WinStage.java",
-          "sha256": "c4c9fa066d10fc19215d56763ec5a67e09f296764dc1f1d57c7023dda269e86f"
+          "sha256": "691b5d745227a569d9e96fcee082c0ca022cb166702e5f70402f7f1d2573e6d1"
         },
         {
           "path": "WorldStage.java",
-          "sha256": "2143d816a12266a4a1f3cf244e1ecc42201275718187975002499777396817d1"
+          "sha256": "2c1e97bce4d27074b278d77f339c50eda6ad2632c2c324cc7bc50d2fb119566c"
         },
         {
           "path": "assets/donut.png",
@@ -221,7 +221,7 @@
       "files": [
         {
           "path": "Glide.java",
-          "sha256": "ae653f7ce351b21cbed2e71f1a02bac9cc31ac37881fd59c2783a45652df4f16"
+          "sha256": "7744aa30d518a67129773324e1f08d57b3144cdebfcb9b9b6ab3441d0ebb2f86"
         }
       ]
     },
@@ -235,11 +235,11 @@
       "files": [
         {
           "path": "PenSprite.java",
-          "sha256": "d582f5bc29738b2d69f9433c4b7a40b9fae7d6451b8f938fba2768b028a9b736"
+          "sha256": "94b9fb824ef95dfbbd5c0f757aef771be165c1f7917fb5954b5f14651d516283"
         },
         {
           "path": "Pipes.java",
-          "sha256": "3026f03ca92b00776cccd363d0dafa2e15801dc6578279b0c4cc1ca508c155d1"
+          "sha256": "3b516c93456ef4a74b149abb52844d877f6db846dd384f9156701fcacee81e28"
         },
         {
           "path": "backdrops/chalk_board.jpg",
@@ -268,7 +268,7 @@
       "files": [
         {
           "path": "Quiz.java",
-          "sha256": "e7d5e15ce5a8ae60f4f19bda5942784f1a6a3d23e21f0e86f4def2117ca6c9ff"
+          "sha256": "533d9f98ffbc07a09bc90843147baa0d156f09e79b1efa441f7c2597f4745bdf"
         }
       ]
     },
@@ -282,7 +282,7 @@
       "files": [
         {
           "path": "RainbowVine.java",
-          "sha256": "a6fc438d97c957b62e0499fb63fbdd970cab0abd744374049158f233693593bb"
+          "sha256": "ab9f946430b98be3988e4b29606ecf135abc6b9f59002a04406bb9380e0df0c7"
         }
       ]
     },
@@ -296,7 +296,7 @@
       "files": [
         {
           "path": "RandomDot.java",
-          "sha256": "ea0ad9068e6bc875f94aaee7c5e15528c8409b4d4d0b3f819ae795a541cdb0bc"
+          "sha256": "29adafc8e89e37efb43cd41226bb557668f94345b8fd19ae9cdceaa7cf64b246"
         }
       ]
     },
@@ -310,11 +310,11 @@
       "files": [
         {
           "path": "RobotSprite.java",
-          "sha256": "ae603a01374a9838a2430ebd7d9de573df7f9fd5d83780c17c3c24966b2ce3a2"
+          "sha256": "0a1e46dbae1a7aa82d85480cb94728027a100f2ef4151b676aa4c2c127f5752d"
         },
         {
           "path": "RobotStage.java",
-          "sha256": "587f25bbe2b14b6cece3ca64df11c4aad6adac66739a0b8ae02354c11110d81b"
+          "sha256": "d3e5db133393de331fa3f9be1774ff8c74df9ce0437ddcc9cb6c726938a2abc6"
         },
         {
           "path": "sprites/robot.png",
@@ -350,7 +350,7 @@
       "files": [
         {
           "path": "Sensing.java",
-          "sha256": "fb506f93964443ada7a50cdda42c0aea955b1c76886108d9bec59c18fd282394"
+          "sha256": "7a329ba9f3b5eed86c48eec6b963b22516a90267a4ee871bbf62775fc96b692d"
         },
         {
           "path": "sprites/hero.png",
@@ -372,23 +372,23 @@
       "files": [
         {
           "path": "LightSprite.java",
-          "sha256": "3e8e37f53699f06e7d6c1e9838670b9a52f4eeab8289cabf94e5e7f86a5d2bd0"
+          "sha256": "03efc12b15fd94093a3c87345929613d5393eaffbe7c52aae4072a6fb2a135a4"
         },
         {
           "path": "MySprite.java",
-          "sha256": "fbc85f8ec07d603cc62e7fcf2d47a8eb1a9e6e17ccc60bab4508f6feab2ce60f"
+          "sha256": "c1d6ef06a68dbcd7d77ea07f6fb7b50fc3d167c18075140db11b15b708affe6a"
         },
         {
           "path": "MyStage.java",
-          "sha256": "d4cfacd6f2749b5e703b3f2f6668d46f30340356d6787f629b744b833a7899a1"
+          "sha256": "084c5cec165caab57efc5bc29a35858e369e13cee645ac1af38fe63d56cd3e90"
         },
         {
           "path": "NormalSprite.java",
-          "sha256": "e645c87cb21f235ad255eec06ca4558b019b5f9f773182b12d3bfc8df29ba612"
+          "sha256": "403c235c438107502ff6bfecd71c263041180c1d1020aae9e367198952a5320a"
         },
         {
           "path": "ShaderExample.java",
-          "sha256": "df96b2c473b62166e2ac533ac4daac394ec3bd9ced8cebf3b431dc524b75ba93"
+          "sha256": "f01ff09ba8f2a1560714f387d1705e801b76003debf5ba6eca1c3c6489cbea9e"
         },
         {
           "path": "blobby.frag",
@@ -450,7 +450,7 @@
         },
         {
           "path": "Shakespeare.java",
-          "sha256": "bc83a9c98e6bc68976626c097e8058fd1bacb30bf43e5fdc91851b7a0fddeb3b"
+          "sha256": "de45a061414fb16ca748abd3fe0327df154257a76933fd41bcda446aa8965484"
         },
         {
           "path": "assets/Singkong.ttf",
@@ -472,7 +472,7 @@
         },
         {
           "path": "Level.java",
-          "sha256": "6d65f2fda636d2f51f9184cfc87650491e0f31690cf374c9fff7ef6cfd48aa59"
+          "sha256": "0b7ea9b05155ca2e9693b01cee9d9e7b64f5512eed800e441035059f9d3c140b"
         },
         {
           "path": "Population.java",
@@ -480,15 +480,15 @@
         },
         {
           "path": "Rocket.java",
-          "sha256": "a6245304fc1ae2d9824e5c325ff2dcc697e61eb498d8808df165836ad46514b8"
+          "sha256": "aacd80bf036fff40872615776c41049fb9e06d199a87f4c10a990bb1d9249415"
         },
         {
           "path": "SmartRocket.java",
-          "sha256": "865b4f7ecd65133e52d9e00d0a94ef248eee2ce1462af6109ca307d4aaaff9be"
+          "sha256": "a1ebc9bdfdab1240870c389bd7f1d8dcca504752528be9dd7ba791a0df0aae3b"
         },
         {
           "path": "Ziel.java",
-          "sha256": "e82ad1e3accf297c08135a588a3765e270857dc76ff70df91751f79321cc71f5"
+          "sha256": "656a913936da7e1c41811fff6ca80d5ef0fa047b72534bb92a15d5163d72d511"
         },
         {
           "path": "assets/rocket.png",
@@ -510,11 +510,11 @@
       "files": [
         {
           "path": "Dino.java",
-          "sha256": "d65f08c55ec15351ff77d625e3d8797d12dc24e877ea7dfe2c05ba576153c7d1"
+          "sha256": "baf7ea1e6e4901a97da175dd9d980fb3ca1877ae69176498d43bed445e01564d"
         },
         {
           "path": "Figure.java",
-          "sha256": "345693eb286fb99f5fdb74a6f892130362b3eb9c973004434a38c172dc3e2a3e"
+          "sha256": "722315ba5fc50b965d100e10b4605325470909342561a3e7bf01a9b2df1c82c6"
         },
         {
           "path": "FigureState.java",
@@ -522,15 +522,15 @@
         },
         {
           "path": "Knight.java",
-          "sha256": "5984f9ce9d6ce09247f0b5ae45b752e809e7fe1bffdf0a0f2b468cd2360470f3"
+          "sha256": "8fae2d482ba56b0fa186362b8747ca4240784a24b421cd59dcf95f0356350ec6"
         },
         {
           "path": "Ninja.java",
-          "sha256": "cf6cf2d953366cd7b11c186a1fe01103788a2c9ad221c9ad58531ba402e9dbb5"
+          "sha256": "64bec2444b2e1a5948d328a87dc171aa56baad32f4861aba11ce2b56c4c211de"
         },
         {
           "path": "StressTest.java",
-          "sha256": "e8566d3630cd0b6767c5fab6d4e774bd8d3d857fbd4a0f6517f4dcf36fba9bf4"
+          "sha256": "1200595f216c6dcffbc49251d5705b5e8f40889bdb63b854678ec38cdf77f891"
         },
         {
           "path": "assets/dino/Idle (1).png",
@@ -904,21 +904,19 @@
       "source": "src/examples/java/demos/tiled",
       "libraryVersion": "5.8.0",
       "flavour": "standard",
-      "requiredSheets": [
-        "platformer"
-      ],
+      "requiredSheets": [],
       "files": [
         {
           "path": "Bamboo.java",
-          "sha256": "46ec44f8d28c5a0eaec1fb30f5c42d35ed9b6962b75a9c08105f770e4ee2df08"
+          "sha256": "ef45cb82baf7adc0afe4bce3cd3d9c682140e565c7458648bd819621569ed0a4"
         },
         {
           "path": "Enemy.java",
-          "sha256": "936060f67fbea9d35ce80ea0c829c120b7863eca6d775d97aea9fd5b7b7365cf"
+          "sha256": "79e55b3bd2b799280fc3bb997700e8aa43fb410acab00b1546dacaefe465d61b"
         },
         {
           "path": "Fireball.java",
-          "sha256": "9064b7fc0b8f286026ed08125db9c5b4fb77bc15c7add1dc51760732e346ecb2"
+          "sha256": "48cd4c98729716490c2393eeeceae156381a1d4fa5a6b2bf37b25b37f1f55415"
         },
         {
           "path": "GameState.java",
@@ -930,43 +928,43 @@
         },
         {
           "path": "Item.java",
-          "sha256": "17b9d7b4679d4ffd6f66d0ea0a83cb6e4fb8674b05e0091347bec523add6e276"
+          "sha256": "d4db31da776e4bed9b78f6100872bbb4c22cd9dcc86e09558d27e65670532ea6"
         },
         {
           "path": "Level1.tmx",
-          "sha256": "d0313669a472f49b6f1caa8d4effc390278176644339b7513819b44bac2c80be"
+          "sha256": "334bccc84e506defd4c0930e139ea67a28941d35fa8328ad6935efdb2f0fca14"
         },
         {
           "path": "Level2.tmx",
-          "sha256": "d3d104297fd78a7c1c85699d295b645ae21b7c8ff0ff0d9e11d556aca88641e3"
+          "sha256": "aa27200038c129021218d07ee9f77000692dac6a5a701465290e2dfe1b4df17e"
         },
         {
           "path": "Player.java",
-          "sha256": "8731b294011650eb0f9f8e89562a820972c0a0457de6c2e21a73a5560310cc74"
+          "sha256": "1a4192e4a8f4f38f55ce264cdf31f7bd9701ec196d114f9917de85c2c671a014"
         },
         {
           "path": "Tiled.java",
-          "sha256": "97c8631d9f363d1939987c86353cb2e34a4e530187fc93231864ba7a8a5bf5d3"
+          "sha256": "9c039e3792aa8eca32fc4c92fc961c8d4e84a17572d1c8a7186eaf8f452413fb"
         },
         {
           "path": "UIItem.java",
-          "sha256": "f1177f7cfd7c7147ed3ef2e10b475c53c5de228c8ba2ab118bd9058563c17479"
+          "sha256": "7cf11e83c718558802931c182c4d5db58679dea3cc9f7fad21a37da0dad77349"
         },
         {
           "path": "Wall.java",
-          "sha256": "b226bdddba1cc32e7ccabbe3c686161a2b04060acff79b769c34f6af53487bb0"
+          "sha256": "963ce9699a316643dc34378e90d3c151c23fef711fe70e96465fd88866d4e889"
         },
         {
           "path": "Warp.java",
-          "sha256": "5749bb006f674e1a3aab8c3bb14933dd517edadb4ab1a38d213e7040c9791eab"
+          "sha256": "295a80c35cb6975acd585a1e694ff1ea58dbf6619ac52771ded0746d41d7e942"
         },
         {
           "path": "Water.java",
-          "sha256": "aee560ddb396dd81e10d84dfa4769b31dbf3cd8433955068886c436581c03b17"
+          "sha256": "7ce93aaf4dcaf755a57ccefe7ad6ca115bf7d6e2ecade68386aaa634f70c6442"
         },
         {
           "path": "World.java",
-          "sha256": "3f0965034fd75e1d6c16501172bd72e53566b1dd8894cd7e8f46cf53ef7576a9"
+          "sha256": "a8fba83c2951be986e575f44a8642e5df6bd3c1fb48d5aedfe43144e80f5b2a9"
         },
         {
           "path": "assets/Bamboo.png",
@@ -1020,7 +1018,7 @@
       "files": [
         {
           "path": "TimedDot.java",
-          "sha256": "439ceeabb6aeb4997221ad6b862c2e3707954caba15a181998bae51f304bddf3"
+          "sha256": "122349586071c44793565603f0dc6a470c0665fe1655fa671dbc519dc21011ac"
         }
       ]
     },
@@ -1034,7 +1032,7 @@
       "files": [
         {
           "path": "TimerStage.java",
-          "sha256": "aca34300457121b32f740e294eb0e1589cf487cbe0cad5c431fb0de63402a608"
+          "sha256": "7d2e0fac9344fbf4d43c09a57ac4430cb8961613394ac0faf322e3852e2cfac2"
         }
       ]
     },
@@ -1048,7 +1046,7 @@
       "files": [
         {
           "path": "UI.java",
-          "sha256": "864245b75532369c5e9115043ad8615214770401307c3f68611f62f9b1f2a5b2"
+          "sha256": "145ecc97c900d75c57b48be50c979466e0d50566ef91a50163ec243c4b04942b"
         },
         {
           "path": "bar_round_gloss_large.png",
@@ -1081,7 +1079,7 @@
       "files": [
         {
           "path": "Volume.java",
-          "sha256": "ff6b1b109ab36acb97181fe2309bc0966da5487629ba33815c1a15b483b8d89e"
+          "sha256": "bb2fab55b3f111fd33ff7beb654b9c1eed23323089b6117840790f3cfaa91948"
         }
       ]
     },
@@ -1099,7 +1097,7 @@
         },
         {
           "path": "HalloweenStage.java",
-          "sha256": "b9a53144da5c0108e71af7c34b05094239c67d786923ed239fc0fa16f314e5e8"
+          "sha256": "74f1d0b11088cd27882e7fd07630ee581b40392781b2ba2542dc03b54bcc8dbb"
         },
         {
           "path": "HouseSprite.java",
@@ -1201,7 +1199,7 @@
         },
         {
           "path": "MyStage.java",
-          "sha256": "cbe0c5ef6165e8ac0194090a50b5085a0b59b22d2b91633980953823aab1152a"
+          "sha256": "5de0b930fc63f2aef2d4d7f7e3ce6a8d8ec82ee5a28898347799c48bbdc5e781"
         },
         {
           "path": "MyWindow.java",
@@ -1239,7 +1237,7 @@
         },
         {
           "path": "BouncyHedgehogStage.java",
-          "sha256": "483de7f13ab0903792bafecb7be0048edf9c2eb7244ac3493459bfd8a0cb7fda"
+          "sha256": "111f8154937b02f859884f01497e75c44d075810186566398bdd4162c921c696"
         },
         {
           "path": "HedgehogSprite.java",
@@ -1289,11 +1287,11 @@
         },
         {
           "path": "BouncyHedgehogStage.java",
-          "sha256": "f28090be3f0aabf674ebe1870740440d7573773256cae63450517262261f5f59"
+          "sha256": "0356aba1f79f5a23d2d2ed13ce7157670d30cb8a24730218c84cb43392ba047d"
         },
         {
           "path": "HedgehogSprite.java",
-          "sha256": "aa019ff6c69cc668a1de856eec4085bf81437f7a9412f4df9387ba7946b3d15d"
+          "sha256": "d61607987dd294df1cbb047f80237bb532c997bc7eedb79f3add193b6414fa14"
         },
         {
           "path": "README.md",
@@ -1301,7 +1299,7 @@
         },
         {
           "path": "TrampolineSprite.java",
-          "sha256": "377dda28f63140e198ee14b2da35cc5fd5b2917dbddb7fd3cbcc2bde48ca2362"
+          "sha256": "772f0a558c510ede2a18b1a7ecce84f6040bc0227e5bf9073ee70142b4631619"
         },
         {
           "path": "hedgehog.png",
@@ -1335,7 +1333,7 @@
         },
         {
           "path": "CatStage.java",
-          "sha256": "59d5a5e628e9e285d9af9462ed37dbb23ca613af0b46d315461ba763c0aad64f"
+          "sha256": "2e8b06a4b21eff0fd15b3c70eb1a9cfe25477942c7e1fe0365af0a9bb1bb889b"
         },
         {
           "path": "cat.png",
@@ -1364,15 +1362,15 @@
         },
         {
           "path": "Basket.java",
-          "sha256": "7f7aa0c5a52ed0db3e39e1b97f0817103d27d43fd424c16539ed1063bf90657d"
+          "sha256": "aba71aa13ef8a5532339dee94935fb97a1f76228fd6a11268ae8f4e3551a1b1c"
         },
         {
           "path": "CatchStage.java",
-          "sha256": "81f4c96b7e2015b381d5845d995d1fcf00369f11197def706b950a86d5f9b630"
+          "sha256": "b405f3db0a0a1669a85bf9fedaa30921080efd28505beacb48b99a8e73f90bdb"
         },
         {
           "path": "Coin.java",
-          "sha256": "bc0752b8e5509455422e7625613f83bbe0dc4f5c2d8e83cb2d312532a313489f"
+          "sha256": "50a49df21afb550d3f8baf6968c34a5554069e85446f220ef573eb2e0b45aa8d"
         },
         {
           "path": "README.md",
@@ -1401,15 +1399,15 @@
         },
         {
           "path": "Alien.java",
-          "sha256": "27311fafd34fdba30e4aa0f92d058d3ae6127d8fb48dd82837302ac6bd512be7"
+          "sha256": "37fb2e8f845c81076e592f8b831d6406d8051b8f01b07c4e9a2eb68e6a8ed4b1"
         },
         {
           "path": "DodgeWindow.java",
-          "sha256": "2bcec14f90ff80f49281d0baf142d538f1853a14d78d1f299f1161cbfb975732"
+          "sha256": "588a126d4429c06cedc1a79029fdcc96972463b230151403b6e6bf0dac658f18"
         },
         {
           "path": "GameStage.java",
-          "sha256": "ab21802ccf2c2a3fe04e1aacadfe02731a8f1a417cb42b1b5b9b54b1442f2956"
+          "sha256": "a708cd3654b72e2e0db5742b9935ac5d6b81e126193ec32f91dbe0dc9d584ba4"
         },
         {
           "path": "README.md",
@@ -1417,11 +1415,11 @@
         },
         {
           "path": "Rock.java",
-          "sha256": "4d3905160b6a34d732a477a37c74e06edcbc4222440c8d743200de9d382e6318"
+          "sha256": "ec634e3f3356fe0181e533cbdc04e803c69cee95ba10396b0d82053546498276"
         },
         {
           "path": "TitleStage.java",
-          "sha256": "370fe74347c426309e2fd77c10589bb71e2c18ced5d638db7a3f8a67922c000d"
+          "sha256": "ed6dc9b799881aab876e0ee5a9413c02fade47cfd003ccd3935b68b8e6c04a69"
         },
         {
           "path": "package.bluej",
@@ -1446,11 +1444,11 @@
         },
         {
           "path": "Bunny.java",
-          "sha256": "a6de1d1ff1505cd507406533201239c548d715e9deb59604e702ae5c49974662"
+          "sha256": "143516e78f5a724c4787e357342f55009209dcdbf1133083cf8cf0bc8a46bcd8"
         },
         {
           "path": "MyStage.java",
-          "sha256": "d8b26cf64078f1a2dcc95b033df292282e8271b2b1c14212582b39ed15b6fc10"
+          "sha256": "6741940805a7748caa1b7b02f512ce92734befe68b04f564d7dfff7d4dd08bee"
         },
         {
           "path": "README.md",
@@ -1479,7 +1477,7 @@
         },
         {
           "path": "GuessStage.java",
-          "sha256": "9fac29bde01fcfe5248d25e5f069e2a992508f53fd54ee364fb6fc9d8a548e7d"
+          "sha256": "ceebfad72149ac6cf2dcac141117f51b6c5cdfb9b8d2b4f7f7df7dc3357fc8d1"
         },
         {
           "path": "README.md",
@@ -1512,11 +1510,11 @@
         },
         {
           "path": "WalkStage.java",
-          "sha256": "c2e5518d8b29b623fd9e85ca5570df179aa1043fcfc13669719cb13bd8ff1414"
+          "sha256": "7b4e98f5ae46bbbcc8ff1d35a0a0dcc1d72f2019610612634659982b56688b80"
         },
         {
           "path": "Walker.java",
-          "sha256": "1811c6b4ea7c206ca0d78be206c377cdd470bc9092884f3a94ff8e023d04d1b3"
+          "sha256": "828b0d93d40e8a85ad0734028d86b867f4a36b401a283755cef5a25132a50c20"
         },
         {
           "path": "package.bluej",
@@ -1545,15 +1543,15 @@
         },
         {
           "path": "RaceStage.java",
-          "sha256": "a1d264b816b4accf9740b2ed0c8b1e053accc8bee1c2a55c4e74c264f490dee4"
+          "sha256": "26ea1728fa6905c22c661a53396aed117211b4cc04a5c198e3644e6f8aacf2d7"
         },
         {
           "path": "Racer.java",
-          "sha256": "e5e157f62c18400e22e2eb8aa7aed4020542e45fecca31757e8c3f7c456cc304"
+          "sha256": "e0b1d2de350f0a5db7ed66e13332a878d32aa18c47db4db1a88cc2a4ebbb88b9"
         },
         {
           "path": "Referee.java",
-          "sha256": "989580b24499248a299e09d0b5c2ea0fef733a0577a750d5a2fb840bb4792ef2"
+          "sha256": "1586c6e111c8b3351d76b2940ee45c287797a457545681a6e61a141f65c55e3b"
         },
         {
           "path": "package.bluej",
@@ -1583,7 +1581,7 @@
         },
         {
           "path": "MyStage.java",
-          "sha256": "cbe0c5ef6165e8ac0194090a50b5085a0b59b22d2b91633980953823aab1152a"
+          "sha256": "5de0b930fc63f2aef2d4d7f7e3ce6a8d8ec82ee5a28898347799c48bbdc5e781"
         },
         {
           "path": "MyWindow.java",

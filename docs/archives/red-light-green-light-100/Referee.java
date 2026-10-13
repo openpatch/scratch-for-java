@@ -4,9 +4,9 @@ public class Referee extends Sprite {
   private boolean green = false;
 
   public Referee() {
-    // scratch4j:begin setup (managed by the stage designer)
+    // begin sprite editor
     this.addCostume("sign");
-    // scratch4j:end setup
+    // end sprite editor
     this.setSize(45);
     this.setPosition(-250, 110);
   }

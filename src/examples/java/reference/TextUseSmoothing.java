@@ -8,7 +8,9 @@ public class TextUseSmoothing {
     // has to be chosen before the first stage is built.
     Text.useSmoothing(false);
 
-    Stage myStage = new Stage(600, 240);
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
     Text myText = new Text("Hello World", 0, 0, 400);
     myText.setTextSize(48);
     myStage.add(myText);

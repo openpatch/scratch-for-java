@@ -15,7 +15,9 @@ public class TextWhenRemovedFromStage {
       }
     }
 
-    Stage myStage = new Stage(600, 240);
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
     MyText myText = new MyText();
     myStage.add(myText);
     myStage.wait(2000);

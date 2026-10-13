@@ -1,6 +1,7 @@
 package reference;
 import org.openpatch.scratch.Sprite;
 import org.openpatch.scratch.Stage;
+import org.openpatch.scratch.Window;
 
 public class SpriteWhenMouseMoved {
   class CustomSprite extends Sprite {
@@ -16,7 +17,9 @@ public class SpriteWhenMouseMoved {
   }
 
   public SpriteWhenMouseMoved() {
-    Stage myStage = new Stage(600, 240);
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
     myStage.add(new CustomSprite());
     while (true) {}
   }

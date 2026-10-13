@@ -40,4 +40,11 @@ public interface StageHooks {
    * @param e the mouse event
    */
   void mouseEvent(MouseEvent e);
+
+  /**
+   * The stage's sprites, in drawing order.
+   *
+   * @return a copy of the stage's sprite list
+   */
+  java.util.List<org.openpatch.scratch.Sprite> sprites();
 }

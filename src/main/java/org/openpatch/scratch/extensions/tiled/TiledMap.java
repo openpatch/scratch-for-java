@@ -8,6 +8,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import org.openpatch.scratch.Layer;
+import org.openpatch.scratch.Sprite;
 import org.openpatch.scratch.Stage;
 import org.openpatch.scratch.internal.Image;
 import org.openpatch.scratch.internal.StageAccess;
@@ -199,6 +200,105 @@ public class TiledMap {
       }
     }
     return null;
+  }
+
+  /**
+   * Creates a sprite for each object of a layer whose type names a sprite class,
+   * and adds it to the stage. In Tiled, give an object the type (called
+   * "class" in newer versions of Tiled) {@code Player}, and the map makes a
+   * {@code new Player()} where the object is.
+   *
+   * <p>
+   * The sprite's class needs one of these constructors, tried in this order:
+   * one that takes the {@link MapObject} (to read its name and properties), one
+   * that takes {@code (double x, double y)}, or one without parameters. Either
+   * way the sprite is put where the object is. An object drawn as an area
+   * (a rectangle, an ellipse or a polygon) also gives the sprite that area as
+   * its hitbox, which is how walls and water work without a costume.
+   *
+   * <p>
+   * Objects whose type is not a sprite class, or that have no type, are left
+   * alone, so a layer can hold markers the program reads itself.
+   *
+   * <pre>{@code
+   * TiledMap map = new TiledMap("level.tmx", this);
+   * map.spawn("Objects");
+   * }</pre>
+   *
+   * @param layerName the object layer
+   * @return the sprites that were made, in the order of the layer
+   * @throws IllegalArgumentException if the map has no such object layer
+   */
+  public java.util.List<Sprite> spawn(String layerName) {
+    var objects = this.getObjectsFromLayer(layerName);
+    if (objects == null) {
+      throw new IllegalArgumentException("The map has no object layer " + layerName);
+    }
+    var made = new java.util.ArrayList<Sprite>();
+    for (var object : objects) {
+      Class<? extends Sprite> type = spriteClass(object.type);
+      if (type == null) {
+        continue;
+      }
+      Sprite sprite = make(type, object);
+      sprite.setPosition(object.x, object.y);
+      if (object.point == null && object.width > 0 && object.height > 0
+          || object.polygon != null) {
+        sprite.setHitbox(object.getShape());
+      }
+      this.stage.add(sprite);
+      made.add(sprite);
+    }
+    return made;
+  }
+
+  /** The sprite class a type names, looked for beside the stage's class first. */
+  private Class<? extends Sprite> spriteClass(String type) {
+    if (type == null || type.isBlank()) {
+      return null;
+    }
+    var loader = this.stage.getClass().getClassLoader();
+    String pkg = this.stage.getClass().getPackageName();
+    for (String name : pkg.isEmpty() ? new String[] {type}
+        : new String[] {pkg + "." + type, type}) {
+      try {
+        Class<?> found = Class.forName(name, false, loader);
+        if (Sprite.class.isAssignableFrom(found)) {
+          return found.asSubclass(Sprite.class);
+        }
+        return null;
+      } catch (ClassNotFoundException | LinkageError e) {
+        // try the next name
+      }
+    }
+    return null;
+  }
+
+  private static Sprite make(Class<? extends Sprite> type, MapObject object) {
+    try {
+      for (Object[] attempt : new Object[][] {
+          {new Class<?>[] {MapObject.class}, new Object[] {object}},
+          {new Class<?>[] {double.class, double.class}, new Object[] {object.x, object.y}},
+          {new Class<?>[0], new Object[0]}}) {
+        try {
+          var constructor = type.getDeclaredConstructor((Class<?>[]) attempt[0]);
+          constructor.setAccessible(true);
+          return constructor.newInstance((Object[]) attempt[1]);
+        } catch (NoSuchMethodException e) {
+          // try the next constructor
+        }
+      }
+    } catch (java.lang.reflect.InvocationTargetException e) {
+      var cause = e.getCause();
+      if (cause instanceof RuntimeException runtime) throw runtime;
+      if (cause instanceof Error error) throw error;
+      throw new IllegalStateException(cause);
+    } catch (ReflectiveOperationException e) {
+      throw new IllegalStateException("Cannot make a " + type.getSimpleName() + ": " + e, e);
+    }
+    throw new IllegalArgumentException("The map object " + object.id + " is a "
+        + type.getSimpleName() + ", but " + type.getSimpleName() + " has no constructor"
+        + " spawn can use: (MapObject object), (double x, double y) or ().");
   }
 
   /**

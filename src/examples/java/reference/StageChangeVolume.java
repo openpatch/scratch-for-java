@@ -4,7 +4,9 @@ import org.openpatch.scratch.*;
 
 public class StageChangeVolume {
   public StageChangeVolume() {
-    Stage myStage = new Stage(600, 240);
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
 
     myStage.addSound("music", "jingles_STEEL16");
     myStage.playSound("music");

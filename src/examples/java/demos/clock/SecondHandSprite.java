@@ -7,9 +7,9 @@ import org.openpatch.scratch.Sprite;
 public class SecondHandSprite extends Sprite {
 
   public SecondHandSprite() {
-    // scratch4j:begin setup (managed by the stage designer)
+    // begin sprite editor
     this.addCostume("hand", "demos/clock/sprites/second.png");
-    // scratch4j:end setup
+    // end sprite editor
   }
 
   public void run() {

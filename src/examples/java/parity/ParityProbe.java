@@ -31,7 +31,9 @@ public class ParityProbe {
   }
 
   public static void main(String[] args) {
-    Stage myStage = new Stage(600, 240);
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
     Sprite s = new Sprite("zeta", "slimeGreen");
     myStage.add(s);
 

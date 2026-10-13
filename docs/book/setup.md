@@ -36,14 +36,15 @@ The examples in the browser start with a `void main()` above the classes:
 
 ```java
 void main() {
-  new MyStage();
+  Window myWindow = new Window(480, 360);
+  myWindow.setStage(new MyStage());
 }
 ```
 
 That is a complete Java program in Java 25 and newer, and Studio runs it as it
-is. In BlueJ you leave it out and create the stage by right-clicking `MyStage`
-and choosing `new MyStage()`. Elsewhere, put the same line into a `main` method
-of your stage:
+is. In BlueJ and elsewhere, put the same lines into a `main` method of your
+stage, and in BlueJ run it by right-clicking `MyStage` and choosing
+`void main(String[] args)`:
 
 ```java
 import org.openpatch.scratch.*;
@@ -56,7 +57,8 @@ public class MyStage extends Stage {
   }
 
   public static void main(String[] args) {
-    new MyStage();
+    Window myWindow = new Window(480, 360);
+    myWindow.setStage(new MyStage());
   }
 }
 ```

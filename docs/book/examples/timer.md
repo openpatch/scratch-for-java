@@ -20,21 +20,21 @@ own. The stage is 1800 pixels wide, so it is scaled down to fit.
 ```java TimerStage.java
 
 void main() {
-  new TimerStage();
+  Window myWindow = new Window(1800, 360);
+  myWindow.setStage(new TimerStage());
 }
 
 class TimerStage extends Stage {
 
-  // scratch4j:begin fields (managed by the stage designer)
+  // begin stage designer
   private TimerSprite timerSprite;
-  // scratch4j:end fields
+  // end stage designer
 
   public TimerStage() {
-    super(1800, 360);
-    // scratch4j:begin setup (managed by the stage designer)
+    // begin stage designer
     timerSprite = new TimerSprite();
     this.add(timerSprite);
-    // scratch4j:end setup
+    // end stage designer
   }
 }
 

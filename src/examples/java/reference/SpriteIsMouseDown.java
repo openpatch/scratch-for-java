@@ -3,7 +3,9 @@ import org.openpatch.scratch.*;
 
 public class SpriteIsMouseDown {
   public SpriteIsMouseDown() {
-    Stage myStage = new Stage(600, 240);
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
     Sprite mySprite = new Sprite("zeta", "slimeGreen");
     mySprite.changeX(-80);
     mySprite.changeY(30);

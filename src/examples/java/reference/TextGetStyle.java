@@ -4,7 +4,9 @@ import org.openpatch.scratch.*;
 
 public class TextGetStyle {
   public TextGetStyle() {
-    Stage myStage = new Stage(600, 240);
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
     Text myText = new Text("Which way am I drawn?", 0, 0, 400);
     myStage.add(myText);
 

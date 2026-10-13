@@ -32,7 +32,6 @@ public class GuessStage extends Stage {
   private int secret = Random.randomInt(1, 10);
 
   public GuessStage() {
-    super(500, 300);
     this.addBackdrop("background");
     this.ask("Guess a number between 1 and 10");
   }
@@ -76,7 +75,6 @@ public class GuessStage extends Stage {
   private Text hint = new Text();
 
   public GuessStage() {
-    super(500, 300);
     this.addBackdrop("background");
 
     this.hint.setPosition(0, 60);
@@ -121,7 +119,8 @@ public class GuessStage extends Stage {
   }
 
   public static void main(String[] args) {
-    new GuessStage();
+    Window myWindow = new Window(500, 300);
+    myWindow.setStage(new GuessStage());
   }
 }
 ```
@@ -134,7 +133,8 @@ Enter:
 ```java GuessStage.java
 
 void main() {
-  new GuessStage();
+  Window myWindow = new Window(500, 300);
+  myWindow.setStage(new GuessStage());
 }
 
 class GuessStage extends Stage {
@@ -144,7 +144,6 @@ class GuessStage extends Stage {
   private Text hint = new Text();
 
   public GuessStage() {
-    super(500, 300);
     this.addBackdrop("background");
 
     this.hint.setPosition(0, 60);

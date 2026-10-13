@@ -6,10 +6,10 @@ import org.openpatch.scratch.Timer;
 
 public class MyStage extends Stage {
 
-  // scratch4j:begin fields (managed by the stage designer)
+  // begin stage designer
   private MySprite mySprite;
   private NormalSprite normalSprite;
-  // scratch4j:end fields
+  // end stage designer
 
   public MyStage() {
     var shader = this.getShaders().add("blobby", "demos/shader/blobby.frag", "demos/shader/default.vert");
@@ -20,12 +20,12 @@ public class MyStage extends Stage {
     shader = this.getShaders().add("light", "demos/shader/light.frag", "demos/shader/default.vert");
     shader = this.getShaders().add("pixel", "demos/shader/pixel.frag", "demos/shader/default.vert");
     this.getShaders().switchTo("pixel");
-    // scratch4j:begin setup (managed by the stage designer)
+    // begin stage designer
     mySprite = new MySprite();
     this.add(mySprite);
     normalSprite = new NormalSprite();
     this.add(normalSprite);
-    // scratch4j:end setup
+    // end stage designer
 
     for (int i = 0; i < 8; i++) {
       var sprite = new LightSprite();

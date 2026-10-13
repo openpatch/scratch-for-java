@@ -135,8 +135,12 @@ public class Applet extends PApplet {
     } else {
       this.RENDER_WIDTH = width;
     }
-    this.FULLSCREEN = fullscreen;
+    // a preview is not shown, so it needs no screen of its own
+    this.FULLSCREEN = fullscreen && !Preview.isOn();
     this.assets = assets;
+    if (Preview.isOn()) {
+      Preview.startTimeout();
+    }
 
     this.registerMethod("mouseEvent", this);
     this.registerMethod("keyEvent", this);
@@ -323,6 +327,10 @@ public class Applet extends PApplet {
   public void setup() {
     this.windowTitle("Scratch for Java");
     this.windowResizable(false);
+    if (Preview.isOn()) {
+      // out of sight: a hidden window would not be drawn at all
+      this.surface.setLocation(-20000, -20000);
+    }
     this.imageMode(PConstants.CENTER);
     this.rectMode(PConstants.CENTER);
     this.background(0x222222);
@@ -626,6 +634,31 @@ public class Applet extends PApplet {
     return fsPath.toString();
   }
 
+  /** When the window first ran without a stage (0: it has one, or not yet). */
+  private int withoutStageSince;
+  private boolean missingStageExplained;
+
+  /**
+   * A window nobody put a stage into stays empty. Says what is missing once the
+   * program had a moment to call setStage.
+   */
+  private void explainMissingStage(int now) {
+    if (this.missingStageExplained) return;
+    if (this.withoutStageSince == 0) {
+      this.withoutStageSince = now;
+      return;
+    }
+    if (now - this.withoutStageSince < 2000) return;
+    this.missingStageExplained = true;
+    System.err.println("\n==============================================");
+    System.err.println("NOTE: The window has no stage to show");
+    System.err.println("==============================================");
+    System.err.println("\nPut a stage into the window, and it shows up:");
+    System.err.println("       Window myWindow = new Window(480, 360);");
+    System.err.println("       myWindow.setStage(new MyStage());");
+    System.err.println("==============================================\n");
+  }
+
   /** Draws the application window. */
   public void draw() {
     var currentMillis = millis();
@@ -642,6 +675,16 @@ public class Applet extends PApplet {
         break;
       case RUNNING:
         var hooks = this.hooksFor(this.stage);
+        if (hooks == null) {
+          this.explainMissingStage(currentMillis);
+        }
+        if (hooks != null && Preview.isOn()) {
+          var next = Preview.frame(this, this.stage, hooks, this.getGraphics());
+          if (next != null) {
+            this.setStage(next);
+          }
+          break;
+        }
         if (hooks != null) {
           int steps = this.clock.frame(realSeconds);
           this.deltaTime = this.clock.stepSeconds();

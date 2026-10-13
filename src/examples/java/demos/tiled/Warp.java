@@ -1,26 +1,26 @@
 package demos.tiled;
 
 import org.openpatch.scratch.*;
+import org.openpatch.scratch.extensions.tiled.MapObject;
 
 public class Warp extends Sprite {
   private String toMap;
   private double toX;
   private double toY;
-  private World world;
 
-  public Warp(World world, double x, double y, String toMap, double toX, double toY) {
-    this.world = world;
-    this.setX(x);
-    this.setY(y);
-    this.toMap = toMap;
-    this.toX = toX;
-    this.toY = toY;
+  // The map makes a warp for each Warp object; the object says where it leads.
+  public Warp(MapObject object) {
+    this.toMap = object.getProperty("to_map");
+    this.toX = object.getPropertyInt("to_x");
+    // Tiled counts y downwards, the stage upwards
+    this.toY = -object.getPropertyInt("to_y");
 
-    // scratch4j:begin setup (managed by the stage designer)
-    // scratch4j:end setup
+    // begin sprite editor
+    // end sprite editor
   }
 
   public void run() {
+    var world = (World) this.getStage();
     var player = world.getPlayer();
     if (this.isTouchingSprite(player)) {
       Window.getInstance().transitionToStage(new World(toMap, player), 500);

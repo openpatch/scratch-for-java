@@ -4,7 +4,6 @@ import org.openpatch.scratch.*;
 public class StageWhenMouseWheelMoved {
   class CustomStage extends Stage {
     public CustomStage() {
-      super(600, 240);
     }
 
     @Override
@@ -14,7 +13,8 @@ public class StageWhenMouseWheelMoved {
   }
 
   public StageWhenMouseWheelMoved() {
-    new CustomStage();
+    Window myWindow = new Window(600, 240);
+    myWindow.setStage(new CustomStage());
   }
 
   public static void main(String[] args) {

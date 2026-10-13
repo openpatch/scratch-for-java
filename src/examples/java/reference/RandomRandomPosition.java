@@ -4,7 +4,9 @@ import org.openpatch.scratch.*;
 
 public class RandomRandomPosition {
   public RandomRandomPosition() {
-    Stage myStage = new Stage(600, 240);
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
 
     // A point somewhere on the stage, as a vector.
     Sprite mySprite = new Sprite("slime", "slimeGreen");

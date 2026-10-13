@@ -2,71 +2,48 @@ package demos.tiled;
 
 import org.openpatch.scratch.KeyCode;
 import org.openpatch.scratch.Layer;
+import org.openpatch.scratch.Sprite;
 import org.openpatch.scratch.Stage;
+import org.openpatch.scratch.extensions.tiled.MapObject;
 import org.openpatch.scratch.extensions.tiled.TiledMap;
 
 public class World extends Stage {
 
-  // scratch4j:begin fields (managed by the stage designer)
+  // begin stage designer
   private UIItem inventory;
-  // scratch4j:end fields
+  // end stage designer
 
   private TiledMap map;
   private Player player;
   public World(String mapFile, Player player) {
     map = new TiledMap("demos/tiled/" + mapFile + ".tmx", this);
-    for (var object : map.getObjectsFromLayer("Objects")) {
-      // Spawn Points should only have an effect, if there was no PLAYER object.
-      // Meaning the first
-      // time a map is loading.
-      if ("spawn-point".equals(object.type) && player == null) {
-        var playerX = GameState.get().playerX;
-        // check playerX and playerY are not saved in GameState
-        if (playerX == Double.MAX_VALUE) {
-          GameState.get().playerX = object.x;
-          GameState.get().playerY = object.y;
-        }
-      } else if ("warp".equals(object.type)) {
-        var x = object.getPropertyInt("to_x");
-        var y = object.getPropertyInt("to_y");
-        var to = object.getProperty("to_map");
-        var warp = new Warp(this, object.x, object.y, to, x, -y);
-        warp.setHitbox(object.getShape());
-        this.add(warp);
-      } else if ("wall".equals(object.type)) {
-        var wall = new Wall(object.x, object.y);
-        wall.setHitbox(object.getShape());
-        this.add(wall);
-      } else if ("water".equals(object.type)) {
-        var water = new Water(object.x, object.y);
-        water.setHitbox(object.getShape());
-        this.add(water);
-      } else if ("item".equals(object.type)) {
-        if (!GameState.get().items.contains(object.name)) {
-          var item = new Item(object.name, object.x, object.y);
-          this.add(item);
-        }
-      } else if ("enemy".equals(object.type)) {
-        switch (object.name) {
-          case "bamboo": {
-            this.add(new Bamboo(object.x, object.y));
-            break;
-          }
-        }
+    // Every object whose type is a sprite class becomes that sprite:
+    // walls, water, warps, items and enemies.
+    for (Sprite sprite : map.spawn("Objects")) {
+      // an item that was picked up stays picked up
+      if (sprite instanceof Item item && GameState.get().items.contains(item.getName())) {
+        this.remove(item);
       }
     }
 
+    // The player comes along through a warp. A new game starts it at the
+    // Player object of the Start layer, a saved game where it was saved.
     if (player == null) {
+      if (GameState.get().playerX == Double.MAX_VALUE) {
+        MapObject start = map.getObjectsFromLayer("Start")[0];
+        GameState.get().playerX = start.x;
+        GameState.get().playerY = start.y;
+      }
       player = new Player(GameState.get().playerX, GameState.get().playerY);
       this.getCamera().setPosition(player.getX(), player.getY());
     }
     this.add(player);
 
     GameState.get().map = mapFile;
-    // scratch4j:begin setup (managed by the stage designer)
+    // begin stage designer
     inventory = new UIItem();
     this.add(inventory);
-    // scratch4j:end setup
+    // end stage designer
     this.player = player;
 
   }

@@ -109,7 +109,6 @@ public class CatchStage extends Stage {
   private int score = 0;
 
   public CatchStage() {
-    super(600, 400);
     this.addBackdrop("background");
     this.addSound("handleCoins");
 
@@ -135,12 +134,13 @@ public class CatchStage extends Stage {
   }
 
   public static void main(String[] args) {
-    new CatchStage();
+    Window myWindow = new Window(600, 400);
+    myWindow.setStage(new CatchStage());
   }
 }
 ```
 
-Run it by right-clicking `CatchStage` and choosing `new CatchStage()`.
+Run it by right-clicking `CatchStage` and choosing `void main(String[] args)`.
 
 All three classes together, running here — click the stage and use the arrow
 keys:
@@ -150,7 +150,8 @@ keys:
 ```java CatchStage.java
 
 void main() {
-  new CatchStage();
+  Window myWindow = new Window(600, 400);
+  myWindow.setStage(new CatchStage());
 }
 
 class CatchStage extends Stage {
@@ -158,7 +159,6 @@ class CatchStage extends Stage {
   private int score = 0;
 
   public CatchStage() {
-    super(600, 400);
     this.addBackdrop("background");
     this.addSound("handleCoins");
 
@@ -356,7 +356,6 @@ public class CatchStage extends Stage {
   private int score = 0;
 
   public CatchStage() {
-    super(600, 400);
     this.addBackdrop("background");
     this.addSound("handleCoins");
 

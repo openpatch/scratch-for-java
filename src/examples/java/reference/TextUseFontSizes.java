@@ -8,7 +8,9 @@ public class TextUseFontSizes {
     // so a size that is not in the list is rounded to one that is.
     Text.useFontSizes(12, 24, 48);
 
-    Stage myStage = new Stage(600, 240);
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
     Text myText = new Text("Hello World", 0, 0, 400);
     myStage.add(myText);
     while (true) {

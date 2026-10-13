@@ -11,7 +11,9 @@ public class SpriteGetTouchingSprite {
       }
     }
 
-    Stage myStage = new Stage(600, 240);
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
     for (int i = 0; i < 8; i++) {
       myStage.add(new Coin());
     }

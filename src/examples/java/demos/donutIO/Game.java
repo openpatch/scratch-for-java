@@ -10,15 +10,15 @@ public class Game extends Window {
   public Game() {
     super(800, 600, "demos/donutIO/assets");
 
-    // scratch4j:begin window (managed by the project settings)
+    // begin project settings
     this.setStage(new StartStage());
-    // scratch4j:end window
+    // end project settings
   }
 
   public static void main(String[] args) {
     Text.useFontSizes(32, 48);
-    // scratch4j:begin options (managed by the project settings)
-    // scratch4j:end options
+    // begin project settings
+    // end project settings
     new Game();
   }
 }

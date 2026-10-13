@@ -1236,17 +1236,12 @@
   },
   "Stage/constructor()": {
     "de": {
-      "description": "Erzeugt eine Bühne der Größe 480 x 360"
+      "description": "Erzeugt eine Bühne. Sie ist so groß wie das Fenster, das es schon geben muss"
     }
   },
   "Stage/showVariable(String,Supplier)": {
     "de": {
-      "description": "Erzeugt eine Bühne mit der angegebenen Breite und Höhe"
-    }
-  },
-  "Stage/constructor(int,int,String)": {
-    "de": {
-      "description": "Erzeugt eine Bühne der angegebenen Größe. Der Asset-Pfad wird im Browser ignoriert"
+      "description": "Zeigt den Wert einer Variablen auf der Bühne an"
     }
   },
   "Stage/run()": {

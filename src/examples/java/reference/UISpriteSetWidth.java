@@ -4,7 +4,9 @@ import org.openpatch.scratch.*;
 
 public class UISpriteSetWidth {
   public UISpriteSetWidth() {
-    Stage myStage = new Stage(600, 240);
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
     UISprite myBar = new UISprite();
     myBar.addCostume("bar", "buttonLarge");
     myStage.add(myBar);

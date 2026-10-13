@@ -3,7 +3,9 @@ import org.openpatch.scratch.*;
 
 public class StagePickRandom {
   public StagePickRandom() {
-    Stage myStage = new Stage(600, 240);
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
     while (true) {
       int random = myStage.pickRandom(0, 100);
       myStage.display("Random: " + random);

@@ -7,7 +7,6 @@ public class StageShowVariable {
       int seconds = 0;
 
       public MyStage() {
-        super(600, 240);
         // A monitor in the top left corner shows the value every frame.
         this.showVariable("seconds", () -> seconds);
       }
@@ -19,7 +18,8 @@ public class StageShowVariable {
       }
     }
 
-    new MyStage();
+    Window myWindow = new Window(600, 240);
+    myWindow.setStage(new MyStage());
   }
 
   public static void main(String[] args) {

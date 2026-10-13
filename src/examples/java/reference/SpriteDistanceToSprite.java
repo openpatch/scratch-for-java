@@ -1,10 +1,13 @@
 package reference;
 import org.openpatch.scratch.Sprite;
 import org.openpatch.scratch.Stage;
+import org.openpatch.scratch.Window;
 
 public class SpriteDistanceToSprite {
   public SpriteDistanceToSprite() {
-    Stage myStage = new Stage(600, 240);
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
 
     Sprite gamma = new Sprite("gamma", "slimePurple");
     gamma.setPosition(-120, 50);

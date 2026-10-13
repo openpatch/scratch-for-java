@@ -5,7 +5,6 @@ public class WindowPause {
   public WindowPause() {
     class MyStage extends Stage {
       public MyStage() {
-        super(600, 240);
         Sprite slime = new Sprite("slime", "slimeGreen");
         this.add(slime);
         this.display("Press P to pause and to go on");
@@ -31,7 +30,8 @@ public class WindowPause {
       }
     }
 
-    new MyStage();
+    Window myWindow = new Window(600, 240);
+    myWindow.setStage(new MyStage());
   }
 
   public static void main(String[] args) {

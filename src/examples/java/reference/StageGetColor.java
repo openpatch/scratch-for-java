@@ -4,7 +4,9 @@ import org.openpatch.scratch.*;
 
 public class StageGetColor {
   public StageGetColor() {
-    Stage myStage = new Stage(600, 240);
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
 
     myStage.setColor(140);
     Color background = myStage.getColor();

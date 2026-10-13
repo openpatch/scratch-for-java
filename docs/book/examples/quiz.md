@@ -36,7 +36,8 @@ Type an answer into the box at the bottom of the stage and press Enter.
 ```java Quiz.java
 
 void main() {
-  new Quiz();
+  Window myWindow = new Window(600, 360);
+  myWindow.setStage(new Quiz());
 }
 
 /**
@@ -48,9 +49,9 @@ void main() {
  */
 class Quiz extends Stage {
 
-  // scratch4j:begin fields (managed by the stage designer)
+  // begin stage designer
   private Sprite host;
-  // scratch4j:end fields
+  // end stage designer
 
   private final String[] questions = {
       "What is your name?",
@@ -64,20 +65,19 @@ class Quiz extends Stage {
   private final Text score = new Text();
 
   public Quiz() {
-    super(600, 360);
 
     this.score.setPosition(0, 120);
     this.score.setTextSize(22);
     this.add(this.score);
 
-    // scratch4j:begin setup (managed by the stage designer)
+    // begin stage designer
     this.addBackdrop("background");
     host = new Sprite();
     host.addCostume("alienGreen_stand");
     host.setPosition(0, -20);
     host.setSize(40);
     this.add(host);
-    // scratch4j:end setup
+    // end stage designer
 
     this.nextQuestion();
   }

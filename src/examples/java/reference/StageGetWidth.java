@@ -3,7 +3,9 @@ import org.openpatch.scratch.*;
 
 public class StageGetWidth {
   public StageGetWidth() {
-    Stage myStage = new Stage(600, 240);
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
     myStage.display("Width: " + myStage.getWidth());
     myStage.wait(500);
     myStage.wait(500);

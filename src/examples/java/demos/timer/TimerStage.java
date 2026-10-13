@@ -2,23 +2,24 @@ package demos.timer;
 
 import org.openpatch.scratch.Sprite;
 import org.openpatch.scratch.Stage;
+import org.openpatch.scratch.Window;
 
 public class TimerStage extends Stage {
 
-  // scratch4j:begin fields (managed by the stage designer)
+  // begin stage designer
   private TimerSprite timerSprite;
-  // scratch4j:end fields
+  // end stage designer
 
   public TimerStage() {
-    super(1800, 360);
-    // scratch4j:begin setup (managed by the stage designer)
+    // begin stage designer
     timerSprite = new TimerSprite();
     this.add(timerSprite);
-    // scratch4j:end setup
+    // end stage designer
   }
 
   public static void main(String[] args) {
-    new TimerStage();
+    Window myWindow = new Window(1800, 360);
+    myWindow.setStage(new TimerStage());
   }
 }
 

@@ -7,8 +7,8 @@ import org.openpatch.scratch.Text;
 
 public class StartStage extends Stage {
 
-  // scratch4j:begin fields (managed by the stage designer)
-  // scratch4j:end fields
+  // begin stage designer
+  // end stage designer
 
   public StartStage() {
     var bg = new Background();
@@ -37,8 +37,8 @@ public class StartStage extends Stage {
     text.setPosition(0, -20);
     this.add(text);
 
-    // scratch4j:begin setup (managed by the stage designer)
-    // scratch4j:end setup
+    // begin stage designer
+    // end stage designer
   }
 
   public void whenKeyPressed(KeyCode keyCode) {

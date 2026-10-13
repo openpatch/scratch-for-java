@@ -8868,8 +8868,8 @@
       "parameterTypes": [],
       "parameterNames": [],
       "params": [],
-      "summary": "Constructs a new Stage with default dimensions. The default width is 480\npixels and the default\nheight is 360 pixels.",
-      "description": "Constructs a new Stage with default dimensions. The default width is 480\npixels and the default\nheight is 360 pixels.",
+      "summary": "Constructs a new Stage. A stage is as big as the window it is shown in, so\nthe window has to exist first:",
+      "description": "Constructs a new Stage. A stage is as big as the window it is shown in, so\nthe window has to exist first:\n\n```java\nWindow myWindow = new Window(480, 360);\nmyWindow.setStage(new MyStage());\n```",
       "scratchblock": null,
       "paramDocs": [],
       "returns": null,
@@ -8879,83 +8879,7 @@
       "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {
         "de": {
-          "description": "Erzeugt eine Bühne der Größe 480 x 360"
-        }
-      }
-    },
-    {
-      "id": "Stage/constructor(int,int)",
-      "memberId": "Stage/constructor",
-      "owner": "org.openpatch.scratch.Stage",
-      "className": "Stage",
-      "methodName": "constructor",
-      "static": false,
-      "returnType": "Stage",
-      "parameterTypes": [
-        "int",
-        "int"
-      ],
-      "parameterNames": [
-        "width",
-        "height"
-      ],
-      "params": [
-        "int width",
-        "int height"
-      ],
-      "summary": "Constructs a new Stage with the specified width and height.",
-      "description": "Constructs a new Stage with the specified width and height.",
-      "scratchblock": null,
-      "paramDocs": [
-        "width: the width of the stage",
-        "height: the height of the stage"
-      ],
-      "returns": null,
-      "since": "",
-      "docsUrl": "https://scratch4j.openpatch.org/reference/Stage/constructor",
-      "availability": "implemented",
-      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
-      "translations": {}
-    },
-    {
-      "id": "Stage/constructor(int,int,String)",
-      "memberId": "Stage/constructor",
-      "owner": "org.openpatch.scratch.Stage",
-      "className": "Stage",
-      "methodName": "constructor",
-      "static": false,
-      "returnType": "Stage",
-      "parameterTypes": [
-        "int",
-        "int",
-        "java.lang.String"
-      ],
-      "parameterNames": [
-        "width",
-        "height",
-        "assets"
-      ],
-      "params": [
-        "int width",
-        "int height",
-        "String assets"
-      ],
-      "summary": "Constructs a new Stage with the specified width, height, and assets path.",
-      "description": "Constructs a new Stage with the specified width, height, and assets path.",
-      "scratchblock": null,
-      "paramDocs": [
-        "width: the width of the stage",
-        "height: the height of the stage",
-        "assets: the path to the assets directory"
-      ],
-      "returns": null,
-      "since": "",
-      "docsUrl": "https://scratch4j.openpatch.org/reference/Stage/constructor",
-      "availability": "implemented",
-      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
-      "translations": {
-        "de": {
-          "description": "Erzeugt eine Bühne der angegebenen Größe. Der Asset-Pfad wird im Browser ignoriert"
+          "description": "Erzeugt eine Bühne. Sie ist so groß wie das Fenster, das es schon geben muss"
         }
       }
     },
@@ -10595,7 +10519,7 @@
       "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {
         "de": {
-          "description": "Erzeugt eine Bühne mit der angegebenen Breite und Höhe"
+          "description": "Zeigt den Wert einer Variablen auf der Bühne an"
         }
       }
     },
@@ -17463,6 +17387,36 @@
       "returns": "an array of MapObject from the specified layer, or null if the layer\n        does not exist",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/tiled/TiledMap/getObjectsFromLayer",
+      "availability": "desktop-only",
+      "availabilityReason": "This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation.",
+      "translations": {}
+    },
+    {
+      "id": "extensions/tiled/TiledMap/spawn(String)",
+      "memberId": "extensions/tiled/TiledMap/spawn",
+      "owner": "org.openpatch.scratch.extensions.tiled.TiledMap",
+      "className": "TiledMap",
+      "methodName": "spawn",
+      "static": false,
+      "returnType": "List<Sprite>",
+      "parameterTypes": [
+        "java.lang.String"
+      ],
+      "parameterNames": [
+        "layerName"
+      ],
+      "params": [
+        "String layerName"
+      ],
+      "summary": "Creates a sprite for each object of a layer whose type names a sprite class,\nand adds it to the stage. In Tiled, give an object the type (called\n\"class\" in newer versions of Tiled) `Player`, and the map makes a\n`new Player()` where the object is.",
+      "description": "Creates a sprite for each object of a layer whose type names a sprite class,\nand adds it to the stage. In Tiled, give an object the type (called\n\"class\" in newer versions of Tiled) `Player`, and the map makes a\n`new Player()` where the object is.\n\nThe sprite's class needs one of these constructors, tried in this order:\none that takes the [MapObject](../MapObject/index) (to read its name and properties), one\nthat takes `(double x, double y)`, or one without parameters. Either\nway the sprite is put where the object is. An object drawn as an area\n(a rectangle, an ellipse or a polygon) also gives the sprite that area as\nits hitbox, which is how walls and water work without a costume.\n\nObjects whose type is not a sprite class, or that have no type, are left\nalone, so a layer can hold markers the program reads itself.\n\n```java\nTiledMap map = new TiledMap(\"level.tmx\", this);\nmap.spawn(\"Objects\");\n```",
+      "scratchblock": null,
+      "paramDocs": [
+        "layerName: the object layer"
+      ],
+      "returns": "the sprites that were made, in the order of the layer",
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/tiled/TiledMap/spawn",
       "availability": "desktop-only",
       "availabilityReason": "This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation.",
       "translations": {}

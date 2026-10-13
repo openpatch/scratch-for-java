@@ -91,7 +91,8 @@ Click the stage so it takes the keyboard.
 ```java CatPlatformer.java
 
 void main() {
-  new CatPlatformer();
+  Window myWindow = new Window(800, 480);
+  myWindow.setStage(new CatPlatformer());
 }
 
 /**
@@ -120,7 +121,6 @@ class CatPlatformer extends Stage {
   private int totalBeans = 0;
 
   public CatPlatformer() {
-    super(800, 480);
     this.addBackdrop("background");
 
     // The ground, one grass tile at a time.

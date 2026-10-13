@@ -202,7 +202,8 @@ Here it is running. Click the stage and use the arrow keys.
 ```java BouncyHedgehogStage.java
 
 void main() {
-  new BouncyHedgehogStage();
+  Window myWindow = new Window(480, 360);
+  myWindow.setStage(new BouncyHedgehogStage());
 }
 
 class BouncyHedgehogStage extends Stage {

@@ -4,7 +4,9 @@ import org.openpatch.scratch.Timer;
 
 public class TimerIntervalMillis3 {
   public TimerIntervalMillis3() {
-    Stage myStage = new Stage(600, 240);
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
     Timer myTimer = new Timer();
     while (myStage.getTimer().forMillis(3000)) {
       if (myTimer.intervalMillis(500, true)) {

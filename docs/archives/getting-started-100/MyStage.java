@@ -2,19 +2,20 @@ import org.openpatch.scratch.*;
 
 public class MyStage extends Stage {
 
-  // scratch4j:begin fields (managed by the stage designer)
+  // begin stage designer
   private Bunny bunny;
-  // scratch4j:end fields
+  // end stage designer
 
   public MyStage() {
-    // scratch4j:begin setup (managed by the stage designer)
+    // begin stage designer
     this.addBackdrop("background");
     bunny = new Bunny();
     this.add(bunny);
-    // scratch4j:end setup
+    // end stage designer
   }
 
   public static void main(String[] args) {
-    new MyStage();
+    Window myWindow = new Window(480, 360);
+    myWindow.setStage(new MyStage());
   }
 }

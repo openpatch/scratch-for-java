@@ -6,7 +6,6 @@ public class StageWhenMouseClicked {
   public StageWhenMouseClicked() {
     class MyStage extends Stage {
       public MyStage() {
-        super(600, 240);
       }
 
       public void whenMouseClicked(MouseCode mouseCode) {
@@ -14,7 +13,8 @@ public class StageWhenMouseClicked {
       }
     }
 
-    new MyStage();
+    Window myWindow = new Window(600, 240);
+    myWindow.setStage(new MyStage());
   }
 
   public static void main(String[] args) {

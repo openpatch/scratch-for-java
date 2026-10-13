@@ -34,7 +34,8 @@ coin needs nobody: it patrols between the two corners on its own.
 ```java Glide.java
 
 void main() {
-  new Glide();
+  Window myWindow = new Window(600, 400);
+  myWindow.setStage(new Glide());
 }
 
 /**
@@ -46,20 +47,19 @@ void main() {
  */
 class Glide extends Stage {
 
-  // scratch4j:begin fields (managed by the stage designer)
+  // begin stage designer
   private Walker walker;
   private Patroller patroller;
-  // scratch4j:end fields
+  // end stage designer
 
   public Glide() {
-    super(600, 400);
-    // scratch4j:begin setup (managed by the stage designer)
+    // begin stage designer
     this.addBackdrop("background");
     walker = new Walker();
     this.add(walker);
     patroller = new Patroller();
     this.add(patroller);
-    // scratch4j:end setup
+    // end stage designer
   }
 }
 

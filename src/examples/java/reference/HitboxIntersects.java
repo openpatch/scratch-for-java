@@ -4,7 +4,9 @@ import org.openpatch.scratch.*;
 
 public class HitboxIntersects {
   public HitboxIntersects() {
-    Stage myStage = new Stage(600, 240);
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
     myStage.setDebug(true);
     Sprite green = new Sprite("green", "slimeGreen");
     green.setX(-150);

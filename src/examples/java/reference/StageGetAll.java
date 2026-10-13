@@ -3,7 +3,9 @@ import org.openpatch.scratch.*;
 
 public class StageGetAll {
   public StageGetAll() {
-    Stage myStage = new Stage(600, 240);
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
     myStage.add(new Pen());
     myStage.add(new Sprite());
     myStage.add(new Sprite());

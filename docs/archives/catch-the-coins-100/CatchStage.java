@@ -2,27 +2,26 @@ import org.openpatch.scratch.*;
 
 public class CatchStage extends Stage {
 
-  // scratch4j:begin fields (managed by the stage designer)
+  // begin stage designer
   private Basket basket;
-  // scratch4j:end fields
+  // end stage designer
 
   private Text scoreText = new Text();
   private int score = 0;
 
   public CatchStage() {
-    super(600, 400);
 
     this.scoreText.setPosition(0, 170);
     this.scoreText.setTextSize(22);
     this.add(this.scoreText);
     this.showScore();
 
-    // scratch4j:begin setup (managed by the stage designer)
+    // begin stage designer
     this.addBackdrop("background");
     this.addSound("handleCoins");
     basket = new Basket();
     this.add(basket);
-    // scratch4j:end setup
+    // end stage designer
     for (int i = 0; i < 4; i++) {
       this.add(new Coin());
     }
@@ -39,6 +38,7 @@ public class CatchStage extends Stage {
   }
 
   public static void main(String[] args) {
-    new CatchStage();
+    Window myWindow = new Window(600, 400);
+    myWindow.setStage(new CatchStage());
   }
 }

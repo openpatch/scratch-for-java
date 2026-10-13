@@ -16,7 +16,6 @@ public class SpriteBroadcast {
 
 class ReceiveStage extends Stage {
   public ReceiveStage() {
-    super(600, 240);
   }
 
   public void whenIReceive(String message) {

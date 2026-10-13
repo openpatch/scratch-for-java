@@ -2,9 +2,9 @@ import org.openpatch.scratch.*;
 
 public class GameStage extends Stage {
 
-  // scratch4j:begin fields (managed by the stage designer)
+  // begin stage designer
   private Alien alien;
-  // scratch4j:end fields
+  // end stage designer
 
   private Text scoreText = new Text();
   private int dodged = 0;
@@ -16,11 +16,11 @@ public class GameStage extends Stage {
     this.add(this.scoreText);
     this.showScore();
 
-    // scratch4j:begin setup (managed by the stage designer)
+    // begin stage designer
     this.addBackdrop("background");
     alien = new Alien();
     this.add(alien);
-    // scratch4j:end setup
+    // end stage designer
     for (int i = 0; i < 3; i++) {
       this.add(new Rock());
     }

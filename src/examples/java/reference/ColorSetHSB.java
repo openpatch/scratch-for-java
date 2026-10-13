@@ -4,7 +4,9 @@ import org.openpatch.scratch.*;
 
 public class ColorSetHSB {
   public ColorSetHSB() {
-    Stage myStage = new Stage(600, 240);
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
 
     Color myColor = new Color();
     // Only the hue, which keeps the saturation and the brightness as they were.

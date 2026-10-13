@@ -3,23 +3,24 @@ package demos.cat;
 import org.openpatch.scratch.KeyCode;
 import org.openpatch.scratch.Sprite;
 import org.openpatch.scratch.Stage;
+import org.openpatch.scratch.Window;
 
 public class CatSketch extends Stage {
 
-  // scratch4j:begin fields (managed by the stage designer)
+  // begin stage designer
   private CatSprite myCat;
-  // scratch4j:end fields
+  // end stage designer
 
   public CatSketch() {
-    super(800, 600);
-    // scratch4j:begin setup (managed by the stage designer)
+    // begin stage designer
     myCat = new CatSprite();
     this.add(myCat);
-    // scratch4j:end setup
+    // end stage designer
   }
 
   public static void main(String[] args) {
-    new CatSketch();
+    Window myWindow = new Window(800, 600);
+    myWindow.setStage(new CatSketch());
   }
 }
 

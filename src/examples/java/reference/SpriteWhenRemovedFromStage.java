@@ -14,7 +14,9 @@ public class SpriteWhenRemovedFromStage {
       }
     }
 
-    Stage myStage = new Stage(600, 240);
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
     MySprite mySprite = new MySprite();
     myStage.add(mySprite);
     myStage.wait(2000);

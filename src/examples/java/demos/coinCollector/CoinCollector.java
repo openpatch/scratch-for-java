@@ -2,6 +2,7 @@ package demos.coinCollector;
 
 import org.openpatch.scratch.Stage;
 import org.openpatch.scratch.Text;
+import org.openpatch.scratch.Window;
 
 /**
  * A small game that only uses assets built into Scratch for Java.
@@ -15,9 +16,9 @@ import org.openpatch.scratch.Text;
  */
 public class CoinCollector extends Stage {
 
-  // scratch4j:begin fields (managed by the stage designer)
+  // begin stage designer
   private Player player;
-  // scratch4j:end fields
+  // end stage designer
 
   /** The height the ground reaches up to. Sprites stand on this line. */
   public static final double GROUND_TOP = -176;
@@ -28,7 +29,6 @@ public class CoinCollector extends Stage {
   private int collected = 0;
 
   public CoinCollector() {
-    super(800, 480);
 
     // A backdrop and a sound, by name - no files needed.
 
@@ -43,12 +43,12 @@ public class CoinCollector extends Stage {
       this.add(new Coin(-240 + i * 112, GROUND_TOP + 45));
     }
 
-    // scratch4j:begin setup (managed by the stage designer)
+    // begin stage designer
     this.addBackdrop("background");
     this.addSound("jingles_NES00");
     player = new Player();
     this.add(player);
-    // scratch4j:end setup
+    // end stage designer
 
     this.score = new Text();
     this.score.setPosition(-330, 200);
@@ -74,6 +74,7 @@ public class CoinCollector extends Stage {
   }
 
   public static void main(String[] args) {
-    new CoinCollector();
+    Window myWindow = new Window(800, 480);
+    myWindow.setStage(new CoinCollector());
   }
 }

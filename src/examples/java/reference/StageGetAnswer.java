@@ -4,7 +4,9 @@ import org.openpatch.scratch.*;
 
 public class StageGetAnswer {
   public StageGetAnswer() {
-    Stage myStage = new Stage(600, 240);
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
 
     myStage.ask("How old are you?");
     while (myStage.isAsking()) {

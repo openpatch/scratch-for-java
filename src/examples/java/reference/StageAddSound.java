@@ -4,7 +4,9 @@ import org.openpatch.scratch.*;
 
 public class StageAddSound {
   public StageAddSound() {
-    Stage myStage = new Stage(600, 240);
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
 
     // A sound on the stage plays wherever it is needed, without a sprite.
     myStage.addSound("music", "jingles_STEEL16");

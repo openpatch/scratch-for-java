@@ -3,7 +3,9 @@ import org.openpatch.scratch.*;
 
 public class SpriteRun {
   public SpriteRun() {
-    Stage myStage = new Stage(600, 240);
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
     myStage.add(new Zeta());
     while (true) {
       // wait for 3000 millis

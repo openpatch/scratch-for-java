@@ -4,7 +4,9 @@ import org.openpatch.scratch.*;
 
 public class RandomRandomX {
   public RandomRandomX() {
-    Stage myStage = new Stage(600, 240);
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
 
     // randomX() stays inside the stage, whatever its width is.
     Sprite mySprite = new Sprite("slime", "slimeGreen");

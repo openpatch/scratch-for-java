@@ -49,7 +49,6 @@ public class VisualProbe extends Stage {
   private int frames = 0;
 
   public VisualProbe(String outputFolder) {
-    super(480, 360);
     this.recorder = new FrameRecorder(outputFolder);
     this.setColor(255, 255, 255);
   }
@@ -285,6 +284,7 @@ public class VisualProbe extends Stage {
   }
 
   public static void main(String[] args) {
-    new VisualProbe(args.length > 0 ? args[0] : "frames");
+    Window myWindow = new Window(480, 360);
+    myWindow.setStage(new VisualProbe(args.length > 0 ? args[0] : "frames"));
   }
 }

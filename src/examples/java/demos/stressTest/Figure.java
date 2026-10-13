@@ -18,8 +18,8 @@ public class Figure extends AnimatedSprite {
     this.setPosition(this.pickRandom(-200, 200), this.pickRandom(-200, 200));
     this.setDirection(this.pickRandom(0, 360));
 
-    // scratch4j:begin setup (managed by the stage designer)
-    // scratch4j:end setup
+    // begin sprite editor
+    // end sprite editor
   }
 
   public void run() {

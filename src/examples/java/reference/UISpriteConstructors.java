@@ -4,7 +4,9 @@ import org.openpatch.scratch.*;
 
 public class UISpriteConstructors {
   public UISpriteConstructors() {
-    Stage myStage = new Stage(600, 240);
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
     myStage.getCamera().setZoom(2);
     // A UI sprite ignores the camera, which is what makes it useful for a
     // button or a health bar: it keeps its place and its size while the world

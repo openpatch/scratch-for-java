@@ -8,10 +8,10 @@ import org.openpatch.scratch.Vector2;
 
 public class WorldStage extends Stage {
 
-  // scratch4j:begin fields (managed by the stage designer)
+  // begin stage designer
   private Background background;
   private PlayerDonut player;
-  // scratch4j:end fields
+  // end stage designer
 
   public static Vector2 CAM = new Vector2(0, 0);
   public boolean manualZoom;
@@ -19,12 +19,12 @@ public class WorldStage extends Stage {
   public double targetZoom;
   public WorldStage() {
     manualZoom = false;
-    // scratch4j:begin setup (managed by the stage designer)
+    // begin stage designer
     background = new Background();
     this.add(background);
     player = new PlayerDonut();
     this.add(player);
-    // scratch4j:end setup
+    // end stage designer
 
     for (int i = 0; i < 5 * (Game.LEVEL + 1); i++) {
       var m = new FollowDonut(player);

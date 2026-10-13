@@ -1,10 +1,13 @@
 package reference;
 import org.openpatch.scratch.Sprite;
 import org.openpatch.scratch.Stage;
+import org.openpatch.scratch.Window;
 
 public class SpriteShow {
   public SpriteShow() {
-    Stage myStage = new Stage(600, 240);
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
     Sprite mySprite = new Sprite("slime", "slimeBlue");
     myStage.add(mySprite);
     myStage.wait(3000);

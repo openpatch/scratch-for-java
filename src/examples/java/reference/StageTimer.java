@@ -3,7 +3,9 @@ import org.openpatch.scratch.*;
 
 public class StageTimer {
   public StageTimer() {
-    Stage myStage = new Stage(600, 240);
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
     while (true) {
       if (myStage.getTimer("identityChange").everyMillis(1000)) {
         myStage.changeColor(40);

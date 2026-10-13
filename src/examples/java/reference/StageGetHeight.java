@@ -3,7 +3,9 @@ import org.openpatch.scratch.*;
 
 public class StageGetHeight {
   public StageGetHeight() {
-    Stage myStage = new Stage(600, 240);
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
     myStage.display("Height: " + myStage.getHeight());
     myStage.wait(500);
   }

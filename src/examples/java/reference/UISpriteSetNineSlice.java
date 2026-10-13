@@ -4,7 +4,9 @@ import org.openpatch.scratch.*;
 
 public class UISpriteSetNineSlice {
   public UISpriteSetNineSlice() {
-    Stage myStage = new Stage(600, 240);
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
     UISprite myPanel = new UISprite();
     myPanel.addCostume("panel", "buttonLarge");
     myStage.add(myPanel);

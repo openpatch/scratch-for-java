@@ -24,7 +24,9 @@ public class SpriteWhenStartsAsClone {
       }
     }
 
-    Stage myStage = new Stage(600, 240);
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
     myStage.add(new Star());
   }
 

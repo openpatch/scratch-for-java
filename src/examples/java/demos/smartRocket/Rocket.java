@@ -13,10 +13,10 @@ public class Rocket extends Sprite {
   private Ziel ziel;
 
   public Rocket(Vector2 pPosition, DNA pDna, Ziel pZiel) {
-    // scratch4j:begin setup (managed by the stage designer)
+    // begin sprite editor
     this.addCostume("rocket", "demos/smartRocket/assets/rocket.png");
     this.setHitbox(68, 27, 68, 20, 76, 21, 76, 26);
-    // scratch4j:end setup
+    // end sprite editor
     this.setPosition(pPosition);
     this.beschleunigung = new Vector2();
     this.geschwindigkeit = new Vector2();

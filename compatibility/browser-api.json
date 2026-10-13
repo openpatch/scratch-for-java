@@ -5212,27 +5212,6 @@
         "name": "Stage",
         "constructor": true,
         "static": false,
-        "parameters": [
-          "int",
-          "int",
-          "String"
-        ],
-        "returns": "org.openpatch.scratch.Stage"
-      },
-      {
-        "name": "Stage",
-        "constructor": true,
-        "static": false,
-        "parameters": [
-          "int",
-          "int"
-        ],
-        "returns": "org.openpatch.scratch.Stage"
-      },
-      {
-        "name": "Stage",
-        "constructor": true,
-        "static": false,
         "parameters": [],
         "returns": "org.openpatch.scratch.Stage"
       },
@@ -15732,27 +15711,6 @@
       }
     ],
     "org.openpatch.scratch.Stage": [
-      {
-        "name": "Stage",
-        "constructor": true,
-        "static": false,
-        "parameters": [
-          "int",
-          "int",
-          "String"
-        ],
-        "returns": "org.openpatch.scratch.Stage"
-      },
-      {
-        "name": "Stage",
-        "constructor": true,
-        "static": false,
-        "parameters": [
-          "int",
-          "int"
-        ],
-        "returns": "org.openpatch.scratch.Stage"
-      },
       {
         "name": "Stage",
         "constructor": true,

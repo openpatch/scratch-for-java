@@ -6,9 +6,9 @@ import org.openpatch.scratch.Sprite;
 
 public class MySprite extends Sprite {
   public MySprite() {
-    // scratch4j:begin setup (managed by the stage designer)
+    // begin sprite editor
     this.addCostume("cat", "demos/shader/cat.png");
-    // scratch4j:end setup
+    // end sprite editor
     var shader = this.getShaders().add("halftone", "demos/shader/halftone.frag", "demos/shader/default.vert");
     shader = this.getShaders().add("pixelate", "demos/shader/pixelate.frag", "demos/shader/default.vert");
     shader.set("pixels", 20.0, 10.0);

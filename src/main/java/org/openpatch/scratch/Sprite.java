@@ -2701,9 +2701,20 @@ public class Sprite implements Cloneable {
     }
     if (this.costumes.isEmpty()) {
       // A sprite given a collision shape but no costume is an invisible wall or
-      // trigger, which is a normal thing to build. Only a sprite with neither is
-      // likely to be a forgotten addCostume().
-      if (this.hitbox != null) {
+      // trigger, and one that puts its pen down is drawing with it: both are
+      // normal things to build. Only a sprite with none of these is likely to be
+      // a forgotten addCostume().
+      if (this.hitbox != null || this.pen.wasUsed()) {
+        return;
+      }
+      // A sprite that draws may take a moment to put its pen down (on its first
+      // timer tick, say): only one that stays bare for a second is flagged.
+      var applet = org.openpatch.scratch.internal.Applet.getInstance();
+      int now = applet == null ? 0 : applet.millis();
+      if (this.withoutCostumeSince < 0) {
+        this.withoutCostumeSince = now;
+      }
+      if (now - this.withoutCostumeSince < 1000) {
         return;
       }
       // Drawing nothing at all looks exactly like a broken program, so say what
@@ -2735,6 +2746,9 @@ public class Sprite implements Cloneable {
   RotationStyle getRotationStyle() {
     return this.rotationStyle;
   }
+
+  /** When this sprite was first drawn without a costume (-1: not yet). */
+  private int withoutCostumeSince = -1;
 
   /** A question mark where a sprite without a costume would have been. */
   private void drawMissingCostume(PGraphics buffer) {

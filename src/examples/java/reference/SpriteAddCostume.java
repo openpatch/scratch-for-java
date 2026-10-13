@@ -3,7 +3,9 @@ import org.openpatch.scratch.*;
 
 public class SpriteAddCostume {
   public SpriteAddCostume() {
-    Stage myStage = new Stage(600, 240);
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
     Sprite zeta = new Sprite("green", "slimeGreen");
     zeta.addCostume("yellow", "slimeBlue");
     myStage.add(zeta);

@@ -23,23 +23,23 @@ right arrow key to shrink or grow the green bar.
 ```java UI.java
 
 void main() {
-  new UI();
+  Window myWindow = new Window(800, 600);
+  myWindow.setStage(new UI());
 }
 
 class UI extends Stage {
 
-  // scratch4j:begin fields (managed by the stage designer)
+  // begin stage designer
   private Panel panel;
   private Bar backgroundBar;
   private Bar bar;
-  // scratch4j:end fields
+  // end stage designer
 
   public UI() {
-    super(800, 600);
 
     this.setCursor("crosshair_color_c.png");
 
-    // scratch4j:begin setup (managed by the stage designer)
+    // begin stage designer
     panel = new Panel();
     panel.setWidth(600);
     panel.setHeight(480);
@@ -56,7 +56,7 @@ class UI extends Stage {
     bar.setWidth(100);
     bar.setHeight(40);
     this.add(bar);
-    // scratch4j:end setup
+    // end stage designer
   }
 
   public void run() {

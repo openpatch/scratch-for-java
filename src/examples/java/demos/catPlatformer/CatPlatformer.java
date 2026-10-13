@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.openpatch.scratch.Stage;
 import org.openpatch.scratch.Text;
+import org.openpatch.scratch.Window;
 
 /**
  * The Scratch for Java cat in a small platformer: collect the coffee beans,
@@ -32,7 +33,6 @@ public class CatPlatformer extends Stage {
   private int totalBeans = 0;
 
   public CatPlatformer() {
-    super(800, 480);
     this.addBackdrop("background");
 
     // The ground, one grass tile at a time.
@@ -156,6 +156,7 @@ public class CatPlatformer extends Stage {
   }
 
   public static void main(String[] args) {
-    new CatPlatformer();
+    Window myWindow = new Window(800, 480);
+    myWindow.setStage(new CatPlatformer());
   }
 }

@@ -9,25 +9,24 @@ import org.openpatch.scratch.Ellipse;
 
 public class Sensing extends Stage {
 
-  // scratch4j:begin fields (managed by the stage designer)
+  // begin stage designer
   private UIHero uiH;
-  // scratch4j:end fields
+  // end stage designer
 
   public static Hero h, m;
 
   public Sensing() {
-    super(800, 800);
     Window.getInstance().setDebug(true);
     h = new Hero();
     m = new MovableHero();
     this.add(h);
     this.add(m);
 
-    // scratch4j:begin setup (managed by the stage designer)
+    // begin stage designer
     uiH = new UIHero();
     uiH.setPosition(300, 300);
     this.add(uiH);
-    // scratch4j:end setup
+    // end stage designer
   }
 
   public void run() {
@@ -42,7 +41,8 @@ public class Sensing extends Stage {
   }
 
   public static void main(String[] args) {
-    new Sensing();
+    Window myWindow = new Window(800, 800);
+    myWindow.setStage(new Sensing());
   }
 }
 

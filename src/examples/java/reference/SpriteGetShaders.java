@@ -4,7 +4,9 @@ import org.openpatch.scratch.*;
 
 public class SpriteGetShaders {
   public SpriteGetShaders() {
-    Stage myStage = new Stage(600, 240);
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
 
     Sprite colourful = new Sprite("slime", "slimeGreen");
     colourful.setPosition(-100, 0);

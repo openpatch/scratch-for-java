@@ -4,7 +4,6 @@ import org.openpatch.scratch.*;
 public class StageWhenKeyPressed {
   class CustomStage extends Stage {
     public CustomStage() {
-      super(600, 240);
     }
 
     @Override
@@ -14,7 +13,8 @@ public class StageWhenKeyPressed {
   }
 
   public StageWhenKeyPressed() {
-    new CustomStage();
+    Window myWindow = new Window(600, 240);
+    myWindow.setStage(new CustomStage());
   }
 
   public static void main(String[] args) {

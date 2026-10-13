@@ -6,7 +6,9 @@ import org.openpatch.scratch.extensions.camera.Camera;
 public class CameraConstructors {
   public CameraConstructors() {
 
-    Stage myStage = new Stage(600, 240);
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
     for (int i = 0; i < 12; i++) {
       Sprite coin = new Sprite("coin", "coinGold");
       coin.goToRandomPosition();

@@ -3,7 +3,9 @@ import org.openpatch.scratch.*;
 
 public class StageRemoveAll {
   public StageRemoveAll() {
-    Stage myStage = new Stage(600, 240);
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
     Sprite gamma = new Sprite("gamma", "slimePurple");
     gamma.changeX(20);
     myStage.add(gamma);

@@ -2,9 +2,9 @@ import org.openpatch.scratch.*;
 
 public class GuessStage extends Stage {
 
-  // scratch4j:begin fields (managed by the stage designer)
+  // begin stage designer
   private Sprite wizard;
-  // scratch4j:end fields
+  // end stage designer
 
   private int secret = Random.randomInt(1, 10);
   private int tries = 0;
@@ -12,20 +12,19 @@ public class GuessStage extends Stage {
   private Text hint = new Text();
 
   public GuessStage() {
-    super(500, 300);
 
     this.hint.setPosition(0, 60);
     this.hint.setTextSize(20);
     this.add(this.hint);
 
-    // scratch4j:begin setup (managed by the stage designer)
+    // begin stage designer
     this.addBackdrop("background");
     wizard = new Sprite();
     wizard.addCostume("alienBlue_front");
     wizard.setPosition(0, -40);
     wizard.setSize(40);
     this.add(wizard);
-    // scratch4j:end setup
+    // end stage designer
 
     this.ask("Guess a number between 1 and 10");
   }
@@ -59,6 +58,7 @@ public class GuessStage extends Stage {
   }
 
   public static void main(String[] args) {
-    new GuessStage();
+    Window myWindow = new Window(500, 300);
+    myWindow.setStage(new GuessStage());
   }
 }

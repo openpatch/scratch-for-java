@@ -3,7 +3,9 @@ import org.openpatch.scratch.*;
 
 public class ClockGetCurrentTime {
   public ClockGetCurrentTime() {
-    Stage myStage = new Stage(600, 240);
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
     while (true) {
       int year = Clock.getYear();
       int month = Clock.getMonth();

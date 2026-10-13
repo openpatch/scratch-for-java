@@ -4,7 +4,8 @@ import org.openpatch.scratch.extensions.sorting.Sorting;
 
 public class LifecycleProbe {
     public static void main(String[] args) {
-        new ProbeStage();
+        Window myWindow = new Window(600, 240);
+        myWindow.setStage(new ProbeStage());
     }
 }
 
@@ -39,7 +40,6 @@ class ProbeStage extends Stage {
     ProbeSprite copy;
     int frames = 0;
     ProbeStage() {
-        super(600, 240);
         Window.getInstance().pause();
         original = new ProbeSprite();
         add(original);

@@ -4,20 +4,20 @@ import org.openpatch.scratch.*;
 
 public class RobotStage extends Stage {
 
-  // scratch4j:begin fields (managed by the stage designer)
+  // begin stage designer
   private RobotSprite robotSprite;
-  // scratch4j:end fields
+  // end stage designer
 
   public RobotStage() {
-    super(800, 600);
     this.setDebug(true);
-    // scratch4j:begin setup (managed by the stage designer)
+    // begin stage designer
     robotSprite = new RobotSprite();
     this.add(robotSprite);
-    // scratch4j:end setup
+    // end stage designer
   }
 
   public static void main(String[] args) {
-    new RobotStage();
+    Window myWindow = new Window(800, 600);
+    myWindow.setStage(new RobotStage());
   }
 }

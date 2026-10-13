@@ -165,9 +165,9 @@ public class Window {
     System.err.println("WARNING: " + what + " was called too late!");
     System.err.println("==============================================");
     System.err.println("\nThe window already exists, so this had no effect.");
-    System.err.println("\nTip: Call it before the first stage is created:");
+    System.err.println("\nTip: Call it before the window is created:");
     System.err.println("       " + example);
-    System.err.println("       new MyStage();");
+    System.err.println("       Window myWindow = new Window(480, 360);");
     System.err.println("==============================================\n");
   }
 

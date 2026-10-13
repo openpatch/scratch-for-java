@@ -4,7 +4,9 @@ import org.openpatch.scratch.*;
 
 public class ColorConstructors {
   public ColorConstructors() {
-    Stage myStage = new Stage(600, 240);
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
 
     // The four ways of naming a colour. The stage shows the last one.
     Color white = new Color();

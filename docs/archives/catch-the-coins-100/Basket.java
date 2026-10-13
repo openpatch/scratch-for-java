@@ -2,9 +2,9 @@ import org.openpatch.scratch.*;
 
 public class Basket extends Sprite {
   public Basket() {
-    // scratch4j:begin setup (managed by the stage designer)
+    // begin sprite editor
     this.addCostume("alienGreen_stand");
-    // scratch4j:end setup
+    // end sprite editor
     this.setSize(35);
     this.setY(-150);
     this.setRotationStyle(RotationStyle.LEFT_RIGHT);

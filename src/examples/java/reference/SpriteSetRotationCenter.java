@@ -3,7 +3,9 @@ import org.openpatch.scratch.*;
 
 public class SpriteSetRotationCenter {
   public SpriteSetRotationCenter() {
-    Stage myStage = new Stage(600, 240);
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
 
     // turns around the middle of its costume
     Sprite middle = new Sprite("rock", "tappy_plane/rock");

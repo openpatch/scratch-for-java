@@ -2,23 +2,24 @@ package demos.randomDot;
 
 import org.openpatch.scratch.Sprite;
 import org.openpatch.scratch.Stage;
+import org.openpatch.scratch.Window;
 
 public class RandomDot extends Stage {
 
-  // scratch4j:begin fields (managed by the stage designer)
+  // begin stage designer
   private RandomDotSprite randomDotSprite;
-  // scratch4j:end fields
+  // end stage designer
 
   public RandomDot() {
-    super(800, 600);
-    // scratch4j:begin setup (managed by the stage designer)
+    // begin stage designer
     randomDotSprite = new RandomDotSprite();
     this.add(randomDotSprite);
-    // scratch4j:end setup
+    // end stage designer
   }
 
   public static void main(String[] args) {
-    new RandomDot();
+    Window myWindow = new Window(800, 600);
+    myWindow.setStage(new RandomDot());
   }
 }
 

@@ -4,21 +4,21 @@ import org.openpatch.scratch.*;
 
 public class RainbowVine extends Stage {
 
-  // scratch4j:begin fields (managed by the stage designer)
+  // begin stage designer
   private VineSprite vineSprite;
-  // scratch4j:end fields
+  // end stage designer
 
   public RainbowVine() {
-    super(600, 400);
     this.setColor(0, 0, 0);
-    // scratch4j:begin setup (managed by the stage designer)
+    // begin stage designer
     vineSprite = new VineSprite();
     this.add(vineSprite);
-    // scratch4j:end setup
+    // end stage designer
   }
 
   public static void main(String[] args) {
-    new RainbowVine();
+    Window myWindow = new Window(600, 400);
+    myWindow.setStage(new RainbowVine());
   }
 }
 

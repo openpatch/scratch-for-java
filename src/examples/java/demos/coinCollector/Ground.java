@@ -6,9 +6,9 @@ import org.openpatch.scratch.Sprite;
 public class Ground extends Sprite {
 
   public Ground(double x) {
-    // scratch4j:begin setup (managed by the stage designer)
+    // begin sprite editor
     this.addCostume("grassMid");
-    // scratch4j:end setup
+    // end sprite editor
     this.setSize(50);
     this.setX(x);
     // The tile is 128 pixels high, so its middle sits 32 below its top edge.

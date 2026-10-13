@@ -4,7 +4,9 @@ import org.openpatch.scratch.*;
 
 public class SpriteConstructors {
   public SpriteConstructors() {
-    Stage myStage = new Stage(600, 240);
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
     // A sprite with a name and a first costume.
     Sprite green = new Sprite("green", "slimeGreen");
     green.setX(-120);

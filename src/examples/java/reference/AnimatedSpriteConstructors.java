@@ -4,7 +4,9 @@ import org.openpatch.scratch.*;
 
 public class AnimatedSpriteConstructors {
   public AnimatedSpriteConstructors() {
-    Stage myStage = new Stage(600, 240);
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
     // An animated sprite is a sprite whose costumes are grouped into named
     // animations, each played frame by frame.
     AnimatedSprite mySprite = new AnimatedSprite();

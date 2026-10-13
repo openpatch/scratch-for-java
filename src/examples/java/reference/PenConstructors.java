@@ -4,7 +4,9 @@ import org.openpatch.scratch.*;
 
 public class PenConstructors {
   public PenConstructors() {
-    Stage myStage = new Stage(600, 240);
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
     // A pen of its own, which draws wherever it is told to go.
     Pen myPen = new Pen();
     myStage.add(myPen);

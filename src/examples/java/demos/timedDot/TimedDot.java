@@ -4,16 +4,15 @@ import org.openpatch.scratch.*;
 
 public class TimedDot extends Stage {
 
-  // scratch4j:begin fields (managed by the stage designer)
+  // begin stage designer
   private DotSprite dotSprite;
-  // scratch4j:end fields
+  // end stage designer
 
   public TimedDot() {
-    super(400, 200);
-    // scratch4j:begin setup (managed by the stage designer)
+    // begin stage designer
     dotSprite = new DotSprite();
     this.add(dotSprite);
-    // scratch4j:end setup
+    // end stage designer
   }
 
   public void run() {
@@ -23,7 +22,8 @@ public class TimedDot extends Stage {
   }
 
   public static void main(String[] args) {
-    new TimedDot();
+    Window myWindow = new Window(400, 200);
+    myWindow.setStage(new TimedDot());
   }
 }
 

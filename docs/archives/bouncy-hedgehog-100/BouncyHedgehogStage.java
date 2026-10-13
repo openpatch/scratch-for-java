@@ -1,23 +1,25 @@
 import org.openpatch.scratch.Stage;
+import org.openpatch.scratch.Window;
 
 public class BouncyHedgehogStage extends Stage {
 
-  // scratch4j:begin fields (managed by the stage designer)
+  // begin stage designer
   private HedgehogSprite hedgehogSprite;
   private TrampolineSprite trampolineSprite;
-  // scratch4j:end fields
+  // end stage designer
 
   public BouncyHedgehogStage() {
-    // scratch4j:begin setup (managed by the stage designer)
+    // begin stage designer
     this.addBackdrop("playground", "playground.jpg");
     hedgehogSprite = new HedgehogSprite();
     this.add(hedgehogSprite);
     trampolineSprite = new TrampolineSprite();
     this.add(trampolineSprite);
-    // scratch4j:end setup
+    // end stage designer
   }
 
   public static void main(String[] args) {
-    new BouncyHedgehogStage();
+    Window myWindow = new Window(480, 360);
+    myWindow.setStage(new BouncyHedgehogStage());
   }
 }

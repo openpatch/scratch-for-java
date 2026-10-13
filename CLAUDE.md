@@ -40,6 +40,12 @@ live `Window` (its buffers are OpenGL), so verifying drawing, input or anything 
 means running something: the affected reference/demo example under `src/examples/java`, or
 `./scripts/run.sh` to pick one.
 
+The window comes first: `new Window(480, 360)`, then `setStage(new MyStage())`; a stage built
+without a window throws. To see what a stage draws without watching it, run it with
+`-Dscratch4j.preview=<folder>` (see `internal/Preview`): the first frame lands in
+`<folder>/frame.png`, its sprites in `<folder>/stage.json`, and the program ends. Studio uses this
+for its stage designer.
+
 Running a windowed example headlessly works with `xvfb-run -a java ...`, which is how the
 documentation GIFs are recorded. Note that under Xvfb the window is exactly the render size, so
 letterbox bars never appear — a bug that only shows on a scaled or HiDPI display will not reproduce

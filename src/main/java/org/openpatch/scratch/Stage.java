@@ -59,6 +59,10 @@ public class Stage {
     public void mouseEvent(MouseEvent e) {
       Stage.this.mouseEvent(e);
     }
+
+    public List<Sprite> sprites() {
+      return List.copyOf(Stage.this.sprites);
+    }
   };
 
   private final Shaders shaders = new Shaders("stage");
@@ -174,32 +178,20 @@ public class Stage {
   }
 
   /**
-   * Constructs a new Stage with default dimensions. The default width is 480
-   * pixels and the default
-   * height is 360 pixels.
+   * Constructs a new Stage. A stage is as big as the window it is shown in, so
+   * the window has to exist first:
+   *
+   * <pre>{@code
+   * Window myWindow = new Window(480, 360);
+   * myWindow.setStage(new MyStage());
+   * }</pre>
+   *
+   * @throws IllegalStateException when there is no window yet
    */
   public Stage() {
-    this(480, 360);
-  }
-
-  /**
-   * Constructs a new Stage with the specified width and height.
-   *
-   * @param width  the width of the stage
-   * @param height the height of the stage
-   */
-  public Stage(int width, final int height) {
-    this(width, height, null);
-  }
-
-  /**
-   * Constructs a new Stage with the specified width, height, and assets path.
-   *
-   * @param width  the width of the stage
-   * @param height the height of the stage
-   * @param assets the path to the assets directory
-   */
-  public Stage(int width, final int height, String assets) {
+    if (Window.getInstance() == null) {
+      noWindowYet(this.getClass().getSimpleName());
+    }
     this.cursor = null;
     this.camera = new Camera();
     this.texts = new CopyOnWriteArrayList<>();
@@ -210,11 +202,6 @@ public class Stage {
     this.uiStamps = new ConcurrentLinkedQueue<>();
     this.timer = new ConcurrentHashMap<>();
 
-    if (Window.getInstance() == null) {
-      new Window(width, height, assets);
-      Applet a = Applet.getInstance();
-      a.setStage(this);
-    }
     Applet applet = Applet.getInstance();
     applet.registerHooks(this, this.hooks);
 
@@ -305,6 +292,24 @@ public class Stage {
     p.addPoint(this.getWidth() / 2, this.getHeight() / 2);
     this.bottomBorder = new Hitbox(p);
   }
+  /** Explains that the window comes first, and how to write that. */
+  private static void noWindowYet(String name) {
+    String stage = "Stage".equals(name) ? "myStage" : "new " + name + "()";
+    System.err.println("\n==============================================");
+    System.err.println("ERROR: There is no window for " + name + " yet!");
+    System.err.println("==============================================");
+    System.err.println("\nA stage is shown in a window, so create the window first");
+    System.err.println("and then put the stage into it:");
+    System.err.println("\n       Window myWindow = new Window(480, 360);");
+    if ("Stage".equals(name)) {
+      System.err.println("       Stage myStage = new Stage();");
+    }
+    System.err.println("       myWindow.setStage(" + stage + ");");
+    System.err.println("==============================================\n");
+    throw new IllegalStateException(
+        "Create the Window before the first Stage: new Window(480, 360)");
+  }
+
 
   /**
    * Enables or disables the debug mode for the application.

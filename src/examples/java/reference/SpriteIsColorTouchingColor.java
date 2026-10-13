@@ -3,7 +3,9 @@ import org.openpatch.scratch.*;
 
 public class SpriteIsColorTouchingColor {
   public SpriteIsColorTouchingColor() {
-    Stage myStage = new Stage(600, 240);
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
 
     // a blue line across the stage
     Sprite painter = new Sprite();

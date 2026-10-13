@@ -4,7 +4,9 @@ import org.openpatch.scratch.*;
 
 public class AnimatedSpriteClone {
   public AnimatedSpriteClone() {
-    Stage myStage = new Stage(600, 240);
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
     AnimatedSprite mySprite = new AnimatedSprite();
     mySprite.addAnimation("walk", "bunny1_walk%d", 2);
     mySprite.playAnimation("walk");

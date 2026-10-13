@@ -6,7 +6,6 @@ public class StageWhenIReceive {
   public StageWhenIReceive() {
     class MyStage extends Stage {
       public MyStage() {
-        super(600, 240);
       }
 
       // The stage hears its own messages too.

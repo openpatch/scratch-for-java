@@ -140,7 +140,6 @@ import org.openpatch.scratch.*;
 
 public class RaceStage extends Stage {
   public RaceStage() {
-    super(600, 340);
     this.addBackdrop("background");
 
     this.add(new Referee());
@@ -150,7 +149,8 @@ public class RaceStage extends Stage {
   }
 
   public static void main(String[] args) {
-    new RaceStage();
+    Window myWindow = new Window(600, 340);
+    myWindow.setStage(new RaceStage());
   }
 }
 ```
@@ -167,12 +167,12 @@ sign, and add a fourth racer to see that the referee really does not care:
 ```java RaceStage.java
 
 void main() {
-  new RaceStage();
+  Window myWindow = new Window(600, 340);
+  myWindow.setStage(new RaceStage());
 }
 
 class RaceStage extends Stage {
   public RaceStage() {
-    super(600, 340);
     this.addBackdrop("background");
 
     this.add(new Referee());

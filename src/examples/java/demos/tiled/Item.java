@@ -1,31 +1,25 @@
 package demos.tiled;
 
 import org.openpatch.scratch.*;
+import org.openpatch.scratch.extensions.tiled.MapObject;
 
 public class Item extends Sprite {
   private String name;
 
   // Constructor for displaying the inventory
   public Item() {
-    // scratch4j:begin setup (managed by the stage designer)
+    // begin sprite editor
     this.addCostume("scroll-water", "demos/tiled/assets/ScrollWater.png");
     this.addCostume("scroll-fire", "demos/tiled/assets/ScrollFire.png");
-    // scratch4j:end setup
+    // end sprite editor
     this.hide();
   }
 
-  // Constructor for displaying an item on the map
-  public Item(String name, double x, double y) {
+  // The map makes an item for each Item object; the object's name is the item
+  public Item(MapObject object) {
     this();
-
     this.show();
-    this.name = name;
-
-    this.setX(x);
-    this.setY(y);
-
-    this.run();
-
+    this.name = object.name;
     this.switchCostume(name);
   }
 

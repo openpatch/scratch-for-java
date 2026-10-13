@@ -4,7 +4,9 @@ import org.openpatch.scratch.*;
 
 public class HtmlColorGetRandom {
   public HtmlColorGetRandom() {
-    Stage myStage = new Stage(600, 240);
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
 
     // A different one of the 140 HTML colours every second.
     while (true) {

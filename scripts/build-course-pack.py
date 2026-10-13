@@ -67,9 +67,12 @@ def main():
         projects.append({"path": path, "title": title, "lesson": lesson, "checkpoint": checkpoint, "flavour": flavour})
 
     previous = {"MyStage.java": b'import org.openpatch.scratch.*;\npublic class MyStage extends Stage {\n'
-                b'  public MyStage() { super(480, 360); }\n'
+                b'  public MyStage() { }\n'
                 b'  // TODO: create a Sprite, add its bunny1_stand costume, then add it to this stage.\n'
-                b'  public static void main(String[] args) { new MyStage(); }\n}\n'}
+                b'  public static void main(String[] args) {\n'
+                b'    Window myWindow = new Window(480, 360);\n'
+                b'    myWindow.setStage(new MyStage());\n'
+                b'  }\n}\n'}
     for index, (lesson, concepts, task) in enumerate(LESSONS, 1):
         folder = ROOT / "docs/archives" / (lesson + "-100")
         checkpoint = {p.relative_to(folder).as_posix(): p.read_bytes() for p in sorted(folder.rglob("*"))

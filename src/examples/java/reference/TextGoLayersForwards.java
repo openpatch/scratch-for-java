@@ -3,7 +3,9 @@ import org.openpatch.scratch.*;
 
 public class TextGoLayersForwards {
   public TextGoLayersForwards() {
-    Stage myStage = new Stage(600, 240);
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
 
     // The one at the back: every text added after it covers it.
     Text one = new Text("One", -30, 15, 200);

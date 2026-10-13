@@ -6,8 +6,8 @@ import org.openpatch.scratch.*;
 
 public class Level extends Stage {
 
-  // scratch4j:begin fields (managed by the stage designer)
-  // scratch4j:end fields
+  // begin stage designer
+  // end stage designer
 
   private Text statistiken;
 
@@ -39,8 +39,8 @@ public class Level extends Stage {
     this.statistiken.setAlign(TextAlign.LEFT);
     this.add(this.statistiken);
 
-    // scratch4j:begin setup (managed by the stage designer)
-    // scratch4j:end setup
+    // begin stage designer
+    // end stage designer
   }
 
   public void run() {

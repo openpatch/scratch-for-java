@@ -24,21 +24,21 @@ smoothly instead of ticking.
 ```java ClockStage.java
 
 void main() {
-  new ClockStage();
+  Window myWindow = new Window(800, 800);
+  myWindow.setStage(new ClockStage());
 }
 
 class ClockStage extends Stage {
 
-  // scratch4j:begin fields (managed by the stage designer)
+  // begin stage designer
   private ClockSprite clockSprite;
   private SecondHandSprite secondHandSprite;
   private MinuteHandSprite minuteHandSprite;
   private HourHandSprite hourHandSprite;
-  // scratch4j:end fields
+  // end stage designer
 
   public ClockStage() {
-    super(800, 800);
-    // scratch4j:begin setup (managed by the stage designer)
+    // begin stage designer
     clockSprite = new ClockSprite();
     this.add(clockSprite);
     secondHandSprite = new SecondHandSprite();
@@ -47,24 +47,24 @@ class ClockStage extends Stage {
     this.add(minuteHandSprite);
     hourHandSprite = new HourHandSprite();
     this.add(hourHandSprite);
-    // scratch4j:end setup
+    // end stage designer
   }
 }
 
 class ClockSprite extends Sprite {
   public ClockSprite() {
-    // scratch4j:begin setup (managed by the stage designer)
+    // begin sprite editor
     this.addCostume("clock", "sprites/clock.png");
-    // scratch4j:end setup
+    // end sprite editor
   }
 }
 
 class SecondHandSprite extends Sprite {
 
   public SecondHandSprite() {
-    // scratch4j:begin setup (managed by the stage designer)
+    // begin sprite editor
     this.addCostume("hand", "sprites/second.png");
-    // scratch4j:end setup
+    // end sprite editor
   }
 
   public void run() {
@@ -80,9 +80,9 @@ class SecondHandSprite extends Sprite {
 
 class MinuteHandSprite extends Sprite {
   public MinuteHandSprite() {
-    // scratch4j:begin setup (managed by the stage designer)
+    // begin sprite editor
     this.addCostume("hand", "sprites/minute.png");
-    // scratch4j:end setup
+    // end sprite editor
   }
 
   public void run() {
@@ -93,9 +93,9 @@ class MinuteHandSprite extends Sprite {
 
 class HourHandSprite extends Sprite {
   public HourHandSprite() {
-    // scratch4j:begin setup (managed by the stage designer)
+    // begin sprite editor
     this.addCostume("hand", "sprites/hour.png");
-    // scratch4j:end setup
+    // end sprite editor
   }
 
   public void run() {

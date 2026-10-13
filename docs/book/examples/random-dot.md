@@ -19,21 +19,21 @@ happened to land.
 ```java RandomDot.java
 
 void main() {
-  new RandomDot();
+  Window myWindow = new Window(800, 600);
+  myWindow.setStage(new RandomDot());
 }
 
 class RandomDot extends Stage {
 
-  // scratch4j:begin fields (managed by the stage designer)
+  // begin stage designer
   private RandomDotSprite randomDotSprite;
-  // scratch4j:end fields
+  // end stage designer
 
   public RandomDot() {
-    super(800, 600);
-    // scratch4j:begin setup (managed by the stage designer)
+    // begin stage designer
     randomDotSprite = new RandomDotSprite();
     this.add(randomDotSprite);
-    // scratch4j:end setup
+    // end stage designer
   }
 }
 

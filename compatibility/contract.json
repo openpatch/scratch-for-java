@@ -6964,54 +6964,7 @@
           "returns": "org.openpatch.scratch.Stage",
           "parameterNames": [],
           "parameterDescriptions": [],
-          "description": "Constructs a new Stage with default dimensions. The default width is 480\npixels and the default\nheight is 360 pixels.",
-          "returnDescription": "",
-          "scratchblock": "",
-          "since": ""
-        },
-        {
-          "name": "Stage",
-          "constructor": true,
-          "static": false,
-          "parameters": [
-            "int",
-            "int"
-          ],
-          "returns": "org.openpatch.scratch.Stage",
-          "parameterNames": [
-            "width",
-            "height"
-          ],
-          "parameterDescriptions": [
-            "the width of the stage",
-            "the height of the stage"
-          ],
-          "description": "Constructs a new Stage with the specified width and height.",
-          "returnDescription": "",
-          "scratchblock": "",
-          "since": ""
-        },
-        {
-          "name": "Stage",
-          "constructor": true,
-          "static": false,
-          "parameters": [
-            "int",
-            "int",
-            "java.lang.String"
-          ],
-          "returns": "org.openpatch.scratch.Stage",
-          "parameterNames": [
-            "width",
-            "height",
-            "assets"
-          ],
-          "parameterDescriptions": [
-            "the width of the stage",
-            "the height of the stage",
-            "the path to the assets directory"
-          ],
-          "description": "Constructs a new Stage with the specified width, height, and assets path.",
+          "description": "Constructs a new Stage. A stage is as big as the window it is shown in, so\nthe window has to exist first:\n\n```java\nWindow myWindow = new Window(480, 360);\nmyWindow.setStage(new MyStage());\n```",
           "returnDescription": "",
           "scratchblock": "",
           "since": ""
@@ -14445,6 +14398,54 @@
       "status": "desktop-only",
       "reason": "This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation.",
       "missingBrowserSignatures": []
+    },
+    {
+      "id": "extensions/tiled/TiledMap/spawn",
+      "owner": "org.openpatch.scratch.extensions.tiled.TiledMap",
+      "signatures": [
+        {
+          "name": "spawn",
+          "constructor": false,
+          "static": false,
+          "parameters": [
+            "java.lang.String"
+          ],
+          "returns": "java.util.List<org.openpatch.scratch.Sprite>",
+          "parameterNames": [
+            "layerName"
+          ],
+          "parameterDescriptions": [
+            "the object layer"
+          ],
+          "description": "Creates a sprite for each object of a layer whose type names a sprite class,\nand adds it to the stage. In Tiled, give an object the type (called\n\"class\" in newer versions of Tiled) `Player`, and the map makes a\n`new Player()` where the object is.\n\nThe sprite's class needs one of these constructors, tried in this order:\none that takes the [MapObject](../MapObject/index) (to read its name and properties), one\nthat takes `(double x, double y)`, or one without parameters. Either\nway the sprite is put where the object is. An object drawn as an area\n(a rectangle, an ellipse or a polygon) also gives the sprite that area as\nits hitbox, which is how walls and water work without a costume.\n\nObjects whose type is not a sprite class, or that have no type, are left\nalone, so a layer can hold markers the program reads itself.\n\n```java\nTiledMap map = new TiledMap(\"level.tmx\", this);\nmap.spawn(\"Objects\");\n```",
+          "returnDescription": "the sprites that were made, in the order of the layer",
+          "scratchblock": "",
+          "since": ""
+        }
+      ],
+      "status": "desktop-only",
+      "reason": "This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation.",
+      "missingBrowserSignatures": [
+        {
+          "name": "spawn",
+          "constructor": false,
+          "static": false,
+          "parameters": [
+            "java.lang.String"
+          ],
+          "returns": "java.util.List<org.openpatch.scratch.Sprite>",
+          "parameterNames": [
+            "layerName"
+          ],
+          "parameterDescriptions": [
+            "the object layer"
+          ],
+          "description": "Creates a sprite for each object of a layer whose type names a sprite class,\nand adds it to the stage. In Tiled, give an object the type (called\n\"class\" in newer versions of Tiled) `Player`, and the map makes a\n`new Player()` where the object is.\n\nThe sprite's class needs one of these constructors, tried in this order:\none that takes the [MapObject](../MapObject/index) (to read its name and properties), one\nthat takes `(double x, double y)`, or one without parameters. Either\nway the sprite is put where the object is. An object drawn as an area\n(a rectangle, an ellipse or a polygon) also gives the sprite that area as\nits hitbox, which is how walls and water work without a costume.\n\nObjects whose type is not a sprite class, or that have no type, are left\nalone, so a layer can hold markers the program reads itself.\n\n```java\nTiledMap map = new TiledMap(\"level.tmx\", this);\nmap.spawn(\"Objects\");\n```",
+          "returnDescription": "the sprites that were made, in the order of the layer",
+          "scratchblock": "",
+          "since": ""
+        }
+      ]
     },
     {
       "id": "extensions/tiled/TiledMap/stampLayerToBackground",

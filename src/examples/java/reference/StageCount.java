@@ -11,7 +11,9 @@ public class StageCount {
       }
     }
 
-    Stage myStage = new Stage(600, 240);
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
     // How many sprites of one kind are on the stage - the usual way of asking
     // "have they all been collected?".
     for (int i = 0; i < 10; i++) {

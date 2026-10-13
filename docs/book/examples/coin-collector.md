@@ -45,7 +45,8 @@ arrow keys, jump with space, and collect all six coins.
 ```java CoinCollector.java
 
 void main() {
-  new CoinCollector();
+  Window myWindow = new Window(800, 480);
+  myWindow.setStage(new CoinCollector());
 }
 
 /**
@@ -60,9 +61,9 @@ void main() {
  */
 class CoinCollector extends Stage {
 
-  // scratch4j:begin fields (managed by the stage designer)
+  // begin stage designer
   private Player player;
-  // scratch4j:end fields
+  // end stage designer
 
   /** The height the ground reaches up to. Sprites stand on this line. */
   public static final double GROUND_TOP = -176;
@@ -73,7 +74,6 @@ class CoinCollector extends Stage {
   private int collected = 0;
 
   public CoinCollector() {
-    super(800, 480);
 
     // A backdrop and a sound, by name - no files needed.
 
@@ -88,12 +88,12 @@ class CoinCollector extends Stage {
       this.add(new Coin(-240 + i * 112, GROUND_TOP + 45));
     }
 
-    // scratch4j:begin setup (managed by the stage designer)
+    // begin stage designer
     this.addBackdrop("background");
     this.addSound("jingles_NES00");
     player = new Player();
     this.add(player);
-    // scratch4j:end setup
+    // end stage designer
 
     this.score = new Text();
     this.score.setPosition(-330, 200);
@@ -136,14 +136,14 @@ class Player extends AnimatedSprite {
   public Player() {
     // Costumes, animations and sounds by name. "alienGreen_walk%d" stands for
     // alienGreen_walk1 and alienGreen_walk2.
-    // scratch4j:begin setup (managed by the stage designer)
+    // begin sprite editor
     this.addCostume("alienGreen_stand");
     this.addCostume("alienGreen_jump");
     this.addAnimation("walk", "alienGreen_walk%d", 2);
     this.setAnimationInterval(120);
     this.addSound("handleCoins");
     this.addSound("footstep_grass_000");
-    // scratch4j:end setup
+    // end sprite editor
 
     this.setSize(SIZE);
     this.setRotationStyle(RotationStyle.LEFT_RIGHT);
@@ -212,9 +212,9 @@ class Player extends AnimatedSprite {
 class Ground extends Sprite {
 
   public Ground(double x) {
-    // scratch4j:begin setup (managed by the stage designer)
+    // begin sprite editor
     this.addCostume("grassMid");
-    // scratch4j:end setup
+    // end sprite editor
     this.setSize(50);
     this.setX(x);
     // The tile is 128 pixels high, so its middle sits 32 below its top edge.
@@ -229,9 +229,9 @@ class Coin extends Sprite {
   private double angle = 0;
 
   public Coin(double x, double y) {
-    // scratch4j:begin setup (managed by the stage designer)
+    // begin sprite editor
     this.addCostume("coinGold");
-    // scratch4j:end setup
+    // end sprite editor
     this.setSize(50);
     this.setX(x);
     this.setY(y);

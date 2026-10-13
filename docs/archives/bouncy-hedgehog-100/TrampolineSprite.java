@@ -3,9 +3,9 @@ import org.openpatch.scratch.Sprite;
 
 public class TrampolineSprite extends Sprite {
   public TrampolineSprite() {
-    // scratch4j:begin setup (managed by the stage designer)
+    // begin sprite editor
     this.addCostume("trampoline", "trampoline.png");
-    // scratch4j:end setup
+    // end sprite editor
     this.setPosition(0, -120);
   }
 

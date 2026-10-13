@@ -3,7 +3,9 @@ import org.openpatch.scratch.*;
 
 public class SpriteGetPen {
   public SpriteGetPen() {
-    Stage myStage = new Stage(600, 240);
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
     Sprite mySprite = new Sprite("zeta", "slimeGreen");
     myStage.add(mySprite);
     // Every sprite carries a pen of its own, which draws where the sprite goes.

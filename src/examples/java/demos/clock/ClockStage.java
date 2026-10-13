@@ -4,16 +4,15 @@ import org.openpatch.scratch.*;
 
 public class ClockStage extends Stage {
 
-  // scratch4j:begin fields (managed by the stage designer)
+  // begin stage designer
   private ClockSprite clockSprite;
   private SecondHandSprite secondHandSprite;
   private MinuteHandSprite minuteHandSprite;
   private HourHandSprite hourHandSprite;
-  // scratch4j:end fields
+  // end stage designer
 
   public ClockStage() {
-    super(800, 800);
-    // scratch4j:begin setup (managed by the stage designer)
+    // begin stage designer
     clockSprite = new ClockSprite();
     this.add(clockSprite);
     secondHandSprite = new SecondHandSprite();
@@ -22,10 +21,11 @@ public class ClockStage extends Stage {
     this.add(minuteHandSprite);
     hourHandSprite = new HourHandSprite();
     this.add(hourHandSprite);
-    // scratch4j:end setup
+    // end stage designer
   }
 
   public static void main(String[] args) {
-    new ClockStage();
+    Window myWindow = new Window(800, 800);
+    myWindow.setStage(new ClockStage());
   }
 }

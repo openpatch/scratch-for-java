@@ -3,7 +3,9 @@ import org.openpatch.scratch.*;
 
 public class SpriteDistanceToMousePointer {
   public SpriteDistanceToMousePointer() {
-    Stage myStage = new Stage(600, 240);
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
 
     Sprite gamma = new Sprite("gamma", "slimePurple");
     gamma.setPosition(0, 50);

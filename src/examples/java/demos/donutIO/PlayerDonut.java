@@ -5,8 +5,8 @@ public class PlayerDonut extends Donut {
   public PlayerDonut() {
     super(0, 0, 10);
 
-    // scratch4j:begin setup (managed by the stage designer)
-    // scratch4j:end setup
+    // begin sprite editor
+    // end sprite editor
   }
 
   public void run() {

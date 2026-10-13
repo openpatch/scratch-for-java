@@ -60,6 +60,8 @@ public class Pen {
   private double size = 1;
   private List<Path> pathsBuffer = new ArrayList<>();
   private boolean down = false;
+  /** Whether the pen was ever put down: its sprite is one that draws. */
+  private boolean used = false;
   private Path currentPath = null;
   private Stage stage;
   private Sprite sprite;
@@ -233,6 +235,16 @@ public class Pen {
   }
 
   /**
+   * Whether the pen has been put down at least once.
+   *
+   * @return true once {@link #down()} was called
+   * @ignore-in-docs
+   */
+  public boolean wasUsed() {
+    return this.used;
+  }
+
+  /**
    * Set the size of the pen
    *
    * @param size size of the pen
@@ -348,6 +360,7 @@ public class Pen {
    */
   public void down() {
     this.down = true;
+    this.used = true;
     if (this.currentPath == null || this.currentPath.closed) {
       this.currentPath = new Path();
       this.currentPath.add(new Point(this.x, this.y, this.color, this.transparency, this.size));

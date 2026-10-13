@@ -6,7 +6,6 @@ public class StageWhenKeyReleased {
   public StageWhenKeyReleased() {
     class MyStage extends Stage {
       public MyStage() {
-        super(600, 240);
       }
 
       // Click into the stage first, so that it takes the keyboard.
@@ -17,7 +16,8 @@ public class StageWhenKeyReleased {
       }
     }
 
-    new MyStage();
+    Window myWindow = new Window(600, 240);
+    myWindow.setStage(new MyStage());
   }
 
   public static void main(String[] args) {

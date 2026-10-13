@@ -17,8 +17,8 @@ public class PenSprite extends Sprite {
     this.getPen().setColor(color);
     this.hide();
 
-    // scratch4j:begin setup (managed by the stage designer)
-    // scratch4j:end setup
+    // begin sprite editor
+    // end sprite editor
   }
 
   public static void setColor(double color) {
