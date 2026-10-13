@@ -5,118 +5,207 @@ index: 11
 
 # Multiple Approach Design
 
-Scratch for Java is built to support different approaches to teaching object-oriented programming, and to structure the transition from Scratch to Java.
+Scratch for Java does not decide how you teach objects. You can start with one
+class and bring in classes of your own later, or start with classes from the
+first lesson. This page shows the same small project written three ways, so you
+can see what each approach asks of your students.
 
-## Imperative Approach (aka. Classes-later)
+The project: a bunny you steer with the arrow keys, and a bee that flies back
+and forth.
 
-When using the imperative approach the whole project is one class. Sprites stay
-plain `Sprite` objects, and everything they do is written in the stage's
-`run()`. Students meet only the built-in classes, which they already know from
-Scratch, and write no classes of their own beyond the stage itself.
+Every version starts the same way. The program opens a window and puts a stage
+into it:
 
-Students can learn how to write simple Java programs, without the possible overload of having to deal with custom classes.
+```java
+Window myWindow = new Window(480, 360);
+myWindow.setStage(new Garden());
+```
 
-The downside to this approach is that you define the behavior of the Sprites inside one class. This differs from Scratch, where you define the behavior of each Sprite individually.
+## Classes later: one class
 
-So by using this approach you are trading simplicity with compatibility to the Scratch model.
+The whole project is one class, the stage. The sprites are plain `Sprite`
+objects, and the stage's `run()` steers all of them.
 
 ```java
 import org.openpatch.scratch.*;
 
-public class MyProgram extends Stage {
-    private Sprite zebra = new Sprite();
+public class Garden extends Stage {
+  private Sprite bunny = new Sprite();
+  private Sprite bee = new Sprite();
 
-    public MyProgram() {
-        zebra.addCostume("bunny1_stand");
-        this.add(zebra);
-    }
+  public Garden() {
+    this.addBackdrop("background");
+    bunny.addCostume("bunny1_stand");
+    bunny.setSize(50);
+    bunny.setPosition(-150, -100);
+    this.add(bunny);
+    bee.addCostume("bee");
+    bee.setSize(50);
+    bee.setRotationStyle(RotationStyle.LEFT_RIGHT);
+    bee.setPosition(0, 100);
+    this.add(bee);
+  }
 
-    // runs about 60 times a second, for every sprite on this stage
-    public void run() {
-        zebra.move(1);
-        zebra.ifOnEdgeBounce();
+  // about 60 times a second, like a forever loop
+  public void run() {
+    if (this.isKeyPressed(KeyCode.LEFT)) {
+      bunny.changeX(-4);
     }
+    if (this.isKeyPressed(KeyCode.RIGHT)) {
+      bunny.changeX(4);
+    }
+    bee.move(3);
+    bee.ifOnEdgeBounce();
+  }
 
-    public static void main(String[] args) {
-        Window myWindow = new Window(480, 360);
-        myWindow.setStage(new MyProgram());
-    }
+  public static void main(String[] args) {
+    Window myWindow = new Window(480, 360);
+    myWindow.setStage(new Garden());
+  }
 }
 ```
 
-The whole project is one class. There are no sprite classes to write, so
-students never meet inheritance beyond the single `extends Stage`, and every
-sprite is steered from one place.
+**What students meet:** one `extends Stage`, fields, the constructor, `run()`,
+and calls on objects (`bunny.changeX(-4)`). There are no classes of their own
+to design yet.
 
-## Object-oriented Approach (aka. Classes-first)
+**The trade-off:** in Scratch every sprite has its own scripts. Here all
+behaviour sits in one place, so the program grows into one long `run()` as
+sprites are added. That is the natural moment to move to the next approach.
 
-This approach is the most similar to the Scratch model, but as you can see it introduces the concept of inheritance right away. Even though one could think that this might be too much for students, you can put Scratch and Java side-by-side and show the transition.
+## Classes first: one class per sprite
 
-Here are a few comparisons you could draw:
-- In Scratch we prepared our project by clicking things. For example, we added a Sprite by clicking the cat icon, or we added a costume by clicking on the costume tabs and then uploaded/or drawn an image. In Java we prepare our project by using constructors. We write text (source code) which replaces our clicking, since we do not have an user interface anymore.
-- In Scratch each Sprite and the Stage had a bunch of predefined blocks we could use. In Java we normally start with nothing predefined and have to code everything on our own. But with inheritance we can also use predefined methods (blocks).
-- In Scratch we defined names for our Sprites, but did not use them so much. In Java naming is much more important, since we can not work with a Sprite or with the Stage if we did not give it a name. `Sprite cat = new Sprite();`
-- In Scratch we added a Sprite to the Stage by creating one. In Java we need to be explizit and write that we want to a specific Sprite to the Stage. `myStage.add(mySprite);`
-- In Scratch we often used the wait-block to pause the script of a Sprite for a little while. In Java we can only do that on a global level, meaning pausing the whole program `myStage.wait(100)`. If we want to do something similar in Scratch for Java we need to make use of time and the Timer-class.
-- In Scratch we send messages to and from sprites by using a block. In Java we call methods on an object `mySprite.goLeft()`. A method is similar to a custom block.
+Each sprite is a class of its own, like a sprite in Scratch with its own
+scripts. The stage only puts the sprites on the stage.
 
 ```java
 import org.openpatch.scratch.*;
 
-class Zebra extends Sprite {
-    public Zebra() {
-        this.addCostume("bunny1_stand");
-    }
+class Bunny extends Sprite {
+  public Bunny() {
+    this.addCostume("bunny1_stand");
+    this.setSize(50);
+    this.setPosition(-150, -100);
+  }
 
-    // runs 60-times a second
-    // similar to a forever loop inside a when green flag pressed block
-    public void run() {
-        this.move(1);
-        this.ifOnEdgeBounce();
+  public void run() {
+    if (this.isKeyPressed(KeyCode.LEFT)) {
+      this.changeX(-4);
     }
+    if (this.isKeyPressed(KeyCode.RIGHT)) {
+      this.changeX(4);
+    }
+  }
 }
 
-public class MyStage extends Stage {
-    public MyStage() {
-        this.add(new Zebra());
-    }
+class Bee extends Sprite {
+  public Bee() {
+    this.addCostume("bee");
+    this.setSize(50);
+    this.setRotationStyle(RotationStyle.LEFT_RIGHT);
+    this.setPosition(0, 100);
+  }
+
+  public void run() {
+    this.move(3);
+    this.ifOnEdgeBounce();
+  }
+}
+
+public class Garden extends Stage {
+  public Garden() {
+    this.addBackdrop("background");
+    this.add(new Bunny());
+    this.add(new Bee());
+  }
+
+  public static void main(String[] args) {
+    Window myWindow = new Window(480, 360);
+    myWindow.setStage(new Garden());
+  }
 }
 ```
 
-## Enhanced Scratch Approach
+**What students meet:** inheritance from the first lesson (`extends Sprite`),
+`this`, and one `run()` per class.
 
-The enhanced Scratch approach is based on the object-oriented approach, but introduces other concepts and classes, which differ from Scratch. It is built so that you can start with the object-oriented approach and move to the enhanced approach when you reach a limit.
+**Why it works anyway:** you can put Scratch and Java side by side.
 
-For example in Scratch for Java you can create an object from the Window-class. This object can hold multiple stages and can switch between those. You can also define the size of the window - by default it uses the same size as a Scratch project.
+| In Scratch | In Java |
+| --- | --- |
+| You click the cat icon to add a sprite and pick its costume in a tab. | The constructor sets the sprite up: `this.addCostume("bunny1_stand")`. Code replaces the clicking. |
+| A sprite exists once you create it. | A sprite is on the stage once it is added: `this.add(new Bunny())`. |
+| Every sprite has its own scripts. | Every sprite class has its own `run()`. |
+| The blocks are there from the start. | `extends Sprite` brings the methods along (`move`, `say`, `ifOnEdgeBounce`). |
+| A sprite's name is a label. | A name is how the code reaches an object: `Bunny bunny = new Bunny();` |
+| A custom block, or a broadcast to another sprite. | A method, called on an object: `bunny.jump()`. |
+| `wait 1 seconds` pauses one script. | `run()` must not wait. A sprite counts time with a timer instead: `this.getTimer().everyMillis(1000)`. |
+
+## Going further: the window and animations
+
+Both approaches lead to the same next steps, once one screen and still pictures
+are not enough.
+
+**More than one screen.** The window is in every program already. A class of its
+own for it can decide which screen comes first, and any stage can switch to
+another one:
 
 ```java
 import org.openpatch.scratch.*;
 
-public class MyProject extends Window {
-    public MyProject() {
-        super(800, 600);
-        Stage stage1 = new Stage();
-        Stage stage2 = new Stage();
+class TitleStage extends Stage {
+  public TitleStage() {
+    this.addBackdrop("background");
+    this.display("Press SPACE to start");
+  }
 
-        this.setStage(stage1);
-        // something triggers a stage change
-        this.setStage(stage2);
+  public void whenKeyPressed(KeyCode keyCode) {
+    if (keyCode == KeyCode.SPACE) {
+      Window.getInstance().transitionToStage(new Garden(), 500);
     }
+  }
+}
+
+class Garden extends Stage {
+  public Garden() {
+    this.addBackdrop("background");
+  }
+}
+
+public class GardenWindow extends Window {
+  public GardenWindow() {
+    super(480, 360);
+    this.setStage(new TitleStage());
+  }
+
+  public static void main(String[] args) {
+    new GardenWindow();
+  }
 }
 ```
 
-Another enhancement is the class AnimatedSprite, which makes it easy to use an animated for Sprites. This class should be used early since it overcomes the downside of not having a per-sprite wait-block by abstracting the timing.
+**Animations.** An `AnimatedSprite` plays its costumes one after another, at its
+own speed. It does the timing that a `wait` block did in Scratch:
 
 ```java
 import org.openpatch.scratch.*;
 
-public class Zebra extends AnimatedSprite {
-    public Zebra() {
-        this.addAnimation("walk", "walk_%d.png", 4);
-    }
+class Bunny extends AnimatedSprite {
+  public Bunny() {
+    this.addAnimation("walk", "bunny1_walk%d", 2);
+    this.setSize(50);
+    this.setPosition(-150, -100);
+  }
 
-    public void run() {
-        this.playAnimation("walk");
+  public void run() {
+    this.playAnimation("walk");
+    if (this.isKeyPressed(KeyCode.RIGHT)) {
+      this.changeX(4);
     }
+  }
 }
 ```
+
+The [Dodge the Rocks](/tutorials/dodge-the-rocks) tutorial takes these steps
+with a whole game: a title screen, a game screen and a window class that holds
+them together.
