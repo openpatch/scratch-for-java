@@ -693,6 +693,9 @@ public class Applet extends PApplet {
             hooks.pre();
           }
           hooks.draw(this.getGraphics());
+          if (Preview.capturing()) {
+            Preview.capture(this, this.stage, hooks, this.getGraphics(), steps);
+          }
         }
         break;
       case TRANSITIONING_IN:

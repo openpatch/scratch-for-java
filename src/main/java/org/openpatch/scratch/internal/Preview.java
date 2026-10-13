@@ -40,6 +40,14 @@ import processing.core.PGraphics;
  * The window is not shown, and full screen is ignored. When no stage shows up
  * within {@link #TIMEOUT_MILLIS}, {@code stage.json} says so and the program
  * ends.
+ *
+ * <p>
+ * A capture takes the same picture while the program runs as usual:
+ * {@code scratch4j.capture=<folder>} writes {@code <folder>/<Stage>/frame.png}
+ * and {@code stage.json} for each stage the first time it has run a step on
+ * screen, and the program goes on. {@code scratch4j.capture.omit=Stage:a,b;Other:c}
+ * leaves sprites out of the picture per stage class, the way
+ * {@code preview.omit} does; the window still shows them.
  */
 public final class Preview {
 
@@ -49,11 +57,53 @@ public final class Preview {
   private static final String FOLDER = System.getProperty("scratch4j.preview");
   private static final String STAGE = System.getProperty("scratch4j.preview.stage");
   private static final Set<String> OMIT = names(System.getProperty("scratch4j.preview.omit"));
+  private static final String CAPTURE = System.getProperty("scratch4j.capture");
+  private static final Map<String, Set<String>> CAPTURE_OMIT =
+      omitByStage(System.getProperty("scratch4j.capture.omit"));
+  /** The stages captured already (once per stage object). */
+  private static final Set<Stage> captured =
+      java.util.Collections.newSetFromMap(new java.util.WeakHashMap<>());
 
   private static volatile boolean done;
   private static boolean requested;
 
   private Preview() {}
+
+  /** Whether this run captures the stages it shows (and keeps running). */
+  public static boolean capturing() {
+    return CAPTURE != null && !CAPTURE.isBlank();
+  }
+
+  /** {@code Stage:a,b;Other:c} as the fields to leave out per stage class. */
+  private static Map<String, Set<String>> omitByStage(String spec) {
+    Map<String, Set<String>> out = new java.util.HashMap<>();
+    if (spec != null) {
+      for (String part : spec.split(";")) {
+        int colon = part.indexOf(':');
+        if (colon > 0) out.put(part.substring(0, colon).strip(), names(part.substring(colon + 1)));
+      }
+    }
+    return out;
+  }
+
+  /**
+   * Called by the render loop after it drew a frame of {@code stage} that ran
+   * {@code steps} steps: saves the stage the first time it has run. The
+   * picture is drawn once more without the left-out sprites, then the frame is
+   * drawn again as it was, so the window shows nothing of it.
+   */
+  static void capture(Applet applet, Stage stage, StageHooks hooks, PGraphics graphics,
+      int steps) {
+    if (steps <= 0 || !captured.add(stage)) return;
+    String name = stage.getClass().getSimpleName();
+    Set<String> omit = CAPTURE_OMIT.getOrDefault(name, java.util.Collections.emptySet());
+    try {
+      snapshot(applet, stage, hooks, graphics, Path.of(CAPTURE).resolve(name), omit);
+    } catch (Throwable t) {
+      System.err.println("scratch4j capture of " + name + " failed: " + t);
+    }
+    hooks.draw(graphics);
+  }
 
   /** Whether this run makes a preview. */
   public static boolean isOn() {
@@ -102,23 +152,40 @@ public final class Preview {
     done = true;
     try {
       hooks.pre();
-      Map<Sprite, String> fields = fieldsOf(stage);
-      List<Sprite> sprites = hooks.sprites();
-      List<Boolean> visible = new ArrayList<>();
-      for (Sprite sprite : sprites) {
-        visible.add(sprite.isVisible());
-        if (OMIT.contains(fields.get(sprite))) sprite.hide();
-      }
-      hooks.draw(graphics);
-      Path folder = Path.of(FOLDER);
-      Files.createDirectories(folder);
-      stageArea(applet).save(folder.resolve("frame.png").toAbsolutePath().toString());
-      write(folder, describe(stage, sprites, visible, fields, applet));
+      snapshot(applet, stage, hooks, graphics, Path.of(FOLDER), OMIT);
     } catch (Throwable t) {
       fail("The preview could not be drawn: " + t);
     }
     Runtime.getRuntime().halt(0);
     return null;
+  }
+
+  /**
+   * Draws the stage without the sprites of the {@code omit} fields, and saves
+   * the picture and the description of its sprites into {@code folder}. The
+   * sprites' visibility is as it was afterwards.
+   */
+  private static void snapshot(Applet applet, Stage stage, StageHooks hooks, PGraphics graphics,
+      Path folder, Set<String> omit) throws IOException {
+    Map<Sprite, String> fields = fieldsOf(stage);
+    List<Sprite> sprites = hooks.sprites();
+    List<Boolean> visible = new ArrayList<>();
+    for (Sprite sprite : sprites) {
+      visible.add(sprite.isVisible());
+      String field = fields.get(sprite);
+      if (field != null && omit.contains(field)) sprite.hide();
+    }
+    try {
+      hooks.draw(graphics);
+      Files.createDirectories(folder);
+      // the picture first: an editor waiting for stage.json then finds both
+      stageArea(applet).save(folder.resolve("frame.png").toAbsolutePath().toString());
+      write(folder, describe(stage, sprites, visible, fields, applet, omit));
+    } finally {
+      for (int i = 0; i < sprites.size(); i++) {
+        if (visible.get(i)) sprites.get(i).show();
+      }
+    }
   }
 
   /**
@@ -185,7 +252,7 @@ public final class Preview {
   }
 
   private static String describe(Stage stage, List<Sprite> sprites, List<Boolean> visible,
-      Map<Sprite, String> fields, Applet applet) {
+      Map<Sprite, String> fields, Applet applet, Set<String> omit) {
     var camera = stage.getCamera();
     StringBuilder json = new StringBuilder("{\n");
     json.append("  \"stage\": ").append(string(stage.getClass().getName())).append(",\n");
@@ -210,7 +277,7 @@ public final class Preview {
           .append(", \"costume\": ").append(string(sprite.getCurrentCostumeName()))
           .append(", \"visible\": ").append(visible.get(i))
           .append(", \"ui\": ").append(isUI(sprite))
-          .append(", \"omitted\": ").append(field != null && OMIT.contains(field))
+          .append(", \"omitted\": ").append(field != null && omit.contains(field))
           .append("}");
     }
     json.append(sprites.isEmpty() ? "]\n" : "\n  ]\n").append("}\n");

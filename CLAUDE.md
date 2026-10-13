@@ -44,8 +44,9 @@ means running something: the affected reference/demo example under `src/examples
 The window comes first: `new Window(480, 360)`, then `setStage(new MyStage())`; a stage built
 without a window throws. To see what a stage draws without watching it, run it with
 `-Dscratch4j.preview=<folder>` (see `internal/Preview`): the first frame lands in
-`<folder>/frame.png`, its sprites in `<folder>/stage.json`, and the program ends. Studio uses this
-for its stage designer.
+`<folder>/frame.png`, its sprites in `<folder>/stage.json`, and the program ends.
+`-Dscratch4j.capture=<folder>` takes the same picture of each stage while the program keeps
+running; Studio passes it on every run and shows the result in its stage designer.
 
 Running a windowed example headlessly works with `xvfb-run -a java ...`, which is how the
 documentation GIFs are recorded. Note that under Xvfb the window is exactly the render size, so
