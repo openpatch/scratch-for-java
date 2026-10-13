@@ -1,8 +1,47 @@
 ---
 name: Changelog
-index: 76
+index: 77
 lang: en
 ---
+
+## 6.0.0
+
+
+
+`TiledMap.spawn("Objects")` creates a sprite for each object of a layer whose
+type (Tiled's "class") is the name of a sprite class, puts it where the object
+is and adds it to the stage. Objects drawn as areas give their sprite that area
+as its hitbox. The sprite class needs a constructor taking the `MapObject`, one
+taking `(double x, double y)`, or one without parameters.
+
+
+A sprite that only draws with its pen no longer shows the red "?" marker for a
+missing costume. The marker (and its warning) now appears only for a sprite that
+stays without a costume, a hitbox and a used pen for a second.
+
+
+Editors can show a preview of a stage: started with
+`-Dscratch4j.preview=<folder>`, a program draws the first frame of its stage,
+saves it as `frame.png` with the sprites described in `stage.json`, and ends.
+`-Dscratch4j.preview.stage=<Class>` previews another stage, and
+`-Dscratch4j.preview.omit=<fields>` leaves the sprites in those fields out of
+the picture.
+
+
+💥 BREAKING CHANGE: A stage no longer opens the window itself. Create the window
+first and put the stage into it:
+
+```java
+Window myWindow = new Window(480, 360);
+myWindow.setStage(new MyStage());
+```
+
+`new Stage(width, height)` and `new Stage(width, height, assets)` are gone: a
+stage is always as big as the window it is shown in, so the size (and the assets
+folder) go to `new Window(...)`. Remove `super(width, height)` from your stages.
+A stage made before there is a window says how to fix it, and a window nobody
+put a stage into says so too.
+
 
 ## 5.8.0
 
