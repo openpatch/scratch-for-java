@@ -21,6 +21,11 @@ public class MyStage extends Stage {
     bunny.addCostume("bunny1_stand");
     this.add(bunny);
   }
+
+  public static void main(String[] args) {
+    Window myWindow = new Window(480, 360);
+    myWindow.setStage(new MyStage());
+  }
 }
 ```
 

@@ -36,6 +36,11 @@ public class MyProgram extends Stage {
         zebra.move(1);
         zebra.ifOnEdgeBounce();
     }
+
+    public static void main(String[] args) {
+        Window myWindow = new Window(480, 360);
+        myWindow.setStage(new MyProgram());
+    }
 }
 ```
 

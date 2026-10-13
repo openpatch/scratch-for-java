@@ -35,6 +35,11 @@ public class GuessStage extends Stage {
     this.addBackdrop("background");
     this.ask("Guess a number between 1 and 10");
   }
+
+  public static void main(String[] args) {
+    Window myWindow = new Window(500, 300);
+    myWindow.setStage(new GuessStage());
+  }
 }
 ```
 

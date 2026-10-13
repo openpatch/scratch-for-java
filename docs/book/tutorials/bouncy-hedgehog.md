@@ -28,6 +28,11 @@ public class BouncyHedgehogStage extends Stage {
   public BouncyHedgehogStage() {
     this.addBackdrop("background");
   }
+
+  public static void main(String[] args) {
+    Window myWindow = new Window(480, 360);
+    myWindow.setStage(new BouncyHedgehogStage());
+  }
 }
 ```
 
@@ -65,6 +70,11 @@ public class BouncyHedgehogStage extends Stage {
   public BouncyHedgehogStage() {
     this.addBackdrop("background");
     this.add(new TrampolineSprite());
+  }
+
+  public static void main(String[] args) {
+    Window myWindow = new Window(480, 360);
+    myWindow.setStage(new BouncyHedgehogStage());
   }
 }
 ```
