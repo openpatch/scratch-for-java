@@ -57,4 +57,4 @@ if [ "$removed" -gt 0 ]; then
 fi
 
 cd docs
-npx hyperbook build
+npx hyperbook@latest build

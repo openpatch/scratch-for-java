@@ -17,8 +17,7 @@ development server and edit the files in the website folder.
 
 ```
 cd docs
-npm ci
-npx hyperbook dev
+npx hyperbook@latest dev
 ```
 
 ## Library
