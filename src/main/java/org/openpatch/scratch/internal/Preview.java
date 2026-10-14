@@ -179,33 +179,13 @@ public final class Preview {
       hooks.draw(graphics);
       Files.createDirectories(folder);
       // the picture first: an editor waiting for stage.json then finds both
-      stageArea(applet).save(folder.resolve("frame.png").toAbsolutePath().toString());
+      applet.getStageImage().save(folder.resolve("frame.png").toAbsolutePath().toString());
       write(folder, describe(stage, sprites, visible, fields, applet, omit));
     } finally {
       for (int i = 0; i < sprites.size(); i++) {
         if (visible.get(i)) sprites.get(i).show();
       }
     }
-  }
-
-  /**
-   * The stage as it is in the window, without the bars around it and at the
-   * stage's own size: the window may be scaled (a high-resolution screen, a
-   * desktop that sizes windows itself), the stage is letterboxed into it.
-   */
-  private static processing.core.PImage stageArea(Applet applet) {
-    int targetWidth = applet.getRenderWidth();
-    int targetHeight = applet.getRenderHeight();
-    float ratio = Math.min((float) applet.getWidth() / targetWidth,
-        (float) applet.getHeight() / targetHeight);
-    int width = Math.round(targetWidth * ratio);
-    int height = Math.round(targetHeight * ratio);
-    var area = applet.get((applet.getWidth() - width) / 2, (applet.getHeight() - height) / 2,
-        width, height);
-    if (width != targetWidth || height != targetHeight) {
-      area.resize(targetWidth, targetHeight);
-    }
-    return area;
   }
 
   /** The requested stage, made the way {@code new MyStage()} would make it. */

@@ -31,13 +31,16 @@ public class FrameRecorder extends Recorder {
   }
 
   /**
-   * Saves the current frame of the applet to the specified output folder. The frame is saved as a
+   * Saves the current frame of the stage to the specified output folder. The frame is saved as a
    * PNG file with a filename pattern "#######.png". The exact filename will be generated based on
-   * the current frame number.
+   * the current frame number. The picture is the stage at its own size, also when the window is
+   * bigger.
    */
   @Override
   public void saveFrame() {
-    Applet.getInstance().saveFrame(Paths.get(this.outputFolder, "#######.png").toString());
+    Applet applet = Applet.getInstance();
+    String file = applet.insertFrame(Paths.get(this.outputFolder, "#######.png").toString());
+    applet.getStageImage().save(applet.savePath(file));
   }
 
   /**
@@ -46,6 +49,7 @@ public class FrameRecorder extends Recorder {
    * @param filename the name of the file to save the snapshot to
    */
   public void snapshot(String filename) {
-    Applet.getInstance().save(Paths.get(this.outputFolder, filename).toString());
+    Applet applet = Applet.getInstance();
+    applet.getStageImage().save(applet.savePath(Paths.get(this.outputFolder, filename).toString()));
   }
 }

@@ -49,7 +49,9 @@ public class FFmpegRecorder extends Recorder {
   /** Saves the current frame using the specified pattern. */
   @Override
   public void saveFrame() {
-    Applet.getInstance().saveFrame(pattern);
+    // the stage at its own size: every frame of a video has to be the same size
+    Applet applet = Applet.getInstance();
+    applet.getStageImage().save(applet.savePath(applet.insertFrame(pattern)));
   }
 
   /**

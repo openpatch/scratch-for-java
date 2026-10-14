@@ -3,6 +3,7 @@ package org.openpatch.scratch.extensions.recorder;
 import org.openpatch.scratch.Color;
 import org.openpatch.scratch.internal.AnimatedGifEncoder;
 import org.openpatch.scratch.internal.Applet;
+import processing.core.PImage;
 
 /**
  * The GifRecorder class is responsible for recording and saving frames as GIF images. It extends
@@ -44,10 +45,12 @@ public class GifRecorder extends Recorder {
   }
 
   /**
-   * Saves the current frame of the applet as a GIF image.
+   * Saves the current frame of the stage as a GIF image.
    *
-   * <p>This method captures the current frame from the applet, sets the frame rate, and adds the
-   * frame to the GIF encoder. If the applet's pixels are null, the frame is not saved.
+   * <p>This method captures the stage at its own size, sets the frame rate, and adds the frame to
+   * the GIF encoder. A window that is bigger than the stage (maximized, say) records the stage
+   * without the bars around it, and the frames keep their size when the window changes during the
+   * recording.
    *
    * <p>Note: This method catches and ignores any NullPointerException that may occur.
    */
@@ -55,12 +58,12 @@ public class GifRecorder extends Recorder {
   public void saveFrame() {
     try {
       Applet applet = Applet.getInstance();
-      applet.loadPixels();
-      int[] pixels = applet.pixels;
-      if (pixels != null) {
+      PImage stage = applet.getStageImage();
+      stage.loadPixels();
+      if (stage.pixels != null) {
         this.gifEncoder.setFrameRate(applet.frameRate);
         this.gifEncoder.setRepeat(0);
-        this.gifEncoder.addFrame(pixels, applet.pixelWidth, applet.pixelHeight);
+        this.gifEncoder.addFrame(stage.pixels, stage.pixelWidth, stage.pixelHeight);
       }
     } catch (NullPointerException e) {
 

@@ -207,6 +207,27 @@ public class Applet extends PApplet {
   }
 
   /**
+   * The stage as it is in the window, without the bars around it and at the
+   * stage's own size. The window can be bigger than the stage (maximized, a
+   * high-resolution screen, a desktop that sizes windows itself), and then the
+   * stage is letterboxed into it. Call it on the render thread, after drawing.
+   *
+   * @return the stage's picture, {@link #getRenderWidth()} by
+   *         {@link #getRenderHeight()}
+   */
+  public PImage getStageImage() {
+    float ratio = Math.min((float) this.width / this.RENDER_WIDTH,
+        (float) this.height / this.RENDER_HEIGHT);
+    int width = Math.round(this.RENDER_WIDTH * ratio);
+    int height = Math.round(this.RENDER_HEIGHT * ratio);
+    var area = this.get((this.width - width) / 2, (this.height - height) / 2, width, height);
+    if (width != this.RENDER_WIDTH || height != this.RENDER_HEIGHT) {
+      area.resize(this.RENDER_WIDTH, this.RENDER_HEIGHT);
+    }
+    return area;
+  }
+
+  /**
    * Returns the height of the current window.
    *
    * @return the height of the window in pixels
