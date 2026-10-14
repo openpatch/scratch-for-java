@@ -50,6 +50,7 @@ import org.openpatch.scratch.internal.Applet;
  * <li>JSON
  * <li>XML
  * </ul>
+ * @desktop-only
  */
 public class File {
 

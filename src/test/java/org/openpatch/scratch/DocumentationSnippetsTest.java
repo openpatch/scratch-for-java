@@ -245,6 +245,7 @@ class DocumentationSnippetsTest {
    * the import. The program itself is left exactly as the page shows it.
    */
   private String asCompilationUnit(String block) {
-    return "import org.openpatch.scratch.*;\n" + block;
+    return "import org.openpatch.scratch.*;\n"
+        + "import org.openpatch.scratch.extensions.fs.*;\nimport java.io.*;\n" + block;
   }
 }

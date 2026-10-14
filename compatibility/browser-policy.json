@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "desktopVersion": "6.1.3",
-  "browserVersion": "6.1.3-browser.1",
+  "browserVersion": "6.1.3-browser.2",
   "flavors": {
     "standard": {
       "libraries": [
@@ -20,7 +20,7 @@
   "limitations": [
     "Availability describes documented member groups and browser declarations. Compilation tests do not prove rendering, timing or complete behavioral parity.",
     "Fragment shaders use WebGL. Custom vertex shaders are desktop-only; the browser substitutes its default vertex shader.",
-    "File-system, pixel-buffer, recorder and Tiled APIs are desktop-only. Browser declarations can be stubs that report the limitation.",
+    "File access, pixel-buffer, recorder and Tiled APIs are desktop-only. SaveData instead persists plain game data in IndexedDB, scoped to the hosting origin and browser profile.",
     "Reference examples are compiled with the standard flavor. Existing NRW runtime fixtures and a separate declaration inventory cover the NRW flavor.",
     "Java compiler dialect differences also apply, including Java package access and unsupported standard-library methods."
   ],

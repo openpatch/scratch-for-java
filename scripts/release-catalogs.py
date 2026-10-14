@@ -210,6 +210,13 @@ def main():
     outputs[ROOT / "src/test/java/portable/PortableBehaviorChecks.java"] = "package portable;\n\n" + checks
     if args.online_ide:
         outputs[args.online_ide / "src/test/browser/PortableBehaviorChecks.java"] = checks
+        # Keep the runnable browser demo derived from the desktop sources, via
+        # GenerateDemoPages, instead of maintaining a second copy of the game.
+        demo_page = (ROOT / "docs/book/examples/save-slots.md").read_text()
+        demo = re.search(r"```java SaveSlotGame\.java\n(.*?)\n```", demo_page, re.S)
+        if not demo:
+            raise ValueError("Save-slots demo page is missing; regenerate demo pages first")
+        outputs[args.online_ide / "public/examples/save-slots.java"] = demo[1].strip() + "\n"
     binary_outputs = {}
     for sheet in sheets():
         source = ROOT / "src/main/resources/images" / (sheet + ".png")

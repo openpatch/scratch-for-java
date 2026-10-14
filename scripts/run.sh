@@ -33,11 +33,11 @@ for arg in "$@"; do
   esac
 done
 
-# ---------------------------------------------------------------- compile once
-if [ ! -d target/classes ] || [ -z "$(find target/classes -name '*.class' -print -quit 2>/dev/null)" ]; then
-  echo "Compiling the library and examples..."
-  mvn -q compile
-fi
+# --------------------------------------------------------- incremental compile
+# The menu reads source files, so an existing build may be missing a new demo
+# or contain old code. Maven checks for changes and reuses up-to-date output.
+echo "Checking the library and examples..."
+mvn -q compile
 
 CP_FILE=target/run-classpath.txt
 if [ ! -f "$CP_FILE" ] || [ pom.xml -nt "$CP_FILE" ]; then

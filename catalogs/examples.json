@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "libraryVersion": "6.1.3",
-  "browserVersion": "6.1.3-browser.1",
+  "browserVersion": "6.1.3-browser.2",
   "examples": [
     {
       "id": "demo/cat",
@@ -319,6 +319,35 @@
         {
           "path": "sprites/robot.png",
           "sha256": "e3426e0f0fbcd9f472326a39f45089ce074797d85c6ce8a42ca6fbf21a1b92a0"
+        }
+      ]
+    },
+    {
+      "id": "demo/saveSlots",
+      "kind": "demo",
+      "source": "src/examples/java/demos/saveSlots",
+      "libraryVersion": "6.1.3",
+      "flavour": "standard",
+      "requiredSheets": [
+        "platformer",
+        "tappy_plane"
+      ],
+      "files": [
+        {
+          "path": "README.md",
+          "sha256": "562b9edbf75e7441e19a47670df7368a1803f17244fca27628057263f73b8570"
+        },
+        {
+          "path": "SaveSlotGame.java",
+          "sha256": "aca09c8911db0ad8409f1bb657b548685c403dbaf1b4757336321408efd37496"
+        },
+        {
+          "path": "SaveSlotProgress.java",
+          "sha256": "47ff5551efd218670ab59b5b2d1deebdb6aa169220ad65b82e2e61e6a5b0ea07"
+        },
+        {
+          "path": "SaveSlotStage.java",
+          "sha256": "137d38a4b232e7c477d1d9b82143c986073221a9890a72783f8580818fd279e4"
         }
       ]
     },

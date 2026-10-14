@@ -26,6 +26,15 @@ Browser versions, API availability and synchronization commands are documented i
 [compatibility/README.md](compatibility/README.md). The generated contract is
 [compatibility/contract.json](compatibility/contract.json).
 
+Game progress can be stored with
+[`SaveData<T>`](src/main/java/org/openpatch/scratch/extensions/fs/SaveData.java).
+It saves public data fields as JSON in a stable user-data folder; the online IDE
+uses IndexedDB through the same Java API. Storage and decoding failures raise
+`IOException`, and missing slots use caller-supplied defaults without writing.
+The [Coin Quest demo](src/examples/java/demos/saveSlots/README.md) uses built-in
+assets and three save slots. Run `demos.saveSlots.SaveSlotGame`, or use its
+[interactive documentation example](docs/book/examples/save-slots.md).
+
 If you want to work on the library. You need a Java environment and Maven. Then you can use the following command to build
 the library.
 
