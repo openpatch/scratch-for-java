@@ -12817,7 +12817,7 @@
           "returns": "void",
           "parameterNames": [],
           "parameterDescriptions": [],
-          "description": "Saves the current frame of the applet to the specified output folder. The frame is saved as a\nPNG file with a filename pattern \"#######.png\". The exact filename will be generated based on\nthe current frame number.",
+          "description": "Saves the current frame of the stage to the specified output folder. The frame is saved as a\nPNG file with a filename pattern \"#######.png\". The exact filename will be generated based on\nthe current frame number. The picture is the stage at its own size, also when the window is\nbigger.",
           "returnDescription": "",
           "scratchblock": "",
           "since": ""
@@ -12834,7 +12834,7 @@
           "returns": "void",
           "parameterNames": [],
           "parameterDescriptions": [],
-          "description": "Saves the current frame of the applet to the specified output folder. The frame is saved as a\nPNG file with a filename pattern \"#######.png\". The exact filename will be generated based on\nthe current frame number.",
+          "description": "Saves the current frame of the stage to the specified output folder. The frame is saved as a\nPNG file with a filename pattern \"#######.png\". The exact filename will be generated based on\nthe current frame number. The picture is the stage at its own size, also when the window is\nbigger.",
           "returnDescription": "",
           "scratchblock": "",
           "since": ""
@@ -12929,7 +12929,7 @@
           "returns": "void",
           "parameterNames": [],
           "parameterDescriptions": [],
-          "description": "Saves the current frame of the applet as a GIF image.\n\nThis method captures the current frame from the applet, sets the frame rate, and adds the\nframe to the GIF encoder. If the applet's pixels are null, the frame is not saved.\n\nNote: This method catches and ignores any NullPointerException that may occur.",
+          "description": "Saves the current frame of the stage as a GIF image.\n\nThis method captures the stage at its own size, sets the frame rate, and adds the frame to\nthe GIF encoder. A window that is bigger than the stage (maximized, say) records the stage\nwithout the bars around it, and the frames keep their size when the window changes during the\nrecording.\n\nNote: This method catches and ignores any NullPointerException that may occur.",
           "returnDescription": "",
           "scratchblock": "",
           "since": ""
@@ -12946,7 +12946,7 @@
           "returns": "void",
           "parameterNames": [],
           "parameterDescriptions": [],
-          "description": "Saves the current frame of the applet as a GIF image.\n\nThis method captures the current frame from the applet, sets the frame rate, and adds the\nframe to the GIF encoder. If the applet's pixels are null, the frame is not saved.\n\nNote: This method catches and ignores any NullPointerException that may occur.",
+          "description": "Saves the current frame of the stage as a GIF image.\n\nThis method captures the stage at its own size, sets the frame rate, and adds the frame to\nthe GIF encoder. A window that is bigger than the stage (maximized, say) records the stage\nwithout the bars around it, and the frames keep their size when the window changes during the\nrecording.\n\nNote: This method catches and ignores any NullPointerException that may occur.",
           "returnDescription": "",
           "scratchblock": "",
           "since": ""
