@@ -37,6 +37,11 @@ revision explicitly. For a browser behavioral change, advance its revision even
 if declarations stay the same. Remove resolved policy overrides and diagnostic
 exceptions after the corresponding behavior is implemented and tested.
 
+The Version Bump workflow proposes the new desktop and browser versions and
+regenerates the library's contracts and catalogs in the release PR. Review these
+artifacts and synchronize and push the browser consumer before merging the PR;
+the workflow cannot write to the browser repository with its repository token.
+
 `browser-reference-diagnostics.json` contains the 13 known unsupported examples'
 exact diagnostic IDs and ranges. It is reviewed input, not an automatically
 updated failure baseline. All examples are compiled. Unexpected failures and
@@ -56,4 +61,4 @@ expects it, or test both working copies locally while preparing the changes.
 
 `build.sh` generates availability annotations and publishes `/compatibility.json`.
 Browser builds publish `/scratch-compatibility.json`; `Window.getLibraryVersion()`
-reports its browser revision, currently `6.1.2-browser.1`.
+reports the browser revision recorded in `browser-policy.json`.
