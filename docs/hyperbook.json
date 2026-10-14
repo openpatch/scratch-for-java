@@ -43,7 +43,10 @@
     }
   ],
   "elements": {
-    "bookmarks": false
+    "bookmarks": false,
+    "onlineide": {
+      "cdn": "https://cdn.openpatch.org/onlineide/v2.2.1-hyperbook.31/"
+    }
   },
   "license": "CC-BY-NC-SA",
   "language": "en"

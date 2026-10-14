@@ -18,6 +18,9 @@ The Coin Quest demo uses built-in assets and three slots, with controls to save,
 load and start a fresh round. Its score and sprite positions survive a desktop
 restart or browser reload.
 
+The demo launcher checks compilation before running an example, so newly added
+demos work even when older compiled classes are already present.
+
 
 ## 6.1.3
 
