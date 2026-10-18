@@ -13,8 +13,10 @@ import java.util.Map;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -23,8 +25,8 @@ import java.util.concurrent.atomic.AtomicInteger;
  *
  * <p>
  * The decoded audio of a file is loaded once and shared, but every sound object
- * plays on a line of its own. Ten sprites that all added the same sound
- * therefore sound ten times at once, while a single sprite still only plays its
+ * plays on a line of its own while it is playing. Ten sprites playing the same
+ * sound therefore sound ten times at once, while a single sprite only plays its
  * own sound once at a time.
  */
 public class Sound {
@@ -35,15 +37,8 @@ public class Sound {
 
   private static final Map<String, Samples> soundCache = new ConcurrentHashMap<>();
 
-  /**
-   * Lines that are not playing right now, kept per sound file so the next play
-   * can reuse them. Opening a line takes tens of milliseconds, long enough to be
-   * seen as a dropped frame if it happened while the sound is being started.
-   */
-  private static final Map<String, BlockingQueue<Clip>> idleClips = new ConcurrentHashMap<>();
-
-  /** How many lines are open per sound file, playing or waiting for reuse. */
-  private static final Map<String, AtomicInteger> openClips = new ConcurrentHashMap<>();
+  /** Playback resources are shared by file, independently of sound object lifetime. */
+  private static final Map<String, ClipPool> clipPools = new ConcurrentHashMap<>();
 
   /**
    * How many lines one sound file may hold, and with that how many copies of it
@@ -72,9 +67,89 @@ public class Sound {
 
   private static boolean audioWarningPrinted = false;
 
+  @FunctionalInterface
+  interface ClipFactory {
+    Clip create() throws LineUnavailableException;
+  }
+
+  /**
+   * One warm line per file. Extra lines are opened only for concurrent playback
+   * and closed when they return to an already warm pool. Creating or cloning a
+   * sound must not increase the number of idle native audio streams.
+   */
+  static final class ClipPool {
+    private final Samples samples;
+    private final Executor opener;
+    private final ClipFactory factory;
+    private final BlockingQueue<Clip> idle = new ArrayBlockingQueue<>(1);
+    private final AtomicInteger open = new AtomicInteger();
+    private final AtomicBoolean prepared = new AtomicBoolean();
+
+    ClipPool(Samples samples, Executor opener, ClipFactory factory) {
+      this.samples = samples;
+      this.opener = opener;
+      this.factory = factory;
+    }
+
+    private boolean hasAudio() {
+      return samples != null && samples.data().length > 0;
+    }
+
+    private void prepare() {
+      if (hasAudio() && prepared.compareAndSet(false, true)) {
+        opener.execute(() -> {
+          Clip clip = openClip();
+          if (clip != null) {
+            release(clip);
+          }
+        });
+      }
+    }
+
+    private Clip poll() {
+      return idle.poll();
+    }
+
+    private Clip openClip() {
+      long affordable = MAX_CLIP_MEMORY_PER_SOUND / Math.max(1, samples.data().length);
+      int limit = (int) Math.max(1, Math.min(MAX_CLIPS_PER_SOUND, affordable));
+      if (open.incrementAndGet() > limit) {
+        open.decrementAndGet();
+        return null;
+      }
+
+      Clip clip = null;
+      try {
+        clip = factory.create();
+        clip.open(samples.format(), samples.data(), 0, samples.data().length);
+        return clip;
+      } catch (LineUnavailableException | IllegalArgumentException e) {
+        try {
+          if (clip != null) {
+            clip.close();
+          }
+        } finally {
+          open.decrementAndGet();
+        }
+        printAudioUnavailableWarning();
+        return null;
+      }
+    }
+
+    private void release(Clip clip) {
+      clip.setFramePosition(0);
+      if (!idle.offer(clip)) {
+        try {
+          clip.close();
+        } finally {
+          open.decrementAndGet();
+        }
+      }
+    }
+  }
+
   private final String name;
-  private final String path;
-  private final Samples samples;
+  private final ClipPool pool;
   private double volume = 1.0;
 
   /** The line this sound is playing on, or null while it is silent. */
@@ -89,25 +164,30 @@ public class Sound {
    */
   private final class Playback implements LineListener {
     /** Null until a line is there, which may take a moment on the first play. */
-    private Clip clip;
+    private volatile Clip clip;
 
     /** Puts this run on a line, waiting for one to be opened if need be. */
     private void start() {
-      Clip pooled = pollIdleClip();
+      Clip pooled = pool.poll();
       if (pooled != null) {
-        begin(pooled);
+        if (!begin(pooled)) {
+          pool.release(pooled);
+        }
         return;
       }
-      clipOpener.execute(() -> {
+      pool.opener.execute(() -> {
+        if (playing != this) {
+          return;
+        }
         // A line prepared in the meantime is cheaper than opening another one.
-        Clip opened = pollIdleClip();
+        Clip opened = pool.poll();
         if (opened == null) {
-          opened = openClip();
+          opened = pool.openClip();
         }
         if (opened == null) {
           finish();
         } else if (!begin(opened)) {
-          releaseClip(opened);
+          pool.release(opened);
         }
       });
     }
@@ -168,41 +248,25 @@ public class Sound {
       }
       if (onLine != null) {
         onLine.removeLineListener(this);
-        releaseClip(onLine);
+        pool.release(onLine);
       }
     }
   }
 
   public Sound(String name, String soundPath) {
+    this(name, clipPools.computeIfAbsent(soundPath,
+        path -> new ClipPool(loadSound(path), clipOpener, AudioSystem::getClip)));
+  }
+
+  Sound(String name, ClipPool pool) {
     this.name = name;
-    this.path = soundPath;
-    this.samples = loadSound(soundPath);
-    this.prepareLine();
+    this.pool = pool;
+    pool.prepare();
   }
 
   public Sound(Sound s) {
-    this.name = s.name;
-    this.path = s.path;
-    this.samples = s.samples;
+    this(s.name, s.pool);
     this.volume = s.volume;
-    this.prepareLine();
-  }
-
-  /**
-   * Gets a line ready in the background, so that this sound object can start
-   * playing without a pause. Every sound object asks for one line, which is what
-   * makes ten sprites with the same sound end up with ten lines.
-   */
-  private void prepareLine() {
-    if (samples == null || samples.data().length == 0) {
-      return;
-    }
-    clipOpener.execute(() -> {
-      Clip clip = openClip();
-      if (clip != null) {
-        releaseClip(clip);
-      }
-    });
   }
 
   /**
@@ -405,7 +469,7 @@ public class Sound {
    * objects holding the same sound are unaffected and can play it alongside.
    */
   public void play() {
-    if (samples == null || samples.data().length == 0) {
+    if (!pool.hasAudio()) {
       return;
     }
 
@@ -418,57 +482,6 @@ public class Sound {
       playing = playback;
     }
     playback.start();
-  }
-
-  /** Takes a line that is waiting for reuse, or null if there is none. */
-  private Clip pollIdleClip() {
-    BlockingQueue<Clip> idle = idleClips.get(path);
-    return idle == null ? null : idle.poll();
-  }
-
-  /**
-   * How many lines this sound may hold at once. A short sound effect gets the
-   * full {@link #MAX_CLIPS_PER_SOUND}, a long one fewer, so that a piece of
-   * music does not fill memory with copies of itself.
-   */
-  private int maxClips() {
-    long affordable = MAX_CLIP_MEMORY_PER_SOUND / Math.max(1, samples.data().length);
-    return (int) Math.max(1, Math.min(MAX_CLIPS_PER_SOUND, affordable));
-  }
-
-  /**
-   * Opens another line for this sound, unless the sound already holds as many as
-   * it may. An extra play beyond that is simply dropped.
-   *
-   * @return the line, or null if none could be opened
-   */
-  private Clip openClip() {
-    AtomicInteger open = openClips.computeIfAbsent(path, key -> new AtomicInteger());
-    if (open.incrementAndGet() > maxClips()) {
-      open.decrementAndGet();
-      return null;
-    }
-
-    try {
-      Clip clip = AudioSystem.getClip();
-      clip.open(samples.format(), samples.data(), 0, samples.data().length);
-      return clip;
-    } catch (LineUnavailableException | IllegalArgumentException e) {
-      open.decrementAndGet();
-      printAudioUnavailableWarning();
-      return null;
-    }
-  }
-
-  /** Hands a line back for reuse, or closes it if enough are already kept. */
-  private void releaseClip(Clip clip) {
-    clip.setFramePosition(0);
-    BlockingQueue<Clip> idle = idleClips.computeIfAbsent(
-        path, key -> new ArrayBlockingQueue<>(MAX_CLIPS_PER_SOUND));
-    if (!idle.offer(clip)) {
-      clip.close();
-      openClips.get(path).decrementAndGet();
-    }
   }
 
   private static synchronized void printAudioUnavailableWarning() {
