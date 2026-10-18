@@ -10,6 +10,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import org.openpatch.scratch.Layer;
 import org.openpatch.scratch.Sprite;
 import org.openpatch.scratch.Stage;
+import org.openpatch.scratch.Shape;
 import org.openpatch.scratch.internal.Image;
 import org.openpatch.scratch.internal.StageAccess;
 import org.openpatch.scratch.internal.Stamp;
@@ -42,6 +43,20 @@ public class TiledMap {
   private Map map;
   private Stage stage;
   private ConcurrentHashMap<Integer, Image> tiles;
+  private final java.util.Map<Integer, Tile> tileDefinitions = new java.util.HashMap<>();
+
+  /**
+   * Loads map data without attaching it to a stage. Properties, tile IDs and
+   * collision shapes can be read without a window. To stamp or spawn, use the
+   * constructor that takes a stage.
+   * @param path a TMX file
+   *
+   *
+   * @example.files TiledMapData.java
+   */
+  public TiledMap(String path) {
+    this(path, null);
+  }
 
   /**
    * Constructs a new TiledMap object.
@@ -94,7 +109,179 @@ public class TiledMap {
         image.setSize(tileset.tilewidth + 1, tileset.tileheight + 1);
         tiles.put(firstId + index, image);
       }
+      for (Tile tile : tileset.tile == null ? new Tile[0] : tileset.tile) {
+        this.tileDefinitions.put(firstId + tile.id, tile);
+      }
     }
+  }
+
+  /**
+   * @return the number of map columns
+   *
+   * @example.files TiledMapData.java
+   */
+  public int getWidth() { return this.map.width; }
+
+  /**
+   * @return the number of map rows
+   *
+   * @example.files TiledMapData.java
+   */
+  public int getHeight() { return this.map.height; }
+
+  /**
+   * @return the width of a map cell in pixels
+   *
+   * @example.files TiledMapData.java
+   */
+  public int getTileWidth() { return this.map.tilewidth; }
+
+  /**
+   * @return the height of a map cell in pixels
+   *
+   * @example.files TiledMapData.java
+   */
+  public int getTileHeight() { return this.map.tileheight; }
+
+  /**
+   * Reads a custom property of the map itself, such as its biome or tutorial.
+   * @param name property name
+   *
+   * @return its string value, including multiline strings
+   * @throws java.util.NoSuchElementException if the property does not exist
+   *
+   *
+   * @example.files TiledMapData.java
+   */
+  public String getProperty(String name) {
+    for (Property property : this.map.properties == null ? java.util.List.<Property>of() : this.map.properties) {
+      if (name.equals(property.name)) return property.value;
+    }
+    throw new java.util.NoSuchElementException("Map property '" + name + "' does not exist.");
+  }
+
+  /**
+   * Reads a map property, with a default for maps that omit it.
+   * @param name property name
+   * @param defaultValue value when absent
+   *
+   * @return the stored value or the default
+   *
+   *
+   * @example.files TiledMapData.java
+   */
+  public String getProperty(String name, String defaultValue) {
+    try {
+      return this.getProperty(name);
+    } catch (java.util.NoSuchElementException absent) {
+      return defaultValue;
+    }
+  }
+
+  /** @param name property name
+   * @return its integer value
+   *
+   * @example.files TiledMapData.java
+   */
+  public int getPropertyInt(String name) { return Integer.parseInt(this.getProperty(name)); }
+
+  /** @param name property name
+   * @return its floating-point value
+   *
+   * @example.files TiledMapData.java
+   */
+  public float getPropertyFloat(String name) { return Float.parseFloat(this.getProperty(name)); }
+
+  /** @param name property name
+   * @return its boolean value
+   *
+   * @example.files TiledMapData.java
+   */
+  public boolean getPropertyBoolean(String name) { return Boolean.parseBoolean(this.getProperty(name)); }
+
+  /**
+   * Reads a global tile ID, without flip bits. Columns and rows are local to
+   * the named layer, starting at its top-left cell. Zero means an empty cell,
+   * including cells outside the layer. An unknown layer is an error.
+   * @param layerName tile layer name, also within a group
+   * @param column column index
+   * @param row row index
+   *
+   * @return global ID, or zero for an empty/outside cell
+   *
+   *
+   * @example.files TiledMapData.java
+   */
+  public int getTileId(String layerName, int column, int row) {
+    MapLayer layer = this.requireLayer(layerName);
+    if (column < 0 || row < 0 || column >= layer.width || row >= layer.height) return 0;
+    return layer.data[row * layer.width + column];
+  }
+
+  /**
+   * Returns collision outlines defined in a tile's tileset object group.
+   * Coordinates start at the tile's top-left; x points right and y points up.
+   * Shapes are independent copies and do not modify the map when transformed.
+   * @param tileId global tile ID (zero and unknown IDs have no shapes)
+   *
+   * @return rectangles, ellipses or polygons for this tile
+   *
+   *
+   * @example.files TiledMapData.java
+   */
+  public Shape[] getTileCollisionShapes(int tileId) {
+    Tile tile = this.tileDefinitions.get(tileId);
+    if (tile == null || tile.objectgroup == null || tile.objectgroup.objects == null) return new Shape[0];
+    java.util.List<Shape> shapes = new java.util.ArrayList<>();
+    for (MapObject object : tile.objectgroup.objects) {
+      shapes.add(object.getShape().rotate(object.rotation, 0, 0)
+          .translate(object.x, object.y).scale(1, -1));
+    }
+    return shapes.toArray(Shape[]::new);
+  }
+
+  /**
+   * Returns a cell's collision outlines in map/stage coordinates: the map's
+   * top-left is (0,0), x points right and y points up, matching map stamping.
+   * Tiled's diagonal, horizontal and vertical flips are applied in that order.
+   * @param layerName tile layer name
+   * @param column column index, starting at zero
+   * @param row row index, starting at zero
+   *
+   * @return positioned outlines, or an empty array outside/without collision
+   *
+   *
+   * @example.files TiledMapData.java
+   */
+  public Shape[] getTileCollisionShapes(String layerName, int column, int row) {
+    int id = this.getTileId(layerName, column, row);
+    Shape[] shapes = this.getTileCollisionShapes(id);
+    if (shapes.length == 0) return shapes;
+    MapLayer layer = this.requireLayer(layerName);
+    int index = row * layer.width + column;
+    int flips = layer.flips == null ? 0 : layer.flips[index];
+    Image image = this.tiles.get(id);
+    double width = image.getOriginalWidth();
+    double height = image.getOriginalHeight();
+    for (int i = 0; i < shapes.length; i++) {
+      Shape shape = shapes[i].scale(1, -1).translate(-width / 2, -height / 2);
+      if ((flips & 1) != 0) shape = shape.scale(1, -1).rotate(90, 0, 0);
+      shapes[i] = shape.scale((flips & 4) != 0 ? -1 : 1, (flips & 2) != 0 ? -1 : 1)
+          .translate(column * this.map.tilewidth + width / 2,
+              row * this.map.tileheight + height / 2).scale(1, -1);
+    }
+    return shapes;
+  }
+
+  private MapLayer requireLayer(String name) {
+    MapLayer layer = this.getLayer(name);
+    if (layer == null) throw new IllegalArgumentException(unknownLayer(this.map, name));
+    return layer;
+  }
+
+  private void requireStage() {
+    if (this.stage == null) throw new IllegalStateException(
+        "This map has no stage. Use new TiledMap(path, stage) to stamp or spawn.");
   }
 
   /**
@@ -227,9 +414,11 @@ public class TiledMap {
    *
    * @param layerName the object layer
    * @return the sprites that were made, in the order of the layer
+   * @example.files TiledSpawn.java
    * @throws IllegalArgumentException if the map has no such object layer
    */
   public java.util.List<Sprite> spawn(String layerName) {
+    this.requireStage();
     var objects = this.getObjectsFromLayer(layerName);
     if (objects == null) {
       throw new IllegalArgumentException("The map has no object layer " + layerName);
@@ -364,6 +553,7 @@ public class TiledMap {
    * @param name the name of the layer to be stamped to the foreground
    */
   public void stampLayerToForeground(String name) {
+    this.requireStage();
     var stamps = stampLayer(name);
     StageAccess.get().stamp(stage, stamps, Layer.FOREGROUND);
   }
@@ -374,6 +564,7 @@ public class TiledMap {
    * @param name the name of the layer to be stamped onto the background
    */
   public void stampLayerToBackground(String name) {
+    this.requireStage();
     var stamps = stampLayer(name);
     StageAccess.get().stamp(stage, stamps, Layer.BACKGROUND);
   }

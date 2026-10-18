@@ -10,6 +10,8 @@ import org.openpatch.scratch.extensions.shader.Shaders;
 import org.openpatch.scratch.internal.NrwList;
 import org.openpatch.scratch.internal.Image;
 import org.openpatch.scratch.internal.Sound;
+import org.openpatch.scratch.internal.SoundPlaybacks;
+import org.openpatch.scratch.extensions.sound.SoundPlayback;
 import org.openpatch.scratch.internal.Stamp;
 import processing.core.PConstants;
 import processing.core.PGraphics;
@@ -148,6 +150,7 @@ public class Sprite implements Cloneable {
   private Hitbox hitboxCacheCustom;
 
   private Text text;
+  private final SoundPlaybacks soundPlaybacks = new SoundPlaybacks();
   private boolean isUI;
   /** Made by {@link #clone()}: {@link #deleteThisClone()} removes it. */
   private boolean isClone;
@@ -669,6 +672,9 @@ public class Sprite implements Cloneable {
    *
    * @scratchblock start sound [name v]
    *
+   * playSoundCopy() returns an independent SoundPlayback with its own volume
+   * and can overlap earlier plays of the same sound.
+   *
    * @param name the sound name
    *
    * @example.files SpritePlaySound.java
@@ -703,6 +709,28 @@ public class Sprite implements Cloneable {
     }
   }
 
+  /**
+   * Starts a separate copy of a sound at its own volume. Calling this again
+   * can overlap the previous copy. The returned handle controls only this play;
+   * stopSound() and stopAllSounds() also stop copies owned by this sprite.
+   * The sprite's ordinary volume does not change a copy's explicit volume.
+   *
+   * @param name a sound already added with addSound()
+   * @param volume volume from 0 to 100 percent
+   * @return this individual playback, also usable in try-with-resources
+   * @throws IllegalArgumentException if the sound is missing or volume is not finite
+   * @example.files SoundPlaybackExample.java
+   */
+  public SoundPlayback playSoundCopy(String name, double volume) {
+    for (Sound sound : this.sounds) {
+      if (sound.getName().equals(name)) {
+        return this.soundPlaybacks.play(sound, volume);
+      }
+    }
+    throw new IllegalArgumentException("No sound named '" + name
+        + "'. Add it with addSound() before playing it.");
+  }
+
   private void printSoundNotFoundWarning(String name) {
     System.err.println("\n==============================================");
     System.err.println("WARNING: Sound not found!");
@@ -728,6 +756,7 @@ public class Sprite implements Cloneable {
    * @example.files SpriteStopAllSounds.java
    */
   public void stopAllSounds() {
+    this.soundPlaybacks.stopAll();
     for (Sound sound : this.sounds) {
       sound.stop();
     }
@@ -741,6 +770,7 @@ public class Sprite implements Cloneable {
    * @example.files SpriteStopSound.java
    */
   public void stopSound(String name) {
+    this.soundPlaybacks.stop(name);
     boolean found = false;
     for (Sound sound : this.sounds) {
       if (sound.getName().equals(name)) {
@@ -765,7 +795,7 @@ public class Sprite implements Cloneable {
   public boolean isSoundPlaying(String name) {
     for (Sound sound : this.sounds) {
       if (sound.getName().equals(name)) {
-        return sound.isPlaying();
+        return sound.isPlaying() || this.soundPlaybacks.isPlaying(name);
       }
     }
     return false;
@@ -2743,7 +2773,7 @@ public class Sprite implements Cloneable {
     return this.costumes.get(this.currentCostume);
   }
 
-  RotationStyle getRotationStyle() {
+  protected RotationStyle getRotationStyle() {
     return this.rotationStyle;
   }
 

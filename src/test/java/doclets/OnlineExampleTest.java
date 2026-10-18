@@ -43,6 +43,12 @@ class OnlineExampleTest {
   private static final Path REFERENCE = Path.of("src", "examples", "java", "reference");
 
   @Test
+  void desktopExamplesAreNotOfferedAsBrowserPrograms() {
+    org.junit.jupiter.api.Assertions.assertNull(OnlineExample.of("", List.of("BitmapTextExample.java")));
+    org.junit.jupiter.api.Assertions.assertNull(OnlineExample.of("", List.of("TiledMapData.java")));
+  }
+
+  @Test
   void everyReferenceExampleStaysAProgram() throws IOException {
     if (!Files.isDirectory(REFERENCE)) {
       return; // the examples are not part of every checkout
@@ -117,6 +123,9 @@ class OnlineExampleTest {
     // lets the same program be compiled against the desktop library.
     return "import org.openpatch.scratch.*;\n"
         + "import org.openpatch.scratch.extensions.camera.*;\n"
+        + "import org.openpatch.scratch.extensions.drawing.*;\n"
+        + "import org.openpatch.scratch.extensions.sound.*;\n"
+        + "import org.openpatch.scratch.extensions.text.*;\n"
         + "import org.openpatch.scratch.extensions.fs.*;\n"
         + "import org.openpatch.scratch.extensions.pixels.*;\n"
         + "import org.openpatch.scratch.extensions.shader.*;\n"

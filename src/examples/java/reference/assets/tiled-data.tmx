@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map orientation="orthogonal" width="3" height="2" tilewidth="5" tileheight="7">
+  <properties><property name="biome" value="forest"/></properties>
+  <tileset firstgid="1" name="example" tilewidth="5" tileheight="7" tilecount="1" columns="1">
+    <image source="bitmap-font/048.png" width="5" height="7"/>
+    <tile id="0"><objectgroup><object id="1" x="0" y="0" width="5" height="7"/></objectgroup></tile>
+  </tileset>
+  <layer name="Ground" width="3" height="2"><data encoding="csv">0,1,0,1,1,1</data></layer>
+  <objectgroup name="Objects">
+    <object id="1" class="TiledSpawnPlayer" x="-80" y="0">
+      <point/><properties><property name="message" value="Hello from the map!"/></properties>
+    </object>
+    <object id="2" class="TiledSpawnWall" x="40" y="0" width="40" height="10"/>
+  </objectgroup>
+</map>

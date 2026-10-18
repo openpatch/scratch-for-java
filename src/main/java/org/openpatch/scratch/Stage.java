@@ -18,6 +18,8 @@ import org.openpatch.scratch.internal.Image;
 import org.openpatch.scratch.internal.Monitor;
 import org.openpatch.scratch.internal.NrwList;
 import org.openpatch.scratch.internal.Sound;
+import org.openpatch.scratch.internal.SoundPlaybacks;
+import org.openpatch.scratch.extensions.sound.SoundPlayback;
 import org.openpatch.scratch.internal.Stamp;
 import org.openpatch.scratch.internal.StageAccess;
 import org.openpatch.scratch.internal.StageHooks;
@@ -88,6 +90,7 @@ public class Stage {
 
   private Queue<Stamp> uiStamps;
   private PGraphics uiBuffer;
+  private PGraphics uiPenBuffer;
   private boolean eraseUIBuffer;
   /** Whether the render buffers have had their OpenGL framebuffers allocated yet. */
   private boolean buffersAllocated;
@@ -109,6 +112,7 @@ public class Stage {
   List<Text> texts;
   List<Pen> pens;
   List<Sprite> sprites;
+  private final SoundPlaybacks soundPlaybacks = new SoundPlaybacks();
   private double mouseX;
   private double mouseY;
   private final Sorting sorting = new Sorting();
@@ -217,6 +221,8 @@ public class Stage {
         applet.getRenderWidth(), applet.getRenderHeight(), applet.sketchRenderer());
     this.uiBuffer = applet.createGraphics(
         applet.getRenderWidth(), applet.getRenderHeight(), applet.sketchRenderer());
+    this.uiPenBuffer = applet.createGraphics(
+        applet.getRenderWidth(), applet.getRenderHeight(), applet.sketchRenderer());
     this.debugBuffer = applet.createGraphics(
         applet.getRenderWidth(), applet.getRenderHeight(), applet.sketchRenderer());
     this.pixels = new Pixels(this.mainBuffer, this.backgroundBuffer, this.foregroundBuffer);
@@ -226,6 +232,7 @@ public class Stage {
     ((PGraphicsOpenGL) this.debugBuffer).textureSampling(Window.getTextureSampling().getMode());
     ((PGraphicsOpenGL) this.backdropBuffer).textureSampling(Window.getTextureSampling().getMode());
     ((PGraphicsOpenGL) this.uiBuffer).textureSampling(Window.getTextureSampling().getMode());
+    ((PGraphicsOpenGL) this.uiPenBuffer).textureSampling(Window.getTextureSampling().getMode());
     ((PGraphicsOpenGL) this.foregroundBuffer).textureSampling(Window.getTextureSampling().getMode());
     if (Window.getTextureSampling() == TextureSampling.POINT) {
       this.shaderBuffer.noSmooth();
@@ -234,6 +241,7 @@ public class Stage {
       this.debugBuffer.noSmooth();
       this.backdropBuffer.noSmooth();
       this.uiBuffer.noSmooth();
+      this.uiPenBuffer.noSmooth();
       this.foregroundBuffer.noSmooth();
     }
 
@@ -907,6 +915,9 @@ public class Stage {
   /**
    * Plays a sound.
    *
+   * playSoundCopy() returns an independent SoundPlayback with its own volume
+   * and can overlap earlier plays of the same sound.
+   *
    * @param name the sound name
    *
    * @scratchblock start sound [name v]
@@ -926,6 +937,28 @@ public class Stage {
     if (!found) {
       this.printSoundNotFoundWarning(name);
     }
+  }
+
+  /**
+   * Starts a separate copy of a sound at its own volume. Calling this again
+   * can overlap the previous copy. The returned handle controls only this play;
+   * stopSound() and stopAllSounds() also stop copies owned by this stage.
+   * The stage's ordinary volume does not change a copy's explicit volume.
+   *
+   * @param name a sound already added with addSound()
+   * @param volume volume from 0 to 100 percent
+   * @return this individual playback, also usable in try-with-resources
+   * @throws IllegalArgumentException if the sound is missing or volume is not finite
+   * @example.files SoundPlaybackExample.java
+   */
+  public SoundPlayback playSoundCopy(String name, double volume) {
+    for (Sound sound : this.sounds) {
+      if (sound.getName().equals(name)) {
+        return this.soundPlaybacks.play(sound, volume);
+      }
+    }
+    throw new IllegalArgumentException("No sound named '" + name
+        + "'. Add it with addSound() before playing it.");
   }
 
   private void printSoundNotFoundWarning(String name) {
@@ -953,6 +986,7 @@ public class Stage {
    * @example.files StageStopAllSounds.java
    */
   public void stopAllSounds() {
+    this.soundPlaybacks.stopAll();
     for (Sound sound : this.sounds) {
       sound.stop();
     }
@@ -966,6 +1000,7 @@ public class Stage {
    * @example.files StageStopSound.java
    */
   public void stopSound(String name) {
+    this.soundPlaybacks.stop(name);
     boolean found = false;
     for (Sound sound : this.sounds) {
       if (sound.getName().equals(name)) {
@@ -989,7 +1024,7 @@ public class Stage {
   public boolean isSoundPlaying(String name) {
     for (Sound sound : this.sounds) {
       if (sound.getName().equals(name)) {
-        return sound.isPlaying();
+        return sound.isPlaying() || this.soundPlaybacks.isPlaying(name);
       }
     }
 
@@ -1911,7 +1946,7 @@ public class Stage {
     if (!this.buffersAllocated) {
       for (PGraphics b : new PGraphics[] {
           this.shaderBuffer, this.mainBuffer, this.backdropBuffer, this.backgroundBuffer,
-          this.foregroundBuffer, this.uiBuffer, this.debugBuffer }) {
+          this.foregroundBuffer, this.uiBuffer, this.uiPenBuffer, this.debugBuffer }) {
         b.beginDraw();
         b.clear();
         b.endDraw();
@@ -2034,17 +2069,23 @@ public class Stage {
     shaderBuffer.endDraw();
     buffer.image(this.shaderBuffer, buffer.width / 2.0f, buffer.height / 2.0f, width, height);
 
-    // draw ui
-    this.uiBuffer.beginDraw();
-    this.uiBuffer.translate(this.getWidth() / 2.0f, this.getHeight() / 2.0f);
+    // UI pen marks and stamps persist. UI sprites, bubbles and text do not.
+    this.uiPenBuffer.beginDraw();
+    this.uiPenBuffer.translate(this.getWidth() / 2.0f, this.getHeight() / 2.0f);
     if (this.eraseUIBuffer) {
-      this.uiBuffer.clear();
+      this.uiPenBuffer.clear();
       this.eraseUIBuffer = false;
     }
-    this.sprites.stream().filter(s -> s.isUI()).forEach(s -> s.getPen().draw(this.uiBuffer));
+    this.sprites.stream().filter(s -> s.isUI()).forEach(s -> s.getPen().draw(this.uiPenBuffer));
     while (!this.uiStamps.isEmpty()) {
-      this.uiStamps.poll().draw(this.uiBuffer);
+      this.uiStamps.poll().draw(this.uiPenBuffer);
     }
+    this.uiPenBuffer.endDraw();
+
+    this.uiBuffer.beginDraw();
+    this.uiBuffer.clear();
+    this.uiBuffer.image(this.uiPenBuffer, 0, 0);
+    this.uiBuffer.translate(this.getWidth() / 2.0f, this.getHeight() / 2.0f);
     if (this.display != null) {
       this.display.draw(this.uiBuffer);
     }
@@ -2056,14 +2097,7 @@ public class Stage {
     this.sprites.stream().filter(s -> s.isUI()).forEach(s -> s.getText().draw(uiBuffer));
     this.uiBuffer.endDraw();
 
-    if (this.uiBuffer.pixels != null) {
-      buffer.image(this.uiBuffer, applet.width / 2.0f, applet.height / 2.0f, width, height);
-    } else {
-      try {
-        this.uiBuffer.loadPixels();
-      } catch (Exception e) {
-      }
-    }
+    buffer.image(this.uiBuffer, applet.width / 2.0f, applet.height / 2.0f, width, height);
     this.drawMonitors(buffer, applet, width);
 
     if (applet.isDebug()) {

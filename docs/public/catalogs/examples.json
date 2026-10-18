@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "libraryVersion": "6.2.1",
-  "browserVersion": "6.2.1-browser.1",
+  "browserVersion": "6.2.1-browser.2",
   "examples": [
     {
       "id": "demo/cat",

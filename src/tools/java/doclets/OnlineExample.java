@@ -112,6 +112,11 @@ final class OnlineExample {
             return null; // no source, no interactive example
         }
         for (String source : sources) {
+            // Desktop examples remain downloadable Java programs. Their APIs
+            // need not have declarations in the browser compiler.
+            if (source.contains("@example.online false")) {
+                return null;
+            }
             Matcher asset = ASSET.matcher(source);
             while (asset.find()) {
                 if (!SHADER.matcher(asset.group(1)).matches()) {

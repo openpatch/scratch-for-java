@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "desktopVersion": "6.2.1",
   "browser": {
-    "version": "6.2.1-browser.1",
+    "version": "6.2.1-browser.2",
     "flavors": {
       "standard": {
         "libraries": [
@@ -23,13 +23,13 @@
   "limitations": [
     "Availability describes documented member groups and browser declarations. Compilation tests do not prove rendering, timing or complete behavioral parity.",
     "Fragment shaders use WebGL. Custom vertex shaders are desktop-only; the browser substitutes its default vertex shader.",
-    "File access, pixel-buffer, recorder and Tiled APIs are desktop-only. SaveData instead persists plain game data in IndexedDB, scoped to the hosting origin and browser profile.",
+    "File access, pixel-buffer, and recorder APIs are desktop-only. Tiled reads finite orthogonal TMX/TSX maps from workspace files or URLs. SaveData instead persists plain game data in IndexedDB, scoped to the hosting origin and browser profile.",
     "Reference examples are compiled with the standard flavor. Existing NRW runtime fixtures and a separate declaration inventory cover the NRW flavor.",
     "Java compiler dialect differences also apply, including Java package access and unsupported standard-library methods."
   ],
   "referenceValidation": {
     "flavor": "standard",
-    "examples": 411,
+    "examples": 434,
     "knownUnsupportedExamples": 0
   },
   "members": [
@@ -5401,7 +5401,38 @@
           ],
           "description": "Plays a sound.\n\nEvery sprite plays its own copy, so ten sprites playing the same sound are\nheard ten times at once. One sprite only plays a sound once at a time:\nplaying it again while it is still going does nothing.",
           "returnDescription": "",
-          "scratchblock": "start sound [name v]",
+          "scratchblock": "start sound [name v]\n\nplaySoundCopy() returns an independent SoundPlayback with its own volume\nand can overlap earlier plays of the same sound.",
+          "since": ""
+        }
+      ],
+      "status": "implemented",
+      "reason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "missingBrowserSignatures": []
+    },
+    {
+      "id": "Sprite/playSoundCopy",
+      "owner": "org.openpatch.scratch.Sprite",
+      "signatures": [
+        {
+          "name": "playSoundCopy",
+          "constructor": false,
+          "static": false,
+          "parameters": [
+            "java.lang.String",
+            "double"
+          ],
+          "returns": "org.openpatch.scratch.extensions.sound.SoundPlayback",
+          "parameterNames": [
+            "name",
+            "volume"
+          ],
+          "parameterDescriptions": [
+            "a sound already added with addSound()",
+            "volume from 0 to 100 percent"
+          ],
+          "description": "Starts a separate copy of a sound at its own volume. Calling this again\ncan overlap the previous copy. The returned handle controls only this play;\nstopSound() and stopAllSounds() also stop copies owned by this sprite.\nThe sprite's ordinary volume does not change a copy's explicit volume.",
+          "returnDescription": "this individual playback, also usable in try-with-resources",
+          "scratchblock": "",
           "since": ""
         }
       ],
@@ -7788,9 +7819,40 @@
           "parameterDescriptions": [
             "the sound name"
           ],
-          "description": "Plays a sound.",
+          "description": "Plays a sound.\n\nplaySoundCopy() returns an independent SoundPlayback with its own volume\nand can overlap earlier plays of the same sound.",
           "returnDescription": "",
           "scratchblock": "start sound [name v]",
+          "since": ""
+        }
+      ],
+      "status": "implemented",
+      "reason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "missingBrowserSignatures": []
+    },
+    {
+      "id": "Stage/playSoundCopy",
+      "owner": "org.openpatch.scratch.Stage",
+      "signatures": [
+        {
+          "name": "playSoundCopy",
+          "constructor": false,
+          "static": false,
+          "parameters": [
+            "java.lang.String",
+            "double"
+          ],
+          "returns": "org.openpatch.scratch.extensions.sound.SoundPlayback",
+          "parameterNames": [
+            "name",
+            "volume"
+          ],
+          "parameterDescriptions": [
+            "a sound already added with addSound()",
+            "volume from 0 to 100 percent"
+          ],
+          "description": "Starts a separate copy of a sound at its own volume. Calling this again\ncan overlap the previous copy. The returned handle controls only this play;\nstopSound() and stopAllSounds() also stop copies owned by this stage.\nThe stage's ordinary volume does not change a copy's explicit volume.",
+          "returnDescription": "this individual playback, also usable in try-with-resources",
+          "scratchblock": "",
           "since": ""
         }
       ],
@@ -12206,6 +12268,424 @@
       "missingBrowserSignatures": []
     },
     {
+      "id": "extensions/drawing/Drawing/clip",
+      "owner": "org.openpatch.scratch.extensions.drawing.Drawing",
+      "signatures": [
+        {
+          "name": "clip",
+          "constructor": false,
+          "static": false,
+          "parameters": [
+            "double",
+            "double",
+            "double",
+            "double"
+          ],
+          "returns": "void",
+          "parameterNames": [
+            "x",
+            "y",
+            "width",
+            "height"
+          ],
+          "parameterDescriptions": [
+            "centre x",
+            "centre y",
+            "clip width",
+            "clip height"
+          ],
+          "description": "Limits subsequent drawing to a centred rectangle. This replaces the previous\nclip; it is always cleared when the sprite finishes drawing. For a rotated\nsprite, the clip is the screen-aligned bounding box of this rectangle.",
+          "returnDescription": "",
+          "scratchblock": "",
+          "since": ""
+        }
+      ],
+      "status": "implemented",
+      "reason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "missingBrowserSignatures": []
+    },
+    {
+      "id": "extensions/drawing/Drawing/constructor",
+      "owner": "org.openpatch.scratch.extensions.drawing.Drawing",
+      "signatures": [],
+      "status": "implemented",
+      "reason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "missingBrowserSignatures": []
+    },
+    {
+      "id": "extensions/drawing/Drawing/image",
+      "owner": "org.openpatch.scratch.extensions.drawing.Drawing",
+      "signatures": [
+        {
+          "name": "image",
+          "constructor": false,
+          "static": false,
+          "parameters": [
+            "java.lang.String",
+            "double",
+            "double"
+          ],
+          "returns": "void",
+          "parameterNames": [
+            "path",
+            "x",
+            "y"
+          ],
+          "parameterDescriptions": [
+            "image file or built-in costume",
+            "centre x",
+            "centre y"
+          ],
+          "description": "Draws an image at its original size. A built-in costume name also works.",
+          "returnDescription": "",
+          "scratchblock": "",
+          "since": ""
+        },
+        {
+          "name": "image",
+          "constructor": false,
+          "static": false,
+          "parameters": [
+            "java.lang.String",
+            "double",
+            "double",
+            "double",
+            "double"
+          ],
+          "returns": "void",
+          "parameterNames": [
+            "path",
+            "x",
+            "y",
+            "width",
+            "height"
+          ],
+          "parameterDescriptions": [
+            "image file or built-in costume",
+            "centre x",
+            "centre y",
+            "drawn width in pixels",
+            "drawn height in pixels"
+          ],
+          "description": "Draws an image at the requested size, preserving its source in the cache.",
+          "returnDescription": "",
+          "scratchblock": "",
+          "since": ""
+        }
+      ],
+      "status": "implemented",
+      "reason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "missingBrowserSignatures": []
+    },
+    {
+      "id": "extensions/drawing/Drawing/imageHeight",
+      "owner": "org.openpatch.scratch.extensions.drawing.Drawing",
+      "signatures": [
+        {
+          "name": "imageHeight",
+          "constructor": false,
+          "static": false,
+          "parameters": [
+            "java.lang.String"
+          ],
+          "returns": "int",
+          "parameterNames": [
+            "path"
+          ],
+          "parameterDescriptions": [
+            "image file or built-in costume"
+          ],
+          "description": "",
+          "returnDescription": "its original height in pixels",
+          "scratchblock": "",
+          "since": ""
+        }
+      ],
+      "status": "implemented",
+      "reason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "missingBrowserSignatures": []
+    },
+    {
+      "id": "extensions/drawing/Drawing/imageWidth",
+      "owner": "org.openpatch.scratch.extensions.drawing.Drawing",
+      "signatures": [
+        {
+          "name": "imageWidth",
+          "constructor": false,
+          "static": false,
+          "parameters": [
+            "java.lang.String"
+          ],
+          "returns": "int",
+          "parameterNames": [
+            "path"
+          ],
+          "parameterDescriptions": [
+            "image file or built-in costume"
+          ],
+          "description": "",
+          "returnDescription": "its original width in pixels",
+          "scratchblock": "",
+          "since": ""
+        }
+      ],
+      "status": "implemented",
+      "reason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "missingBrowserSignatures": []
+    },
+    {
+      "id": "extensions/drawing/Drawing/noClip",
+      "owner": "org.openpatch.scratch.extensions.drawing.Drawing",
+      "signatures": [
+        {
+          "name": "noClip",
+          "constructor": false,
+          "static": false,
+          "parameters": [],
+          "returns": "void",
+          "parameterNames": [],
+          "parameterDescriptions": [],
+          "description": "Removes this sprite's clip.",
+          "returnDescription": "",
+          "scratchblock": "",
+          "since": ""
+        }
+      ],
+      "status": "implemented",
+      "reason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "missingBrowserSignatures": []
+    },
+    {
+      "id": "extensions/drawing/Drawing/polygon",
+      "owner": "org.openpatch.scratch.extensions.drawing.Drawing",
+      "signatures": [
+        {
+          "name": "polygon",
+          "constructor": false,
+          "static": false,
+          "parameters": [
+            "double[]",
+            "double[]",
+            "org.openpatch.scratch.Color"
+          ],
+          "returns": "void",
+          "parameterNames": [
+            "x",
+            "y",
+            "color"
+          ],
+          "parameterDescriptions": [
+            "x coordinates",
+            "y coordinates (same length as x)",
+            "fill colour"
+          ],
+          "description": "Draws a filled polygon with at least three points. Concave polygons are\nsupported; crossing outlines are not.",
+          "returnDescription": "",
+          "scratchblock": "",
+          "since": ""
+        }
+      ],
+      "status": "implemented",
+      "reason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "missingBrowserSignatures": []
+    },
+    {
+      "id": "extensions/drawing/Drawing/rectangle",
+      "owner": "org.openpatch.scratch.extensions.drawing.Drawing",
+      "signatures": [
+        {
+          "name": "rectangle",
+          "constructor": false,
+          "static": false,
+          "parameters": [
+            "double",
+            "double",
+            "double",
+            "double",
+            "org.openpatch.scratch.Color"
+          ],
+          "returns": "void",
+          "parameterNames": [
+            "x",
+            "y",
+            "width",
+            "height",
+            "color"
+          ],
+          "parameterDescriptions": [
+            "centre x",
+            "centre y",
+            "width in pixels",
+            "height in pixels",
+            "fill colour"
+          ],
+          "description": "Draws a filled rectangle centred on (x,y).",
+          "returnDescription": "",
+          "scratchblock": "",
+          "since": ""
+        }
+      ],
+      "status": "implemented",
+      "reason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "missingBrowserSignatures": []
+    },
+    {
+      "id": "extensions/drawing/DrawingSprite/changeTransparency",
+      "owner": "org.openpatch.scratch.extensions.drawing.DrawingSprite",
+      "signatures": [
+        {
+          "name": "changeTransparency",
+          "constructor": false,
+          "static": false,
+          "parameters": [
+            "double"
+          ],
+          "returns": "void",
+          "parameterNames": [
+            "step"
+          ],
+          "parameterDescriptions": [
+            "change in percentage points"
+          ],
+          "description": "",
+          "returnDescription": "",
+          "scratchblock": "",
+          "since": ""
+        }
+      ],
+      "status": "implemented",
+      "reason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "missingBrowserSignatures": []
+    },
+    {
+      "id": "extensions/drawing/DrawingSprite/constructor",
+      "owner": "org.openpatch.scratch.extensions.drawing.DrawingSprite",
+      "signatures": [
+        {
+          "name": "DrawingSprite",
+          "constructor": true,
+          "static": false,
+          "parameters": [],
+          "returns": "org.openpatch.scratch.extensions.drawing.DrawingSprite",
+          "parameterNames": [],
+          "parameterDescriptions": [],
+          "description": "Creates a custom drawing sprite.",
+          "returnDescription": "",
+          "scratchblock": "",
+          "since": ""
+        }
+      ],
+      "status": "implemented",
+      "reason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "missingBrowserSignatures": []
+    },
+    {
+      "id": "extensions/drawing/DrawingSprite/draw",
+      "owner": "org.openpatch.scratch.extensions.drawing.DrawingSprite",
+      "signatures": [
+        {
+          "name": "draw",
+          "constructor": false,
+          "static": false,
+          "parameters": [
+            "org.openpatch.scratch.extensions.drawing.Drawing"
+          ],
+          "returns": "void",
+          "parameterNames": [
+            "drawing"
+          ],
+          "parameterDescriptions": [
+            "this frame's canvas in local Scratch coordinates"
+          ],
+          "description": "Draws this frame's appearance. Override this method; use run() for changes\nto game state, since a paused game can still be redrawn.",
+          "returnDescription": "",
+          "scratchblock": "",
+          "since": ""
+        }
+      ],
+      "status": "implemented",
+      "reason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "missingBrowserSignatures": []
+    },
+    {
+      "id": "extensions/drawing/DrawingSprite/getTransparency",
+      "owner": "org.openpatch.scratch.extensions.drawing.DrawingSprite",
+      "signatures": [
+        {
+          "name": "getTransparency",
+          "constructor": false,
+          "static": false,
+          "parameters": [],
+          "returns": "double",
+          "parameterNames": [],
+          "parameterDescriptions": [],
+          "description": "",
+          "returnDescription": "transparency in percent",
+          "scratchblock": "",
+          "since": ""
+        }
+      ],
+      "status": "implemented",
+      "reason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "missingBrowserSignatures": []
+    },
+    {
+      "id": "extensions/drawing/DrawingSprite/setIsUI",
+      "owner": "org.openpatch.scratch.extensions.drawing.DrawingSprite",
+      "signatures": [
+        {
+          "name": "setIsUI",
+          "constructor": false,
+          "static": false,
+          "parameters": [
+            "boolean"
+          ],
+          "returns": "void",
+          "parameterNames": [
+            "isUI"
+          ],
+          "parameterDescriptions": [
+            "true for UI, false for the game world"
+          ],
+          "description": "Chooses whether the drawing stays fixed on screen as UI.",
+          "returnDescription": "",
+          "scratchblock": "",
+          "since": ""
+        }
+      ],
+      "status": "implemented",
+      "reason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "missingBrowserSignatures": []
+    },
+    {
+      "id": "extensions/drawing/DrawingSprite/setTransparency",
+      "owner": "org.openpatch.scratch.extensions.drawing.DrawingSprite",
+      "signatures": [
+        {
+          "name": "setTransparency",
+          "constructor": false,
+          "static": false,
+          "parameters": [
+            "double"
+          ],
+          "returns": "void",
+          "parameterNames": [
+            "percent"
+          ],
+          "parameterDescriptions": [
+            "0 solid, 100 invisible"
+          ],
+          "description": "",
+          "returnDescription": "",
+          "scratchblock": "",
+          "since": ""
+        }
+      ],
+      "status": "implemented",
+      "reason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "missingBrowserSignatures": []
+    },
+    {
       "id": "extensions/fs/File/constructor",
       "owner": "org.openpatch.scratch.extensions.fs.File",
       "signatures": [
@@ -14193,6 +14673,473 @@
       "missingBrowserSignatures": []
     },
     {
+      "id": "extensions/sound/SoundPlayback/close",
+      "owner": "org.openpatch.scratch.extensions.sound.SoundPlayback",
+      "signatures": [
+        {
+          "name": "close",
+          "constructor": false,
+          "static": false,
+          "parameters": [],
+          "returns": "void",
+          "parameterNames": [],
+          "parameterDescriptions": [],
+          "description": "Stops this playback.",
+          "returnDescription": "",
+          "scratchblock": "",
+          "since": ""
+        }
+      ],
+      "status": "implemented",
+      "reason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "missingBrowserSignatures": []
+    },
+    {
+      "id": "extensions/sound/SoundPlayback/constructor",
+      "owner": "org.openpatch.scratch.extensions.sound.SoundPlayback",
+      "signatures": [],
+      "status": "implemented",
+      "reason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "missingBrowserSignatures": []
+    },
+    {
+      "id": "extensions/sound/SoundPlayback/getName",
+      "owner": "org.openpatch.scratch.extensions.sound.SoundPlayback",
+      "signatures": [
+        {
+          "name": "getName",
+          "constructor": false,
+          "static": false,
+          "parameters": [],
+          "returns": "java.lang.String",
+          "parameterNames": [],
+          "parameterDescriptions": [],
+          "description": "",
+          "returnDescription": "the name of the sound",
+          "scratchblock": "",
+          "since": ""
+        }
+      ],
+      "status": "implemented",
+      "reason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "missingBrowserSignatures": []
+    },
+    {
+      "id": "extensions/sound/SoundPlayback/getVolume",
+      "owner": "org.openpatch.scratch.extensions.sound.SoundPlayback",
+      "signatures": [
+        {
+          "name": "getVolume",
+          "constructor": false,
+          "static": false,
+          "parameters": [],
+          "returns": "double",
+          "parameterNames": [],
+          "parameterDescriptions": [],
+          "description": "",
+          "returnDescription": "this playback's volume in percent",
+          "scratchblock": "",
+          "since": ""
+        }
+      ],
+      "status": "implemented",
+      "reason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "missingBrowserSignatures": []
+    },
+    {
+      "id": "extensions/sound/SoundPlayback/isPlaying",
+      "owner": "org.openpatch.scratch.extensions.sound.SoundPlayback",
+      "signatures": [
+        {
+          "name": "isPlaying",
+          "constructor": false,
+          "static": false,
+          "parameters": [],
+          "returns": "boolean",
+          "parameterNames": [],
+          "parameterDescriptions": [],
+          "description": "",
+          "returnDescription": "whether this playback is queued or playing",
+          "scratchblock": "",
+          "since": ""
+        }
+      ],
+      "status": "implemented",
+      "reason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "missingBrowserSignatures": []
+    },
+    {
+      "id": "extensions/sound/SoundPlayback/setVolume",
+      "owner": "org.openpatch.scratch.extensions.sound.SoundPlayback",
+      "signatures": [
+        {
+          "name": "setVolume",
+          "constructor": false,
+          "static": false,
+          "parameters": [
+            "double"
+          ],
+          "returns": "void",
+          "parameterNames": [
+            "percent"
+          ],
+          "parameterDescriptions": [
+            "volume in percent"
+          ],
+          "description": "Changes only this playback's volume. Values outside 0..100 are clamped.",
+          "returnDescription": "",
+          "scratchblock": "",
+          "since": ""
+        }
+      ],
+      "status": "implemented",
+      "reason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "missingBrowserSignatures": []
+    },
+    {
+      "id": "extensions/sound/SoundPlayback/stop",
+      "owner": "org.openpatch.scratch.extensions.sound.SoundPlayback",
+      "signatures": [
+        {
+          "name": "stop",
+          "constructor": false,
+          "static": false,
+          "parameters": [],
+          "returns": "void",
+          "parameterNames": [],
+          "parameterDescriptions": [],
+          "description": "Stops this playback, leaving other copies alone.",
+          "returnDescription": "",
+          "scratchblock": "",
+          "since": ""
+        }
+      ],
+      "status": "implemented",
+      "reason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "missingBrowserSignatures": []
+    },
+    {
+      "id": "extensions/text/BitmapText/addGlyph",
+      "owner": "org.openpatch.scratch.extensions.text.BitmapText",
+      "signatures": [
+        {
+          "name": "addGlyph",
+          "constructor": false,
+          "static": false,
+          "parameters": [
+            "char",
+            "java.lang.String"
+          ],
+          "returns": "void",
+          "parameterNames": [
+            "character",
+            "path"
+          ],
+          "parameterDescriptions": [
+            "the character to replace",
+            "its image or built-in costume name"
+          ],
+          "description": "Assigns an image to a special character, such as a controller button.\nOverrides remain in effect when setFont() changes the ordinary glyphs.",
+          "returnDescription": "",
+          "scratchblock": "",
+          "since": ""
+        }
+      ],
+      "status": "implemented",
+      "reason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "missingBrowserSignatures": []
+    },
+    {
+      "id": "extensions/text/BitmapText/constructor",
+      "owner": "org.openpatch.scratch.extensions.text.BitmapText",
+      "signatures": [
+        {
+          "name": "BitmapText",
+          "constructor": true,
+          "static": false,
+          "parameters": [
+            "java.lang.String"
+          ],
+          "returns": "org.openpatch.scratch.extensions.text.BitmapText",
+          "parameterNames": [
+            "pattern"
+          ],
+          "parameterDescriptions": [
+            "image path with an integer format, e.g. \"assets/font%03d.png\""
+          ],
+          "description": "",
+          "returnDescription": "",
+          "scratchblock": "",
+          "since": ""
+        }
+      ],
+      "status": "implemented",
+      "reason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "missingBrowserSignatures": []
+    },
+    {
+      "id": "extensions/text/BitmapText/draw",
+      "owner": "org.openpatch.scratch.extensions.text.BitmapText",
+      "signatures": [
+        {
+          "name": "draw",
+          "constructor": false,
+          "static": false,
+          "parameters": [
+            "org.openpatch.scratch.extensions.drawing.Drawing"
+          ],
+          "returns": "void",
+          "parameterNames": [
+            "drawing"
+          ],
+          "parameterDescriptions": [
+            "the current frame's canvas"
+          ],
+          "description": "",
+          "returnDescription": "",
+          "scratchblock": "",
+          "since": ""
+        }
+      ],
+      "status": "implemented",
+      "reason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "missingBrowserSignatures": []
+    },
+    {
+      "id": "extensions/text/BitmapText/getContent",
+      "owner": "org.openpatch.scratch.extensions.text.BitmapText",
+      "signatures": [
+        {
+          "name": "getContent",
+          "constructor": false,
+          "static": false,
+          "parameters": [],
+          "returns": "java.lang.String",
+          "parameterNames": [],
+          "parameterDescriptions": [],
+          "description": "",
+          "returnDescription": "the text being shown",
+          "scratchblock": "",
+          "since": ""
+        }
+      ],
+      "status": "implemented",
+      "reason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "missingBrowserSignatures": []
+    },
+    {
+      "id": "extensions/text/BitmapText/getHeight",
+      "owner": "org.openpatch.scratch.extensions.text.BitmapText",
+      "signatures": [
+        {
+          "name": "getHeight",
+          "constructor": false,
+          "static": false,
+          "parameters": [],
+          "returns": "int",
+          "parameterNames": [],
+          "parameterDescriptions": [],
+          "description": "",
+          "returnDescription": "the displayed text's height, including line spacing and sprite size",
+          "scratchblock": "",
+          "since": ""
+        }
+      ],
+      "status": "implemented",
+      "reason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "missingBrowserSignatures": []
+    },
+    {
+      "id": "extensions/text/BitmapText/getWidth",
+      "owner": "org.openpatch.scratch.extensions.text.BitmapText",
+      "signatures": [
+        {
+          "name": "getWidth",
+          "constructor": false,
+          "static": false,
+          "parameters": [],
+          "returns": "int",
+          "parameterNames": [],
+          "parameterDescriptions": [],
+          "description": "",
+          "returnDescription": "the displayed text's width, including the sprite's size",
+          "scratchblock": "",
+          "since": ""
+        }
+      ],
+      "status": "implemented",
+      "reason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "missingBrowserSignatures": []
+    },
+    {
+      "id": "extensions/text/BitmapText/setAlign",
+      "owner": "org.openpatch.scratch.extensions.text.BitmapText",
+      "signatures": [
+        {
+          "name": "setAlign",
+          "constructor": false,
+          "static": false,
+          "parameters": [
+            "org.openpatch.scratch.TextAlign"
+          ],
+          "returns": "void",
+          "parameterNames": [
+            "align"
+          ],
+          "parameterDescriptions": [
+            "LEFT, CENTER or RIGHT (DEFAULT means LEFT)"
+          ],
+          "description": "",
+          "returnDescription": "",
+          "scratchblock": "",
+          "since": ""
+        }
+      ],
+      "status": "implemented",
+      "reason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "missingBrowserSignatures": []
+    },
+    {
+      "id": "extensions/text/BitmapText/setFont",
+      "owner": "org.openpatch.scratch.extensions.text.BitmapText",
+      "signatures": [
+        {
+          "name": "setFont",
+          "constructor": false,
+          "static": false,
+          "parameters": [
+            "java.lang.String"
+          ],
+          "returns": "void",
+          "parameterNames": [
+            "pattern"
+          ],
+          "parameterDescriptions": [
+            "glyph path with one integer format for the Unicode code point"
+          ],
+          "description": "",
+          "returnDescription": "",
+          "scratchblock": "",
+          "since": ""
+        }
+      ],
+      "status": "implemented",
+      "reason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "missingBrowserSignatures": []
+    },
+    {
+      "id": "extensions/text/BitmapText/setLetterSpacing",
+      "owner": "org.openpatch.scratch.extensions.text.BitmapText",
+      "signatures": [
+        {
+          "name": "setLetterSpacing",
+          "constructor": false,
+          "static": false,
+          "parameters": [
+            "double"
+          ],
+          "returns": "void",
+          "parameterNames": [
+            "spacing"
+          ],
+          "parameterDescriptions": [
+            "gap between characters; negative values allow italic glyphs to overlap"
+          ],
+          "description": "",
+          "returnDescription": "",
+          "scratchblock": "",
+          "since": ""
+        }
+      ],
+      "status": "implemented",
+      "reason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "missingBrowserSignatures": []
+    },
+    {
+      "id": "extensions/text/BitmapText/setLineSpacing",
+      "owner": "org.openpatch.scratch.extensions.text.BitmapText",
+      "signatures": [
+        {
+          "name": "setLineSpacing",
+          "constructor": false,
+          "static": false,
+          "parameters": [
+            "double"
+          ],
+          "returns": "void",
+          "parameterNames": [
+            "spacing"
+          ],
+          "parameterDescriptions": [
+            "extra pixels between lines"
+          ],
+          "description": "",
+          "returnDescription": "",
+          "scratchblock": "",
+          "since": ""
+        }
+      ],
+      "status": "implemented",
+      "reason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "missingBrowserSignatures": []
+    },
+    {
+      "id": "extensions/text/BitmapText/setSpaceWidth",
+      "owner": "org.openpatch.scratch.extensions.text.BitmapText",
+      "signatures": [
+        {
+          "name": "setSpaceWidth",
+          "constructor": false,
+          "static": false,
+          "parameters": [
+            "double"
+          ],
+          "returns": "void",
+          "parameterNames": [
+            "width"
+          ],
+          "parameterDescriptions": [
+            "width of a space, in unscaled pixels"
+          ],
+          "description": "",
+          "returnDescription": "",
+          "scratchblock": "",
+          "since": ""
+        }
+      ],
+      "status": "implemented",
+      "reason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "missingBrowserSignatures": []
+    },
+    {
+      "id": "extensions/text/BitmapText/showText",
+      "owner": "org.openpatch.scratch.extensions.text.BitmapText",
+      "signatures": [
+        {
+          "name": "showText",
+          "constructor": false,
+          "static": false,
+          "parameters": [
+            "java.lang.String"
+          ],
+          "returns": "void",
+          "parameterNames": [
+            "text"
+          ],
+          "parameterDescriptions": [
+            "text to show, including spaces and newlines"
+          ],
+          "description": "",
+          "returnDescription": "",
+          "scratchblock": "",
+          "since": ""
+        }
+      ],
+      "status": "implemented",
+      "reason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "missingBrowserSignatures": []
+    },
+    {
       "id": "extensions/tiled/MapObject/constructor",
       "owner": "org.openpatch.scratch.extensions.tiled.MapObject",
       "signatures": [
@@ -14210,8 +15157,8 @@
           "since": ""
         }
       ],
-      "status": "desktop-only",
-      "reason": "This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation.",
+      "status": "awaiting-browser-support",
+      "reason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
       "missingBrowserSignatures": [
         {
           "name": "MapObject",
@@ -14252,8 +15199,8 @@
           "since": ""
         }
       ],
-      "status": "desktop-only",
-      "reason": "This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation.",
+      "status": "implemented",
+      "reason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "missingBrowserSignatures": []
     },
     {
@@ -14280,8 +15227,8 @@
           "since": ""
         }
       ],
-      "status": "desktop-only",
-      "reason": "This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation.",
+      "status": "implemented",
+      "reason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "missingBrowserSignatures": []
     },
     {
@@ -14308,8 +15255,8 @@
           "since": ""
         }
       ],
-      "status": "desktop-only",
-      "reason": "This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation.",
+      "status": "implemented",
+      "reason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "missingBrowserSignatures": []
     },
     {
@@ -14336,8 +15283,8 @@
           "since": ""
         }
       ],
-      "status": "desktop-only",
-      "reason": "This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation.",
+      "status": "implemented",
+      "reason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "missingBrowserSignatures": []
     },
     {
@@ -14358,23 +15305,9 @@
           "since": ""
         }
       ],
-      "status": "desktop-only",
-      "reason": "This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation.",
-      "missingBrowserSignatures": [
-        {
-          "name": "getShape",
-          "constructor": false,
-          "static": false,
-          "parameters": [],
-          "returns": "org.openpatch.scratch.Shape",
-          "parameterNames": [],
-          "parameterDescriptions": [],
-          "description": "Returns a Shape object representing the current map object. The type of Shape\nreturned depends\non the properties of the map object: - If the object is a point, a 1x1\nrectangle is returned. -\nIf the object is an ellipse, an Ellipse2D object with the specified width and\nheight is\nreturned. - If the object is a polygon, a Polygon object with the specified\npoints is returned.\n- If none of the above conditions are met, a rectangle with the specified\nwidth and height is\nreturned.",
-          "returnDescription": "a Shape object representing the current map object.",
-          "scratchblock": "",
-          "since": ""
-        }
-      ]
+      "status": "implemented",
+      "reason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "missingBrowserSignatures": []
     },
     {
       "id": "extensions/tiled/MapObject/setClassName",
@@ -14400,8 +15333,8 @@
           "since": ""
         }
       ],
-      "status": "desktop-only",
-      "reason": "This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation.",
+      "status": "awaiting-browser-support",
+      "reason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
       "missingBrowserSignatures": [
         {
           "name": "setClassName",
@@ -14442,8 +15375,8 @@
           "since": ""
         }
       ],
-      "status": "desktop-only",
-      "reason": "This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation.",
+      "status": "awaiting-browser-support",
+      "reason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
       "missingBrowserSignatures": [
         {
           "name": "Property",
@@ -14484,8 +15417,8 @@
           "since": ""
         }
       ],
-      "status": "desktop-only",
-      "reason": "This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation.",
+      "status": "awaiting-browser-support",
+      "reason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
       "missingBrowserSignatures": [
         {
           "name": "setText",
@@ -14517,6 +15450,25 @@
           "constructor": true,
           "static": false,
           "parameters": [
+            "java.lang.String"
+          ],
+          "returns": "org.openpatch.scratch.extensions.tiled.TiledMap",
+          "parameterNames": [
+            "path"
+          ],
+          "parameterDescriptions": [
+            "a TMX file"
+          ],
+          "description": "Loads map data without attaching it to a stage. Properties, tile IDs and\ncollision shapes can be read without a window. To stamp or spawn, use the\nconstructor that takes a stage.",
+          "returnDescription": "",
+          "scratchblock": "",
+          "since": ""
+        },
+        {
+          "name": "TiledMap",
+          "constructor": true,
+          "static": false,
+          "parameters": [
             "java.lang.String",
             "org.openpatch.scratch.Stage"
           ],
@@ -14535,8 +15487,30 @@
           "since": ""
         }
       ],
-      "status": "desktop-only",
-      "reason": "This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation.",
+      "status": "implemented",
+      "reason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "missingBrowserSignatures": []
+    },
+    {
+      "id": "extensions/tiled/TiledMap/getHeight",
+      "owner": "org.openpatch.scratch.extensions.tiled.TiledMap",
+      "signatures": [
+        {
+          "name": "getHeight",
+          "constructor": false,
+          "static": false,
+          "parameters": [],
+          "returns": "int",
+          "parameterNames": [],
+          "parameterDescriptions": [],
+          "description": "",
+          "returnDescription": "the number of map rows",
+          "scratchblock": "",
+          "since": ""
+        }
+      ],
+      "status": "implemented",
+      "reason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "missingBrowserSignatures": []
     },
     {
@@ -14563,8 +15537,295 @@
           "since": ""
         }
       ],
-      "status": "desktop-only",
-      "reason": "This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation.",
+      "status": "implemented",
+      "reason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "missingBrowserSignatures": []
+    },
+    {
+      "id": "extensions/tiled/TiledMap/getProperty",
+      "owner": "org.openpatch.scratch.extensions.tiled.TiledMap",
+      "signatures": [
+        {
+          "name": "getProperty",
+          "constructor": false,
+          "static": false,
+          "parameters": [
+            "java.lang.String"
+          ],
+          "returns": "java.lang.String",
+          "parameterNames": [
+            "name"
+          ],
+          "parameterDescriptions": [
+            "property name"
+          ],
+          "description": "Reads a custom property of the map itself, such as its biome or tutorial.",
+          "returnDescription": "its string value, including multiline strings",
+          "scratchblock": "",
+          "since": ""
+        },
+        {
+          "name": "getProperty",
+          "constructor": false,
+          "static": false,
+          "parameters": [
+            "java.lang.String",
+            "java.lang.String"
+          ],
+          "returns": "java.lang.String",
+          "parameterNames": [
+            "name",
+            "defaultValue"
+          ],
+          "parameterDescriptions": [
+            "property name",
+            "value when absent"
+          ],
+          "description": "Reads a map property, with a default for maps that omit it.",
+          "returnDescription": "the stored value or the default",
+          "scratchblock": "",
+          "since": ""
+        }
+      ],
+      "status": "implemented",
+      "reason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "missingBrowserSignatures": []
+    },
+    {
+      "id": "extensions/tiled/TiledMap/getPropertyBoolean",
+      "owner": "org.openpatch.scratch.extensions.tiled.TiledMap",
+      "signatures": [
+        {
+          "name": "getPropertyBoolean",
+          "constructor": false,
+          "static": false,
+          "parameters": [
+            "java.lang.String"
+          ],
+          "returns": "boolean",
+          "parameterNames": [
+            "name"
+          ],
+          "parameterDescriptions": [
+            "property name"
+          ],
+          "description": "",
+          "returnDescription": "its boolean value",
+          "scratchblock": "",
+          "since": ""
+        }
+      ],
+      "status": "implemented",
+      "reason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "missingBrowserSignatures": []
+    },
+    {
+      "id": "extensions/tiled/TiledMap/getPropertyFloat",
+      "owner": "org.openpatch.scratch.extensions.tiled.TiledMap",
+      "signatures": [
+        {
+          "name": "getPropertyFloat",
+          "constructor": false,
+          "static": false,
+          "parameters": [
+            "java.lang.String"
+          ],
+          "returns": "float",
+          "parameterNames": [
+            "name"
+          ],
+          "parameterDescriptions": [
+            "property name"
+          ],
+          "description": "",
+          "returnDescription": "its floating-point value",
+          "scratchblock": "",
+          "since": ""
+        }
+      ],
+      "status": "implemented",
+      "reason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "missingBrowserSignatures": []
+    },
+    {
+      "id": "extensions/tiled/TiledMap/getPropertyInt",
+      "owner": "org.openpatch.scratch.extensions.tiled.TiledMap",
+      "signatures": [
+        {
+          "name": "getPropertyInt",
+          "constructor": false,
+          "static": false,
+          "parameters": [
+            "java.lang.String"
+          ],
+          "returns": "int",
+          "parameterNames": [
+            "name"
+          ],
+          "parameterDescriptions": [
+            "property name"
+          ],
+          "description": "",
+          "returnDescription": "its integer value",
+          "scratchblock": "",
+          "since": ""
+        }
+      ],
+      "status": "implemented",
+      "reason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "missingBrowserSignatures": []
+    },
+    {
+      "id": "extensions/tiled/TiledMap/getTileCollisionShapes",
+      "owner": "org.openpatch.scratch.extensions.tiled.TiledMap",
+      "signatures": [
+        {
+          "name": "getTileCollisionShapes",
+          "constructor": false,
+          "static": false,
+          "parameters": [
+            "int"
+          ],
+          "returns": "org.openpatch.scratch.Shape[]",
+          "parameterNames": [
+            "tileId"
+          ],
+          "parameterDescriptions": [
+            "global tile ID (zero and unknown IDs have no shapes)"
+          ],
+          "description": "Returns collision outlines defined in a tile's tileset object group.\nCoordinates start at the tile's top-left; x points right and y points up.\nShapes are independent copies and do not modify the map when transformed.",
+          "returnDescription": "rectangles, ellipses or polygons for this tile",
+          "scratchblock": "",
+          "since": ""
+        },
+        {
+          "name": "getTileCollisionShapes",
+          "constructor": false,
+          "static": false,
+          "parameters": [
+            "java.lang.String",
+            "int",
+            "int"
+          ],
+          "returns": "org.openpatch.scratch.Shape[]",
+          "parameterNames": [
+            "layerName",
+            "column",
+            "row"
+          ],
+          "parameterDescriptions": [
+            "tile layer name",
+            "column index, starting at zero",
+            "row index, starting at zero"
+          ],
+          "description": "Returns a cell's collision outlines in map/stage coordinates: the map's\ntop-left is (0,0), x points right and y points up, matching map stamping.\nTiled's diagonal, horizontal and vertical flips are applied in that order.",
+          "returnDescription": "positioned outlines, or an empty array outside/without collision",
+          "scratchblock": "",
+          "since": ""
+        }
+      ],
+      "status": "implemented",
+      "reason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "missingBrowserSignatures": []
+    },
+    {
+      "id": "extensions/tiled/TiledMap/getTileHeight",
+      "owner": "org.openpatch.scratch.extensions.tiled.TiledMap",
+      "signatures": [
+        {
+          "name": "getTileHeight",
+          "constructor": false,
+          "static": false,
+          "parameters": [],
+          "returns": "int",
+          "parameterNames": [],
+          "parameterDescriptions": [],
+          "description": "",
+          "returnDescription": "the height of a map cell in pixels",
+          "scratchblock": "",
+          "since": ""
+        }
+      ],
+      "status": "implemented",
+      "reason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "missingBrowserSignatures": []
+    },
+    {
+      "id": "extensions/tiled/TiledMap/getTileId",
+      "owner": "org.openpatch.scratch.extensions.tiled.TiledMap",
+      "signatures": [
+        {
+          "name": "getTileId",
+          "constructor": false,
+          "static": false,
+          "parameters": [
+            "java.lang.String",
+            "int",
+            "int"
+          ],
+          "returns": "int",
+          "parameterNames": [
+            "layerName",
+            "column",
+            "row"
+          ],
+          "parameterDescriptions": [
+            "tile layer name, also within a group",
+            "column index",
+            "row index"
+          ],
+          "description": "Reads a global tile ID, without flip bits. Columns and rows are local to\nthe named layer, starting at its top-left cell. Zero means an empty cell,\nincluding cells outside the layer. An unknown layer is an error.",
+          "returnDescription": "global ID, or zero for an empty/outside cell",
+          "scratchblock": "",
+          "since": ""
+        }
+      ],
+      "status": "implemented",
+      "reason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "missingBrowserSignatures": []
+    },
+    {
+      "id": "extensions/tiled/TiledMap/getTileWidth",
+      "owner": "org.openpatch.scratch.extensions.tiled.TiledMap",
+      "signatures": [
+        {
+          "name": "getTileWidth",
+          "constructor": false,
+          "static": false,
+          "parameters": [],
+          "returns": "int",
+          "parameterNames": [],
+          "parameterDescriptions": [],
+          "description": "",
+          "returnDescription": "the width of a map cell in pixels",
+          "scratchblock": "",
+          "since": ""
+        }
+      ],
+      "status": "implemented",
+      "reason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "missingBrowserSignatures": []
+    },
+    {
+      "id": "extensions/tiled/TiledMap/getWidth",
+      "owner": "org.openpatch.scratch.extensions.tiled.TiledMap",
+      "signatures": [
+        {
+          "name": "getWidth",
+          "constructor": false,
+          "static": false,
+          "parameters": [],
+          "returns": "int",
+          "parameterNames": [],
+          "parameterDescriptions": [],
+          "description": "",
+          "returnDescription": "the number of map columns",
+          "scratchblock": "",
+          "since": ""
+        }
+      ],
+      "status": "implemented",
+      "reason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "missingBrowserSignatures": []
     },
     {
@@ -14591,29 +15852,9 @@
           "since": ""
         }
       ],
-      "status": "desktop-only",
-      "reason": "This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation.",
-      "missingBrowserSignatures": [
-        {
-          "name": "spawn",
-          "constructor": false,
-          "static": false,
-          "parameters": [
-            "java.lang.String"
-          ],
-          "returns": "java.util.List<org.openpatch.scratch.Sprite>",
-          "parameterNames": [
-            "layerName"
-          ],
-          "parameterDescriptions": [
-            "the object layer"
-          ],
-          "description": "Creates a sprite for each object of a layer whose type names a sprite class,\nand adds it to the stage. In Tiled, give an object the type (called\n\"class\" in newer versions of Tiled) `Player`, and the map makes a\n`new Player()` where the object is.\n\nThe sprite's class needs one of these constructors, tried in this order:\none that takes the [MapObject](../MapObject/index) (to read its name and properties), one\nthat takes `(double x, double y)`, or one without parameters. Either\nway the sprite is put where the object is. An object drawn as an area\n(a rectangle, an ellipse or a polygon) also gives the sprite that area as\nits hitbox, which is how walls and water work without a costume.\n\nObjects whose type is not a sprite class, or that have no type, are left\nalone, so a layer can hold markers the program reads itself.\n\n```java\nTiledMap map = new TiledMap(\"level.tmx\", this);\nmap.spawn(\"Objects\");\n```",
-          "returnDescription": "the sprites that were made, in the order of the layer",
-          "scratchblock": "",
-          "since": ""
-        }
-      ]
+      "status": "implemented",
+      "reason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "missingBrowserSignatures": []
     },
     {
       "id": "extensions/tiled/TiledMap/stampLayerToBackground",
@@ -14639,8 +15880,8 @@
           "since": ""
         }
       ],
-      "status": "desktop-only",
-      "reason": "This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation.",
+      "status": "implemented",
+      "reason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "missingBrowserSignatures": []
     },
     {
@@ -14667,8 +15908,8 @@
           "since": ""
         }
       ],
-      "status": "desktop-only",
-      "reason": "This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation.",
+      "status": "implemented",
+      "reason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "missingBrowserSignatures": []
     },
     {
@@ -14689,8 +15930,8 @@
           "since": ""
         }
       ],
-      "status": "desktop-only",
-      "reason": "This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation.",
+      "status": "implemented",
+      "reason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "missingBrowserSignatures": []
     },
     {
@@ -14711,8 +15952,8 @@
           "since": ""
         }
       ],
-      "status": "desktop-only",
-      "reason": "This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation.",
+      "status": "awaiting-browser-support",
+      "reason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
       "missingBrowserSignatures": [
         {
           "name": "TilesetImage",

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "libraryVersion": "6.2.1",
-  "browserVersion": "6.2.1-browser.1",
+  "browserVersion": "6.2.1-browser.2",
   "methods": [
     {
       "id": "AnimatedSprite/addAnimation(String,String,int)",
@@ -6820,7 +6820,7 @@
       ],
       "summary": "Plays a sound.",
       "description": "Plays a sound.\n\nEvery sprite plays its own copy, so ten sprites playing the same sound are\nheard ten times at once. One sprite only plays a sound once at a time:\nplaying it again while it is still going does nothing.",
-      "scratchblock": "start sound [name v]",
+      "scratchblock": "start sound [name v]\n\nplaySoundCopy() returns an independent SoundPlayback with its own volume\nand can overlap earlier plays of the same sound.",
       "paramDocs": [
         "name: the sound name"
       ],
@@ -6834,6 +6834,40 @@
           "description": "Spielt einen zuvor hinzugefügten Klang ab"
         }
       }
+    },
+    {
+      "id": "Sprite/playSoundCopy(String,double)",
+      "memberId": "Sprite/playSoundCopy",
+      "owner": "org.openpatch.scratch.Sprite",
+      "className": "Sprite",
+      "methodName": "playSoundCopy",
+      "static": false,
+      "returnType": "SoundPlayback",
+      "parameterTypes": [
+        "java.lang.String",
+        "double"
+      ],
+      "parameterNames": [
+        "name",
+        "volume"
+      ],
+      "params": [
+        "String name",
+        "double volume"
+      ],
+      "summary": "Starts a separate copy of a sound at its own volume. Calling this again\ncan overlap the previous copy. The returned handle controls only this play;\nstopSound() and stopAllSounds() also stop copies owned by this sprite.\nThe sprite's ordinary volume does not change a copy's explicit volume.",
+      "description": "Starts a separate copy of a sound at its own volume. Calling this again\ncan overlap the previous copy. The returned handle controls only this play;\nstopSound() and stopAllSounds() also stop copies owned by this sprite.\nThe sprite's ordinary volume does not change a copy's explicit volume.",
+      "scratchblock": null,
+      "paramDocs": [
+        "name: a sound already added with addSound()",
+        "volume: volume from 0 to 100 percent"
+      ],
+      "returns": "this individual playback, also usable in try-with-resources",
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/Sprite/playSoundCopy",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
     },
     {
       "id": "Sprite/pointInDirection(double)",
@@ -9865,7 +9899,7 @@
         "String name"
       ],
       "summary": "Plays a sound.",
-      "description": "Plays a sound.",
+      "description": "Plays a sound.\n\nplaySoundCopy() returns an independent SoundPlayback with its own volume\nand can overlap earlier plays of the same sound.",
       "scratchblock": "start sound [name v]",
       "paramDocs": [
         "name: the sound name"
@@ -9880,6 +9914,40 @@
           "description": "Spielt einen zuvor hinzugefügten Klang ab"
         }
       }
+    },
+    {
+      "id": "Stage/playSoundCopy(String,double)",
+      "memberId": "Stage/playSoundCopy",
+      "owner": "org.openpatch.scratch.Stage",
+      "className": "Stage",
+      "methodName": "playSoundCopy",
+      "static": false,
+      "returnType": "SoundPlayback",
+      "parameterTypes": [
+        "java.lang.String",
+        "double"
+      ],
+      "parameterNames": [
+        "name",
+        "volume"
+      ],
+      "params": [
+        "String name",
+        "double volume"
+      ],
+      "summary": "Starts a separate copy of a sound at its own volume. Calling this again\ncan overlap the previous copy. The returned handle controls only this play;\nstopSound() and stopAllSounds() also stop copies owned by this stage.\nThe stage's ordinary volume does not change a copy's explicit volume.",
+      "description": "Starts a separate copy of a sound at its own volume. Calling this again\ncan overlap the previous copy. The returned handle controls only this play;\nstopSound() and stopAllSounds() also stop copies owned by this stage.\nThe stage's ordinary volume does not change a copy's explicit volume.",
+      "scratchblock": null,
+      "paramDocs": [
+        "name: a sound already added with addSound()",
+        "volume: volume from 0 to 100 percent"
+      ],
+      "returns": "this individual playback, also usable in try-with-resources",
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/Stage/playSoundCopy",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
     },
     {
       "id": "Stage/previousBackdrop()",
@@ -15416,6 +15484,462 @@
       "translations": {}
     },
     {
+      "id": "extensions/drawing/Drawing/clip(double,double,double,double)",
+      "memberId": "extensions/drawing/Drawing/clip",
+      "owner": "org.openpatch.scratch.extensions.drawing.Drawing",
+      "className": "Drawing",
+      "methodName": "clip",
+      "static": false,
+      "returnType": "void",
+      "parameterTypes": [
+        "double",
+        "double",
+        "double",
+        "double"
+      ],
+      "parameterNames": [
+        "x",
+        "y",
+        "width",
+        "height"
+      ],
+      "params": [
+        "double x",
+        "double y",
+        "double width",
+        "double height"
+      ],
+      "summary": "Limits subsequent drawing to a centred rectangle. This replaces the previous\nclip; it is always cleared when the sprite finishes drawing. For a rotated\nsprite, the clip is the screen-aligned bounding box of this rectangle.",
+      "description": "Limits subsequent drawing to a centred rectangle. This replaces the previous\nclip; it is always cleared when the sprite finishes drawing. For a rotated\nsprite, the clip is the screen-aligned bounding box of this rectangle.",
+      "scratchblock": null,
+      "paramDocs": [
+        "x: centre x",
+        "y: centre y",
+        "width: clip width",
+        "height: clip height"
+      ],
+      "returns": null,
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/drawing/Drawing/clip",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
+    },
+    {
+      "id": "extensions/drawing/Drawing/image(String,double,double)",
+      "memberId": "extensions/drawing/Drawing/image",
+      "owner": "org.openpatch.scratch.extensions.drawing.Drawing",
+      "className": "Drawing",
+      "methodName": "image",
+      "static": false,
+      "returnType": "void",
+      "parameterTypes": [
+        "java.lang.String",
+        "double",
+        "double"
+      ],
+      "parameterNames": [
+        "path",
+        "x",
+        "y"
+      ],
+      "params": [
+        "String path",
+        "double x",
+        "double y"
+      ],
+      "summary": "Draws an image at its original size. A built-in costume name also works.",
+      "description": "Draws an image at its original size. A built-in costume name also works.",
+      "scratchblock": null,
+      "paramDocs": [
+        "path: image file or built-in costume",
+        "x: centre x",
+        "y: centre y"
+      ],
+      "returns": null,
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/drawing/Drawing/image",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
+    },
+    {
+      "id": "extensions/drawing/Drawing/image(String,double,double,double,double)",
+      "memberId": "extensions/drawing/Drawing/image",
+      "owner": "org.openpatch.scratch.extensions.drawing.Drawing",
+      "className": "Drawing",
+      "methodName": "image",
+      "static": false,
+      "returnType": "void",
+      "parameterTypes": [
+        "java.lang.String",
+        "double",
+        "double",
+        "double",
+        "double"
+      ],
+      "parameterNames": [
+        "path",
+        "x",
+        "y",
+        "width",
+        "height"
+      ],
+      "params": [
+        "String path",
+        "double x",
+        "double y",
+        "double width",
+        "double height"
+      ],
+      "summary": "Draws an image at the requested size, preserving its source in the cache.",
+      "description": "Draws an image at the requested size, preserving its source in the cache.",
+      "scratchblock": null,
+      "paramDocs": [
+        "path: image file or built-in costume",
+        "x: centre x",
+        "y: centre y",
+        "width: drawn width in pixels",
+        "height: drawn height in pixels"
+      ],
+      "returns": null,
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/drawing/Drawing/image",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
+    },
+    {
+      "id": "extensions/drawing/Drawing/imageHeight(String)",
+      "memberId": "extensions/drawing/Drawing/imageHeight",
+      "owner": "org.openpatch.scratch.extensions.drawing.Drawing",
+      "className": "Drawing",
+      "methodName": "imageHeight",
+      "static": false,
+      "returnType": "int",
+      "parameterTypes": [
+        "java.lang.String"
+      ],
+      "parameterNames": [
+        "path"
+      ],
+      "params": [
+        "String path"
+      ],
+      "summary": "",
+      "description": "",
+      "scratchblock": null,
+      "paramDocs": [
+        "path: image file or built-in costume"
+      ],
+      "returns": "its original height in pixels",
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/drawing/Drawing/imageHeight",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
+    },
+    {
+      "id": "extensions/drawing/Drawing/imageWidth(String)",
+      "memberId": "extensions/drawing/Drawing/imageWidth",
+      "owner": "org.openpatch.scratch.extensions.drawing.Drawing",
+      "className": "Drawing",
+      "methodName": "imageWidth",
+      "static": false,
+      "returnType": "int",
+      "parameterTypes": [
+        "java.lang.String"
+      ],
+      "parameterNames": [
+        "path"
+      ],
+      "params": [
+        "String path"
+      ],
+      "summary": "",
+      "description": "",
+      "scratchblock": null,
+      "paramDocs": [
+        "path: image file or built-in costume"
+      ],
+      "returns": "its original width in pixels",
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/drawing/Drawing/imageWidth",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
+    },
+    {
+      "id": "extensions/drawing/Drawing/noClip()",
+      "memberId": "extensions/drawing/Drawing/noClip",
+      "owner": "org.openpatch.scratch.extensions.drawing.Drawing",
+      "className": "Drawing",
+      "methodName": "noClip",
+      "static": false,
+      "returnType": "void",
+      "parameterTypes": [],
+      "parameterNames": [],
+      "params": [],
+      "summary": "Removes this sprite's clip.",
+      "description": "Removes this sprite's clip.",
+      "scratchblock": null,
+      "paramDocs": [],
+      "returns": null,
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/drawing/Drawing/noClip",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
+    },
+    {
+      "id": "extensions/drawing/Drawing/polygon(double[],double[],Color)",
+      "memberId": "extensions/drawing/Drawing/polygon",
+      "owner": "org.openpatch.scratch.extensions.drawing.Drawing",
+      "className": "Drawing",
+      "methodName": "polygon",
+      "static": false,
+      "returnType": "void",
+      "parameterTypes": [
+        "double[]",
+        "double[]",
+        "org.openpatch.scratch.Color"
+      ],
+      "parameterNames": [
+        "x",
+        "y",
+        "color"
+      ],
+      "params": [
+        "double[] x",
+        "double[] y",
+        "Color color"
+      ],
+      "summary": "Draws a filled polygon with at least three points. Concave polygons are\nsupported; crossing outlines are not.",
+      "description": "Draws a filled polygon with at least three points. Concave polygons are\nsupported; crossing outlines are not.",
+      "scratchblock": null,
+      "paramDocs": [
+        "x: x coordinates",
+        "y: y coordinates (same length as x)",
+        "color: fill colour"
+      ],
+      "returns": null,
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/drawing/Drawing/polygon",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
+    },
+    {
+      "id": "extensions/drawing/Drawing/rectangle(double,double,double,double,Color)",
+      "memberId": "extensions/drawing/Drawing/rectangle",
+      "owner": "org.openpatch.scratch.extensions.drawing.Drawing",
+      "className": "Drawing",
+      "methodName": "rectangle",
+      "static": false,
+      "returnType": "void",
+      "parameterTypes": [
+        "double",
+        "double",
+        "double",
+        "double",
+        "org.openpatch.scratch.Color"
+      ],
+      "parameterNames": [
+        "x",
+        "y",
+        "width",
+        "height",
+        "color"
+      ],
+      "params": [
+        "double x",
+        "double y",
+        "double width",
+        "double height",
+        "Color color"
+      ],
+      "summary": "Draws a filled rectangle centred on (x,y).",
+      "description": "Draws a filled rectangle centred on (x,y).",
+      "scratchblock": null,
+      "paramDocs": [
+        "x: centre x",
+        "y: centre y",
+        "width: width in pixels",
+        "height: height in pixels",
+        "color: fill colour"
+      ],
+      "returns": null,
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/drawing/Drawing/rectangle",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
+    },
+    {
+      "id": "extensions/drawing/DrawingSprite/changeTransparency(double)",
+      "memberId": "extensions/drawing/DrawingSprite/changeTransparency",
+      "owner": "org.openpatch.scratch.extensions.drawing.DrawingSprite",
+      "className": "DrawingSprite",
+      "methodName": "changeTransparency",
+      "static": false,
+      "returnType": "void",
+      "parameterTypes": [
+        "double"
+      ],
+      "parameterNames": [
+        "step"
+      ],
+      "params": [
+        "double step"
+      ],
+      "summary": "",
+      "description": "",
+      "scratchblock": null,
+      "paramDocs": [
+        "step: change in percentage points"
+      ],
+      "returns": null,
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/drawing/DrawingSprite/changeTransparency",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
+    },
+    {
+      "id": "extensions/drawing/DrawingSprite/constructor()",
+      "memberId": "extensions/drawing/DrawingSprite/constructor",
+      "owner": "org.openpatch.scratch.extensions.drawing.DrawingSprite",
+      "className": "DrawingSprite",
+      "methodName": "constructor",
+      "static": false,
+      "returnType": "DrawingSprite",
+      "parameterTypes": [],
+      "parameterNames": [],
+      "params": [],
+      "summary": "Creates a custom drawing sprite.",
+      "description": "Creates a custom drawing sprite.",
+      "scratchblock": null,
+      "paramDocs": [],
+      "returns": null,
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/drawing/DrawingSprite/constructor",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
+    },
+    {
+      "id": "extensions/drawing/DrawingSprite/draw(Drawing)",
+      "memberId": "extensions/drawing/DrawingSprite/draw",
+      "owner": "org.openpatch.scratch.extensions.drawing.DrawingSprite",
+      "className": "DrawingSprite",
+      "methodName": "draw",
+      "static": false,
+      "returnType": "void",
+      "parameterTypes": [
+        "org.openpatch.scratch.extensions.drawing.Drawing"
+      ],
+      "parameterNames": [
+        "drawing"
+      ],
+      "params": [
+        "Drawing drawing"
+      ],
+      "summary": "Draws this frame's appearance. Override this method; use run() for changes\nto game state, since a paused game can still be redrawn.",
+      "description": "Draws this frame's appearance. Override this method; use run() for changes\nto game state, since a paused game can still be redrawn.",
+      "scratchblock": null,
+      "paramDocs": [
+        "drawing: this frame's canvas in local Scratch coordinates"
+      ],
+      "returns": null,
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/drawing/DrawingSprite/draw",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
+    },
+    {
+      "id": "extensions/drawing/DrawingSprite/getTransparency()",
+      "memberId": "extensions/drawing/DrawingSprite/getTransparency",
+      "owner": "org.openpatch.scratch.extensions.drawing.DrawingSprite",
+      "className": "DrawingSprite",
+      "methodName": "getTransparency",
+      "static": false,
+      "returnType": "double",
+      "parameterTypes": [],
+      "parameterNames": [],
+      "params": [],
+      "summary": "",
+      "description": "",
+      "scratchblock": null,
+      "paramDocs": [],
+      "returns": "transparency in percent",
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/drawing/DrawingSprite/getTransparency",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
+    },
+    {
+      "id": "extensions/drawing/DrawingSprite/setIsUI(boolean)",
+      "memberId": "extensions/drawing/DrawingSprite/setIsUI",
+      "owner": "org.openpatch.scratch.extensions.drawing.DrawingSprite",
+      "className": "DrawingSprite",
+      "methodName": "setIsUI",
+      "static": false,
+      "returnType": "void",
+      "parameterTypes": [
+        "boolean"
+      ],
+      "parameterNames": [
+        "isUI"
+      ],
+      "params": [
+        "boolean isUI"
+      ],
+      "summary": "Chooses whether the drawing stays fixed on screen as UI.",
+      "description": "Chooses whether the drawing stays fixed on screen as UI.",
+      "scratchblock": null,
+      "paramDocs": [
+        "isUI: true for UI, false for the game world"
+      ],
+      "returns": null,
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/drawing/DrawingSprite/setIsUI",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
+    },
+    {
+      "id": "extensions/drawing/DrawingSprite/setTransparency(double)",
+      "memberId": "extensions/drawing/DrawingSprite/setTransparency",
+      "owner": "org.openpatch.scratch.extensions.drawing.DrawingSprite",
+      "className": "DrawingSprite",
+      "methodName": "setTransparency",
+      "static": false,
+      "returnType": "void",
+      "parameterTypes": [
+        "double"
+      ],
+      "parameterNames": [
+        "percent"
+      ],
+      "params": [
+        "double percent"
+      ],
+      "summary": "",
+      "description": "",
+      "scratchblock": null,
+      "paramDocs": [
+        "percent: 0 solid, 100 invisible"
+      ],
+      "returns": null,
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/drawing/DrawingSprite/setTransparency",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
+    },
+    {
       "id": "extensions/fs/File/constructor()",
       "memberId": "extensions/fs/File/constructor",
       "owner": "org.openpatch.scratch.extensions.fs.File",
@@ -17224,6 +17748,486 @@
       "translations": {}
     },
     {
+      "id": "extensions/sound/SoundPlayback/close()",
+      "memberId": "extensions/sound/SoundPlayback/close",
+      "owner": "org.openpatch.scratch.extensions.sound.SoundPlayback",
+      "className": "SoundPlayback",
+      "methodName": "close",
+      "static": false,
+      "returnType": "void",
+      "parameterTypes": [],
+      "parameterNames": [],
+      "params": [],
+      "summary": "Stops this playback.",
+      "description": "Stops this playback.",
+      "scratchblock": null,
+      "paramDocs": [],
+      "returns": null,
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/sound/SoundPlayback/close",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
+    },
+    {
+      "id": "extensions/sound/SoundPlayback/getName()",
+      "memberId": "extensions/sound/SoundPlayback/getName",
+      "owner": "org.openpatch.scratch.extensions.sound.SoundPlayback",
+      "className": "SoundPlayback",
+      "methodName": "getName",
+      "static": false,
+      "returnType": "String",
+      "parameterTypes": [],
+      "parameterNames": [],
+      "params": [],
+      "summary": "",
+      "description": "",
+      "scratchblock": null,
+      "paramDocs": [],
+      "returns": "the name of the sound",
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/sound/SoundPlayback/getName",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
+    },
+    {
+      "id": "extensions/sound/SoundPlayback/getVolume()",
+      "memberId": "extensions/sound/SoundPlayback/getVolume",
+      "owner": "org.openpatch.scratch.extensions.sound.SoundPlayback",
+      "className": "SoundPlayback",
+      "methodName": "getVolume",
+      "static": false,
+      "returnType": "double",
+      "parameterTypes": [],
+      "parameterNames": [],
+      "params": [],
+      "summary": "",
+      "description": "",
+      "scratchblock": null,
+      "paramDocs": [],
+      "returns": "this playback's volume in percent",
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/sound/SoundPlayback/getVolume",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
+    },
+    {
+      "id": "extensions/sound/SoundPlayback/isPlaying()",
+      "memberId": "extensions/sound/SoundPlayback/isPlaying",
+      "owner": "org.openpatch.scratch.extensions.sound.SoundPlayback",
+      "className": "SoundPlayback",
+      "methodName": "isPlaying",
+      "static": false,
+      "returnType": "boolean",
+      "parameterTypes": [],
+      "parameterNames": [],
+      "params": [],
+      "summary": "",
+      "description": "",
+      "scratchblock": null,
+      "paramDocs": [],
+      "returns": "whether this playback is queued or playing",
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/sound/SoundPlayback/isPlaying",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
+    },
+    {
+      "id": "extensions/sound/SoundPlayback/setVolume(double)",
+      "memberId": "extensions/sound/SoundPlayback/setVolume",
+      "owner": "org.openpatch.scratch.extensions.sound.SoundPlayback",
+      "className": "SoundPlayback",
+      "methodName": "setVolume",
+      "static": false,
+      "returnType": "void",
+      "parameterTypes": [
+        "double"
+      ],
+      "parameterNames": [
+        "percent"
+      ],
+      "params": [
+        "double percent"
+      ],
+      "summary": "Changes only this playback's volume. Values outside 0..100 are clamped.",
+      "description": "Changes only this playback's volume. Values outside 0..100 are clamped.",
+      "scratchblock": null,
+      "paramDocs": [
+        "percent: volume in percent"
+      ],
+      "returns": null,
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/sound/SoundPlayback/setVolume",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
+    },
+    {
+      "id": "extensions/sound/SoundPlayback/stop()",
+      "memberId": "extensions/sound/SoundPlayback/stop",
+      "owner": "org.openpatch.scratch.extensions.sound.SoundPlayback",
+      "className": "SoundPlayback",
+      "methodName": "stop",
+      "static": false,
+      "returnType": "void",
+      "parameterTypes": [],
+      "parameterNames": [],
+      "params": [],
+      "summary": "Stops this playback, leaving other copies alone.",
+      "description": "Stops this playback, leaving other copies alone.",
+      "scratchblock": null,
+      "paramDocs": [],
+      "returns": null,
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/sound/SoundPlayback/stop",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
+    },
+    {
+      "id": "extensions/text/BitmapText/addGlyph(char,String)",
+      "memberId": "extensions/text/BitmapText/addGlyph",
+      "owner": "org.openpatch.scratch.extensions.text.BitmapText",
+      "className": "BitmapText",
+      "methodName": "addGlyph",
+      "static": false,
+      "returnType": "void",
+      "parameterTypes": [
+        "char",
+        "java.lang.String"
+      ],
+      "parameterNames": [
+        "character",
+        "path"
+      ],
+      "params": [
+        "char character",
+        "String path"
+      ],
+      "summary": "Assigns an image to a special character, such as a controller button.\nOverrides remain in effect when setFont() changes the ordinary glyphs.",
+      "description": "Assigns an image to a special character, such as a controller button.\nOverrides remain in effect when setFont() changes the ordinary glyphs.",
+      "scratchblock": null,
+      "paramDocs": [
+        "character: the character to replace",
+        "path: its image or built-in costume name"
+      ],
+      "returns": null,
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/text/BitmapText/addGlyph",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
+    },
+    {
+      "id": "extensions/text/BitmapText/constructor(String)",
+      "memberId": "extensions/text/BitmapText/constructor",
+      "owner": "org.openpatch.scratch.extensions.text.BitmapText",
+      "className": "BitmapText",
+      "methodName": "constructor",
+      "static": false,
+      "returnType": "BitmapText",
+      "parameterTypes": [
+        "java.lang.String"
+      ],
+      "parameterNames": [
+        "pattern"
+      ],
+      "params": [
+        "String pattern"
+      ],
+      "summary": "Text made from image glyphs, such as font065.png for 'A'. Add it to a stage\nlike a sprite. Its position is the top of the first line, with each line\naligned left, centred or right. Spaces and line breaks do not load images.\nImage data uses the library cache, so changing text does not create sprites\nor reload files. Use ordinary Text for normal system/TrueType fonts.",
+      "description": "Text made from image glyphs, such as font065.png for 'A'. Add it to a stage\nlike a sprite. Its position is the top of the first line, with each line\naligned left, centred or right. Spaces and line breaks do not load images.\nImage data uses the library cache, so changing text does not create sprites\nor reload files. Use ordinary Text for normal system/TrueType fonts.",
+      "scratchblock": null,
+      "paramDocs": [
+        "pattern: image path with an integer format, e.g. \"assets/font%03d.png\""
+      ],
+      "returns": null,
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/text/BitmapText/constructor",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
+    },
+    {
+      "id": "extensions/text/BitmapText/draw(Drawing)",
+      "memberId": "extensions/text/BitmapText/draw",
+      "owner": "org.openpatch.scratch.extensions.text.BitmapText",
+      "className": "BitmapText",
+      "methodName": "draw",
+      "static": false,
+      "returnType": "void",
+      "parameterTypes": [
+        "org.openpatch.scratch.extensions.drawing.Drawing"
+      ],
+      "parameterNames": [
+        "drawing"
+      ],
+      "params": [
+        "Drawing drawing"
+      ],
+      "summary": "",
+      "description": "",
+      "scratchblock": null,
+      "paramDocs": [
+        "drawing: the current frame's canvas"
+      ],
+      "returns": null,
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/text/BitmapText/draw",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
+    },
+    {
+      "id": "extensions/text/BitmapText/getContent()",
+      "memberId": "extensions/text/BitmapText/getContent",
+      "owner": "org.openpatch.scratch.extensions.text.BitmapText",
+      "className": "BitmapText",
+      "methodName": "getContent",
+      "static": false,
+      "returnType": "String",
+      "parameterTypes": [],
+      "parameterNames": [],
+      "params": [],
+      "summary": "",
+      "description": "",
+      "scratchblock": null,
+      "paramDocs": [],
+      "returns": "the text being shown",
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/text/BitmapText/getContent",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
+    },
+    {
+      "id": "extensions/text/BitmapText/getHeight()",
+      "memberId": "extensions/text/BitmapText/getHeight",
+      "owner": "org.openpatch.scratch.extensions.text.BitmapText",
+      "className": "BitmapText",
+      "methodName": "getHeight",
+      "static": false,
+      "returnType": "int",
+      "parameterTypes": [],
+      "parameterNames": [],
+      "params": [],
+      "summary": "",
+      "description": "",
+      "scratchblock": null,
+      "paramDocs": [],
+      "returns": "the displayed text's height, including line spacing and sprite size",
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/text/BitmapText/getHeight",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
+    },
+    {
+      "id": "extensions/text/BitmapText/getWidth()",
+      "memberId": "extensions/text/BitmapText/getWidth",
+      "owner": "org.openpatch.scratch.extensions.text.BitmapText",
+      "className": "BitmapText",
+      "methodName": "getWidth",
+      "static": false,
+      "returnType": "int",
+      "parameterTypes": [],
+      "parameterNames": [],
+      "params": [],
+      "summary": "",
+      "description": "",
+      "scratchblock": null,
+      "paramDocs": [],
+      "returns": "the displayed text's width, including the sprite's size",
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/text/BitmapText/getWidth",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
+    },
+    {
+      "id": "extensions/text/BitmapText/setAlign(TextAlign)",
+      "memberId": "extensions/text/BitmapText/setAlign",
+      "owner": "org.openpatch.scratch.extensions.text.BitmapText",
+      "className": "BitmapText",
+      "methodName": "setAlign",
+      "static": false,
+      "returnType": "void",
+      "parameterTypes": [
+        "org.openpatch.scratch.TextAlign"
+      ],
+      "parameterNames": [
+        "align"
+      ],
+      "params": [
+        "TextAlign align"
+      ],
+      "summary": "",
+      "description": "",
+      "scratchblock": null,
+      "paramDocs": [
+        "align: LEFT, CENTER or RIGHT (DEFAULT means LEFT)"
+      ],
+      "returns": null,
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/text/BitmapText/setAlign",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
+    },
+    {
+      "id": "extensions/text/BitmapText/setFont(String)",
+      "memberId": "extensions/text/BitmapText/setFont",
+      "owner": "org.openpatch.scratch.extensions.text.BitmapText",
+      "className": "BitmapText",
+      "methodName": "setFont",
+      "static": false,
+      "returnType": "void",
+      "parameterTypes": [
+        "java.lang.String"
+      ],
+      "parameterNames": [
+        "pattern"
+      ],
+      "params": [
+        "String pattern"
+      ],
+      "summary": "",
+      "description": "",
+      "scratchblock": null,
+      "paramDocs": [
+        "pattern: glyph path with one integer format for the Unicode code point"
+      ],
+      "returns": null,
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/text/BitmapText/setFont",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
+    },
+    {
+      "id": "extensions/text/BitmapText/setLetterSpacing(double)",
+      "memberId": "extensions/text/BitmapText/setLetterSpacing",
+      "owner": "org.openpatch.scratch.extensions.text.BitmapText",
+      "className": "BitmapText",
+      "methodName": "setLetterSpacing",
+      "static": false,
+      "returnType": "void",
+      "parameterTypes": [
+        "double"
+      ],
+      "parameterNames": [
+        "spacing"
+      ],
+      "params": [
+        "double spacing"
+      ],
+      "summary": "",
+      "description": "",
+      "scratchblock": null,
+      "paramDocs": [
+        "spacing: gap between characters; negative values allow italic glyphs to overlap"
+      ],
+      "returns": null,
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/text/BitmapText/setLetterSpacing",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
+    },
+    {
+      "id": "extensions/text/BitmapText/setLineSpacing(double)",
+      "memberId": "extensions/text/BitmapText/setLineSpacing",
+      "owner": "org.openpatch.scratch.extensions.text.BitmapText",
+      "className": "BitmapText",
+      "methodName": "setLineSpacing",
+      "static": false,
+      "returnType": "void",
+      "parameterTypes": [
+        "double"
+      ],
+      "parameterNames": [
+        "spacing"
+      ],
+      "params": [
+        "double spacing"
+      ],
+      "summary": "",
+      "description": "",
+      "scratchblock": null,
+      "paramDocs": [
+        "spacing: extra pixels between lines"
+      ],
+      "returns": null,
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/text/BitmapText/setLineSpacing",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
+    },
+    {
+      "id": "extensions/text/BitmapText/setSpaceWidth(double)",
+      "memberId": "extensions/text/BitmapText/setSpaceWidth",
+      "owner": "org.openpatch.scratch.extensions.text.BitmapText",
+      "className": "BitmapText",
+      "methodName": "setSpaceWidth",
+      "static": false,
+      "returnType": "void",
+      "parameterTypes": [
+        "double"
+      ],
+      "parameterNames": [
+        "width"
+      ],
+      "params": [
+        "double width"
+      ],
+      "summary": "",
+      "description": "",
+      "scratchblock": null,
+      "paramDocs": [
+        "width: width of a space, in unscaled pixels"
+      ],
+      "returns": null,
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/text/BitmapText/setSpaceWidth",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
+    },
+    {
+      "id": "extensions/text/BitmapText/showText(String)",
+      "memberId": "extensions/text/BitmapText/showText",
+      "owner": "org.openpatch.scratch.extensions.text.BitmapText",
+      "className": "BitmapText",
+      "methodName": "showText",
+      "static": false,
+      "returnType": "void",
+      "parameterTypes": [
+        "java.lang.String"
+      ],
+      "parameterNames": [
+        "text"
+      ],
+      "params": [
+        "String text"
+      ],
+      "summary": "",
+      "description": "",
+      "scratchblock": null,
+      "paramDocs": [
+        "text: text to show, including spaces and newlines"
+      ],
+      "returns": null,
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/text/BitmapText/showText",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
+    },
+    {
       "id": "extensions/tiled/MapObject/constructor()",
       "memberId": "extensions/tiled/MapObject/constructor",
       "owner": "org.openpatch.scratch.extensions.tiled.MapObject",
@@ -17241,8 +18245,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/tiled/MapObject/constructor",
-      "availability": "desktop-only",
-      "availabilityReason": "This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation.",
+      "availability": "awaiting-browser-support",
+      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
       "translations": {}
     },
     {
@@ -17271,8 +18275,8 @@
       "returns": "the value of the property with the specified name",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/tiled/MapObject/getProperty",
-      "availability": "desktop-only",
-      "availabilityReason": "This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -17301,8 +18305,8 @@
       "returns": "the boolean value of the property, or false if the property is not\n        found or cannot be\n        parsed as a boolean",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/tiled/MapObject/getPropertyBoolean",
-      "availability": "desktop-only",
-      "availabilityReason": "This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -17331,8 +18335,8 @@
       "returns": "the float value of the specified property",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/tiled/MapObject/getPropertyFloat",
-      "availability": "desktop-only",
-      "availabilityReason": "This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -17361,8 +18365,8 @@
       "returns": "the integer value of the property",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/tiled/MapObject/getPropertyInt",
-      "availability": "desktop-only",
-      "availabilityReason": "This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -17383,8 +18387,8 @@
       "returns": "a Shape object representing the current map object.",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/tiled/MapObject/getShape",
-      "availability": "desktop-only",
-      "availabilityReason": "This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -17413,8 +18417,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/tiled/MapObject/setClassName",
-      "availability": "desktop-only",
-      "availabilityReason": "This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation.",
+      "availability": "awaiting-browser-support",
+      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
       "translations": {}
     },
     {
@@ -17435,8 +18439,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/tiled/Property/constructor",
-      "availability": "desktop-only",
-      "availabilityReason": "This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation.",
+      "availability": "awaiting-browser-support",
+      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
       "translations": {}
     },
     {
@@ -17465,8 +18469,38 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/tiled/Property/setText",
-      "availability": "desktop-only",
-      "availabilityReason": "This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation.",
+      "availability": "awaiting-browser-support",
+      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "translations": {}
+    },
+    {
+      "id": "extensions/tiled/TiledMap/constructor(String)",
+      "memberId": "extensions/tiled/TiledMap/constructor",
+      "owner": "org.openpatch.scratch.extensions.tiled.TiledMap",
+      "className": "TiledMap",
+      "methodName": "constructor",
+      "static": false,
+      "returnType": "TiledMap",
+      "parameterTypes": [
+        "java.lang.String"
+      ],
+      "parameterNames": [
+        "path"
+      ],
+      "params": [
+        "String path"
+      ],
+      "summary": "Loads map data without attaching it to a stage. Properties, tile IDs and\ncollision shapes can be read without a window. To stamp or spawn, use the\nconstructor that takes a stage.",
+      "description": "Loads map data without attaching it to a stage. Properties, tile IDs and\ncollision shapes can be read without a window. To stamp or spawn, use the\nconstructor that takes a stage.",
+      "scratchblock": null,
+      "paramDocs": [
+        "path: a TMX file"
+      ],
+      "returns": null,
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/tiled/TiledMap/constructor",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -17499,8 +18533,30 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/tiled/TiledMap/constructor",
-      "availability": "desktop-only",
-      "availabilityReason": "This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
+    },
+    {
+      "id": "extensions/tiled/TiledMap/getHeight()",
+      "memberId": "extensions/tiled/TiledMap/getHeight",
+      "owner": "org.openpatch.scratch.extensions.tiled.TiledMap",
+      "className": "TiledMap",
+      "methodName": "getHeight",
+      "static": false,
+      "returnType": "int",
+      "parameterTypes": [],
+      "parameterNames": [],
+      "params": [],
+      "summary": "",
+      "description": "",
+      "scratchblock": null,
+      "paramDocs": [],
+      "returns": "the number of map rows",
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/tiled/TiledMap/getHeight",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -17529,8 +18585,334 @@
       "returns": "an array of MapObject from the specified layer, or null if the layer\n        does not exist",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/tiled/TiledMap/getObjectsFromLayer",
-      "availability": "desktop-only",
-      "availabilityReason": "This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
+    },
+    {
+      "id": "extensions/tiled/TiledMap/getProperty(String)",
+      "memberId": "extensions/tiled/TiledMap/getProperty",
+      "owner": "org.openpatch.scratch.extensions.tiled.TiledMap",
+      "className": "TiledMap",
+      "methodName": "getProperty",
+      "static": false,
+      "returnType": "String",
+      "parameterTypes": [
+        "java.lang.String"
+      ],
+      "parameterNames": [
+        "name"
+      ],
+      "params": [
+        "String name"
+      ],
+      "summary": "Reads a custom property of the map itself, such as its biome or tutorial.",
+      "description": "Reads a custom property of the map itself, such as its biome or tutorial.",
+      "scratchblock": null,
+      "paramDocs": [
+        "name: property name"
+      ],
+      "returns": "its string value, including multiline strings",
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/tiled/TiledMap/getProperty",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
+    },
+    {
+      "id": "extensions/tiled/TiledMap/getProperty(String,String)",
+      "memberId": "extensions/tiled/TiledMap/getProperty",
+      "owner": "org.openpatch.scratch.extensions.tiled.TiledMap",
+      "className": "TiledMap",
+      "methodName": "getProperty",
+      "static": false,
+      "returnType": "String",
+      "parameterTypes": [
+        "java.lang.String",
+        "java.lang.String"
+      ],
+      "parameterNames": [
+        "name",
+        "defaultValue"
+      ],
+      "params": [
+        "String name",
+        "String defaultValue"
+      ],
+      "summary": "Reads a map property, with a default for maps that omit it.",
+      "description": "Reads a map property, with a default for maps that omit it.",
+      "scratchblock": null,
+      "paramDocs": [
+        "name: property name",
+        "defaultValue: value when absent"
+      ],
+      "returns": "the stored value or the default",
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/tiled/TiledMap/getProperty",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
+    },
+    {
+      "id": "extensions/tiled/TiledMap/getPropertyBoolean(String)",
+      "memberId": "extensions/tiled/TiledMap/getPropertyBoolean",
+      "owner": "org.openpatch.scratch.extensions.tiled.TiledMap",
+      "className": "TiledMap",
+      "methodName": "getPropertyBoolean",
+      "static": false,
+      "returnType": "boolean",
+      "parameterTypes": [
+        "java.lang.String"
+      ],
+      "parameterNames": [
+        "name"
+      ],
+      "params": [
+        "String name"
+      ],
+      "summary": "",
+      "description": "",
+      "scratchblock": null,
+      "paramDocs": [
+        "name: property name"
+      ],
+      "returns": "its boolean value",
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/tiled/TiledMap/getPropertyBoolean",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
+    },
+    {
+      "id": "extensions/tiled/TiledMap/getPropertyFloat(String)",
+      "memberId": "extensions/tiled/TiledMap/getPropertyFloat",
+      "owner": "org.openpatch.scratch.extensions.tiled.TiledMap",
+      "className": "TiledMap",
+      "methodName": "getPropertyFloat",
+      "static": false,
+      "returnType": "float",
+      "parameterTypes": [
+        "java.lang.String"
+      ],
+      "parameterNames": [
+        "name"
+      ],
+      "params": [
+        "String name"
+      ],
+      "summary": "",
+      "description": "",
+      "scratchblock": null,
+      "paramDocs": [
+        "name: property name"
+      ],
+      "returns": "its floating-point value",
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/tiled/TiledMap/getPropertyFloat",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
+    },
+    {
+      "id": "extensions/tiled/TiledMap/getPropertyInt(String)",
+      "memberId": "extensions/tiled/TiledMap/getPropertyInt",
+      "owner": "org.openpatch.scratch.extensions.tiled.TiledMap",
+      "className": "TiledMap",
+      "methodName": "getPropertyInt",
+      "static": false,
+      "returnType": "int",
+      "parameterTypes": [
+        "java.lang.String"
+      ],
+      "parameterNames": [
+        "name"
+      ],
+      "params": [
+        "String name"
+      ],
+      "summary": "",
+      "description": "",
+      "scratchblock": null,
+      "paramDocs": [
+        "name: property name"
+      ],
+      "returns": "its integer value",
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/tiled/TiledMap/getPropertyInt",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
+    },
+    {
+      "id": "extensions/tiled/TiledMap/getTileCollisionShapes(int)",
+      "memberId": "extensions/tiled/TiledMap/getTileCollisionShapes",
+      "owner": "org.openpatch.scratch.extensions.tiled.TiledMap",
+      "className": "TiledMap",
+      "methodName": "getTileCollisionShapes",
+      "static": false,
+      "returnType": "Shape[]",
+      "parameterTypes": [
+        "int"
+      ],
+      "parameterNames": [
+        "tileId"
+      ],
+      "params": [
+        "int tileId"
+      ],
+      "summary": "Returns collision outlines defined in a tile's tileset object group.\nCoordinates start at the tile's top-left; x points right and y points up.\nShapes are independent copies and do not modify the map when transformed.",
+      "description": "Returns collision outlines defined in a tile's tileset object group.\nCoordinates start at the tile's top-left; x points right and y points up.\nShapes are independent copies and do not modify the map when transformed.",
+      "scratchblock": null,
+      "paramDocs": [
+        "tileId: global tile ID (zero and unknown IDs have no shapes)"
+      ],
+      "returns": "rectangles, ellipses or polygons for this tile",
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/tiled/TiledMap/getTileCollisionShapes",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
+    },
+    {
+      "id": "extensions/tiled/TiledMap/getTileCollisionShapes(String,int,int)",
+      "memberId": "extensions/tiled/TiledMap/getTileCollisionShapes",
+      "owner": "org.openpatch.scratch.extensions.tiled.TiledMap",
+      "className": "TiledMap",
+      "methodName": "getTileCollisionShapes",
+      "static": false,
+      "returnType": "Shape[]",
+      "parameterTypes": [
+        "java.lang.String",
+        "int",
+        "int"
+      ],
+      "parameterNames": [
+        "layerName",
+        "column",
+        "row"
+      ],
+      "params": [
+        "String layerName",
+        "int column",
+        "int row"
+      ],
+      "summary": "Returns a cell's collision outlines in map/stage coordinates: the map's\ntop-left is (0,0), x points right and y points up, matching map stamping.\nTiled's diagonal, horizontal and vertical flips are applied in that order.",
+      "description": "Returns a cell's collision outlines in map/stage coordinates: the map's\ntop-left is (0,0), x points right and y points up, matching map stamping.\nTiled's diagonal, horizontal and vertical flips are applied in that order.",
+      "scratchblock": null,
+      "paramDocs": [
+        "layerName: tile layer name",
+        "column: column index, starting at zero",
+        "row: row index, starting at zero"
+      ],
+      "returns": "positioned outlines, or an empty array outside/without collision",
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/tiled/TiledMap/getTileCollisionShapes",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
+    },
+    {
+      "id": "extensions/tiled/TiledMap/getTileHeight()",
+      "memberId": "extensions/tiled/TiledMap/getTileHeight",
+      "owner": "org.openpatch.scratch.extensions.tiled.TiledMap",
+      "className": "TiledMap",
+      "methodName": "getTileHeight",
+      "static": false,
+      "returnType": "int",
+      "parameterTypes": [],
+      "parameterNames": [],
+      "params": [],
+      "summary": "",
+      "description": "",
+      "scratchblock": null,
+      "paramDocs": [],
+      "returns": "the height of a map cell in pixels",
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/tiled/TiledMap/getTileHeight",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
+    },
+    {
+      "id": "extensions/tiled/TiledMap/getTileId(String,int,int)",
+      "memberId": "extensions/tiled/TiledMap/getTileId",
+      "owner": "org.openpatch.scratch.extensions.tiled.TiledMap",
+      "className": "TiledMap",
+      "methodName": "getTileId",
+      "static": false,
+      "returnType": "int",
+      "parameterTypes": [
+        "java.lang.String",
+        "int",
+        "int"
+      ],
+      "parameterNames": [
+        "layerName",
+        "column",
+        "row"
+      ],
+      "params": [
+        "String layerName",
+        "int column",
+        "int row"
+      ],
+      "summary": "Reads a global tile ID, without flip bits. Columns and rows are local to\nthe named layer, starting at its top-left cell. Zero means an empty cell,\nincluding cells outside the layer. An unknown layer is an error.",
+      "description": "Reads a global tile ID, without flip bits. Columns and rows are local to\nthe named layer, starting at its top-left cell. Zero means an empty cell,\nincluding cells outside the layer. An unknown layer is an error.",
+      "scratchblock": null,
+      "paramDocs": [
+        "layerName: tile layer name, also within a group",
+        "column: column index",
+        "row: row index"
+      ],
+      "returns": "global ID, or zero for an empty/outside cell",
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/tiled/TiledMap/getTileId",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
+    },
+    {
+      "id": "extensions/tiled/TiledMap/getTileWidth()",
+      "memberId": "extensions/tiled/TiledMap/getTileWidth",
+      "owner": "org.openpatch.scratch.extensions.tiled.TiledMap",
+      "className": "TiledMap",
+      "methodName": "getTileWidth",
+      "static": false,
+      "returnType": "int",
+      "parameterTypes": [],
+      "parameterNames": [],
+      "params": [],
+      "summary": "",
+      "description": "",
+      "scratchblock": null,
+      "paramDocs": [],
+      "returns": "the width of a map cell in pixels",
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/tiled/TiledMap/getTileWidth",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
+    },
+    {
+      "id": "extensions/tiled/TiledMap/getWidth()",
+      "memberId": "extensions/tiled/TiledMap/getWidth",
+      "owner": "org.openpatch.scratch.extensions.tiled.TiledMap",
+      "className": "TiledMap",
+      "methodName": "getWidth",
+      "static": false,
+      "returnType": "int",
+      "parameterTypes": [],
+      "parameterNames": [],
+      "params": [],
+      "summary": "",
+      "description": "",
+      "scratchblock": null,
+      "paramDocs": [],
+      "returns": "the number of map columns",
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/tiled/TiledMap/getWidth",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -17559,8 +18941,8 @@
       "returns": "the sprites that were made, in the order of the layer",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/tiled/TiledMap/spawn",
-      "availability": "desktop-only",
-      "availabilityReason": "This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -17589,8 +18971,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/tiled/TiledMap/stampLayerToBackground",
-      "availability": "desktop-only",
-      "availabilityReason": "This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -17619,8 +19001,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/tiled/TiledMap/stampLayerToForeground",
-      "availability": "desktop-only",
-      "availabilityReason": "This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -17641,8 +19023,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/tiled/TiledMap/toString",
-      "availability": "desktop-only",
-      "availabilityReason": "This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -17663,8 +19045,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/tiled/TilesetImage/constructor",
-      "availability": "desktop-only",
-      "availabilityReason": "This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation.",
+      "availability": "awaiting-browser-support",
+      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
       "translations": {}
     }
   ]

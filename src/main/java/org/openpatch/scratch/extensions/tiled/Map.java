@@ -4,6 +4,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import tools.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 
 class Map {
+  @JacksonXmlElementWrapper(localName = "properties")
+  @tools.jackson.dataformat.xml.annotation.JacksonXmlProperty(localName = "property")
+  public java.util.List<Property> properties;
+
   public int compressionlevel;
   public int height;
   public int infinite;

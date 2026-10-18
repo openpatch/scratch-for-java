@@ -177,6 +177,64 @@ class SoundPlaybackTest {
     assertTrue(device.clips.isEmpty());
   }
 
+  @Test
+  void playbackHandlesOverlapAndStopIndependentlyWithinTheirOwner() {
+    AudioDevice device = new AudioDevice();
+    Sound source = new Sound("hit", device.pool(AUDIO));
+    Sound other = new Sound("other", device.pool(AUDIO));
+    SoundPlaybacks owner = new SoundPlaybacks();
+    SoundPlaybacks anotherOwner = new SoundPlaybacks();
+    device.drain();
+    var first = owner.play(source, 30);
+    var second = owner.play(source, 80);
+    var third = anotherOwner.play(source, 60);
+    var unrelated = owner.play(other, 50);
+    device.drain();
+    assertEquals(4, device.openLines());
+    assertEquals(30, first.getVolume(), 0.001);
+    assertEquals(80, second.getVolume(), 0.001);
+    first.close();
+    assertFalse(first.isPlaying());
+    assertTrue(second.isPlaying());
+    second.setVolume(25);
+    assertEquals(25, second.getVolume(), 0.001);
+    owner.stop("hit");
+    assertFalse(second.isPlaying());
+    assertFalse(owner.isPlaying("hit"));
+    assertTrue(third.isPlaying(), "another sprite owns its own playbacks");
+    assertTrue(unrelated.isPlaying());
+    owner.stopAll();
+    assertFalse(unrelated.isPlaying());
+    assertTrue(third.isPlaying());
+    anotherOwner.stopAll();
+    assertEquals(2, device.openLines(), "one warm line per source file");
+  }
+
+  @Test
+  void completedAndCancelledHandlesReleaseResourcesAndRejectInvalidVolume() {
+    AudioDevice device = new AudioDevice();
+    Sound source = new Sound("hit", device.pool(AUDIO));
+    SoundPlaybacks owner = new SoundPlaybacks();
+    assertThrows(IllegalArgumentException.class, () -> owner.play(source, Double.NaN));
+    var queued = owner.play(source, 200);
+    assertEquals(100, queued.getVolume());
+    queued.stop();
+    device.drain();
+    assertFalse(queued.isPlaying());
+    assertEquals(0, device.clips.get(0).starts);
+    for (int round = 0; round < 100; round++) {
+      var playback = owner.play(source, -10);
+      device.drain();
+      assertEquals(0, playback.getVolume());
+      assertTrue(owner.isPlaying("hit"));
+      device.clips.get(0).end();
+      assertFalse(playback.isPlaying());
+      assertFalse(owner.isPlaying("hit"));
+    }
+    assertEquals(1, device.clips.size());
+    assertTrue(device.clips.get(0).listeners.isEmpty());
+  }
+
   private static class AudioDevice implements Executor, Sound.ClipFactory {
     final Queue<Runnable> tasks = new ArrayDeque<>();
     final List<FakeClip> clips = new ArrayList<>();
