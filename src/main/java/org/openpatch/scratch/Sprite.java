@@ -84,6 +84,9 @@ public class Sprite implements Cloneable {
    * this.getShaders().switchTo("blur");
    * }</pre>
    *
+   * <p>
+   * A sprite draws with one shader: with several active, the first of them.
+   *
    * @return the shaders
    *
    * @example.files SpriteGetShaders.java

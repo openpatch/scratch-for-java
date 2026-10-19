@@ -5531,7 +5531,7 @@
       "parameterNames": [],
       "params": [],
       "summary": "Returns the shaders of this sprite. Shader handling lives behind this one\nmethod so that it does not crowd the everyday API.",
-      "description": "Returns the shaders of this sprite. Shader handling lives behind this one\nmethod so that it does not crowd the everyday API.\n\nExample usage:\n\n```java\nthis.getShaders().add(\"blur\", \"blur.frag\", null);\nthis.getShaders().switchTo(\"blur\");\n```",
+      "description": "Returns the shaders of this sprite. Shader handling lives behind this one\nmethod so that it does not crowd the everyday API.\n\nExample usage:\n\n```java\nthis.getShaders().add(\"blur\", \"blur.frag\", null);\nthis.getShaders().switchTo(\"blur\");\n```\n\nA sprite draws with one shader: with several active, the first of them.",
       "scratchblock": null,
       "paramDocs": [],
       "returns": "the shaders",
@@ -9489,7 +9489,7 @@
       "parameterNames": [],
       "params": [],
       "summary": "Returns the shaders of this stage. Shader handling lives behind this one\nmethod so that it does not crowd the everyday API.",
-      "description": "Returns the shaders of this stage. Shader handling lives behind this one\nmethod so that it does not crowd the everyday API.\n\nExample usage:\n\n```java\nthis.getShaders().add(\"blur\", \"blur.frag\", null);\nthis.getShaders().switchTo(\"blur\");\n```",
+      "description": "Returns the shaders of this stage. Shader handling lives behind this one\nmethod so that it does not crowd the everyday API.\n\nExample usage:\n\n```java\nthis.getShaders().add(\"blur\", \"blur.frag\", null);\nthis.getShaders().switchTo(\"blur\");\n```\n\nSeveral shaders can be active at once with `activate`: the stage\ndraws with each in turn, in the order they were added.",
       "scratchblock": null,
       "paramDocs": [],
       "returns": "the shaders",
@@ -17366,6 +17366,36 @@
       "translations": {}
     },
     {
+      "id": "extensions/shader/Shaders/activate(String)",
+      "memberId": "extensions/shader/Shaders/activate",
+      "owner": "org.openpatch.scratch.extensions.shader.Shaders",
+      "className": "Shaders",
+      "methodName": "activate",
+      "static": false,
+      "returnType": "void",
+      "parameterTypes": [
+        "java.lang.String"
+      ],
+      "parameterNames": [
+        "name"
+      ],
+      "params": [
+        "String name"
+      ],
+      "summary": "Draws with the shader of the given name as well, without stopping the\nothers. Active shaders take turns in the order they were added, each\nworking on what the one before it drew, so a stage can be tinted and\nwobble at the same time. A sprite draws with the first of its active\nshaders only.",
+      "description": "Draws with the shader of the given name as well, without stopping the\nothers. Active shaders take turns in the order they were added, each\nworking on what the one before it drew, so a stage can be tinted and\nwobble at the same time. A sprite draws with the first of its active\nshaders only.",
+      "scratchblock": null,
+      "paramDocs": [
+        "name: the name of the shader"
+      ],
+      "returns": null,
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/shader/Shaders/activate",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
+    },
+    {
       "id": "extensions/shader/Shaders/add(String,String,String)",
       "memberId": "extensions/shader/Shaders/add",
       "owner": "org.openpatch.scratch.extensions.shader.Shaders",
@@ -17389,7 +17419,7 @@
         "String vertexShaderPath"
       ],
       "summary": "Adds a shader. If a shader with the given name already exists, that one is\nreturned instead.",
-      "description": "Adds a shader. If a shader with the given name already exists, that one is\nreturned instead.\n\nThe first shader added is drawn with right away; the ones after it wait\nuntil [switchTo(String)](switchTo) or [next()](next) picks them.\n\nThe vertex shader is usually `null`, which uses Processing's default\none. In the browser any other vertex shader is ignored.",
+      "description": "Adds a shader. If a shader with the given name already exists, that one is\nreturned instead.\n\nThe first shader added is drawn with right away; the ones after it wait\nuntil [switchTo(String)](switchTo), [next()](next) or\n[activate(String)](activate) picks them.\n\nThe vertex shader is usually `null`, which uses Processing's default\none. In the browser any other vertex shader is ignored.",
       "scratchblock": null,
       "paramDocs": [
         "name: a unique name",
@@ -17464,6 +17494,36 @@
       "translations": {}
     },
     {
+      "id": "extensions/shader/Shaders/deactivate(String)",
+      "memberId": "extensions/shader/Shaders/deactivate",
+      "owner": "org.openpatch.scratch.extensions.shader.Shaders",
+      "className": "Shaders",
+      "methodName": "deactivate",
+      "static": false,
+      "returnType": "void",
+      "parameterTypes": [
+        "java.lang.String"
+      ],
+      "parameterNames": [
+        "name"
+      ],
+      "params": [
+        "String name"
+      ],
+      "summary": "Stops drawing with the shader of the given name. The other active shaders\nstay.",
+      "description": "Stops drawing with the shader of the given name. The other active shaders\nstay.",
+      "scratchblock": null,
+      "paramDocs": [
+        "name: the name of the shader"
+      ],
+      "returns": null,
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/shader/Shaders/deactivate",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
+    },
+    {
       "id": "extensions/shader/Shaders/get(String)",
       "memberId": "extensions/shader/Shaders/get",
       "owner": "org.openpatch.scratch.extensions.shader.Shaders",
@@ -17494,6 +17554,28 @@
       "translations": {}
     },
     {
+      "id": "extensions/shader/Shaders/getActive()",
+      "memberId": "extensions/shader/Shaders/getActive",
+      "owner": "org.openpatch.scratch.extensions.shader.Shaders",
+      "className": "Shaders",
+      "methodName": "getActive",
+      "static": false,
+      "returnType": "List<Shader>",
+      "parameterTypes": [],
+      "parameterNames": [],
+      "params": [],
+      "summary": "Returns the shaders drawn with, in the order they take turns: the order in\nwhich they were added.",
+      "description": "Returns the shaders drawn with, in the order they take turns: the order in\nwhich they were added.",
+      "scratchblock": null,
+      "paramDocs": [],
+      "returns": "a new list of the active shaders, empty if there are none",
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/shader/Shaders/getActive",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
+    },
+    {
       "id": "extensions/shader/Shaders/getCurrent()",
       "memberId": "extensions/shader/Shaders/getCurrent",
       "owner": "org.openpatch.scratch.extensions.shader.Shaders",
@@ -17504,8 +17586,8 @@
       "parameterTypes": [],
       "parameterNames": [],
       "params": [],
-      "summary": "Returns the shader currently drawn with.",
-      "description": "Returns the shader currently drawn with.",
+      "summary": "Returns the shader currently drawn with. With several active, this is the\nfirst of them.",
+      "description": "Returns the shader currently drawn with. With several active, this is the\nfirst of them.",
       "scratchblock": null,
       "paramDocs": [],
       "returns": "the current shader, or null if there is none",
@@ -17560,6 +17642,36 @@
       "translations": {}
     },
     {
+      "id": "extensions/shader/Shaders/isActive(String)",
+      "memberId": "extensions/shader/Shaders/isActive",
+      "owner": "org.openpatch.scratch.extensions.shader.Shaders",
+      "className": "Shaders",
+      "methodName": "isActive",
+      "static": false,
+      "returnType": "boolean",
+      "parameterTypes": [
+        "java.lang.String"
+      ],
+      "parameterNames": [
+        "name"
+      ],
+      "params": [
+        "String name"
+      ],
+      "summary": "Returns whether the shader of the given name is drawn with.",
+      "description": "Returns whether the shader of the given name is drawn with.",
+      "scratchblock": null,
+      "paramDocs": [
+        "name: the name of the shader"
+      ],
+      "returns": "true if the shader is active",
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/extensions/shader/Shaders/isActive",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
+    },
+    {
       "id": "extensions/shader/Shaders/next()",
       "memberId": "extensions/shader/Shaders/next",
       "owner": "org.openpatch.scratch.extensions.shader.Shaders",
@@ -17570,8 +17682,8 @@
       "parameterTypes": [],
       "parameterNames": [],
       "params": [],
-      "summary": "Switches to the next shader, in the order they were added. After the last\none comes the first one again.",
-      "description": "Switches to the next shader, in the order they were added. After the last\none comes the first one again.",
+      "summary": "Switches to the next shader, in the order they were added. After the last\none comes the first one again. It is then the only one drawn with.",
+      "description": "Switches to the next shader, in the order they were added. After the last\none comes the first one again. It is then the only one drawn with.",
       "scratchblock": null,
       "paramDocs": [],
       "returns": null,
@@ -17592,8 +17704,8 @@
       "parameterTypes": [],
       "parameterNames": [],
       "params": [],
-      "summary": "Stops drawing with a shader, so the sprite or stage looks as it does\nwithout one. The shaders are kept: [switchTo(String)](switchTo) or\n[next()](next) brings one back.",
-      "description": "Stops drawing with a shader, so the sprite or stage looks as it does\nwithout one. The shaders are kept: [switchTo(String)](switchTo) or\n[next()](next) brings one back.",
+      "summary": "Stops drawing with shaders, so the sprite or stage looks as it does\nwithout one. The shaders are kept: [switchTo(String)](switchTo),\n[next()](next) or [activate(String)](activate) brings one back.",
+      "description": "Stops drawing with shaders, so the sprite or stage looks as it does\nwithout one. The shaders are kept: [switchTo(String)](switchTo),\n[next()](next) or [activate(String)](activate) brings one back.",
       "scratchblock": null,
       "paramDocs": [],
       "returns": null,
@@ -17620,8 +17732,8 @@
       "params": [
         "String name"
       ],
-      "summary": "Switches to the shader with the given name, or with the given position in\nthe order the shaders were added. A name that is not there leaves the\ncurrent shader and prints which ones there are.",
-      "description": "Switches to the shader with the given name, or with the given position in\nthe order the shaders were added. A name that is not there leaves the\ncurrent shader and prints which ones there are.",
+      "summary": "Switches to the shader with the given name, or with the given position in\nthe order the shaders were added. It is then the only one drawn with. A\nname that is not there leaves the shaders as they are and prints which ones\nthere are.",
+      "description": "Switches to the shader with the given name, or with the given position in\nthe order the shaders were added. It is then the only one drawn with. A\nname that is not there leaves the shaders as they are and prints which ones\nthere are.",
       "scratchblock": null,
       "paramDocs": [
         "name: the name of the shader"
@@ -17650,8 +17762,8 @@
       "params": [
         "double index"
       ],
-      "summary": "Switches to the shader at the given position.",
-      "description": "Switches to the shader at the given position.",
+      "summary": "Switches to the shader at the given position. It is then the only one drawn\nwith.",
+      "description": "Switches to the shader at the given position. It is then the only one drawn\nwith.",
       "scratchblock": null,
       "paramDocs": [
         "index: the position of the shader"

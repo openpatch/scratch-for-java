@@ -486,12 +486,16 @@ An implemented entry has its documented overloads declared in the browser. The r
 | [extensions/shader/Shader/getPShader](/reference/extensions/shader/Shader/getPShader) | desktop-only | Processing's PShader object belongs to the desktop renderer. The browser uses WebGL filters. |
 | [extensions/shader/Shader/set](/reference/extensions/shader/Shader/set) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [extensions/shader/Shader/setName](/reference/extensions/shader/Shader/setName) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [extensions/shader/Shaders/activate](/reference/extensions/shader/Shaders/activate) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [extensions/shader/Shaders/add](/reference/extensions/shader/Shaders/add) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [extensions/shader/Shaders/constructor](/reference/extensions/shader/Shaders/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [extensions/shader/Shaders/deactivate](/reference/extensions/shader/Shaders/deactivate) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [extensions/shader/Shaders/get](/reference/extensions/shader/Shaders/get) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [extensions/shader/Shaders/getActive](/reference/extensions/shader/Shaders/getActive) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [extensions/shader/Shaders/getCurrent](/reference/extensions/shader/Shaders/getCurrent) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [extensions/shader/Shaders/getCurrentIndex](/reference/extensions/shader/Shaders/getCurrentIndex) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [extensions/shader/Shaders/getCurrentName](/reference/extensions/shader/Shaders/getCurrentName) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [extensions/shader/Shaders/isActive](/reference/extensions/shader/Shaders/isActive) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [extensions/shader/Shaders/next](/reference/extensions/shader/Shaders/next) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [extensions/shader/Shaders/reset](/reference/extensions/shader/Shaders/reset) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [extensions/shader/Shaders/switchTo](/reference/extensions/shader/Shaders/switchTo) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |

@@ -11589,6 +11589,15 @@
         "returns": "org.openpatch.scratch.extensions.shader.Shaders"
       },
       {
+        "name": "activate",
+        "constructor": false,
+        "static": false,
+        "parameters": [
+          "String"
+        ],
+        "returns": "void"
+      },
+      {
         "name": "add",
         "constructor": false,
         "static": false,
@@ -11598,6 +11607,15 @@
           "String"
         ],
         "returns": "org.openpatch.scratch.extensions.shader.Shader"
+      },
+      {
+        "name": "deactivate",
+        "constructor": false,
+        "static": false,
+        "parameters": [
+          "String"
+        ],
+        "returns": "void"
       },
       {
         "name": "equals",
@@ -11616,6 +11634,13 @@
           "String"
         ],
         "returns": "org.openpatch.scratch.extensions.shader.Shader"
+      },
+      {
+        "name": "getActive",
+        "constructor": false,
+        "static": false,
+        "parameters": [],
+        "returns": "List<org.openpatch.scratch.extensions.shader.Shader>"
       },
       {
         "name": "getClass",
@@ -11644,6 +11669,15 @@
         "static": false,
         "parameters": [],
         "returns": "String"
+      },
+      {
+        "name": "isActive",
+        "constructor": false,
+        "static": false,
+        "parameters": [
+          "String"
+        ],
+        "returns": "boolean"
       },
       {
         "name": "next",
@@ -25309,6 +25343,15 @@
         "returns": "org.openpatch.scratch.extensions.shader.Shaders"
       },
       {
+        "name": "activate",
+        "constructor": false,
+        "static": false,
+        "parameters": [
+          "String"
+        ],
+        "returns": "void"
+      },
+      {
         "name": "add",
         "constructor": false,
         "static": false,
@@ -25318,6 +25361,15 @@
           "String"
         ],
         "returns": "org.openpatch.scratch.extensions.shader.Shader"
+      },
+      {
+        "name": "deactivate",
+        "constructor": false,
+        "static": false,
+        "parameters": [
+          "String"
+        ],
+        "returns": "void"
       },
       {
         "name": "equals",
@@ -25336,6 +25388,13 @@
           "String"
         ],
         "returns": "org.openpatch.scratch.extensions.shader.Shader"
+      },
+      {
+        "name": "getActive",
+        "constructor": false,
+        "static": false,
+        "parameters": [],
+        "returns": "List<org.openpatch.scratch.extensions.shader.Shader>"
       },
       {
         "name": "getClass",
@@ -25364,6 +25423,15 @@
         "static": false,
         "parameters": [],
         "returns": "String"
+      },
+      {
+        "name": "isActive",
+        "constructor": false,
+        "static": false,
+        "parameters": [
+          "String"
+        ],
+        "returns": "boolean"
       },
       {
         "name": "next",

@@ -70,6 +70,12 @@ public class Shader {
     this.shader = shader.getPShader();
   }
 
+  /** A shader around an already loaded program, or none: tests need no window. */
+  Shader(String name, PShader shader) {
+    this.name = name;
+    this.shader = shader;
+  }
+
   /**
    * Load shader
    *

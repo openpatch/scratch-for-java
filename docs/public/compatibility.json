@@ -29,7 +29,7 @@
   ],
   "referenceValidation": {
     "flavor": "standard",
-    "examples": 435,
+    "examples": 437,
     "knownUnsupportedExamples": 0
   },
   "members": [
@@ -4357,7 +4357,7 @@
           "returns": "org.openpatch.scratch.extensions.shader.Shaders",
           "parameterNames": [],
           "parameterDescriptions": [],
-          "description": "Returns the shaders of this sprite. Shader handling lives behind this one\nmethod so that it does not crowd the everyday API.\n\nExample usage:\n\n```java\nthis.getShaders().add(\"blur\", \"blur.frag\", null);\nthis.getShaders().switchTo(\"blur\");\n```",
+          "description": "Returns the shaders of this sprite. Shader handling lives behind this one\nmethod so that it does not crowd the everyday API.\n\nExample usage:\n\n```java\nthis.getShaders().add(\"blur\", \"blur.frag\", null);\nthis.getShaders().switchTo(\"blur\");\n```\n\nA sprite draws with one shader: with several active, the first of them.",
           "returnDescription": "the shaders",
           "scratchblock": "",
           "since": ""
@@ -7481,7 +7481,7 @@
           "returns": "org.openpatch.scratch.extensions.shader.Shaders",
           "parameterNames": [],
           "parameterDescriptions": [],
-          "description": "Returns the shaders of this stage. Shader handling lives behind this one\nmethod so that it does not crowd the everyday API.\n\nExample usage:\n\n```java\nthis.getShaders().add(\"blur\", \"blur.frag\", null);\nthis.getShaders().switchTo(\"blur\");\n```",
+          "description": "Returns the shaders of this stage. Shader handling lives behind this one\nmethod so that it does not crowd the everyday API.\n\nExample usage:\n\n```java\nthis.getShaders().add(\"blur\", \"blur.frag\", null);\nthis.getShaders().switchTo(\"blur\");\n```\n\nSeveral shaders can be active at once with `activate`: the stage\ndraws with each in turn, in the order they were added.",
           "returnDescription": "the shaders",
           "scratchblock": "",
           "since": ""
@@ -14279,6 +14279,34 @@
       "missingBrowserSignatures": []
     },
     {
+      "id": "extensions/shader/Shaders/activate",
+      "owner": "org.openpatch.scratch.extensions.shader.Shaders",
+      "signatures": [
+        {
+          "name": "activate",
+          "constructor": false,
+          "static": false,
+          "parameters": [
+            "java.lang.String"
+          ],
+          "returns": "void",
+          "parameterNames": [
+            "name"
+          ],
+          "parameterDescriptions": [
+            "the name of the shader"
+          ],
+          "description": "Draws with the shader of the given name as well, without stopping the\nothers. Active shaders take turns in the order they were added, each\nworking on what the one before it drew, so a stage can be tinted and\nwobble at the same time. A sprite draws with the first of its active\nshaders only.",
+          "returnDescription": "",
+          "scratchblock": "",
+          "since": ""
+        }
+      ],
+      "status": "implemented",
+      "reason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "missingBrowserSignatures": []
+    },
+    {
       "id": "extensions/shader/Shaders/add",
       "owner": "org.openpatch.scratch.extensions.shader.Shaders",
       "signatures": [
@@ -14302,7 +14330,7 @@
             "the path to the fragment shader",
             "the path to the vertex shader, may be null"
           ],
-          "description": "Adds a shader. If a shader with the given name already exists, that one is\nreturned instead.\n\nThe first shader added is drawn with right away; the ones after it wait\nuntil [switchTo(String)](switchTo) or [next()](next) picks them.\n\nThe vertex shader is usually `null`, which uses Processing's default\none. In the browser any other vertex shader is ignored.",
+          "description": "Adds a shader. If a shader with the given name already exists, that one is\nreturned instead.\n\nThe first shader added is drawn with right away; the ones after it wait\nuntil [switchTo(String)](switchTo), [next()](next) or\n[activate(String)](activate) picks them.\n\nThe vertex shader is usually `null`, which uses Processing's default\none. In the browser any other vertex shader is ignored.",
           "returnDescription": "the shader",
           "scratchblock": "",
           "since": ""
@@ -14360,6 +14388,34 @@
       "missingBrowserSignatures": []
     },
     {
+      "id": "extensions/shader/Shaders/deactivate",
+      "owner": "org.openpatch.scratch.extensions.shader.Shaders",
+      "signatures": [
+        {
+          "name": "deactivate",
+          "constructor": false,
+          "static": false,
+          "parameters": [
+            "java.lang.String"
+          ],
+          "returns": "void",
+          "parameterNames": [
+            "name"
+          ],
+          "parameterDescriptions": [
+            "the name of the shader"
+          ],
+          "description": "Stops drawing with the shader of the given name. The other active shaders\nstay.",
+          "returnDescription": "",
+          "scratchblock": "",
+          "since": ""
+        }
+      ],
+      "status": "implemented",
+      "reason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "missingBrowserSignatures": []
+    },
+    {
       "id": "extensions/shader/Shaders/get",
       "owner": "org.openpatch.scratch.extensions.shader.Shaders",
       "signatures": [
@@ -14388,6 +14444,28 @@
       "missingBrowserSignatures": []
     },
     {
+      "id": "extensions/shader/Shaders/getActive",
+      "owner": "org.openpatch.scratch.extensions.shader.Shaders",
+      "signatures": [
+        {
+          "name": "getActive",
+          "constructor": false,
+          "static": false,
+          "parameters": [],
+          "returns": "java.util.List<org.openpatch.scratch.extensions.shader.Shader>",
+          "parameterNames": [],
+          "parameterDescriptions": [],
+          "description": "Returns the shaders drawn with, in the order they take turns: the order in\nwhich they were added.",
+          "returnDescription": "a new list of the active shaders, empty if there are none",
+          "scratchblock": "",
+          "since": ""
+        }
+      ],
+      "status": "implemented",
+      "reason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "missingBrowserSignatures": []
+    },
+    {
       "id": "extensions/shader/Shaders/getCurrent",
       "owner": "org.openpatch.scratch.extensions.shader.Shaders",
       "signatures": [
@@ -14399,7 +14477,7 @@
           "returns": "org.openpatch.scratch.extensions.shader.Shader",
           "parameterNames": [],
           "parameterDescriptions": [],
-          "description": "Returns the shader currently drawn with.",
+          "description": "Returns the shader currently drawn with. With several active, this is the\nfirst of them.",
           "returnDescription": "the current shader, or null if there is none",
           "scratchblock": "",
           "since": ""
@@ -14454,6 +14532,34 @@
       "missingBrowserSignatures": []
     },
     {
+      "id": "extensions/shader/Shaders/isActive",
+      "owner": "org.openpatch.scratch.extensions.shader.Shaders",
+      "signatures": [
+        {
+          "name": "isActive",
+          "constructor": false,
+          "static": false,
+          "parameters": [
+            "java.lang.String"
+          ],
+          "returns": "boolean",
+          "parameterNames": [
+            "name"
+          ],
+          "parameterDescriptions": [
+            "the name of the shader"
+          ],
+          "description": "Returns whether the shader of the given name is drawn with.",
+          "returnDescription": "true if the shader is active",
+          "scratchblock": "",
+          "since": ""
+        }
+      ],
+      "status": "implemented",
+      "reason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "missingBrowserSignatures": []
+    },
+    {
       "id": "extensions/shader/Shaders/next",
       "owner": "org.openpatch.scratch.extensions.shader.Shaders",
       "signatures": [
@@ -14465,7 +14571,7 @@
           "returns": "void",
           "parameterNames": [],
           "parameterDescriptions": [],
-          "description": "Switches to the next shader, in the order they were added. After the last\none comes the first one again.",
+          "description": "Switches to the next shader, in the order they were added. After the last\none comes the first one again. It is then the only one drawn with.",
           "returnDescription": "",
           "scratchblock": "",
           "since": ""
@@ -14487,7 +14593,7 @@
           "returns": "void",
           "parameterNames": [],
           "parameterDescriptions": [],
-          "description": "Stops drawing with a shader, so the sprite or stage looks as it does\nwithout one. The shaders are kept: [switchTo(String)](switchTo) or\n[next()](next) brings one back.",
+          "description": "Stops drawing with shaders, so the sprite or stage looks as it does\nwithout one. The shaders are kept: [switchTo(String)](switchTo),\n[next()](next) or [activate(String)](activate) brings one back.",
           "returnDescription": "",
           "scratchblock": "",
           "since": ""
@@ -14515,7 +14621,7 @@
           "parameterDescriptions": [
             "the name of the shader"
           ],
-          "description": "Switches to the shader with the given name, or with the given position in\nthe order the shaders were added. A name that is not there leaves the\ncurrent shader and prints which ones there are.",
+          "description": "Switches to the shader with the given name, or with the given position in\nthe order the shaders were added. It is then the only one drawn with. A\nname that is not there leaves the shaders as they are and prints which ones\nthere are.",
           "returnDescription": "",
           "scratchblock": "",
           "since": ""
@@ -14534,7 +14640,7 @@
           "parameterDescriptions": [
             "the position of the shader"
           ],
-          "description": "Switches to the shader at the given position.",
+          "description": "Switches to the shader at the given position. It is then the only one drawn\nwith.",
           "returnDescription": "",
           "scratchblock": "",
           "since": ""

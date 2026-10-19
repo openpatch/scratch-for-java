@@ -76,6 +76,9 @@ public class Stage {
   private double volume = 100;
 
   private PGraphics shaderBuffer;
+  // Made the first time several shaders are active: each one after the first
+  // draws the picture from one of these into the other.
+  private PGraphics shaderPassBuffer;
   private PGraphics mainBuffer;
 
   private PGraphics backdropBuffer;
@@ -172,6 +175,10 @@ public class Stage {
    * this.getShaders().add("blur", "blur.frag", null);
    * this.getShaders().switchTo("blur");
    * }</pre>
+   *
+   * <p>
+   * Several shaders can be active at once with {@code activate}: the stage
+   * draws with each in turn, in the order they were added.
    *
    * @return the shaders
    *
@@ -1932,6 +1939,20 @@ public class Stage {
     Window.getInstance().exit();
   }
 
+  /** The second buffer for shader passes, made like the first one. */
+  private PGraphics getShaderPassBuffer() {
+    if (this.shaderPassBuffer == null) {
+      Applet applet = Applet.getInstance();
+      this.shaderPassBuffer = applet.createGraphics(
+          applet.getRenderWidth(), applet.getRenderHeight(), applet.sketchRenderer());
+      ((PGraphicsOpenGL) this.shaderPassBuffer).textureSampling(Window.getTextureSampling().getMode());
+      if (Window.getTextureSampling() == TextureSampling.POINT) {
+        this.shaderPassBuffer.noSmooth();
+      }
+    }
+    return this.shaderPassBuffer;
+  }
+
   /**
    * The part of the stage the camera shows, as {left, right, bottom, top} in
    * stage coordinates (y grows upwards).
@@ -2089,10 +2110,12 @@ public class Stage {
     this.colorSensing.penLayersDrawn(
         this.backgroundBuffer, backgroundChanges, this.foregroundBuffer, foregroundChanges);
 
+    // The first active shader draws each layer, as a single shader always
+    // has; every further one draws the finished picture again.
+    var active = this.shaders.getActive();
     shaderBuffer.beginDraw();
-    var shader = this.shaders.getCurrent();
-    if (shader != null) {
-      shaderBuffer.shader(shader.getPShader());
+    if (!active.isEmpty()) {
+      shaderBuffer.shader(active.get(0).getPShader());
     }
     shaderBuffer.clear();
     shaderBuffer.image(this.backdropBuffer, 0, 0);
@@ -2101,7 +2124,18 @@ public class Stage {
     shaderBuffer.image(this.foregroundBuffer, 0, 0);
     shaderBuffer.resetShader();
     shaderBuffer.endDraw();
-    buffer.image(this.shaderBuffer, buffer.width / 2.0f, buffer.height / 2.0f, width, height);
+    PGraphics picture = this.shaderBuffer;
+    for (int i = 1; i < active.size(); i++) {
+      PGraphics target = picture == this.shaderBuffer ? this.getShaderPassBuffer() : this.shaderBuffer;
+      target.beginDraw();
+      target.clear();
+      target.shader(active.get(i).getPShader());
+      target.image(picture, 0, 0);
+      target.resetShader();
+      target.endDraw();
+      picture = target;
+    }
+    buffer.image(picture, buffer.width / 2.0f, buffer.height / 2.0f, width, height);
 
     // UI pen marks and stamps persist. UI sprites, bubbles and text do not.
     this.uiPenBuffer.beginDraw();
