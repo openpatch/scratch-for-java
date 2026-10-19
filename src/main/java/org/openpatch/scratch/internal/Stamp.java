@@ -57,6 +57,29 @@ public class Stamp {
     this.centerY = centerY;
   }
 
+  /**
+   * Whether any part of the stamp can lie inside the given area of the stage
+   * (x grows to the right, y upwards), however it is turned or flipped.
+   *
+   * @param left   the smallest x of the area
+   * @param right  the largest x of the area
+   * @param bottom the smallest y of the area
+   * @param top    the largest y of the area
+   * @return false only if the stamp is surely outside the area
+   */
+  public boolean overlaps(double left, double right, double bottom, double top) {
+    double width = this.image.getWidth();
+    double height = this.image.getHeight();
+    // Turning or flipping keeps every pixel within this distance of (x, y).
+    // The stage asks this for every tile of a map in every frame, so it uses
+    // sqrt: Math.hypot is many times slower.
+    double reachX = Math.max(this.centerX, width - this.centerX);
+    double reachY = Math.max(this.centerY, height - this.centerY);
+    double reach = Math.sqrt(reachX * reachX + reachY * reachY);
+    return this.x + reach >= left && this.x - reach <= right
+        && this.y + reach >= bottom && this.y - reach <= top;
+  }
+
   public void draw(PGraphics g) {
     g.push();
     g.imageMode(PConstants.CORNER);

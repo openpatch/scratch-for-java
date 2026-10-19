@@ -333,6 +333,10 @@ public class Sprite implements Cloneable {
   /** The monitors to draw, a copy (the stage draws them on another thread). */
   java.util.List<org.openpatch.scratch.internal.Monitor> monitors() {
     synchronized (this.monitors) {
+      // The stage asks every sprite in every frame; most have no monitors.
+      if (this.monitors.isEmpty()) {
+        return java.util.List.of();
+      }
       return new java.util.ArrayList<>(this.monitors.values());
     }
   }
@@ -1930,14 +1934,7 @@ public class Sprite implements Cloneable {
    *         type, false otherwise
    */
   public boolean isTouchingSprite(Class<? extends Sprite> c) {
-    if (stage == null)
-      return false;
-    return this.stage.sprites.stream()
-        .filter(s -> !s.isUI())
-        .filter(s -> s.show)
-        .filter(s -> !s.hitboxDisabled)
-        .filter(s -> c.isInstance(s))
-        .anyMatch(s -> this.isTouchingSprite(s));
+    return this.getTouchingSprite(c) != null;
   }
 
   /**
@@ -1955,15 +1952,15 @@ public class Sprite implements Cloneable {
   public <T extends Sprite> T getTouchingSprite(Class<T> c) {
     if (stage == null)
       return null;
-    return this.stage.sprites.stream()
-        .filter(s -> !s.isUI())
-        .filter(s -> s.show)
-        .filter(s -> !s.hitboxDisabled)
-        .filter(s -> c.isInstance(s))
-        .filter(s -> this.isTouchingSprite(s))
-        .findFirst()
-        .map(c::cast)
-        .orElse(null);
+    // A plain loop: games ask this for every moving sprite in every frame, and
+    // a stream over all sprites of a large stage cost more than the checks.
+    for (Sprite s : this.stage.sprites) {
+      if (!s.isUI() && s.show && !s.hitboxDisabled && c.isInstance(s)
+          && this.isTouchingSprite(s)) {
+        return c.cast(s);
+      }
+    }
+    return null;
   }
 
   // nrw-standard-begin
@@ -2761,8 +2758,27 @@ public class Sprite implements Cloneable {
     var shader = this.shaders.getCurrent();
     var costume = this.costumes.get(this.currentCostume);
     var center = this.getDrawnRotationCenter(costume);
+    if (!this.isUI && !this.isInView(costume, center)) {
+      return;
+    }
     costume.draw(buffer, this.size, this.direction, this.x, this.y, this.rotationStyle, shader,
         center[0], center[1]);
+  }
+
+  /**
+   * Whether any part of the costume can show in the camera's view, however the
+   * sprite is turned. A large world has most of its sprites out of view, and
+   * drawing them anyway costs as much as drawing the visible ones.
+   */
+  private boolean isInView(Image costume, double[] center) {
+    double width = costume.getWidth();
+    double height = costume.getHeight();
+    double reachX = Math.max(center[0], width - center[0]);
+    double reachY = Math.max(center[1], height - center[1]);
+    double reach = Math.sqrt(reachX * reachX + reachY * reachY);
+    double[] area = this.stage.getVisibleArea();
+    return this.x + reach >= area[0] && this.x - reach <= area[1]
+        && this.y + reach >= area[2] && this.y - reach <= area[3];
   }
 
   /** The costume the sprite wears, or null if it has none. */

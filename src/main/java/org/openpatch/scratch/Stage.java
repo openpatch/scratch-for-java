@@ -604,7 +604,13 @@ public class Stage {
    * @example.files StageFind.java
    */
   public <T extends Sprite> List<T> find(Class<T> c) {
-    return this.sprites.stream().filter(c::isInstance).map(c::cast).collect(Collectors.toList());
+    List<T> found = new java.util.ArrayList<>();
+    for (Sprite sprite : this.sprites) {
+      if (c.isInstance(sprite)) {
+        found.add(c.cast(sprite));
+      }
+    }
+    return found;
   }
   // nrw-standard-end
   // nrw: /**
@@ -1927,6 +1933,23 @@ public class Stage {
   }
 
   /**
+   * The part of the stage the camera shows, as {left, right, bottom, top} in
+   * stage coordinates (y grows upwards).
+   */
+  double[] getVisibleArea() {
+    double zoom = this.camera.getZoom() / 100.0;
+    if (zoom <= 0) {
+      return new double[] { Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY,
+          Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY };
+    }
+    double halfWidth = this.getWidth() / 2.0 / zoom;
+    double halfHeight = this.getHeight() / 2.0 / zoom;
+    return new double[] {
+        this.camera.getX() - halfWidth, this.camera.getX() + halfWidth,
+        this.camera.getY() - halfHeight, this.camera.getY() + halfHeight };
+  }
+
+  /**
    * @ignore-in-docs
    * @param buffer
    */
@@ -2010,8 +2033,16 @@ public class Stage {
     this.sprites.stream()
         .filter(s -> s.getPen().isInBackground())
         .forEach(s -> s.getPen().draw(this.backgroundBuffer));
+    // The layers are as large as the window and keep what lands on them, so a
+    // stamp outside the camera's view leaves no pixel behind. A tile map
+    // stamped every frame is mostly outside, and skipping those tiles is what
+    // keeps a large map fast.
+    double[] area = this.getVisibleArea();
     while (!this.backgroundStamps.isEmpty()) {
-      this.backgroundStamps.poll().draw(this.backgroundBuffer);
+      var stamp = this.backgroundStamps.poll();
+      if (stamp.overlaps(area[0], area[1], area[2], area[3])) {
+        stamp.draw(this.backgroundBuffer);
+      }
     }
     this.backgroundBuffer.endDraw();
 
@@ -2049,7 +2080,10 @@ public class Stage {
         .filter(s -> !s.getPen().isInBackground())
         .forEach(s -> s.getPen().draw(this.foregroundBuffer));
     while (!this.foregroundStamps.isEmpty()) {
-      this.foregroundStamps.poll().draw(this.foregroundBuffer);
+      var stamp = this.foregroundStamps.poll();
+      if (stamp.overlaps(area[0], area[1], area[2], area[3])) {
+        stamp.draw(this.foregroundBuffer);
+      }
     }
     this.foregroundBuffer.endDraw();
     this.colorSensing.penLayersDrawn(
