@@ -323,6 +323,9 @@ public class Sound {
         System.err.println("==============================================\n");
       }
       soundCache.put(path, samples);
+      if (!BuiltinSounds.isResource(path)) {
+        Applet.noteLoadedLate("sound", path);
+      }
       return samples;
     } catch (IOException e) {
       AssetErrorReporter.reportAndFail(

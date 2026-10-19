@@ -102,7 +102,9 @@ public class Font {
         }
       }
     }
-    fonts.put(path, fontMap);
+    if (fonts.put(path, fontMap) == null && !path.equals(Text.getDefaultFont())) {
+      Applet.noteLoadedLate("font", path);
+    }
     return fontMap;
   }
 

@@ -114,6 +114,16 @@ public final class BuiltinSounds {
   }
 
   /**
+   * Checks whether a path is the file of a bundled sound.
+   *
+   * @param path the path to test
+   * @return true if the path is a bundled sound
+   */
+  public static boolean isResource(String path) {
+    return getSounds().containsValue(path);
+  }
+
+  /**
    * Checks whether a bundled sound with this name exists.
    *
    * @param name the name to look for

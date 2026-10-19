@@ -236,6 +236,9 @@ public class Image {
             new String[]{".png", ".jpg", ".jpeg", ".gif"});
       }
       originalImages.put(originalPath, image);
+      if (!BuiltinAssets.isSheet(originalPath)) {
+        Applet.noteLoadedLate("image", originalPath);
+      }
     }
     return image;
   }

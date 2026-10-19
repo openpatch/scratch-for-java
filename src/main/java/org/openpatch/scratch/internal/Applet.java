@@ -4,9 +4,12 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.lang.ref.WeakReference;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.FileSystem;
 import java.nio.file.FileSystemNotFoundException;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -514,17 +517,99 @@ public class Applet extends PApplet {
     var onDisk = Paths.get(folder);
     if (!onDisk.isAbsolute()) {
       var resource = Thread.currentThread().getContextClassLoader().getResource(folder);
-      if (resource != null && "file".equals(resource.getProtocol())) {
+      if (resource != null) {
         try {
-          var onClasspath = Path.of(resource.toURI());
-          if (Files.isDirectory(onClasspath)) {
+          var onClasspath = classpathFolder(resource.toURI());
+          if (onClasspath != null && Files.isDirectory(onClasspath)) {
             return onClasspath;
           }
-        } catch (URISyntaxException | FileSystemNotFoundException e) {
+        } catch (URISyntaxException | IOException | RuntimeException e) {
         }
+      }
+      var inJar = folderInsideAJar(folder);
+      if (inJar != null) {
+        return inJar;
       }
     }
     return Files.isDirectory(onDisk) ? onDisk : null;
+  }
+
+  /**
+   * Looks for a folder inside the jars on the classpath. A jar only has the
+   * folder as a resource of its own when it was packed with an entry for it,
+   * which not every tool writes, so each jar is opened and looked into.
+   */
+  private static Path folderInsideAJar(String folder) {
+    try {
+      var manifests = Thread.currentThread().getContextClassLoader()
+          .getResources("META-INF/MANIFEST.MF");
+      while (manifests.hasMoreElements()) {
+        var manifest = manifests.nextElement().toString();
+        if (!manifest.startsWith("jar:")) {
+          continue;
+        }
+        var jar = URI.create(manifest.substring(0, manifest.indexOf("!/") + 2));
+        FileSystem opened = null;
+        FileSystem fs;
+        try {
+          fs = FileSystems.getFileSystem(jar);
+        } catch (FileSystemNotFoundException e) {
+          fs = opened = FileSystems.newFileSystem(jar, Map.of());
+        }
+        var candidate = fs.getPath(folder);
+        if (Files.isDirectory(candidate)) {
+          // left open, since the files are read from it after this returns
+          return candidate;
+        }
+        if (opened != null) {
+          opened.close();
+        }
+      }
+    } catch (IOException | RuntimeException e) {
+    }
+    return null;
+  }
+
+  /**
+   * Turns a folder on the classpath into a path, also when it is inside a jar:
+   * a project that was packaged and shared keeps its assets in there.
+   */
+  private static Path classpathFolder(URI uri) throws IOException {
+    if ("file".equals(uri.getScheme())) {
+      return Path.of(uri);
+    }
+    if (!"jar".equals(uri.getScheme())) {
+      return null;
+    }
+    try {
+      return Path.of(uri);
+    } catch (FileSystemNotFoundException e) {
+      // left open, since the files are read from it after this returns
+      FileSystems.newFileSystem(uri, Map.of());
+      return Path.of(uri);
+    }
+  }
+
+  /**
+   * Notes a file that was loaded while the project was already running, so it
+   * was not ready when it was first used and the game may have stuttered
+   * while it loaded. Debug mode says which file, and how to load it in
+   * advance.
+   *
+   * @param type the kind of file, e.g. "image"
+   * @param path the path the file was loaded by
+   */
+  public static void noteLoadedLate(String type, String path) {
+    var applet = instance;
+    if (applet == null || !applet.debug || applet.state == State.LOADING) {
+      return;
+    }
+    var folder = applet.assets != null ? applet.assets : DEFAULT_ASSETS;
+    var prefix = folder.replace('\\', '/').replaceAll("/+$", "") + "/";
+    var hint = path.replace('\\', '/').startsWith(prefix)
+        ? "the folder '" + folder + "' could not be loaded in advance"
+        : "put it into '" + folder + "' to load it while the loading screen shows";
+    System.out.println("[Debug] Loaded " + type + " late: " + path + " (" + hint + ")");
   }
 
   /**

@@ -207,6 +207,21 @@ public final class BuiltinAssets {
   }
 
   /**
+   * Checks whether a path is the file of one of the bundled sheets.
+   *
+   * @param path the path to test
+   * @return true if the path is a bundled sheet
+   */
+  public static boolean isSheet(String path) {
+    for (String sheet : SHEETS) {
+      if (path.equals(BASE + sheet + ".png")) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
    * Returns the bundled sheets, in lookup order.
    *
    * @return the sheet names
