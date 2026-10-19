@@ -518,6 +518,11 @@
                             <head>Example:</head>
                         </tag>
                         <tag>
+                            <name>example.1.files</name>
+                            <placement>X</placement>
+                            <head>Example:</head>
+                        </tag>
+                        <tag>
                             <name>desktop-only</name>
                             <placement>X</placement>
                             <head>Desktop only</head>
