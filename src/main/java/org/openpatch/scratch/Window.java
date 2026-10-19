@@ -215,6 +215,10 @@ public class Window {
    * Constructs a new Window with default dimensions. The default width is 480
    * pixels and the
    * default height is 360 pixels.
+   *
+   * <p>
+   * A folder named {@code assets} is loaded while the loading screen shows, if
+   * the project has one.
    */
   public Window() {
     this(480, 360);
@@ -225,6 +229,11 @@ public class Window {
    * default width of 480
    * pixels and a height of 360 pixels.
    *
+   * <p>
+   * The images, sounds and fonts in that folder are loaded while the loading
+   * screen shows, so they are ready when a sprite first uses them. Without
+   * it, a folder named {@code assets} is loaded, if there is one.
+   *
    * @param assets the path to the assets to be used in the window
    */
   public Window(String assets) {
@@ -233,6 +242,10 @@ public class Window {
 
   /**
    * Constructs a new Window with the specified width and height.
+   *
+   * <p>
+   * A folder named {@code assets} is loaded while the loading screen shows, if
+   * the project has one.
    *
    * @param width  the width of the window
    * @param height the height of the window
@@ -255,6 +268,11 @@ public class Window {
    *
    * @param width  the width of the window
    * @param height the height of the window
+   * <p>
+   * The images, sounds and fonts in the assets folder are loaded while the
+   * loading screen shows, so they are ready when a sprite first uses them.
+   * Without it, a folder named {@code assets} is loaded, if there is one.
+   *
    * @param assets the path to the assets
    * @throws Error if an instance of Window already exists
    */

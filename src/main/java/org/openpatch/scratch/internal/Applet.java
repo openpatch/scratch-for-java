@@ -12,6 +12,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.AbstractMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
@@ -90,6 +91,7 @@ public class Applet extends PApplet {
   private boolean isRunning = false;
   private long numberAssets;
   private long loadedAssets;
+  private volatile boolean assetsListed;
   private PImage loading;
   /** How long the loading screen takes to fade in, and again to fade out. */
   private static final int SPLASH_FADE_MS = 300;
@@ -439,58 +441,139 @@ public class Applet extends PApplet {
     }
   }
 
-  /** Loads assets from the specified directory. */
+  /** The folder that is preloaded when the window is given none. */
+  static final String DEFAULT_ASSETS = "assets";
+
+  /**
+   * Loads the assets folder: the one given to the window, or else a folder
+   * named {@code assets}, if the project has one.
+   *
+   * <p>Every file is stored under the path a sprite would use for it, the
+   * assets folder followed by the path inside it ({@code assets/cat.png}), so
+   * that loading it later finds it already there.
+   */
   public void loadAssets() {
     Font.loadFont(Text.getDefaultFont());
-    if (this.assets != null) {
-      try {
-        this.loadingText = "Finding files...";
-        var sr = ClassLoader.getSystemResource(this.assets);
-        var p = Paths.get(this.assets);
-        if (sr != null) {
-          try {
-            p = Path.of(sr.toURI());
-          } catch (FileSystemNotFoundException e) {
-            p = Paths.get(this.assets);
-          }
-        }
-
-        var imageFiles = Files.find(p, Integer.MAX_VALUE, (filePath, fileAttr) -> fileAttr.isRegularFile())
-            .map(f -> f.toString())
-            .filter(f -> f.endsWith(".png") || f.endsWith(".jpg") || f.endsWith(".jpeg"))
-            .collect(Collectors.toList());
-        var soundFiles = Files.find(p, Integer.MAX_VALUE, (filePath, fileAttr) -> fileAttr.isRegularFile())
-            .map(f -> f.toString())
-            .filter(f -> f.endsWith(".mp3") || f.endsWith(".wav"))
-            .collect(Collectors.toList());
-        var fontFiles = Files.find(p, Integer.MAX_VALUE, (filePath, fileAttr) -> fileAttr.isRegularFile())
-            .map(f -> f.toString())
-            .filter(f -> f.endsWith(".ttf") || f.endsWith(".otf"))
-            .collect(Collectors.toList());
-        this.numberAssets += imageFiles.size();
-        this.numberAssets += soundFiles.size();
-        this.numberAssets += fontFiles.size();
-        for (var file : imageFiles) {
-          this.setLoadingText("Image", file);
-          Image.loadImage(file);
-          this.loadedAssets += 1;
-        }
-        for (var file : fontFiles) {
-          this.setLoadingText("Font", file);
-          Font.loadFont(file);
-          this.loadedAssets += 1;
-        }
-        for (var file : soundFiles) {
-          this.setLoadingText("Sound", file);
-          Sound.loadSound(file);
-          this.loadedAssets += 1;
-        }
-      } catch (IOException | URISyntaxException e) {
+    var folder = this.assets != null ? this.assets : DEFAULT_ASSETS;
+    var root = findAssetsFolder(folder);
+    if (root == null) {
+      if (this.assets != null) {
+        reportMissingAssetsFolder(this.assets);
       }
+      this.assetsListed = true;
+      return;
+    }
+    try {
+      this.loadingText = "Finding files...";
+      var all = listAssets(folder, root);
+      var imageFiles = all.stream()
+          .filter(f -> hasExtension(f, ".png", ".jpg", ".jpeg"))
+          .collect(Collectors.toList());
+      var soundFiles = all.stream()
+          .filter(f -> hasExtension(f, ".mp3", ".wav"))
+          .collect(Collectors.toList());
+      var fontFiles = all.stream()
+          .filter(f -> hasExtension(f, ".ttf", ".otf"))
+          .collect(Collectors.toList());
+      this.numberAssets += imageFiles.size();
+      this.numberAssets += soundFiles.size();
+      this.numberAssets += fontFiles.size();
+      this.assetsListed = true;
+      for (var file : imageFiles) {
+        this.setLoadingText("Image", file);
+        Image.loadImage(file);
+        this.loadedAssets += 1;
+      }
+      for (var file : fontFiles) {
+        this.setLoadingText("Font", file);
+        Font.loadFont(file);
+        this.loadedAssets += 1;
+      }
+      for (var file : soundFiles) {
+        this.setLoadingText("Sound", file);
+        Sound.loadSound(file);
+        this.loadedAssets += 1;
+      }
+    } catch (IOException e) {
+    } finally {
+      // whatever went wrong, the project must not wait on its loading screen
+      this.assetsListed = true;
+      this.loadedAssets = this.numberAssets;
     }
   }
 
+  /**
+   * Finds an assets folder on the classpath or, relative to the working
+   * directory, on disk.
+   *
+   * @param folder the folder as it was written
+   * @return the folder, or null if there is none
+   */
+  static Path findAssetsFolder(String folder) {
+    folder = folder.replaceFirst("^~", System.getProperty("user.home"));
+    var onDisk = Paths.get(folder);
+    if (!onDisk.isAbsolute()) {
+      var resource = Thread.currentThread().getContextClassLoader().getResource(folder);
+      if (resource != null && "file".equals(resource.getProtocol())) {
+        try {
+          var onClasspath = Path.of(resource.toURI());
+          if (Files.isDirectory(onClasspath)) {
+            return onClasspath;
+          }
+        } catch (URISyntaxException | FileSystemNotFoundException e) {
+        }
+      }
+    }
+    return Files.isDirectory(onDisk) ? onDisk : null;
+  }
+
+  /**
+   * Lists the files in an assets folder by the paths a sprite would use for
+   * them: the folder as it was written, followed by the path inside it.
+   *
+   * @param folder the folder as it was written
+   * @param root   the folder as {@link #findAssetsFolder(String)} found it
+   * @return the paths of the files
+   * @throws IOException if the folder cannot be read
+   */
+  static List<String> listAssets(String folder, Path root) throws IOException {
+    var prefix = folder.replace('\\', '/').replaceAll("/+$", "");
+    try (var files = Files.walk(root)) {
+      return files.filter(Files::isRegularFile)
+          .map(f -> prefix + "/" + root.relativize(f).toString().replace('\\', '/'))
+          .sorted()
+          .collect(Collectors.toList());
+    }
+  }
+
+  private static boolean hasExtension(String file, String... extensions) {
+    var lower = file.toLowerCase();
+    for (var extension : extensions) {
+      if (lower.endsWith(extension)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  private static void reportMissingAssetsFolder(String folder) {
+    System.err.println("\n==============================================");
+    System.err.println("WARNING: Assets folder not found!");
+    System.err.println("==============================================");
+    System.err.println("You wrote:      " + folder);
+    System.err.println("Java looked at: " + Paths.get(folder).toAbsolutePath());
+    System.err.println("\nNothing is loaded in advance, so each image and sound");
+    System.err.println("is loaded the first time it is used.");
+    System.err.println("\nTip: Check the folder name for typos. A folder named");
+    System.err.println("     'assets' is found without naming it at all:");
+    System.err.println("       new Window(480, 360);");
+    System.err.println("==============================================\n");
+  }
+
   private float loadingStatus() {
+    if (!this.assetsListed) {
+      return 0;
+    }
     return this.numberAssets > 0 ? this.loadedAssets / (float) this.numberAssets : 1;
   }
 
