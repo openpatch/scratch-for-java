@@ -1,8 +1,20 @@
 ---
 name: Changelog
-index: 84
+index: 85
 lang: en
 ---
+
+## 6.4.0
+
+A stage can draw with several shaders at once, like Scratch's graphic effects. `getShaders().activate(name)` adds a shader to those already active and `deactivate(name)` removes one; `isActive(name)` and `getActive()` tell which are on. Active shaders take turns in the order they were added, each working on what the one before it drew, so a stage can be tinted and wobble at the same time.
+
+`switchTo`, `next` and `reset` work as before and leave exactly one shader active (or none), and `getCurrent()` returns the first active one. A sprite draws with the first of its active shaders. The browser version behaves the same.
+
+Draw large worlds faster. Stamps on the background and foreground and sprites that lie entirely outside the camera's view are no longer drawn, since they would not show anyway. A Tiled map stamped every frame now costs about as much as the part on screen instead of the whole map.
+
+`isTouchingSprite(Class)`, `getTouchingSprite(Class)` and `Stage.find` check the stage's sprites with a plain loop, which is much cheaper on stages with hundreds of sprites. Sprites without variable monitors no longer create a list for them in every frame.
+
+Update the documentation's pinned Online IDE to v2.2.1-hyperbook.37, matching the released desktop API and behavior.
 
 ## 6.3.0
 
