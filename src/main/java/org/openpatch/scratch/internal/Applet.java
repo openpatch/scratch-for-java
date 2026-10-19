@@ -3,6 +3,7 @@ package org.openpatch.scratch.internal;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.lang.ref.WeakReference;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystemNotFoundException;
@@ -12,7 +13,9 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.AbstractMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import org.openpatch.scratch.KeyCode;
 import org.openpatch.scratch.Stage;
@@ -73,6 +76,7 @@ public class Applet extends PApplet {
     LOADING,
     RUNNING,
     TRANSITIONING_OUT,
+    CREATING_STAGE,
     TRANSITIONING_IN
   }
 
@@ -93,12 +97,16 @@ public class Applet extends PApplet {
   private int splashFadeOutStart;
   private final String assets;
   private Stage stage;
-  /** How to reach each stage's render loop, without those methods being public. */
-  private final Map<Stage, StageHooks> stageHooks =
+  /**
+   * How to reach a stage's render loop. Hooks capture their owning Stage, so
+   * values must be weak as well as keys. Stage itself keeps its hooks alive.
+   */
+  private final Map<Stage, WeakReference<StageHooks>> stageHooks =
       java.util.Collections.synchronizedMap(new java.util.WeakHashMap<>());
   private int transitionStart;
   private int transitionDuration;
   private Stage transitionToStage;
+  private Supplier<? extends Stage> transitionStageFactory;
   private int lastMillis;
   private double deltaTime;
 
@@ -267,11 +275,12 @@ public class Applet extends PApplet {
    * @param hooks the stage's render-loop entry points
    */
   public void registerHooks(Stage stage, StageHooks hooks) {
-    this.stageHooks.put(stage, hooks);
+    this.stageHooks.put(stage, new WeakReference<>(hooks));
   }
 
   private StageHooks hooksFor(Stage stage) {
-    return stage == null ? null : this.stageHooks.get(stage);
+    var hooks = stage == null ? null : this.stageHooks.get(stage);
+    return hooks == null ? null : hooks.get();
   }
 
   public void setStage(Stage stage) {
@@ -285,6 +294,22 @@ public class Applet extends PApplet {
       this.state = State.TRANSITIONING_OUT;
       this.transitionToStage = stage;
     }
+  }
+
+  public void transitionToStage(Supplier<? extends Stage> stage, int duration) {
+    Objects.requireNonNull(stage, "Stage supplier must not be null");
+    if (this.state == State.RUNNING) {
+      this.transitionStart = millis();
+      this.transitionDuration = duration;
+      this.transitionStageFactory = stage;
+      this.state = State.TRANSITIONING_OUT;
+    }
+  }
+
+  /** Whether a transition started by {@link #transitionToStage} is still fading. */
+  public boolean isTransitioning() {
+    return this.state == State.TRANSITIONING_OUT || this.state == State.CREATING_STAGE
+        || this.state == State.TRANSITIONING_IN;
   }
 
   /**
@@ -591,9 +616,33 @@ public class Applet extends PApplet {
       this.rect(0, 0, this.getWidth(), this.getHeight());
       this.pop();
     } else {
+      if (this.transitionStageFactory == null) {
+        this.state = State.TRANSITIONING_IN;
+        this.stage = this.transitionToStage;
+        this.transitionToStage = null;
+        this.transitionStart = lastMillis;
+      } else {
+        // Paint black for one frame before a potentially slow constructor runs.
+        this.push();
+        this.translate(this.width / 2, this.height / 2);
+        this.fill(0, 0, 0, 255);
+        this.rect(0, 0, this.getWidth(), this.getHeight());
+        this.pop();
+        this.state = State.CREATING_STAGE;
+      }
+    }
+  }
+
+  private void createTransitionStage() {
+    var factory = this.transitionStageFactory;
+    this.transitionStageFactory = null;
+    try {
+      this.stage = Objects.requireNonNull(factory.get(), "Stage supplier returned null");
       this.state = State.TRANSITIONING_IN;
-      this.stage = this.transitionToStage;
-      this.transitionStart = lastMillis;
+      this.transitionStart = millis();
+    } catch (RuntimeException | Error failure) {
+      this.state = State.RUNNING;
+      throw failure;
     }
   }
 
@@ -724,6 +773,9 @@ public class Applet extends PApplet {
         break;
       case TRANSITIONING_OUT:
         this.drawTransitionOut();
+        break;
+      case CREATING_STAGE:
+        this.createTransitionStage();
         break;
     }
   }

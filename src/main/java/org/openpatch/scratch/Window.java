@@ -1,5 +1,6 @@
 package org.openpatch.scratch;
 
+import java.util.function.Supplier;
 import org.openpatch.scratch.internal.*;
 
 /**
@@ -476,9 +477,44 @@ public class Window {
    * @param duration the duration of the transition in milliseconds
    *
    * @example.files WindowTransitionToStage.java
+   * @example.1.files WindowTransitionToStageSupplier.java
    */
   public void transitionToStage(Stage stage, int duration) {
     Applet.getInstance().transitionToStage(stage, duration);
+  }
+
+  /**
+   * Fades to black, creates the destination stage, then fades it in.
+   *
+   * <p>The supplier is called exactly once, when the screen is black. It is
+   * never called when another transition is already running. Move shared
+   * sprites and update game state inside the supplier so those changes happen
+   * only when the transition is accepted, while the old stage is hidden.
+   * The call returns immediately; the supplier runs later on the animation thread.
+   *
+   * @param stage creates the destination stage; must return a non-null stage
+   * @param duration the duration, using the same timing as the Stage overload
+   * @throws NullPointerException if the supplier is null, or later if it returns null
+   */
+  public void transitionToStage(Supplier<? extends Stage> stage, int duration) {
+    Applet.getInstance().transitionToStage(stage, duration);
+  }
+
+  /**
+   * Returns whether a stage transition is in progress, including creation of
+   * the destination stage.
+   *
+   * <p>
+   * While a transition is running, calls to
+   * {@link #transitionToStage(Stage, int)} are ignored. A program that moves
+   * the player or builds a new stage in the same breath as a warp should
+   * use {@link #transitionToStage(Supplier, int)} so those changes are deferred
+   * until the screen is black and skipped when a transition is already running.
+   *
+   * @return {@code true} while a transition is in progress, {@code false} otherwise
+   */
+  public static boolean isTransitioning() {
+    return Applet.getInstance().isTransitioning();
   }
 
   /**

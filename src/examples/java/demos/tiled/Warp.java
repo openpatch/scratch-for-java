@@ -20,12 +20,16 @@ public class Warp extends Sprite {
   }
 
   public void run() {
-    var world = (World) this.getStage();
-    var player = world.getPlayer();
+    var level = (Level) this.getStage();
+    var player = level.getPlayer();
     if (this.isTouchingSprite(player)) {
-      Window.getInstance().transitionToStage(new World(toMap, player), 500);
-      player.setX(toX);
-      player.setY(toY);
+      // Move the player and build the room only when the screen is black.
+      // A request during another transition leaves this supplier untouched.
+      Window.getInstance().transitionToStage(() -> {
+        player.setX(toX);
+        player.setY(toY);
+        return new Level(toMap, player);
+      }, 500);
     }
   }
 }

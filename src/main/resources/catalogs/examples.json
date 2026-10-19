@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
-  "libraryVersion": "6.2.1",
-  "browserVersion": "6.2.1-browser.2",
+  "libraryVersion": "6.3.0",
+  "browserVersion": "6.3.0-browser.1",
   "examples": [
     {
       "id": "demo/cat",
       "kind": "demo",
       "source": "src/examples/java/demos/cat",
-      "libraryVersion": "6.2.1",
+      "libraryVersion": "6.3.0",
       "flavour": "standard",
       "requiredSheets": [],
       "files": [
@@ -25,7 +25,7 @@
       "id": "demo/catPlatformer",
       "kind": "demo",
       "source": "src/examples/java/demos/catPlatformer",
-      "libraryVersion": "6.2.1",
+      "libraryVersion": "6.3.0",
       "flavour": "standard",
       "requiredSheets": [
         "cat",
@@ -75,7 +75,7 @@
       "id": "demo/clock",
       "kind": "demo",
       "source": "src/examples/java/demos/clock",
-      "libraryVersion": "6.2.1",
+      "libraryVersion": "6.3.0",
       "flavour": "standard",
       "requiredSheets": [],
       "files": [
@@ -125,7 +125,7 @@
       "id": "demo/coinCollector",
       "kind": "demo",
       "source": "src/examples/java/demos/coinCollector",
-      "libraryVersion": "6.2.1",
+      "libraryVersion": "6.3.0",
       "flavour": "standard",
       "requiredSheets": [
         "platformer",
@@ -154,7 +154,7 @@
       "id": "demo/donutIO",
       "kind": "demo",
       "source": "src/examples/java/demos/donutIO",
-      "libraryVersion": "6.2.1",
+      "libraryVersion": "6.3.0",
       "flavour": "standard",
       "requiredSheets": [],
       "files": [
@@ -212,7 +212,7 @@
       "id": "demo/glide",
       "kind": "demo",
       "source": "src/examples/java/demos/glide",
-      "libraryVersion": "6.2.1",
+      "libraryVersion": "6.3.0",
       "flavour": "standard",
       "requiredSheets": [
         "platformer",
@@ -229,7 +229,7 @@
       "id": "demo/pipes",
       "kind": "demo",
       "source": "src/examples/java/demos/pipes",
-      "libraryVersion": "6.2.1",
+      "libraryVersion": "6.3.0",
       "flavour": "standard",
       "requiredSheets": [],
       "files": [
@@ -259,7 +259,7 @@
       "id": "demo/quiz",
       "kind": "demo",
       "source": "src/examples/java/demos/quiz",
-      "libraryVersion": "6.2.1",
+      "libraryVersion": "6.3.0",
       "flavour": "standard",
       "requiredSheets": [
         "platformer",
@@ -276,7 +276,7 @@
       "id": "demo/rainbowVine",
       "kind": "demo",
       "source": "src/examples/java/demos/rainbowVine",
-      "libraryVersion": "6.2.1",
+      "libraryVersion": "6.3.0",
       "flavour": "standard",
       "requiredSheets": [],
       "files": [
@@ -290,7 +290,7 @@
       "id": "demo/randomDot",
       "kind": "demo",
       "source": "src/examples/java/demos/randomDot",
-      "libraryVersion": "6.2.1",
+      "libraryVersion": "6.3.0",
       "flavour": "standard",
       "requiredSheets": [],
       "files": [
@@ -304,7 +304,7 @@
       "id": "demo/robot",
       "kind": "demo",
       "source": "src/examples/java/demos/robot",
-      "libraryVersion": "6.2.1",
+      "libraryVersion": "6.3.0",
       "flavour": "standard",
       "requiredSheets": [],
       "files": [
@@ -326,7 +326,7 @@
       "id": "demo/saveSlots",
       "kind": "demo",
       "source": "src/examples/java/demos/saveSlots",
-      "libraryVersion": "6.2.1",
+      "libraryVersion": "6.3.0",
       "flavour": "standard",
       "requiredSheets": [
         "platformer",
@@ -355,7 +355,7 @@
       "id": "demo/saving",
       "kind": "demo",
       "source": "src/examples/java/demos/saving",
-      "libraryVersion": "6.2.1",
+      "libraryVersion": "6.3.0",
       "flavour": "standard",
       "requiredSheets": [],
       "files": [
@@ -373,7 +373,7 @@
       "id": "demo/sensing",
       "kind": "demo",
       "source": "src/examples/java/demos/sensing",
-      "libraryVersion": "6.2.1",
+      "libraryVersion": "6.3.0",
       "flavour": "standard",
       "requiredSheets": [],
       "files": [
@@ -395,7 +395,7 @@
       "id": "demo/shader",
       "kind": "demo",
       "source": "src/examples/java/demos/shader",
-      "libraryVersion": "6.2.1",
+      "libraryVersion": "6.3.0",
       "flavour": "standard",
       "requiredSheets": [],
       "files": [
@@ -465,7 +465,7 @@
       "id": "demo/shakespeare",
       "kind": "demo",
       "source": "src/examples/java/demos/shakespeare",
-      "libraryVersion": "6.2.1",
+      "libraryVersion": "6.3.0",
       "flavour": "standard",
       "requiredSheets": [],
       "files": [
@@ -491,7 +491,7 @@
       "id": "demo/smartRocket",
       "kind": "demo",
       "source": "src/examples/java/demos/smartRocket",
-      "libraryVersion": "6.2.1",
+      "libraryVersion": "6.3.0",
       "flavour": "standard",
       "requiredSheets": [],
       "files": [
@@ -533,7 +533,7 @@
       "id": "demo/stressTest",
       "kind": "demo",
       "source": "src/examples/java/demos/stressTest",
-      "libraryVersion": "6.2.1",
+      "libraryVersion": "6.3.0",
       "flavour": "standard",
       "requiredSheets": [],
       "files": [
@@ -931,7 +931,7 @@
       "id": "demo/tiled",
       "kind": "demo",
       "source": "src/examples/java/demos/tiled",
-      "libraryVersion": "6.2.1",
+      "libraryVersion": "6.3.0",
       "flavour": "standard",
       "requiredSheets": [],
       "files": [
@@ -949,15 +949,19 @@
         },
         {
           "path": "GameState.java",
-          "sha256": "816c40b0209a5f9dafd418e98238cb1d1f3296998e33b2e5eb397cc1a3be88ae"
+          "sha256": "b7f6a5c03215e169f06986cf7856ec3873b432180d2a20665ae04801af93edaa"
         },
         {
           "path": "I18n.java",
-          "sha256": "c430cf0eb4d31e17a702971553b6f6bc629085fd197d7ac3bb3444a683920e55"
+          "sha256": "ab50fdeecfe539ae53a63b44079d390d579cf81730983ccf8ca50d074541bdb3"
         },
         {
           "path": "Item.java",
-          "sha256": "d4db31da776e4bed9b78f6100872bbb4c22cd9dcc86e09558d27e65670532ea6"
+          "sha256": "e47faeb22edf46c14d082af212addbb7153d12db0e92ea55ee0d93efad9677d7"
+        },
+        {
+          "path": "Level.java",
+          "sha256": "836ae4f3e812081fb38ef0f6be6277cea64a190d9b676ce7401d8e0f493924c0"
         },
         {
           "path": "Level1.tmx",
@@ -969,11 +973,11 @@
         },
         {
           "path": "Player.java",
-          "sha256": "1a4192e4a8f4f38f55ce264cdf31f7bd9701ec196d114f9917de85c2c671a014"
+          "sha256": "57e756ac071860864b23b94f94544acd434762b609e1269c2269697e757ed597"
         },
         {
           "path": "Tiled.java",
-          "sha256": "9c039e3792aa8eca32fc4c92fc961c8d4e84a17572d1c8a7186eaf8f452413fb"
+          "sha256": "960b45e33762de56bb58d730ac04f804b4caa89034754581ed37f23aebfa9080"
         },
         {
           "path": "UIItem.java",
@@ -985,15 +989,11 @@
         },
         {
           "path": "Warp.java",
-          "sha256": "295a80c35cb6975acd585a1e694ff1ea58dbf6619ac52771ded0746d41d7e942"
+          "sha256": "c203e54de7d36e77750eb06ca40de9911aa4b42f7ffe9b5dea868b2ded1a3eb8"
         },
         {
           "path": "Water.java",
           "sha256": "7ce93aaf4dcaf755a57ccefe7ad6ca115bf7d6e2ecade68386aaa634f70c6442"
-        },
-        {
-          "path": "World.java",
-          "sha256": "a8fba83c2951be986e575f44a8642e5df6bd3c1fb48d5aedfe43144e80f5b2a9"
         },
         {
           "path": "assets/Bamboo.png",
@@ -1030,10 +1030,6 @@
         {
           "path": "assets/TilesetWater.png",
           "sha256": "3d37d9581179c746fb55bc5e9eb83ed7f2ca6e0ee892cb9c0627250833b02277"
-        },
-        {
-          "path": "save.json",
-          "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
         }
       ]
     },
@@ -1041,7 +1037,7 @@
       "id": "demo/timedDot",
       "kind": "demo",
       "source": "src/examples/java/demos/timedDot",
-      "libraryVersion": "6.2.1",
+      "libraryVersion": "6.3.0",
       "flavour": "standard",
       "requiredSheets": [],
       "files": [
@@ -1055,7 +1051,7 @@
       "id": "demo/timer",
       "kind": "demo",
       "source": "src/examples/java/demos/timer",
-      "libraryVersion": "6.2.1",
+      "libraryVersion": "6.3.0",
       "flavour": "standard",
       "requiredSheets": [],
       "files": [
@@ -1069,7 +1065,7 @@
       "id": "demo/ui",
       "kind": "demo",
       "source": "src/examples/java/demos/ui",
-      "libraryVersion": "6.2.1",
+      "libraryVersion": "6.3.0",
       "flavour": "standard",
       "requiredSheets": [],
       "files": [
@@ -1099,7 +1095,7 @@
       "id": "demo/volume",
       "kind": "demo",
       "source": "src/examples/java/demos/volume",
-      "libraryVersion": "6.2.1",
+      "libraryVersion": "6.3.0",
       "flavour": "standard",
       "requiredSheets": [
         "platformer",
@@ -1116,7 +1112,7 @@
       "id": "tutorial/Halloween",
       "kind": "tutorial",
       "source": "docs/archives/Halloween",
-      "libraryVersion": "6.2.1",
+      "libraryVersion": "6.3.0",
       "flavour": "standard",
       "requiredSheets": [],
       "files": [
@@ -1218,7 +1214,7 @@
       "id": "tutorial/bluej-starter",
       "kind": "tutorial",
       "source": "docs/archives/bluej-starter",
-      "libraryVersion": "6.2.1",
+      "libraryVersion": "6.3.0",
       "flavour": "standard",
       "requiredSheets": [],
       "files": [
@@ -1252,7 +1248,7 @@
       "id": "tutorial/bouncy-hedgehog",
       "kind": "tutorial",
       "source": "docs/archives/bouncy-hedgehog",
-      "libraryVersion": "6.2.1",
+      "libraryVersion": "6.3.0",
       "flavour": "standard",
       "requiredSheets": [],
       "files": [
@@ -1302,7 +1298,7 @@
       "id": "tutorial/bouncy-hedgehog-100",
       "kind": "tutorial",
       "source": "docs/archives/bouncy-hedgehog-100",
-      "libraryVersion": "6.2.1",
+      "libraryVersion": "6.3.0",
       "flavour": "standard",
       "requiredSheets": [],
       "files": [
@@ -1352,7 +1348,7 @@
       "id": "tutorial/cat",
       "kind": "tutorial",
       "source": "docs/archives/cat",
-      "libraryVersion": "6.2.1",
+      "libraryVersion": "6.3.0",
       "flavour": "standard",
       "requiredSheets": [],
       "files": [
@@ -1378,7 +1374,7 @@
       "id": "tutorial/catch-the-coins-100",
       "kind": "tutorial",
       "source": "docs/archives/catch-the-coins-100",
-      "libraryVersion": "6.2.1",
+      "libraryVersion": "6.3.0",
       "flavour": "standard",
       "requiredSheets": [
         "platformer",
@@ -1415,7 +1411,7 @@
       "id": "tutorial/dodge-the-rocks-100",
       "kind": "tutorial",
       "source": "docs/archives/dodge-the-rocks-100",
-      "libraryVersion": "6.2.1",
+      "libraryVersion": "6.3.0",
       "flavour": "standard",
       "requiredSheets": [
         "platformer",
@@ -1460,7 +1456,7 @@
       "id": "tutorial/getting-started-100",
       "kind": "tutorial",
       "source": "docs/archives/getting-started-100",
-      "libraryVersion": "6.2.1",
+      "libraryVersion": "6.3.0",
       "flavour": "standard",
       "requiredSheets": [
         "jumper",
@@ -1493,7 +1489,7 @@
       "id": "tutorial/guess-the-number-100",
       "kind": "tutorial",
       "source": "docs/archives/guess-the-number-100",
-      "libraryVersion": "6.2.1",
+      "libraryVersion": "6.3.0",
       "flavour": "standard",
       "requiredSheets": [
         "platformer",
@@ -1522,7 +1518,7 @@
       "id": "tutorial/make-it-walk-100",
       "kind": "tutorial",
       "source": "docs/archives/make-it-walk-100",
-      "libraryVersion": "6.2.1",
+      "libraryVersion": "6.3.0",
       "flavour": "standard",
       "requiredSheets": [
         "platformer",
@@ -1555,7 +1551,7 @@
       "id": "tutorial/red-light-green-light-100",
       "kind": "tutorial",
       "source": "docs/archives/red-light-green-light-100",
-      "libraryVersion": "6.2.1",
+      "libraryVersion": "6.3.0",
       "flavour": "standard",
       "requiredSheets": [
         "platformer",
@@ -1592,7 +1588,7 @@
       "id": "tutorial/vs-code-starter",
       "kind": "tutorial",
       "source": "docs/archives/vs-code-starter",
-      "libraryVersion": "6.2.1",
+      "libraryVersion": "6.3.0",
       "flavour": "standard",
       "requiredSheets": [],
       "files": [

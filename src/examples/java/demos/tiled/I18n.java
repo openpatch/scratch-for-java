@@ -1,6 +1,5 @@
 package demos.tiled;
 
-import java.text.MessageFormat;
 import java.util.HashMap;
 
 public class I18n {
@@ -15,8 +14,7 @@ public class I18n {
       messages.put(allowedLocale, new HashMap<>());
     }
 
-    // see MessageFormat on how to write patterns:
-    // https://docs.oracle.com/javase/7/docs/api/java/text/MessageFormat.html
+    // a message may name its arguments with {0}, {1}, ... in the text
     var en = messages.get("en");
     en.put("item-found", "You have found an item: {0}!");
     en.put("scroll-water", "Scroll of Water");
@@ -47,7 +45,13 @@ public class I18n {
   }
 
   public static String get(String key, String... args) {
-    var message = messages.get(locale).getOrDefault(key, "NOT_FOUND");
-    return MessageFormat.format(message, (Object[]) args);
+    var message = messages.get(locale).get(key);
+    if (message == null) {
+      return "NOT_FOUND";
+    }
+    for (int i = 0; i < args.length; i++) {
+      message = message.replace("{" + i + "}", args[i]);
+    }
+    return message;
   }
 }

@@ -499,18 +499,18 @@
         "constructor": false,
         "static": false,
         "parameters": [
-          "Class<T@196 extends org.openpatch.scratch.Sprite>"
+          "Class<T@197 extends org.openpatch.scratch.Sprite>"
         ],
-        "returns": "T@196 extends org.openpatch.scratch.Sprite"
+        "returns": "T@197 extends org.openpatch.scratch.Sprite"
       },
       {
         "name": "getTouchingSprites",
         "constructor": false,
         "static": false,
         "parameters": [
-          "Class<T@197 extends org.openpatch.scratch.Sprite>"
+          "Class<T@198 extends org.openpatch.scratch.Sprite>"
         ],
-        "returns": "List<T@197 extends org.openpatch.scratch.Sprite>"
+        "returns": "List<T@198 extends org.openpatch.scratch.Sprite>"
       },
       {
         "name": "getTransparency",
@@ -789,7 +789,7 @@
         "constructor": false,
         "static": false,
         "parameters": [
-          "Class<?@195 extends org.openpatch.scratch.Sprite>"
+          "Class<?@196 extends org.openpatch.scratch.Sprite>"
         ],
         "returns": "boolean"
       },
@@ -4373,18 +4373,18 @@
         "constructor": false,
         "static": false,
         "parameters": [
-          "Class<T@196 extends org.openpatch.scratch.Sprite>"
+          "Class<T@197 extends org.openpatch.scratch.Sprite>"
         ],
-        "returns": "T@196 extends org.openpatch.scratch.Sprite"
+        "returns": "T@197 extends org.openpatch.scratch.Sprite"
       },
       {
         "name": "getTouchingSprites",
         "constructor": false,
         "static": false,
         "parameters": [
-          "Class<T@197 extends org.openpatch.scratch.Sprite>"
+          "Class<T@198 extends org.openpatch.scratch.Sprite>"
         ],
-        "returns": "List<T@197 extends org.openpatch.scratch.Sprite>"
+        "returns": "List<T@198 extends org.openpatch.scratch.Sprite>"
       },
       {
         "name": "getTransparency",
@@ -4656,7 +4656,7 @@
         "constructor": false,
         "static": false,
         "parameters": [
-          "Class<?@195 extends org.openpatch.scratch.Sprite>"
+          "Class<?@196 extends org.openpatch.scratch.Sprite>"
         ],
         "returns": "boolean"
       },
@@ -5386,7 +5386,7 @@
         "constructor": false,
         "static": false,
         "parameters": [
-          "Class<T@194 extends org.openpatch.scratch.Sprite>"
+          "Class<T@195 extends org.openpatch.scratch.Sprite>"
         ],
         "returns": "int"
       },
@@ -5453,9 +5453,9 @@
         "constructor": false,
         "static": false,
         "parameters": [
-          "Class<T@193 extends org.openpatch.scratch.Sprite>"
+          "Class<T@194 extends org.openpatch.scratch.Sprite>"
         ],
-        "returns": "List<T@193 extends org.openpatch.scratch.Sprite>"
+        "returns": "List<T@194 extends org.openpatch.scratch.Sprite>"
       },
       {
         "name": "getAll",
@@ -5804,7 +5804,7 @@
         "constructor": false,
         "static": false,
         "parameters": [
-          "Class<?@192 extends org.openpatch.scratch.Sprite>"
+          "Class<?@193 extends org.openpatch.scratch.Sprite>"
         ],
         "returns": "void"
       },
@@ -7664,18 +7664,18 @@
         "constructor": false,
         "static": false,
         "parameters": [
-          "Class<T@196 extends org.openpatch.scratch.Sprite>"
+          "Class<T@197 extends org.openpatch.scratch.Sprite>"
         ],
-        "returns": "T@196 extends org.openpatch.scratch.Sprite"
+        "returns": "T@197 extends org.openpatch.scratch.Sprite"
       },
       {
         "name": "getTouchingSprites",
         "constructor": false,
         "static": false,
         "parameters": [
-          "Class<T@197 extends org.openpatch.scratch.Sprite>"
+          "Class<T@198 extends org.openpatch.scratch.Sprite>"
         ],
-        "returns": "List<T@197 extends org.openpatch.scratch.Sprite>"
+        "returns": "List<T@198 extends org.openpatch.scratch.Sprite>"
       },
       {
         "name": "getTransparency",
@@ -7947,7 +7947,7 @@
         "constructor": false,
         "static": false,
         "parameters": [
-          "Class<?@195 extends org.openpatch.scratch.Sprite>"
+          "Class<?@196 extends org.openpatch.scratch.Sprite>"
         ],
         "returns": "boolean"
       },
@@ -8952,6 +8952,13 @@
         "returns": "boolean"
       },
       {
+        "name": "isTransitioning",
+        "constructor": false,
+        "static": true,
+        "parameters": [],
+        "returns": "boolean"
+      },
+      {
         "name": "notify",
         "constructor": false,
         "static": false,
@@ -9019,6 +9026,16 @@
         "static": false,
         "parameters": [],
         "returns": "String"
+      },
+      {
+        "name": "transitionToStage",
+        "constructor": false,
+        "static": false,
+        "parameters": [
+          "java.util.function.Supplier<?@192 extends org.openpatch.scratch.Stage>",
+          "int"
+        ],
+        "returns": "void"
       },
       {
         "name": "transitionToStage",
@@ -9876,18 +9893,18 @@
         "constructor": false,
         "static": false,
         "parameters": [
-          "Class<T@196 extends org.openpatch.scratch.Sprite>"
+          "Class<T@197 extends org.openpatch.scratch.Sprite>"
         ],
-        "returns": "T@196 extends org.openpatch.scratch.Sprite"
+        "returns": "T@197 extends org.openpatch.scratch.Sprite"
       },
       {
         "name": "getTouchingSprites",
         "constructor": false,
         "static": false,
         "parameters": [
-          "Class<T@197 extends org.openpatch.scratch.Sprite>"
+          "Class<T@198 extends org.openpatch.scratch.Sprite>"
         ],
-        "returns": "List<T@197 extends org.openpatch.scratch.Sprite>"
+        "returns": "List<T@198 extends org.openpatch.scratch.Sprite>"
       },
       {
         "name": "getTransparency",
@@ -10166,7 +10183,7 @@
         "constructor": false,
         "static": false,
         "parameters": [
-          "Class<?@195 extends org.openpatch.scratch.Sprite>"
+          "Class<?@196 extends org.openpatch.scratch.Sprite>"
         ],
         "returns": "boolean"
       },
@@ -12338,18 +12355,18 @@
         "constructor": false,
         "static": false,
         "parameters": [
-          "Class<T@196 extends org.openpatch.scratch.Sprite>"
+          "Class<T@197 extends org.openpatch.scratch.Sprite>"
         ],
-        "returns": "T@196 extends org.openpatch.scratch.Sprite"
+        "returns": "T@197 extends org.openpatch.scratch.Sprite"
       },
       {
         "name": "getTouchingSprites",
         "constructor": false,
         "static": false,
         "parameters": [
-          "Class<T@197 extends org.openpatch.scratch.Sprite>"
+          "Class<T@198 extends org.openpatch.scratch.Sprite>"
         ],
-        "returns": "List<T@197 extends org.openpatch.scratch.Sprite>"
+        "returns": "List<T@198 extends org.openpatch.scratch.Sprite>"
       },
       {
         "name": "getTransparency",
@@ -12635,7 +12652,7 @@
         "constructor": false,
         "static": false,
         "parameters": [
-          "Class<?@195 extends org.openpatch.scratch.Sprite>"
+          "Class<?@196 extends org.openpatch.scratch.Sprite>"
         ],
         "returns": "boolean"
       },
@@ -14057,7 +14074,7 @@
         "constructor": false,
         "static": false,
         "parameters": [],
-        "returns": "Class<?@342>"
+        "returns": "Class<?@343>"
       },
       {
         "name": "getCurrentCostumeIndex",
@@ -14202,18 +14219,18 @@
         "constructor": false,
         "static": false,
         "parameters": [
-          "Class<T@405 extends org.openpatch.scratch.Sprite>"
+          "Class<T@407 extends org.openpatch.scratch.Sprite>"
         ],
-        "returns": "T@405 extends org.openpatch.scratch.Sprite"
+        "returns": "T@407 extends org.openpatch.scratch.Sprite"
       },
       {
         "name": "getTouchingSprites",
         "constructor": false,
         "static": false,
         "parameters": [
-          "Class<T@406 extends org.openpatch.scratch.Sprite>"
+          "Class<T@408 extends org.openpatch.scratch.Sprite>"
         ],
-        "returns": "nrw.List<T@406 extends org.openpatch.scratch.Sprite>"
+        "returns": "nrw.List<T@408 extends org.openpatch.scratch.Sprite>"
       },
       {
         "name": "getTransparency",
@@ -14492,7 +14509,7 @@
         "constructor": false,
         "static": false,
         "parameters": [
-          "Class<?@404 extends org.openpatch.scratch.Sprite>"
+          "Class<?@406 extends org.openpatch.scratch.Sprite>"
         ],
         "returns": "boolean"
       },
@@ -15141,7 +15158,7 @@
         "constructor": false,
         "static": false,
         "parameters": [],
-        "returns": "Class<?@342>"
+        "returns": "Class<?@343>"
       },
       {
         "name": "height",
@@ -15275,7 +15292,7 @@
         "constructor": false,
         "static": false,
         "parameters": [],
-        "returns": "Class<?@342>"
+        "returns": "Class<?@343>"
       },
       {
         "name": "intersects",
@@ -15370,7 +15387,7 @@
         "constructor": false,
         "static": false,
         "parameters": [],
-        "returns": "Class<?@342>"
+        "returns": "Class<?@343>"
       },
       {
         "name": "getDay",
@@ -15565,7 +15582,7 @@
         "constructor": false,
         "static": false,
         "parameters": [],
-        "returns": "Class<?@342>"
+        "returns": "Class<?@343>"
       },
       {
         "name": "getGreen",
@@ -15743,7 +15760,7 @@
         "constructor": false,
         "static": false,
         "parameters": [],
-        "returns": "Class<?@342>"
+        "returns": "Class<?@343>"
       },
       {
         "name": "intersects",
@@ -15888,7 +15905,7 @@
         "constructor": false,
         "static": false,
         "parameters": [],
-        "returns": "Class<?@342>"
+        "returns": "Class<?@343>"
       },
       {
         "name": "getShape",
@@ -15980,7 +15997,7 @@
         "constructor": false,
         "static": false,
         "parameters": [],
-        "returns": "Class<?@342>"
+        "returns": "Class<?@343>"
       },
       {
         "name": "getRandom",
@@ -16042,7 +16059,7 @@
         "constructor": false,
         "static": false,
         "parameters": [],
-        "returns": "Class<?@342>"
+        "returns": "Class<?@343>"
       },
       {
         "name": "name",
@@ -16134,7 +16151,7 @@
         "constructor": false,
         "static": false,
         "parameters": [],
-        "returns": "Class<?@342>"
+        "returns": "Class<?@343>"
       },
       {
         "name": "name",
@@ -16226,7 +16243,7 @@
         "constructor": false,
         "static": false,
         "parameters": [],
-        "returns": "Class<?@342>"
+        "returns": "Class<?@343>"
       },
       {
         "name": "name",
@@ -16421,7 +16438,7 @@
         "constructor": false,
         "static": false,
         "parameters": [],
-        "returns": "Class<?@342>"
+        "returns": "Class<?@343>"
       },
       {
         "name": "lerp",
@@ -16704,7 +16721,7 @@
         "constructor": false,
         "static": false,
         "parameters": [],
-        "returns": "Class<?@342>"
+        "returns": "Class<?@343>"
       },
       {
         "name": "getColor",
@@ -16955,7 +16972,7 @@
         "constructor": false,
         "static": false,
         "parameters": [],
-        "returns": "Class<?@342>"
+        "returns": "Class<?@343>"
       },
       {
         "name": "intersects",
@@ -17050,7 +17067,7 @@
         "constructor": false,
         "static": false,
         "parameters": [],
-        "returns": "Class<?@342>"
+        "returns": "Class<?@343>"
       },
       {
         "name": "noise",
@@ -17262,7 +17279,7 @@
         "constructor": false,
         "static": false,
         "parameters": [],
-        "returns": "Class<?@342>"
+        "returns": "Class<?@343>"
       },
       {
         "name": "intersects",
@@ -17357,7 +17374,7 @@
         "constructor": false,
         "static": false,
         "parameters": [],
-        "returns": "Class<?@342>"
+        "returns": "Class<?@343>"
       },
       {
         "name": "name",
@@ -17458,7 +17475,7 @@
         "constructor": false,
         "static": false,
         "parameters": [],
-        "returns": "Class<?@342>"
+        "returns": "Class<?@343>"
       },
       {
         "name": "getMessage",
@@ -17572,7 +17589,7 @@
         "constructor": false,
         "static": false,
         "parameters": [],
-        "returns": "Class<?@342>"
+        "returns": "Class<?@343>"
       },
       {
         "name": "intersects",
@@ -17931,7 +17948,7 @@
         "constructor": false,
         "static": false,
         "parameters": [],
-        "returns": "Class<?@342>"
+        "returns": "Class<?@343>"
       },
       {
         "name": "getCurrentCostumeIndex",
@@ -18076,18 +18093,18 @@
         "constructor": false,
         "static": false,
         "parameters": [
-          "Class<T@405 extends org.openpatch.scratch.Sprite>"
+          "Class<T@407 extends org.openpatch.scratch.Sprite>"
         ],
-        "returns": "T@405 extends org.openpatch.scratch.Sprite"
+        "returns": "T@407 extends org.openpatch.scratch.Sprite"
       },
       {
         "name": "getTouchingSprites",
         "constructor": false,
         "static": false,
         "parameters": [
-          "Class<T@406 extends org.openpatch.scratch.Sprite>"
+          "Class<T@408 extends org.openpatch.scratch.Sprite>"
         ],
-        "returns": "nrw.List<T@406 extends org.openpatch.scratch.Sprite>"
+        "returns": "nrw.List<T@408 extends org.openpatch.scratch.Sprite>"
       },
       {
         "name": "getTransparency",
@@ -18359,7 +18376,7 @@
         "constructor": false,
         "static": false,
         "parameters": [
-          "Class<?@404 extends org.openpatch.scratch.Sprite>"
+          "Class<?@406 extends org.openpatch.scratch.Sprite>"
         ],
         "returns": "boolean"
       },
@@ -19089,7 +19106,7 @@
         "constructor": false,
         "static": false,
         "parameters": [
-          "Class<T@403 extends org.openpatch.scratch.Sprite>"
+          "Class<T@405 extends org.openpatch.scratch.Sprite>"
         ],
         "returns": "int"
       },
@@ -19156,9 +19173,9 @@
         "constructor": false,
         "static": false,
         "parameters": [
-          "Class<T@402 extends org.openpatch.scratch.Sprite>"
+          "Class<T@404 extends org.openpatch.scratch.Sprite>"
         ],
-        "returns": "nrw.List<T@402 extends org.openpatch.scratch.Sprite>"
+        "returns": "nrw.List<T@404 extends org.openpatch.scratch.Sprite>"
       },
       {
         "name": "getAll",
@@ -19186,7 +19203,7 @@
         "constructor": false,
         "static": false,
         "parameters": [],
-        "returns": "Class<?@342>"
+        "returns": "Class<?@343>"
       },
       {
         "name": "getColor",
@@ -19507,7 +19524,7 @@
         "constructor": false,
         "static": false,
         "parameters": [
-          "Class<?@401 extends org.openpatch.scratch.Sprite>"
+          "Class<?@403 extends org.openpatch.scratch.Sprite>"
         ],
         "returns": "void"
       },
@@ -19903,7 +19920,7 @@
         "constructor": false,
         "static": false,
         "parameters": [],
-        "returns": "Class<?@342>"
+        "returns": "Class<?@343>"
       },
       {
         "name": "getCurrentFontIndex",
@@ -20393,7 +20410,7 @@
         "constructor": false,
         "static": false,
         "parameters": [],
-        "returns": "Class<?@342>"
+        "returns": "Class<?@343>"
       },
       {
         "name": "name",
@@ -20485,7 +20502,7 @@
         "constructor": false,
         "static": false,
         "parameters": [],
-        "returns": "Class<?@342>"
+        "returns": "Class<?@343>"
       },
       {
         "name": "name",
@@ -20577,7 +20594,7 @@
         "constructor": false,
         "static": false,
         "parameters": [],
-        "returns": "Class<?@342>"
+        "returns": "Class<?@343>"
       },
       {
         "name": "getMode",
@@ -20710,7 +20727,7 @@
         "constructor": false,
         "static": false,
         "parameters": [],
-        "returns": "Class<?@342>"
+        "returns": "Class<?@343>"
       },
       {
         "name": "intervalMillis",
@@ -20857,7 +20874,7 @@
         "constructor": false,
         "static": false,
         "parameters": [],
-        "returns": "Class<?@342>"
+        "returns": "Class<?@343>"
       },
       {
         "name": "intersects",
@@ -21222,7 +21239,7 @@
         "constructor": false,
         "static": false,
         "parameters": [],
-        "returns": "Class<?@342>"
+        "returns": "Class<?@343>"
       },
       {
         "name": "getCurrentCostumeIndex",
@@ -21367,18 +21384,18 @@
         "constructor": false,
         "static": false,
         "parameters": [
-          "Class<T@405 extends org.openpatch.scratch.Sprite>"
+          "Class<T@407 extends org.openpatch.scratch.Sprite>"
         ],
-        "returns": "T@405 extends org.openpatch.scratch.Sprite"
+        "returns": "T@407 extends org.openpatch.scratch.Sprite"
       },
       {
         "name": "getTouchingSprites",
         "constructor": false,
         "static": false,
         "parameters": [
-          "Class<T@406 extends org.openpatch.scratch.Sprite>"
+          "Class<T@408 extends org.openpatch.scratch.Sprite>"
         ],
-        "returns": "nrw.List<T@406 extends org.openpatch.scratch.Sprite>"
+        "returns": "nrw.List<T@408 extends org.openpatch.scratch.Sprite>"
       },
       {
         "name": "getTransparency",
@@ -21650,7 +21667,7 @@
         "constructor": false,
         "static": false,
         "parameters": [
-          "Class<?@404 extends org.openpatch.scratch.Sprite>"
+          "Class<?@406 extends org.openpatch.scratch.Sprite>"
         ],
         "returns": "boolean"
       },
@@ -22361,7 +22378,7 @@
         "constructor": false,
         "static": false,
         "parameters": [],
-        "returns": "Class<?@342>"
+        "returns": "Class<?@343>"
       },
       {
         "name": "getX",
@@ -22568,7 +22585,7 @@
         "constructor": false,
         "static": false,
         "parameters": [],
-        "returns": "Class<?@342>"
+        "returns": "Class<?@343>"
       },
       {
         "name": "getDeltaTime",
@@ -22655,6 +22672,13 @@
         "returns": "boolean"
       },
       {
+        "name": "isTransitioning",
+        "constructor": false,
+        "static": true,
+        "parameters": [],
+        "returns": "boolean"
+      },
+      {
         "name": "notify",
         "constructor": false,
         "static": false,
@@ -22722,6 +22746,16 @@
         "static": false,
         "parameters": [],
         "returns": "String"
+      },
+      {
+        "name": "transitionToStage",
+        "constructor": false,
+        "static": false,
+        "parameters": [
+          "java.util.function.Supplier<?@402 extends org.openpatch.scratch.Stage>",
+          "int"
+        ],
+        "returns": "void"
       },
       {
         "name": "transitionToStage",
@@ -22831,7 +22865,7 @@
         "constructor": false,
         "static": false,
         "parameters": [],
-        "returns": "Class<?@342>"
+        "returns": "Class<?@343>"
       },
       {
         "name": "getPosition",
@@ -23043,7 +23077,7 @@
         "constructor": false,
         "static": false,
         "parameters": [],
-        "returns": "Class<?@342>"
+        "returns": "Class<?@343>"
       },
       {
         "name": "image",
@@ -23434,7 +23468,7 @@
         "constructor": false,
         "static": false,
         "parameters": [],
-        "returns": "Class<?@342>"
+        "returns": "Class<?@343>"
       },
       {
         "name": "getCurrentCostumeIndex",
@@ -23579,18 +23613,18 @@
         "constructor": false,
         "static": false,
         "parameters": [
-          "Class<T@405 extends org.openpatch.scratch.Sprite>"
+          "Class<T@407 extends org.openpatch.scratch.Sprite>"
         ],
-        "returns": "T@405 extends org.openpatch.scratch.Sprite"
+        "returns": "T@407 extends org.openpatch.scratch.Sprite"
       },
       {
         "name": "getTouchingSprites",
         "constructor": false,
         "static": false,
         "parameters": [
-          "Class<T@406 extends org.openpatch.scratch.Sprite>"
+          "Class<T@408 extends org.openpatch.scratch.Sprite>"
         ],
-        "returns": "nrw.List<T@406 extends org.openpatch.scratch.Sprite>"
+        "returns": "nrw.List<T@408 extends org.openpatch.scratch.Sprite>"
       },
       {
         "name": "getTransparency",
@@ -23869,7 +23903,7 @@
         "constructor": false,
         "static": false,
         "parameters": [
-          "Class<?@404 extends org.openpatch.scratch.Sprite>"
+          "Class<?@406 extends org.openpatch.scratch.Sprite>"
         ],
         "returns": "boolean"
       },
@@ -24505,7 +24539,7 @@
         "constructor": false,
         "static": false,
         "parameters": [],
-        "returns": "Class<?@342>"
+        "returns": "Class<?@343>"
       },
       {
         "name": "notify",
@@ -24569,9 +24603,9 @@
         "parameters": [
           "String",
           "String",
-          "Class<T@335>"
+          "Class<T@336>"
         ],
-        "returns": "org.openpatch.scratch.extensions.fs.SaveData<T@335>"
+        "returns": "org.openpatch.scratch.extensions.fs.SaveData<T@336>"
       },
       {
         "name": "equals",
@@ -24587,7 +24621,7 @@
         "constructor": false,
         "static": false,
         "parameters": [],
-        "returns": "Class<?@342>"
+        "returns": "Class<?@343>"
       },
       {
         "name": "getLocation",
@@ -24601,9 +24635,9 @@
         "constructor": false,
         "static": false,
         "parameters": [
-          "java.util.function.Supplier<?@400 extends T@335>"
+          "java.util.function.Supplier<?@401 extends T@336>"
         ],
-        "returns": "T@335"
+        "returns": "T@336"
       },
       {
         "name": "notify",
@@ -24624,7 +24658,7 @@
         "constructor": false,
         "static": false,
         "parameters": [
-          "T@335"
+          "T@336"
         ],
         "returns": "void"
       },
@@ -24681,7 +24715,7 @@
         "constructor": false,
         "static": false,
         "parameters": [],
-        "returns": "Class<?@342>"
+        "returns": "Class<?@343>"
       },
       {
         "name": "main",
@@ -24752,7 +24786,7 @@
         "constructor": false,
         "static": false,
         "parameters": [],
-        "returns": "Class<?@342>"
+        "returns": "Class<?@343>"
       },
       {
         "name": "isRecording",
@@ -24837,7 +24871,7 @@
         "constructor": false,
         "static": false,
         "parameters": [],
-        "returns": "Class<?@342>"
+        "returns": "Class<?@343>"
       },
       {
         "name": "isRecording",
@@ -24922,7 +24956,7 @@
         "constructor": false,
         "static": false,
         "parameters": [],
-        "returns": "Class<?@342>"
+        "returns": "Class<?@343>"
       },
       {
         "name": "isRecording",
@@ -24998,7 +25032,7 @@
         "constructor": false,
         "static": false,
         "parameters": [],
-        "returns": "Class<?@342>"
+        "returns": "Class<?@343>"
       },
       {
         "name": "isRecording",
@@ -25094,7 +25128,7 @@
         "constructor": false,
         "static": false,
         "parameters": [],
-        "returns": "Class<?@342>"
+        "returns": "Class<?@343>"
       },
       {
         "name": "getName",
@@ -25308,7 +25342,7 @@
         "constructor": false,
         "static": false,
         "parameters": [],
-        "returns": "Class<?@342>"
+        "returns": "Class<?@343>"
       },
       {
         "name": "getCurrent",
@@ -25430,7 +25464,7 @@
         "constructor": false,
         "static": false,
         "parameters": [],
-        "returns": "Class<?@342>"
+        "returns": "Class<?@343>"
       },
       {
         "name": "isOn",
@@ -25506,7 +25540,7 @@
         "constructor": false,
         "static": false,
         "parameters": [],
-        "returns": "Class<?@342>"
+        "returns": "Class<?@343>"
       },
       {
         "name": "getName",
@@ -25882,7 +25916,7 @@
         "constructor": false,
         "static": false,
         "parameters": [],
-        "returns": "Class<?@342>"
+        "returns": "Class<?@343>"
       },
       {
         "name": "getContent",
@@ -26041,18 +26075,18 @@
         "constructor": false,
         "static": false,
         "parameters": [
-          "Class<T@405 extends org.openpatch.scratch.Sprite>"
+          "Class<T@407 extends org.openpatch.scratch.Sprite>"
         ],
-        "returns": "T@405 extends org.openpatch.scratch.Sprite"
+        "returns": "T@407 extends org.openpatch.scratch.Sprite"
       },
       {
         "name": "getTouchingSprites",
         "constructor": false,
         "static": false,
         "parameters": [
-          "Class<T@406 extends org.openpatch.scratch.Sprite>"
+          "Class<T@408 extends org.openpatch.scratch.Sprite>"
         ],
-        "returns": "nrw.List<T@406 extends org.openpatch.scratch.Sprite>"
+        "returns": "nrw.List<T@408 extends org.openpatch.scratch.Sprite>"
       },
       {
         "name": "getTransparency",
@@ -26338,7 +26372,7 @@
         "constructor": false,
         "static": false,
         "parameters": [
-          "Class<?@404 extends org.openpatch.scratch.Sprite>"
+          "Class<?@406 extends org.openpatch.scratch.Sprite>"
         ],
         "returns": "boolean"
       },
@@ -26996,7 +27030,7 @@
         "constructor": false,
         "static": false,
         "parameters": [],
-        "returns": "Class<?@342>"
+        "returns": "Class<?@343>"
       },
       {
         "name": "getProperty",
@@ -27094,7 +27128,7 @@
         "constructor": false,
         "static": false,
         "parameters": [],
-        "returns": "Class<?@342>"
+        "returns": "Class<?@343>"
       },
       {
         "name": "notify",
@@ -27168,7 +27202,7 @@
         "constructor": false,
         "static": false,
         "parameters": [],
-        "returns": "Class<?@342>"
+        "returns": "Class<?@343>"
       },
       {
         "name": "getHeight",
@@ -27364,7 +27398,7 @@
         "constructor": false,
         "static": false,
         "parameters": [],
-        "returns": "Class<?@342>"
+        "returns": "Class<?@343>"
       },
       {
         "name": "notify",

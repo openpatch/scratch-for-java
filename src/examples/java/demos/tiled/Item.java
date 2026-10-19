@@ -24,7 +24,7 @@ public class Item extends Sprite {
   }
 
   public void collect() {
-    GameState.get().items.add(name);
+    GameState.addItem(name);
     // auto-save when an item is collected
     GameState.save();
     this.hide();

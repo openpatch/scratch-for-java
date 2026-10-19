@@ -1,8 +1,26 @@
 ---
 name: Changelog
-index: 83
+index: 84
 lang: en
 ---
+
+## 6.3.0
+
+Add optional drawing and bitmap text extensions: `DrawingSprite` draws cached images, filled polygons and rectangles with clipping in Scratch coordinates, and `BitmapText` displays and measures image glyphs without creating a sprite per letter.
+
+Expose Tiled map properties, dimensions, tile IDs and tileset collision shapes, including positioned shapes with tile flips. Map data can be read without creating a window. Tiled object-layer spawning also works in the browser, with the same constructor choices and stage hooks.
+
+Add `Sprite.playSoundCopy(name, volume)` and `Stage.playSoundCopy(name, volume)` for overlapping plays. Each returns a `SoundPlayback` with independent volume and stop controls; the owner's sound stop methods also stop its copies.
+
+Allow discarded stages to be garbage collected while keeping retained stages reusable. The applet now keeps weak references to stage hooks, which otherwise retained their owning stages through the weak-key registry.
+
+Clear all four Tiled tile-ID flags, including the hexagonal rotation flag that can remain after a map is changed to orthogonal orientation. Tile lookup, collision outlines, and stamping now resolve those IDs consistently with the browser runtime.
+
+Redraw UI sprites, text and speech bubbles each frame so moving, changing or hiding them leaves no old pixels. UI pen marks and stamps remain until erased.
+
+Add `Window.transitionToStage(Supplier<? extends Stage>, int)` to create the destination stage when the screen is black. Requests during an existing transition never invoke the supplier, so a warp can safely move its player and build the next room inside the supplier. `Window.isTransitioning()` reports both fade phases and destination construction. Update the Tiled example to use the lazy overload.
+
+Update the documentation's pinned Online IDE to v2.2.1-hyperbook.36, matching the released desktop API and behavior.
 
 ## 6.2.1
 

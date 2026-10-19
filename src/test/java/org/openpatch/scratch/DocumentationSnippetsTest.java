@@ -134,15 +134,82 @@ class DocumentationSnippetsTest {
   /**
    * Compiles one whole program, in one file, as the page shows it - which for an
    * interactive example means a compact source file.
+   *
+   * <p>
+   * A compact source file nests the classes beside the {@code void main()} in
+   * an implicit class, so a program whose class builds itself from a static
+   * method - a singleton - does not compile there, while the Online IDE keeps
+   * the classes top level and moves the main into its own class. When the
+   * compact form fails, the program is compiled that second way too, and only
+   * a program that fails both ways is reported.
    */
   private String compileProgram(String name, String source) throws IOException {
     if (ToolProvider.getSystemJavaCompiler() == null) {
       return null; // no compiler on this JVM, nothing to say
     }
+    String problem = compileUnit(name, source);
+    if (problem == null) {
+      return null;
+    }
+    String laidOut = asMainClass(name, source);
+    return laidOut == null ? problem
+        : (compileUnit(name, laidOut) == null ? null : problem);
+  }
+
+  private String compileUnit(String name, String source) throws IOException {
     Path dir = Files.createTempDirectory("scratch-docs-");
     Path file = dir.resolve(name + ".java");
     Files.writeString(file, source);
     return compile(dir, List.of(file.toFile()));
+  }
+
+  /**
+   * The Online IDE's layout, or null when the source has no plain
+   * {@code void main()} to move. The main is unwrapped by brace counting that
+   * skips strings, characters and comments.
+   */
+  private String asMainClass(String name, String source) {
+    int mainStart = source.indexOf("\nvoid main()");
+    if (mainStart < 0) {
+      return null;
+    }
+    int open = source.indexOf('{', mainStart);
+    int close = endOfBraces(source, open);
+    if (close < 0) {
+      return null;
+    }
+    String before = source.substring(0, mainStart);
+    String main = source.substring(open + 1, close);
+    String after = source.substring(close + 1);
+    return before + "\nclass " + name + "Main {\n"
+        + "  public static void main(String[] args) {" + main + "\n  }\n}\n"
+        + after;
+  }
+
+  /** The index of the brace closing the one at {@code open}, or -1. */
+  private int endOfBraces(String text, int open) {
+    int depth = 0;
+    for (int i = open; i < text.length(); i++) {
+      char c = text.charAt(i);
+      if (c == '"' || c == '\'') {
+        i++;
+        while (i < text.length() && text.charAt(i) != c) {
+          i += text.charAt(i) == '\\' ? 2 : 1;
+        }
+      } else if (c == '/' && i + 1 < text.length() && text.charAt(i + 1) == '/') {
+        while (i < text.length() && text.charAt(i) != '\n') {
+          i++;
+        }
+      } else if (c == '{') {
+        depth++;
+      } else if (c == '}') {
+        depth--;
+        if (depth == 0) {
+          return i;
+        }
+      }
+    }
+    return -1;
   }
 
   private String compile(Path dir, List<File> files) throws IOException {
@@ -243,9 +310,21 @@ class DocumentationSnippetsTest {
   /**
    * Puts back the one thing the Online IDE does not need, and the desktop does:
    * the import. The program itself is left exactly as the page shows it.
+   *
+   * <p>
+   * The imports mirror what the Online IDE adds for a {@code scratch} program
+   * without any import of its own: the core package, the extensions the
+   * runtime ships, and the standard library. The Online IDE has no
+   * {@code java.io.File}, so a bare {@code File} is the fs extension's, which
+   * the single-type import keeps unambiguous against {@code java.io.*}.
    */
   private String asCompilationUnit(String block) {
-    return "import org.openpatch.scratch.*;\n"
-        + "import org.openpatch.scratch.extensions.fs.*;\nimport java.io.*;\n" + block;
+    return "import org.openpatch.scratch.Random;\n"
+        + "import org.openpatch.scratch.Timer;\n"
+        + "import org.openpatch.scratch.*;\n"
+        + "import org.openpatch.scratch.extensions.fs.File;\n"
+        + "import org.openpatch.scratch.extensions.tiled.*;\n"
+        + "import org.openpatch.scratch.extensions.fs.*;\nimport java.io.*;\n"
+        + "import java.text.*;\nimport java.util.*;\n" + block;
   }
 }

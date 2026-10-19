@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "desktopVersion": "6.2.1",
+  "desktopVersion": "6.3.0",
   "browser": {
-    "version": "6.2.1-browser.2",
+    "version": "6.3.0-browser.1",
     "flavors": {
       "standard": {
         "libraries": [
@@ -29,7 +29,7 @@
   ],
   "referenceValidation": {
     "flavor": "standard",
-    "examples": 434,
+    "examples": 435,
     "knownUnsupportedExamples": 0
   },
   "members": [
@@ -11438,6 +11438,28 @@
       "missingBrowserSignatures": []
     },
     {
+      "id": "Window/isTransitioning",
+      "owner": "org.openpatch.scratch.Window",
+      "signatures": [
+        {
+          "name": "isTransitioning",
+          "constructor": false,
+          "static": true,
+          "parameters": [],
+          "returns": "boolean",
+          "parameterNames": [],
+          "parameterDescriptions": [],
+          "description": "Returns whether a stage transition is in progress, including creation of\nthe destination stage.\n\nWhile a transition is running, calls to\n[transitionToStage(Stage, int)](transitionToStage) are ignored. A program that moves\nthe player or builds a new stage in the same breath as a warp should\nuse [transitionToStage(Supplier, int)](transitionToStage) so those changes are deferred\nuntil the screen is black and skipped when a transition is already running.",
+          "returnDescription": "`true` while a transition is in progress, `false` otherwise",
+          "scratchblock": "",
+          "since": ""
+        }
+      ],
+      "status": "implemented",
+      "reason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "missingBrowserSignatures": []
+    },
+    {
       "id": "Window/pause",
       "owner": "org.openpatch.scratch.Window",
       "signatures": [
@@ -11609,6 +11631,28 @@
             "the duration of the transition in milliseconds"
           ],
           "description": "Transitions to a new stage with a specified duration.",
+          "returnDescription": "",
+          "scratchblock": "",
+          "since": ""
+        },
+        {
+          "name": "transitionToStage",
+          "constructor": false,
+          "static": false,
+          "parameters": [
+            "java.util.function.Supplier<? extends org.openpatch.scratch.Stage>",
+            "int"
+          ],
+          "returns": "void",
+          "parameterNames": [
+            "stage",
+            "duration"
+          ],
+          "parameterDescriptions": [
+            "creates the destination stage; must return a non-null stage",
+            "the duration, using the same timing as the Stage overload"
+          ],
+          "description": "Fades to black, creates the destination stage, then fades it in.\n\nThe supplier is called exactly once, when the screen is black. It is\nnever called when another transition is already running. Move shared\nsprites and update game state inside the supplier so those changes happen\nonly when the transition is accepted, while the old stage is hidden.\nThe call returns immediately; the supplier runs later on the animation thread.",
           "returnDescription": "",
           "scratchblock": "",
           "since": ""

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "libraryVersion": "6.2.1",
-  "browserVersion": "6.2.1-browser.2",
+  "libraryVersion": "6.3.0",
+  "browserVersion": "6.3.0-browser.1",
   "methods": [
     {
       "id": "AnimatedSprite/addAnimation(String,String,int)",
@@ -14568,6 +14568,28 @@
       "translations": {}
     },
     {
+      "id": "Window/isTransitioning()",
+      "memberId": "Window/isTransitioning",
+      "owner": "org.openpatch.scratch.Window",
+      "className": "Window",
+      "methodName": "isTransitioning",
+      "static": true,
+      "returnType": "boolean",
+      "parameterTypes": [],
+      "parameterNames": [],
+      "params": [],
+      "summary": "Returns whether a stage transition is in progress, including creation of\nthe destination stage.",
+      "description": "Returns whether a stage transition is in progress, including creation of\nthe destination stage.\n\nWhile a transition is running, calls to\n[transitionToStage(Stage, int)](transitionToStage) are ignored. A program that moves\nthe player or builds a new stage in the same breath as a warp should\nuse [transitionToStage(Supplier, int)](transitionToStage) so those changes are deferred\nuntil the screen is black and skipped when a transition is already running.",
+      "scratchblock": null,
+      "paramDocs": [],
+      "returns": "`true` while a transition is in progress, `false` otherwise",
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/Window/isTransitioning",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
+    },
+    {
       "id": "Window/pause()",
       "memberId": "Window/pause",
       "owner": "org.openpatch.scratch.Window",
@@ -14772,6 +14794,40 @@
           "description": "Blendet über Schwarz zur angegebenen Bühne über"
         }
       }
+    },
+    {
+      "id": "Window/transitionToStage(Supplier,int)",
+      "memberId": "Window/transitionToStage",
+      "owner": "org.openpatch.scratch.Window",
+      "className": "Window",
+      "methodName": "transitionToStage",
+      "static": false,
+      "returnType": "void",
+      "parameterTypes": [
+        "java.util.function.Supplier<? extends org.openpatch.scratch.Stage>",
+        "int"
+      ],
+      "parameterNames": [
+        "stage",
+        "duration"
+      ],
+      "params": [
+        "Supplier<? extends Stage> stage",
+        "int duration"
+      ],
+      "summary": "Fades to black, creates the destination stage, then fades it in.",
+      "description": "Fades to black, creates the destination stage, then fades it in.\n\nThe supplier is called exactly once, when the screen is black. It is\nnever called when another transition is already running. Move shared\nsprites and update game state inside the supplier so those changes happen\nonly when the transition is accepted, while the old stage is hidden.\nThe call returns immediately; the supplier runs later on the animation thread.",
+      "scratchblock": null,
+      "paramDocs": [
+        "stage: creates the destination stage; must return a non-null stage",
+        "duration: the duration, using the same timing as the Stage overload"
+      ],
+      "returns": null,
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/Window/transitionToStage",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
     },
     {
       "id": "Window/useFullScreen()",

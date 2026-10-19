@@ -24,7 +24,7 @@ public class Player extends AnimatedSprite {
   }
 
   public boolean hasItem(String name) {
-    return GameState.get().items.contains(name);
+    return GameState.hasItem(name);
   }
 
   public void tryMove(double dx, double dy) {
@@ -51,8 +51,8 @@ public class Player extends AnimatedSprite {
   public void run() {
     state = "idle";
 
-    var dx = 0;
-    var dy = 0;
+    var dx = 0.0;
+    var dy = 0.0;
 
     if (this.isKeyPressed(KeyCode.W) || this.isKeyPressed(KeyCode.UP)) {
       dy += this.speed;

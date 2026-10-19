@@ -308,8 +308,8 @@ public class TiledMap {
     }
   }
 
-  /** Tiled keeps flip flags in the top three bits of a tile id. */
-  static final long GID_MASK = 0x1FFFFFFFL;
+  /** Clear all four Tiled flags, including a retained hexagonal rotation flag. */
+  static final long GID_MASK = 0x0FFFFFFFL;
 
   /** Every tile layer, including those inside group layers. */
   private java.util.List<MapLayer> allLayers() {

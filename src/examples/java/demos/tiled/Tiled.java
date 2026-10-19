@@ -14,7 +14,7 @@ public class Tiled extends Window {
     GameState.load();
     I18n.select(GameState.get().locale);
 
-    this.setStage(new World(GameState.get().map, null));
+    this.setStage(new Level(GameState.get().map, null));
 
     // begin project settings
     // end project settings
@@ -24,7 +24,6 @@ public class Tiled extends Window {
     // These global settings must be set before starting the game.
     Text.useFont("demos/tiled/assets/Retro Gaming.ttf", 11);
     Text.useSmoothing(false);
-    Text.SPEAK_BUBBLE_MAX_LIMIT = 200;
 
     // Start the Game
     // begin project settings

@@ -85,6 +85,20 @@ class TiledMapDataTest {
   }
 
   @Test
+  void clearsRetainedHexagonalFlagForEveryOrthogonalFlip() throws Exception {
+    StringBuilder cells = new StringBuilder();
+    for (int flags = 0; flags < 8; flags++) {
+      if (flags != 0) cells.append(',');
+      cells.append(7L | 0x10000000L | ((long) flags << 29));
+    }
+    TiledMap flagged = map(cells.toString());
+    for (int flags = 0; flags < 8; flags++) {
+      assertEquals(7, flagged.getTileId("ground", flags, 0));
+      assertEquals(3, flagged.getTileCollisionShapes("ground", flags, 0).length);
+    }
+  }
+
+  @Test
   void collisionShapesFollowAllEightTileFlipCombinations() throws Exception {
     StringBuilder cells = new StringBuilder();
     for (int flags = 0; flags < 8; flags++) {

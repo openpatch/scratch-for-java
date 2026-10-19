@@ -7,7 +7,7 @@ import org.openpatch.scratch.Stage;
 import org.openpatch.scratch.extensions.tiled.MapObject;
 import org.openpatch.scratch.extensions.tiled.TiledMap;
 
-public class World extends Stage {
+public class Level extends Stage {
 
   // begin stage designer
   private UIItem inventory;
@@ -15,13 +15,13 @@ public class World extends Stage {
 
   private TiledMap map;
   private Player player;
-  public World(String mapFile, Player player) {
+  public Level(String mapFile, Player player) {
     map = new TiledMap("demos/tiled/" + mapFile + ".tmx", this);
     // Every object whose type is a sprite class becomes that sprite:
     // walls, water, warps, items and enemies.
     for (Sprite sprite : map.spawn("Objects")) {
       // an item that was picked up stays picked up
-      if (sprite instanceof Item item && GameState.get().items.contains(item.getName())) {
+      if (sprite instanceof Item item && GameState.hasItem(item.getName())) {
         this.remove(item);
       }
     }
@@ -75,10 +75,10 @@ public class World extends Stage {
     }
 
     var items = GameState.get().items;
-    for (int i = 0; i < items.size(); i++) {
+    for (int i = 0; i < items.length; i++) {
       inventory.setX(-this.getWidth() / 2 + 30);
       inventory.setY(this.getHeight() / 2 - 30 - i * 36);
-      inventory.switchCostume(items.get(i));
+      inventory.switchCostume(items[i]);
       inventory.stamp(Layer.UI);
     }
   }
