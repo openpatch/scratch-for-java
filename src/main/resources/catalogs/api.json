@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "libraryVersion": "6.4.0",
-  "browserVersion": "6.4.0-browser.1",
+  "libraryVersion": "6.5.0",
+  "browserVersion": "6.5.0-browser.1",
   "methods": [
     {
       "id": "AnimatedSprite/addAnimation(String,String,int)",
@@ -14109,7 +14109,7 @@
       "parameterNames": [],
       "params": [],
       "summary": "Constructs a new Window with default dimensions. The default width is 480\npixels and the\ndefault height is 360 pixels.",
-      "description": "Constructs a new Window with default dimensions. The default width is 480\npixels and the\ndefault height is 360 pixels.",
+      "description": "Constructs a new Window with default dimensions. The default width is 480\npixels and the\ndefault height is 360 pixels.\n\nA folder named `assets` is loaded while the loading screen shows, if\nthe project has one.",
       "scratchblock": null,
       "paramDocs": [],
       "returns": null,
@@ -14141,7 +14141,7 @@
         "String assets"
       ],
       "summary": "Constructs a new Window with the specified assets. The window will have a\ndefault width of 480\npixels and a height of 360 pixels.",
-      "description": "Constructs a new Window with the specified assets. The window will have a\ndefault width of 480\npixels and a height of 360 pixels.",
+      "description": "Constructs a new Window with the specified assets. The window will have a\ndefault width of 480\npixels and a height of 360 pixels.\n\nThe images, sounds and fonts in that folder are loaded while the loading\nscreen shows, so they are ready when a sprite first uses them. Without\nit, a folder named `assets` is loaded, if there is one.",
       "scratchblock": null,
       "paramDocs": [
         "assets: the path to the assets to be used in the window"
@@ -14178,7 +14178,7 @@
         "int height"
       ],
       "summary": "Constructs a new Window with the specified width and height.",
-      "description": "Constructs a new Window with the specified width and height.",
+      "description": "Constructs a new Window with the specified width and height.\n\nA folder named `assets` is loaded while the loading screen shows, if\nthe project has one.",
       "scratchblock": null,
       "paramDocs": [
         "width: the width of the window",
@@ -14223,7 +14223,7 @@
       "scratchblock": null,
       "paramDocs": [
         "width: the width of the window",
-        "height: the height of the window",
+        "height: the height of the window\n\nThe images, sounds and fonts in the assets folder are loaded while the\nloading screen shows, so they are ready when a sprite first uses them.\nWithout it, a folder named `assets` is loaded, if there is one.",
         "assets: the path to the assets"
       ],
       "returns": null,

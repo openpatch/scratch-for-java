@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "desktopVersion": "6.4.0",
-  "browserVersion": "6.4.0-browser.1",
+  "desktopVersion": "6.5.0",
+  "browserVersion": "6.5.0-browser.1",
   "flavors": {
     "standard": {
       "libraries": [
