@@ -1,199 +1,155 @@
 # Copilot Instructions for Scratch for Java
 
-## Repository Overview
+Taken from `AGENTS.md`, which is the maintained description of the repository: change both together.
 
-**Scratch for Java** is a Java library that replicates the functionality and concepts of Scratch, helping learners transition from block-based programming to text-based coding in Java. The library provides an approachable API inspired by Scratch blocks, making it easier for beginners to understand programming concepts while gaining experience with real Java syntax and tools.
+## 7.0 rewrite (branch `v7`) — read this first
 
-- **Main Package**: `org.openpatch.scratch`
-- **Version**: see `<version>` in `pom.xml` — managed automatically by the changeset release flow, do not hand-edit it
-- **Java Version**: 17
-- **Build Tool**: Maven
-- **Documentation Site**: https://scratch4j.openpatch.org
-- **Tests**: none — there is no JUnit dependency and no `*Test.java` files under `src/main`. Validate changes with `mvn compile` and by checking the relevant demo/reference example still behaves correctly.
+7.0 replaces Processing with LWJGL and moves the extensions into jars of their own. Where they
+exist, `plan.md` (specification and decision log) and `v7-execution.md` (requirements, evidence,
+log) are local working notes and are not committed. 7.0 breaks 6.x on purpose wherever the design needs it
+(`docs/book/migrate-to-7.md` lists every change). The 6.x sources are on `main` and in the
+history; everything in them has been ported.
 
-## High-Level Architecture
+## What this is
 
-The library is structured around three core concepts:
-1. **Window**: the singleton application window (`Window` class) — owns the render loop and the current `Stage`
-2. **Stage**: the active scene, holding sprites, backdrops, and `when*` event handlers (key press, mouse click, broadcasts, ...)
-3. **Sprite**: interactive objects that can move, detect collisions, play sounds, etc., with a `run()` method invoked every frame
+Scratch for Java (`org.openpatch.scratch`) is a Java library that ports the Scratch (scratch.mit.edu)
+block-based programming model to Java, so learners can move from blocks to text-based code while
+keeping the same mental model (Window / Stage / Sprite, costumes, backdrops, broadcasts, etc.).
 
-### Key Dependencies (see `pom.xml`)
-- **Processing** (`org.processing:core`) — core graphics and windowing framework
-- **Jackson** (`tools.jackson.*` + `com.fasterxml.jackson.core:jackson-annotations`) — JSON/XML processing, used e.g. in `extensions/fs` and `extensions/tiled`
-- **word-wrap** (`com.github.davidmoten:word-wrap`) — text wrapping for `extensions/text`
+## Build & commands
 
-## Build Instructions
+- **Never `mvn install` on `v7`.** The version is still the released one (6.5.0, managed by the
+  release workflow), so an install overwrites the real `org.openpatch:scratch:6.5.0` in `~/.m2`
+  with 7.0 code, and every other project on the machine (Studio) silently builds against it.
+  Build inside the reactor instead (`-pl <module> -am`).
+- `mvn test` — all modules, no window needed. If a test fails with "Unresolved compilation
+  problems", an IDE (Eclipse compiler) wrote into `target/`: run `mvn clean test`.
+- `mvn verify` — additionally builds the fat jar `all/target/scratch-<version>-all.jar` and runs
+  `all/src/build/BuildChecks.java` (no `java.desktop` in shipped code, extensions use no
+  `internal`, no NRW-sensitive calls or GLFW callbacks in extensions, fat-jar
+  manifest/natives/notices).
+- `mvn package -pl all,examples -am -DskipTests` — the fat jar and the examples, quickly.
+- `mvn package -Pnrw` — the NRW fat jar (`scratch-<version>-nrw-all.jar`): sources rewritten by
+  `core/src/build/NrwVariant.java` from the `// nrw:` markers in Stage and Sprite, so `find`,
+  `getAll` and `getTouchingSprites` return the `List` of the NRW Zentralabitur.
+- `mvn deploy -Pcentral` — release to Maven Central; done by the release workflow, not by hand.
+- `./scripts/run.sh` — pick a demo or reference example and run it (`--each` runs every demo,
+  `-- <jvm args>` passes JVM arguments); builds in the reactor first.
+- `python3 scripts/migrate-7.py --out <dir> <6.x folder>` migrates 6.x code, shaders and the
+  ```java blocks of Markdown pages (run once per project; it marks what needs a person with
+  `// TODO 7.0:`).
+- `./build.sh` — full doc site build (reference pages, demo pages, asset pages, version
+  substitution, then `npx hyperbook build` in `docs/`); `cd docs && npx hyperbook@latest dev` runs
+  the site locally (always the newest Hyperbook, as in CI).
 
-### Prerequisites
-- Java 17+ to compile/run the library; Java 25 for generating and checking shared catalogs (CI documentation, validation, and release jobs use Temurin 25; `maven.compiler.release=17` preserves runtime compatibility)
-- Maven (release publication uses pinned Maven 3.9.16 to keep local metadata out of Central bundles)
-- Node.js + npm (for the documentation site only)
+Java 17 builds the library (`maven.compiler.release`), but the tests want Java 25: the
+documentation's interactive examples are compact source files (`void main()` beside the classes),
+and the tests that compile them skip on anything older. CI runs 25.
 
-### Maven Build Commands
+## Seeing and testing without a window
 
-```bash
-mvn compile                # basic compilation (the day-to-day command from README.md)
-mvn clean package          # create the standard JAR
+- Scene logic is tested headless: `Game.headless(480, 360)`, `game.setStage(stage)`,
+  `game.runTicks(n)`, `game.drawList()` (see `core/src/test/.../SceneTest.java`). Sprites,
+  costumes, hitboxes, clones, pens, colour sensing (`Pixels.of(stage)`), text layout, timers and
+  transitions all work there.
+- To see a frame: run a program with `-Dscratch4j.preview=<dir>` (writes `frame.png` and the
+  sprites in `stage.json`, then ends). `-Dscratch4j.capture=<dir>` does the same per stage while the
+  program keeps running (Studio uses it for its stage designer).
+- Under Xvfb in a Wayland session: `XDG_SESSION_TYPE=x11 xvfb-run -a java -Dscratch4j.platform=x11 …`
+  (GLFW picks Wayland otherwise). Under Xvfb the window is exactly the render size, so letterbox
+  and HiDPI bugs do not reproduce there. `-Dscratch4j.debugGl` prints window, framebuffer, monitor
+  and letterbox geometry and vsync switches.
+- Reference examples load their assets relative to `examples/src/main/java/reference`: run them
+  from there (`run.sh` does).
+- Parity: `ParityTest` and `LifecycleParityTest` (core, headless; `./scripts/parity.sh --record`),
+  `./scripts/visual-parity.sh [--record]` (23 frames under Xvfb, compared exactly).
+- Documentation guards in the examples module: `DocumentationSnippetsTest` compiles every
+  ```java block on the hand-written pages under `docs/book` — **if you change a public API, this
+  tells you which tutorial you just broke**; `DemoPagesTest` checks that `docs/book/examples/*.md`
+  match the demos they are generated from (a page opts in with `<!-- demo: <folder> -->` above its
+  `:::onlineide` block). **After changing a demo, run `./scripts/update-demo-pages.sh`** and commit
+  the pages it touches (it also copies the demos' assets to `docs/public/examples`, ignored).
+  `OnlineExampleTest` compiles the interactive examples.
+
+## Source layout
+
+```
+pom.xml                  parent (scratch-parent); modules in lockstep, one version
+core/                    artifact `scratch`
+  src/main/java/org/openpatch/scratch/
+    Window, Stage, Sprite, Text, Pen, Camera, Layer, Shader(s), Transition, Pixels, Timer,
+    Color, Vector2, shapes, Operators, KeyCode, ...    the learner API, one flat package
+    Launcher             macOS: window on the first thread (-XstartOnFirstThread)
+    extension/           public extension API (Extension, ExtensionContext, Canvas)
+    internal/            not exported: Game, loop/ (game thread, tick clock), draw/ (draw list),
+                         render/ (OpenGL), window/ (GLFW), canvas/ + compose/ (CPU pen canvases,
+                         compositor for colour sensing), text/ (stb_truetype engine), audio/
+                         (OpenAL), image/ (stb_image), geom/, input/, Assets, Preview, Release
+  src/build/NrwVariant.java
+extensions/{tiled,save,recorder,drawing}/   `scratch-<name>`, package org.openpatch.scratch.<name>,
+                         public API only, registered through ServiceLoader
+all/                     fat jar + src/build/BuildChecks.java
+examples/                demos/ (runnable projects), reference/ (one example per documented
+                         method), parity/; src/tools/java (doclet, docs.GenerateDemoPages,
+                         docs.GenerateAssetPages); built, never published
+templates/extension-starter/   standalone Maven project for third-party extensions
+docs/                    Hyperbook site (English)
 ```
 
-**Build Profiles**:
-```bash
-mvn deploy -Pcentral         # release to Maven Central: GPG signing + central-publishing-maven-plugin
-                              # (the real release path — not something to run casually)
-mvn clean package -Pall      # standalone JAR with all dependencies shaded in -> target/*-all.jar
-```
+## Architecture
 
-### Documentation Build
+Three concepts mirror Scratch directly and almost every feature hangs off one of them:
 
-The documentation site uses **Hyperbook** (Node.js-based static site generator) and lives entirely under `docs/` (single language, English):
+- **Window** — the singleton window (`new Window(480, 360)`, then `setStage(...)`). Settings
+  that must be known before it opens are static and called first (`usePixelArt()`,
+  `useFullScreen()`, ...).
+- **Stage** — one scene: sprites, texts, pens, backdrops, the `when*` event handlers.
+- **Sprite** — costumes, animations, movement, collision/sensing, sound, and a `run()` method
+  called every tick (a Scratch script attached to a sprite).
 
-```bash
-cd docs
-npx hyperbook dev    # start development server
-npx hyperbook build  # build static documentation
-```
+Threads: a **window thread** owns GLFW and OpenGL, a **game thread** runs
+every tick and all learner callbacks, the learner's `main` runs on its own thread. They work in
+lockstep: a tick is exactly 1/60 s of game time; at the end of a batch of ticks the game thread
+builds a **draw list**, and that is all the renderer sees — the scene never draws itself.
+Everything learners can observe (collisions, colour sensing through the CPU compositor, text
+layout) is computed on the CPU and is the same on every GPU and in headless tests.
 
-`./build.sh` (run from the repo root) is the full pipeline CI uses: it copies `CHANGELOG.md` into `docs/book/changelog.md`, regenerates the reference GIFs from `src/examples/java/reference` into `docs/public/reference/`, substitutes the version into `docs/book/download.md` / `docs/book/index.md`, then runs `npx hyperbook build`.
+Extensions build on the public extension API only (`ExtensionContext` hooks: `beforeTick`,
+layer and overlay drawers on a `Canvas`, `afterFrame`, `dispatch` to listener interfaces,
+attachments via `stage.extension(...)`), never on `internal`, and register themselves through
+`ServiceLoader`. New capabilities go into an extension if they can be built that way and pull in
+a dependency (Jackson); things that need the renderer or the game loop stay in the core.
 
-## Project Layout and Architecture
+No `java.awt`/`java.desktop` in shipped code (BuildChecks enforces it); tests and build tools may
+use it. Jackson (`tools.jackson.*`) is used by tiled and save.
 
-### Source Code Structure
-```
-src/main/java/org/openpatch/scratch/
-├── Window.java                       # singleton application window
-├── Stage.java                        # scene: sprites, backdrops, event handlers
-├── Sprite.java                       # core interactive object
-├── Operators.java                    # Scratch "Operators" block equivalents
-├── KeyCode.java / MouseCode.java / RotationStyle.java
-├── extensions/                       # optional capabilities, one sub-package each:
-│   ├── animation/                    # AnimatedSprite etc.
-│   ├── camera/                       # camera/viewport
-│   ├── color/                        # color manipulation
-│   ├── fs/                           # file system / save-data
-│   ├── hitbox/                       # precise collision shapes
-│   ├── math/                         # math utilities
-│   ├── pen/                          # drawing/pen
-│   ├── recorder/                     # GIF recording (Recorder / GifRecorder)
-│   ├── shader/                       # OpenGL shader support
-│   ├── shape/                        # geometric shapes
-│   ├── text/                         # text rendering
-│   ├── tiled/                        # Tiled map support
-│   └── timer/                        # timers
-└── internal/                         # implementation details, not public API
-    (Processing glue, image/font/sound loading, GIF encoding, simplex noise, ...)
+## Javadoc → documentation pipeline
 
-src/examples/java/
-├── demos/                            # complete runnable example projects
-└── reference/                        # one folder per documented API method/feature
+The public API's Javadoc is the source of truth for the reference documentation on
+https://scratch4j.openpatch.org. `./scripts/reference-docs.sh` runs the doclet
+(`examples/src/tools/java/doclets`) over core and the extensions and writes
+`docs/book/reference`:
 
-src/tools/java/doclets/
-└── Scratch4JDoclet.java              # custom Javadoc doclet that generates the reference docs
+- `@example.files a.java;b.java` — files from `examples/src/main/java/reference` shown as source
+  (`@example.folder <Name>` for a folder of them).
+- `@scratchblock`, `@index-in-docs`, `@name-in-docs`, `@ignore-in-docs` — the Scratch block shown,
+  ordering, display name, exclusion.
 
-docs/                                  # Hyperbook documentation site
-├── book/                              # page content (tutorials, examples, generated reference)
-├── archives/                          # starter project templates (vs-code-starter, bluej-starter)
-│                                       # and other downloadable/archived project snapshots
-├── templates/                        # Handlebars templates used by the doclet-generated pages
-└── public/                            # static assets, incl. generated reference GIFs
-```
+When adding or changing a public method that should be documented, add/update its reference
+example and the tags on the Javadoc comment. Other generators: `docs.GenerateDemoPages --write`
+(example pages from the demos) and `docs.GenerateAssetPages` (built-in sprites and sounds).
 
-Prefer adding a new `extensions/` sub-package for new capabilities over growing `Sprite.java`/`Stage.java` further (they are already ~2,000+ lines each) — e.g. `AnimatedSprite` (animation) extends `Sprite` rather than adding animation state directly to it.
+## Versioning & release flow
 
-`src/examples/java` and `src/tools/java` are wired into the main build via the
-`build-helper-maven-plugin` (`add-examples-source` execution), so they compile as part of the
-project even though they live outside `src/main`. They are excluded from the packaged JAR and
-sources JAR (see the `maven-jar-plugin` / `maven-source-plugin` `<excludes>` in `pom.xml`).
+Releases are changeset-driven (see `.changeset/README.md`):
 
-### Configuration Files
-- `pom.xml` - Maven build configuration with `central` and `all` profiles
-- `.vscode/settings.json` - VS Code Java project settings (Hyperbook root, formatter)
-- `docs/hyperbook.json` - documentation site config
-- `.github/workflows/` - CI/CD pipelines (`version.yml`, `release.yml`, `docs.yml`)
+1. Add a Markdown file to `.changeset/` with frontmatter `type: patch|minor|major` and a description
+   of the change, as part of the PR. **Only when the change reaches the user**: the public API moved,
+   or a bug is gone. Documentation, tests, examples, tooling and CI changes get no changeset — they
+   would put a release note in front of readers about something they cannot see from the library.
+2. Merging to `main` triggers `.github/workflows/version.yml`, which bumps the version of every module
+   (`mvn versions:set`, all poms in lockstep) and opens a version-bump PR (updates `CHANGELOG.md` too).
+3. Merging that PR triggers `.github/workflows/release.yml`, which publishes to Maven Central and
+   creates a GitHub release with the fat jars (`-all`, `-nrw-all`) and Javadocs.
 
-## Continuous Integration
-
-1. **Version Bump Workflow** (`.github/workflows/version.yml`) — triggers on changeset files in `.changeset/`, bumps the version (patch/minor/major), updates `CHANGELOG.md`, opens a release PR.
-2. **Release Workflow** (`.github/workflows/release.yml`) — triggers when the version-bump PR is merged; deploys to Maven Central (`mvn deploy -Pcentral`, GPG-signed), builds the fat JAR (`-Pall`), and creates a GitHub release.
-3. **Documentation Workflow** (`.github/workflows/docs.yml`) — on push to `main`: `mvn clean package`, `./build.sh`, copies `target/apidocs` into the built docs, deploys to GitHub Pages.
-
-### Release Flow (changesets)
-Releases are changeset-driven (`.changeset/README.md`): add a Markdown file to `.changeset/` with
-frontmatter `type: patch | minor | major` and a description as part of your PR. Merging that PR
-triggers the version-bump workflow above; merging *its* PR triggers the actual release.
-
-## Javadoc → Documentation Pipeline
-
-Public API Javadoc is the source of truth for https://scratch4j.openpatch.org. The custom doclet
-(`Scratch4JDoclet`) reads special tags on public members and emits per-method reference pages:
-
-- `@example.folder <Name>` — matches `src/examples/java/reference/<Name>/`, a self-contained example
-  (package `reference.<Name>`) with `MySprite.java` / `MyStage.java` / `MyWindow.java`. `MyWindow`
-  typically wraps the example in a `GifRecorder` to produce the preview GIF.
-- `@example.preview <file>.gif` — the GIF shown alongside the docs.
-- `@example.files a.java;b.java;...` — which files from that folder to display as source.
-- `@index-in-docs`, `@name-in-docs`, `@ignore-in-docs`, `@scratchblock` — control ordering, display
-  name, exclusion, and the Scratch-block visual shown for a member.
-
-When adding or changing a documented public method, add/update the matching folder under
-`src/examples/java/reference/` and the Javadoc tags together — the doclet won't generate a page
-without both.
-
-## Common Development Patterns
-
-### Application Entry Point
-```java
-import org.openpatch.scratch.Window;
-
-public class MyWindow extends Window {
-  public MyWindow() {
-    super(800, 600, "assets");
-    this.setStage(new MyStage());
-  }
-
-  public static void main(String[] args) {
-    new MyWindow();
-  }
-}
-```
-
-### Basic Sprite Implementation
-```java
-import org.openpatch.scratch.Sprite;
-
-public class MySprite extends Sprite {
-  public MySprite() {
-    this.setCostume("name", "path/to/image.png");
-    this.setPosition(100, 100);
-  }
-
-  public void run() {
-    // Called every frame
-    this.ifOnEdgeBounce();
-    this.move(5);
-  }
-}
-```
-
-### Stage with Event Handlers
-```java
-import org.openpatch.scratch.Stage;
-
-public class MyStage extends Stage {
-  public MyStage() {
-    this.add(new MySprite());
-    this.setWhenKeyPressed((stage, keyCode) -> {
-      // Handle key press events
-    });
-  }
-}
-```
-
-## Working with This Repository
-
-Focus on:
-1. Understanding the core Sprite/Stage/Window architecture
-2. Using the reference examples in `src/examples/java/reference/` and demos in `src/examples/java/demos/` as patterns
-3. Keeping new capabilities in their own `extensions/` sub-package rather than expanding `Sprite.java`/`Stage.java`
-4. Adding/updating the matching `src/examples/java/reference/<Name>/` folder and Javadoc tags whenever a public, documented API changes
-5. Testing documentation builds with `npx hyperbook dev` in `docs/` if editing documentation content
+Don't hand-edit the version in the poms — it's managed by that workflow.
