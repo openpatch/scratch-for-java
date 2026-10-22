@@ -134,7 +134,8 @@ TODO_PATTERNS = [
     (r"\bgetPShader\(\)|\bPGraphics\b|\bPImage\b|processing\.", "Processing is gone in 7.0."),
     # sprites only: Vector2.clone() stays
     (r"(?<![Vv]ector)\.clone\(\)", "clone() is now createClone(), which needs no cast: Bullet b = this.createClone();"),
-    (r"\baddAnimation\((?!\s*new\b)[^;]*,[^;]*,[^;]*,[^;]*,[^;]*,[^;]*,", "addAnimation with a row or column: name, sheet, width, height, then the frame numbers (row by row from 0)."),
+    # 6.x's row or column form: six arguments, or seven ending in true/false (7.0's sheet form has frame numbers)
+    (r"\baddAnimation\((?!\s*new\b)[^,;()]*(?:\([^()]*\))?[^,;()]*(?:,[^,;]*){5}(?:,\s*(?:true|false))?\s*\);", "addAnimation with a row or column: name, sheet, width, height, then the frame numbers (row by row from 0)."),
     (r"\bshowLayer\(", "the map layer is now drawn every frame: remove eraseAll() and showing it again in run()."),
     (r"\bgetShaders\(\)\.add\(", "shaders have a new format (body only, `costume`, `uv`, `color`): see the shader docs."),
 ]
@@ -387,6 +388,13 @@ def main():
         for f in files:
             rel = f.relative_to(root) if root.is_dir() else Path(f.name)
             target = Path(args.out) / rel if args.out else None
+            # build output and tools' folders (target/, .scratch4j/, .vscode/, …) are not the project's code
+            generated = any(part.startswith(".") or part == "target" for part in rel.parts[:-1])
+            if generated:
+                if target:
+                    target.parent.mkdir(parents=True, exist_ok=True)
+                    shutil.copy2(f, target)
+                continue
             if f.suffix in (".frag", ".glsl"):
                 old = f.read_text(encoding="utf-8")
                 new = migrate_shader(old)
