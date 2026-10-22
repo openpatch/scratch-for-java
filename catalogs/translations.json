@@ -1,89 +1,4 @@
 {
-  "AnimatedSprite/constructor()": {
-    "de": {
-      "description": "Erzeugt eine neue animierte Figur"
-    }
-  },
-  "AnimatedSprite/constructor(AnimatedSprite)": {
-    "de": {
-      "description": "Erzeugt eine Kopie der angegebenen animierten Figur"
-    }
-  },
-  "AnimatedSprite/clone()": {
-    "de": {
-      "description": "Erzeugt eine Kopie dieser Figur"
-    }
-  },
-  "AnimatedSprite/toString()": {
-    "de": {
-      "description": "Gibt die Figur als Zeichenkette zurück"
-    }
-  },
-  "AnimatedSprite/addAnimation(String,String,int)": {
-    "de": {
-      "description": "Fügt eine Animation hinzu. %d im Muster wird durch 1..frames ersetzt, z.B. bunny1_walk%d"
-    }
-  },
-  "AnimatedSprite/addAnimation(String,String,int,int,int)": {
-    "de": {
-      "description": "Zerlegt ein Bild in gleich große Einzelbilder und legt daraus eine Animation an"
-    }
-  },
-  "AnimatedSprite/addAnimation(String,String,int,int,int,int)": {
-    "de": {
-      "description": "Wie addAnimation(name, imagePath, frames, width, height), beginnt aber in der angegebenen Zeile"
-    }
-  },
-  "AnimatedSprite/addAnimation(String,String,int,int,int,int,boolean)": {
-    "de": {
-      "description": "Legt eine Animation aus einer Spalte des Bildes an"
-    }
-  },
-  "AnimatedSprite/addAnimation(String,Function,int)": {
-    "de": {
-      "description": "Legt eine Animation an; builder liefert zu 1..frames jeweils den Bildpfad"
-    }
-  },
-  "AnimatedSprite/playAnimation(String)": {
-    "de": {
-      "description": "Spielt die Animation in einer Schleife ab"
-    }
-  },
-  "AnimatedSprite/playAnimation(String,boolean)": {
-    "de": {
-      "description": "Spielt die Animation ab; bei once == true nur ein einziges Mal"
-    }
-  },
-  "AnimatedSprite/resetAnimation()": {
-    "de": {
-      "description": "Setzt die Animation auf das erste Einzelbild zurück"
-    }
-  },
-  "AnimatedSprite/setAnimationInterval(int)": {
-    "de": {
-      "description": "Legt fest, wie viele Millisekunden ein Einzelbild angezeigt wird"
-    }
-  },
-  "AnimatedSprite/getAnimationInterval()": {
-    "de": {
-      "description": "Gibt zurück, wie viele Millisekunden ein Einzelbild angezeigt wird"
-    }
-  },
-  "AnimatedSprite/getAnimationFrame()": {
-    "de": {
-      "description": "Gibt die Nummer des aktuellen Einzelbildes zurück"
-    }
-  },
-  "AnimatedSprite/setAnimationFrame(int)": {
-    "de": {
-      "description": "Springt zum Einzelbild mit der angegebenen Nummer"
-    }
-  },
-  "AnimatedSprite/isAnimationPlayed()": {
-    "de": {
-      "description": "Gibt genau dann true zurück, wenn eine mit once gestartete Animation durchgelaufen ist"
-    }
-  },
   "Clock/getYear()": {
     "de": {
       "description": "Gibt das aktuelle Jahr zurück"
@@ -129,59 +44,14 @@
       "description": "Gibt die Anzahl der Tage seit dem 1. Januar 2000 zurück"
     }
   },
-  "Color/constructor()": {
-    "de": {
-      "description": "Erzeugt die Farbe Weiß"
-    }
-  },
   "Color/constructor(String)": {
     "de": {
       "description": "Erzeugt eine Farbe aus einem Hex-Code, z.B. #ff0000"
     }
   },
-  "Color/constructor(double)": {
-    "de": {
-      "description": "Erzeugt eine Farbe mit dem angegebenen Farbton (0 bis 255)"
-    }
-  },
   "Color/constructor(double,double,double)": {
     "de": {
       "description": "Erzeugt eine Farbe aus Rot-, Grün- und Blauanteil (jeweils 0 bis 255)"
-    }
-  },
-  "Color/constructor(Color)": {
-    "de": {
-      "description": "Erzeugt eine Kopie der übergebenen Farbe"
-    }
-  },
-  "Color/get()": {
-    "de": {
-      "description": "Gibt die Farbe als ganze Zahl zurück"
-    }
-  },
-  "Color/getHSB()": {
-    "de": {
-      "description": "Gibt den Farbton zurück (0 bis 255)"
-    }
-  },
-  "Color/setHSB(double)": {
-    "de": {
-      "description": "Setzt den Farbton (0 bis 255)"
-    }
-  },
-  "Color/setHSB(double,double,double)": {
-    "de": {
-      "description": "Setzt Farbton, Sättigung und Helligkeit (jeweils 0 bis 255)"
-    }
-  },
-  "Color/setRGB(double,double,double)": {
-    "de": {
-      "description": "Setzt Rot-, Grün- und Blauanteil (jeweils 0 bis 255)"
-    }
-  },
-  "Color/changeColor(double)": {
-    "de": {
-      "description": "Ändert den Farbton um den angegebenen Wert"
     }
   },
   "Color/getRed()": {
@@ -199,21 +69,6 @@
       "description": "Gibt den Blauanteil zurück (0 bis 255)"
     }
   },
-  "Color/getH()": {
-    "de": {
-      "description": "Gibt den Farbton zurück (0 bis 255)"
-    }
-  },
-  "Color/getS()": {
-    "de": {
-      "description": "Gibt die Sättigung zurück (0 bis 255)"
-    }
-  },
-  "Color/getL()": {
-    "de": {
-      "description": "Gibt die Helligkeit zurück (0 bis 255)"
-    }
-  },
   "Color/toString()": {
     "de": {
       "description": "Gibt die Farbe als Text aus"
@@ -222,46 +77,6 @@
   "Color/equals(Object)": {
     "de": {
       "description": "Prüft, ob es dieselbe Farbe ist"
-    }
-  },
-  "Hitbox/constructor(double[],double[])": {
-    "de": {
-      "description": "Erzeugt einen Umriss aus x- und y-Koordinaten"
-    }
-  },
-  "Hitbox/constructor(Shape)": {
-    "de": {
-      "description": "Erzeugt einen Umriss aus einer Form"
-    }
-  },
-  "Hitbox/getShape()": {
-    "de": {
-      "description": "Gibt den Umriss als Form zurück"
-    }
-  },
-  "Hitbox/translateAndRotateAndResize(double,double,double,double,double,double)": {
-    "de": {
-      "description": "Verschiebt, dreht und skaliert den Umriss"
-    }
-  },
-  "Hitbox/contains(double,double)": {
-    "de": {
-      "description": "Gibt genau dann true zurück, wenn der Punkt im Umriss liegt"
-    }
-  },
-  "Hitbox/getBounds()": {
-    "de": {
-      "description": "Gibt das umschließende Rechteck zurück"
-    }
-  },
-  "Hitbox/intersects(Hitbox)": {
-    "de": {
-      "description": "Gibt genau dann true zurück, wenn sich beide Umrisse überlappen"
-    }
-  },
-  "HtmlColor/constructor()": {
-    "de": {
-      "description": "Gibt eine zufällige der benannten Farben zurück"
     }
   },
   "Operators/lerp(double,double,double)": {
@@ -384,11 +199,6 @@
       "description": "Erzeugt einen neuen Stift"
     }
   },
-  "Pen/constructor(Sprite)": {
-    "de": {
-      "description": "Senkt den Stift ab, so dass er beim Bewegen zeichnet"
-    }
-  },
   "Pen/up()": {
     "de": {
       "description": "Hebt den Stift an, so dass er nicht mehr zeichnet"
@@ -442,21 +252,6 @@
   "Pen/changeTransparency(double)": {
     "de": {
       "description": "Ändert die Deckkraft um den angegebenen Wert"
-    }
-  },
-  "Pen/goToBackground()": {
-    "de": {
-      "description": "Zeichnet hinter den Figuren"
-    }
-  },
-  "Pen/goToForeground()": {
-    "de": {
-      "description": "Zeichnet vor den Figuren"
-    }
-  },
-  "Pen/isInBackground()": {
-    "de": {
-      "description": "Gibt genau dann true zurück, wenn der Stift hinter den Figuren zeichnet"
     }
   },
   "Pen/goToRandomPosition()": {
@@ -634,11 +429,6 @@
       "description": "Erzeugt eine Figur mit einem ersten Kostüm"
     }
   },
-  "Sprite/constructor(Sprite)": {
-    "de": {
-      "description": "Erzeugt eine Kopie der angegebenen Figur"
-    }
-  },
   "Sprite/run()": {
     "de": {
       "description": "Wird in jedem Frame aufgerufen"
@@ -694,19 +484,9 @@
       "description": "Zeigt eine Sprechblase an"
     }
   },
-  "Sprite/say(String,int)": {
-    "de": {
-      "description": "Zeigt eine Sprechblase für die angegebene Zeit in Millisekunden"
-    }
-  },
   "Sprite/think(String)": {
     "de": {
       "description": "Zeigt eine Denkblase an"
-    }
-  },
-  "Sprite/think(String,int)": {
-    "de": {
-      "description": "Zeigt eine Denkblase für die angegebene Zeit in Millisekunden"
     }
   },
   "Sprite/addCostume(String)": {
@@ -809,11 +589,6 @@
       "description": "Bewegt die Figur um die angegebene Schrittzahl in ihre Blickrichtung"
     }
   },
-  "Sprite/move(Vector2)": {
-    "de": {
-      "description": "Verschiebt die Figur um den Vektor"
-    }
-  },
   "Sprite/setPosition(double,double)": {
     "de": {
       "description": "Setzt die Figur an die angegebene Position (Mitte der Bühne ist 0/0)"
@@ -909,34 +684,14 @@
       "description": "Setzt die Blickrichtung in Grad (90 = rechts, 0 = oben)"
     }
   },
-  "Sprite/setDirection(Vector2)": {
-    "de": {
-      "description": "Setzt die Blickrichtung auf die Richtung des Vektors"
-    }
-  },
   "Sprite/goToSprite(Sprite)": {
     "de": {
       "description": "Setzt die Figur auf die Position einer anderen Figur"
     }
   },
-  "Sprite/pointInDirection(double)": {
-    "de": {
-      "description": "Setzt die Blickrichtung in Grad (90 = rechts, 0 = oben)"
-    }
-  },
-  "Sprite/pointInDirection(Vector2)": {
-    "de": {
-      "description": "Richtet die Figur entlang des angegebenen Vektors aus"
-    }
-  },
   "Sprite/pointTowardsMousePointer()": {
     "de": {
       "description": "Richtet die Figur zum Mauszeiger aus"
-    }
-  },
-  "Sprite/pointTowardsSprite(Sprite)": {
-    "de": {
-      "description": "Richtet die Figur zu einer anderen Figur aus"
     }
   },
   "Sprite/getDirection()": {
@@ -1014,19 +769,9 @@
       "description": "Färbt die Figur mit der angegebenen Farbe ein"
     }
   },
-  "Sprite/setTint(double)": {
-    "de": {
-      "description": "Färbt die Figur mit dem angegebenen Farbton ein (0 bis 255)"
-    }
-  },
   "Sprite/setTint(double,double,double)": {
     "de": {
       "description": "Färbt die Figur mit der angegebenen Farbe ein (Anteile jeweils 0 bis 255)"
-    }
-  },
-  "Sprite/changeTint(double)": {
-    "de": {
-      "description": "Ändert den Farbton der Einfärbung um den angegebenen Wert"
     }
   },
   "Sprite/getTint()": {
@@ -1164,11 +909,6 @@
       "description": "Gibt eine Zufallszahl zwischen from und to zurück (beide eingeschlossen)"
     }
   },
-  "Sprite/getDeltaTime()": {
-    "de": {
-      "description": "Gibt die Dauer des letzten Frames in Sekunden zurück"
-    }
-  },
   "Sprite/getText()": {
     "de": {
       "description": "Gibt den Text zurück, der über der Figur angezeigt wird"
@@ -1177,11 +917,6 @@
   "Sprite/getTimer()": {
     "de": {
       "description": "Gibt den Standard-Timer dieser Figur zurück"
-    }
-  },
-  "Sprite/getTimer(String)": {
-    "de": {
-      "description": "Gibt den Timer mit dem angegebenen Namen zurück und legt ihn bei Bedarf an"
     }
   },
   "Sprite/setHitbox(Shape)": {
@@ -1267,11 +1002,6 @@
   "Stage/whenMouseClicked(MouseCode)": {
     "de": {
       "description": "Wird bei einem Mausklick aufgerufen"
-    }
-  },
-  "Stage/whenMouseWheelMoved(int)": {
-    "de": {
-      "description": "Wird beim Drehen des Mausrads aufgerufen"
     }
   },
   "Stage/whenBackdropSwitches(String)": {
@@ -1429,11 +1159,6 @@
       "description": "Gibt die Lautstärke in Prozent zurück"
     }
   },
-  "Stage/setColor(double)": {
-    "de": {
-      "description": "Setzt die Hintergrundfarbe über den Farbton (0 bis 255)"
-    }
-  },
   "Stage/setColor(double,double,double)": {
     "de": {
       "description": "Setzt die Hintergrundfarbe aus Rot-, Grün- und Blauanteil (jeweils 0 bis 255)"
@@ -1449,29 +1174,9 @@
       "description": "Gibt die Hintergrundfarbe zurück"
     }
   },
-  "Stage/changeColor(double)": {
-    "de": {
-      "description": "Ändert den Farbton des Hintergrunds um den angegebenen Wert"
-    }
-  },
   "Stage/getCamera()": {
     "de": {
       "description": "Gibt die Kamera der Bühne zurück"
-    }
-  },
-  "Stage/setTint(double,double,double)": {
-    "de": {
-      "description": "Färbt den Hintergrund ein (Anteile jeweils 0 bis 255)"
-    }
-  },
-  "Stage/setTint(double)": {
-    "de": {
-      "description": "Färbt den Hintergrund mit dem angegebenen Farbton ein (0 bis 255)"
-    }
-  },
-  "Stage/changeTint(double)": {
-    "de": {
-      "description": "Ändert den Farbton der Einfärbung um den angegebenen Wert"
     }
   },
   "Stage/setTransparency(double)": {
@@ -1484,24 +1189,9 @@
       "description": "Ändert die Transparenz des Hintergrunds"
     }
   },
-  "Stage/setDebug(boolean)": {
-    "de": {
-      "description": "Schaltet die Ausgabe von debug() ein oder aus"
-    }
-  },
-  "Stage/isDebug()": {
-    "de": {
-      "description": "Gibt genau dann true zurück, wenn die Fehlersuche eingeschaltet ist"
-    }
-  },
   "Stage/waitUntil(BooleanSupplier)": {
     "de": {
       "description": "Wartet, bis die Bedingung erfüllt ist"
-    }
-  },
-  "Stage/exit()": {
-    "de": {
-      "description": "Beendet das Programm"
     }
   },
   "Stage/setCursor(String)": {
@@ -1514,19 +1204,9 @@
       "description": "Setzt das Mauszeigerbild mit eigenem Aktivpunkt"
     }
   },
-  "Stage/getPixels()": {
-    "de": {
-      "description": "Nur in der Desktop-Version: Zugriff auf einzelne Bildpunkte"
-    }
-  },
   "Stage/getShaders()": {
     "de": {
       "description": "Gibt die Shader der Bühne zurück; sie verändern das ganze Bild ohne die UI"
-    }
-  },
-  "Stage/getSorting()": {
-    "de": {
-      "description": "Gibt die Sortierung der Bühne zurück. Mit getSorting().byY() werden Figuren weiter unten vor denen weiter oben gezeichnet."
     }
   },
   "Stage/getWidth()": {
@@ -1569,21 +1249,6 @@
       "description": "Gibt den Standard-Timer der Bühne zurück"
     }
   },
-  "Stage/getTimer(String)": {
-    "de": {
-      "description": "Gibt den Timer mit dem angegebenen Namen zurück und legt ihn bei Bedarf an"
-    }
-  },
-  "Stage/getDeltaTime()": {
-    "de": {
-      "description": "Gibt die Dauer des letzten Frames in Sekunden zurück"
-    }
-  },
-  "Stage/getFrameRate()": {
-    "de": {
-      "description": "Gibt die aktuelle Bildrate zurück"
-    }
-  },
   "Stage/eraseAll()": {
     "de": {
       "description": "Löscht alles, was mit Stiften gezeichnet wurde"
@@ -1592,16 +1257,6 @@
   "Stage/display(String)": {
     "de": {
       "description": "Zeigt einen Text am unteren Rand der Bühne an"
-    }
-  },
-  "Stage/display(String,int)": {
-    "de": {
-      "description": "Zeigt einen Text für die angegebene Zeit in Millisekunden an"
-    }
-  },
-  "Stage/wait(int)": {
-    "de": {
-      "description": "Pausiert das Programm für die angegebene Zeit in Millisekunden"
     }
   },
   "Stage/ask(String)": {
@@ -1629,11 +1284,6 @@
       "description": "Erzeugt einen leeren Text in der Mitte der Bühne"
     }
   },
-  "Text/constructor(Sprite)": {
-    "de": {
-      "description": "Erzeugt einen Text an der angegebenen Position mit der angegebenen Breite"
-    }
-  },
   "Text/constructor(String,double,double,double,TextStyle)": {
     "de": {
       "description": "Erzeugt einen Text an der angegebenen Position, mit der angegebenen Breite und im angegebenen Stil"
@@ -1642,11 +1292,6 @@
   "Text/showText(String)": {
     "de": {
       "description": "Zeigt den Text an"
-    }
-  },
-  "Text/showText(String,int)": {
-    "de": {
-      "description": "Zeigt den Text für die angegebene Zeit in Millisekunden an"
     }
   },
   "Text/setPosition(double,double)": {
@@ -1684,44 +1329,14 @@
       "description": "Gibt die y-Position zurück"
     }
   },
-  "Text/setTextColor(int,int,int)": {
-    "de": {
-      "description": "Setzt die Schriftfarbe aus Rot-, Grün- und Blauanteil (jeweils 0 bis 255)"
-    }
-  },
-  "Text/setTextColor(double)": {
-    "de": {
-      "description": "Setzt die Schriftfarbe über den Farbton (0 bis 255)"
-    }
-  },
   "Text/setTextColor(Color)": {
     "de": {
       "description": "Setzt die Schriftfarbe"
     }
   },
-  "Text/setBackgroundColor(int,int,int)": {
-    "de": {
-      "description": "Setzt die Hintergrundfarbe aus Rot-, Grün- und Blauanteil (jeweils 0 bis 255)"
-    }
-  },
-  "Text/setBackgroundColor(double)": {
-    "de": {
-      "description": "Setzt die Hintergrundfarbe über den Farbton (0 bis 255)"
-    }
-  },
   "Text/setBackgroundColor(Color)": {
     "de": {
       "description": "Setzt die Hintergrundfarbe"
-    }
-  },
-  "Text/setStrokeColor(int,int,int)": {
-    "de": {
-      "description": "Setzt die Rahmenfarbe aus Rot-, Grün- und Blauanteil (jeweils 0 bis 255)"
-    }
-  },
-  "Text/setStrokeColor(double)": {
-    "de": {
-      "description": "Setzt die Rahmenfarbe über den Farbton (0 bis 255)"
     }
   },
   "Text/setStrokeColor(Color)": {
@@ -1762,11 +1377,6 @@
   "Text/getFont()": {
     "de": {
       "description": "Gibt den Namen der aktuellen Schriftart zurück"
-    }
-  },
-  "Text/setTextSize(int)": {
-    "de": {
-      "description": "Setzt die Schriftgröße"
     }
   },
   "Text/getTextSize()": {
@@ -1829,16 +1439,6 @@
       "description": "Schiebt den Text um die angegebene Anzahl Ebenen nach hinten"
     }
   },
-  "Text/isUI()": {
-    "de": {
-      "description": "Gibt genau dann true zurück, wenn der Text zur Benutzeroberfläche gehört"
-    }
-  },
-  "Text/setIsUI(boolean)": {
-    "de": {
-      "description": "Legt fest, ob der Text zur Benutzeroberfläche gehört und sich nicht mit der Kamera bewegt"
-    }
-  },
   "Text/getStage()": {
     "de": {
       "description": "Gibt die Bühne zurück, auf der der Text liegt"
@@ -1849,17 +1449,7 @@
       "description": "Wird aufgerufen, wenn der Text der Bühne hinzugefügt wird"
     }
   },
-  "Text/whenAddedToStage(Stage)": {
-    "de": {
-      "description": "Wird aufgerufen, wenn der Text der Bühne hinzugefügt wird"
-    }
-  },
   "Text/whenRemovedFromStage()": {
-    "de": {
-      "description": "Wird aufgerufen, wenn der Text von der Bühne entfernt wird"
-    }
-  },
-  "Text/whenRemovedFromStage(Stage)": {
     "de": {
       "description": "Wird aufgerufen, wenn der Text von der Bühne entfernt wird"
     }
@@ -1874,19 +1464,9 @@
       "description": "Gibt die Standardschriftgröße zurück"
     }
   },
-  "Text/useFont(String,int)": {
-    "de": {
-      "description": "Legt Schriftart und -größe für alle Texte fest"
-    }
-  },
   "Text/useFont(String)": {
     "de": {
       "description": "Legt die Schriftart für alle Texte fest"
-    }
-  },
-  "Text/useSmoothing(boolean)": {
-    "de": {
-      "description": "Legt fest, ob Schrift geglättet wird"
     }
   },
   "Timer/constructor()": {
@@ -1897,81 +1477,6 @@
   "Timer/reset()": {
     "de": {
       "description": "Setzt den Timer auf 0 zurück"
-    }
-  },
-  "Timer/millis()": {
-    "de": {
-      "description": "Gibt die seit dem Programmstart vergangenen Millisekunden zurück"
-    }
-  },
-  "Timer/everyMillis(int)": {
-    "de": {
-      "description": "Gibt alle millis Millisekunden einmal true zurück"
-    }
-  },
-  "Timer/forMillis(int)": {
-    "de": {
-      "description": "Gibt für die ersten millis Millisekunden nach dem Zurücksetzen true zurück"
-    }
-  },
-  "Timer/afterMillis(int)": {
-    "de": {
-      "description": "Gibt true zurück, sobald seit dem Zurücksetzen millis Millisekunden vergangen sind"
-    }
-  },
-  "Timer/intervalMillis(int)": {
-    "de": {
-      "description": "Wechselt alle millis Millisekunden zwischen true und false"
-    }
-  },
-  "Timer/intervalMillis(int,boolean)": {
-    "de": {
-      "description": "Wechselt alle millis Millisekunden zwischen true und false; skipFirst überspringt das erste Intervall"
-    }
-  },
-  "Timer/intervalMillis(int,int)": {
-    "de": {
-      "description": "Gibt millis1 Millisekunden lang true und danach millis2 Millisekunden lang false zurück"
-    }
-  },
-  "Timer/intervalMillis(int,int,boolean)": {
-    "de": {
-      "description": "Gibt millis1 Millisekunden lang true und danach millis2 Millisekunden lang false zurück; skipFirst überspringt das erste Intervall"
-    }
-  },
-  "UISprite/constructor()": {
-    "de": {
-      "description": "Erzeugt eine neue UI-Figur"
-    }
-  },
-  "UISprite/setWidth(double)": {
-    "de": {
-      "description": "Setzt die Breite in Pixeln"
-    }
-  },
-  "UISprite/setHeight(double)": {
-    "de": {
-      "description": "Setzt die Höhe in Pixeln"
-    }
-  },
-  "UISprite/changeWidth(double)": {
-    "de": {
-      "description": "Ändert die Breite um die angegebene Anzahl Pixel"
-    }
-  },
-  "UISprite/changeHeight(double)": {
-    "de": {
-      "description": "Ändert die Höhe um die angegebene Anzahl Pixel"
-    }
-  },
-  "UISprite/setNineSlice(int,int,int,int)": {
-    "de": {
-      "description": "Hält die Ecken und Ränder des Kostüms beim Skalieren fest (Nine-Slice)"
-    }
-  },
-  "UISprite/disableNineSlice()": {
-    "de": {
-      "description": "Lässt das ganze Kostüm wieder mitskalieren"
     }
   },
   "Vector2/constructor()": {
@@ -2129,11 +1634,6 @@
       "description": "Gibt die Höhe des Fensters in Pixeln zurück"
     }
   },
-  "Window/getDeltaTime()": {
-    "de": {
-      "description": "Gibt die Dauer des letzten Frames in Sekunden zurück"
-    }
-  },
   "Window/pause()": {
     "de": {
       "description": "Gibt die Bühne zurück, die gerade angezeigt wird"
@@ -2142,11 +1642,6 @@
   "Window/setStage(Stage)": {
     "de": {
       "description": "Zeigt die angegebene Bühne an"
-    }
-  },
-  "Window/transitionToStage(Stage,int)": {
-    "de": {
-      "description": "Blendet über Schwarz zur angegebenen Bühne über"
     }
   },
   "Window/setDebug(boolean)": {
@@ -2182,16 +1677,6 @@
   "Window/useFullScreen()": {
     "de": {
       "description": "Nur in der Desktop-Version: startet im Vollbild"
-    }
-  },
-  "Window/useTextureSampling(TextureSampling)": {
-    "de": {
-      "description": "Legt fest, wie Bilder beim Vergrößern und Verkleinern geglättet werden. TextureSampling.POINT hält Pixelgrafik scharf, LINEAR (Standard) glättet. BILINEAR und TRILINEAR wirken im Browser wie LINEAR."
-    }
-  },
-  "Window/getTextureSampling()": {
-    "de": {
-      "description": "Gibt das eingestellte Glättungsverfahren zurück"
     }
   },
   "Window/useSplashLogo(String)": {

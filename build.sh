@@ -31,11 +31,14 @@ for page in $VERSIONED_PAGES; do
 done
 
 # Regenerates everything the docs are built from: the reference pages written by
-# the doclet, the built-in sprite and sound pages, and the demo assets the
-# example pages load. Running only `compile` here would leave the reference
-# pages as they were after the last `mvn package`, which is how pages for
-# deleted methods used to survive.
-mvn -q -DskipTests prepare-package
+# the doclet, the built-in sprite and sound pages, and the demo pages with the
+# assets they load.
+# in the reactor, never `install` (AGENTS.md); the reference pages come from the Javadoc of the
+# core and the extensions, the demo pages and their assets from examples/src/main/java/demos
+./scripts/reference-docs.sh
+CP="examples/target/classes:$(ls all/target/scratch-*-all.jar | grep -v nrw | head -1)"
+java -cp "$CP" docs.GenerateDemoPages --write
+java -cp "$CP" docs.GenerateAssetPages
 python3 scripts/browser-compatibility.py
 python3 scripts/release-catalogs.py
 python3 scripts/build-course-pack.py --output docs/public/scratch-to-java-course.zip

@@ -1,6 +1,6 @@
 #!/bin/bash
 # Fills the interactive examples on the pages under docs/book/examples from the
-# demos under src/examples/java/demos, and copies the demos' assets to
+# demos under examples/src/main/java/demos, and copies the demos' assets to
 # docs/public/examples where those pages load them from.
 #
 #   ./scripts/update-demo-pages.sh
@@ -10,4 +10,8 @@
 set -e
 
 cd "$(dirname "$0")/.."
-mvn -q compile exec:java -Dexec.mainClass=docs.GenerateDemoPages -Dexec.args=--write
+# in the reactor, never against ~/.m2 (AGENTS.md): -am hands out core and the
+# extensions as their target/classes
+mvn -q compile dependency:build-classpath -pl examples -am \
+  -Dmdep.outputFile='${project.build.directory}/run-classpath.txt' -Dmdep.includeScope=runtime
+java -cp "examples/target/classes:$(cat examples/target/run-classpath.txt)" docs.GenerateDemoPages --write

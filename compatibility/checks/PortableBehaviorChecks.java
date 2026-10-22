@@ -14,11 +14,11 @@ public class PortableBehaviorChecks {
     require(player.score == 8, "score after collecting");
     coin.setX(1000);
     require(!player.getHitbox().intersects(coin.getHitbox()), "separated sprites");
-    CheckWalker copy = (CheckWalker) player.clone();
+    CheckWalker copy = player.createClone();
     require(copy.score == 8 && copy.isClone(), "clone fields");
     copy.score = 9;
     require(player.score == 8, "independent score");
-    require(player.getTimer("check") != copy.getTimer("check"), "independent timers");
+    require(player.getTimer() != copy.getTimer(), "independent timers");
     Random.randomSeed(2026);
     int first = Random.randomInt(100);
     int second = Random.randomInt(100);

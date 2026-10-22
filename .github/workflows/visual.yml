@@ -5,11 +5,11 @@ name: Visual
 # longer, and can fail for a reason the tests never can: a different machine
 # drawing the same thing slightly differently.
 #
-# The recorded frames in src/test/resources/parity/frames are pixel-for-pixel.
+# The recorded frames in examples/src/test/resources/parity/frames are pixel-for-pixel.
 # Two runs on one machine are bit-identical, but two different machines are only
 # identical if they rasterise the same way, and the runner is not the machine the
 # frames were recorded on. If this job fails on something nobody changed, take
-# the drawn-frames artifact below, put it in src/test/resources/parity/frames,
+# the drawn-frames artifact below, put it in examples/src/test/resources/parity/frames,
 # and commit that: the runner then becomes what the frames are recorded against.
 
 on:

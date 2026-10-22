@@ -6,7 +6,7 @@
     {
       "id": "demo/cat",
       "kind": "demo",
-      "source": "src/examples/java/demos/cat",
+      "source": "examples/src/main/java/demos/cat",
       "libraryVersion": "6.5.0",
       "flavour": "standard",
       "requiredSheets": [],
@@ -24,7 +24,7 @@
     {
       "id": "demo/catPlatformer",
       "kind": "demo",
-      "source": "src/examples/java/demos/catPlatformer",
+      "source": "examples/src/main/java/demos/catPlatformer",
       "libraryVersion": "6.5.0",
       "flavour": "standard",
       "requiredSheets": [
@@ -35,15 +35,15 @@
       "files": [
         {
           "path": "Bean.java",
-          "sha256": "e711aead57857c6d25ff96f5e0de6a969ffd9c1b33f359e3f2bb8a36428f5a10"
+          "sha256": "2a29b5b353cf5408a9b0926e4a834733e45d06504eca0f778b49e475fcb27d8c"
         },
         {
           "path": "Bug.java",
-          "sha256": "6a6e39b0925985b93f9e5e1c509fe898a9cd13a5dc2cba3f46b3c58eae58677a"
+          "sha256": "a3e060ff2c19606f94e26161d37e500acc67ace1708d5de059bd01189407789b"
         },
         {
           "path": "Cat.java",
-          "sha256": "40752d42d41e75295bbea5463ae5f574b58ddc4a888cde56b319cf57a4484c40"
+          "sha256": "fb1e51731c37b0db917ec274a9fb9a5b9964ad132eae73ffbf462e71a629eebb"
         },
         {
           "path": "CatPlatformer.java",
@@ -51,7 +51,7 @@
         },
         {
           "path": "Goal.java",
-          "sha256": "a0ab034b3dbf2835a1b85dd1edbb32b67a7774dd8e41b3a493194ba778b97572"
+          "sha256": "c828b86c1b09f039f3b46bcf9d7424244df474a2b08aa7ac42d0316f6ca49ab6"
         },
         {
           "path": "Ground.java",
@@ -74,7 +74,7 @@
     {
       "id": "demo/clock",
       "kind": "demo",
-      "source": "src/examples/java/demos/clock",
+      "source": "examples/src/main/java/demos/clock",
       "libraryVersion": "6.5.0",
       "flavour": "standard",
       "requiredSheets": [],
@@ -124,7 +124,7 @@
     {
       "id": "demo/coinCollector",
       "kind": "demo",
-      "source": "src/examples/java/demos/coinCollector",
+      "source": "examples/src/main/java/demos/coinCollector",
       "libraryVersion": "6.5.0",
       "flavour": "standard",
       "requiredSheets": [
@@ -146,14 +146,14 @@
         },
         {
           "path": "Player.java",
-          "sha256": "0693a09310284af5d2fd58693ac1430d34ea9b09f210e91422d63449bb25497d"
+          "sha256": "0143c301cd7395ba82be98af8b56ed283b122411846e7b0dde203eaaa6eb5d8b"
         }
       ]
     },
     {
       "id": "demo/donutIO",
       "kind": "demo",
-      "source": "src/examples/java/demos/donutIO",
+      "source": "examples/src/main/java/demos/donutIO",
       "libraryVersion": "6.5.0",
       "flavour": "standard",
       "requiredSheets": [],
@@ -172,11 +172,11 @@
         },
         {
           "path": "Game.java",
-          "sha256": "dd47d147b288eb68780451f6f6c3a1234ff162d63039ec925a455092ccc3bddb"
+          "sha256": "566460235a3e1b536cbe6337455e54b2e56a8a97dccccd5fdd8be9e51a9c54f4"
         },
         {
           "path": "GameOverStage.java",
-          "sha256": "8b03b31cb932b6972803e49a58501e5c7b04f0e7b2c4bc0473b7cfa2cf20089c"
+          "sha256": "e98e792ba309d77581f585e4e206fbaa0004e8d10ed8de9c76123416fbce3ac8"
         },
         {
           "path": "PlayerDonut.java",
@@ -184,15 +184,15 @@
         },
         {
           "path": "StartStage.java",
-          "sha256": "9d4a0085c2377ad6e9fcba5fbd05936c1f344b6b12aeb6ec36c3579325b28821"
+          "sha256": "d511595cb10651f75e3a895550b041db4a1a2d7867d309e55ff6e47723095b6e"
         },
         {
           "path": "WinStage.java",
-          "sha256": "691b5d745227a569d9e96fcee082c0ca022cb166702e5f70402f7f1d2573e6d1"
+          "sha256": "699a0026ff67d1079df2cb811283f0743ffb1cb0ccd849852169e05c1a9c0ca5"
         },
         {
           "path": "WorldStage.java",
-          "sha256": "2c1e97bce4d27074b278d77f339c50eda6ad2632c2c324cc7bc50d2fb119566c"
+          "sha256": "d520f4b57fb2f7d2161ea407881cde464a7078dabd2cc7d7a8932d64ee21d3c8"
         },
         {
           "path": "assets/donut.png",
@@ -211,7 +211,7 @@
     {
       "id": "demo/glide",
       "kind": "demo",
-      "source": "src/examples/java/demos/glide",
+      "source": "examples/src/main/java/demos/glide",
       "libraryVersion": "6.5.0",
       "flavour": "standard",
       "requiredSheets": [
@@ -228,18 +228,18 @@
     {
       "id": "demo/pipes",
       "kind": "demo",
-      "source": "src/examples/java/demos/pipes",
+      "source": "examples/src/main/java/demos/pipes",
       "libraryVersion": "6.5.0",
       "flavour": "standard",
       "requiredSheets": [],
       "files": [
         {
           "path": "PenSprite.java",
-          "sha256": "94b9fb824ef95dfbbd5c0f757aef771be165c1f7917fb5954b5f14651d516283"
+          "sha256": "9cc2544d691f9d771b868f0a644b8ea5eb74e89534a42aeeb7f88b87f064acf3"
         },
         {
           "path": "Pipes.java",
-          "sha256": "3b516c93456ef4a74b149abb52844d877f6db846dd384f9156701fcacee81e28"
+          "sha256": "72540a41ffe2102900cf21da2a2430e95bcac6a93c61644e0b919343f0cc7ba5"
         },
         {
           "path": "backdrops/chalk_board.jpg",
@@ -258,7 +258,7 @@
     {
       "id": "demo/quiz",
       "kind": "demo",
-      "source": "src/examples/java/demos/quiz",
+      "source": "examples/src/main/java/demos/quiz",
       "libraryVersion": "6.5.0",
       "flavour": "standard",
       "requiredSheets": [
@@ -275,35 +275,35 @@
     {
       "id": "demo/rainbowVine",
       "kind": "demo",
-      "source": "src/examples/java/demos/rainbowVine",
+      "source": "examples/src/main/java/demos/rainbowVine",
       "libraryVersion": "6.5.0",
       "flavour": "standard",
       "requiredSheets": [],
       "files": [
         {
           "path": "RainbowVine.java",
-          "sha256": "ab9f946430b98be3988e4b29606ecf135abc6b9f59002a04406bb9380e0df0c7"
+          "sha256": "138c92e3ec360946511bdaa3fbfcbf7680d7e0794bd0afd88940463328ba70ef"
         }
       ]
     },
     {
       "id": "demo/randomDot",
       "kind": "demo",
-      "source": "src/examples/java/demos/randomDot",
+      "source": "examples/src/main/java/demos/randomDot",
       "libraryVersion": "6.5.0",
       "flavour": "standard",
       "requiredSheets": [],
       "files": [
         {
           "path": "RandomDot.java",
-          "sha256": "29adafc8e89e37efb43cd41226bb557668f94345b8fd19ae9cdceaa7cf64b246"
+          "sha256": "85fca39a0f737838886790b33e3a78c0bf761fa22038f16d1647d49573b0f641"
         }
       ]
     },
     {
       "id": "demo/robot",
       "kind": "demo",
-      "source": "src/examples/java/demos/robot",
+      "source": "examples/src/main/java/demos/robot",
       "libraryVersion": "6.5.0",
       "flavour": "standard",
       "requiredSheets": [],
@@ -314,7 +314,7 @@
         },
         {
           "path": "RobotStage.java",
-          "sha256": "d3e5db133393de331fa3f9be1774ff8c74df9ce0437ddcc9cb6c726938a2abc6"
+          "sha256": "f4a13c806280372dd994a2b5c7c378622a7c56ab2cdcbca40a524da3dbcfe33e"
         },
         {
           "path": "sprites/robot.png",
@@ -325,7 +325,7 @@
     {
       "id": "demo/saveSlots",
       "kind": "demo",
-      "source": "src/examples/java/demos/saveSlots",
+      "source": "examples/src/main/java/demos/saveSlots",
       "libraryVersion": "6.5.0",
       "flavour": "standard",
       "requiredSheets": [
@@ -347,14 +347,14 @@
         },
         {
           "path": "SaveSlotStage.java",
-          "sha256": "137d38a4b232e7c477d1d9b82143c986073221a9890a72783f8580818fd279e4"
+          "sha256": "952710f6d48438e6d4b504bd24d9d68da4164eeab8a98446d724e1de21d75c9e"
         }
       ]
     },
     {
       "id": "demo/saving",
       "kind": "demo",
-      "source": "src/examples/java/demos/saving",
+      "source": "examples/src/main/java/demos/saving",
       "libraryVersion": "6.5.0",
       "flavour": "standard",
       "requiredSheets": [],
@@ -365,21 +365,21 @@
         },
         {
           "path": "Saving.java",
-          "sha256": "083c69f9950f753e83a21bc722b4d91bdf476d6bb5d73f41d939c27d4ff60ac6"
+          "sha256": "07c5a1fa8f1205e86ad5770579f31f84c81583b72f43eaf7c38c1992b4a06479"
         }
       ]
     },
     {
       "id": "demo/sensing",
       "kind": "demo",
-      "source": "src/examples/java/demos/sensing",
+      "source": "examples/src/main/java/demos/sensing",
       "libraryVersion": "6.5.0",
       "flavour": "standard",
       "requiredSheets": [],
       "files": [
         {
           "path": "Sensing.java",
-          "sha256": "7a329ba9f3b5eed86c48eec6b963b22516a90267a4ee871bbf62775fc96b692d"
+          "sha256": "2ff78751e708d51ffb8b0afdcfab91c1fdd4f2a7de6c04beaf18a1b39dcba8bc"
         },
         {
           "path": "sprites/hero.png",
@@ -394,7 +394,7 @@
     {
       "id": "demo/shader",
       "kind": "demo",
-      "source": "src/examples/java/demos/shader",
+      "source": "examples/src/main/java/demos/shader",
       "libraryVersion": "6.5.0",
       "flavour": "standard",
       "requiredSheets": [],
@@ -405,11 +405,11 @@
         },
         {
           "path": "MySprite.java",
-          "sha256": "c1d6ef06a68dbcd7d77ea07f6fb7b50fc3d167c18075140db11b15b708affe6a"
+          "sha256": "0c1d54d65528f25b9b27c80e4e9aa8de6fd406b719ab27c0bc4aeb29cb01b311"
         },
         {
           "path": "MyStage.java",
-          "sha256": "084c5cec165caab57efc5bc29a35858e369e13cee645ac1af38fe63d56cd3e90"
+          "sha256": "a49e7d95afffe2e77ab24129dd473d588c0e99285277908415b583ac0cd59405"
         },
         {
           "path": "NormalSprite.java",
@@ -421,7 +421,7 @@
         },
         {
           "path": "blobby.frag",
-          "sha256": "384933079eec3bb08beb0b141bec7cd59ff7ef17c4a8fa706e3c4f1640dba55b"
+          "sha256": "b4ee43f9290e7181eaf73cfa0d61951916655f284a390a74417bcded8572df6a"
         },
         {
           "path": "cat.png",
@@ -433,15 +433,15 @@
         },
         {
           "path": "glitch.frag",
-          "sha256": "cc97afe4a6df211c95abf0dead361f05d32cf4e42d042d78ad47f22a3c1fdb5d"
+          "sha256": "c087dead430cf77c6b126a699533711597f0531a84b7ea599828e5157590bd62"
         },
         {
           "path": "halftone.frag",
-          "sha256": "64e2eb806ed07b091fa5d9c15329cf776d2950832021fb985172edebd0c0df71"
+          "sha256": "d41be6f499140952eda26eb2420711bbb141fe870d8cb59b23b48319aa9338d1"
         },
         {
           "path": "light.frag",
-          "sha256": "cbb7e7c862a6944b620919c8643b40f8986a6dcc389e2308966fa5f50694e551"
+          "sha256": "406c07398ade3a3bec38b7fe124bf900520d1372fcafff3ca43dbd272ac29578"
         },
         {
           "path": "light.png",
@@ -449,22 +449,22 @@
         },
         {
           "path": "neon.frag",
-          "sha256": "8e875c5eb0cc2884d3470ae96797bf3708e01eb1725a98ad560414d5c9493f75"
+          "sha256": "03e834af81c80587b7c1de2ee89fd9c0facd15aab9e2a38dfdbafe7045bb22ac"
         },
         {
           "path": "pixel.frag",
-          "sha256": "3b3d471cd76f42313008ffaa3019fd382e80916ddc990c48b748786a54f5796f"
+          "sha256": "2642359211f3008c8e57b47ef97463a6727de042ccc6822cc67def9cdd0f41e2"
         },
         {
           "path": "pixelate.frag",
-          "sha256": "7d0842e4fc000f92a2ac9cf113fce083b7c2c5e5bb43c2cb2edfbf0bc045075b"
+          "sha256": "b97cea96d4fe2ce65b00354f7096c69b1027e8cfd0685fb4c22e3c3636b4947c"
         }
       ]
     },
     {
       "id": "demo/shakespeare",
       "kind": "demo",
-      "source": "src/examples/java/demos/shakespeare",
+      "source": "examples/src/main/java/demos/shakespeare",
       "libraryVersion": "6.5.0",
       "flavour": "standard",
       "requiredSheets": [],
@@ -479,7 +479,7 @@
         },
         {
           "path": "Shakespeare.java",
-          "sha256": "de45a061414fb16ca748abd3fe0327df154257a76933fd41bcda446aa8965484"
+          "sha256": "28dd04fd2825a2ee6e3770dde8699881d9b1e6b7c13f7de2202b4bf0c4c6dd55"
         },
         {
           "path": "assets/Singkong.ttf",
@@ -490,7 +490,7 @@
     {
       "id": "demo/smartRocket",
       "kind": "demo",
-      "source": "src/examples/java/demos/smartRocket",
+      "source": "examples/src/main/java/demos/smartRocket",
       "libraryVersion": "6.5.0",
       "flavour": "standard",
       "requiredSheets": [],
@@ -509,7 +509,7 @@
         },
         {
           "path": "Rocket.java",
-          "sha256": "aacd80bf036fff40872615776c41049fb9e06d199a87f4c10a990bb1d9249415"
+          "sha256": "dc981311b03f78c6b88fbcb9f09f204e99253bb8a39c261f6654d8c9b107d407"
         },
         {
           "path": "SmartRocket.java",
@@ -517,7 +517,7 @@
         },
         {
           "path": "Ziel.java",
-          "sha256": "656a913936da7e1c41811fff6ca80d5ef0fa047b72534bb92a15d5163d72d511"
+          "sha256": "61fafe0d70651623b85039e3f4f68544e5a39fdb2ededd52b4476d540bfa24c0"
         },
         {
           "path": "assets/rocket.png",
@@ -532,7 +532,7 @@
     {
       "id": "demo/stressTest",
       "kind": "demo",
-      "source": "src/examples/java/demos/stressTest",
+      "source": "examples/src/main/java/demos/stressTest",
       "libraryVersion": "6.5.0",
       "flavour": "standard",
       "requiredSheets": [],
@@ -543,7 +543,7 @@
         },
         {
           "path": "Figure.java",
-          "sha256": "722315ba5fc50b965d100e10b4605325470909342561a3e7bf01a9b2df1c82c6"
+          "sha256": "40d78a80d3528fc9ab97aa6f621d66fdbd18c6de8865d7863885c6199f6665d2"
         },
         {
           "path": "FigureState.java",
@@ -930,26 +930,26 @@
     {
       "id": "demo/tiled",
       "kind": "demo",
-      "source": "src/examples/java/demos/tiled",
+      "source": "examples/src/main/java/demos/tiled",
       "libraryVersion": "6.5.0",
       "flavour": "standard",
       "requiredSheets": [],
       "files": [
         {
           "path": "Bamboo.java",
-          "sha256": "ef45cb82baf7adc0afe4bce3cd3d9c682140e565c7458648bd819621569ed0a4"
+          "sha256": "e2fd946509ccdec8b0283eda075afcaec3e63a1e9043934b38f2686991168d1d"
         },
         {
           "path": "Enemy.java",
-          "sha256": "79e55b3bd2b799280fc3bb997700e8aa43fb410acab00b1546dacaefe465d61b"
+          "sha256": "290723fdc9747e0288e113a83f612f1a114528e38d0141c4e7cdbffdb21ce2ed"
         },
         {
           "path": "Fireball.java",
-          "sha256": "48cd4c98729716490c2393eeeceae156381a1d4fa5a6b2bf37b25b37f1f55415"
+          "sha256": "d4ad9b4da3834994033969c1fd3003e06313d384054a58b2906122c35b15e58b"
         },
         {
           "path": "GameState.java",
-          "sha256": "b7f6a5c03215e169f06986cf7856ec3873b432180d2a20665ae04801af93edaa"
+          "sha256": "92bb156764a03a3a6109ff4514e5d7f71a1556662b9d8a6e5def64f26f7ac1ad"
         },
         {
           "path": "I18n.java",
@@ -957,11 +957,11 @@
         },
         {
           "path": "Item.java",
-          "sha256": "e47faeb22edf46c14d082af212addbb7153d12db0e92ea55ee0d93efad9677d7"
+          "sha256": "5e09c2f6a37de88ac4938e3cf5d99b6c5975d120395810624bf9558289be5323"
         },
         {
           "path": "Level.java",
-          "sha256": "836ae4f3e812081fb38ef0f6be6277cea64a190d9b676ce7401d8e0f493924c0"
+          "sha256": "69d24ffc91863bcf8ea93e1edb5ebcce9d56f63448208eb8cc979049d9dfcf2a"
         },
         {
           "path": "Level1.tmx",
@@ -973,15 +973,15 @@
         },
         {
           "path": "Player.java",
-          "sha256": "57e756ac071860864b23b94f94544acd434762b609e1269c2269697e757ed597"
+          "sha256": "31ae15d50f122b3afa83628309787f5c21598a235bd48d5e16790be9aa87c0fc"
         },
         {
           "path": "Tiled.java",
-          "sha256": "960b45e33762de56bb58d730ac04f804b4caa89034754581ed37f23aebfa9080"
+          "sha256": "5d36d108981a89c7623489946d592bd11f910e023a8103eef1fca67b290bcec6"
         },
         {
           "path": "UIItem.java",
-          "sha256": "7cf11e83c718558802931c182c4d5db58679dea3cc9f7fad21a37da0dad77349"
+          "sha256": "a6910a0d8669272a46e6734062bef5baa6cee95c583d426e9aa2a9c468be1c7c"
         },
         {
           "path": "Wall.java",
@@ -989,7 +989,7 @@
         },
         {
           "path": "Warp.java",
-          "sha256": "c203e54de7d36e77750eb06ca40de9911aa4b42f7ffe9b5dea868b2ded1a3eb8"
+          "sha256": "4e2f9addd0b0fc37f214e986e1331d479b6f4365b9e4e09040d9ed41185e02e6"
         },
         {
           "path": "Water.java",
@@ -1036,42 +1036,42 @@
     {
       "id": "demo/timedDot",
       "kind": "demo",
-      "source": "src/examples/java/demos/timedDot",
+      "source": "examples/src/main/java/demos/timedDot",
       "libraryVersion": "6.5.0",
       "flavour": "standard",
       "requiredSheets": [],
       "files": [
         {
           "path": "TimedDot.java",
-          "sha256": "122349586071c44793565603f0dc6a470c0665fe1655fa671dbc519dc21011ac"
+          "sha256": "4ffd93113ccce1ebe8461c3178a5155b6b6ce94e8f4067d34dd1e0bad081617d"
         }
       ]
     },
     {
       "id": "demo/timer",
       "kind": "demo",
-      "source": "src/examples/java/demos/timer",
+      "source": "examples/src/main/java/demos/timer",
       "libraryVersion": "6.5.0",
       "flavour": "standard",
       "requiredSheets": [],
       "files": [
         {
           "path": "TimerStage.java",
-          "sha256": "7d2e0fac9344fbf4d43c09a57ac4430cb8961613394ac0faf322e3852e2cfac2"
+          "sha256": "a9e9bf9cb594f18cf50898f1755bacd08708f2ac29b5d2286047eb9648e36626"
         }
       ]
     },
     {
       "id": "demo/ui",
       "kind": "demo",
-      "source": "src/examples/java/demos/ui",
+      "source": "examples/src/main/java/demos/ui",
       "libraryVersion": "6.5.0",
       "flavour": "standard",
       "requiredSheets": [],
       "files": [
         {
           "path": "UI.java",
-          "sha256": "145ecc97c900d75c57b48be50c979466e0d50566ef91a50163ec243c4b04942b"
+          "sha256": "70abb18e4bb6b1ddf58b8b87407723871abe00b69c3e0066fa0d65818f8edb93"
         },
         {
           "path": "bar_round_gloss_large.png",
@@ -1094,7 +1094,7 @@
     {
       "id": "demo/volume",
       "kind": "demo",
-      "source": "src/examples/java/demos/volume",
+      "source": "examples/src/main/java/demos/volume",
       "libraryVersion": "6.5.0",
       "flavour": "standard",
       "requiredSheets": [
@@ -1118,7 +1118,7 @@
       "files": [
         {
           "path": "GhostSprite.java",
-          "sha256": "0384d2d29fd627071a580ffdb91b3ebec648f6a210ba6bce3ffb7959941c3652"
+          "sha256": "cfd42ab8644f073f4a43ba8ee81c2b5138847cac785a4a6e54e71956d3bba6c8"
         },
         {
           "path": "HalloweenStage.java",
@@ -1130,7 +1130,7 @@
         },
         {
           "path": "PumpkinSprite.java",
-          "sha256": "2437b012ead25f8fdcb8297c0e94b1bbc4ec37037226f5aa8b5113d669e8b27b"
+          "sha256": "ce9129aa5025f4e5d2a97a56c856fb4372c60b547a32c362e70aaf5fe80ab047"
         },
         {
           "path": "package.bluej",
@@ -1424,7 +1424,7 @@
         },
         {
           "path": "Alien.java",
-          "sha256": "37fb2e8f845c81076e592f8b831d6406d8051b8f01b07c4e9a2eb68e6a8ed4b1"
+          "sha256": "e603e05427f46b8f19be76c0c10094864f91a8db63718218714ab03e4e0f306a"
         },
         {
           "path": "DodgeWindow.java",
@@ -1539,7 +1539,7 @@
         },
         {
           "path": "Walker.java",
-          "sha256": "828b0d93d40e8a85ad0734028d86b867f4a36b401a283755cef5a25132a50c20"
+          "sha256": "8d9480e92d0c6e39ef1e63cf88d7c37b0e22881c667193758d9608e972694917"
         },
         {
           "path": "package.bluej",
@@ -1572,11 +1572,11 @@
         },
         {
           "path": "Racer.java",
-          "sha256": "e0b1d2de350f0a5db7ed66e13332a878d32aa18c47db4db1a88cc2a4ebbb88b9"
+          "sha256": "9e704919283ba0ae1dbe01a37b110e610f00fe030dca6d7d43722834942516fc"
         },
         {
           "path": "Referee.java",
-          "sha256": "1586c6e111c8b3351d76b2940ee45c287797a457545681a6e61a141f65c55e3b"
+          "sha256": "1d979941352ba316da7065711957d988424821569e512e6e131f4cadcac2d992"
         },
         {
           "path": "package.bluej",

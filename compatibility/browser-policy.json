@@ -25,10 +25,6 @@
     "Java compiler dialect differences also apply, including Java package access and unsupported standard-library methods."
   ],
   "overrides": {
-    "Stage/getPixels": {
-      "status": "desktop-only",
-      "reason": "The desktop pixel buffer is not exposed by the browser renderer."
-    },
     "Window/useFullScreen": {
       "status": "desktop-only",
       "reason": "The embedded browser output uses its enclosing page; this desktop window option only reports a limitation."
@@ -36,10 +32,6 @@
     "Window/useSplashLogo": {
       "status": "desktop-only",
       "reason": "The browser has no desktop splash window. This option only reports a limitation."
-    },
-    "extensions/shader/Shader/getPShader": {
-      "status": "desktop-only",
-      "reason": "Processing's PShader object belongs to the desktop renderer. The browser uses WebGL filters."
     }
   }
 }

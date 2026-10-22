@@ -7,53 +7,90 @@
 #   ./scripts/run.sh --demos      only the demos
 #   ./scripts/run.sh --archives   only the finished tutorial projects
 #   ./scripts/run.sh --reference  only the reference examples
+#   ./scripts/run.sh --each       every demo, one after the other: close the
+#                                 window for the next one, Ctrl+C to stop
+#   ./scripts/run.sh tiled -- -Dscratch4j.debugGl=true
+#                                 everything after -- goes to java
 #
-# Demos and reference examples are run from target/classes. The tutorial
-# projects under docs/archives are not part of the build, so they are compiled
-# on the fly into target/archive-run.
+# Demos and reference examples (examples/src/main/java) are built in the
+# reactor and run from examples/target/classes, where their assets are copied
+# to, so files they save end up in target, not in the sources. The tutorial
+# projects under docs/archives are not part of the build: they are compiled on
+# the fly into examples/target/archive-run.
 set -e
 
 ROOT=$(cd "$(dirname "$0")/.." && pwd)
 cd "$ROOT"
 
-if ! command -v fzf > /dev/null; then
+want=all
+query=
+each=
+jvm=()
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --demos)     want=demo ;;
+    --archives)  want=archive ;;
+    --reference) want=ref ;;
+    --each)      each=1 ;;
+    --help|-h)   sed -n '2,19p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
+    --)          shift; jvm=("$@"); break ;;
+    *)           query="$1" ;;
+  esac
+  shift
+done
+
+if [ -z "$each" ] && ! command -v fzf > /dev/null; then
   echo "fzf is not installed. See https://github.com/junegunn/fzf"
   exit 1
 fi
 
-want=all
-query=
-for arg in "$@"; do
-  case "$arg" in
-    --demos)     want=demo ;;
-    --archives)  want=archive ;;
-    --reference) want=ref ;;
-    --help|-h)   sed -n '2,12p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
-    *)           query="$arg" ;;
-  esac
-done
+SRC=examples/src/main/java
+CLASSES="$ROOT/examples/target/classes"
 
 # --------------------------------------------------------- incremental compile
-# The menu reads source files, so an existing build may be missing a new demo
-# or contain old code. Maven checks for changes and reuses up-to-date output.
-echo "Checking the library and examples..."
-mvn -q compile
+# Never against ~/.m2: the version there is the released 6.x (AGENTS.md). With
+# -am the reactor hands out core and the extensions as their target/classes.
+echo "Building the library and the examples..."
+mvn -q compile dependency:build-classpath -pl examples -am \
+  -Dmdep.outputFile='${project.build.directory}/run-classpath.txt' -Dmdep.includeScope=runtime
+CP="$CLASSES:$(cat examples/target/run-classpath.txt)"
 
-CP_FILE=target/run-classpath.txt
-if [ ! -f "$CP_FILE" ] || [ pom.xml -nt "$CP_FILE" ]; then
-  echo "Working out the classpath..."
-  mvn -q dependency:build-classpath -Dmdep.outputFile="$CP_FILE" > /dev/null
+JAVA_OPTS=(--enable-native-access=ALL-UNNAMED)
+# GLFW wants the first thread on macOS
+[ "$(uname)" = Darwin ] && JAVA_OPTS+=(-XstartOnFirstThread)
+JAVA_OPTS+=("${jvm[@]}")
+
+# Prints "<package.Class>" for every file with a main method below a folder.
+mains() {
+  grep -rlE "static void main|^void main" "$1" --include="*.java" 2>/dev/null | sort | while read -r f; do
+    pkg=$(sed -n 's/^package \(.*\);/\1/p' "$f" | head -1)
+    printf '%s\t%s\n' "$f" "${pkg:+$pkg.}$(basename "$f" .java)"
+  done
+}
+
+# Runs a class from examples/target/classes; $1 is the folder to run in.
+run_class() {
+  echo "Running $2"
+  (cd "$1" && java "${JAVA_OPTS[@]}" -cp "$CP" "$2")
+}
+
+# ------------------------------------------------------------------ --each
+if [ -n "$each" ]; then
+  mains "$SRC/demos" | while IFS=$'\t' read -r f cls; do
+    [ -n "$query" ] && [[ "$cls" != *"$query"* ]] && continue
+    echo
+    echo "=== ${f#$SRC/demos/}  (close the window for the next demo, Ctrl+C to stop)"
+    run_class "$CLASSES" "$cls" < /dev/null || echo "--- $cls ended with an error"
+  done
+  exit 0
 fi
-CP="target/classes:$(cat "$CP_FILE")"
 
 # ------------------------------------------------------------------- the menu
 # Each line is:  <kind>\t<label>\t<what to run>
 menu() {
   if [ "$want" = all ] || [ "$want" = demo ]; then
-    grep -rl "static void main" src/examples/java/demos --include="*.java" 2>/dev/null | sort | while read -r f; do
-      pkg=$(sed -n 's/^package \(.*\);/\1/p' "$f" | head -1)
-      cls=$(basename "$f" .java)
-      printf 'demo\t%s\t%s\n' "$(dirname "${f#src/examples/java/demos/}")" "${pkg:+$pkg.}$cls"
+    mains "$SRC/demos" | while IFS=$'\t' read -r f cls; do
+      printf 'demo\t%s\t%s\n' "$(dirname "${f#$SRC/demos/}")" "$cls"
     done
   fi
 
@@ -61,23 +98,21 @@ menu() {
     for d in docs/archives/*/; do
       name=$(basename "$d")
       [ "$name" = build ] && continue
-      entry=$(grep -l "static void main" "$d"*.java 2>/dev/null | head -1) || continue
+      entry=$(grep -lE "static void main|^void main" "$d"*.java 2>/dev/null | head -1) || continue
       [ -n "$entry" ] && printf 'archive\t%s\t%s\n' "$name" "$(basename "$entry" .java)"
     done
   fi
 
   if [ "$want" = all ] || [ "$want" = ref ]; then
-    grep -rl "static void main" src/examples/java/reference --include="*.java" 2>/dev/null | sort | while read -r f; do
-      pkg=$(sed -n 's/^package \(.*\);/\1/p' "$f" | head -1)
-      cls=$(basename "$f" .java)
-      rel=${f#src/examples/java/reference/}
+    mains "$SRC/reference" | while IFS=$'\t' read -r f cls; do
+      rel=${f#$SRC/reference/}
       # examples kept in a folder are named after the folder, not after the
       # MyWindow class every one of them happens to contain
       case "$rel" in
         */*) label=${rel%%/*} ;;
-        *)   label=$cls ;;
+        *)   label=$(basename "$f" .java) ;;
       esac
-      printf 'ref\t%s\t%s\n' "$label" "${pkg:+$pkg.}$cls"
+      printf 'ref\t%s\t%s\n' "$label" "$cls"
     done
   fi
 }
@@ -90,16 +125,18 @@ choice=$(menu | column -t -s$'\t' \
         --preview-window=right:55%:wrap \
         --preview='
           set -- $(echo {});
+          src=examples/src/main/java
           case "$1" in
-            demo)    find src/examples/java/demos/$2 -name "*.java" | head -1 | xargs -r head -60 ;;
+            demo)    f=$(grep -rlE "static void main|^void main" $src/demos/$2 --include="*.java" | head -1)
+                     head -60 "$f" ;;
             archive) ls docs/archives/$2; echo; head -40 docs/archives/$2/$3.java ;;
-            ref)     if [ -f src/examples/java/reference/$2.java ]; then
-                       head -60 src/examples/java/reference/$2.java
+            ref)     if [ -f $src/reference/$2.java ]; then
+                       head -60 $src/reference/$2.java
                      else
-                       ls src/examples/java/reference/$2 2>/dev/null
+                       ls $src/reference/$2 2>/dev/null
                        echo
-                       head -40 src/examples/java/reference/$2/MySprite.java 2>/dev/null \
-                         || head -40 src/examples/java/reference/$2/MyStage.java 2>/dev/null
+                       head -40 $src/reference/$2/MySprite.java 2>/dev/null \
+                         || head -40 $src/reference/$2/MyStage.java 2>/dev/null
                      fi ;;
           esac')
 
@@ -110,15 +147,22 @@ label=$(echo "$choice" | awk '{print $2}')
 target=$(echo "$choice" | awk '{print $3}')
 
 # ------------------------------------------------------------------- run it
-if [ "$kind" = archive ]; then
-  outdir="target/archive-run/$label"
-  rm -rf "$outdir"; mkdir -p "$outdir"
-  echo "Compiling docs/archives/$label ..."
-  javac -nowarn -cp "$CP" -d "$outdir" docs/archives/"$label"/*.java
-  # the archive folder joins the classpath so its own images and sounds are found
-  echo "Running $target"
-  exec java -cp "$outdir:docs/archives/$label:$CP" "$target"
-else
-  echo "Running $target"
-  exec java -cp "$CP" "$target"
-fi
+case "$kind" in
+  archive)
+    outdir="$ROOT/examples/target/archive-run/$label"
+    rm -rf "$outdir"
+    echo "Compiling ..."
+    javac -nowarn -cp "$CP" -d "$outdir" docs/archives/"$label"/*.java
+    # run in the project folder, so its own images and sounds are found
+    echo "Running $target"
+    cd "docs/archives/$label"
+    exec java "${JAVA_OPTS[@]}" -cp "$outdir:.:$CP" "$target"
+    ;;
+  ref)
+    # the reference examples load their assets relative to the reference folder
+    run_class "$CLASSES/reference" "$target"
+    ;;
+  *)
+    run_class "$CLASSES" "$target"
+    ;;
+esac
