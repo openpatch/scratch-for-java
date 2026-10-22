@@ -52,7 +52,7 @@ public class Referee extends Sprite {
   }
 
   public void run() {
-    if (this.getTimer().everyMillis(2200)) {
+    if (this.getTimer().every(2.2)) {
       this.green = !this.green;
       if (this.green) {
         this.say("Go!");
@@ -106,7 +106,7 @@ public class Racer extends Sprite {
       return;
     }
     this.changeX(this.speed);
-    if (this.getTimer().everyMillis(150)) {
+    if (this.getTimer().every(0.15)) {
       this.nextCostume();
     }
     if (this.getX() > 170) {
@@ -192,7 +192,7 @@ class Referee extends Sprite {
   }
 
   public void run() {
-    if (this.getTimer().everyMillis(2200)) {
+    if (this.getTimer().every(2.2)) {
       this.green = !this.green;
       if (this.green) {
         this.say("Go!");
@@ -234,7 +234,7 @@ class Racer extends Sprite {
       return;
     }
     this.changeX(this.speed);
-    if (this.getTimer().everyMillis(150)) {
+    if (this.getTimer().every(0.15)) {
       this.nextCostume();
     }
     if (this.getX() > 170) {
@@ -346,7 +346,7 @@ public class Referee extends Sprite {
   }
 
   public void run() {
-    if (this.getTimer().everyMillis(this.delay)) {
+    if (this.getTimer().every((this.delay) / 1000.0)) {
       this.green = !this.green;
       this.delay = Random.randomInt(800, 3000);
       if (this.green) {

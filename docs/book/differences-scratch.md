@@ -61,16 +61,16 @@ public class Blinker extends Sprite {
   }
 
   public void run() {
-    if (this.getTimer().everyMillis(1000)) {
+    if (this.getTimer().every(1)) {
       this.nextCostume();
     }
   }
 }
 ```
 
-`everyMillis(1000)` is true once every second and false in all the frames in
-between. Times in Scratch for Java are usually in **milliseconds**: 1000 is one
-second. [Make it Walk](/tutorials/make-it-walk) builds on this.
+`every(1)` is true once every second and false in all the frames in
+between. Times in Scratch for Java are in **seconds**, as in Scratch: 0.5 is half
+a second. [Make it Walk](/tutorials/make-it-walk) builds on this.
 
 ## Things that do not hold up the script
 
@@ -170,8 +170,8 @@ public class Star extends Sprite {
   }
 
   public void run() {
-    if (!this.isClone() && this.getTimer().everyMillis(1000)) {
-      this.clone();
+    if (!this.isClone() && this.getTimer().every(1)) {
+      this.createClone();
     }
   }
 }

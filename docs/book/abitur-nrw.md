@@ -30,8 +30,8 @@ the NRW version from the [Download](/download) page.
 ## Setting up a project
 
 1. Download `scratch-<version>-nrw-all.jar` from the [Download](/download) page
-   and add it to your project, the same way as described in [Setup](/setup). In
-   BlueJ, for example, put it into the `+libs` folder of your project.
+   and put it into the `+libs` folder of your project, as described in
+   [Setup](/setup).
 2. Get the Abiturklassen. QUA-LiS NRW publishes them on the Lehrplannavigator as
    [Implementationen von Klassen für das Zentralabitur ab 2018](https://lehrplannavigator.nrw.de/system/files/media/document/file/2020-03-11_implementationen_von_klassen_fuer_das_zentralabitur_ab_2018.zip)
    (ZIP). Your teacher may also hand them out.
@@ -40,7 +40,7 @@ the NRW version from the [Download](/download) page.
    uses them. `Graph.java` needs `List.java`, and `DatabaseConnector.java` needs
    `Queue.java` and `QueryResult.java`.
 
-A BlueJ project then looks like this:
+A project then looks like this:
 
 ```text
 MeinSpiel/

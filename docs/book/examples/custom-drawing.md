@@ -16,8 +16,8 @@ Put game updates in `run()`; drawing can happen while the game is paused.
 
 ```java
 import org.openpatch.scratch.Color;
-import org.openpatch.scratch.extensions.drawing.Drawing;
-import org.openpatch.scratch.extensions.drawing.DrawingSprite;
+import org.openpatch.scratch.drawing.Drawing;
+import org.openpatch.scratch.drawing.DrawingSprite;
 
 public class Road extends DrawingSprite {
   @Override

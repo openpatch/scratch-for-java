@@ -39,7 +39,7 @@ class RandomDot extends Stage {
 
 class RandomDotSprite extends Sprite {
   public void run() {
-    if (this.getTimer().everyMillis(100)) {
+    if (this.getTimer().every(0.1)) {
       this.getPen().up();
       this.getPen().setSize(20);
       this.goToRandomPosition();

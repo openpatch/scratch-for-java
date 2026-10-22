@@ -70,7 +70,7 @@ class Hero extends Sprite {
     this.setDirection(45);
     this.move(80);
 
-    this.setHitbox(0, 0, 300, 0, 300, 570, 0, 570, 150, 275);
+    this.setHitbox(new Polygon(new double[] {0, 300, 300, 0, 150}, new double[] {0, 0, 570, 570, 275}));
   }
 
   public void run() {
@@ -121,7 +121,7 @@ class MovableHero extends Hero {
 /** A Hero pinned to the user interface layer. */
 class UIHero extends Hero {
   public UIHero() {
-    this.setUI(true);
+    this.setLayer(Layer.UI);
   }
 }
 ```

@@ -35,7 +35,7 @@ class Pipes extends Stage {
   // end stage designer
 
   public Pipes() {
-    this.setTint(60);
+    this.setColorEffect(60);
     // begin stage designer
     this.addBackdrop("chalkBoard", "backdrops/chalk_board.jpg");
     this.addSound("bg", "sounds/bensound-enigmatic.ogg");
@@ -46,7 +46,7 @@ class Pipes extends Stage {
 
   public void whenKeyPressed(KeyCode keyCode) {
     if (keyCode == KeyCode.SPACE) {
-      PenSprite.setColor(Random.random(255));
+      PenSprite.setColor(Random.random(100));
     }
   }
 
@@ -55,7 +55,7 @@ class Pipes extends Stage {
     var pens = this.find(PenSprite.class);
     for (var pen : pens) {
       if (Random.random() < 0.05 && pens.size() < 15) {
-        this.add(new PenSprite((PenSprite) pen));
+        pen.createClone();
       }
       if (Random.random() < 0.01 && pens.size() > 1) {
         this.remove(pen);
@@ -73,7 +73,7 @@ class PenSprite extends Sprite {
     super("pen", "sprites/pen.png");
     this.getPen().down();
     this.getPen().setSize(2);
-    color = Random.random(255);
+    color = Random.random(100);
     this.getPen().setColor(color);
     this.hide();
 
@@ -85,13 +85,12 @@ class PenSprite extends Sprite {
     PenSprite.color = color;
   }
 
-  // when I start as a clone
-  public PenSprite(PenSprite pen) {
-    super(pen);
-    this.setDirection(pen.getDirection() + 90);
+  @Override
+  public void whenStartsAsClone() {
+    this.setDirection(this.getDirection() + 90);
     this.getPen().setColor(color);
     if (Math.random() < 0.05) {
-      color += Math.random() * 10;
+      color += Math.random() * 4;
     }
   }
 

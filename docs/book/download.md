@@ -20,9 +20,7 @@ Choose the download for your operating system:
 
 ## Starter projects
 
-Ready-made projects for BlueJ and VS Code, with the library already inside.
-
-::archive[BlueJ Starter]{name="bluej-starter"}
+A ready-made project for VS Code. Put the library into its `+libs` folder.
 
 ::archive[VS Code Starter]{name="vs-code-starter"}
 

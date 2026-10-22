@@ -11,8 +11,7 @@ ends with a semicolon. Look a method up in the [documentation](/reference) to se
 the block, an explanation and an example you can run.
 
 :::alert{info}
-Times are in **milliseconds**: `1000` is one second. Only `glide` counts in
-seconds, like Scratch.
+Times are in **seconds**, as in Scratch: `0.5` is half a second.
 :::
 
 ## Events
@@ -53,7 +52,7 @@ seconds, like Scratch.
 
 | Scratch | Java |
 | --- | --- |
-| say [Hello!] for (2) seconds | `this.say("Hello!", 2000);` |
+| say [Hello!] for (2) seconds | `this.say("Hello!", 2);` |
 | say [Hello!] | `this.say("Hello!");` |
 | think [Hmm...] | `this.think("Hmm...");` |
 | *(adding a costume)* | in the constructor: `this.addCostume("bunny1_stand");` |
@@ -64,7 +63,7 @@ seconds, like Scratch.
 | next backdrop | in the stage: `this.nextBackdrop();` |
 | change size by (10) | `this.changeSize(10);` |
 | set size to (50) % | `this.setSize(50);` |
-| change [color] effect by (25) | `this.changeTint(25);` |
+| change [color] effect by (25) | `this.changeColorEffect(25);` |
 | set [ghost] effect to (50) | `this.setTransparency(50);` |
 | show / hide | `this.show();` / `this.hide();` |
 | go to [front] layer | `this.goToFrontLayer();` |
@@ -85,14 +84,14 @@ seconds, like Scratch.
 | Scratch | Java |
 | --- | --- |
 | forever | `run()` is already repeated, see [Differences to Scratch](/differences-scratch) |
-| wait (1) seconds | `if (this.getTimer().everyMillis(1000)) { ... }` inside `run()` |
+| wait (1) seconds | `if (this.getTimer().every(1)) { ... }` inside `run()` |
 | repeat (10) | `for (int i = 0; i < 10; i++) { ... }` |
 | if <> then | `if (...) { ... }` |
 | if <> then … else | `if (...) { ... } else { ... }` |
-| wait until <> | `if (...) { ... }` inside `run()`: it is checked again every frame |
+| wait until <> | `if (...) { ... }` inside `run()`: it is checked again every tick (60 times a second) |
 | repeat until <> | `while (!...) { ... }`, but never inside `run()`. Usually an `if` in `run()` is what you want. |
 | stop [all] | `Window.getInstance().exit();` |
-| create clone of [myself] | `this.clone();` |
+| create clone of [myself] | `this.createClone();` |
 | when I start as a clone | `public void whenStartsAsClone() { ... }` |
 | delete this clone | `this.deleteThisClone();` |
 
@@ -109,8 +108,8 @@ seconds, like Scratch.
 | <key [space] pressed?> | `this.isKeyPressed(KeyCode.SPACE)` |
 | <mouse down?> | `this.isMouseDown()` |
 | (mouse x), (mouse y) | `this.getMouseX()`, `this.getMouseY()` |
-| (timer) | `Timer.millis()` |
-| reset timer | `this.getTimer().reset();`, then `this.getTimer().afterMillis(30000)` is true after 30 seconds |
+| (timer) | `this.getTimer().getSeconds()` |
+| reset timer | `this.getTimer().reset();`, then `this.getTimer().after(30)` is true after 30 seconds |
 
 ## Operators
 

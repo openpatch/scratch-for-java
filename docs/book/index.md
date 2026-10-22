@@ -52,10 +52,10 @@ class MyStage extends Stage {
   }
 }
 
-class Walker extends AnimatedSprite {
+class Walker extends Sprite {
   public Walker() {
     this.addAnimation("walk", "alienGreen_walk%d", 2);
-    this.setAnimationInterval(150);
+    this.setAnimationInterval(0.15);
     this.setSize(60);
     this.setRotationStyle(RotationStyle.LEFT_RIGHT);
     this.setY(-50);
@@ -92,7 +92,7 @@ and an example you can run.
 
 - **[For teachers](/classroom)**: planning a unit, what each tutorial covers,
   assessment and working offline.
-- **[Setup](/setup)**: browser, Studio, BlueJ or VS Code.
+- **[Setup](/setup)**: browser, Studio or VS Code.
 - **[Multiple Approach Design](/multiple-approach-design)**: classes first or
   classes later.
 - **[Abiturklassen NRW](/abitur-nrw)**: the version for the NRW Zentralabitur.
@@ -107,7 +107,7 @@ in der du über ein ganzes Schuljahr dein eigenes Spiel entwickelst.
 
 ## Seeing it side by side
 
-The following video shows a Scratch project and a similar BlueJ project using
+The following video shows a Scratch project and a similar Java project using
 the Scratch for Java library.
 
 ::youtube[Comparison of Scratch and Scratch for Java]{#3wKw2WWQcXk}
@@ -115,7 +115,7 @@ the Scratch for Java library.
 If you want to compare it yourself, you can take a look inside both projects:
 
 - Scratch: https://scratch.mit.edu/projects/338613208
-- BlueJ: [Source Code on GitHub](https://github.com/openpatch/scratch-for-java/tree/main/docs/archives/Halloween) or [Project Halloween.zip](/archives/Halloween.zip)
+- Java: [Source Code on GitHub](https://github.com/openpatch/scratch-for-java/tree/main/docs/archives/Halloween) or [Project Halloween.zip](/archives/Halloween.zip)
 
 ## Special Thanks
 

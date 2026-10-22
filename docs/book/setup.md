@@ -12,7 +12,7 @@ them, so you can start in one and move on to another later.
 | --- | --- | --- |
 | **Browser** | Nothing. Open [Your first program](/tutorials/getting-started) and press ▶. | Trying it out, the first lessons, homework |
 | **Studio** | [Download Studio](/download) and install it. Java and the library are included. | Working on your own computer or school computers, also offline |
-| **BlueJ, VS Code or another Java editor** | Java 17 or newer and the library, see below. | Courses that already use one of these |
+| **VS Code or another Java editor** | Java 17 or newer and the library, see below. | Courses that already use one of these |
 
 :::alert{info}
 Does your course use the classes of the NRW Zentralabitur (`List`, `Queue`,
@@ -27,8 +27,8 @@ of Scratch for Java made for them.
   load it again on the other side. Studio can open these downloads too.
 - **In Studio** press Ctrl+S (Cmd+S on a Mac). Your project is an ordinary folder
   of Java files and pictures. Keep that folder together when you copy it.
-- **In BlueJ or VS Code** your project is a folder as well. Copy the whole folder,
-  including the `+libs` folder with the library inside.
+- **In VS Code or another editor** your project is a folder as well. Copy the
+  whole folder, including the `+libs` folder with the library inside.
 
 ## From the browser to your own computer
 
@@ -42,9 +42,8 @@ void main() {
 ```
 
 That is a complete Java program in Java 25 and newer, and Studio runs it as it
-is. In BlueJ and elsewhere, put the same lines into a `main` method of your
-stage, and in BlueJ run it by right-clicking `MyStage` and choosing
-`void main(String[] args)`:
+is. In other editors and with older Java, put the same lines into a `main`
+method of your stage and run `MyStage`:
 
 ```java
 import org.openpatch.scratch.*;
@@ -77,47 +76,18 @@ tutorial through the **Project** menu.
 
 First make sure you have the Java Extension Pack installed. You can find it in the Extensions view by searching for `redhat.java`.
 
-Then [download](/download) the Scratch for Java JAR.
+Then [download](/download) the Scratch for Java JAR, or start from the VS Code
+starter project there, which is set up already.
 
-Afterward, you need to add the jar to your project. You can do this by adding the following to your `settings.json`:
-
-```json
-"java.project.referencedLibraries": [
-    "path/to/scratch4j.jar"
-]
-```
-
-If you want to be compatible with BlueJ you should use a "+libs" folder in your project, add the jar there and then add the following to your `settings.json`:
+Create a folder called `+libs` inside your project and put the jar into it. Studio
+keeps the library in the same place, so a project opens in both. Then add the
+following to the `.vscode/settings.json` of your project:
 
 ```json
 "java.project.referencedLibraries": [
     "+libs/*.jar"
 ]
 ```
-
-## BlueJ
-
-You can install this library via three ways in BlueJ.
-
-First, [download](/download) the Scratch for Java JAR, or start from the BlueJ starter project there, which already has it in its `+libs` folder.
-
-### Project-by-project
-
-Create a directory called "+libs" inside your project. Copy the Scratch for Java jar into the "+libs" folder. Restart BlueJ - done. Scratch for Java will now be available for this project.
-
-### User Preferences
-
-Open the "Preferences" dialogue and select the "Libraries" tab. Then add the location where the Scratch for Java jar is located. Restart BlueJ - done. Scratch for Java will now be available in all of your projects that you open.
-
-### System Wide
-
-You need to locate the "userlib" folder, found at `<bluej-dir>/lib/userlib`. Place the Scratch for Java jar into this folder. Restart BlueJ - done. Scratch for Java will now be available in all projects for all users.
-
-If you have installed BlueJ via the installer you probably find the "userlib" folder here:
-
-- Windows: `C:\Program Files\BlueJ\lib\userlib`
-- MacOS: `/Application/BlueJ/BlueJ.app/Resources/java/userlib`
-- Linux: `/usr/share/bluej/userlib/`
 
 ## Standalone
 
@@ -135,5 +105,15 @@ You can also use Scratch for Java via Maven. Just add the following dependency t
     <version>{{VERSION}}</version>
 </dependency>
 ```
+
+The extensions are artifacts of their own. Add the ones you use, with the same
+group and version (the `-all` jar and Studio contain all of them):
+
+| Artifact | Package | For |
+| --- | --- | --- |
+| `scratch-tiled` | `org.openpatch.scratch.tiled` | maps from the Tiled map editor |
+| `scratch-save` | `org.openpatch.scratch.save` | saving progress, JSON and XML files |
+| `scratch-recorder` | `org.openpatch.scratch.recorder` | recording the stage as a GIF |
+| `scratch-drawing` | `org.openpatch.scratch.drawing` | sprites that draw themselves, bitmap fonts |
 
 We have also prepared a starter for you: [Maven Starter](https://github.com/openpatch/scratch-for-java-maven-starter/tree/main)

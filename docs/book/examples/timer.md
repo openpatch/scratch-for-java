@@ -39,6 +39,13 @@ class TimerStage extends Stage {
 }
 
 class TimerSprite extends Sprite {
+  private final Timer timerAfter = new Timer();
+  private final Timer timerEvery = new Timer();
+  private final Timer timerFor = new Timer();
+  private final Timer timerInterval1 = new Timer();
+  private final Timer timerInterval2 = new Timer();
+  private final Timer timerInterval3 = new Timer();
+  private final Timer timerInterval4 = new Timer();
   int x = -900;
 
   public TimerSprite() {
@@ -49,50 +56,50 @@ class TimerSprite extends Sprite {
   public void run() {
     int y = -140;
     this.x += 20;
-    if (this.getTimer("every").everyMillis(600)) {
-      this.getPen().setColor(20); // Orange
+    if (this.timerEvery.every(0.6)) {
+      this.getPen().setColor(8); // Orange
       this.setPosition(this.x, y);
       this.getPen().down();
       this.getPen().up();
     }
     y += 40;
-    if (this.getTimer("for").forMillis(600)) {
-      this.getPen().setColor(60); // Hellgrün
+    if (this.timerFor.during(0.6)) {
+      this.getPen().setColor(24); // Hellgrün
       this.setPosition(this.x, y);
       this.getPen().down();
       this.getPen().up();
     }
     y += 40;
-    if (this.getTimer("after").afterMillis(600)) {
-      this.getPen().setColor(100); // Grün
+    if (this.timerAfter.after(0.6)) {
+      this.getPen().setColor(39); // Grün
       this.setPosition(this.x, y);
       this.getPen().down();
       this.getPen().up();
     }
     y += 40;
-    if (this.getTimer("interval1").intervalMillis(600)) {
-      this.getPen().setColor(140); // Hellblau
+    if (this.timerInterval1.interval(0.6)) {
+      this.getPen().setColor(55); // Hellblau
       this.setPosition(this.x, y);
       this.getPen().down();
       this.getPen().up();
     }
     y += 40;
-    if (this.getTimer("interval2").intervalMillis(600, true)) {
-      this.getPen().setColor(180); // Blau
+    if (!this.timerInterval2.interval(0.6)) {
+      this.getPen().setColor(71); // Blau
       this.setPosition(this.x, y);
       this.getPen().down();
       this.getPen().up();
     }
     y += 40;
-    if (this.getTimer("interval3").intervalMillis(600, 300)) {
-      this.getPen().setColor(220); // Pink
+    if (this.timerInterval3.interval(0.6, 0.3)) {
+      this.getPen().setColor(86); // Pink
       this.setPosition(this.x, y);
       this.getPen().down();
       this.getPen().up();
     }
     y += 40;
-    if (this.getTimer("interval4").intervalMillis(600, 300, true)) {
-      this.getPen().setColor(255); // Rot
+    if (!this.timerInterval4.interval(0.3, 0.6)) {
+      this.getPen().setColor(100); // Rot
       this.setPosition(this.x, y);
       this.getPen().down();
       this.getPen().up();

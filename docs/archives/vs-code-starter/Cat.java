@@ -1,4 +1,4 @@
-import org.openpatch.scratch.Sprite;
+import org.openpatch.scratch.*;
 
 public class Cat extends Sprite {
   public Cat() {

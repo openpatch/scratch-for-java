@@ -32,7 +32,7 @@ public class Racer extends Sprite {
       return;
     }
     this.changeX(this.speed);
-    if (this.getTimer().everyMillis(150)) {
+    if (this.getTimer().every(0.15)) {
       this.nextCostume();
     }
     if (this.getX() > 170) {

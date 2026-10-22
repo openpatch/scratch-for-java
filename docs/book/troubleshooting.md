@@ -28,8 +28,9 @@ myWindow.setStage(new MyStage());
 ```
 
 In the browser and in Studio those lines are in the `void main()` at the top. In
-BlueJ, right-click `MyStage` and choose `void main(String[] args)`. Without
-`setStage` the window stays empty, and the library says so in the terminal.
+other editors they are in the `main` method of your stage (see
+[Setup](/setup)). Without `setStage` the window stays empty, and the library says
+so in the terminal.
 
 **It is off the stage or very small.** The middle of the stage is x: 0, y: 0. A
 stage is usually 480 wide and 360 high, so x goes from -240 to 240 and y from -180
@@ -37,7 +38,7 @@ to 180. Check `setPosition` and `setSize`.
 
 ## "Costume not found" or a picture is missing
 
-Look at the output below the editor, or the console in BlueJ. Scratch for Java
+Look at the output below the editor, or the console of your editor. Scratch for Java
 tells you which name it could not find and suggests the closest names it knows.
 
 - Names are case-sensitive: `bunny1_stand` works, `Bunny1_Stand` does not.

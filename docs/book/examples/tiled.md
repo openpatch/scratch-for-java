@@ -30,12 +30,11 @@ This example show the handling of the tiled extension.
 
 void main() {
   // These global settings must be set before starting the game.
-  Text.useFont("assets/Retro Gaming.ttf", 11);
-  Text.useSmoothing(false);
+  Text.useFont("assets/Retro Gaming.ttf");
 
   // Start the Game
   // begin project settings
-  Window.useTextureSampling(TextureSampling.POINT);
+  Window.usePixelArt();
   Window.useFullScreen();
   // end project settings
   new Tiled();
@@ -86,9 +85,15 @@ class Level extends Stage {
         GameState.get().playerY = start.y;
       }
       player = new Player(GameState.get().playerX, GameState.get().playerY);
-      this.getCamera().setPosition(player.getX(), player.getY());
     }
     this.add(player);
+    // run() starts after the transition: until then the camera has to be on the player already
+    this.getCamera().setPosition(player.getX(), player.getY());
+    this.setColor(0, 0, 0);
+    // the map's layers are drawn every frame from now on, under the sprites
+    this.map.showLayer("Floor", Layer.BACKGROUND);
+    this.map.showLayer("FloorObjects", Layer.BACKGROUND);
+    this.map.showLayer("Walls", Layer.BACKGROUND);
 
     GameState.get().map = mapFile;
     // begin stage designer
@@ -101,22 +106,15 @@ class Level extends Stage {
 
   public void whenKeyPressed(KeyCode keyCode) {
     if (keyCode == KeyCode.F1) {
-      this.setDebug(!this.isDebug());
+      Window.getInstance().setDebug(!Window.getInstance().isDebug());
     } else if (keyCode == KeyCode.F5) {
       GameState.save();
-      this.display("Game saved", 2000);
+      this.display("Game saved", 2);
     }
   }
 
   public void run() {
-    this.eraseAll();
-    this.setColor(0, 0, 0);
-
     this.getCamera().setPosition(player.getPosition());
-
-    this.map.stampLayerToBackground("Floor");
-    this.map.stampLayerToBackground("FloorObjects");
-    this.map.stampLayerToBackground("Walls");
 
     if (this.isKeyPressed(KeyCode.DIGIT_1)) {
       this.getCamera().changeZoom(1);
@@ -270,10 +268,10 @@ class Item extends Sprite {
     // auto-save when an item is collected
     GameState.save();
     this.hide();
-    this.getStage().display(I18n.get("item-found", I18n.get(name)), 2000);
+    this.getStage().display(I18n.get("item-found", I18n.get(name)), 2);
 
     if (name.equals("scroll-fire")) {
-      this.getStage().display(I18n.get("tutorial-scroll-fire"), 2000);
+      this.getStage().display(I18n.get("tutorial-scroll-fire"), 2);
     }
   }
 
@@ -285,17 +283,17 @@ class Item extends Sprite {
 /** An Item pinned to the user interface layer, used for the inventory. */
 class UIItem extends Item {
   public UIItem() {
-    this.setUI(true);
+    this.setLayer(Layer.UI);
 
     // begin sprite editor
     // end sprite editor
   }
 }
 
-class Player extends AnimatedSprite {
+class Player extends Sprite {
 
   private String state = "idle";
-  private double speed = 2.5;
+  private double speed = 2;
   private String dir = "down";
 
   public Player(double x, double y) {
@@ -303,12 +301,12 @@ class Player extends AnimatedSprite {
     this.setY(y);
 
     // begin sprite editor
-    this.addAnimation("walk-down", "assets/Skeleton.png", 4, 32, 32, 0, true);
-    this.addAnimation("walk-up", "assets/Skeleton.png", 4, 32, 32, 1, true);
-    this.addAnimation("walk-left", "assets/Skeleton.png", 4, 32, 32, 2, true);
-    this.addAnimation("walk-right", "assets/Skeleton.png", 4, 32, 32, 3, true);
+    this.addAnimation("walk-down", "assets/Skeleton.png", 32, 32, 0, 4, 8, 12); // column 0
+    this.addAnimation("walk-up", "assets/Skeleton.png", 32, 32, 1, 5, 9, 13); // column 1
+    this.addAnimation("walk-left", "assets/Skeleton.png", 32, 32, 2, 6, 10, 14); // column 2
+    this.addAnimation("walk-right", "assets/Skeleton.png", 32, 32, 3, 7, 11, 15); // column 3
 
-    this.setHitbox(1, 31, 1, 10, 30, 10, 30, 31);
+    this.setHitbox(new Polygon(new double[] {1, 1, 30, 30}, new double[] {31, 10, 10, 31}));
     // end sprite editor
   }
 
@@ -320,7 +318,7 @@ class Player extends AnimatedSprite {
     this.changeX(dx);
     this.changeY(dy);
     if (!hasItem("scroll-water") && this.isTouchingSprite(Water.class)) {
-      this.think(I18n.get("need-scroll-water"), 5000);
+      this.think(I18n.get("need-scroll-water"), 5);
       this.changeX(-dx);
       this.changeY(-dy);
     }
@@ -371,7 +369,7 @@ class Player extends AnimatedSprite {
     if (item != null && this.isKeyPressed(KeyCode.E)) {
       item.collect();
     } else if (item != null) {
-      this.getStage().display(I18n.get("tutorial-item-pickup"), 1000);
+      this.getStage().display(I18n.get("tutorial-item-pickup"), 1);
     }
 
     if (state.equals("idle")) {
@@ -404,7 +402,7 @@ class Wall extends Sprite {
   }
 }
 
-class Fireball extends AnimatedSprite {
+class Fireball extends Sprite {
   private String dir;
   private double speed = 3;
 
@@ -414,12 +412,12 @@ class Fireball extends AnimatedSprite {
     this.dir = dir;
 
     // begin sprite editor
-    this.addAnimation("default", "assets/Fireball.png", 4, 32, 32);
+    this.addAnimation("default", "assets/Fireball.png", 32, 32, 0, 1, 2, 3);
     // end sprite editor
   }
 
   public void run() {
-    if (this.getTimer().afterMillis(1000)) {
+    if (this.getTimer().after(1)) {
       this.remove();
     }
 
@@ -441,7 +439,7 @@ class Fireball extends AnimatedSprite {
   }
 }
 
-class Enemy extends AnimatedSprite {
+class Enemy extends Sprite {
 
   protected String state = "idle";
   protected String dir = "down";
@@ -457,16 +455,16 @@ class Enemy extends AnimatedSprite {
 
 class Bamboo extends Enemy {
 
-  protected double speed = 2.5;
+  protected double speed = 2;
 
   public Bamboo(double x, double y) {
     super(x, y);
 
     // begin sprite editor
-    this.addAnimation("walk-down", "assets/Bamboo.png", 4, 32, 32, 0, true);
-    this.addAnimation("walk-up", "assets/Bamboo.png", 4, 32, 32, 1, true);
-    this.addAnimation("walk-left", "assets/Bamboo.png", 4, 32, 32, 2, true);
-    this.addAnimation("walk-right", "assets/Bamboo.png", 4, 32, 32, 3, true);
+    this.addAnimation("walk-down", "assets/Bamboo.png", 32, 32, 0, 4, 8, 12); // column 0
+    this.addAnimation("walk-up", "assets/Bamboo.png", 32, 32, 1, 5, 9, 13); // column 1
+    this.addAnimation("walk-left", "assets/Bamboo.png", 32, 32, 2, 6, 10, 14); // column 2
+    this.addAnimation("walk-right", "assets/Bamboo.png", 32, 32, 3, 7, 11, 15); // column 3
     // end sprite editor
   }
 
@@ -526,7 +524,7 @@ class Warp extends Sprite {
         player.setX(toX);
         player.setY(toY);
         return new Level(toMap, player);
-      }, 500);
+      }, 0.5);
     }
   }
 }

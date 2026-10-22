@@ -96,7 +96,8 @@ class CoinCollector extends Stage {
     // end stage designer
 
     this.score = new Text();
-    this.score.setPosition(-330, 200);
+    this.score.setPosition(-380, 200);
+    this.score.setAlign(TextAlign.LEFT);
     this.score.setTextSize(28);
     this.score.showText("Coins: 0 / " + COINS);
     this.add(this.score);
@@ -120,7 +121,7 @@ class CoinCollector extends Stage {
 }
 
 /** The alien you steer with the arrow keys. */
-class Player extends AnimatedSprite {
+class Player extends Sprite {
 
   private static final int SIZE = 45;
 
@@ -140,7 +141,7 @@ class Player extends AnimatedSprite {
     this.addCostume("alienGreen_stand");
     this.addCostume("alienGreen_jump");
     this.addAnimation("walk", "alienGreen_walk%d", 2);
-    this.setAnimationInterval(120);
+    this.setAnimationInterval(0.12);
     this.addSound("handleCoins");
     this.addSound("footstep_grass_000");
     // end sprite editor

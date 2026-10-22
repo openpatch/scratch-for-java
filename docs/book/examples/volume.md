@@ -74,7 +74,7 @@ class Volume extends Stage {
 
   private void showVolume() {
     this.label.showText("Volume: " + Math.round(this.getVolume())
-        + "%   (space = play, up/down = louder/quieter)");
+        + "%\nspace = play, up/down = louder/quieter");
   }
 
   public void whenKeyPressed(KeyCode keyCode) {

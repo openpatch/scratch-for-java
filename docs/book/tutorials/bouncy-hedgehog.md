@@ -270,7 +270,7 @@ class HedgehogSprite extends Sprite {
 So far every picture was built in. You can use your own just as well: a drawing
 of yours, a photo, or a picture from the internet that you are allowed to use.
 
-This needs Studio, BlueJ or VS Code, because the browser editor cannot load files
+This needs Studio or VS Code, because the browser editor cannot load files
 from your computer. Download the project with a hedgehog, a trampoline and a
 playground as picture files:
 
@@ -386,5 +386,5 @@ public class HedgehogSprite extends Sprite {
 
 :::
 
-When you are confident, try [setTint](/reference/Sprite/setTint) to change
+When you are confident, try [changeColorEffect](/reference/Sprite/changeColorEffect) to change
 Spike's colour every time he bounces.

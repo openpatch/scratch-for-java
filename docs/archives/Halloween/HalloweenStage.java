@@ -20,6 +20,7 @@ public class HalloweenStage extends Stage {
     }
     this.ghost = new GhostSprite();
     this.add(this.ghost);
+    this.addSound("bg", "sounds/background.wav");
   }
 
   public void run() {

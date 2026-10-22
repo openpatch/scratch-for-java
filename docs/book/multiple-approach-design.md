@@ -139,7 +139,7 @@ public class Garden extends Stage {
 | The blocks are there from the start. | `extends Sprite` brings the methods along (`move`, `say`, `ifOnEdgeBounce`). |
 | A sprite's name is a label. | A name is how the code reaches an object: `Bunny bunny = new Bunny();` |
 | A custom block, or a broadcast to another sprite. | A method, called on an object: `bunny.jump()`. |
-| `wait 1 seconds` pauses one script. | `run()` must not wait. A sprite counts time with a timer instead: `this.getTimer().everyMillis(1000)`. |
+| `wait 1 seconds` pauses one script. | `run()` must not wait. A sprite counts time with a timer instead: `this.getTimer().every(1)`. |
 
 ## Going further: the window and animations
 
@@ -161,7 +161,7 @@ class TitleStage extends Stage {
 
   public void whenKeyPressed(KeyCode keyCode) {
     if (keyCode == KeyCode.SPACE) {
-      Window.getInstance().transitionToStage(new Garden(), 500);
+      Window.getInstance().transitionToStage(new Garden(), 0.5);
     }
   }
 }
@@ -184,13 +184,13 @@ public class GardenWindow extends Window {
 }
 ```
 
-**Animations.** An `AnimatedSprite` plays its costumes one after another, at its
-own speed. It does the timing that a `wait` block did in Scratch:
+**Animations.** A sprite with an animation plays its costumes one after another, at
+its own speed. It does the timing that a `wait` block did in Scratch:
 
 ```java
 import org.openpatch.scratch.*;
 
-class Bunny extends AnimatedSprite {
+class Bunny extends Sprite {
   public Bunny() {
     this.addAnimation("walk", "bunny1_walk%d", 2);
     this.setSize(50);
