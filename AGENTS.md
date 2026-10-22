@@ -35,6 +35,9 @@ keeping the same mental model (Window / Stage / Sprite, costumes, backdrops, bro
 - `mvn deploy -Pcentral` — release to Maven Central; done by the release workflow, not by hand.
 - `./scripts/run.sh` — pick a demo or reference example and run it (`--each` runs every demo,
   `-- <jvm args>` passes JVM arguments); builds in the reactor first.
+- `./scripts/benchmark.sh [--quick] [--xvfb] [--with-6x]` — the stress test, collision and
+  colour checks; appends the results with the commit to `scripts/benchmark/history.csv`
+  (commit that with the change it measures). `--with-6x` builds `main` in a worktree for comparison.
 - `python3 scripts/migrate-7.py --out <dir> <6.x folder>` migrates 6.x code, shaders and the
   ```java blocks of Markdown pages (run once per project; it marks what needs a person with
   `// TODO 7.0:`).
