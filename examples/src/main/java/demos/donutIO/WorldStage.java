@@ -1,0 +1,89 @@
+package demos.donutIO;
+
+import org.openpatch.scratch.KeyCode;
+import org.openpatch.scratch.Stage;
+import org.openpatch.scratch.Window;
+import org.openpatch.scratch.Random;
+import org.openpatch.scratch.Vector2;
+
+public class WorldStage extends Stage {
+
+  // begin stage designer
+  private Background background;
+  private PlayerDonut player;
+  // end stage designer
+
+  public static Vector2 CAM = new Vector2(0, 0);
+  public boolean manualZoom;
+  public double zoomInc = 0.1;
+  public double targetZoom;
+  public WorldStage() {
+    manualZoom = false;
+    // begin stage designer
+    background = new Background();
+    this.add(background);
+    player = new PlayerDonut();
+    this.add(player);
+    // end stage designer
+
+    for (int i = 0; i < 5 * (Game.LEVEL + 1); i++) {
+      var m = new FollowDonut(player);
+      m.setStrength(Random.randomInt(10, 20 * (Game.LEVEL + 1)));
+      this.add(m);
+      do {
+        var x = Random.random(-2000, 2000);
+        var y = Random.random(-3000, 3000);
+        var v = new Vector2(x, y);
+        m.setPosition(v);
+      } while (m.isTouchingSprite(player));
+    }
+
+  }
+
+  public void run() {
+    if (this.getTimer().every(1)) {
+      var food = new Donut();
+      food.setStrength(Random.randomInt(2, 5));
+      this.add(food);
+      do {
+        var x = Random.random(-400, 400);
+        var y = Random.random(-300, 300);
+        var v = new Vector2(x, y);
+        // only spawn food around the player
+        v = v.add(CAM);
+
+        food.setPosition(v);
+      } while (food.isTouchingSprite(player));
+    }
+
+    if (this.count(FollowDonut.class) == 0) {
+      Window.getInstance().transitionToStage(new WinStage(), 0.5);
+      return;
+    }
+
+    if (this.count(PlayerDonut.class) == 0) {
+      Window.getInstance().transitionToStage(new GameOverStage(), 0.5);
+      return;
+    }
+
+    if (this.isKeyPressed(KeyCode.DIGIT_1)) {
+      this.getCamera().changeZoom(1);
+      manualZoom = true;
+    }
+    if (this.isKeyPressed(KeyCode.DIGIT_0)) {
+      this.getCamera().changeZoom(-1);
+      manualZoom = true;
+    }
+    if (this.isKeyPressed(KeyCode.R)) {
+      this.getCamera().resetZoom();
+      manualZoom = false;
+    }
+
+    targetZoom = 10 / player.getStrength() * 100;
+
+    if (!manualZoom && this.getCamera().getZoom() > targetZoom) {
+      this.getCamera().changeZoom(-zoomInc);
+    }
+    this.getCamera().setPosition(player.getPosition());
+  }
+}

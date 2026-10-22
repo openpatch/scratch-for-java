@@ -1,0 +1,43 @@
+package demos.donutIO;
+
+import org.openpatch.scratch.KeyCode;
+import org.openpatch.scratch.Stage;
+import org.openpatch.scratch.Window;
+import org.openpatch.scratch.Text;
+
+public class GameOverStage extends Stage {
+
+  // begin stage designer
+  // end stage designer
+
+  public GameOverStage() {
+    var bg = new Background();
+    bg.setTransparency(50);
+    this.add(bg);
+
+    var text = new Text();
+    text.setTextSize(48);
+    text.setTextColor(200, 100, 100);
+    text.showText("Level " + Game.LEVEL + " is too hard for you!");
+    text.setPosition(0, 0);
+    this.add(text);
+
+    text = new Text();
+    text.setTextSize(32);
+    text.setTextColor(200, 100, 100);
+    text.showText("Press Space to start again!");
+    text.setPosition(0, -40);
+    this.add(text);
+
+    // begin stage designer
+    // end stage designer
+  }
+
+  public void whenKeyPressed(KeyCode keyCode) {
+    System.out.println(keyCode);
+    if (keyCode == KeyCode.SPACE) {
+      Game.LEVEL = 0;
+      Window.getInstance().transitionToStage(new WorldStage(), 0.5);
+    }
+  }
+}

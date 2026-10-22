@@ -1,0 +1,148 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.openpatch</groupId>
+        <artifactId>scratch-parent</artifactId>
+        <version>6.5.0</version>
+    </parent>
+
+    <!-- The core library: window, stage, sprites, text, sound, shaders. -->
+    <artifactId>scratch</artifactId>
+    <packaging>jar</packaging>
+    <name>Scratch for Java</name>
+
+    <dependencies>
+        <!-- LWJGL: GLFW windows, OpenGL 3.3 core, OpenAL Soft, stb (images, fonts, OGG, PNG
+             writing), tinyfd (the crash dialog). -->
+        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl</artifactId></dependency>
+        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-glfw</artifactId></dependency>
+        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-opengl</artifactId></dependency>
+        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-openal</artifactId></dependency>
+        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-stb</artifactId></dependency>
+        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-tinyfd</artifactId></dependency>
+        <!-- natives for every platform a game may be exported to; about 6 MB in all -->
+        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl</artifactId><classifier>natives-linux</classifier><scope>runtime</scope></dependency>
+        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-glfw</artifactId><classifier>natives-linux</classifier><scope>runtime</scope></dependency>
+        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-opengl</artifactId><classifier>natives-linux</classifier><scope>runtime</scope></dependency>
+        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-openal</artifactId><classifier>natives-linux</classifier><scope>runtime</scope></dependency>
+        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-stb</artifactId><classifier>natives-linux</classifier><scope>runtime</scope></dependency>
+        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-tinyfd</artifactId><classifier>natives-linux</classifier><scope>runtime</scope></dependency>
+        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl</artifactId><classifier>natives-linux-arm64</classifier><scope>runtime</scope></dependency>
+        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-glfw</artifactId><classifier>natives-linux-arm64</classifier><scope>runtime</scope></dependency>
+        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-opengl</artifactId><classifier>natives-linux-arm64</classifier><scope>runtime</scope></dependency>
+        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-openal</artifactId><classifier>natives-linux-arm64</classifier><scope>runtime</scope></dependency>
+        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-stb</artifactId><classifier>natives-linux-arm64</classifier><scope>runtime</scope></dependency>
+        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-tinyfd</artifactId><classifier>natives-linux-arm64</classifier><scope>runtime</scope></dependency>
+        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl</artifactId><classifier>natives-macos</classifier><scope>runtime</scope></dependency>
+        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-glfw</artifactId><classifier>natives-macos</classifier><scope>runtime</scope></dependency>
+        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-opengl</artifactId><classifier>natives-macos</classifier><scope>runtime</scope></dependency>
+        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-openal</artifactId><classifier>natives-macos</classifier><scope>runtime</scope></dependency>
+        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-stb</artifactId><classifier>natives-macos</classifier><scope>runtime</scope></dependency>
+        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-tinyfd</artifactId><classifier>natives-macos</classifier><scope>runtime</scope></dependency>
+        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl</artifactId><classifier>natives-macos-arm64</classifier><scope>runtime</scope></dependency>
+        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-glfw</artifactId><classifier>natives-macos-arm64</classifier><scope>runtime</scope></dependency>
+        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-opengl</artifactId><classifier>natives-macos-arm64</classifier><scope>runtime</scope></dependency>
+        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-openal</artifactId><classifier>natives-macos-arm64</classifier><scope>runtime</scope></dependency>
+        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-stb</artifactId><classifier>natives-macos-arm64</classifier><scope>runtime</scope></dependency>
+        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-tinyfd</artifactId><classifier>natives-macos-arm64</classifier><scope>runtime</scope></dependency>
+        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl</artifactId><classifier>natives-windows</classifier><scope>runtime</scope></dependency>
+        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-glfw</artifactId><classifier>natives-windows</classifier><scope>runtime</scope></dependency>
+        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-opengl</artifactId><classifier>natives-windows</classifier><scope>runtime</scope></dependency>
+        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-openal</artifactId><classifier>natives-windows</classifier><scope>runtime</scope></dependency>
+        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-stb</artifactId><classifier>natives-windows</classifier><scope>runtime</scope></dependency>
+        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-tinyfd</artifactId><classifier>natives-windows</classifier><scope>runtime</scope></dependency>
+        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl</artifactId><classifier>natives-windows-arm64</classifier><scope>runtime</scope></dependency>
+        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-glfw</artifactId><classifier>natives-windows-arm64</classifier><scope>runtime</scope></dependency>
+        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-opengl</artifactId><classifier>natives-windows-arm64</classifier><scope>runtime</scope></dependency>
+        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-openal</artifactId><classifier>natives-windows-arm64</classifier><scope>runtime</scope></dependency>
+        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-stb</artifactId><classifier>natives-windows-arm64</classifier><scope>runtime</scope></dependency>
+        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-tinyfd</artifactId><classifier>natives-windows-arm64</classifier><scope>runtime</scope></dependency>
+    </dependencies>
+
+    <properties>
+        <!-- the nrw profile compiles a rewritten copy instead (src/build/NrwVariant.java) -->
+        <scratch.sourceDirectory>src/main/java</scratch.sourceDirectory>
+    </properties>
+
+    <profiles>
+        <!--
+            The NRW build: find, getAll and getTouchingSprites return the List of the NRW
+            Zentralabitur instead of java.util.List. The sources are rewritten from the
+            `// nrw-standard-begin` / `// nrw:` markers in Stage and Sprite and compiled instead.
+                mvn clean package -Pnrw   ->  all/target/scratch-<version>-nrw-all.jar
+        -->
+        <profile>
+            <id>nrw</id>
+            <properties>
+                <scratch.sourceDirectory>${project.build.directory}/nrw-sources</scratch.sourceDirectory>
+                <maven.test.skip>true</maven.test.skip>
+                <maven.javadoc.skip>true</maven.javadoc.skip>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>generate-nrw-sources</id>
+                                <phase>generate-sources</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <executable>${java.home}/bin/java</executable>
+                                    <workingDirectory>${project.basedir}</workingDirectory>
+                                    <arguments>
+                                        <argument>src/build/NrwVariant.java</argument>
+                                        <argument>src/main/java</argument>
+                                        <argument>${project.build.directory}/nrw-sources</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+    <build>
+        <sourceDirectory>${scratch.sourceDirectory}</sourceDirectory>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+            <!-- only the version file is filtered: fonts and images must stay byte for byte -->
+            <resource>
+                <directory>src/main/resources-filtered</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>default-testCompile</id>
+                        <configuration>
+                            <!-- tests compare with AWT and ImageIO on purpose (parity); the
+                                 library itself does not read java.desktop. NrwVariantTest
+                                 compiles the NRW build with javax.tools -->
+                            <compilerArgs>
+                                <arg>--add-modules</arg>
+                                <arg>java.desktop,java.compiler</arg>
+                                <arg>--add-reads</arg>
+                                <arg>org.openpatch.scratch=java.desktop,java.compiler</arg>
+                            </compilerArgs>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

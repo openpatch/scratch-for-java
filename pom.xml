@@ -3,13 +3,22 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <!--
+        Scratch for Java 7.0: the core library, the first-party extensions and
+        the fat jar, released together in one version.
+            mvn test                      all modules, headless
+            mvn package -Pall             + target/scratch-<version>-all.jar in all/
+            mvn package -Pall,nrw         + the NRW fat jar
+        The version is managed by .github/workflows/version.yml (mvn versions:set
+        on this pom carries every module along); do not edit it by hand.
+    -->
     <groupId>org.openpatch</groupId>
-    <artifactId>scratch</artifactId>
+    <artifactId>scratch-parent</artifactId>
     <version>6.5.0</version>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
 
-    <name>Scratch for Java</name>
-    <description>Scratch for Java is a Java library that replicates the functionality and concepts of Scratch, helping learners transition from block-based programming to text-based coding in Java. It provides an approachable API inspired by Scratch blocks, making it easier for beginners to understand programming concepts while gaining experience with real Java syntax and tools.</description>
+    <name>Scratch for Java (parent)</name>
+    <description>Scratch for Java is a Java library that replicates the functionality and concepts of Scratch, helping learners transition from block-based programming to text-based coding in Java.</description>
     <url>https://scratch4j.openpatch.org</url>
 
     <licenses>
@@ -34,89 +43,137 @@
         <url>https://github.com/openpatch/scratch-for-java</url>
     </scm>
 
+    <modules>
+        <module>core</module>
+        <module>extensions/tiled</module>
+        <module>extensions/save</module>
+        <module>extensions/recorder</module>
+        <module>extensions/drawing</module>
+        <module>all</module>
+        <module>examples</module>
+    </modules>
+
     <properties>
         <maven.compiler.release>17</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <libs.processing>4.5.5</libs.processing>
+        <libs.lwjgl>3.4.3</libs.lwjgl>
         <libs.jackson>3.2.3</libs.jackson>
         <libs.junit>5.11.4</libs.junit>
-        <libs.imagecomparison>4.4.0</libs.imagecomparison>
-        <!-- The nrw profile compiles a rewritten copy of the sources instead. -->
-        <scratch.sourceDirectory>src/main/java</scratch.sourceDirectory>
-        <scratch.allClassifier>all</scratch.allClassifier>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.lwjgl</groupId>
+                <artifactId>lwjgl-bom</artifactId>
+                <version>${libs.lwjgl}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.openpatch</groupId>
+                <artifactId>scratch</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>tools.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${libs.jackson}</version>
+            </dependency>
+            <dependency>
+                <groupId>tools.jackson.dataformat</groupId>
+                <artifactId>jackson-dataformat-xml</artifactId>
+                <version>${libs.jackson}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-annotations</artifactId>
+                <version>2.22</version>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter</artifactId>
+                <version>${libs.junit}</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <dependency>
-            <groupId>org.processing</groupId>
-            <artifactId>core</artifactId>
-            <version>${libs.processing}</version>
-        </dependency>
-
-        <!-- Jackson -->
-        <dependency>
-            <groupId>tools.jackson.core</groupId>
-            <artifactId>jackson-core</artifactId>
-            <version>${libs.jackson}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
-            <version>2.22</version>
-        </dependency>
-        <dependency>
-            <groupId>tools.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>${libs.jackson}</version>
-        </dependency>
-        <dependency>
-            <groupId>tools.jackson.dataformat</groupId>
-            <artifactId>jackson-dataformat-xml</artifactId>
-            <version>${libs.jackson}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.github.davidmoten</groupId>
-            <artifactId>word-wrap</artifactId>
-            <version>0.1.13</version>
-        </dependency>
-
-        <!--
-            Ogg Vorbis support. These register themselves as javax.sound
-            service providers, so AudioSystem picks them up automatically and
-            Sound.java only has to decode the result to PCM.
-        -->
-        <dependency>
-            <groupId>com.googlecode.soundlibs</groupId>
-            <artifactId>vorbisspi</artifactId>
-            <version>1.0.3.3</version>
-        </dependency>
-
-        <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
-            <version>${libs.junit}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <!--
-            Compares the frames scripts/visual-parity.sh draws, and draws boxes
-            round whatever moved. Test scope on purpose: it is a tool for
-            checking this library, not something anyone using it should end up
-            with on their classpath.
-        -->
-        <dependency>
-            <groupId>com.github.romankh3</groupId>
-            <artifactId>image-comparison</artifactId>
-            <version>${libs.imagecomparison}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
 
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.14.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>3.5.2</version>
+                    <configuration>
+                        <!-- LWJGL loads natives; FFM backend on Java 25 (see core's Natives) -->
+                        <argLine>--enable-native-access=ALL-UNNAMED</argLine>
+                        <!-- tests run on the classpath, as learners' programs do; module-info is
+                             checked by the build (javac) and by a modular smoke run -->
+                        <useModulePath>false</useModulePath>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>3.3.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>3.3.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-shade-plugin</artifactId>
+                    <version>3.5.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>3.8.0</version>
+                    <configuration>
+                        <tags>
+                            <tag><name>index-in-docs</name><placement>X</placement><head>Index in documentation</head></tag>
+                            <tag><name>name-in-docs</name><placement>X</placement><head>Name in documentation</head></tag>
+                            <tag><name>ignore-in-docs</name><placement>X</placement><head>Ignored in documentation</head></tag>
+                            <tag><name>scratchblock</name><placement>a</placement><head>Scratch Block:</head></tag>
+                            <tag><name>example.preview</name><placement>X</placement><head>Example:</head></tag>
+                            <tag><name>example.folder</name><placement>X</placement><head>Example:</head></tag>
+                            <tag><name>example.files</name><placement>X</placement><head>Example:</head></tag>
+                            <tag><name>example.1.files</name><placement>X</placement><head>Example:</head></tag>
+                            <tag><name>desktop-only</name><placement>X</placement><head>Desktop only</head></tag>
+                        </tags>
+                        <excludePackageNames>org.openpatch.scratch.internal:org.openpatch.scratch.internal.*</excludePackageNames>
+                        <doclint>all,-missing</doclint>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>exec-maven-plugin</artifactId>
+                    <version>3.5.0</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
     <profiles>
         <profile>
             <id>central</id>
-
             <build>
                 <plugins>
                     <plugin>
@@ -133,7 +190,29 @@
                             </execution>
                         </executions>
                     </plugin>
-
+                    <!-- Central wants sources and Javadoc next to every published jar -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
                     <plugin>
                         <groupId>org.sonatype.central</groupId>
                         <artifactId>central-publishing-maven-plugin</artifactId>
@@ -143,434 +222,12 @@
                             <publishingServerId>central</publishingServerId>
                             <checksums>required</checksums>
                             <autoPublish>true</autoPublish>
+                            <!-- the fat jar goes to the GitHub release, not to Central -->
+                            <excludeArtifacts>scratch-all,scratch-examples</excludeArtifacts>
                         </configuration>
-                    </plugin>
-
-                </plugins>
-            </build>
-        </profile>
-
-        <!--
-            Compiles and runs one of the finished tutorial projects under
-            docs/archives, using the library as it is in this working copy:
-
-                mvn -q compile exec:java -Parchive -Darchive=make-it-walk-100 -Dmain=WalkStage
-
-            No jar needs building first. The sources are compiled into their own
-            output directory so they can never end up in a released jar.
-        -->
-        <profile>
-            <id>archive</id>
-            <properties>
-                <archive>make-it-walk-100</archive>
-                <main>WalkStage</main>
-            </properties>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>build-helper-maven-plugin</artifactId>
-                        <version>3.3.0</version>
-                        <executions>
-                            <execution>
-                                <id>add-archive-source</id>
-                                <phase>generate-sources</phase>
-                                <goals>
-                                    <goal>add-source</goal>
-                                </goals>
-                                <configuration>
-                                    <sources>
-                                        <source>docs/archives/${archive}</source>
-                                    </sources>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>exec-maven-plugin</artifactId>
-                        <version>3.5.0</version>
-                        <configuration>
-                            <!-- A separate JVM: the graphics library loads native
-                                 code, which does not survive sharing Maven's. -->
-                            <executable>java</executable>
-                            <classpathScope>runtime</classpathScope>
-                            <arguments>
-                                <argument>-classpath</argument>
-                                <classpath />
-                                <argument>${main}</argument>
-                            </arguments>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
-        <profile>
-            <id>all</id>
-
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-shade-plugin</artifactId>
-                        <version>3.5.0</version>
-                        <executions>
-                            <execution>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>shade</goal>
-                                </goals>
-                                <configuration>
-                                    <createDependencyReducedPom>false</createDependencyReducedPom>
-                                    <shadedArtifactAttached>true</shadedArtifactAttached>
-                                    <shadedClassifierName>${scratch.allClassifier}</shadedClassifierName>
-                                    <transformers>
-                                        <!--
-                                            Merges META-INF/services instead of letting one jar
-                                            overwrite another. The Ogg decoder is found through
-                                            such a service file, so without this it can silently
-                                            disappear from the shaded jar.
-                                        -->
-                                        <transformer
-                                            implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
-                                    </transformers>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
-        <!--
-            The NRW build: find, getAll and getTouchingSprites return the List
-            of the NRW Zentralabitur instead of java.util.List. The sources are
-            rewritten by src/tools/java/variants/NrwVariant.java and compiled in
-            place of src/main/java. Examples, tests and the documentation are
-            written against the normal build, so they are left out.
-
-                mvn clean package -Pall,nrw   ->  target/scratch-<version>-nrw-all.jar
-        -->
-        <profile>
-            <id>nrw</id>
-            <properties>
-                <scratch.sourceDirectory>${project.build.directory}/nrw-sources</scratch.sourceDirectory>
-                <scratch.allClassifier>nrw-all</scratch.allClassifier>
-                <maven.test.skip>true</maven.test.skip>
-                <maven.javadoc.skip>true</maven.javadoc.skip>
-            </properties>
-            <build>
-                <finalName>${project.artifactId}-${project.version}-nrw</finalName>
-                <plugins>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>exec-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>generate-nrw-sources</id>
-                                <phase>generate-sources</phase>
-                                <goals>
-                                    <goal>exec</goal>
-                                </goals>
-                                <configuration>
-                                    <executable>${java.home}/bin/java</executable>
-                                    <workingDirectory>${project.basedir}</workingDirectory>
-                                    <arguments>
-                                        <argument>src/tools/java/variants/NrwVariant.java</argument>
-                                        <argument>src/main/java</argument>
-                                        <argument>${project.build.directory}/nrw-sources</argument>
-                                    </arguments>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>generate-asset-pages</id>
-                                <phase>none</phase>
-                            </execution>
-                            <execution>
-                                <id>generate-demo-assets</id>
-                                <phase>none</phase>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>build-helper-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>add-examples-source</id>
-                                <phase>none</phase>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-clean-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>clean-reference-docs</id>
-                                <phase>none</phase>
-                            </execution>
-                        </executions>
                     </plugin>
                 </plugins>
             </build>
         </profile>
     </profiles>
-
-    <build>
-        <sourceDirectory>${scratch.sourceDirectory}</sourceDirectory>
-        <plugins>
-            <!-- Compiler -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <version>3.14.0</version>
-                <artifactId>maven-compiler-plugin</artifactId>
-            </plugin>
-
-            <!-- Tests -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.5.2</version>
-            </plugin>
-
-            <plugin>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>3.3.0</version>
-                <configuration>
-                    <excludes>
-                        <exclude>demos/**</exclude>
-                        <exclude>reference/**</exclude>
-                        <exclude>tools/**</exclude>
-                        <exclude>variants/**</exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
-
-            <!--
-                Generates the built-in sprite and sound pages of the
-                documentation from src/main/resources, next to the reference
-                pages the doclet writes below.
-            -->
-            <!-- The doclet only writes pages; without this, pages for methods
-                 that no longer exist would linger in the reference docs. -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-clean-plugin</artifactId>
-                <version>3.4.0</version>
-                <executions>
-                    <execution>
-                        <id>clean-reference-docs</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>clean</goal>
-                        </goals>
-                        <configuration>
-                            <excludeDefaultDirectories>true</excludeDefaultDirectories>
-                            <filesets>
-                                <fileset>
-                                    <directory>${project.basedir}/docs/book/reference</directory>
-                                </fileset>
-                                <!--
-                                    The javadoc plugin decides whether it has anything to do by
-                                    comparing against this file, not by looking at the pages it
-                                    wrote. Leaving it behind while the pages are deleted makes it
-                                    skip the run that was supposed to write them again, and the
-                                    documentation builds with no reference section at all. The two
-                                    have to go together.
-                                -->
-                                <fileset>
-                                    <directory>${project.build.directory}</directory>
-                                    <includes>
-                                        <include>maven-javadoc-plugin-stale-data.txt</include>
-                                    </includes>
-                                </fileset>
-                            </filesets>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>3.5.0</version>
-                <executions>
-                    <execution>
-                        <id>generate-asset-pages</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>java</goal>
-                        </goals>
-                        <configuration>
-                            <mainClass>docs.GenerateAssetPages</mainClass>
-                            <classpathScope>compile</classpathScope>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>generate-demo-assets</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>java</goal>
-                        </goals>
-                        <configuration>
-                            <mainClass>docs.GenerateDemoPages</mainClass>
-                            <classpathScope>compile</classpathScope>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>build-helper-maven-plugin</artifactId>
-                <version>3.3.0</version>
-                <executions>
-                    <execution>
-                        <id>add-examples-source</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>add-source</goal>
-                        </goals>
-                        <configuration>
-                            <sources>
-                                <source>src/examples/java</source>
-                                <source>src/tools/java</source>
-                            </sources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <!-- Javadoc JAR and custom doclet execution (merged into one plugin declaration) -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.8.0</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                    <!-- Disable default javadoc execution -->
-                    <execution>
-                        <id>default-cli</id>
-                        <phase>none</phase>
-                    </execution>
-                    <execution>
-                        <id>generate-json-docs</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>javadoc-no-fork</goal>
-                        </goals>
-                        <configuration>
-                            <doclet>doclets.Scratch4JDoclet</doclet>
-                            <!-- Use the compiled classes from target/classes -->
-                            <docletPath>${project.build.outputDirectory}</docletPath>
-                            <outputDirectory>${project.build.directory}/../docs/book/reference</outputDirectory>
-                            <useStandardDocletOptions>false</useStandardDocletOptions>
-                            <additionalOptions>
-                                <additionalOption>-d</additionalOption>
-                                <additionalOption>${project.build.directory}/../docs/book/reference</additionalOption>
-                            </additionalOptions>
-                            <show>public</show>
-                        </configuration>
-                    </execution>
-                </executions>
-                <configuration>
-                    <tags>
-                        <tag>
-                            <name>index-in-docs</name>
-                            <placement>X</placement>
-                            <head>Index in documentation</head>
-                        </tag>
-                        <tag>
-                            <name>name-in-docs</name>
-                            <placement>X</placement>
-                            <head>Name in documentation</head>
-                        </tag>
-                        <tag>
-                            <name>ignore-in-docs</name>
-                            <placement>X</placement>
-                            <head>Ignored in documentation</head>
-                        </tag>
-                        <tag>
-                            <name>scratchblock</name>
-                            <placement>a</placement>
-                            <head>Scratch Block:</head>
-                        </tag>
-                        <!-- Allow any example.* tag -->
-                        <tag>
-                            <name>example.preview</name>
-                            <placement>X</placement>
-                            <head>Example:</head>
-                        </tag>
-                        <tag>
-                            <name>example.folder</name>
-                            <placement>X</placement>
-                            <head>Example:</head>
-                        </tag>
-                        <tag>
-                            <name>example.files</name>
-                            <placement>X</placement>
-                            <head>Example:</head>
-                        </tag>
-                        <tag>
-                            <name>example.1.files</name>
-                            <placement>X</placement>
-                            <head>Example:</head>
-                        </tag>
-                        <tag>
-                            <name>desktop-only</name>
-                            <placement>X</placement>
-                            <head>Desktop only</head>
-                        </tag>
-                    </tags>
-                    <excludePackageNames>
-                        demos.*:demos:reference.*:reference,doclets.*:doclets,docs.*:docs,parity.*:parity,variants.*:variants
-                    </excludePackageNames>
-                    <doclint>all,-missing</doclint>
-                </configuration>
-            </plugin>
-
-            <!-- Sources JAR -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>3.3.0</version>
-                <configuration>
-                    <excludes>
-                        <exclude>demos/**</exclude>
-                        <exclude>reference/**</exclude>
-                    </excludes>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <excludes>
-                    <exclude>**/*.java</exclude> <!-- exclude all Java files -->
-                </excludes>
-                <filtering>false</filtering>
-            </resource>
-            <resource>
-                <directory>src/examples/java</directory>
-                <excludes>
-                    <exclude>**/*.java</exclude> <!-- exclude all Java files -->
-                </excludes>
-                <filtering>false</filtering>
-            </resource>
-        </resources>
-    </build>
 </project>
