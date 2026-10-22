@@ -32,6 +32,8 @@ public final class Compositor {
     private final int width, height;
     private final double ia, ib, ic, id, ie, iff;
     private final Effects effects;
+    // no effects to apply: decided once, not for every sampled pixel
+    private final boolean plain;
     private final double[][] cutsU, cutsV;
     final double minX, minY, maxX, maxY;
 
@@ -57,6 +59,7 @@ public final class Compositor {
       this.width = image.getWidth();
       this.height = image.getHeight();
       this.effects = effects;
+      this.plain = effects.isNone();
       this.cutsU = cutsU;
       this.cutsV = cutsV;
       double a = costumeToScreen[0], b = costumeToScreen[1], c = costumeToScreen[2], d = costumeToScreen[3];
@@ -101,8 +104,16 @@ public final class Compositor {
       if (u < 0 || v < 0 || u >= this.width || v >= this.height) {
         return 0;
       }
-      int pu = cut(this.cutsU, u, this.width), pv = cut(this.cutsV, v, this.height);
-      return this.effects.apply(this.pixels[pv * this.width + pu]);
+      int pu, pv;
+      if (this.cutsU == null && this.cutsV == null) {
+        pu = (int) u;
+        pv = (int) v;
+      } else {
+        pu = cut(this.cutsU, u, this.width);
+        pv = cut(this.cutsV, v, this.height);
+      }
+      int pixel = this.pixels[pv * this.width + pu];
+      return this.plain ? pixel : this.effects.apply(pixel);
     }
 
     /** The costume pixel shown at an evenly stretched position: piecewise linear between cuts. */

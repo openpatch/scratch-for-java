@@ -129,6 +129,33 @@ class SceneTest {
   }
 
   @Test
+  void theHitboxFollowsEveryChangeOfTheSprite() {
+    Sprite a = new Sprite("red", RED), b = new Sprite("red", RED);
+    b.addCostume("wide", "costumes/left4.png"); // 20 x 10
+    this.stage.add(a);
+    this.stage.add(b);
+    b.setX(12); // 2 pixels apart
+    assertFalse(a.isTouchingSprite(b));
+    assertSame(b.getHitbox(), b.getHitbox(), "unchanged: the same hitbox");
+    b.switchCostume("wide");
+    assertTrue(a.isTouchingSprite(b), "a wider costume");
+    b.switchCostume("red");
+    assertFalse(a.isTouchingSprite(b));
+    b.setSize(200);
+    assertTrue(a.isTouchingSprite(b), "grown");
+    b.setSize(100);
+    b.setDirection(45);
+    assertTrue(a.isTouchingSprite(b), "turned: the corner reaches over");
+    b.setDirection(90);
+    assertFalse(a.isTouchingSprite(b));
+    b.setHitbox(new Polygon(new double[] {-5, 10, 10, -5}, new double[] {0, 0, 10, 10}));
+    assertTrue(a.isTouchingSprite(b), "a hitbox of its own");
+    b.setHitbox(null);
+    b.changeX(-2.5);
+    assertTrue(a.isTouchingSprite(b), "moved");
+  }
+
+  @Test
   void touchingEdgesIsNotTouching() {
     Sprite a = new Sprite("red", RED), b = new Sprite("red", RED);
     this.stage.add(a);
@@ -393,6 +420,10 @@ class SceneTest {
     assertTrue(me.isTouchingColor(new Color(0, 0, 255)));
     assertTrue(me.isColorTouchingColor(new Color(255, 0, 0), new Color(0, 0, 255)));
     assertFalse(me.isColorTouchingColor(new Color(0, 255, 0), new Color(0, 0, 255)));
+    // hitboxes of their own, far from where the costumes meet, do not narrow what colours see
+    me.setHitbox(new Polygon(new double[] {0, 1, 1, 0}, new double[] {0, 0, 1, 1}));
+    other.setHitbox(new Polygon(new double[] {19, 20, 20, 19}, new double[] {9, 9, 10, 10}));
+    assertTrue(me.isTouchingColor(new Color(0, 0, 255)));
     other.hide();
     assertFalse(me.isTouchingColor(new Color(0, 0, 255)));
   }

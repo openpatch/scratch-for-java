@@ -59,6 +59,13 @@ public class Sprite implements Cloneable {
   private double transparency;
   private Color tint;
   private Shape hitbox;
+  // the last world hitbox and what it was made from (shapes cannot change, so it can be shared)
+  private Shape worldHitbox;
+  private Costume worldHitboxCostume;
+  private Shape worldHitboxLocal;
+  private double[] worldHitboxCentre;
+  private RotationStyle worldHitboxStyle;
+  private double[] worldHitboxKey;
   private boolean hitboxDisabled;
   private boolean isClone;
   private Pen pen;
@@ -1362,6 +1369,8 @@ public class Sprite implements Cloneable {
   }
 
   /**
+   * (getHitbox caches the world hitbox on this method's inputs: keep them in step with it.)
+   *
    * The affine map from costume pixels (origin top left, y down) to world coordinates (y up):
    * {@code x' = a·u + c·v + e}, {@code y' = b·u + d·v + f} as {a, b, c, d, e, f}.
    */
@@ -1425,6 +1434,15 @@ public class Sprite implements Cloneable {
   }
 
   /**
+   * Where the costume's painted pixels are in the world, or null: only there can the sprite show a
+   * colour. Without a hitbox of its own that is its (cached) hitbox.
+   */
+  Bounds paintedBounds() {
+    Shape s = this.hitbox == null ? this.getHitbox() : this.paintedOutline();
+    return s == null ? null : s.getBounds();
+  }
+
+  /**
    * Touching ignores this sprite until {@link #enableHitbox()}.
    *
    * @example.files SpriteDisableHitbox.java
@@ -1452,16 +1470,27 @@ public class Sprite implements Cloneable {
    */
   public Shape getHitbox() {
     Costume c = this.costume();
-    double[] local = this.hitbox != null ? this.hitbox.getPoints() : null;
-    if (local == null) {
-      if (c == null) {
-        return null;
-      }
-      local = c.outline();
+    if (this.hitbox == null && c == null) {
+      return null;
+    }
+    // touching checks ask for it once per pair: made again only when one of the inputs of
+    // costumeToWorld / framelessToWorld (or the costume, or the hitbox) changed
+    double[] k = this.worldHitboxKey;
+    if (this.worldHitbox != null && c == this.worldHitboxCostume && this.hitbox == this.worldHitboxLocal
+        && this.rotationCenter == this.worldHitboxCentre && this.rotationStyle == this.worldHitboxStyle
+        && this.x == k[0] && this.y == k[1] && this.direction == k[2] && this.size == k[3]
+        && this.width == k[4] && this.height == k[5]) {
+      return this.worldHitbox;
     }
     double[] m = c != null ? this.costumeToWorld(c) : this.framelessToWorld();
-    double[] world = Geometry.transform(local, m[0], m[1], m[2], m[3], m[4], m[5]);
-    return Shape.of(world);
+    double[] local = this.hitbox != null ? this.hitbox.getPoints() : c.outline();
+    this.worldHitbox = Shape.of(Geometry.transform(local, m[0], m[1], m[2], m[3], m[4], m[5]));
+    this.worldHitboxCostume = c;
+    this.worldHitboxLocal = this.hitbox;
+    this.worldHitboxCentre = this.rotationCenter;
+    this.worldHitboxStyle = this.rotationStyle;
+    this.worldHitboxKey = new double[] {this.x, this.y, this.direction, this.size, this.width, this.height};
+    return this.worldHitbox;
   }
 
   /**

@@ -38,7 +38,8 @@ public record Effects(double colorEffect, double transparency, int tint) {
       r = rgb[0];
       g = rgb[1];
       b = rgb[2];
-    }    if (this.tint != 0xffffffff) {
+    }
+    if (this.tint != 0xffffffff) {
       r = r * ((this.tint >> 16) & 0xff) / 255;
       g = g * ((this.tint >> 8) & 0xff) / 255;
       b = b * (this.tint & 0xff) / 255;

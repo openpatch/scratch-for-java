@@ -52,6 +52,8 @@ public class Stage {
   private final int height;
   /** Sprites per layer (Layer.ordinal()), back to front. */
   private final List<List<Sprite>> sprites = new ArrayList<>();
+  // spritesInOrder(), until the sprites change
+  private List<Sprite> inOrder;
   private final List<Pen> pens = new ArrayList<>();
   private final List<Text> texts = new ArrayList<>();
   private final java.util.Map<String, Monitor> monitors = new java.util.LinkedHashMap<>();
@@ -207,6 +209,7 @@ public class Stage {
       sprite.getStage().remove(sprite);
     }
     this.sprites.get(sprite.getLayer().ordinal()).add(sprite);
+    this.inOrder = null;
     sprite.setStage(this);
     sprite.getPen().jumpTo(sprite.getX(), sprite.getY());
     sprite.whenAddedToStage();
@@ -269,6 +272,7 @@ public class Stage {
       return;
     }
     this.sprites.get(sprite.getLayer().ordinal()).remove(sprite);
+    this.inOrder = null;
     sprite.setStage(null);
     sprite.whenRemovedFromStage();
   }
@@ -323,7 +327,7 @@ public class Stage {
    * @example.files StageGetAll.java
    */
   public List<Sprite> getAll() {
-    return this.spritesInOrder();
+    return new ArrayList<>(this.spritesInOrder());
   }
   // nrw-standard-end
   // nrw: /**
@@ -394,13 +398,19 @@ public class Stage {
     return n;
   }
 
-  /** A copy of all sprites in drawing (and running) order. */
+  /**
+   * All sprites in drawing (and running) order, as they were when asked: callers go through it while
+   * sprites come and go. Made again only after the sprites changed.
+   */
   List<Sprite> spritesInOrder() {
-    List<Sprite> all = new ArrayList<>();
-    for (List<Sprite> layer : this.sprites) {
-      all.addAll(layer);
+    if (this.inOrder == null) {
+      List<Sprite> all = new ArrayList<>();
+      for (List<Sprite> layer : this.sprites) {
+        all.addAll(layer);
+      }
+      this.inOrder = List.copyOf(all);
     }
-    return all;
+    return this.inOrder;
   }
 
   void addClone(Sprite clone, Sprite original) {
@@ -408,6 +418,7 @@ public class Stage {
     // behind the original, as in Scratch
     int index = layer.indexOf(original);
     layer.add(Math.max(index, 0), clone);
+    this.inOrder = null;
     clone.setStage(this);
     clone.whenAddedToStage();
   }
@@ -415,6 +426,7 @@ public class Stage {
   void moveToLayer(Sprite sprite, Layer from) {
     this.sprites.get(from.ordinal()).remove(sprite);
     this.sprites.get(sprite.getLayer().ordinal()).add(sprite);
+    this.inOrder = null;
   }
 
   /** Moves a text among the stage's texts: by {@code steps} forwards (negative: backwards). */
@@ -438,6 +450,7 @@ public class Stage {
     layer.remove(from);
     long to = (long) from + steps;
     layer.add((int) Math.max(0, Math.min(layer.size(), to)), sprite);
+    this.inOrder = null;
   }
 
   /**
@@ -909,6 +922,9 @@ public class Stage {
 
   /** The world layers as they are now, back to front, without {@code left}. */
   Compositor compositor(Sprite left) {
+    // a sprite asking about colours sees only the sprites whose painted pixels can lie under it
+    // (the camera only moves and zooms: overlapping in the world is overlapping on the screen)
+    Bounds near = left == null ? null : left.paintedBounds();
     List<Compositor.Part> parts = new ArrayList<>();
     if (!this.backdrops.isEmpty()) {
       Image image = this.backdrops.get(this.currentBackdrop).image();
@@ -921,13 +937,22 @@ public class Stage {
         parts.add(new Compositor.CanvasPart(canvas));
       }
       for (Sprite s : this.sprites.get(layer.ordinal())) {
-        Compositor.Picture picture = s == left ? null : s.picture(true);
+        if (s == left || (near != null && !overlaps(near, s.paintedBounds()))) {
+          continue;
+        }
+        Compositor.Picture picture = s.picture(true);
         if (picture != null) {
           parts.add(picture);
         }
       }
     }
     return new Compositor(this.width, this.height, this.color.toARGB(), parts);
+  }
+
+  /** Whether two boxes overlap or lie within a pixel of each other (sampling rounds to pixels). */
+  private static boolean overlaps(Bounds a, Bounds b) {
+    return b != null && b.x() <= a.x() + a.width() + 1 && a.x() <= b.x() + b.width() + 1
+        && b.y() <= a.y() + a.height() + 1 && a.y() <= b.y() + b.height() + 1;
   }
 
   // ---- events --------------------------------------------------------------------------
@@ -1225,6 +1250,7 @@ public class Stage {
       for (List<Sprite> layer : this.sprites) {
         layer.sort(this.sorting);
       }
+      this.inOrder = null;
     }
     List<Sprite> order = this.spritesInOrder();
     for (Sprite s : order) {
