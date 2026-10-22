@@ -63,6 +63,8 @@ public final class WindowHost {
   private boolean fullScreen;
   private int[] windowedBounds;
   private boolean vsync;
+  /** The screen's refresh period: with working vsync, swaps come no faster than this. */
+  private long refreshPeriod = 1_000_000_000L / 60;
   /** False once vsync turned out not to wait, or with {@code -Dscratch4j.vsync=false}. */
   private boolean vsyncWorks;
   /** On Wayland vsync only while focused: a hidden window may block the swap there. */
@@ -186,6 +188,9 @@ public final class WindowHost {
     GLFWVidMode mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
     if (mode != null) {
       this.clock.useRefreshRate(mode.refreshRate());
+      if (mode.refreshRate() > 0) {
+        this.refreshPeriod = 1_000_000_000L / mode.refreshRate();
+      }
     }
     this.renderer = new Renderer(this.settings.pixelArt(), this.settings.smoothPixelArt(),
         this.settings.frameSmoothing());
@@ -236,9 +241,9 @@ public final class WindowHost {
 
   private void frames() {
     final long period = 1_000_000_000L / 60;
-    long last = System.nanoTime(), next = last, second = last;
+    long last = System.nanoTime(), next = last, second = last, lastSwap = last;
     int frames = 0;
-    int unthrottled = 0;
+    int swaps = 0, fastSwaps = 0;
     while (!glfwWindowShouldClose(this.handle) && !this.closeRequested) {
       glfwPollEvents();
       long now = System.nanoTime();
@@ -275,7 +280,8 @@ public final class WindowHost {
         this.vsync = !this.vsync;
         glfwSwapInterval(this.vsync ? 1 : 0);
         next = System.nanoTime();
-        unthrottled = 0;
+        swaps = 0;
+        fastSwaps = 0;
         if (Boolean.getBoolean("scratch4j.debugGl")) {
           System.out.println("Scratch for Java: vsync " + (this.vsync ? "on" : "off (own pacing)"));
         }
@@ -283,17 +289,28 @@ public final class WindowHost {
       this.draw();
       glfwSwapBuffers(this.handle);
       frames++;
-      if (this.vsync && System.nanoTime() - last < period / 2) {
-        // vsync that does not wait (Xvfb, some drivers): pace ourselves instead
-        if (++unthrottled > 30) {
-          this.vsyncWorks = false;
-          this.vsync = false;
-          glfwSwapInterval(0);
-          next = System.nanoTime();
+      long swapped = System.nanoTime();
+      if (this.vsync) {
+        // vsync that does not wait (Xvfb, some drivers): most swaps of a second come faster than
+        // the screen refreshes; then pace ourselves instead (slow frames are no sign either way)
+        if (swapped - lastSwap < this.refreshPeriod * 3 / 4) {
+          fastSwaps++;
         }
-      } else {
-        unthrottled = 0;
+        if (++swaps == 60) {
+          if (fastSwaps > 45) {
+            this.vsyncWorks = false;
+            this.vsync = false;
+            glfwSwapInterval(0);
+            next = swapped;
+            if (Boolean.getBoolean("scratch4j.debugGl")) {
+              System.out.println("Scratch for Java: vsync does not wait, own pacing");
+            }
+          }
+          swaps = 0;
+          fastSwaps = 0;
+        }
       }
+      lastSwap = swapped;
       now = System.nanoTime();
       if (now - second >= 1_000_000_000L) {
         this.renderer.setFps(frames * 1e9 / (now - second));
