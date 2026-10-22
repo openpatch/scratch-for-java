@@ -19,24 +19,30 @@ final class Programs {
       layout(location = 0) in vec2 position;
       layout(location = 1) in vec2 texCoord;
       layout(location = 2) in vec4 vertexColor;
+      layout(location = 3) in vec4 vertexEffectTint;
+      layout(location = 4) in vec2 vertexEffects;   // colour effect in turns, ghost (how much stays)
       uniform mat3 transform;
       out vec2 uv;
       out vec4 tint;
+      flat out vec4 _effectTint;
+      flat out vec2 _effects;
       void main() {
         gl_Position = vec4((transform * vec3(position, 1.0)).xy, 0.0, 1.0);
         uv = texCoord;
         tint = vertexColor;
+        _effectTint = vertexEffectTint;
+        _effects = vertexEffects;
       }
       """;
 
   /**
    * The graphic effects, the same maths as {@code Effects.apply} on the CPU: hue turned in HSV,
-   * then tint, then ghost. On straight colours.
+   * then tint, then ghost. On straight colours. They come with the vertices, so sprites with
+   * different effects are drawn together.
    */
   static final String EFFECTS = """
-      uniform float colorEffect;   // turns, 0..1
-      uniform vec4 effectTint;     // multiplies, straight
-      uniform float ghost;         // how much stays, 0..1
+      flat in vec4 _effectTint;    // multiplies, straight
+      flat in vec2 _effects;       // colour effect in turns 0..1, ghost: how much stays 0..1
       vec3 _rgb2hsv(vec3 c) {
         vec4 K = vec4(0.0, -1.0 / 3.0, 2.0 / 3.0, -1.0);
         vec4 p = mix(vec4(c.bg, K.wz), vec4(c.gb, K.xy), step(c.b, c.g));
@@ -52,6 +58,7 @@ final class Programs {
       }
       vec4 effects(vec4 c) {
         if (c.a <= 0.0) return c;
+        float colorEffect = _effects.x;
         if (colorEffect != 0.0) {
           vec3 hsv = _rgb2hsv(c.rgb);
           if (hsv.z < 0.055) {
@@ -62,8 +69,8 @@ final class Programs {
           hsv.x = fract(hsv.x + colorEffect);
           c.rgb = _hsv2rgb(hsv);
         }
-        c *= effectTint;
-        c.a *= ghost;
+        c *= _effectTint;
+        c.a *= _effects.y;
         return c;
       }
       """;

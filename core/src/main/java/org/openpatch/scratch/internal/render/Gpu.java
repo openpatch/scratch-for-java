@@ -167,7 +167,8 @@ final class Gpu {
    * buffer upload per flush.
    */
   static final class Batch {
-    static final int FLOATS = 8;
+    // position 2, texture coordinates 2, colour 4, effect tint 4, colour effect + ghost 2
+    static final int FLOATS = 14;
     private final int vao, vbo;
     private FloatBuffer data = MemoryUtil.memAllocFloat(FLOATS * 6 * 1024);
     private int vertices;
@@ -183,6 +184,23 @@ final class Gpu {
       glEnableVertexAttribArray(1);
       glVertexAttribPointer(2, 4, GL_FLOAT, false, FLOATS * Float.BYTES, 4L * Float.BYTES);
       glEnableVertexAttribArray(2);
+      glVertexAttribPointer(3, 4, GL_FLOAT, false, FLOATS * Float.BYTES, 8L * Float.BYTES);
+      glEnableVertexAttribArray(3);
+      glVertexAttribPointer(4, 2, GL_FLOAT, false, FLOATS * Float.BYTES, 12L * Float.BYTES);
+      glEnableVertexAttribArray(4);
+    }
+
+    // the effects written into every vertex from now on (programs without effects ignore them)
+    private float effectTurns, effectR = 1, effectG = 1, effectB = 1, effectA = 1, effectGhost = 1;
+
+    /** The graphic effects of the quads that follow: the colour effect in turns, tint, ghost. */
+    void effects(float turns, float r, float g, float b, float a, float ghost) {
+      this.effectTurns = turns;
+      this.effectR = r;
+      this.effectG = g;
+      this.effectB = b;
+      this.effectA = a;
+      this.effectGhost = ghost;
     }
 
     void vertex(double x, double y, double u, double v, float r, float g, float b, float a) {
@@ -193,7 +211,9 @@ final class Gpu {
         MemoryUtil.memFree(this.data);
         this.data = bigger;
       }
-      this.data.put((float) x).put((float) y).put((float) u).put((float) v).put(r).put(g).put(b).put(a);
+      this.data.put((float) x).put((float) y).put((float) u).put((float) v).put(r).put(g).put(b).put(a)
+          .put(this.effectR).put(this.effectG).put(this.effectB).put(this.effectA).put(this.effectTurns)
+          .put(this.effectGhost);
       this.vertices++;
     }
 

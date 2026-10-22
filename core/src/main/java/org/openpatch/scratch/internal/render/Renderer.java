@@ -64,6 +64,8 @@ public final class Renderer {
   }
 
   private final boolean pixelArt;
+  // small costumes share textures, so sprites with different costumes are drawn together
+  private final CostumeAtlas atlas;
   /**
    * Godot's "canvas items" way of showing pixel art: the world is drawn at the window's
    * resolution with the camera unsnapped, so motion is continuous instead of stepping whole
@@ -102,6 +104,7 @@ public final class Renderer {
     this.sprite = Programs.link("sprite", Programs.VERTEX, Programs.SPRITE);
     this.coverage = Programs.link("coverage", Programs.VERTEX, Programs.COVERAGE);
     this.white = new Texture(1, 1, new int[] {0xffffffff}, false, false);
+    this.atlas = new CostumeAtlas(!pixelArt);
     glEnable(GL_BLEND);
     glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA); // premultiplied alpha
   }
@@ -248,6 +251,7 @@ public final class Renderer {
       View fixed = new View(0, 0, 1, null, w, h);
       if (list.backdrop() != null) {
         this.drawSprite(list.backdrop(), worldView, w, h, true, list.tick());
+        this.endSpriteRun();
       }
       for (LayerDraw layer : list.layers()) {
         if (!layer.world()) {
@@ -279,6 +283,7 @@ public final class Renderer {
       View fixed = new View(frame[0], frame[1], frame[4], null, w, h);
       if (list.backdrop() != null) {
         this.drawSprite(list.backdrop(), worldView, targetW, targetH, false, list.tick());
+        this.endSpriteRun();
       }
       for (LayerDraw layer : list.layers()) {
         if (!layer.world()) {
@@ -330,11 +335,9 @@ public final class Renderer {
   // ---- sprites ----------------------------------------------------------------------------
 
   private void drawItems(List<Item> items, View view, int targetW, int targetH, boolean flipped, long tick) {
-    Image batched = null;
     for (Item item : items) {
-      if (!(item instanceof ImageDraw) && batched != null) {
-        this.batch.flush();
-        batched = null;
+      if (!(item instanceof SpriteDraw) && !(item instanceof ImageDraw)) {
+        this.endSpriteRun();
       }
       if (item instanceof SpriteDraw s) {
         this.drawSprite(s, view, targetW, targetH, flipped, tick);
@@ -345,17 +348,11 @@ public final class Renderer {
       } else if (item instanceof ClipDraw clip) {
         this.clip(clip, view, targetW, targetH, flipped);
       } else if (item instanceof ImageDraw image) {
-        // consecutive regions of one image (tiles, glyphs) go in one draw call
-        if (image.image() != batched) {
-          this.batch.flush();
-          batched = image.image();
-          glUseProgram(this.sprite.id);
-          this.projection(this.sprite, targetW, targetH, flipped);
-          glUniform1i(this.sprite.uniform("image"), 0);
-          this.effects(this.sprite, Effects.NONE);
-          glActiveTexture(GL_TEXTURE0);
-          glBindTexture(GL_TEXTURE_2D, this.texture(image.image()).id);
-        }
+        // regions of images (tiles, glyphs) join the sprites' run
+        CostumeAtlas.Region region = this.region(image.image());
+        int texture = region != null ? region.texture() : this.texture(image.image()).id;
+        this.spriteRun(texture, targetW, targetH, flipped);
+        this.effects(this.sprite, Effects.NONE);
         double iw = image.image().getWidth(), ih = image.image().getHeight();
         double[] c = image.corners();
         double[] q = new double[8];
@@ -364,14 +361,63 @@ public final class Renderer {
           q[2 * k + 1] = view.py(c[2 * k + 1]);
         }
         float a = image.opacity();
-        this.batch.quad(q, image.sx() / iw, image.sy() / ih, (image.sx() + image.sw()) / iw,
-            (image.sy() + image.sh()) / ih, a, a, a, a);
+        double u0 = image.sx() / iw, v0 = image.sy() / ih;
+        double u1 = (image.sx() + image.sw()) / iw, v1 = (image.sy() + image.sh()) / ih;
+        if (region != null) {
+          this.batch.quad(q, region.u(u0), region.v(v0), region.u(u1), region.v(v1), a, a, a, a);
+        } else {
+          this.batch.quad(q, u0, v0, u1, v1, a, a, a, a);
+        }
       }
     }
-    if (batched != null) {
-      this.batch.flush();
-    }
+    this.endSpriteRun();
     glDisable(GL_SCISSOR_TEST);
+  }
+
+  // the texture of the run of sprites being drawn with the built-in program, 0 when none
+  private int runTexture;
+
+  /**
+   * Consecutive sprites (and image regions) drawn with the built-in program go into one batch:
+   * the program and projection are set once, and only a change of texture draws what was
+   * collected. Everything else ends the run first ({@link #endSpriteRun()}).
+   */
+  private void spriteRun(int texture, int targetW, int targetH, boolean flipped) {
+    if (this.runTexture == 0) {
+      this.batch.flush();
+      glUseProgram(this.sprite.id);
+      this.projection(this.sprite, targetW, targetH, flipped);
+      glUniform1i(this.sprite.uniform("image"), 0);
+      glActiveTexture(GL_TEXTURE0);
+    }
+    if (this.runTexture != texture) {
+      this.batch.flush();
+      glBindTexture(GL_TEXTURE_2D, texture);
+      this.runTexture = texture;
+    }
+  }
+
+  /**
+   * Where a small costume lies in the atlas, put there on first use; null for a costume too large
+   * for it. Uploading binds a texture: a run draws what it collected first.
+   */
+  private CostumeAtlas.Region region(Image image) {
+    if (!CostumeAtlas.fits(image)) {
+      return null;
+    }
+    CostumeAtlas.Region region = this.atlas.find(image);
+    if (region == null) {
+      this.endSpriteRun();
+      region = this.atlas.add(image, Gpu.premultiply(image.getArgb()));
+    }
+    return region;
+  }
+
+  private void endSpriteRun() {
+    if (this.runTexture != 0) {
+      this.batch.flush();
+      this.runTexture = 0;
+    }
   }
 
   /** Scissor to a rectangle of layer coordinates; targets keep their top row at GL row 0. */
@@ -392,8 +438,18 @@ public final class Renderer {
 
   private void drawSprite(SpriteDraw s, View view, int targetW, int targetH, boolean flipped, long tick) {
     Image image = s.costume();
-    Texture texture = this.texture(image);
     List<ShaderDraw> shaders = s.shaders();
+    if (shaders.isEmpty() || this.studentProgram(shaders.get(shaders.size() - 1)) == null) {
+      // the built-in program: part of a run of sprites
+      CostumeAtlas.Region region = this.region(image);
+      this.spriteRun(region != null ? region.texture() : this.texture(image).id, targetW, targetH, flipped);
+      this.effects(this.sprite, s.effects());
+      this.spriteQuads(s, view, region);
+      return;
+    }
+    this.endSpriteRun();
+    // shaders read the costume as a texture of its own (uv from 0 to 1, its resolution)
+    Texture texture = this.texture(image);
     Program program = this.sprite;
     if (!shaders.isEmpty()) {
       Program student = this.studentProgram(shaders.get(shaders.size() - 1));
@@ -416,11 +472,23 @@ public final class Renderer {
     this.effects(program, s.effects());
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, texture.id);
-    for (double[] piece : this.spritePieces(s, view)) {
-      this.batch.quad(new double[] {piece[0], piece[1], piece[2], piece[3], piece[4], piece[5], piece[6], piece[7]},
-          piece[8], piece[9], piece[10], piece[11], 1, 1, 1, 1);
-    }
+    this.spriteQuads(s, view, null);
     this.batch.flush();
+  }
+
+  /** The sprite's quads, with texture coordinates in its atlas region if it has one. */
+  private void spriteQuads(SpriteDraw s, View view, CostumeAtlas.Region region) {
+    for (double[] piece : this.spritePieces(s, view)) {
+      double u0 = piece[8], v0 = piece[9], u1 = piece[10], v1 = piece[11];
+      if (region != null) {
+        u0 = region.u(u0);
+        v0 = region.v(v0);
+        u1 = region.u(u1);
+        v1 = region.v(v1);
+      }
+      this.batch.quad(new double[] {piece[0], piece[1], piece[2], piece[3], piece[4], piece[5], piece[6], piece[7]},
+          u0, v0, u1, v1, 1, 1, 1, 1);
+    }
   }
 
   /**
@@ -479,23 +547,25 @@ public final class Renderer {
     return pieces;
   }
 
+  /** The effects of the quads that follow (they go with the vertices). */
   private void effects(Program program, Effects e) {
     double turns = (e.colorEffect() / 200) % 1;
-    glUniform1f(program.uniform("colorEffect"), (float) (turns < 0 ? turns + 1 : turns));
     int t = e.tint();
-    glUniform4f(program.uniform("effectTint"), ((t >> 16) & 0xff) / 255f, ((t >> 8) & 0xff) / 255f,
-        (t & 0xff) / 255f, (t >>> 24) / 255f);
-    glUniform1f(program.uniform("ghost"), (float) (1 - Math.max(0, Math.min(100, e.transparency())) / 100));
+    this.batch.effects((float) (turns < 0 ? turns + 1 : turns), ((t >> 16) & 0xff) / 255f, ((t >> 8) & 0xff) / 255f,
+        (t & 0xff) / 255f, (t >>> 24) / 255f, (float) (1 - Math.max(0, Math.min(100, e.transparency())) / 100));
   }
 
   /** Uploads an image now rather than when it is first drawn (the loading screen). */
   public void prepare(Image image) {
-    this.texture(image);
+    if (this.region(image) == null) {
+      this.texture(image);
+    }
   }
 
   private Texture texture(Image image) {
     Texture t = this.textures.get(image);
     if (t == null) {
+      this.endSpriteRun(); // uploading binds the new texture
       t = new Texture(image.getWidth(), image.getHeight(), Gpu.premultiply(image.getArgb()), !this.pixelArt,
           !this.pixelArt);
       this.textures.put(image, t);
@@ -1063,5 +1133,6 @@ public final class Renderer {
     }
     this.glyphs.delete();
     this.white.delete();
+    this.atlas.delete();
   }
 }
