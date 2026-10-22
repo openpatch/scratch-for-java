@@ -81,7 +81,10 @@ public class Bench extends Stage {
           "RESULT version=%s scene=%s n=%d updates=%.1f frames=%.1f cpu=%.2f checkMs=%.3f nsPerCheck=%.1f",
           version, scene, n, ups, fps, cores, perUpdateMs, perCheckNs));
       System.out.flush();
-      Runtime.getRuntime().halt(0);
+      if (Boolean.getBoolean("benchmark.exit")) {
+        System.exit(0); // shutdown hooks run: a profiler can write its recording
+      }
+      Runtime.getRuntime().halt(0); // 6.x may hang in a normal exit
     }
   }
 

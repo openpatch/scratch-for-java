@@ -1521,11 +1521,17 @@ public class Sprite implements Cloneable {
    * @example.files SpriteIsTouchingSprite.java
    */
   public boolean isTouchingSprite(Sprite sprite) {
+    Shape mine = this.touchHitbox();
+    return mine != null && this.touches(mine, sprite);
+  }
+
+  /** Whether another sprite touches this one, whose hitbox is {@code mine}: asked once per check. */
+  private boolean touches(Shape mine, Sprite sprite) {
     if (sprite == this || sprite.stage != this.stage || (sprite.layer == Layer.UI) != (this.layer == Layer.UI)) {
       return false;
     }
-    Shape mine = this.touchHitbox(), theirs = sprite.touchHitbox();
-    return mine != null && theirs != null && mine.intersects(theirs);
+    Shape theirs = sprite.touchHitbox();
+    return theirs != null && mine.intersects(theirs);
   }
 
   /**
@@ -1547,11 +1553,12 @@ public class Sprite implements Cloneable {
    * @example.files SpriteGetTouchingSprite.java
    */
   public <T extends Sprite> T getTouchingSprite(Class<T> type) {
-    if (this.stage == null) {
+    Shape mine = this.stage == null ? null : this.touchHitbox();
+    if (mine == null) {
       return null;
     }
     for (Sprite s : this.stage.spritesInOrder()) {
-      if (type.isInstance(s) && this.isTouchingSprite(s)) {
+      if (type.isInstance(s) && this.touches(mine, s)) {
         return type.cast(s);
       }
     }
@@ -1568,9 +1575,10 @@ public class Sprite implements Cloneable {
    */
   public <T extends Sprite> List<T> getTouchingSprites(Class<T> type) {
     List<T> touching = new ArrayList<>();
-    if (this.stage != null) {
+    Shape mine = this.stage == null ? null : this.touchHitbox();
+    if (mine != null) {
       for (Sprite s : this.stage.spritesInOrder()) {
-        if (type.isInstance(s) && this.isTouchingSprite(s)) {
+        if (type.isInstance(s) && this.touches(mine, s)) {
           touching.add(type.cast(s));
         }
       }
@@ -1589,9 +1597,10 @@ public class Sprite implements Cloneable {
   // nrw:  */
   // nrw: public <T extends Sprite, L> L getTouchingSprites(Class<T> type) {
   // nrw:   List<T> touching = new ArrayList<>();
-  // nrw:   if (this.stage != null) {
+  // nrw:   Shape mine = this.stage == null ? null : this.touchHitbox();
+  // nrw:   if (mine != null) {
   // nrw:     for (Sprite s : this.stage.spritesInOrder()) {
-  // nrw:       if (type.isInstance(s) && this.isTouchingSprite(s)) {
+  // nrw:       if (type.isInstance(s) && this.touches(mine, s)) {
   // nrw:         touching.add(type.cast(s));
   // nrw:       }
   // nrw:     }
