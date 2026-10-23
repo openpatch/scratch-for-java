@@ -34,7 +34,6 @@ public class GameOverStage extends Stage {
   }
 
   public void whenKeyPressed(KeyCode keyCode) {
-    System.out.println(keyCode);
     if (keyCode == KeyCode.SPACE) {
       Game.LEVEL = 0;
       Window.getInstance().transitionToStage(new WorldStage(), 0.5);

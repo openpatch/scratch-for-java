@@ -2,7 +2,6 @@ package demos.shader;
 
 import org.openpatch.scratch.KeyCode;
 import org.openpatch.scratch.Stage;
-import org.openpatch.scratch.Timer;
 
 public class MyStage extends Stage {
 

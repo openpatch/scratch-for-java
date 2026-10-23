@@ -233,7 +233,6 @@ class GameOverStage extends Stage {
   }
 
   public void whenKeyPressed(KeyCode keyCode) {
-    System.out.println(keyCode);
     if (keyCode == KeyCode.SPACE) {
       Game.LEVEL = 0;
       Window.getInstance().transitionToStage(new WorldStage(), 0.5);
@@ -247,10 +246,11 @@ class Background extends Sprite {
     // begin sprite editor
     this.addCostume("grid", "assets/grid.png");
     // end sprite editor
+    // scenery: the grid covers the stage, so it must not count as touching anything
+    this.disableHitbox();
   }
 
   public void run() {
-    this.getPen().eraseAll();
     this.setX(this.getStage().getCamera().getX() - this.getStage().getCamera().getX() % 40);
     this.setY(this.getStage().getCamera().getY() - this.getStage().getCamera().getY() % 40);
   }
@@ -289,7 +289,6 @@ class Donut extends Sprite {
 
   public void run() {
     var touchingDonut = this.getTouchingSprite(Donut.class);
-    debug("touchingDonut: " + getX());
     if (touchingDonut != null && this.strength >= touchingDonut.strength) {
       this.setStrength(this.strength + touchingDonut.strength);
       touchingDonut.remove();
