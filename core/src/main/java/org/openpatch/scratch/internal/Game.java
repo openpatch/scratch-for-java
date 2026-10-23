@@ -85,6 +85,9 @@ public final class Game {
   private volatile LearnerError stopped;
   private volatile Thread gameThread;
   private volatile boolean debug;
+  // which parts of debug mode are on: -Dscratch4j.debug presets them, the panel switches them
+  private final Set<DebugOption> debugOptions = DebugOption.parse(System.getProperty("scratch4j.debug"));
+  private final DebugPanel debugPanel = new DebugPanel();
   private volatile boolean pixelArt;
   private final List<Runnable> exitHooks = new CopyOnWriteArrayList<>();
   // read by the window's tick clock every frame
@@ -184,6 +187,16 @@ public final class Game {
 
   public void setDebug(boolean debug) {
     this.debug = debug;
+  }
+
+  /** Which parts of debug mode are shown; the debug panel switches these while it runs. */
+  public Set<DebugOption> getDebugOptions() {
+    return this.debugOptions;
+  }
+
+  /** The panel that switches the debug options, shown while debug mode is on. */
+  public DebugPanel getDebugPanel() {
+    return this.debugPanel;
   }
 
   /** Pixel-art display mode: set by Window before the first stage. */
@@ -432,6 +445,10 @@ public final class Game {
         deliver = this.keysPressedHere.remove(k.key());
       }
     } else if (event instanceof InputEvent.Button b) {
+      if (this.debug && b.pressed()
+          && this.debugPanel.press(b.x(), b.y(), this.width, this.height, this.debugOptions)) {
+        return; // a click on the debug panel: neither the learner nor the mouse state sees it
+      }
       if (b.pressed()) {
         this.buttonsPressedHere.add(b.button());
       } else {

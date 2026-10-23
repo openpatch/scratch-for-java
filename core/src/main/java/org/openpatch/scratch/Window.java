@@ -248,8 +248,10 @@ public class Window {
   }
 
   /**
-   * Debug mode shows hitboxes, positions and the frame rate, and lets {@code debug(…)} print.
-   * F12 switches it too.
+   * Debug mode shows what its panel in the bottom right corner has ticked: hitboxes, positions,
+   * the mouse and camera, touching pairs, hidden sprites, the clones and the frame rate, and it
+   * lets {@code debug(…)} print. F12 switches it too, and {@code -Dscratch4j.debug=…} presets
+   * which options are on.
    *
    * @param debug on or off
    *

@@ -19,12 +19,13 @@ import java.util.List;
  * @param ui texts of the UI layer and the display band, at window resolution, in front of the
  *     UI layer's sprites
  * @param ask the ask box while a question waits for its answer, in front of the UI texts, or null
- * @param debug whether debug outlines and the frame rate are shown
+ * @param debug whether the frame rate is shown, the one measured part of the debug overlay (its
+ *     outlines and texts are items already, switched by the debug options)
  * @param stageShaders the stage's active shaders, applied in order to the world layers' picture
  * @param monitors variable monitors, above everything else
  * @param transition the transition from the previous stage, or null
- * @param overlayItems what extensions draw above everything, in stage coordinates; left out of
- *     captures
+ * @param overlayItems what extensions draw above everything, and the debug panel, in stage
+ *     coordinates; left out of captures
  * @param cursor the image shown instead of the mouse pointer, or null for the system's
  */
 public record DrawList(

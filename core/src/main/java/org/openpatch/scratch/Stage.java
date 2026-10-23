@@ -3,7 +3,9 @@ package org.openpatch.scratch;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 import org.openpatch.scratch.internal.Costume;
+import org.openpatch.scratch.internal.DebugOption;
 import org.openpatch.scratch.internal.Game;
 import org.openpatch.scratch.internal.Monitor;
 import org.openpatch.scratch.internal.SoundBank;
@@ -1327,6 +1329,8 @@ public class Stage {
     List<LayerDraw> layers = new ArrayList<>();
     Game current = Game.currentOrNull();
     boolean debug = current != null && current.isDebug();
+    // which parts of debug mode are on; the panel switches them
+    Set<DebugOption> debugOn = debug ? current.getDebugOptions() : Set.of();
     for (Layer layer : Layer.values()) {
       // extensions' drawers first: after the layer's canvas, before its sprites
       List<Item> items = new ArrayList<>(current == null ? List.of() : current.getExtensions().drawLayer(layer, this));
@@ -1336,12 +1340,23 @@ public class Stage {
           items.add(d);
         }
       }
-      if (debug) {
+      if (debugOn.contains(DebugOption.HITBOXES)) {
         // hitboxes in front of the layer's sprites: what touching uses
         for (Sprite s : this.sprites.get(layer.ordinal())) {
           Shape hitbox = s.touchHitbox();
           if (hitbox != null) {
             items.add(new ShapeDraw(hitbox.getPoints(), 0, DEBUG_COLOR, 2));
+          }
+        }
+      }
+      if (debugOn.contains(DebugOption.INVISIBLE)) {
+        // hidden sprites take part in nothing; their outline shows where they are
+        for (Sprite s : this.sprites.get(layer.ordinal())) {
+          if (!s.isVisible()) {
+            Shape hitbox = s.getHitbox();
+            if (hitbox != null) {
+              items.add(new ShapeDraw(hitbox.getPoints(), 0, HIDDEN_DEBUG_COLOR, 1));
+            }
           }
         }
       }
@@ -1381,12 +1396,20 @@ public class Stage {
       ui.add(this.displayBand.toDraw());
     }
     if (debug) {
-      this.debugTexts(overlay, ui, layers.get(Layer.UI.ordinal()).items());
+      this.debugTexts(overlay, ui, layers.get(Layer.UI.ordinal()).items(),
+          layers.get(Layer.FOREGROUND.ordinal()).items(), debugOn);
+    }
+    // what extensions draw above everything, and the panel that switches the debug options;
+    // both stay out of captures, like the frame rate
+    List<Item> overlayItems = new ArrayList<>(current == null ? List.of() : current.getExtensions().drawOverlay(this));
+    if (debug) {
+      overlayItems.addAll(current.getDebugPanel().items(current.getWidth(), current.getHeight(), debugOn));
     }
     return new DrawList(this.id, tick, this.width, this.height, this.color.toARGB(), backdrop,
         new CameraDraw(this.camera.getX(), this.camera.getY(), this.camera.getZoom()), layers,
-        List.copyOf(overlay), List.copyOf(ui), this.askBox, debug, this.shaders.toDraw(),
-        this.monitorDraws(), null, current == null ? List.of() : current.getExtensions().drawOverlay(this),
+        List.copyOf(overlay), List.copyOf(ui), this.askBox, debugOn.contains(DebugOption.FPS),
+        this.shaders.toDraw(),
+        this.monitorDraws(), null, List.copyOf(overlayItems),
         this.cursor == null ? null : new org.openpatch.scratch.internal.draw.CursorDraw(Images.load(this.cursor),
             this.cursorX, this.cursorY));
   }
@@ -1413,32 +1436,75 @@ public class Stage {
 
   /** The colour of everything debug mode draws, as in 6.x. */
   private static final int DEBUG_COLOR = 0xffff0000;
+  /** The outline of a hidden sprite in debug mode, which takes part in nothing. */
+  private static final int HIDDEN_DEBUG_COLOR = 0xff00c8ff;
 
   /**
-   * What debug mode shows besides the hitboxes, as 6.x did: each sprite's direction above it and
-   * its position on it, a crosshair at the mouse with its world coordinates, and the camera under
-   * the frame rate.
+   * What debug mode shows besides the hitboxes, switched by its options: each visible sprite's
+   * direction above it and its name and position on it, a line between the centres of every pair
+   * of touching sprites, a crosshair at the mouse with its world coordinates and the camera under
+   * the frame rate, and the number of clones.
    */
-  private void debugTexts(List<TextDraw> overlay, List<TextDraw> ui, List<Item> uiItems) {
-    for (Sprite s : this.spritesInOrder()) {
-      if (!s.isVisible()) {
-        continue;
+  private void debugTexts(List<TextDraw> overlay, List<TextDraw> ui, List<Item> uiItems, List<Item> worldItems,
+      Set<DebugOption> on) {
+    if (on.contains(DebugOption.LABELS)) {
+      for (Sprite s : this.spritesInOrder()) {
+        if (!s.isVisible()) {
+          continue;
+        }
+        List<TextDraw> into = s.getLayer() == Layer.UI ? ui : overlay;
+        into.add(debugText("Direction: " + round2(s.getDirection()), s.getX(), s.getY() + s.getHeight() / 2 + 10, 1));
+        into.add(debugText(spriteName(s) + " (" + round2(s.getX()) + ", " + round2(s.getY()) + ")",
+            s.getX(), s.getY(), 1));
       }
-      List<TextDraw> into = s.getLayer() == Layer.UI ? ui : overlay;
-      into.add(debugText("Direction: " + round2(s.getDirection()), s.getX(), s.getY() + s.getHeight() / 2 + 10, 1));
-      into.add(debugText("(" + round2(s.getX()) + ", " + round2(s.getY()) + ")", s.getX(), s.getY(), 1));
     }
-    Game game = Game.currentOrNull();
-    if (game != null) {
-      double mx = game.getInput().getMouseX(), my = game.getInput().getMouseY();
-      double w = this.width / 2.0, h = this.height / 2.0;
-      uiItems.add(new ShapeDraw(new double[] {mx, -h, mx, h}, 0, DEBUG_COLOR, 1));
-      uiItems.add(new ShapeDraw(new double[] {-w, my, w, my}, 0, DEBUG_COLOR, 1));
-      ui.add(debugText("(" + round2(this.camera.toWorldX(mx)) + ", " + round2(this.camera.toWorldY(my)) + ")",
-          mx + 4, my + 8, 0));
+    if (on.contains(DebugOption.TOUCHING)) {
+      // a line between the centres of every touching pair, on the front world layer
+      List<Sprite> sprites = this.spritesInOrder();
+      for (int i = 0; i < sprites.size(); i++) {
+        Sprite a = sprites.get(i);
+        if (a.getLayer() == Layer.UI) {
+          continue; // drawn in the world's view, which the UI never follows
+        }
+        for (int j = i + 1; j < sprites.size(); j++) {
+          Sprite b = sprites.get(j);
+          if (a.isTouchingSprite(b)) {
+            worldItems.add(new ShapeDraw(new double[] {a.getX(), a.getY(), b.getX(), b.getY()}, 0, DEBUG_COLOR, 1));
+          }
+        }
+      }
     }
-    ui.add(debugText("Camera: (" + round2(this.camera.getX()) + ", " + round2(this.camera.getY()) + ") "
-        + round2(this.camera.getZoom()) + "%", this.width / 2.0 - 6, this.height / 2.0 - 24, 2));
+    if (on.contains(DebugOption.MOUSE)) {
+      Game game = Game.currentOrNull();
+      if (game != null) {
+        double mx = game.getInput().getMouseX(), my = game.getInput().getMouseY();
+        double w = this.width / 2.0, h = this.height / 2.0;
+        uiItems.add(new ShapeDraw(new double[] {mx, -h, mx, h}, 0, DEBUG_COLOR, 1));
+        uiItems.add(new ShapeDraw(new double[] {-w, my, w, my}, 0, DEBUG_COLOR, 1));
+        ui.add(debugText("(" + round2(this.camera.toWorldX(mx)) + ", " + round2(this.camera.toWorldY(my)) + ")",
+            mx + 4, my + 8, 0));
+      }
+      ui.add(debugText("Camera: (" + round2(this.camera.getX()) + ", " + round2(this.camera.getY()) + ") "
+          + round2(this.camera.getZoom()) + "%", this.width / 2.0 - 6, this.height / 2.0 - 24, 2));
+    }
+    if (on.contains(DebugOption.CLONES)) {
+      int clones = 0;
+      for (Sprite s : this.spritesInOrder()) {
+        if (s.isClone()) {
+          clones++;
+        }
+      }
+      ui.add(debugText("Clones: " + clones, this.width / 2.0 - 6, this.height / 2.0 - 40, 2));
+    }
+  }
+
+  /** A sprite's name for the debug label: its class, and clones say so. */
+  private static String spriteName(Sprite s) {
+    String name = s.getClass().getSimpleName();
+    if (name.isEmpty()) {
+      name = "Sprite";
+    }
+    return s.isClone() ? name + " (clone)" : name;
   }
 
   /** A line of debug text centred vertically on y; {@code align} 0 starts, 1 centres, 2 ends at x. */
