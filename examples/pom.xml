@@ -49,6 +49,11 @@
             <artifactId>scratch-drawing</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.openpatch</groupId>
+            <artifactId>scratch-gamepad</artifactId>
+            <version>${project.version}</version>
+        </dependency>
         <!-- scripts/visual-parity.sh compares frames with it (test scope: tools only) -->
         <dependency>
             <groupId>com.github.romankh3</groupId>

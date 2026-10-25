@@ -133,6 +133,8 @@ We are [happy to hear from you](mailto:contact@openpatch.org), if you need custo
 
 Scratch for Java is maintained by [OpenPatch](https://openpatch.org), an organization for educational assessments and training. If you need help [get in touch](mailto:contact@openpatch.org).
 
+Scratch for Java is an independent project and is not affiliated with or endorsed by the Scratch Foundation or the Scratch Team.
+
 ## Special Thanks
 
 The Scratch for Java library is profiled using [Java Profiler](https://www.ej-technologies.com/products/jprofiler/overview.html)

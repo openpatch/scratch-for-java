@@ -27,26 +27,26 @@ An implemented entry has its documented overloads declared in the browser. The r
 
 | API group | Browser availability | Details |
 | --- | --- | --- |
-| [Camera/changeX](/reference/Camera/changeX) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Camera/changeY](/reference/Camera/changeY) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Camera/changeZoom](/reference/Camera/changeZoom) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Camera/constructor](/reference/Camera/constructor) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Camera/getPosition](/reference/Camera/getPosition) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Camera/getX](/reference/Camera/getX) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Camera/getY](/reference/Camera/getY) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Camera/getZoom](/reference/Camera/getZoom) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Camera/resetZoom](/reference/Camera/resetZoom) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Camera/setPosition](/reference/Camera/setPosition) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Camera/setX](/reference/Camera/setX) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Camera/setY](/reference/Camera/setY) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Camera/setZoom](/reference/Camera/setZoom) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Camera/setZoomLimit](/reference/Camera/setZoomLimit) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Camera/toScreenPosition](/reference/Camera/toScreenPosition) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Camera/toScreenX](/reference/Camera/toScreenX) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Camera/toScreenY](/reference/Camera/toScreenY) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Camera/toWorldPosition](/reference/Camera/toWorldPosition) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Camera/toWorldX](/reference/Camera/toWorldX) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Camera/toWorldY](/reference/Camera/toWorldY) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [Camera/changeX](/reference/Camera/changeX) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Camera/changeY](/reference/Camera/changeY) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Camera/changeZoom](/reference/Camera/changeZoom) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Camera/constructor](/reference/Camera/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Camera/getPosition](/reference/Camera/getPosition) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Camera/getX](/reference/Camera/getX) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Camera/getY](/reference/Camera/getY) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Camera/getZoom](/reference/Camera/getZoom) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Camera/resetZoom](/reference/Camera/resetZoom) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Camera/setPosition](/reference/Camera/setPosition) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Camera/setX](/reference/Camera/setX) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Camera/setY](/reference/Camera/setY) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Camera/setZoom](/reference/Camera/setZoom) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Camera/setZoomLimit](/reference/Camera/setZoomLimit) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Camera/toScreenPosition](/reference/Camera/toScreenPosition) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Camera/toScreenX](/reference/Camera/toScreenX) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Camera/toScreenY](/reference/Camera/toScreenY) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Camera/toWorldPosition](/reference/Camera/toWorldPosition) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Camera/toWorldX](/reference/Camera/toWorldX) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Camera/toWorldY](/reference/Camera/toWorldY) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Circle/constructor](/reference/Circle/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Clock/constructor](/reference/Clock/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Clock/getDay](/reference/Clock/getDay) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
@@ -58,27 +58,27 @@ An implemented entry has its documented overloads declared in the browser. The r
 | [Clock/getMonth](/reference/Clock/getMonth) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Clock/getSecond](/reference/Clock/getSecond) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Clock/getYear](/reference/Clock/getYear) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Color/constructor](/reference/Color/constructor) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [Color/constructor](/reference/Color/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Color/equals](/reference/Color/equals) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Color/fromARGB](/reference/Color/fromARGB) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Color/fromHSB](/reference/Color/fromHSB) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Color/getAlpha](/reference/Color/getAlpha) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [Color/fromARGB](/reference/Color/fromARGB) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Color/fromHSB](/reference/Color/fromHSB) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Color/getAlpha](/reference/Color/getAlpha) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Color/getBlue](/reference/Color/getBlue) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Color/getBrightness](/reference/Color/getBrightness) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [Color/getBrightness](/reference/Color/getBrightness) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Color/getGreen](/reference/Color/getGreen) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Color/getHue](/reference/Color/getHue) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [Color/getHue](/reference/Color/getHue) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Color/getRed](/reference/Color/getRed) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Color/getSaturation](/reference/Color/getSaturation) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [Color/getSaturation](/reference/Color/getSaturation) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Color/hashCode](/reference/Color/hashCode) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Color/toARGB](/reference/Color/toARGB) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [Color/toARGB](/reference/Color/toARGB) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Color/toString](/reference/Color/toString) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Color/withAlpha](/reference/Color/withAlpha) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Color/withBlue](/reference/Color/withBlue) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Color/withBrightness](/reference/Color/withBrightness) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Color/withGreen](/reference/Color/withGreen) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Color/withHue](/reference/Color/withHue) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Color/withRed](/reference/Color/withRed) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Color/withSaturation](/reference/Color/withSaturation) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [Color/withAlpha](/reference/Color/withAlpha) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Color/withBlue](/reference/Color/withBlue) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Color/withBrightness](/reference/Color/withBrightness) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Color/withGreen](/reference/Color/withGreen) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Color/withHue](/reference/Color/withHue) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Color/withRed](/reference/Color/withRed) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Color/withSaturation](/reference/Color/withSaturation) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Ellipse/constructor](/reference/Ellipse/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [HtmlColor/constructor](/reference/HtmlColor/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [HtmlColor/getRandom](/reference/HtmlColor/getRandom) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
@@ -111,26 +111,26 @@ An implemented entry has its documented overloads declared in the browser. The r
 | [Pen/down](/reference/Pen/down) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Pen/eraseAll](/reference/Pen/eraseAll) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Pen/getColor](/reference/Pen/getColor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Pen/getLayer](/reference/Pen/getLayer) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Pen/getPosition](/reference/Pen/getPosition) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [Pen/getLayer](/reference/Pen/getLayer) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Pen/getPosition](/reference/Pen/getPosition) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Pen/getSize](/reference/Pen/getSize) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Pen/getTransparency](/reference/Pen/getTransparency) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [Pen/getTransparency](/reference/Pen/getTransparency) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Pen/goToMousePointer](/reference/Pen/goToMousePointer) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Pen/goToRandomPosition](/reference/Pen/goToRandomPosition) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Pen/isDown](/reference/Pen/isDown) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [Pen/isDown](/reference/Pen/isDown) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Pen/setColor](/reference/Pen/setColor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Pen/setLayer](/reference/Pen/setLayer) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [Pen/setLayer](/reference/Pen/setLayer) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Pen/setPosition](/reference/Pen/setPosition) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Pen/setSize](/reference/Pen/setSize) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Pen/setTransparency](/reference/Pen/setTransparency) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Pen/stamp](/reference/Pen/stamp) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Pen/up](/reference/Pen/up) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Pixels/constructor](/reference/Pixels/constructor) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Pixels/getArgb](/reference/Pixels/getArgb) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Pixels/getColor](/reference/Pixels/getColor) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Pixels/getHeight](/reference/Pixels/getHeight) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Pixels/getWidth](/reference/Pixels/getWidth) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Pixels/of](/reference/Pixels/of) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [Pixels/constructor](/reference/Pixels/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Pixels/getArgb](/reference/Pixels/getArgb) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Pixels/getColor](/reference/Pixels/getColor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Pixels/getHeight](/reference/Pixels/getHeight) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Pixels/getWidth](/reference/Pixels/getWidth) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Pixels/of](/reference/Pixels/of) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Polygon/addPoint](/reference/Polygon/addPoint) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Polygon/constructor](/reference/Polygon/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Random/constructor](/reference/Random/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
@@ -144,76 +144,76 @@ An implemented entry has its documented overloads declared in the browser. The r
 | [Random/randomX](/reference/Random/randomX) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Random/randomY](/reference/Random/randomY) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Rectangle/constructor](/reference/Rectangle/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Shader/constructor](/reference/Shader/constructor) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Shader/getName](/reference/Shader/getName) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Shader/set](/reference/Shader/set) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Shader/setName](/reference/Shader/setName) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Shaders/activate](/reference/Shaders/activate) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Shaders/add](/reference/Shaders/add) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Shaders/constructor](/reference/Shaders/constructor) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Shaders/deactivate](/reference/Shaders/deactivate) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Shaders/get](/reference/Shaders/get) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Shaders/getActive](/reference/Shaders/getActive) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Shaders/getCurrent](/reference/Shaders/getCurrent) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Shaders/getCurrentIndex](/reference/Shaders/getCurrentIndex) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Shaders/getCurrentName](/reference/Shaders/getCurrentName) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Shaders/isActive](/reference/Shaders/isActive) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Shaders/next](/reference/Shaders/next) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Shaders/reset](/reference/Shaders/reset) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Shaders/switchTo](/reference/Shaders/switchTo) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [Shader/constructor](/reference/Shader/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Shader/getName](/reference/Shader/getName) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Shader/set](/reference/Shader/set) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Shader/setName](/reference/Shader/setName) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Shaders/activate](/reference/Shaders/activate) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Shaders/add](/reference/Shaders/add) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Shaders/constructor](/reference/Shaders/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Shaders/deactivate](/reference/Shaders/deactivate) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Shaders/get](/reference/Shaders/get) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Shaders/getActive](/reference/Shaders/getActive) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Shaders/getCurrent](/reference/Shaders/getCurrent) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Shaders/getCurrentIndex](/reference/Shaders/getCurrentIndex) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Shaders/getCurrentName](/reference/Shaders/getCurrentName) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Shaders/isActive](/reference/Shaders/isActive) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Shaders/next](/reference/Shaders/next) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Shaders/reset](/reference/Shaders/reset) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Shaders/switchTo](/reference/Shaders/switchTo) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Shape/constructor](/reference/Shape/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Shape/contains](/reference/Shape/contains) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Shape/getBounds](/reference/Shape/getBounds) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Shape/getPoints](/reference/Shape/getPoints) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [Shape/getPoints](/reference/Shape/getPoints) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Shape/intersects](/reference/Shape/intersects) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Shape/rotate](/reference/Shape/rotate) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Shape/scale](/reference/Shape/scale) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Shape/translate](/reference/Shape/translate) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [SoundPlayback/constructor](/reference/SoundPlayback/constructor) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [SoundPlayback/isPlaying](/reference/SoundPlayback/isPlaying) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [SoundPlayback/setVolume](/reference/SoundPlayback/setVolume) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [SoundPlayback/stop](/reference/SoundPlayback/stop) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Sprite/addAnimation](/reference/Sprite/addAnimation) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [SoundPlayback/constructor](/reference/SoundPlayback/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [SoundPlayback/isPlaying](/reference/SoundPlayback/isPlaying) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [SoundPlayback/setVolume](/reference/SoundPlayback/setVolume) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [SoundPlayback/stop](/reference/SoundPlayback/stop) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Sprite/addAnimation](/reference/Sprite/addAnimation) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/addCostume](/reference/Sprite/addCostume) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/addCostumes](/reference/Sprite/addCostumes) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/addSound](/reference/Sprite/addSound) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/ask](/reference/Sprite/ask) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/broadcast](/reference/Sprite/broadcast) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Sprite/changeColorEffect](/reference/Sprite/changeColorEffect) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Sprite/changeHeight](/reference/Sprite/changeHeight) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [Sprite/changeColorEffect](/reference/Sprite/changeColorEffect) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Sprite/changeHeight](/reference/Sprite/changeHeight) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/changePosition](/reference/Sprite/changePosition) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/changeSize](/reference/Sprite/changeSize) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/changeTransparency](/reference/Sprite/changeTransparency) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/changeVolume](/reference/Sprite/changeVolume) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Sprite/changeWidth](/reference/Sprite/changeWidth) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [Sprite/changeWidth](/reference/Sprite/changeWidth) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/changeX](/reference/Sprite/changeX) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/changeY](/reference/Sprite/changeY) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/constructor](/reference/Sprite/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Sprite/createClone](/reference/Sprite/createClone) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [Sprite/createClone](/reference/Sprite/createClone) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/debug](/reference/Sprite/debug) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/deleteThisClone](/reference/Sprite/deleteThisClone) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/disableHitbox](/reference/Sprite/disableHitbox) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Sprite/disableNineSlice](/reference/Sprite/disableNineSlice) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [Sprite/disableNineSlice](/reference/Sprite/disableNineSlice) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/distanceToMousePointer](/reference/Sprite/distanceToMousePointer) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/distanceToSprite](/reference/Sprite/distanceToSprite) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/enableHitbox](/reference/Sprite/enableHitbox) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/extension](/reference/Sprite/extension) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Sprite/getAnimationFrame](/reference/Sprite/getAnimationFrame) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Sprite/getAnimationInterval](/reference/Sprite/getAnimationInterval) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [Sprite/getAnimationFrame](/reference/Sprite/getAnimationFrame) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Sprite/getAnimationInterval](/reference/Sprite/getAnimationInterval) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/getAnswer](/reference/Sprite/getAnswer) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Sprite/getColorEffect](/reference/Sprite/getColorEffect) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [Sprite/getColorEffect](/reference/Sprite/getColorEffect) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/getCurrentCostumeIndex](/reference/Sprite/getCurrentCostumeIndex) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/getCurrentCostumeName](/reference/Sprite/getCurrentCostumeName) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/getDirection](/reference/Sprite/getDirection) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/getHeight](/reference/Sprite/getHeight) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/getHitbox](/reference/Sprite/getHitbox) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Sprite/getLayer](/reference/Sprite/getLayer) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [Sprite/getLayer](/reference/Sprite/getLayer) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/getMouse](/reference/Sprite/getMouse) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/getMouseX](/reference/Sprite/getMouseX) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/getMouseY](/reference/Sprite/getMouseY) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/getPen](/reference/Sprite/getPen) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/getPosition](/reference/Sprite/getPosition) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Sprite/getRotationStyle](/reference/Sprite/getRotationStyle) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [Sprite/getRotationStyle](/reference/Sprite/getRotationStyle) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/getShaders](/reference/Sprite/getShaders) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/getSize](/reference/Sprite/getSize) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/getStage](/reference/Sprite/getStage) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
@@ -238,7 +238,7 @@ An implemented entry has its documented overloads declared in the browser. The r
 | [Sprite/hide](/reference/Sprite/hide) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/hideVariable](/reference/Sprite/hideVariable) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/ifOnEdgeBounce](/reference/Sprite/ifOnEdgeBounce) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Sprite/isAnimationPlayed](/reference/Sprite/isAnimationPlayed) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [Sprite/isAnimationPlayed](/reference/Sprite/isAnimationPlayed) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/isAsking](/reference/Sprite/isAsking) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/isClone](/reference/Sprite/isClone) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/isColorTouchingColor](/reference/Sprite/isColorTouchingColor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
@@ -254,24 +254,24 @@ An implemented entry has its documented overloads declared in the browser. The r
 | [Sprite/move](/reference/Sprite/move) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/nextCostume](/reference/Sprite/nextCostume) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/pickRandom](/reference/Sprite/pickRandom) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Sprite/playAnimation](/reference/Sprite/playAnimation) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [Sprite/playAnimation](/reference/Sprite/playAnimation) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/playSound](/reference/Sprite/playSound) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/playSoundCopy](/reference/Sprite/playSoundCopy) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Sprite/pointTowards](/reference/Sprite/pointTowards) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [Sprite/pointTowards](/reference/Sprite/pointTowards) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/pointTowardsMousePointer](/reference/Sprite/pointTowardsMousePointer) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/previousCostume](/reference/Sprite/previousCostume) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/remove](/reference/Sprite/remove) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Sprite/resetAnimation](/reference/Sprite/resetAnimation) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [Sprite/resetAnimation](/reference/Sprite/resetAnimation) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/run](/reference/Sprite/run) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Sprite/say](/reference/Sprite/say) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Sprite/setAnimationFrame](/reference/Sprite/setAnimationFrame) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Sprite/setAnimationInterval](/reference/Sprite/setAnimationInterval) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Sprite/setColorEffect](/reference/Sprite/setColorEffect) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [Sprite/say](/reference/Sprite/say) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Sprite/setAnimationFrame](/reference/Sprite/setAnimationFrame) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Sprite/setAnimationInterval](/reference/Sprite/setAnimationInterval) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Sprite/setColorEffect](/reference/Sprite/setColorEffect) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/setDirection](/reference/Sprite/setDirection) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Sprite/setHeight](/reference/Sprite/setHeight) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [Sprite/setHeight](/reference/Sprite/setHeight) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/setHitbox](/reference/Sprite/setHitbox) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Sprite/setLayer](/reference/Sprite/setLayer) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Sprite/setNineSlice](/reference/Sprite/setNineSlice) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [Sprite/setLayer](/reference/Sprite/setLayer) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Sprite/setNineSlice](/reference/Sprite/setNineSlice) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/setPosition](/reference/Sprite/setPosition) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/setRotationCenter](/reference/Sprite/setRotationCenter) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/setRotationStyle](/reference/Sprite/setRotationStyle) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
@@ -279,7 +279,7 @@ An implemented entry has its documented overloads declared in the browser. The r
 | [Sprite/setTint](/reference/Sprite/setTint) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/setTransparency](/reference/Sprite/setTransparency) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/setVolume](/reference/Sprite/setVolume) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Sprite/setWidth](/reference/Sprite/setWidth) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [Sprite/setWidth](/reference/Sprite/setWidth) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/setX](/reference/Sprite/setX) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/setY](/reference/Sprite/setY) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/show](/reference/Sprite/show) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
@@ -288,7 +288,7 @@ An implemented entry has its documented overloads declared in the browser. The r
 | [Sprite/stopAllSounds](/reference/Sprite/stopAllSounds) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/stopSound](/reference/Sprite/stopSound) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/switchCostume](/reference/Sprite/switchCostume) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Sprite/think](/reference/Sprite/think) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [Sprite/think](/reference/Sprite/think) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/toString](/reference/Sprite/toString) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/turnLeft](/reference/Sprite/turnLeft) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/turnRight](/reference/Sprite/turnRight) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
@@ -307,13 +307,13 @@ An implemented entry has its documented overloads declared in the browser. The r
 | [Stage/addSound](/reference/Stage/addSound) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/ask](/reference/Stage/ask) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/broadcast](/reference/Stage/broadcast) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Stage/changeColorEffect](/reference/Stage/changeColorEffect) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [Stage/changeColorEffect](/reference/Stage/changeColorEffect) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/changeTransparency](/reference/Stage/changeTransparency) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/changeVolume](/reference/Stage/changeVolume) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/constructor](/reference/Stage/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/count](/reference/Stage/count) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/debug](/reference/Stage/debug) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Stage/display](/reference/Stage/display) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [Stage/display](/reference/Stage/display) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/eraseAll](/reference/Stage/eraseAll) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/extension](/reference/Stage/extension) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
 | [Stage/find](/reference/Stage/find) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
@@ -321,7 +321,7 @@ An implemented entry has its documented overloads declared in the browser. The r
 | [Stage/getAnswer](/reference/Stage/getAnswer) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/getCamera](/reference/Stage/getCamera) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/getColor](/reference/Stage/getColor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Stage/getColorEffect](/reference/Stage/getColorEffect) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [Stage/getColorEffect](/reference/Stage/getColorEffect) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/getCurrentBackdropIndex](/reference/Stage/getCurrentBackdropIndex) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/getCurrentBackdropName](/reference/Stage/getCurrentBackdropName) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/getHeight](/reference/Stage/getHeight) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
@@ -330,7 +330,7 @@ An implemented entry has its documented overloads declared in the browser. The r
 | [Stage/getMouseY](/reference/Stage/getMouseY) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/getShaders](/reference/Stage/getShaders) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/getTimer](/reference/Stage/getTimer) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Stage/getTransparency](/reference/Stage/getTransparency) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [Stage/getTransparency](/reference/Stage/getTransparency) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/getVolume](/reference/Stage/getVolume) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/getWidth](/reference/Stage/getWidth) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/hideVariable](/reference/Stage/hideVariable) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
@@ -348,26 +348,26 @@ An implemented entry has its documented overloads declared in the browser. The r
 | [Stage/removeAll](/reference/Stage/removeAll) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/run](/reference/Stage/run) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/setColor](/reference/Stage/setColor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Stage/setColorEffect](/reference/Stage/setColorEffect) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [Stage/setColorEffect](/reference/Stage/setColorEffect) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/setCursor](/reference/Stage/setCursor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Stage/setTint](/reference/Stage/setTint) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [Stage/setTint](/reference/Stage/setTint) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/setTransparency](/reference/Stage/setTransparency) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/setVolume](/reference/Stage/setVolume) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/showVariable](/reference/Stage/showVariable) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Stage/sortBy](/reference/Stage/sortBy) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Stage/sortByY](/reference/Stage/sortByY) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [Stage/sortBy](/reference/Stage/sortBy) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Stage/sortByY](/reference/Stage/sortByY) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/stopAllSounds](/reference/Stage/stopAllSounds) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Stage/stopSorting](/reference/Stage/stopSorting) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [Stage/stopSorting](/reference/Stage/stopSorting) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/stopSound](/reference/Stage/stopSound) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/switchBackdrop](/reference/Stage/switchBackdrop) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Stage/waitSeconds](/reference/Stage/waitSeconds) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [Stage/waitSeconds](/reference/Stage/waitSeconds) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/waitUntil](/reference/Stage/waitUntil) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/whenBackdropSwitches](/reference/Stage/whenBackdropSwitches) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/whenIReceive](/reference/Stage/whenIReceive) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/whenKeyPressed](/reference/Stage/whenKeyPressed) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/whenKeyReleased](/reference/Stage/whenKeyReleased) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/whenMouseClicked](/reference/Stage/whenMouseClicked) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Stage/whenMouseWheelMoved](/reference/Stage/whenMouseWheelMoved) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [Stage/whenMouseWheelMoved](/reference/Stage/whenMouseWheelMoved) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Text/addFont](/reference/Text/addFont) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Text/constructor](/reference/Text/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Text/getAlign](/reference/Text/getAlign) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
@@ -376,11 +376,11 @@ An implemented entry has its documented overloads declared in the browser. The r
 | [Text/getDefaultFont](/reference/Text/getDefaultFont) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Text/getDefaultFontSize](/reference/Text/getDefaultFontSize) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Text/getFont](/reference/Text/getFont) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Text/getLayer](/reference/Text/getLayer) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [Text/getLayer](/reference/Text/getLayer) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Text/getPosition](/reference/Text/getPosition) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Text/getStage](/reference/Text/getStage) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Text/getStyle](/reference/Text/getStyle) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Text/getText](/reference/Text/getText) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [Text/getText](/reference/Text/getText) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Text/getTextSize](/reference/Text/getTextSize) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Text/getWidth](/reference/Text/getWidth) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Text/getX](/reference/Text/getX) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
@@ -389,45 +389,45 @@ An implemented entry has its documented overloads declared in the browser. The r
 | [Text/goLayersForwards](/reference/Text/goLayersForwards) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Text/goToBackLayer](/reference/Text/goToBackLayer) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Text/goToFrontLayer](/reference/Text/goToFrontLayer) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Text/hide](/reference/Text/hide) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Text/isVisible](/reference/Text/isVisible) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [Text/hide](/reference/Text/hide) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Text/isVisible](/reference/Text/isVisible) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Text/nextFont](/reference/Text/nextFont) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Text/remove](/reference/Text/remove) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Text/setAlign](/reference/Text/setAlign) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Text/setBackgroundColor](/reference/Text/setBackgroundColor) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [Text/setBackgroundColor](/reference/Text/setBackgroundColor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Text/setFont](/reference/Text/setFont) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Text/setLayer](/reference/Text/setLayer) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [Text/setLayer](/reference/Text/setLayer) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Text/setPosition](/reference/Text/setPosition) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Text/setStrokeColor](/reference/Text/setStrokeColor) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [Text/setStrokeColor](/reference/Text/setStrokeColor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Text/setStyle](/reference/Text/setStyle) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Text/setTextColor](/reference/Text/setTextColor) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Text/setTextSize](/reference/Text/setTextSize) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [Text/setTextColor](/reference/Text/setTextColor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Text/setTextSize](/reference/Text/setTextSize) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Text/setWidth](/reference/Text/setWidth) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Text/setX](/reference/Text/setX) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Text/setY](/reference/Text/setY) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Text/show](/reference/Text/show) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Text/showText](/reference/Text/showText) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [Text/show](/reference/Text/show) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Text/showText](/reference/Text/showText) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Text/switchFont](/reference/Text/switchFont) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Text/useFont](/reference/Text/useFont) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [Text/useFont](/reference/Text/useFont) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Text/whenAddedToStage](/reference/Text/whenAddedToStage) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Text/whenRemovedFromStage](/reference/Text/whenRemovedFromStage) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Timer/after](/reference/Timer/after) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [Timer/after](/reference/Timer/after) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Timer/constructor](/reference/Timer/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Timer/during](/reference/Timer/during) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Timer/every](/reference/Timer/every) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Timer/getSeconds](/reference/Timer/getSeconds) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Timer/interval](/reference/Timer/interval) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [Timer/during](/reference/Timer/during) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Timer/every](/reference/Timer/every) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Timer/getSeconds](/reference/Timer/getSeconds) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Timer/interval](/reference/Timer/interval) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Timer/reset](/reference/Timer/reset) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Transition/constructor](/reference/Transition/constructor) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Transition/fromShader](/reference/Transition/fromShader) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Transition/getName](/reference/Transition/getName) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Transition/toString](/reference/Transition/toString) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [Transition/constructor](/reference/Transition/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Transition/fromShader](/reference/Transition/fromShader) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Transition/getName](/reference/Transition/getName) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Transition/toString](/reference/Transition/toString) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Triangle/constructor](/reference/Triangle/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Vector2/add](/reference/Vector2/add) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Vector2/angle](/reference/Vector2/angle) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Vector2/clone](/reference/Vector2/clone) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Vector2/constructor](/reference/Vector2/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Vector2/direction](/reference/Vector2/direction) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [Vector2/direction](/reference/Vector2/direction) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Vector2/distance](/reference/Vector2/distance) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Vector2/distanceSq](/reference/Vector2/distanceSq) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Vector2/dot](/reference/Vector2/dot) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
@@ -449,6 +449,7 @@ An implemented entry has its documented overloads declared in the browser. The r
 | [Window/constructor](/reference/Window/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Window/debug](/reference/Window/debug) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Window/exit](/reference/Window/exit) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Window/getFrameSmoothing](/reference/Window/getFrameSmoothing) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Window/getGameSpeed](/reference/Window/getGameSpeed) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Window/getHeight](/reference/Window/getHeight) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Window/getInstance](/reference/Window/getInstance) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
@@ -458,48 +459,51 @@ An implemented entry has its documented overloads declared in the browser. The r
 | [Window/getWidth](/reference/Window/getWidth) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Window/isDebug](/reference/Window/isDebug) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Window/isPaused](/reference/Window/isPaused) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Window/isPixelArt](/reference/Window/isPixelArt) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Window/isTransitioning](/reference/Window/isTransitioning) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [Window/isPixelArt](/reference/Window/isPixelArt) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Window/isSmoothPixelArt](/reference/Window/isSmoothPixelArt) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Window/isTransitioning](/reference/Window/isTransitioning) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Window/pause](/reference/Window/pause) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Window/resume](/reference/Window/resume) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Window/setDebug](/reference/Window/setDebug) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Window/setGameSpeed](/reference/Window/setGameSpeed) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Window/setStage](/reference/Window/setStage) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Window/step](/reference/Window/step) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Window/transitionToStage](/reference/Window/transitionToStage) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [Window/use](/reference/Window/use) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [Window/transitionToStage](/reference/Window/transitionToStage) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Window/use](/reference/Window/use) | desktop-only | Extensions load through the desktop's ServiceLoader and run against its window and render threads. The browser ships its extensions natively; it does not load external or custom extensions. |
+| [Window/useFrameSmoothing](/reference/Window/useFrameSmoothing) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Window/useFullScreen](/reference/Window/useFullScreen) | desktop-only | The embedded browser output uses its enclosing page; this desktop window option only reports a limitation. |
-| [Window/usePixelArt](/reference/Window/usePixelArt) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [Window/usePixelArt](/reference/Window/usePixelArt) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Window/useSmoothPixelArt](/reference/Window/useSmoothPixelArt) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Window/useSplashLogo](/reference/Window/useSplashLogo) | desktop-only | The browser has no desktop splash window. This option only reports a limitation. |
 | [Window/whenExits](/reference/Window/whenExits) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [drawing/BitmapText/addGlyph](/reference/drawing/BitmapText/addGlyph) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [drawing/BitmapText/constructor](/reference/drawing/BitmapText/constructor) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [drawing/BitmapText/draw](/reference/drawing/BitmapText/draw) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [drawing/BitmapText/getContent](/reference/drawing/BitmapText/getContent) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [drawing/BitmapText/getHeight](/reference/drawing/BitmapText/getHeight) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [drawing/BitmapText/getWidth](/reference/drawing/BitmapText/getWidth) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [drawing/BitmapText/setAlign](/reference/drawing/BitmapText/setAlign) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [drawing/BitmapText/setFont](/reference/drawing/BitmapText/setFont) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [drawing/BitmapText/setLetterSpacing](/reference/drawing/BitmapText/setLetterSpacing) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [drawing/BitmapText/setLineSpacing](/reference/drawing/BitmapText/setLineSpacing) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [drawing/BitmapText/setSpaceWidth](/reference/drawing/BitmapText/setSpaceWidth) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [drawing/BitmapText/showText](/reference/drawing/BitmapText/showText) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [drawing/Drawing/clip](/reference/drawing/Drawing/clip) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [drawing/Drawing/constructor](/reference/drawing/Drawing/constructor) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [drawing/Drawing/image](/reference/drawing/Drawing/image) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [drawing/Drawing/imageHeight](/reference/drawing/Drawing/imageHeight) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [drawing/Drawing/imageWidth](/reference/drawing/Drawing/imageWidth) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [drawing/Drawing/noClip](/reference/drawing/Drawing/noClip) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [drawing/Drawing/polygon](/reference/drawing/Drawing/polygon) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [drawing/Drawing/rectangle](/reference/drawing/Drawing/rectangle) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [drawing/BitmapText/addGlyph](/reference/drawing/BitmapText/addGlyph) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [drawing/BitmapText/constructor](/reference/drawing/BitmapText/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [drawing/BitmapText/draw](/reference/drawing/BitmapText/draw) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [drawing/BitmapText/getContent](/reference/drawing/BitmapText/getContent) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [drawing/BitmapText/getHeight](/reference/drawing/BitmapText/getHeight) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [drawing/BitmapText/getWidth](/reference/drawing/BitmapText/getWidth) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [drawing/BitmapText/setAlign](/reference/drawing/BitmapText/setAlign) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [drawing/BitmapText/setFont](/reference/drawing/BitmapText/setFont) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [drawing/BitmapText/setLetterSpacing](/reference/drawing/BitmapText/setLetterSpacing) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [drawing/BitmapText/setLineSpacing](/reference/drawing/BitmapText/setLineSpacing) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [drawing/BitmapText/setSpaceWidth](/reference/drawing/BitmapText/setSpaceWidth) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [drawing/BitmapText/showText](/reference/drawing/BitmapText/showText) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [drawing/Drawing/clip](/reference/drawing/Drawing/clip) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [drawing/Drawing/constructor](/reference/drawing/Drawing/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [drawing/Drawing/image](/reference/drawing/Drawing/image) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [drawing/Drawing/imageHeight](/reference/drawing/Drawing/imageHeight) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [drawing/Drawing/imageWidth](/reference/drawing/Drawing/imageWidth) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [drawing/Drawing/noClip](/reference/drawing/Drawing/noClip) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [drawing/Drawing/polygon](/reference/drawing/Drawing/polygon) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [drawing/Drawing/rectangle](/reference/drawing/Drawing/rectangle) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [drawing/DrawingExtension/constructor](/reference/drawing/DrawingExtension/constructor) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
 | [drawing/DrawingExtension/id](/reference/drawing/DrawingExtension/id) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
 | [drawing/DrawingExtension/install](/reference/drawing/DrawingExtension/install) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
 | [drawing/DrawingExtension/name](/reference/drawing/DrawingExtension/name) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
 | [drawing/DrawingExtension/requires](/reference/drawing/DrawingExtension/requires) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
 | [drawing/DrawingExtension/version](/reference/drawing/DrawingExtension/version) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [drawing/DrawingSprite/constructor](/reference/drawing/DrawingSprite/constructor) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [drawing/DrawingSprite/draw](/reference/drawing/DrawingSprite/draw) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [drawing/DrawingSprite/constructor](/reference/drawing/DrawingSprite/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [drawing/DrawingSprite/draw](/reference/drawing/DrawingSprite/draw) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [extension/Canvas/clip](/reference/extension/Canvas/clip) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
 | [extension/Canvas/constructor](/reference/extension/Canvas/constructor) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
 | [extension/Canvas/drawImage](/reference/extension/Canvas/drawImage) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
@@ -554,6 +558,15 @@ An implemented entry has its documented overloads declared in the browser. The r
 | [extension/InputSnapshot/get](/reference/extension/InputSnapshot/get) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
 | [extension/LayerDrawer/constructor](/reference/extension/LayerDrawer/constructor) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
 | [extension/LayerDrawer/draw](/reference/extension/LayerDrawer/draw) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
+| [gamepad/Gamepad/constructor](/reference/gamepad/Gamepad/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [gamepad/Gamepad/getStick](/reference/gamepad/Gamepad/getStick) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [gamepad/Gamepad/getTrigger](/reference/gamepad/Gamepad/getTrigger) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [gamepad/Gamepad/isButtonPressed](/reference/gamepad/Gamepad/isButtonPressed) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [gamepad/Gamepad/isConnected](/reference/gamepad/Gamepad/isConnected) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [gamepad/GamepadListener/constructor](/reference/gamepad/GamepadListener/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [gamepad/GamepadListener/whenGamepadButtonPressed](/reference/gamepad/GamepadListener/whenGamepadButtonPressed) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [gamepad/GamepadListener/whenGamepadButtonReleased](/reference/gamepad/GamepadListener/whenGamepadButtonReleased) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [gamepad/GamepadListener/whenGamepadConnected](/reference/gamepad/GamepadListener/whenGamepadConnected) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [recorder/GifEncoder/addFrame](/reference/recorder/GifEncoder/addFrame) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
 | [recorder/GifEncoder/constructor](/reference/recorder/GifEncoder/constructor) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
 | [recorder/GifEncoder/finish](/reference/recorder/GifEncoder/finish) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
@@ -564,10 +577,10 @@ An implemented entry has its documented overloads declared in the browser. The r
 | [recorder/GifEncoder/setRepeat](/reference/recorder/GifEncoder/setRepeat) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
 | [recorder/GifEncoder/setTransparent](/reference/recorder/GifEncoder/setTransparent) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
 | [recorder/GifEncoder/start](/reference/recorder/GifEncoder/start) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [recorder/GifRecorder/constructor](/reference/recorder/GifRecorder/constructor) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [recorder/GifRecorder/snapshot](/reference/recorder/GifRecorder/snapshot) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [recorder/GifRecorder/start](/reference/recorder/GifRecorder/start) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [recorder/GifRecorder/stop](/reference/recorder/GifRecorder/stop) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [recorder/GifRecorder/constructor](/reference/recorder/GifRecorder/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [recorder/GifRecorder/snapshot](/reference/recorder/GifRecorder/snapshot) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [recorder/GifRecorder/start](/reference/recorder/GifRecorder/start) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [recorder/GifRecorder/stop](/reference/recorder/GifRecorder/stop) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [recorder/RecorderExtension/constructor](/reference/recorder/RecorderExtension/constructor) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
 | [recorder/RecorderExtension/id](/reference/recorder/RecorderExtension/id) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
 | [recorder/RecorderExtension/install](/reference/recorder/RecorderExtension/install) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
@@ -581,45 +594,45 @@ An implemented entry has its documented overloads declared in the browser. The r
 | [save/File/loadXMLOrCreate](/reference/save/File/loadXMLOrCreate) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
 | [save/File/save](/reference/save/File/save) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
 | [save/File/saveXML](/reference/save/File/saveXML) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
-| [save/SaveData/constructor](/reference/save/SaveData/constructor) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [save/SaveData/getLocation](/reference/save/SaveData/getLocation) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [save/SaveData/loadOrDefault](/reference/save/SaveData/loadOrDefault) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [save/SaveData/constructor](/reference/save/SaveData/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [save/SaveData/getLocation](/reference/save/SaveData/getLocation) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [save/SaveData/loadOrDefault](/reference/save/SaveData/loadOrDefault) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [save/SaveData/path](/reference/save/SaveData/path) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
-| [save/SaveData/save](/reference/save/SaveData/save) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [save/SaveData/save](/reference/save/SaveData/save) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [save/SaveExtension/constructor](/reference/save/SaveExtension/constructor) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
 | [save/SaveExtension/id](/reference/save/SaveExtension/id) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
 | [save/SaveExtension/name](/reference/save/SaveExtension/name) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
 | [save/SaveExtension/requires](/reference/save/SaveExtension/requires) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
 | [save/SaveExtension/version](/reference/save/SaveExtension/version) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
 | [tiled/MapObject/constructor](/reference/tiled/MapObject/constructor) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [tiled/MapObject/getProperty](/reference/tiled/MapObject/getProperty) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [tiled/MapObject/getPropertyBoolean](/reference/tiled/MapObject/getPropertyBoolean) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [tiled/MapObject/getPropertyFloat](/reference/tiled/MapObject/getPropertyFloat) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [tiled/MapObject/getPropertyInt](/reference/tiled/MapObject/getPropertyInt) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [tiled/MapObject/getShape](/reference/tiled/MapObject/getShape) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [tiled/MapObject/setClassName](/reference/tiled/MapObject/setClassName) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [tiled/MapObject/getProperty](/reference/tiled/MapObject/getProperty) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [tiled/MapObject/getPropertyBoolean](/reference/tiled/MapObject/getPropertyBoolean) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [tiled/MapObject/getPropertyFloat](/reference/tiled/MapObject/getPropertyFloat) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [tiled/MapObject/getPropertyInt](/reference/tiled/MapObject/getPropertyInt) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [tiled/MapObject/getShape](/reference/tiled/MapObject/getShape) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [tiled/MapObject/setClassName](/reference/tiled/MapObject/setClassName) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [tiled/Property/constructor](/reference/tiled/Property/constructor) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [tiled/Property/setText](/reference/tiled/Property/setText) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [tiled/Property/setText](/reference/tiled/Property/setText) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [tiled/TiledExtension/constructor](/reference/tiled/TiledExtension/constructor) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
 | [tiled/TiledExtension/id](/reference/tiled/TiledExtension/id) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
 | [tiled/TiledExtension/install](/reference/tiled/TiledExtension/install) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
 | [tiled/TiledExtension/name](/reference/tiled/TiledExtension/name) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
 | [tiled/TiledExtension/requires](/reference/tiled/TiledExtension/requires) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
 | [tiled/TiledExtension/version](/reference/tiled/TiledExtension/version) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [tiled/TiledMap/constructor](/reference/tiled/TiledMap/constructor) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [tiled/TiledMap/getHeight](/reference/tiled/TiledMap/getHeight) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [tiled/TiledMap/getObjectsFromLayer](/reference/tiled/TiledMap/getObjectsFromLayer) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [tiled/TiledMap/getProperty](/reference/tiled/TiledMap/getProperty) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [tiled/TiledMap/getPropertyBoolean](/reference/tiled/TiledMap/getPropertyBoolean) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [tiled/TiledMap/getPropertyFloat](/reference/tiled/TiledMap/getPropertyFloat) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [tiled/TiledMap/getPropertyInt](/reference/tiled/TiledMap/getPropertyInt) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [tiled/TiledMap/getTileCollisionShapes](/reference/tiled/TiledMap/getTileCollisionShapes) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [tiled/TiledMap/getTileHeight](/reference/tiled/TiledMap/getTileHeight) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [tiled/TiledMap/getTileId](/reference/tiled/TiledMap/getTileId) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [tiled/TiledMap/getTileWidth](/reference/tiled/TiledMap/getTileWidth) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [tiled/TiledMap/getWidth](/reference/tiled/TiledMap/getWidth) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [tiled/TiledMap/hideLayer](/reference/tiled/TiledMap/hideLayer) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [tiled/TiledMap/showLayer](/reference/tiled/TiledMap/showLayer) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [tiled/TiledMap/spawn](/reference/tiled/TiledMap/spawn) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [tiled/TiledMap/constructor](/reference/tiled/TiledMap/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [tiled/TiledMap/getHeight](/reference/tiled/TiledMap/getHeight) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [tiled/TiledMap/getObjectsFromLayer](/reference/tiled/TiledMap/getObjectsFromLayer) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [tiled/TiledMap/getProperty](/reference/tiled/TiledMap/getProperty) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [tiled/TiledMap/getPropertyBoolean](/reference/tiled/TiledMap/getPropertyBoolean) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [tiled/TiledMap/getPropertyFloat](/reference/tiled/TiledMap/getPropertyFloat) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [tiled/TiledMap/getPropertyInt](/reference/tiled/TiledMap/getPropertyInt) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [tiled/TiledMap/getTileCollisionShapes](/reference/tiled/TiledMap/getTileCollisionShapes) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [tiled/TiledMap/getTileHeight](/reference/tiled/TiledMap/getTileHeight) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [tiled/TiledMap/getTileId](/reference/tiled/TiledMap/getTileId) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [tiled/TiledMap/getTileWidth](/reference/tiled/TiledMap/getTileWidth) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [tiled/TiledMap/getWidth](/reference/tiled/TiledMap/getWidth) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [tiled/TiledMap/hideLayer](/reference/tiled/TiledMap/hideLayer) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [tiled/TiledMap/showLayer](/reference/tiled/TiledMap/showLayer) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [tiled/TiledMap/spawn](/reference/tiled/TiledMap/spawn) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [tiled/TiledMap/toString](/reference/tiled/TiledMap/toString) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
 | [tiled/TilesetImage/constructor](/reference/tiled/TilesetImage/constructor) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |

@@ -32,6 +32,10 @@
     "Window/useSplashLogo": {
       "status": "desktop-only",
       "reason": "The browser has no desktop splash window. This option only reports a limitation."
+    },
+    "Window/use": {
+      "status": "desktop-only",
+      "reason": "Extensions load through the desktop's ServiceLoader and run against its window and render threads. The browser ships its extensions natively; it does not load external or custom extensions."
     }
   }
 }

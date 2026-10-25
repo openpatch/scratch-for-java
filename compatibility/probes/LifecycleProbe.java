@@ -1,6 +1,4 @@
 import org.openpatch.scratch.*;
-import org.openpatch.scratch.extensions.shader.Shaders;
-import org.openpatch.scratch.extensions.sorting.Sorting;
 
 public class LifecycleProbe {
     public static void main(String[] args) {
@@ -39,11 +37,12 @@ class ProbeStage extends Stage {
     ProbeSprite original;
     ProbeSprite copy;
     int frames = 0;
+    Timer elapsed = new Timer();
     ProbeStage() {
         Window.getInstance().pause();
         original = new ProbeSprite();
         add(original);
-        copy = (ProbeSprite) original.clone();
+        copy = (ProbeSprite) original.createClone();
         copy.getPen().setSize(9);
         copy.shared[0] = 2;
         System.out.println("clone.constructor=" + ProbeSprite.constructions);
@@ -70,21 +69,18 @@ class ProbeStage extends Stage {
         System.out.println("readded.messages=" + copy.messages);
         remove(copy);
         System.out.println("removed.again=" + copy.removals);
-        Pen pen = new Pen(original);
+        Pen pen = new Pen();
         pen.setColor(255, 0, 0);
-        Pen copiedPen = new Pen(pen);
-        copiedPen.changeColor(30);
+        Pen other = new Pen();
+        other.setColor(0, 255, 0);
+        other.changeColor(30);
         System.out.println("pen.color=" + (pen.getColor().getRed() == 255));
         Text text = new Text("hello", 20, 30, 100);
-        Text copiedText = new Text(text);
+        Text copiedText = new Text("hello", 40, 30, 100);
         copiedText.setX(40);
         System.out.println("text.copy=" + (text.getX() == 20 && copiedText.getY() == 30));
-        new Text(original);
-        Shaders shaders = new Shaders("probe");
-        System.out.println("shaders.copy=" + (new Shaders(shaders).getCurrentIndex() == shaders.getCurrentIndex()));
-        System.out.println("color.hash=" + (new Color(255, 128, 0).hashCode() == -1348971425));
-        System.out.println("sorting=" + !new Sorting().isOn());
-        new HtmlColor();
+        System.out.println("shaders.copy=" + (original.getShaders() != copy.getShaders()));
+        System.out.println("color.hash=" + (new Color(255, 128, 0).hashCode() == -32768));
         text.remove();
         copiedText.remove();
         showVariable("frames", () -> frames);
@@ -92,10 +88,10 @@ class ProbeStage extends Stage {
         showVariable("array", () -> original.shared);
         showVariable("broken", () -> { throw new RuntimeException("supplier failure"); });
         original.showVariable("score", () -> original.score);
-        showVariable("timer", () -> original.getTimer("elapsed").afterMillis(100));
+        showVariable("timer", () -> elapsed.after(0.1));
         showVariable("unused", () -> 99);
         hideVariable("unused");
-        original.say("timed", 100);
+        original.say("timed", 0.1);
         original.glide(0.1, 90, -20);
         System.out.println("ready");
     }

@@ -49,6 +49,7 @@
         <module>extensions/save</module>
         <module>extensions/recorder</module>
         <module>extensions/drawing</module>
+        <module>extensions/gamepad</module>
         <module>all</module>
         <module>examples</module>
     </modules>

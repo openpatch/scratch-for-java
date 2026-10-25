@@ -29,8 +29,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Camera/changeX",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -59,8 +59,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Camera/changeY",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -89,8 +89,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Camera/changeZoom",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -111,8 +111,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Camera/constructor",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -133,8 +133,8 @@
       "returns": "the world position at the stage's centre",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Camera/getPosition",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -155,8 +155,8 @@
       "returns": "the world x at the stage's centre",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Camera/getX",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -177,8 +177,8 @@
       "returns": "the world y at the stage's centre",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Camera/getY",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -199,8 +199,8 @@
       "returns": "the zoom in percent",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Camera/getZoom",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -221,8 +221,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Camera/resetZoom",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -255,8 +255,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Camera/setPosition",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -285,8 +285,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Camera/setPosition",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -315,8 +315,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Camera/setX",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -345,8 +345,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Camera/setY",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -375,8 +375,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Camera/setZoom",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -409,8 +409,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Camera/setZoomLimit",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -439,8 +439,8 @@
       "returns": "the screen position (origin at the stage's centre)",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Camera/toScreenPosition",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -469,8 +469,8 @@
       "returns": "where it shows on the stage",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Camera/toScreenX",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -499,8 +499,8 @@
       "returns": "where it shows on the stage",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Camera/toScreenY",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -529,8 +529,8 @@
       "returns": "the world position",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Camera/toWorldPosition",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -559,8 +559,8 @@
       "returns": "the world x shown there",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Camera/toWorldX",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -589,8 +589,8 @@
       "returns": "the world y shown there",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Camera/toWorldY",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -903,8 +903,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Color/constructor",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {
         "de": {
           "description": "Erzeugt eine Farbe aus Rot-, Grün- und Blauanteil (jeweils 0 bis 255)"
@@ -949,8 +949,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Color/constructor",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -979,8 +979,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Color/constructor",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {
         "de": {
           "description": "Erzeugt eine Farbe aus einem Hex-Code, z.B. #ff0000"
@@ -1047,8 +1047,8 @@
       "returns": "the colour",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Color/fromARGB",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -1085,8 +1085,8 @@
       "returns": "the colour",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Color/fromHSB",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -1107,8 +1107,8 @@
       "returns": "alpha (opacity) from 0 (invisible) to 255 (opaque)",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Color/getAlpha",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -1155,8 +1155,8 @@
       "returns": "brightness from 0 (black) to 100",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Color/getBrightness",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -1203,8 +1203,8 @@
       "returns": "Scratch's colour (hue) from 0 to 100; 0 for greys",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Color/getHue",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -1251,8 +1251,8 @@
       "returns": "saturation from 0 (grey) to 100",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Color/getSaturation",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -1295,8 +1295,8 @@
       "returns": "the packed colour",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Color/toARGB",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -1351,8 +1351,8 @@
       "returns": "this colour with another alpha",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Color/withAlpha",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -1381,8 +1381,8 @@
       "returns": "this colour with another blue",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Color/withBlue",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -1411,8 +1411,8 @@
       "returns": "this colour with another brightness",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Color/withBrightness",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -1441,8 +1441,8 @@
       "returns": "this colour with another green",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Color/withGreen",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -1471,8 +1471,8 @@
       "returns": "this colour with another hue",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Color/withHue",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -1501,8 +1501,8 @@
       "returns": "this colour with another red",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Color/withRed",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -1531,8 +1531,8 @@
       "returns": "this colour with another saturation",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Color/withSaturation",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -2777,8 +2777,8 @@
       "returns": "the layer whose canvas the pen draws on",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Pen/getLayer",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -2799,8 +2799,8 @@
       "returns": "the pen's world position",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Pen/getPosition",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -2847,8 +2847,8 @@
       "returns": "the transparency in percent (0 opaque, 100 invisible)",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Pen/getTransparency",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -2921,8 +2921,8 @@
       "returns": "whether the pen is down and draws when it moves",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Pen/isDown",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -3061,8 +3061,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Pen/setLayer",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -3287,8 +3287,8 @@
       "returns": "the colour there packed as alpha, red, green, blue, or 0 outside",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Pixels/getArgb",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -3321,8 +3321,8 @@
       "returns": "the colour there, or transparent black outside",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Pixels/getColor",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -3343,8 +3343,8 @@
       "returns": "the height in pixels",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Pixels/getHeight",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -3365,8 +3365,8 @@
       "returns": "the width in pixels",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Pixels/getWidth",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -3395,8 +3395,8 @@
       "returns": "its pixels, at stage size",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Pixels/of",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -3425,8 +3425,8 @@
       "returns": "its pixels",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Pixels/of",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -4051,8 +4051,8 @@
       "returns": "the shader's name",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Shader/getName",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -4085,8 +4085,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Shader/set",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -4119,8 +4119,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Shader/set",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -4153,8 +4153,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Shader/set",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -4191,8 +4191,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Shader/set",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -4225,8 +4225,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Shader/set",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -4259,8 +4259,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Shader/set",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -4297,8 +4297,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Shader/set",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -4327,8 +4327,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Shader/setName",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -4357,8 +4357,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Shaders/activate",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -4391,8 +4391,8 @@
       "returns": "the shader, to set its uniforms",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Shaders/add",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -4421,8 +4421,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Shaders/deactivate",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -4451,8 +4451,8 @@
       "returns": "the shader, or null",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Shaders/get",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -4473,8 +4473,8 @@
       "returns": "the shaders in use, in order",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Shaders/getActive",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -4495,8 +4495,8 @@
       "returns": "the first shader in use, or null",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Shaders/getCurrent",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -4517,8 +4517,8 @@
       "returns": "the number of the first shader in use, or -1",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Shaders/getCurrentIndex",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -4539,8 +4539,8 @@
       "returns": "the name of the first shader in use, or null",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Shaders/getCurrentName",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -4569,8 +4569,8 @@
       "returns": "whether it is in use",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Shaders/isActive",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -4591,8 +4591,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Shaders/next",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -4613,8 +4613,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Shaders/reset",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -4643,8 +4643,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Shaders/switchTo",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -4673,8 +4673,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Shaders/switchTo",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -4759,8 +4759,8 @@
       "returns": "the outline's points `x0, y0, x1, y1, \\u2026` (a copy)",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Shape/getPoints",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -4933,8 +4933,8 @@
       "returns": "whether this copy still plays",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/SoundPlayback/isPlaying",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -4963,8 +4963,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/SoundPlayback/setVolume",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -4985,8 +4985,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/SoundPlayback/stop",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -5023,8 +5023,50 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Sprite/addAnimation",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
+    },
+    {
+      "id": "Sprite/addAnimation(String,String,int,int)",
+      "memberId": "Sprite/addAnimation",
+      "owner": "org.openpatch.scratch.Sprite",
+      "className": "Sprite",
+      "methodName": "addAnimation",
+      "static": false,
+      "returnType": "void",
+      "parameterTypes": [
+        "java.lang.String",
+        "java.lang.String",
+        "int",
+        "int"
+      ],
+      "parameterNames": [
+        "name",
+        "pattern",
+        "from",
+        "to"
+      ],
+      "params": [
+        "String name",
+        "String pattern",
+        "int from",
+        "int to"
+      ],
+      "summary": "Adds an animation from numbered image files, from one number to another: for files that count\nfrom 0, or to use only some of them. If `to` is smaller than `from`, it counts down.",
+      "description": "Adds an animation from numbered image files, from one number to another: for files that count\nfrom 0, or to use only some of them. If `to` is smaller than `from`, it counts down.\n\n```java\nthis.addAnimation(\"hit\", \"assets/hit%d.png\", 0, 4); // hit0.png \\u2026 hit4.png\n```",
+      "scratchblock": null,
+      "paramDocs": [
+        "name: the animation's name",
+        "pattern: the file names, with `%d` for the frame number",
+        "from: the number of the first frame",
+        "to: the number of the last frame"
+      ],
+      "returns": null,
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/Sprite/addAnimation",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -5069,8 +5111,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Sprite/addAnimation",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -5404,15 +5446,15 @@
       ],
       "summary": "",
       "description": "",
-      "scratchblock": null,
+      "scratchblock": "change [color v] effect by (by)",
       "paramDocs": [
         "by: how much to change the colour effect"
       ],
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Sprite/changeColorEffect",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -5441,8 +5483,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Sprite/changeHeight",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -5645,8 +5687,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Sprite/changeWidth",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -5799,8 +5841,8 @@
       "returns": "the clone",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Sprite/createClone",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -5899,8 +5941,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Sprite/disableNineSlice",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -6041,8 +6083,8 @@
       "returns": "the frame of the current animation, counting from 0",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Sprite/getAnimationFrame",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -6063,8 +6105,8 @@
       "returns": "how long each frame shows, in seconds",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Sprite/getAnimationInterval",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -6111,8 +6153,8 @@
       "returns": "the colour effect",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Sprite/getColorEffect",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -6263,8 +6305,8 @@
       "returns": "the sprite's layer",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Sprite/getLayer",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -6415,8 +6457,8 @@
       "returns": "how the costume follows the direction",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Sprite/getRotationStyle",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -7121,8 +7163,8 @@
       "returns": "whether an animation played with `once` reached its last frame",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Sprite/isAnimationPlayed",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -7681,8 +7723,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Sprite/playAnimation",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -7715,8 +7757,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Sprite/playAnimation",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -7813,8 +7855,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Sprite/pointTowards",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -7843,8 +7885,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Sprite/pointTowards",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -7943,8 +7985,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Sprite/resetAnimation",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -7999,8 +8041,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Sprite/say",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {
         "de": {
           "description": "Zeigt eine Sprechblase an"
@@ -8037,8 +8079,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Sprite/say",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -8067,8 +8109,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Sprite/setAnimationFrame",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -8097,8 +8139,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Sprite/setAnimationInterval",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -8118,17 +8160,17 @@
       "params": [
         "double value"
       ],
-      "summary": "Scratch's colour effect: shifts every colour of the costume around the colour wheel. 0 is no\nchange; 100 is halfway round; 200 is all the way round again.",
-      "description": "Scratch's colour effect: shifts every colour of the costume around the colour wheel. 0 is no\nchange; 100 is halfway round; 200 is all the way round again.",
-      "scratchblock": null,
+      "summary": "Scratch's colour effect: shifts every colour of the costume around the colour wheel. 0 is no\nchange; 100 is halfway round; 200 is all the way round again. Like Scratch, it gives colours\ntoo grey or too dark to show a hue a little one, so white and black are tinted too.",
+      "description": "Scratch's colour effect: shifts every colour of the costume around the colour wheel. 0 is no\nchange; 100 is halfway round; 200 is all the way round again. Like Scratch, it gives colours\ntoo grey or too dark to show a hue a little one, so white and black are tinted too.",
+      "scratchblock": "set [color v] effect to (value)",
       "paramDocs": [
         "value: the effect"
       ],
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Sprite/setColorEffect",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -8191,8 +8233,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Sprite/setHeight",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -8255,8 +8297,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Sprite/setLayer",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -8285,8 +8327,8 @@
         "int bottom",
         "int left"
       ],
-      "summary": "Stretches only the middle of the costume when the sprite is drawn at its own width and\nheight: the four corners keep their size, the edges stretch along one side.",
-      "description": "Stretches only the middle of the costume when the sprite is drawn at its own width and\nheight: the four corners keep their size, the edges stretch along one side.",
+      "summary": "Stretches only the middle of the costume when the sprite is drawn at its own width and\nheight: the four corners keep their size (scaled with the sprite's size), the edges stretch\nalong one side.",
+      "description": "Stretches only the middle of the costume when the sprite is drawn at its own width and\nheight: the four corners keep their size (scaled with the sprite's size), the edges stretch\nalong one side.",
       "scratchblock": null,
       "paramDocs": [
         "top: costume pixels at the top that keep their height",
@@ -8297,8 +8339,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Sprite/setNineSlice",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -8496,8 +8538,8 @@
       "params": [
         "Color color"
       ],
-      "summary": "Multiplies the costume by a colour: white leaves it as it is, red keeps only its red.",
-      "description": "Multiplies the costume by a colour: white leaves it as it is, red keeps only its red.",
+      "summary": "Multiplies the costume by a colour: white leaves it as it is, red keeps only its red. Not a\nScratch block: Scratch's colour effect is [setColorEffect(double)](setColorEffect).",
+      "description": "Multiplies the costume by a colour: white leaves it as it is, red keeps only its red. Not a\nScratch block: Scratch's colour effect is [setColorEffect(double)](setColorEffect).",
       "scratchblock": null,
       "paramDocs": [
         "color: the tint, or null for none"
@@ -8536,8 +8578,8 @@
         "double green",
         "double blue"
       ],
-      "summary": "Multiplies the costume by a colour: white leaves it as it is, red keeps only its red.",
-      "description": "Multiplies the costume by a colour: white leaves it as it is, red keeps only its red.",
+      "summary": "Multiplies the costume by a colour: white leaves it as it is, red keeps only its red. Not a\nScratch block: Scratch's colour effect is [setColorEffect(double)](setColorEffect).",
+      "description": "Multiplies the costume by a colour: white leaves it as it is, red keeps only its red. Not a\nScratch block: Scratch's colour effect is [setColorEffect(double)](setColorEffect).",
       "scratchblock": null,
       "paramDocs": [
         "red: red from 0 to 255",
@@ -8649,8 +8691,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Sprite/setWidth",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -8995,8 +9037,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Sprite/think",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {
         "de": {
           "description": "Zeigt eine Denkblase an"
@@ -9033,8 +9075,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Sprite/think",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -9740,8 +9782,8 @@
       "params": [
         "String question"
       ],
-      "summary": "Asks a question in a band along the bottom of the stage with a box to type the answer in.\nEnter finishes it: then [isAsking()](isAsking) is false and [getAnswer()](getAnswer) has the answer.\nWhile a question is open, keys go to the answer box, not to the stage and its sprites.",
-      "description": "Asks a question in a band along the bottom of the stage with a box to type the answer in.\nEnter finishes it: then [isAsking()](isAsking) is false and [getAnswer()](getAnswer) has the answer.\nWhile a question is open, keys go to the answer box, not to the stage and its sprites.",
+      "summary": "Asks a question in a box along the bottom of the stage, as Scratch does, with a field to type\nthe answer in. Enter or the check button finishes it: then [isAsking()](isAsking) is false and [getAnswer()](getAnswer) has the answer.\nWhile a question is open, keys go to the answer box, not to the stage and its sprites.",
+      "description": "Asks a question in a box along the bottom of the stage, as Scratch does, with a field to type\nthe answer in. Enter or the check button finishes it: then [isAsking()](isAsking) is false and [getAnswer()](getAnswer) has the answer.\nWhile a question is open, keys go to the answer box, not to the stage and its sprites.",
       "scratchblock": "ask [question] and wait",
       "paramDocs": [
         "question: the question"
@@ -9810,15 +9852,15 @@
       ],
       "summary": "",
       "description": "",
-      "scratchblock": null,
+      "scratchblock": "change [color v] effect by (by)",
       "paramDocs": [
         "by: how much to change the backdrop's colour effect"
       ],
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Stage/changeColorEffect",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -10005,8 +10047,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Stage/display",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {
         "de": {
           "description": "Zeigt einen Text am unteren Rand der Bühne an"
@@ -10043,8 +10085,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Stage/display",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -10263,8 +10305,8 @@
       "returns": "the backdrop's colour effect",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Stage/getColorEffect",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -10493,8 +10535,8 @@
       "returns": "the backdrop's transparency in percent",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Stage/getTransparency",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -11164,17 +11206,17 @@
       "params": [
         "double value"
       ],
-      "summary": "Scratch's colour effect on the backdrop: shifts its colours around the colour wheel (200 is\nall the way round).",
-      "description": "Scratch's colour effect on the backdrop: shifts its colours around the colour wheel (200 is\nall the way round).",
-      "scratchblock": null,
+      "summary": "Scratch's colour effect on the backdrop: shifts its colours around the colour wheel (200 is\nall the way round). Like Scratch, it gives colours too grey or too dark to show a hue a\nlittle one, so white and black are tinted too.",
+      "description": "Scratch's colour effect on the backdrop: shifts its colours around the colour wheel (200 is\nall the way round). Like Scratch, it gives colours too grey or too dark to show a hue a\nlittle one, so white and black are tinted too.",
+      "scratchblock": "set [color v] effect to (value)",
       "paramDocs": [
         "value: the effect"
       ],
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Stage/setColorEffect",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -11270,17 +11312,17 @@
       "params": [
         "Color color"
       ],
-      "summary": "Multiplies the backdrop by a colour.",
-      "description": "Multiplies the backdrop by a colour.",
-      "scratchblock": "set [color v] effect to (h)",
+      "summary": "Multiplies the backdrop by a colour. Not a Scratch block: Scratch's colour effect is\n[setColorEffect(double)](setColorEffect).",
+      "description": "Multiplies the backdrop by a colour. Not a Scratch block: Scratch's colour effect is\n[setColorEffect(double)](setColorEffect).",
+      "scratchblock": null,
       "paramDocs": [
         "color: the tint, or null for none"
       ],
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Stage/setTint",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -11415,8 +11457,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Stage/sortBy",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -11437,8 +11479,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Stage/sortByY",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -11485,8 +11527,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Stage/stopSorting",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -11583,8 +11625,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Stage/waitSeconds",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -11817,8 +11859,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Stage/whenMouseWheelMoved",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -12151,8 +12193,8 @@
       "returns": "the layer",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Text/getLayer",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -12251,8 +12293,8 @@
       "returns": "what the text says",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Text/getText",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -12497,8 +12539,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Text/hide",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -12519,8 +12561,8 @@
       "returns": "whether the text is shown",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Text/isVisible",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -12635,8 +12677,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Text/setBackgroundColor",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {
         "de": {
           "description": "Setzt die Hintergrundfarbe"
@@ -12677,8 +12719,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Text/setBackgroundColor",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -12741,8 +12783,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Text/setLayer",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -12843,8 +12885,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Text/setStrokeColor",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {
         "de": {
           "description": "Setzt die Rahmenfarbe"
@@ -12885,8 +12927,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Text/setStrokeColor",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -12949,8 +12991,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Text/setTextColor",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {
         "de": {
           "description": "Setzt die Schriftfarbe"
@@ -12991,8 +13033,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Text/setTextColor",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -13021,8 +13063,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Text/setTextSize",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -13145,8 +13187,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Text/show",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -13175,8 +13217,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Text/showText",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {
         "de": {
           "description": "Zeigt den Text an"
@@ -13213,8 +13255,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Text/showText",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -13277,8 +13319,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Text/useFont",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {
         "de": {
           "description": "Legt die Schriftart für alle Texte fest"
@@ -13315,8 +13357,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Text/useFont",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -13397,8 +13439,8 @@
       "returns": "whether that time is over",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Timer/after",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -13453,8 +13495,8 @@
       "returns": "whether that time is still running",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Timer/during",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -13483,8 +13525,8 @@
       "returns": "whether the period is over",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Timer/every",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -13505,8 +13547,8 @@
       "returns": "the seconds of game time since the timer started or was reset",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Timer/getSeconds",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -13535,8 +13577,8 @@
       "returns": "whether it is in an \"on\" phase",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Timer/interval",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -13569,8 +13611,8 @@
       "returns": "whether it is in an \"on\" phase",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Timer/interval",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -13625,8 +13667,8 @@
       "returns": "the transition",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Transition/fromShader",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -13647,8 +13689,8 @@
       "returns": "the built-in name or the shader file",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Transition/getName",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -13669,8 +13711,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Transition/toString",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -13929,8 +13971,8 @@
       "returns": "the direction in degrees between 0 (inclusive) and 360 (exclusive)",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Vector2/direction",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -14674,6 +14716,28 @@
       }
     },
     {
+      "id": "Window/getFrameSmoothing()",
+      "memberId": "Window/getFrameSmoothing",
+      "owner": "org.openpatch.scratch.Window",
+      "className": "Window",
+      "methodName": "getFrameSmoothing",
+      "static": true,
+      "returnType": "double",
+      "parameterTypes": [],
+      "parameterNames": [],
+      "params": [],
+      "summary": "",
+      "description": "",
+      "scratchblock": null,
+      "paramDocs": [],
+      "returns": "the frame smoothing in percent, 0 when off",
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/Window/getFrameSmoothing",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
+    },
+    {
       "id": "Window/getGameSpeed()",
       "memberId": "Window/getGameSpeed",
       "owner": "org.openpatch.scratch.Window",
@@ -14913,8 +14977,30 @@
       "returns": "whether pixel-art mode is on",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Window/isPixelArt",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
+    },
+    {
+      "id": "Window/isSmoothPixelArt()",
+      "memberId": "Window/isSmoothPixelArt",
+      "owner": "org.openpatch.scratch.Window",
+      "className": "Window",
+      "methodName": "isSmoothPixelArt",
+      "static": true,
+      "returnType": "boolean",
+      "parameterTypes": [],
+      "parameterNames": [],
+      "params": [],
+      "summary": "",
+      "description": "",
+      "scratchblock": null,
+      "paramDocs": [],
+      "returns": "whether the pixel art scrolls smoothly (see [useSmoothPixelArt()](useSmoothPixelArt))",
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/Window/isSmoothPixelArt",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -14935,8 +15021,8 @@
       "returns": "whether a transition is in progress",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Window/isTransitioning",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -15004,8 +15090,8 @@
       "params": [
         "boolean debug"
       ],
-      "summary": "Debug mode shows hitboxes, positions and the frame rate, and lets `debug(\\u2026)` print.\nF12 switches it too.",
-      "description": "Debug mode shows hitboxes, positions and the frame rate, and lets `debug(\\u2026)` print.\nF12 switches it too.",
+      "summary": "Debug mode shows what its panel in the bottom right corner has ticked: hitboxes, positions,\nthe mouse and camera, touching pairs, hidden sprites, the clones and the frame rate, and it\nlets `debug(\\u2026)` print. F12 switches it too, and `-Dscratch4j.debug=\\u2026` presets\nwhich options are on.",
+      "description": "Debug mode shows what its panel in the bottom right corner has ticked: hitboxes, positions,\nthe mouse and camera, touching pairs, hidden sprites, the clones and the frame rate, and it\nlets `debug(\\u2026)` print. F12 switches it too, and `-Dscratch4j.debug=\\u2026` presets\nwhich options are on.",
       "scratchblock": null,
       "paramDocs": [
         "debug: on or off"
@@ -15137,8 +15223,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Window/transitionToStage",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -15171,8 +15257,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Window/transitionToStage",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -15209,8 +15295,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Window/transitionToStage",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -15239,8 +15325,38 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Window/use",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "desktop-only",
+      "availabilityReason": "Extensions load through the desktop's ServiceLoader and run against its window and render threads. The browser ships its extensions natively; it does not load external or custom extensions.",
+      "translations": {}
+    },
+    {
+      "id": "Window/useFrameSmoothing(double)",
+      "memberId": "Window/useFrameSmoothing",
+      "owner": "org.openpatch.scratch.Window",
+      "className": "Window",
+      "methodName": "useFrameSmoothing",
+      "static": true,
+      "returnType": "void",
+      "parameterTypes": [
+        "double"
+      ],
+      "parameterNames": [
+        "percent"
+      ],
+      "params": [
+        "double percent"
+      ],
+      "summary": "Frame smoothing: each frame is presented mixed with the one before it, this much in percent.\nA screen that holds each frame until the next (every 60 Hz LCD) smears whatever moves,\nbecause the eye gets one picture per 16.7 ms; two pictures per frame (50 is a good value)\nlook like one picture per 8.3 ms and smear about half as much. The world keeps its pixels:\nthe moment nothing moves, current and previous frame are the same and the picture is fully\nsharp. While things move, edges are softer \\u2014 that is the trade. Call it before\n`new Window`; 0 (the default) turns it off.",
+      "description": "Frame smoothing: each frame is presented mixed with the one before it, this much in percent.\nA screen that holds each frame until the next (every 60 Hz LCD) smears whatever moves,\nbecause the eye gets one picture per 16.7 ms; two pictures per frame (50 is a good value)\nlook like one picture per 8.3 ms and smear about half as much. The world keeps its pixels:\nthe moment nothing moves, current and previous frame are the same and the picture is fully\nsharp. While things move, edges are softer \\u2014 that is the trade. Call it before\n`new Window`; 0 (the default) turns it off.",
+      "scratchblock": null,
+      "paramDocs": [
+        "percent: how much of the previous frame each presented one keeps, 0 to 100"
+      ],
+      "returns": null,
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/Window/useFrameSmoothing",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -15287,8 +15403,30 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Window/usePixelArt",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
+    },
+    {
+      "id": "Window/useSmoothPixelArt()",
+      "memberId": "Window/useSmoothPixelArt",
+      "owner": "org.openpatch.scratch.Window",
+      "className": "Window",
+      "methodName": "useSmoothPixelArt",
+      "static": true,
+      "returnType": "void",
+      "parameterTypes": [],
+      "parameterNames": [],
+      "params": [],
+      "summary": "Smooth pixel art (Godot's \"canvas items\" way of showing pixel art): as [usePixelArt()](usePixelArt),\nbut the camera moves without snapping and zoom works at any factor. The world is drawn at the\nwindow's resolution with the sprites still sampled by nearest neighbour, so every pixel stays\na sharp square while things move \\u2014 the grid wobbles by a screen pixel instead of the picture\nstepping whole stage pixels (the look of Hyper Light Drifter, as Godot's guide puts it). With\nit, scrolling does not need [useFrameSmoothing(double)](useFrameSmoothing). Call it before\n`new Window`.",
+      "description": "Smooth pixel art (Godot's \"canvas items\" way of showing pixel art): as [usePixelArt()](usePixelArt),\nbut the camera moves without snapping and zoom works at any factor. The world is drawn at the\nwindow's resolution with the sprites still sampled by nearest neighbour, so every pixel stays\na sharp square while things move \\u2014 the grid wobbles by a screen pixel instead of the picture\nstepping whole stage pixels (the look of Hyper Light Drifter, as Godot's guide puts it). With\nit, scrolling does not need [useFrameSmoothing(double)](useFrameSmoothing). Call it before\n`new Window`.",
+      "scratchblock": null,
+      "paramDocs": [],
+      "returns": null,
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/Window/useSmoothPixelArt",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -15381,8 +15519,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/drawing/BitmapText/addGlyph",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -15411,8 +15549,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/drawing/BitmapText/constructor",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -15441,8 +15579,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/drawing/BitmapText/draw",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -15463,8 +15601,8 @@
       "returns": "the text being shown",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/drawing/BitmapText/getContent",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -15485,8 +15623,8 @@
       "returns": "the displayed text's height, including line spacing and sprite size",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/drawing/BitmapText/getHeight",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -15507,8 +15645,8 @@
       "returns": "the displayed text's width, including the sprite's size",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/drawing/BitmapText/getWidth",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -15537,8 +15675,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/drawing/BitmapText/setAlign",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -15567,8 +15705,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/drawing/BitmapText/setFont",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -15597,8 +15735,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/drawing/BitmapText/setLetterSpacing",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -15627,8 +15765,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/drawing/BitmapText/setLineSpacing",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -15657,8 +15795,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/drawing/BitmapText/setSpaceWidth",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -15687,8 +15825,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/drawing/BitmapText/showText",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -15729,8 +15867,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/drawing/Drawing/clip",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -15767,8 +15905,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/drawing/Drawing/image",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -15813,8 +15951,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/drawing/Drawing/image",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -15843,8 +15981,8 @@
       "returns": "its height in pixels",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/drawing/Drawing/imageHeight",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -15873,8 +16011,8 @@
       "returns": "its width in pixels",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/drawing/Drawing/imageWidth",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -15895,8 +16033,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/drawing/Drawing/noClip",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -15933,8 +16071,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/drawing/Drawing/polygon",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -15979,8 +16117,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/drawing/Drawing/rectangle",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -16141,8 +16279,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/drawing/DrawingSprite/constructor",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -16171,8 +16309,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/drawing/DrawingSprite/draw",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -17616,6 +17754,340 @@
       "translations": {}
     },
     {
+      "id": "gamepad/Gamepad/getStick(GamepadStick)",
+      "memberId": "gamepad/Gamepad/getStick",
+      "owner": "org.openpatch.scratch.gamepad.Gamepad",
+      "className": "Gamepad",
+      "methodName": "getStick",
+      "static": true,
+      "returnType": "Vector2",
+      "parameterTypes": [
+        "org.openpatch.scratch.gamepad.GamepadStick"
+      ],
+      "parameterNames": [
+        "stick"
+      ],
+      "params": [
+        "GamepadStick stick"
+      ],
+      "summary": "Where the first connected controller's stick points, (0, 0) if there is none.",
+      "description": "Where the first connected controller's stick points, (0, 0) if there is none.",
+      "scratchblock": null,
+      "paramDocs": [
+        "stick: the stick to ask about"
+      ],
+      "returns": "its position, x \\u22121 to 1 and y \\u22121 to 1 (up is positive)",
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/gamepad/Gamepad/getStick",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
+    },
+    {
+      "id": "gamepad/Gamepad/getStick(int,GamepadStick)",
+      "memberId": "gamepad/Gamepad/getStick",
+      "owner": "org.openpatch.scratch.gamepad.Gamepad",
+      "className": "Gamepad",
+      "methodName": "getStick",
+      "static": true,
+      "returnType": "Vector2",
+      "parameterTypes": [
+        "int",
+        "org.openpatch.scratch.gamepad.GamepadStick"
+      ],
+      "parameterNames": [
+        "player",
+        "stick"
+      ],
+      "params": [
+        "int player",
+        "GamepadStick stick"
+      ],
+      "summary": "Where the player's controller's stick points, (0, 0) if it is not connected.",
+      "description": "Where the player's controller's stick points, (0, 0) if it is not connected.",
+      "scratchblock": null,
+      "paramDocs": [
+        "player: the player, 1 to 4",
+        "stick: the stick to ask about"
+      ],
+      "returns": "its position, x \\u22121 to 1 and y \\u22121 to 1 (up is positive)",
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/gamepad/Gamepad/getStick",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
+    },
+    {
+      "id": "gamepad/Gamepad/getTrigger(GamepadTrigger)",
+      "memberId": "gamepad/Gamepad/getTrigger",
+      "owner": "org.openpatch.scratch.gamepad.Gamepad",
+      "className": "Gamepad",
+      "methodName": "getTrigger",
+      "static": true,
+      "returnType": "double",
+      "parameterTypes": [
+        "org.openpatch.scratch.gamepad.GamepadTrigger"
+      ],
+      "parameterNames": [
+        "trigger"
+      ],
+      "params": [
+        "GamepadTrigger trigger"
+      ],
+      "summary": "How far down the first connected controller's trigger is, 0 if there is none.",
+      "description": "How far down the first connected controller's trigger is, 0 if there is none.",
+      "scratchblock": null,
+      "paramDocs": [
+        "trigger: the trigger to ask about"
+      ],
+      "returns": "how far it is pressed, 0 (not at all) to 1 (fully)",
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/gamepad/Gamepad/getTrigger",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
+    },
+    {
+      "id": "gamepad/Gamepad/getTrigger(int,GamepadTrigger)",
+      "memberId": "gamepad/Gamepad/getTrigger",
+      "owner": "org.openpatch.scratch.gamepad.Gamepad",
+      "className": "Gamepad",
+      "methodName": "getTrigger",
+      "static": true,
+      "returnType": "double",
+      "parameterTypes": [
+        "int",
+        "org.openpatch.scratch.gamepad.GamepadTrigger"
+      ],
+      "parameterNames": [
+        "player",
+        "trigger"
+      ],
+      "params": [
+        "int player",
+        "GamepadTrigger trigger"
+      ],
+      "summary": "How far down the player's controller's trigger is, 0 if it is not connected.",
+      "description": "How far down the player's controller's trigger is, 0 if it is not connected.",
+      "scratchblock": null,
+      "paramDocs": [
+        "player: the player, 1 to 4",
+        "trigger: the trigger to ask about"
+      ],
+      "returns": "how far it is pressed, 0 (not at all) to 1 (fully)",
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/gamepad/Gamepad/getTrigger",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
+    },
+    {
+      "id": "gamepad/Gamepad/isButtonPressed(GamepadButton)",
+      "memberId": "gamepad/Gamepad/isButtonPressed",
+      "owner": "org.openpatch.scratch.gamepad.Gamepad",
+      "className": "Gamepad",
+      "methodName": "isButtonPressed",
+      "static": true,
+      "returnType": "boolean",
+      "parameterTypes": [
+        "org.openpatch.scratch.gamepad.GamepadButton"
+      ],
+      "parameterNames": [
+        "button"
+      ],
+      "params": [
+        "GamepadButton button"
+      ],
+      "summary": "Whether any controller has the button down.",
+      "description": "Whether any controller has the button down.",
+      "scratchblock": null,
+      "paramDocs": [
+        "button: the button to ask about"
+      ],
+      "returns": "whether it is down on any connected controller",
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/gamepad/Gamepad/isButtonPressed",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
+    },
+    {
+      "id": "gamepad/Gamepad/isButtonPressed(int,GamepadButton)",
+      "memberId": "gamepad/Gamepad/isButtonPressed",
+      "owner": "org.openpatch.scratch.gamepad.Gamepad",
+      "className": "Gamepad",
+      "methodName": "isButtonPressed",
+      "static": true,
+      "returnType": "boolean",
+      "parameterTypes": [
+        "int",
+        "org.openpatch.scratch.gamepad.GamepadButton"
+      ],
+      "parameterNames": [
+        "player",
+        "button"
+      ],
+      "params": [
+        "int player",
+        "GamepadButton button"
+      ],
+      "summary": "Whether the player's controller has the button down.",
+      "description": "Whether the player's controller has the button down.",
+      "scratchblock": null,
+      "paramDocs": [
+        "player: the player, 1 to 4",
+        "button: the button to ask about"
+      ],
+      "returns": "whether it is down on that player's controller",
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/gamepad/Gamepad/isButtonPressed",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
+    },
+    {
+      "id": "gamepad/Gamepad/isConnected()",
+      "memberId": "gamepad/Gamepad/isConnected",
+      "owner": "org.openpatch.scratch.gamepad.Gamepad",
+      "className": "Gamepad",
+      "methodName": "isConnected",
+      "static": true,
+      "returnType": "boolean",
+      "parameterTypes": [],
+      "parameterNames": [],
+      "params": [],
+      "summary": "Whether any controller is connected.",
+      "description": "Whether any controller is connected.",
+      "scratchblock": null,
+      "paramDocs": [],
+      "returns": null,
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/gamepad/Gamepad/isConnected",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
+    },
+    {
+      "id": "gamepad/Gamepad/isConnected(int)",
+      "memberId": "gamepad/Gamepad/isConnected",
+      "owner": "org.openpatch.scratch.gamepad.Gamepad",
+      "className": "Gamepad",
+      "methodName": "isConnected",
+      "static": true,
+      "returnType": "boolean",
+      "parameterTypes": [
+        "int"
+      ],
+      "parameterNames": [
+        "player"
+      ],
+      "params": [
+        "int player"
+      ],
+      "summary": "Whether a controller sits in the player's slot.",
+      "description": "Whether a controller sits in the player's slot.",
+      "scratchblock": null,
+      "paramDocs": [
+        "player: the player, 1 to 4"
+      ],
+      "returns": "whether that slot has a controller",
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/gamepad/Gamepad/isConnected",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
+    },
+    {
+      "id": "gamepad/GamepadListener/whenGamepadButtonPressed(GamepadButton)",
+      "memberId": "gamepad/GamepadListener/whenGamepadButtonPressed",
+      "owner": "org.openpatch.scratch.gamepad.GamepadListener",
+      "className": "GamepadListener",
+      "methodName": "whenGamepadButtonPressed",
+      "static": false,
+      "returnType": "void",
+      "parameterTypes": [
+        "org.openpatch.scratch.gamepad.GamepadButton"
+      ],
+      "parameterNames": [
+        "button"
+      ],
+      "params": [
+        "GamepadButton button"
+      ],
+      "summary": "A button went down on one of the controllers.",
+      "description": "A button went down on one of the controllers.",
+      "scratchblock": null,
+      "paramDocs": [
+        "button: the button that was pressed"
+      ],
+      "returns": null,
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/gamepad/GamepadListener/whenGamepadButtonPressed",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
+    },
+    {
+      "id": "gamepad/GamepadListener/whenGamepadButtonReleased(GamepadButton)",
+      "memberId": "gamepad/GamepadListener/whenGamepadButtonReleased",
+      "owner": "org.openpatch.scratch.gamepad.GamepadListener",
+      "className": "GamepadListener",
+      "methodName": "whenGamepadButtonReleased",
+      "static": false,
+      "returnType": "void",
+      "parameterTypes": [
+        "org.openpatch.scratch.gamepad.GamepadButton"
+      ],
+      "parameterNames": [
+        "button"
+      ],
+      "params": [
+        "GamepadButton button"
+      ],
+      "summary": "A button came up on one of the controllers.",
+      "description": "A button came up on one of the controllers.",
+      "scratchblock": null,
+      "paramDocs": [
+        "button: the button that was released"
+      ],
+      "returns": null,
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/gamepad/GamepadListener/whenGamepadButtonReleased",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
+    },
+    {
+      "id": "gamepad/GamepadListener/whenGamepadConnected(int)",
+      "memberId": "gamepad/GamepadListener/whenGamepadConnected",
+      "owner": "org.openpatch.scratch.gamepad.GamepadListener",
+      "className": "GamepadListener",
+      "methodName": "whenGamepadConnected",
+      "static": false,
+      "returnType": "void",
+      "parameterTypes": [
+        "int"
+      ],
+      "parameterNames": [
+        "player"
+      ],
+      "params": [
+        "int player"
+      ],
+      "summary": "A controller appeared in a player's slot.",
+      "description": "A controller appeared in a player's slot.",
+      "scratchblock": null,
+      "paramDocs": [
+        "player: the player whose slot got a controller, 1 to 4"
+      ],
+      "returns": null,
+      "since": "",
+      "docsUrl": "https://scratch4j.openpatch.org/reference/gamepad/GamepadListener/whenGamepadConnected",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "translations": {}
+    },
+    {
       "id": "recorder/GifEncoder/addFrame(int[],int,int)",
       "memberId": "recorder/GifEncoder/addFrame",
       "owner": "org.openpatch.scratch.recorder.GifEncoder",
@@ -17963,8 +18435,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/recorder/GifRecorder/constructor",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -17985,8 +18457,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/recorder/GifRecorder/snapshot",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -18007,8 +18479,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/recorder/GifRecorder/start",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -18029,8 +18501,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/recorder/GifRecorder/stop",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -18433,8 +18905,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/save/SaveData/constructor",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -18455,8 +18927,8 @@
       "returns": "a description of the save location",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/save/SaveData/getLocation",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -18485,8 +18957,8 @@
       "returns": "loaded progress, or the supplied defaults for a missing slot",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/save/SaveData/loadOrDefault",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -18537,8 +19009,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/save/SaveData/save",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -18699,8 +19171,8 @@
       "returns": "the value of the property with the specified name",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/tiled/MapObject/getProperty",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -18729,8 +19201,8 @@
       "returns": "the boolean value of the property, or false if the property is not\n        found or cannot be\n        parsed as a boolean",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/tiled/MapObject/getPropertyBoolean",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -18759,8 +19231,8 @@
       "returns": "the float value of the specified property",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/tiled/MapObject/getPropertyFloat",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -18789,8 +19261,8 @@
       "returns": "the integer value of the property",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/tiled/MapObject/getPropertyInt",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -18811,8 +19283,8 @@
       "returns": "a Shape object representing the current map object.",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/tiled/MapObject/getShape",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -18841,8 +19313,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/tiled/MapObject/setClassName",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -18893,8 +19365,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/tiled/Property/setText",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -19063,8 +19535,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/tiled/TiledMap/constructor",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -19097,8 +19569,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/tiled/TiledMap/constructor",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -19119,8 +19591,8 @@
       "returns": "the number of map rows",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/tiled/TiledMap/getHeight",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -19149,8 +19621,8 @@
       "returns": "an array of MapObject from the specified layer, or null if the layer\n        does not exist",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/tiled/TiledMap/getObjectsFromLayer",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -19179,8 +19651,8 @@
       "returns": "its string value, including multiline strings",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/tiled/TiledMap/getProperty",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -19213,8 +19685,8 @@
       "returns": "the stored value or the default",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/tiled/TiledMap/getProperty",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -19243,8 +19715,8 @@
       "returns": "its boolean value",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/tiled/TiledMap/getPropertyBoolean",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -19273,8 +19745,8 @@
       "returns": "its floating-point value",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/tiled/TiledMap/getPropertyFloat",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -19303,8 +19775,8 @@
       "returns": "its integer value",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/tiled/TiledMap/getPropertyInt",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -19333,8 +19805,8 @@
       "returns": "rectangles, ellipses or polygons for this tile",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/tiled/TiledMap/getTileCollisionShapes",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -19371,8 +19843,8 @@
       "returns": "positioned outlines, or an empty array outside/without collision",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/tiled/TiledMap/getTileCollisionShapes",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -19393,8 +19865,8 @@
       "returns": "the height of a map cell in pixels",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/tiled/TiledMap/getTileHeight",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -19431,8 +19903,8 @@
       "returns": "global ID, or zero for an empty/outside cell",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/tiled/TiledMap/getTileId",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -19453,8 +19925,8 @@
       "returns": "the width of a map cell in pixels",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/tiled/TiledMap/getTileWidth",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -19475,8 +19947,8 @@
       "returns": "the number of map columns",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/tiled/TiledMap/getWidth",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -19505,8 +19977,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/tiled/TiledMap/hideLayer",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -19539,8 +20011,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/tiled/TiledMap/showLayer",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -19569,8 +20041,8 @@
       "returns": "the sprites that were made, in the order of the layer",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/tiled/TiledMap/spawn",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {

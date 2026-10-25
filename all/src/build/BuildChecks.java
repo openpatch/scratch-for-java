@@ -21,7 +21,7 @@ import java.util.stream.Stream;
  */
 public class BuildChecks {
 
-  static final String[] EXTENSIONS = {"tiled", "save", "recorder", "drawing"};
+  static final String[] EXTENSIONS = {"tiled", "save", "recorder", "drawing", "gamepad"};
   static final String[] PLATFORMS = {"linux/x64", "linux/arm64", "macos/x64", "macos/arm64", "windows/x64",
       "windows/arm64"};
   /** Native libraries per platform, relative to org/lwjgl/: core, then one folder per module. */

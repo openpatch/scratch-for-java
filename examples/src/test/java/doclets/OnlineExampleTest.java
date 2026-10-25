@@ -46,6 +46,8 @@ class OnlineExampleTest {
   void desktopExamplesAreNotOfferedAsBrowserPrograms() {
     org.junit.jupiter.api.Assertions.assertNull(OnlineExample.of("", List.of("BitmapTextExample.java")));
     org.junit.jupiter.api.Assertions.assertNull(OnlineExample.of("", List.of("TiledMapData.java")));
+    // the Online IDE has no gamepad classes yet
+    org.junit.jupiter.api.Assertions.assertNull(OnlineExample.of("", List.of("GamepadExample.java")));
   }
 
   @Test

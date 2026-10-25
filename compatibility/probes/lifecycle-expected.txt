@@ -18,5 +18,4 @@ pen.color=true
 text.copy=true
 shaders.copy=true
 color.hash=true
-sorting=true
 ready

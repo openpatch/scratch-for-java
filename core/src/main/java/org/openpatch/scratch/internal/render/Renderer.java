@@ -122,7 +122,8 @@ public final class Renderer {
    */
   public void render(DrawList list, int framebufferWidth, int framebufferHeight) {
     this.frames++;
-    double[] frame = letterbox(list.width(), list.height(), framebufferWidth, framebufferHeight, this.pixelArt);
+    double[] frame = letterbox(list.width(), list.height(), framebufferWidth, framebufferHeight, this.pixelArt,
+        this.smoothWorld);
     if (Boolean.getBoolean("scratch4j.debugGl")
         && (framebufferWidth != this.printedFbW || framebufferHeight != this.printedFbH)) {
       this.printedFbW = framebufferWidth;
@@ -192,9 +193,10 @@ public final class Renderer {
   }
 
   /** Where the stage goes: {x, y, width, height, scale} in framebuffer pixels. */
-  static double[] letterbox(int stageW, int stageH, int fbW, int fbH, boolean pixelArt) {
+  static double[] letterbox(int stageW, int stageH, int fbW, int fbH, boolean pixelArt, boolean smooth) {
     double scale = Math.min((double) fbW / stageW, (double) fbH / stageH);
-    if (pixelArt && scale >= 1) {
+    // whole numbers only in crisp pixel art; smooth pixel art scales to fit, like its camera zoom
+    if (pixelArt && !smooth && scale >= 1) {
       scale = Math.floor(scale); // whole numbers only, the rest letterboxed
     }
     double w = stageW * scale, h = stageH * scale;

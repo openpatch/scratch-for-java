@@ -34,7 +34,7 @@ javadoc -quiet -public \
   -doclet doclets.Scratch4JDoclet -docletpath examples/target/classes \
   -d "$OUT" -sourcepath "$WORK/src" -classpath "$(cat "$WORK/classpath")" \
   org.openpatch.scratch org.openpatch.scratch.extension \
-  org.openpatch.scratch.tiled org.openpatch.scratch.save org.openpatch.scratch.recorder org.openpatch.scratch.drawing
+  org.openpatch.scratch.tiled org.openpatch.scratch.save org.openpatch.scratch.recorder org.openpatch.scratch.drawing org.openpatch.scratch.gamepad
 
 pages=$(find "$OUT" -name '*.md.json' | wc -l)
 if [ "$pages" -eq 0 ]; then

@@ -40,7 +40,7 @@ pom core/pom.xml "$WORK/core.pom"
 (cd core/src/main/java && zip -qr "$WORK/core-sources.jar" .)
 install "core/target/scratch-$CURRENT.jar" "$WORK/core.pom" "$WORK/core-sources.jar"
 
-for extension in tiled save recorder drawing; do
+for extension in tiled save recorder drawing gamepad; do
   pom "extensions/$extension/pom.xml" "$WORK/$extension.pom"
   install "extensions/$extension/target/scratch-$extension-$CURRENT.jar" "$WORK/$extension.pom"
 done
@@ -55,4 +55,4 @@ mvn -q install:install-file "-Dfile=all/target/scratch-$CURRENT-all.jar" -Dgroup
   -DartifactId=scratch-all "-Dversion=$SNAPSHOT" -Dpackaging=jar -DgeneratePom=true \
   "-Dsources=$WORK/all-sources.jar"
 
-echo "install-snapshot: org.openpatch:scratch{,-tiled,-save,-recorder,-drawing,-all}:$SNAPSHOT installed"
+echo "install-snapshot: org.openpatch:scratch{,-tiled,-save,-recorder,-drawing,-gamepad,-all}:$SNAPSHOT installed"

@@ -122,3 +122,10 @@ If you want to compare it yourself, you can take a look inside both projects:
 The Scratch for Java library is profiled using [Java Profiler](https://www.ej-technologies.com/products/jprofiler/overview.html)
 
 [![Java Profiler](https://www.ej-technologies.com/images/product_banners/jprofiler_large.png)](https://www.ej-technologies.com/products/jprofiler/overview.html)
+
+---
+
+Scratch for Java is an independent project by
+[OpenPatch](https://openpatch.org). It is not affiliated with or endorsed by
+the [Scratch Foundation](https://www.scratchfoundation.org) or the Scratch
+Team.

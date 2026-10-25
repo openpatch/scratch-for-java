@@ -559,7 +559,8 @@ public final class WindowHost {
       double toFb = ww.get(0) == 0 ? 1 : (double) fw.get(0) / ww.get(0);
       int sw = this.game.getWidth(), sh = this.game.getHeight();
       double scale = Math.min((double) fw.get(0) / sw, (double) fh.get(0) / sh);
-      if (this.settings.pixelArt() && scale >= 1) {
+      // must match Renderer.letterbox: whole numbers only in crisp pixel art
+      if (this.settings.pixelArt() && !this.settings.smoothPixelArt() && scale >= 1) {
         scale = Math.floor(scale);
       }
       double left = Math.floor((fw.get(0) - sw * scale) / 2), top = Math.floor((fh.get(0) - sh * scale) / 2);
