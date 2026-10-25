@@ -177,13 +177,8 @@ jobs:
             Compatibility artifacts and catalogs are prepared for `${{ env.VERSION }}`. Before merging, review the browser policy and synchronize `openpatch/online-ide` from this release branch:
 
             ```bash
-            mvn -q -DskipTests prepare-package
-            python3 scripts/browser-compatibility.py --online-ide /path/to/online-ide
-            python3 scripts/release-catalogs.py --online-ide /path/to/online-ide
-            python3 scripts/browser-compatibility.py --check --online-ide /path/to/online-ide
-            python3 scripts/parity-fixture.py --check --strict --online-ide /path/to/online-ide
-            python3 scripts/release-catalogs.py --check --online-ide /path/to/online-ide
+            scripts/sync-online-ide.sh /path/to/online-ide
             ```
 
-            Run the browser compatibility tests and commit and push the browser updates before merging this PR.
+            The script also verifies the checkout. Commit and push the browser updates in online-ide and run its browser compatibility tests (`npm run test:browser`) before merging this PR. RELEASING.md has the full cross-repository runbook.
           labels: version

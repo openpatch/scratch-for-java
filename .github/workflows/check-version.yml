@@ -1,0 +1,36 @@
+name: Check Version
+
+# The version in the poms is owned by the Version Bump workflow: a changeset in
+# .changeset/ decides it and the release PR carries the bump. A hand-edited
+# version would be bumped on top of (7.0.0 + major -> 8.0.0) or drift from the
+# released artifacts, so guard the invariant that the parent pom still carries
+# the released version, i.e. the top entry of CHANGELOG.md, which the Version
+# Bump workflow writes in the same release PR.
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  changelog-matches-pom:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 25
+      - name: Compare the pom version with the changelog
+        run: |
+          pom_version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+          changelog_version=$(sed -n 's/^## \([0-9][0-9.]*\)$/\1/p' CHANGELOG.md | head -1)
+          echo "pom.xml:      $pom_version"
+          echo "CHANGELOG.md: $changelog_version"
+          if [ -z "$changelog_version" ] || [ "$pom_version" != "$changelog_version" ]; then
+            echo "::error::The pom version ($pom_version) does not match the latest CHANGELOG.md entry ($changelog_version). Versions are set by the Version Bump workflow from .changeset/ files; do not edit the version in the poms by hand."
+            exit 1
+          fi
