@@ -16,7 +16,7 @@ Public constructors and method groups documented by the Javadoc doclet. Overload
 ## Limits of this revision
 
 - Availability describes documented member groups and browser declarations. Compilation tests do not prove rendering, timing or complete behavioral parity.
-- Fragment shaders use WebGL. Custom vertex shaders are desktop-only; the browser substitutes its default vertex shader.
+- Shaders are fragment shaders; the browser runs them with WebGL.
 - File access, pixel-buffer, and recorder APIs are desktop-only. Tiled reads finite orthogonal TMX/TSX maps from workspace files or URLs. SaveData instead persists plain game data in IndexedDB, scoped to the hosting origin and browser profile.
 - Reference examples are compiled with the standard flavor. Existing NRW runtime fixtures and a separate declaration inventory cover the NRW flavor.
 - Java compiler dialect differences also apply, including Java package access and unsupported standard-library methods.

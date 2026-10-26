@@ -14,7 +14,7 @@ The stage has four shaders and the bouncing cat three, each in a `.frag` file
 of its own. They are added with a name, and some get values to work with:
 
 ```java
-var shader = this.getShaders().add("pixelate", "pixelate.frag", "default.vert");
+var shader = this.getShaders().add("pixelate", "pixelate.frag");
 shader.set("pixels", 20.0, 10.0);
 ```
 
@@ -34,7 +34,6 @@ the keys.
 
 @file dest="blobby.frag" src="/examples/shader/blobby.frag"
 @file dest="cat.png" src="/examples/shader/cat.png"
-@file dest="default.vert" src="/examples/shader/default.vert"
 @file dest="glitch.frag" src="/examples/shader/glitch.frag"
 @file dest="halftone.frag" src="/examples/shader/halftone.frag"
 @file dest="light.frag" src="/examples/shader/light.frag"

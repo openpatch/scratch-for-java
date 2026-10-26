@@ -428,10 +428,6 @@
           "sha256": "0423f61671a086906d972b266241d557934f86bdb8ec5ad6f50b08f3474efa0f"
         },
         {
-          "path": "default.vert",
-          "sha256": "74b864ff74fb681af02ede001826b988ec94edcbb2c3b3377cd08975edca7cbf"
-        },
-        {
           "path": "glitch.frag",
           "sha256": "c087dead430cf77c6b126a699533711597f0531a84b7ea599828e5157590bd62"
         },

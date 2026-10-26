@@ -10,7 +10,7 @@ public class ShadersAdd {
     Sprite mySprite = new Sprite("slime", "slimeGreen");
     myStage.add(mySprite);
 
-    // a fragment shader file, and null for Processing's default vertex shader
+    // a name for the shader and its fragment shader file
     mySprite.getShaders().add("invert", "assets/invert.frag");
   }
 
