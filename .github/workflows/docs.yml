@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+  # Rebuild the docs by hand after a Hyperbook release, when no push to main
+  # happened in between (see RELEASING.md).
+  workflow_dispatch:
 
 jobs:
   documentation:
