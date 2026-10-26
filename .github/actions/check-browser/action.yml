@@ -17,7 +17,7 @@ runs:
         python-version: '3.12'
     - name: Regenerate Javadoc metadata
       shell: bash
-      run: mvn -q -DskipTests prepare-package
+      run: ./scripts/reference-docs.sh
     - name: Require current compatibility artifacts and parity fixture
       shell: bash
       run: |

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Generate versioned release catalogs; --check never writes.
 
-Run after mvn prepare-package and browser-compatibility.py. Consumers may use
+Run after scripts/reference-docs.sh and browser-compatibility.py. Consumers may use
 the committed artifacts without a sibling checkout. Explicit --studio and
 --online-ide paths synchronize or check their offline snapshots.
 """
@@ -95,7 +95,7 @@ def generate(translations):
         group = path.relative_to(ROOT / "docs/book/reference").as_posix().removesuffix(".md.json")
         for signature in page["api"]["signatures"]:
             if "parameterNames" not in signature:
-                raise ValueError("Regenerate Javadoc metadata with mvn prepare-package")
+                raise ValueError("Regenerate Javadoc metadata with scripts/reference-docs.sh")
             identifier = identity(group, signature["parameters"])
             description = signature["description"] or page["description"]
             methods.append({

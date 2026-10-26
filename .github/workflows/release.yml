@@ -13,7 +13,7 @@ concurrency:
 
 jobs:
   validate:
-    if: github.event.pull_request.merged == true || (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main')
+    if: (github.event.pull_request.merged == true && github.event.pull_request.head.ref == 'changeset') || (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -28,7 +28,7 @@ jobs:
 
   release:
     needs: validate
-    if: github.event.pull_request.merged == true || (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main')
+    if: (github.event.pull_request.merged == true && github.event.pull_request.head.ref == 'changeset') || (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main')
     runs-on: ubuntu-latest
 
     permissions:

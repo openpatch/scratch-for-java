@@ -1,6 +1,7 @@
 name: Version Bump
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
@@ -151,7 +152,7 @@ jobs:
               policy["browserVersion"] = version + "-browser.1"
           path.write_text(json.dumps(policy, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
           PY
-          mvn -q -DskipTests prepare-package
+          ./scripts/reference-docs.sh
           python3 scripts/browser-compatibility.py
           python3 scripts/release-catalogs.py
           python3 scripts/browser-compatibility.py --check

@@ -21,7 +21,7 @@ if [ ! -f "$online_ide/package.json" ]; then
 fi
 
 cd "$root"
-mvn -q -DskipTests prepare-package
+./scripts/reference-docs.sh
 python3 scripts/browser-compatibility.py --online-ide "$online_ide"
 python3 scripts/release-catalogs.py --online-ide "$online_ide"
 python3 scripts/browser-compatibility.py --check --online-ide "$online_ide"

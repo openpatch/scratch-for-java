@@ -43,7 +43,7 @@ From the release branch:
 scripts/sync-online-ide.sh /path/to/online-ide
 ```
 
-The script runs `mvn -DskipTests prepare-package`, writes the compatibility
+The script runs `scripts/reference-docs.sh`, writes the compatibility
 contract, the catalogs, the probes and the assets into the online-ide checkout,
 and then verifies with `--check` that everything is current. Commit and push the
 changes in online-ide, then run its tests:

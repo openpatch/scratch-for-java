@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Generate the browser contract, reference fixtures and documentation from Javadoc.
 
-Run mvn -DskipTests prepare-package first. --online-ide accepts any checkout path;
+Run scripts/reference-docs.sh first. --online-ide accepts any checkout path;
 without it, documentation builds use the committed browser declaration snapshot.
 --check is read-only and fails on missing inputs or stale generated artifacts.
 """
@@ -57,7 +57,7 @@ def generate(policy, inventory, accepted):
         if page.get("template") not in {"class-method", "class-constructor"}:
             continue
         if "api" not in page:
-            raise ValueError(f"{file}: API metadata missing; regenerate with mvn prepare-package")
+            raise ValueError(f"{file}: API metadata missing; regenerate with scripts/reference-docs.sh")
         member_id = file.relative_to(REFERENCE).as_posix().removesuffix(".md.json")
         api = page["api"]
         if not api["owner"].startswith("org.openpatch.scratch."):
@@ -105,7 +105,7 @@ def generate(policy, inventory, accepted):
                              "files": files, "expectedDiagnostics": expected})
         annotated[file] = encoded(page)
     if not members or not examples:
-        raise ValueError("Generated reference is missing or empty; run mvn prepare-package")
+        raise ValueError("Generated reference is missing or empty; run scripts/reference-docs.sh")
     if seen_overrides != set(policy["overrides"]):
         raise ValueError(f"Stale availability overrides: {set(policy['overrides']) - seen_overrides}")
     if seen_accepted != set(accepted):
