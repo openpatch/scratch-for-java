@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "libraryVersion": "6.5.0",
-  "browserVersion": "6.5.0-browser.1",
+  "libraryVersion": "7.0.0",
+  "browserVersion": "7.0.0-browser.1",
   "license": "CC0",
   "images": [
     {
