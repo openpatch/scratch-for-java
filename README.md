@@ -27,20 +27,25 @@ Browser versions, API availability and synchronization commands are documented i
 [compatibility/contract.json](compatibility/contract.json).
 
 Game progress can be stored with
-[`SaveData<T>`](src/main/java/org/openpatch/scratch/extensions/fs/SaveData.java).
+[`SaveData<T>`](extensions/save/src/main/java/org/openpatch/scratch/save/SaveData.java).
 It saves public data fields as JSON in a stable user-data folder; the online IDE
 uses IndexedDB through the same Java API. Storage and decoding failures raise
 `IOException`, and missing slots use caller-supplied defaults without writing.
-The [Coin Quest demo](src/examples/java/demos/saveSlots/README.md) uses built-in
+The [Coin Quest demo](examples/src/main/java/demos/saveSlots/README.md) uses built-in
 assets and three save slots. Run `demos.saveSlots.SaveSlotGame`, or use its
 [interactive documentation example](docs/book/examples/save-slots.md).
 
-If you want to work on the library. You need a Java environment and Maven. Then you can use the following command to build
-the library.
+If you want to work on the library, you need Java 25 and Maven. The library
+itself is built for Java 17; the tests compile the documentation's examples,
+which need 25. Build and test every module with:
 
 ```
-mvn compile
+mvn test
 ```
+
+`mvn verify` also builds the fat jar `all/target/scratch-<version>-all.jar`.
+Do not run `mvn install` on a branch: the version in the poms is still the
+released one, so an install would overwrite it in your local repository.
 
 You can release the library with the following command:
 
@@ -74,38 +79,26 @@ which are not part of the build, are compiled on the fly.
 checking that a change to the library has not broken what the documentation
 teaches.
 
-### With Maven, without building a jar
+### With `run.sh`
 
 ```
-mvn -q compile exec:exec -Parchive -Darchive=make-it-walk-100 -Dmain=WalkStage
+./scripts/run.sh --archives
 ```
 
-This compiles the chosen project against the library as it stands in your
-working copy and runs it in a fresh JVM. The project sources go to their own
-output directory, so they can never end up in a released jar.
+`run.sh` compiles the chosen project into `examples/target/archive-run` and runs
+it against the library as it stands in your working copy.
 
-The finished projects and the class to start are:
-
-| `-Darchive=` | `-Dmain=` |
-|---|---|
-| `getting-started-100` | `MyStage` |
-| `make-it-walk-100` | `WalkStage` |
-| `catch-the-coins-100` | `CatchStage` |
-| `red-light-green-light-100` | `RaceStage` |
-| `guess-the-number-100` | `GuessStage` |
-| `bouncy-hedgehog-100` | `BouncyHedgehogStage` |
-
-### With BlueJ or VS Code
+### With Studio or VS Code
 
 Those need a real jar in each project's `+libs` folder:
 
 ```
-mvn package -Pall -DskipTests
+mvn package -pl all -am -DskipTests
 ./scripts/link-jar.sh
 ```
 
-The script links the jar it finds in `target/` into every project under
-`docs/archives`, so any of them can be opened directly with BlueJ or VS Code.
+The script links the fat jar from `all/target/` into every project under
+`docs/archives`, so any of them can be opened directly with Studio or VS Code.
 It symlinks where it can and copies where it cannot, so it works on Windows too.
 
 **Those jars are for local testing only.** They are git-ignored, and `build.sh`
@@ -139,6 +132,8 @@ We are [happy to hear from you](mailto:contact@openpatch.org), if you need custo
 ---
 
 Scratch for Java is maintained by [OpenPatch](https://openpatch.org), an organization for educational assessments and training. If you need help [get in touch](mailto:contact@openpatch.org).
+
+Scratch for Java is an independent project and is not affiliated with or endorsed by the Scratch Foundation or the Scratch Team.
 
 ## Special Thanks
 

@@ -31,12 +31,13 @@ import org.openpatch.scratch.*;
 
 class Greeting extends Sprite {
     int phase = 0;
+    Timer greeting = new Timer();
     public void run() {
         if (phase == 0) {
-            this.say("Hello!", 2000);
-            this.getTimer("greeting").reset();
+            this.say("Hello!", 2);
+            greeting.reset();
             phase = 1;
-        } else if (phase == 1 && this.getTimer("greeting").afterMillis(2000)) {
+        } else if (phase == 1 && greeting.after(2)) {
             this.changeX(20);
             phase = 2;
         }
@@ -44,7 +45,7 @@ class Greeting extends Sprite {
 }
 ```
 
-The library calls `run()` about 60 times per second. Keep each call short. A
+The library calls `run()` 60 times per second of game time. Keep each call short. A
 finite loop for an array is useful; an endless loop or sleeping in `run()` holds
 up the next frame. Pause/speed/step control game time in the supported revision.
 

@@ -16,8 +16,8 @@ Public constructors and method groups documented by the Javadoc doclet. Overload
 ## Limits of this revision
 
 - Availability describes documented member groups and browser declarations. Compilation tests do not prove rendering, timing or complete behavioral parity.
-- Fragment shaders use WebGL. Custom vertex shaders are desktop-only; the browser substitutes its default vertex shader.
-- File access, pixel-buffer, and recorder APIs are desktop-only. Tiled reads finite orthogonal TMX/TSX maps from workspace files or URLs. SaveData instead persists plain game data in IndexedDB, scoped to the hosting origin and browser profile.
+- Shaders are fragment shaders; the browser runs them with WebGL.
+- File access and recorder APIs are desktop-only; Pixels reads the stage on the graphics card. Tiled reads finite orthogonal TMX/TSX maps from workspace files or URLs. SaveData instead persists plain game data in IndexedDB, scoped to the hosting origin and browser profile.
 - Reference examples are compiled with the standard flavor. Existing NRW runtime fixtures and a separate declaration inventory cover the NRW flavor.
 - Java compiler dialect differences also apply, including Java package access and unsupported standard-library methods.
 
@@ -27,17 +27,26 @@ An implemented entry has its documented overloads declared in the browser. The r
 
 | API group | Browser availability | Details |
 | --- | --- | --- |
-| [AnimatedSprite/addAnimation](/reference/AnimatedSprite/addAnimation) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [AnimatedSprite/clone](/reference/AnimatedSprite/clone) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [AnimatedSprite/constructor](/reference/AnimatedSprite/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [AnimatedSprite/getAnimationFrame](/reference/AnimatedSprite/getAnimationFrame) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [AnimatedSprite/getAnimationInterval](/reference/AnimatedSprite/getAnimationInterval) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [AnimatedSprite/isAnimationPlayed](/reference/AnimatedSprite/isAnimationPlayed) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [AnimatedSprite/playAnimation](/reference/AnimatedSprite/playAnimation) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [AnimatedSprite/resetAnimation](/reference/AnimatedSprite/resetAnimation) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [AnimatedSprite/setAnimationFrame](/reference/AnimatedSprite/setAnimationFrame) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [AnimatedSprite/setAnimationInterval](/reference/AnimatedSprite/setAnimationInterval) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [AnimatedSprite/toString](/reference/AnimatedSprite/toString) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Camera/changeX](/reference/Camera/changeX) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Camera/changeY](/reference/Camera/changeY) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Camera/changeZoom](/reference/Camera/changeZoom) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Camera/constructor](/reference/Camera/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Camera/getPosition](/reference/Camera/getPosition) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Camera/getX](/reference/Camera/getX) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Camera/getY](/reference/Camera/getY) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Camera/getZoom](/reference/Camera/getZoom) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Camera/resetZoom](/reference/Camera/resetZoom) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Camera/setPosition](/reference/Camera/setPosition) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Camera/setX](/reference/Camera/setX) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Camera/setY](/reference/Camera/setY) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Camera/setZoom](/reference/Camera/setZoom) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Camera/setZoomLimit](/reference/Camera/setZoomLimit) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Camera/toScreenPosition](/reference/Camera/toScreenPosition) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Camera/toScreenX](/reference/Camera/toScreenX) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Camera/toScreenY](/reference/Camera/toScreenY) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Camera/toWorldPosition](/reference/Camera/toWorldPosition) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Camera/toWorldX](/reference/Camera/toWorldX) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Camera/toWorldY](/reference/Camera/toWorldY) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Circle/constructor](/reference/Circle/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Clock/constructor](/reference/Clock/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Clock/getDay](/reference/Clock/getDay) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
@@ -49,28 +58,28 @@ An implemented entry has its documented overloads declared in the browser. The r
 | [Clock/getMonth](/reference/Clock/getMonth) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Clock/getSecond](/reference/Clock/getSecond) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Clock/getYear](/reference/Clock/getYear) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Color/changeColor](/reference/Color/changeColor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Color/constructor](/reference/Color/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Color/equals](/reference/Color/equals) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Color/get](/reference/Color/get) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Color/fromARGB](/reference/Color/fromARGB) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Color/fromHSB](/reference/Color/fromHSB) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Color/getAlpha](/reference/Color/getAlpha) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Color/getBlue](/reference/Color/getBlue) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Color/getBrightness](/reference/Color/getBrightness) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Color/getGreen](/reference/Color/getGreen) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Color/getH](/reference/Color/getH) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Color/getHSB](/reference/Color/getHSB) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Color/getL](/reference/Color/getL) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Color/getHue](/reference/Color/getHue) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Color/getRed](/reference/Color/getRed) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Color/getS](/reference/Color/getS) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Color/getSaturation](/reference/Color/getSaturation) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Color/hashCode](/reference/Color/hashCode) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Color/setHSB](/reference/Color/setHSB) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Color/setRGB](/reference/Color/setRGB) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Color/toARGB](/reference/Color/toARGB) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Color/toString](/reference/Color/toString) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Color/withAlpha](/reference/Color/withAlpha) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Color/withBlue](/reference/Color/withBlue) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Color/withBrightness](/reference/Color/withBrightness) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Color/withGreen](/reference/Color/withGreen) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Color/withHue](/reference/Color/withHue) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Color/withRed](/reference/Color/withRed) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Color/withSaturation](/reference/Color/withSaturation) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Ellipse/constructor](/reference/Ellipse/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Hitbox/constructor](/reference/Hitbox/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Hitbox/contains](/reference/Hitbox/contains) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Hitbox/getBounds](/reference/Hitbox/getBounds) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Hitbox/getShape](/reference/Hitbox/getShape) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Hitbox/intersects](/reference/Hitbox/intersects) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Hitbox/translateAndRotateAndResize](/reference/Hitbox/translateAndRotateAndResize) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [HtmlColor/constructor](/reference/HtmlColor/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [HtmlColor/getRandom](/reference/HtmlColor/getRandom) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Operators/absOf](/reference/Operators/absOf) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
@@ -102,18 +111,26 @@ An implemented entry has its documented overloads declared in the browser. The r
 | [Pen/down](/reference/Pen/down) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Pen/eraseAll](/reference/Pen/eraseAll) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Pen/getColor](/reference/Pen/getColor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Pen/getLayer](/reference/Pen/getLayer) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Pen/getPosition](/reference/Pen/getPosition) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Pen/getSize](/reference/Pen/getSize) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Pen/goToBackground](/reference/Pen/goToBackground) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Pen/goToForeground](/reference/Pen/goToForeground) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Pen/getTransparency](/reference/Pen/getTransparency) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Pen/goToMousePointer](/reference/Pen/goToMousePointer) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Pen/goToRandomPosition](/reference/Pen/goToRandomPosition) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Pen/isInBackground](/reference/Pen/isInBackground) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Pen/isDown](/reference/Pen/isDown) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Pen/setColor](/reference/Pen/setColor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Pen/setLayer](/reference/Pen/setLayer) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Pen/setPosition](/reference/Pen/setPosition) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Pen/setSize](/reference/Pen/setSize) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Pen/setTransparency](/reference/Pen/setTransparency) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Pen/stamp](/reference/Pen/stamp) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Pen/up](/reference/Pen/up) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Pixels/constructor](/reference/Pixels/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Pixels/getArgb](/reference/Pixels/getArgb) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Pixels/getColor](/reference/Pixels/getColor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Pixels/getHeight](/reference/Pixels/getHeight) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Pixels/getWidth](/reference/Pixels/getWidth) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Pixels/of](/reference/Pixels/of) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Polygon/addPoint](/reference/Polygon/addPoint) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Polygon/constructor](/reference/Polygon/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Random/constructor](/reference/Random/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
@@ -127,45 +144,76 @@ An implemented entry has its documented overloads declared in the browser. The r
 | [Random/randomX](/reference/Random/randomX) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Random/randomY](/reference/Random/randomY) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Rectangle/constructor](/reference/Rectangle/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Shader/constructor](/reference/Shader/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Shader/getName](/reference/Shader/getName) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Shader/set](/reference/Shader/set) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Shader/setName](/reference/Shader/setName) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Shaders/activate](/reference/Shaders/activate) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Shaders/add](/reference/Shaders/add) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Shaders/constructor](/reference/Shaders/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Shaders/deactivate](/reference/Shaders/deactivate) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Shaders/get](/reference/Shaders/get) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Shaders/getActive](/reference/Shaders/getActive) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Shaders/getCurrent](/reference/Shaders/getCurrent) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Shaders/getCurrentIndex](/reference/Shaders/getCurrentIndex) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Shaders/getCurrentName](/reference/Shaders/getCurrentName) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Shaders/isActive](/reference/Shaders/isActive) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Shaders/next](/reference/Shaders/next) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Shaders/reset](/reference/Shaders/reset) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Shaders/switchTo](/reference/Shaders/switchTo) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Shape/constructor](/reference/Shape/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Shape/contains](/reference/Shape/contains) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Shape/getBounds](/reference/Shape/getBounds) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Shape/getPoints](/reference/Shape/getPoints) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Shape/intersects](/reference/Shape/intersects) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Shape/rotate](/reference/Shape/rotate) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Shape/scale](/reference/Shape/scale) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Shape/translate](/reference/Shape/translate) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [SoundPlayback/constructor](/reference/SoundPlayback/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [SoundPlayback/isPlaying](/reference/SoundPlayback/isPlaying) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [SoundPlayback/setVolume](/reference/SoundPlayback/setVolume) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [SoundPlayback/stop](/reference/SoundPlayback/stop) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Sprite/addAnimation](/reference/Sprite/addAnimation) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/addCostume](/reference/Sprite/addCostume) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/addCostumes](/reference/Sprite/addCostumes) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/addSound](/reference/Sprite/addSound) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/ask](/reference/Sprite/ask) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/broadcast](/reference/Sprite/broadcast) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Sprite/changeColorEffect](/reference/Sprite/changeColorEffect) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Sprite/changeHeight](/reference/Sprite/changeHeight) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/changePosition](/reference/Sprite/changePosition) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/changeSize](/reference/Sprite/changeSize) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Sprite/changeTint](/reference/Sprite/changeTint) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/changeTransparency](/reference/Sprite/changeTransparency) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/changeVolume](/reference/Sprite/changeVolume) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Sprite/changeWidth](/reference/Sprite/changeWidth) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/changeX](/reference/Sprite/changeX) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/changeY](/reference/Sprite/changeY) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Sprite/clone](/reference/Sprite/clone) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/constructor](/reference/Sprite/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Sprite/createClone](/reference/Sprite/createClone) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/debug](/reference/Sprite/debug) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/deleteThisClone](/reference/Sprite/deleteThisClone) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/disableHitbox](/reference/Sprite/disableHitbox) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Sprite/disableNineSlice](/reference/Sprite/disableNineSlice) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/distanceToMousePointer](/reference/Sprite/distanceToMousePointer) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/distanceToSprite](/reference/Sprite/distanceToSprite) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/enableHitbox](/reference/Sprite/enableHitbox) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Sprite/extension](/reference/Sprite/extension) | desktop-only | For extensions, which run against the desktop's window and render threads. The browser ships its extensions natively and loads no others. |
+| [Sprite/getAnimationFrame](/reference/Sprite/getAnimationFrame) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Sprite/getAnimationInterval](/reference/Sprite/getAnimationInterval) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/getAnswer](/reference/Sprite/getAnswer) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Sprite/getColorEffect](/reference/Sprite/getColorEffect) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/getCurrentCostumeIndex](/reference/Sprite/getCurrentCostumeIndex) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/getCurrentCostumeName](/reference/Sprite/getCurrentCostumeName) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Sprite/getDeltaTime](/reference/Sprite/getDeltaTime) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/getDirection](/reference/Sprite/getDirection) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/getHeight](/reference/Sprite/getHeight) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/getHitbox](/reference/Sprite/getHitbox) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Sprite/getLayer](/reference/Sprite/getLayer) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/getMouse](/reference/Sprite/getMouse) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/getMouseX](/reference/Sprite/getMouseX) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/getMouseY](/reference/Sprite/getMouseY) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/getPen](/reference/Sprite/getPen) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/getPosition](/reference/Sprite/getPosition) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Sprite/getRotationStyle](/reference/Sprite/getRotationStyle) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/getShaders](/reference/Sprite/getShaders) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/getSize](/reference/Sprite/getSize) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/getStage](/reference/Sprite/getStage) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
@@ -190,6 +238,7 @@ An implemented entry has its documented overloads declared in the browser. The r
 | [Sprite/hide](/reference/Sprite/hide) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/hideVariable](/reference/Sprite/hideVariable) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/ifOnEdgeBounce](/reference/Sprite/ifOnEdgeBounce) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Sprite/isAnimationPlayed](/reference/Sprite/isAnimationPlayed) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/isAsking](/reference/Sprite/isAsking) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/isClone](/reference/Sprite/isClone) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/isColorTouchingColor](/reference/Sprite/isColorTouchingColor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
@@ -205,17 +254,24 @@ An implemented entry has its documented overloads declared in the browser. The r
 | [Sprite/move](/reference/Sprite/move) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/nextCostume](/reference/Sprite/nextCostume) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/pickRandom](/reference/Sprite/pickRandom) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Sprite/playAnimation](/reference/Sprite/playAnimation) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/playSound](/reference/Sprite/playSound) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/playSoundCopy](/reference/Sprite/playSoundCopy) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Sprite/pointInDirection](/reference/Sprite/pointInDirection) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Sprite/pointTowards](/reference/Sprite/pointTowards) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/pointTowardsMousePointer](/reference/Sprite/pointTowardsMousePointer) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Sprite/pointTowardsSprite](/reference/Sprite/pointTowardsSprite) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/previousCostume](/reference/Sprite/previousCostume) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/remove](/reference/Sprite/remove) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Sprite/resetAnimation](/reference/Sprite/resetAnimation) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/run](/reference/Sprite/run) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/say](/reference/Sprite/say) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Sprite/setAnimationFrame](/reference/Sprite/setAnimationFrame) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Sprite/setAnimationInterval](/reference/Sprite/setAnimationInterval) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Sprite/setColorEffect](/reference/Sprite/setColorEffect) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/setDirection](/reference/Sprite/setDirection) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Sprite/setHeight](/reference/Sprite/setHeight) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/setHitbox](/reference/Sprite/setHitbox) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Sprite/setLayer](/reference/Sprite/setLayer) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Sprite/setNineSlice](/reference/Sprite/setNineSlice) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/setPosition](/reference/Sprite/setPosition) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/setRotationCenter](/reference/Sprite/setRotationCenter) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/setRotationStyle](/reference/Sprite/setRotationStyle) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
@@ -223,6 +279,7 @@ An implemented entry has its documented overloads declared in the browser. The r
 | [Sprite/setTint](/reference/Sprite/setTint) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/setTransparency](/reference/Sprite/setTransparency) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/setVolume](/reference/Sprite/setVolume) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Sprite/setWidth](/reference/Sprite/setWidth) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/setX](/reference/Sprite/setX) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/setY](/reference/Sprite/setY) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/show](/reference/Sprite/show) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
@@ -232,6 +289,7 @@ An implemented entry has its documented overloads declared in the browser. The r
 | [Sprite/stopSound](/reference/Sprite/stopSound) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/switchCostume](/reference/Sprite/switchCostume) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/think](/reference/Sprite/think) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Sprite/toString](/reference/Sprite/toString) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/turnLeft](/reference/Sprite/turnLeft) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/turnRight](/reference/Sprite/turnRight) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/whenAddedToStage](/reference/Sprite/whenAddedToStage) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
@@ -249,8 +307,7 @@ An implemented entry has its documented overloads declared in the browser. The r
 | [Stage/addSound](/reference/Stage/addSound) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/ask](/reference/Stage/ask) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/broadcast](/reference/Stage/broadcast) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Stage/changeColor](/reference/Stage/changeColor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Stage/changeTint](/reference/Stage/changeTint) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Stage/changeColorEffect](/reference/Stage/changeColorEffect) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/changeTransparency](/reference/Stage/changeTransparency) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/changeVolume](/reference/Stage/changeVolume) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/constructor](/reference/Stage/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
@@ -258,29 +315,26 @@ An implemented entry has its documented overloads declared in the browser. The r
 | [Stage/debug](/reference/Stage/debug) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/display](/reference/Stage/display) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/eraseAll](/reference/Stage/eraseAll) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Stage/exit](/reference/Stage/exit) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Stage/extension](/reference/Stage/extension) | desktop-only | For extensions, which run against the desktop's window and render threads. The browser ships its extensions natively and loads no others. |
 | [Stage/find](/reference/Stage/find) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/getAll](/reference/Stage/getAll) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/getAnswer](/reference/Stage/getAnswer) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/getCamera](/reference/Stage/getCamera) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/getColor](/reference/Stage/getColor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Stage/getColorEffect](/reference/Stage/getColorEffect) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/getCurrentBackdropIndex](/reference/Stage/getCurrentBackdropIndex) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/getCurrentBackdropName](/reference/Stage/getCurrentBackdropName) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Stage/getDeltaTime](/reference/Stage/getDeltaTime) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Stage/getFrameRate](/reference/Stage/getFrameRate) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/getHeight](/reference/Stage/getHeight) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/getMouse](/reference/Stage/getMouse) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/getMouseX](/reference/Stage/getMouseX) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/getMouseY](/reference/Stage/getMouseY) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Stage/getPixels](/reference/Stage/getPixels) | desktop-only | The desktop pixel buffer is not exposed by the browser renderer. |
 | [Stage/getShaders](/reference/Stage/getShaders) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Stage/getSorting](/reference/Stage/getSorting) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/getTimer](/reference/Stage/getTimer) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Stage/getTransparency](/reference/Stage/getTransparency) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/getVolume](/reference/Stage/getVolume) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/getWidth](/reference/Stage/getWidth) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/hideVariable](/reference/Stage/hideVariable) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/isAsking](/reference/Stage/isAsking) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Stage/isDebug](/reference/Stage/isDebug) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/isKeyPressed](/reference/Stage/isKeyPressed) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/isMouseDown](/reference/Stage/isMouseDown) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/isSoundPlaying](/reference/Stage/isSoundPlaying) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
@@ -294,16 +348,19 @@ An implemented entry has its documented overloads declared in the browser. The r
 | [Stage/removeAll](/reference/Stage/removeAll) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/run](/reference/Stage/run) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/setColor](/reference/Stage/setColor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Stage/setColorEffect](/reference/Stage/setColorEffect) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/setCursor](/reference/Stage/setCursor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Stage/setDebug](/reference/Stage/setDebug) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/setTint](/reference/Stage/setTint) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/setTransparency](/reference/Stage/setTransparency) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/setVolume](/reference/Stage/setVolume) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/showVariable](/reference/Stage/showVariable) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Stage/sortBy](/reference/Stage/sortBy) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Stage/sortByY](/reference/Stage/sortByY) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/stopAllSounds](/reference/Stage/stopAllSounds) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Stage/stopSorting](/reference/Stage/stopSorting) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/stopSound](/reference/Stage/stopSound) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/switchBackdrop](/reference/Stage/switchBackdrop) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Stage/wait](/reference/Stage/wait) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Stage/waitSeconds](/reference/Stage/waitSeconds) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/waitUntil](/reference/Stage/waitUntil) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/whenBackdropSwitches](/reference/Stage/whenBackdropSwitches) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/whenIReceive](/reference/Stage/whenIReceive) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
@@ -319,9 +376,11 @@ An implemented entry has its documented overloads declared in the browser. The r
 | [Text/getDefaultFont](/reference/Text/getDefaultFont) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Text/getDefaultFontSize](/reference/Text/getDefaultFontSize) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Text/getFont](/reference/Text/getFont) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Text/getLayer](/reference/Text/getLayer) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Text/getPosition](/reference/Text/getPosition) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Text/getStage](/reference/Text/getStage) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Text/getStyle](/reference/Text/getStyle) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Text/getText](/reference/Text/getText) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Text/getTextSize](/reference/Text/getTextSize) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Text/getWidth](/reference/Text/getWidth) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Text/getX](/reference/Text/getX) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
@@ -330,13 +389,14 @@ An implemented entry has its documented overloads declared in the browser. The r
 | [Text/goLayersForwards](/reference/Text/goLayersForwards) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Text/goToBackLayer](/reference/Text/goToBackLayer) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Text/goToFrontLayer](/reference/Text/goToFrontLayer) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Text/isUI](/reference/Text/isUI) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Text/hide](/reference/Text/hide) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Text/isVisible](/reference/Text/isVisible) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Text/nextFont](/reference/Text/nextFont) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Text/remove](/reference/Text/remove) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Text/setAlign](/reference/Text/setAlign) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Text/setBackgroundColor](/reference/Text/setBackgroundColor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Text/setFont](/reference/Text/setFont) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Text/setIsUI](/reference/Text/setIsUI) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Text/setLayer](/reference/Text/setLayer) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Text/setPosition](/reference/Text/setPosition) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Text/setStrokeColor](/reference/Text/setStrokeColor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Text/setStyle](/reference/Text/setStyle) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
@@ -345,32 +405,29 @@ An implemented entry has its documented overloads declared in the browser. The r
 | [Text/setWidth](/reference/Text/setWidth) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Text/setX](/reference/Text/setX) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Text/setY](/reference/Text/setY) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Text/show](/reference/Text/show) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Text/showText](/reference/Text/showText) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Text/switchFont](/reference/Text/switchFont) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Text/useFont](/reference/Text/useFont) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Text/useFontSizes](/reference/Text/useFontSizes) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Text/useSmoothing](/reference/Text/useSmoothing) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Text/whenAddedToStage](/reference/Text/whenAddedToStage) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Text/whenRemovedFromStage](/reference/Text/whenRemovedFromStage) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Timer/afterMillis](/reference/Timer/afterMillis) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Timer/after](/reference/Timer/after) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Timer/constructor](/reference/Timer/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Timer/everyMillis](/reference/Timer/everyMillis) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Timer/forMillis](/reference/Timer/forMillis) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Timer/intervalMillis](/reference/Timer/intervalMillis) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Timer/millis](/reference/Timer/millis) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Timer/during](/reference/Timer/during) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Timer/every](/reference/Timer/every) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Timer/getSeconds](/reference/Timer/getSeconds) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Timer/interval](/reference/Timer/interval) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Timer/reset](/reference/Timer/reset) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Transition/constructor](/reference/Transition/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Transition/fromShader](/reference/Transition/fromShader) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Transition/getName](/reference/Transition/getName) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Transition/toString](/reference/Transition/toString) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Triangle/constructor](/reference/Triangle/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [UISprite/changeHeight](/reference/UISprite/changeHeight) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [UISprite/changeWidth](/reference/UISprite/changeWidth) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [UISprite/constructor](/reference/UISprite/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [UISprite/disableNineSlice](/reference/UISprite/disableNineSlice) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [UISprite/setHeight](/reference/UISprite/setHeight) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [UISprite/setNineSlice](/reference/UISprite/setNineSlice) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [UISprite/setWidth](/reference/UISprite/setWidth) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Vector2/add](/reference/Vector2/add) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Vector2/angle](/reference/Vector2/angle) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Vector2/clone](/reference/Vector2/clone) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Vector2/constructor](/reference/Vector2/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Vector2/direction](/reference/Vector2/direction) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Vector2/distance](/reference/Vector2/distance) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Vector2/distanceSq](/reference/Vector2/distanceSq) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Vector2/dot](/reference/Vector2/dot) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
@@ -392,17 +449,18 @@ An implemented entry has its documented overloads declared in the browser. The r
 | [Window/constructor](/reference/Window/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Window/debug](/reference/Window/debug) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Window/exit](/reference/Window/exit) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Window/getDeltaTime](/reference/Window/getDeltaTime) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Window/getFrameSmoothing](/reference/Window/getFrameSmoothing) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Window/getGameSpeed](/reference/Window/getGameSpeed) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Window/getHeight](/reference/Window/getHeight) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Window/getInstance](/reference/Window/getInstance) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Window/getLibraryTitle](/reference/Window/getLibraryTitle) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Window/getLibraryVersion](/reference/Window/getLibraryVersion) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Window/getStage](/reference/Window/getStage) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Window/getTextureSampling](/reference/Window/getTextureSampling) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Window/getWidth](/reference/Window/getWidth) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Window/isDebug](/reference/Window/isDebug) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Window/isPaused](/reference/Window/isPaused) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Window/isPixelArt](/reference/Window/isPixelArt) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Window/isSmoothPixelArt](/reference/Window/isSmoothPixelArt) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Window/isTransitioning](/reference/Window/isTransitioning) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Window/pause](/reference/Window/pause) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Window/resume](/reference/Window/resume) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
@@ -411,142 +469,170 @@ An implemented entry has its documented overloads declared in the browser. The r
 | [Window/setStage](/reference/Window/setStage) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Window/step](/reference/Window/step) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Window/transitionToStage](/reference/Window/transitionToStage) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Window/use](/reference/Window/use) | desktop-only | Extensions load through the desktop's ServiceLoader and run against its window and render threads. The browser ships its extensions natively; it does not load external or custom extensions. |
+| [Window/useFrameSmoothing](/reference/Window/useFrameSmoothing) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Window/useFullScreen](/reference/Window/useFullScreen) | desktop-only | The embedded browser output uses its enclosing page; this desktop window option only reports a limitation. |
+| [Window/usePixelArt](/reference/Window/usePixelArt) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [Window/useSmoothPixelArt](/reference/Window/useSmoothPixelArt) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Window/useSplashLogo](/reference/Window/useSplashLogo) | desktop-only | The browser has no desktop splash window. This option only reports a limitation. |
-| [Window/useTextureSampling](/reference/Window/useTextureSampling) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Window/whenExits](/reference/Window/whenExits) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/camera/Camera/changeX](/reference/extensions/camera/Camera/changeX) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/camera/Camera/changeY](/reference/extensions/camera/Camera/changeY) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/camera/Camera/changeZoom](/reference/extensions/camera/Camera/changeZoom) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/camera/Camera/constructor](/reference/extensions/camera/Camera/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/camera/Camera/getPosition](/reference/extensions/camera/Camera/getPosition) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/camera/Camera/getX](/reference/extensions/camera/Camera/getX) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/camera/Camera/getY](/reference/extensions/camera/Camera/getY) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/camera/Camera/getZoom](/reference/extensions/camera/Camera/getZoom) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/camera/Camera/resetZoom](/reference/extensions/camera/Camera/resetZoom) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/camera/Camera/setPosition](/reference/extensions/camera/Camera/setPosition) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/camera/Camera/setX](/reference/extensions/camera/Camera/setX) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/camera/Camera/setY](/reference/extensions/camera/Camera/setY) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/camera/Camera/setZoom](/reference/extensions/camera/Camera/setZoom) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/camera/Camera/setZoomLimit](/reference/extensions/camera/Camera/setZoomLimit) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/camera/Camera/toGlobalPosition](/reference/extensions/camera/Camera/toGlobalPosition) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/camera/Camera/toGlobalX](/reference/extensions/camera/Camera/toGlobalX) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/camera/Camera/toGlobalY](/reference/extensions/camera/Camera/toGlobalY) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/camera/Camera/toLocalPosition](/reference/extensions/camera/Camera/toLocalPosition) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/camera/Camera/toLocalX](/reference/extensions/camera/Camera/toLocalX) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/camera/Camera/toLocalY](/reference/extensions/camera/Camera/toLocalY) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/drawing/Drawing/clip](/reference/extensions/drawing/Drawing/clip) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/drawing/Drawing/constructor](/reference/extensions/drawing/Drawing/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/drawing/Drawing/image](/reference/extensions/drawing/Drawing/image) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/drawing/Drawing/imageHeight](/reference/extensions/drawing/Drawing/imageHeight) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/drawing/Drawing/imageWidth](/reference/extensions/drawing/Drawing/imageWidth) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/drawing/Drawing/noClip](/reference/extensions/drawing/Drawing/noClip) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/drawing/Drawing/polygon](/reference/extensions/drawing/Drawing/polygon) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/drawing/Drawing/rectangle](/reference/extensions/drawing/Drawing/rectangle) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/drawing/DrawingSprite/changeTransparency](/reference/extensions/drawing/DrawingSprite/changeTransparency) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/drawing/DrawingSprite/constructor](/reference/extensions/drawing/DrawingSprite/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/drawing/DrawingSprite/draw](/reference/extensions/drawing/DrawingSprite/draw) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/drawing/DrawingSprite/getTransparency](/reference/extensions/drawing/DrawingSprite/getTransparency) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/drawing/DrawingSprite/setIsUI](/reference/extensions/drawing/DrawingSprite/setIsUI) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/drawing/DrawingSprite/setTransparency](/reference/extensions/drawing/DrawingSprite/setTransparency) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/fs/File/constructor](/reference/extensions/fs/File/constructor) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
-| [extensions/fs/File/load](/reference/extensions/fs/File/load) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
-| [extensions/fs/File/loadOrCreate](/reference/extensions/fs/File/loadOrCreate) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
-| [extensions/fs/File/loadXML](/reference/extensions/fs/File/loadXML) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
-| [extensions/fs/File/loadXMLOrCreate](/reference/extensions/fs/File/loadXMLOrCreate) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
-| [extensions/fs/File/save](/reference/extensions/fs/File/save) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
-| [extensions/fs/File/saveXML](/reference/extensions/fs/File/saveXML) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
-| [extensions/fs/SaveData/constructor](/reference/extensions/fs/SaveData/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/fs/SaveData/getLocation](/reference/extensions/fs/SaveData/getLocation) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/fs/SaveData/loadOrDefault](/reference/extensions/fs/SaveData/loadOrDefault) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/fs/SaveData/path](/reference/extensions/fs/SaveData/path) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
-| [extensions/fs/SaveData/save](/reference/extensions/fs/SaveData/save) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [extensions/pixels/Pixels/background](/reference/extensions/pixels/Pixels/background) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
-| [extensions/pixels/Pixels/constructor](/reference/extensions/pixels/Pixels/constructor) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
-| [extensions/pixels/Pixels/foreground](/reference/extensions/pixels/Pixels/foreground) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
-| [extensions/pixels/Pixels/main](/reference/extensions/pixels/Pixels/main) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
-| [extensions/recorder/FFmpegRecorder/constructor](/reference/extensions/recorder/FFmpegRecorder/constructor) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
-| [extensions/recorder/FFmpegRecorder/saveFrame](/reference/extensions/recorder/FFmpegRecorder/saveFrame) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
-| [extensions/recorder/FFmpegRecorder/stop](/reference/extensions/recorder/FFmpegRecorder/stop) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
-| [extensions/recorder/FrameRecorder/constructor](/reference/extensions/recorder/FrameRecorder/constructor) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
-| [extensions/recorder/FrameRecorder/saveFrame](/reference/extensions/recorder/FrameRecorder/saveFrame) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
-| [extensions/recorder/FrameRecorder/snapshot](/reference/extensions/recorder/FrameRecorder/snapshot) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
-| [extensions/recorder/GifRecorder/constructor](/reference/extensions/recorder/GifRecorder/constructor) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
-| [extensions/recorder/GifRecorder/saveFrame](/reference/extensions/recorder/GifRecorder/saveFrame) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
-| [extensions/recorder/GifRecorder/snapshot](/reference/extensions/recorder/GifRecorder/snapshot) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
-| [extensions/recorder/GifRecorder/start](/reference/extensions/recorder/GifRecorder/start) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
-| [extensions/recorder/GifRecorder/stop](/reference/extensions/recorder/GifRecorder/stop) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
-| [extensions/recorder/Recorder/constructor](/reference/extensions/recorder/Recorder/constructor) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
-| [extensions/recorder/Recorder/post](/reference/extensions/recorder/Recorder/post) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
-| [extensions/recorder/Recorder/saveFrame](/reference/extensions/recorder/Recorder/saveFrame) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
-| [extensions/recorder/Recorder/start](/reference/extensions/recorder/Recorder/start) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
-| [extensions/recorder/Recorder/stop](/reference/extensions/recorder/Recorder/stop) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
-| [extensions/shader/Shader/constructor](/reference/extensions/shader/Shader/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/shader/Shader/getName](/reference/extensions/shader/Shader/getName) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/shader/Shader/getPShader](/reference/extensions/shader/Shader/getPShader) | desktop-only | Processing's PShader object belongs to the desktop renderer. The browser uses WebGL filters. |
-| [extensions/shader/Shader/set](/reference/extensions/shader/Shader/set) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/shader/Shader/setName](/reference/extensions/shader/Shader/setName) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/shader/Shaders/activate](/reference/extensions/shader/Shaders/activate) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/shader/Shaders/add](/reference/extensions/shader/Shaders/add) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/shader/Shaders/constructor](/reference/extensions/shader/Shaders/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/shader/Shaders/deactivate](/reference/extensions/shader/Shaders/deactivate) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/shader/Shaders/get](/reference/extensions/shader/Shaders/get) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/shader/Shaders/getActive](/reference/extensions/shader/Shaders/getActive) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/shader/Shaders/getCurrent](/reference/extensions/shader/Shaders/getCurrent) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/shader/Shaders/getCurrentIndex](/reference/extensions/shader/Shaders/getCurrentIndex) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/shader/Shaders/getCurrentName](/reference/extensions/shader/Shaders/getCurrentName) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/shader/Shaders/isActive](/reference/extensions/shader/Shaders/isActive) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/shader/Shaders/next](/reference/extensions/shader/Shaders/next) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/shader/Shaders/reset](/reference/extensions/shader/Shaders/reset) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/shader/Shaders/switchTo](/reference/extensions/shader/Shaders/switchTo) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/sorting/Sorting/by](/reference/extensions/sorting/Sorting/by) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
-| [extensions/sorting/Sorting/byY](/reference/extensions/sorting/Sorting/byY) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/sorting/Sorting/constructor](/reference/extensions/sorting/Sorting/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/sorting/Sorting/getComparator](/reference/extensions/sorting/Sorting/getComparator) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
-| [extensions/sorting/Sorting/isOn](/reference/extensions/sorting/Sorting/isOn) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/sorting/Sorting/off](/reference/extensions/sorting/Sorting/off) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/sound/SoundPlayback/close](/reference/extensions/sound/SoundPlayback/close) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/sound/SoundPlayback/constructor](/reference/extensions/sound/SoundPlayback/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/sound/SoundPlayback/getName](/reference/extensions/sound/SoundPlayback/getName) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/sound/SoundPlayback/getVolume](/reference/extensions/sound/SoundPlayback/getVolume) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/sound/SoundPlayback/isPlaying](/reference/extensions/sound/SoundPlayback/isPlaying) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/sound/SoundPlayback/setVolume](/reference/extensions/sound/SoundPlayback/setVolume) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/sound/SoundPlayback/stop](/reference/extensions/sound/SoundPlayback/stop) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/text/BitmapText/addGlyph](/reference/extensions/text/BitmapText/addGlyph) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/text/BitmapText/constructor](/reference/extensions/text/BitmapText/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/text/BitmapText/draw](/reference/extensions/text/BitmapText/draw) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/text/BitmapText/getContent](/reference/extensions/text/BitmapText/getContent) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/text/BitmapText/getHeight](/reference/extensions/text/BitmapText/getHeight) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/text/BitmapText/getWidth](/reference/extensions/text/BitmapText/getWidth) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/text/BitmapText/setAlign](/reference/extensions/text/BitmapText/setAlign) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/text/BitmapText/setFont](/reference/extensions/text/BitmapText/setFont) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/text/BitmapText/setLetterSpacing](/reference/extensions/text/BitmapText/setLetterSpacing) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/text/BitmapText/setLineSpacing](/reference/extensions/text/BitmapText/setLineSpacing) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/text/BitmapText/setSpaceWidth](/reference/extensions/text/BitmapText/setSpaceWidth) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/text/BitmapText/showText](/reference/extensions/text/BitmapText/showText) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/tiled/MapObject/constructor](/reference/extensions/tiled/MapObject/constructor) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [extensions/tiled/MapObject/getProperty](/reference/extensions/tiled/MapObject/getProperty) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/tiled/MapObject/getPropertyBoolean](/reference/extensions/tiled/MapObject/getPropertyBoolean) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/tiled/MapObject/getPropertyFloat](/reference/extensions/tiled/MapObject/getPropertyFloat) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/tiled/MapObject/getPropertyInt](/reference/extensions/tiled/MapObject/getPropertyInt) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/tiled/MapObject/getShape](/reference/extensions/tiled/MapObject/getShape) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/tiled/MapObject/setClassName](/reference/extensions/tiled/MapObject/setClassName) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [extensions/tiled/Property/constructor](/reference/extensions/tiled/Property/constructor) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [extensions/tiled/Property/setText](/reference/extensions/tiled/Property/setText) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [extensions/tiled/TiledMap/constructor](/reference/extensions/tiled/TiledMap/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/tiled/TiledMap/getHeight](/reference/extensions/tiled/TiledMap/getHeight) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/tiled/TiledMap/getObjectsFromLayer](/reference/extensions/tiled/TiledMap/getObjectsFromLayer) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/tiled/TiledMap/getProperty](/reference/extensions/tiled/TiledMap/getProperty) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/tiled/TiledMap/getPropertyBoolean](/reference/extensions/tiled/TiledMap/getPropertyBoolean) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/tiled/TiledMap/getPropertyFloat](/reference/extensions/tiled/TiledMap/getPropertyFloat) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/tiled/TiledMap/getPropertyInt](/reference/extensions/tiled/TiledMap/getPropertyInt) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/tiled/TiledMap/getTileCollisionShapes](/reference/extensions/tiled/TiledMap/getTileCollisionShapes) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/tiled/TiledMap/getTileHeight](/reference/extensions/tiled/TiledMap/getTileHeight) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/tiled/TiledMap/getTileId](/reference/extensions/tiled/TiledMap/getTileId) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/tiled/TiledMap/getTileWidth](/reference/extensions/tiled/TiledMap/getTileWidth) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/tiled/TiledMap/getWidth](/reference/extensions/tiled/TiledMap/getWidth) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/tiled/TiledMap/spawn](/reference/extensions/tiled/TiledMap/spawn) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/tiled/TiledMap/stampLayerToBackground](/reference/extensions/tiled/TiledMap/stampLayerToBackground) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/tiled/TiledMap/stampLayerToForeground](/reference/extensions/tiled/TiledMap/stampLayerToForeground) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/tiled/TiledMap/toString](/reference/extensions/tiled/TiledMap/toString) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [extensions/tiled/TilesetImage/constructor](/reference/extensions/tiled/TilesetImage/constructor) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [drawing/BitmapText/addGlyph](/reference/drawing/BitmapText/addGlyph) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [drawing/BitmapText/constructor](/reference/drawing/BitmapText/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [drawing/BitmapText/draw](/reference/drawing/BitmapText/draw) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [drawing/BitmapText/getContent](/reference/drawing/BitmapText/getContent) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [drawing/BitmapText/getHeight](/reference/drawing/BitmapText/getHeight) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [drawing/BitmapText/getWidth](/reference/drawing/BitmapText/getWidth) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [drawing/BitmapText/setAlign](/reference/drawing/BitmapText/setAlign) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [drawing/BitmapText/setFont](/reference/drawing/BitmapText/setFont) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [drawing/BitmapText/setLetterSpacing](/reference/drawing/BitmapText/setLetterSpacing) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [drawing/BitmapText/setLineSpacing](/reference/drawing/BitmapText/setLineSpacing) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [drawing/BitmapText/setSpaceWidth](/reference/drawing/BitmapText/setSpaceWidth) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [drawing/BitmapText/showText](/reference/drawing/BitmapText/showText) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [drawing/Drawing/clip](/reference/drawing/Drawing/clip) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [drawing/Drawing/constructor](/reference/drawing/Drawing/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [drawing/Drawing/image](/reference/drawing/Drawing/image) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [drawing/Drawing/imageHeight](/reference/drawing/Drawing/imageHeight) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [drawing/Drawing/imageWidth](/reference/drawing/Drawing/imageWidth) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [drawing/Drawing/noClip](/reference/drawing/Drawing/noClip) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [drawing/Drawing/polygon](/reference/drawing/Drawing/polygon) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [drawing/Drawing/rectangle](/reference/drawing/Drawing/rectangle) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [drawing/DrawingExtension/constructor](/reference/drawing/DrawingExtension/constructor) | desktop-only | The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively. |
+| [drawing/DrawingExtension/id](/reference/drawing/DrawingExtension/id) | desktop-only | The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively. |
+| [drawing/DrawingExtension/install](/reference/drawing/DrawingExtension/install) | desktop-only | The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively. |
+| [drawing/DrawingExtension/name](/reference/drawing/DrawingExtension/name) | desktop-only | The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively. |
+| [drawing/DrawingExtension/requires](/reference/drawing/DrawingExtension/requires) | desktop-only | The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively. |
+| [drawing/DrawingExtension/version](/reference/drawing/DrawingExtension/version) | desktop-only | The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively. |
+| [drawing/DrawingSprite/constructor](/reference/drawing/DrawingSprite/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [drawing/DrawingSprite/draw](/reference/drawing/DrawingSprite/draw) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [extension/Canvas/clip](/reference/extension/Canvas/clip) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
+| [extension/Canvas/constructor](/reference/extension/Canvas/constructor) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
+| [extension/Canvas/drawImage](/reference/extension/Canvas/drawImage) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
+| [extension/Canvas/drawImageQuad](/reference/extension/Canvas/drawImageQuad) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
+| [extension/Canvas/drawImageRegion](/reference/extension/Canvas/drawImageRegion) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
+| [extension/Canvas/drawOutline](/reference/extension/Canvas/drawOutline) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
+| [extension/Canvas/drawPolygon](/reference/extension/Canvas/drawPolygon) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
+| [extension/Canvas/drawRectangle](/reference/extension/Canvas/drawRectangle) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
+| [extension/Canvas/drawText](/reference/extension/Canvas/drawText) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
+| [extension/Canvas/imageHeight](/reference/extension/Canvas/imageHeight) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
+| [extension/Canvas/imageWidth](/reference/extension/Canvas/imageWidth) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
+| [extension/Canvas/noClip](/reference/extension/Canvas/noClip) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
+| [extension/Canvas/setOpacity](/reference/extension/Canvas/setOpacity) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
+| [extension/Extension/constructor](/reference/extension/Extension/constructor) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
+| [extension/Extension/coreVersion](/reference/extension/Extension/coreVersion) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
+| [extension/Extension/id](/reference/extension/Extension/id) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
+| [extension/Extension/install](/reference/extension/Extension/install) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
+| [extension/Extension/name](/reference/extension/Extension/name) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
+| [extension/Extension/requires](/reference/extension/Extension/requires) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
+| [extension/Extension/version](/reference/extension/Extension/version) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
+| [extension/ExtensionContext/addLayerDrawer](/reference/extension/ExtensionContext/addLayerDrawer) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
+| [extension/ExtensionContext/addOverlayDrawer](/reference/extension/ExtensionContext/addOverlayDrawer) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
+| [extension/ExtensionContext/afterFrame](/reference/extension/ExtensionContext/afterFrame) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
+| [extension/ExtensionContext/beforeTick](/reference/extension/ExtensionContext/beforeTick) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
+| [extension/ExtensionContext/constructor](/reference/extension/ExtensionContext/constructor) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
+| [extension/ExtensionContext/dispatch](/reference/extension/ExtensionContext/dispatch) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
+| [extension/ExtensionContext/getTickCount](/reference/extension/ExtensionContext/getTickCount) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
+| [extension/ExtensionContext/input](/reference/extension/ExtensionContext/input) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
+| [extension/ExtensionContext/isLoading](/reference/extension/ExtensionContext/isLoading) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
+| [extension/ExtensionContext/onExit](/reference/extension/ExtensionContext/onExit) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
+| [extension/ExtensionContext/onInputPoll](/reference/extension/ExtensionContext/onInputPoll) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
+| [extension/ExtensionContext/onKey](/reference/extension/ExtensionContext/onKey) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
+| [extension/ExtensionContext/onLearnerError](/reference/extension/ExtensionContext/onLearnerError) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
+| [extension/ExtensionContext/onMouse](/reference/extension/ExtensionContext/onMouse) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
+| [extension/ExtensionContext/onStageCreated](/reference/extension/ExtensionContext/onStageCreated) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
+| [extension/ExtensionContext/onStageDisposed](/reference/extension/ExtensionContext/onStageDisposed) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
+| [extension/ExtensionContext/registerImageFormat](/reference/extension/ExtensionContext/registerImageFormat) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
+| [extension/ExtensionContext/runOnGameThread](/reference/extension/ExtensionContext/runOnGameThread) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
+| [extension/Frame/constructor](/reference/extension/Frame/constructor) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
+| [extension/Frame/getArgb](/reference/extension/Frame/getArgb) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
+| [extension/Frame/getHeight](/reference/extension/Frame/getHeight) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
+| [extension/Frame/getWidth](/reference/extension/Frame/getWidth) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
+| [extension/Frame/savePng](/reference/extension/Frame/savePng) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
+| [extension/ImageDecoder/constructor](/reference/extension/ImageDecoder/constructor) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
+| [extension/ImageDecoder/decode](/reference/extension/ImageDecoder/decode) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
+| [extension/InputKey/constructor](/reference/extension/InputKey/constructor) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
+| [extension/InputKey/copy](/reference/extension/InputKey/copy) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
+| [extension/InputKey/create](/reference/extension/InputKey/create) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
+| [extension/InputKey/of](/reference/extension/InputKey/of) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
+| [extension/InputKey/toString](/reference/extension/InputKey/toString) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
+| [extension/InputSnapshot/constructor](/reference/extension/InputSnapshot/constructor) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
+| [extension/InputSnapshot/get](/reference/extension/InputSnapshot/get) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
+| [extension/LayerDrawer/constructor](/reference/extension/LayerDrawer/constructor) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
+| [extension/LayerDrawer/draw](/reference/extension/LayerDrawer/draw) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
+| [gamepad/Gamepad/constructor](/reference/gamepad/Gamepad/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [gamepad/Gamepad/getStick](/reference/gamepad/Gamepad/getStick) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [gamepad/Gamepad/getTrigger](/reference/gamepad/Gamepad/getTrigger) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [gamepad/Gamepad/isButtonPressed](/reference/gamepad/Gamepad/isButtonPressed) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [gamepad/Gamepad/isConnected](/reference/gamepad/Gamepad/isConnected) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [gamepad/GamepadListener/constructor](/reference/gamepad/GamepadListener/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [gamepad/GamepadListener/whenGamepadButtonPressed](/reference/gamepad/GamepadListener/whenGamepadButtonPressed) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [gamepad/GamepadListener/whenGamepadButtonReleased](/reference/gamepad/GamepadListener/whenGamepadButtonReleased) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [gamepad/GamepadListener/whenGamepadConnected](/reference/gamepad/GamepadListener/whenGamepadConnected) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [recorder/GifEncoder/addFrame](/reference/recorder/GifEncoder/addFrame) | desktop-only | The encoder behind the desktop's GifRecorder; recording is desktop-only. |
+| [recorder/GifEncoder/constructor](/reference/recorder/GifEncoder/constructor) | desktop-only | The encoder behind the desktop's GifRecorder; recording is desktop-only. |
+| [recorder/GifEncoder/finish](/reference/recorder/GifEncoder/finish) | desktop-only | The encoder behind the desktop's GifRecorder; recording is desktop-only. |
+| [recorder/GifEncoder/setDelay](/reference/recorder/GifEncoder/setDelay) | desktop-only | The encoder behind the desktop's GifRecorder; recording is desktop-only. |
+| [recorder/GifEncoder/setDispose](/reference/recorder/GifEncoder/setDispose) | desktop-only | The encoder behind the desktop's GifRecorder; recording is desktop-only. |
+| [recorder/GifEncoder/setFrameRate](/reference/recorder/GifEncoder/setFrameRate) | desktop-only | The encoder behind the desktop's GifRecorder; recording is desktop-only. |
+| [recorder/GifEncoder/setQuality](/reference/recorder/GifEncoder/setQuality) | desktop-only | The encoder behind the desktop's GifRecorder; recording is desktop-only. |
+| [recorder/GifEncoder/setRepeat](/reference/recorder/GifEncoder/setRepeat) | desktop-only | The encoder behind the desktop's GifRecorder; recording is desktop-only. |
+| [recorder/GifEncoder/setTransparent](/reference/recorder/GifEncoder/setTransparent) | desktop-only | The encoder behind the desktop's GifRecorder; recording is desktop-only. |
+| [recorder/GifEncoder/start](/reference/recorder/GifEncoder/start) | desktop-only | The encoder behind the desktop's GifRecorder; recording is desktop-only. |
+| [recorder/GifRecorder/constructor](/reference/recorder/GifRecorder/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [recorder/GifRecorder/snapshot](/reference/recorder/GifRecorder/snapshot) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [recorder/GifRecorder/start](/reference/recorder/GifRecorder/start) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [recorder/GifRecorder/stop](/reference/recorder/GifRecorder/stop) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [recorder/RecorderExtension/constructor](/reference/recorder/RecorderExtension/constructor) | desktop-only | The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively. |
+| [recorder/RecorderExtension/id](/reference/recorder/RecorderExtension/id) | desktop-only | The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively. |
+| [recorder/RecorderExtension/install](/reference/recorder/RecorderExtension/install) | desktop-only | The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively. |
+| [recorder/RecorderExtension/name](/reference/recorder/RecorderExtension/name) | desktop-only | The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively. |
+| [recorder/RecorderExtension/requires](/reference/recorder/RecorderExtension/requires) | desktop-only | The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively. |
+| [recorder/RecorderExtension/version](/reference/recorder/RecorderExtension/version) | desktop-only | The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively. |
+| [save/File/constructor](/reference/save/File/constructor) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
+| [save/File/load](/reference/save/File/load) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
+| [save/File/loadOrCreate](/reference/save/File/loadOrCreate) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
+| [save/File/loadXML](/reference/save/File/loadXML) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
+| [save/File/loadXMLOrCreate](/reference/save/File/loadXMLOrCreate) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
+| [save/File/save](/reference/save/File/save) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
+| [save/File/saveXML](/reference/save/File/saveXML) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
+| [save/SaveData/constructor](/reference/save/SaveData/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [save/SaveData/getLocation](/reference/save/SaveData/getLocation) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [save/SaveData/loadOrDefault](/reference/save/SaveData/loadOrDefault) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [save/SaveData/path](/reference/save/SaveData/path) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
+| [save/SaveData/save](/reference/save/SaveData/save) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [save/SaveExtension/constructor](/reference/save/SaveExtension/constructor) | desktop-only | The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively. |
+| [save/SaveExtension/id](/reference/save/SaveExtension/id) | desktop-only | The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively. |
+| [save/SaveExtension/name](/reference/save/SaveExtension/name) | desktop-only | The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively. |
+| [save/SaveExtension/requires](/reference/save/SaveExtension/requires) | desktop-only | The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively. |
+| [save/SaveExtension/version](/reference/save/SaveExtension/version) | desktop-only | The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively. |
+| [tiled/MapObject/constructor](/reference/tiled/MapObject/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [tiled/MapObject/getProperty](/reference/tiled/MapObject/getProperty) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [tiled/MapObject/getPropertyBoolean](/reference/tiled/MapObject/getPropertyBoolean) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [tiled/MapObject/getPropertyFloat](/reference/tiled/MapObject/getPropertyFloat) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [tiled/MapObject/getPropertyInt](/reference/tiled/MapObject/getPropertyInt) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [tiled/MapObject/getShape](/reference/tiled/MapObject/getShape) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [tiled/MapObject/setClassName](/reference/tiled/MapObject/setClassName) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [tiled/Property/constructor](/reference/tiled/Property/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [tiled/Property/setText](/reference/tiled/Property/setText) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [tiled/TiledExtension/constructor](/reference/tiled/TiledExtension/constructor) | desktop-only | The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively. |
+| [tiled/TiledExtension/id](/reference/tiled/TiledExtension/id) | desktop-only | The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively. |
+| [tiled/TiledExtension/install](/reference/tiled/TiledExtension/install) | desktop-only | The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively. |
+| [tiled/TiledExtension/name](/reference/tiled/TiledExtension/name) | desktop-only | The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively. |
+| [tiled/TiledExtension/requires](/reference/tiled/TiledExtension/requires) | desktop-only | The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively. |
+| [tiled/TiledExtension/version](/reference/tiled/TiledExtension/version) | desktop-only | The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively. |
+| [tiled/TiledMap/constructor](/reference/tiled/TiledMap/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [tiled/TiledMap/getHeight](/reference/tiled/TiledMap/getHeight) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [tiled/TiledMap/getObjectsFromLayer](/reference/tiled/TiledMap/getObjectsFromLayer) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [tiled/TiledMap/getProperty](/reference/tiled/TiledMap/getProperty) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [tiled/TiledMap/getPropertyBoolean](/reference/tiled/TiledMap/getPropertyBoolean) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [tiled/TiledMap/getPropertyFloat](/reference/tiled/TiledMap/getPropertyFloat) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [tiled/TiledMap/getPropertyInt](/reference/tiled/TiledMap/getPropertyInt) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [tiled/TiledMap/getTileCollisionShapes](/reference/tiled/TiledMap/getTileCollisionShapes) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [tiled/TiledMap/getTileHeight](/reference/tiled/TiledMap/getTileHeight) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [tiled/TiledMap/getTileId](/reference/tiled/TiledMap/getTileId) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [tiled/TiledMap/getTileWidth](/reference/tiled/TiledMap/getTileWidth) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [tiled/TiledMap/getWidth](/reference/tiled/TiledMap/getWidth) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [tiled/TiledMap/hideLayer](/reference/tiled/TiledMap/hideLayer) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [tiled/TiledMap/showLayer](/reference/tiled/TiledMap/showLayer) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [tiled/TiledMap/spawn](/reference/tiled/TiledMap/spawn) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
+| [tiled/TiledMap/toString](/reference/tiled/TiledMap/toString) | desktop-only | Prints the desktop's parsed TMX tree as JSON; the browser reads maps without it. |
+| [tiled/TilesetImage/constructor](/reference/tiled/TilesetImage/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |

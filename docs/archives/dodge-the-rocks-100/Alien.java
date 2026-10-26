@@ -1,11 +1,11 @@
 import org.openpatch.scratch.*;
 
-public class Alien extends AnimatedSprite {
+public class Alien extends Sprite {
   public Alien() {
     // begin sprite editor
     this.addCostume("alienGreen_stand");
     this.addAnimation("walk", "alienGreen_walk%d", 2);
-    this.setAnimationInterval(150);
+    this.setAnimationInterval(0.15);
     // end sprite editor
     this.setSize(45);
     this.setRotationStyle(RotationStyle.LEFT_RIGHT);

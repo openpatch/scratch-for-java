@@ -21,6 +21,8 @@ natives
 
 # Ignore Gradle build output directory
 build
+# but not the modules' build scripts (BuildChecks, NrwVariant)
+!**/src/build/
 
 ### Maven ###
 target/
@@ -33,3 +35,6 @@ dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
 .mvn/wrapper/maven-wrapper.jar
+
+# Python bytecode
+__pycache__/

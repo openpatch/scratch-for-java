@@ -12,7 +12,7 @@ public class Referee extends Sprite {
   }
 
   public void run() {
-    if (this.getTimer().everyMillis(2200)) {
+    if (this.getTimer().every(2.2)) {
       this.green = !this.green;
       if (this.green) {
         this.say("Go!");

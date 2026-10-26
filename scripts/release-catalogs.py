@@ -18,7 +18,7 @@ import zipfile
 ROOT = Path(__file__).resolve().parents[1]
 CATALOGS = ROOT / "catalogs"
 def sheets():
-    registry = (ROOT / "src/main/java/org/openpatch/scratch/internal/BuiltinAssets.java").read_text()
+    registry = (ROOT / "core/src/main/java/org/openpatch/scratch/internal/BuiltinAssets.java").read_text()
     declaration = re.search(r'String\[\]\s+SHEETS\s*=\s*\{([^}]+)\}', registry)
     if not declaration:
         raise ValueError("Cannot discover the library's atlas lookup order")
@@ -122,7 +122,7 @@ def generate(translations):
         raise ValueError("Stale translation overrides: " + ", ".join(sorted(stale)))
     images = []
     for sheet in sheets():
-        for element in ET.parse(ROOT / "src/main/resources/images" / (sheet + ".xml")).getroot():
+        for element in ET.parse(ROOT / "core/src/main/resources/images" / (sheet + ".xml")).getroot():
             name = Path(element.get("name")).stem
             images.append({"id": sheet + "/" + name, "name": name, "sheet": sheet,
                            "sheetPath": "images/" + sheet + ".png",
@@ -137,11 +137,11 @@ def generate(translations):
     for image in images:
         image["referenceName"] = image["id"] if image["name"].lower() in bare else image["name"]
         bare.add(image["name"].lower())
-    sounds = [{"id": p.stem, "path": p.relative_to(ROOT / "src/main/resources").as_posix()}
-              for p in sorted((ROOT / "src/main/resources/sounds").rglob("*"))
+    sounds = [{"id": p.stem, "path": p.relative_to(ROOT / "core/src/main/resources").as_posix()}
+              for p in sorted((ROOT / "core/src/main/resources/sounds").rglob("*"))
               if p.suffix.lower() in {".ogg", ".wav", ".aiff", ".au"}]
     examples = []
-    for kind, folder in [("demo", ROOT / "src/examples/java/demos"),
+    for kind, folder in [("demo", ROOT / "examples/src/main/java/demos"),
                          ("tutorial", ROOT / "docs/archives")]:
         for project in sorted(folder.iterdir()):
             if not project.is_dir() or not list(project.glob("*.java")):
@@ -195,7 +195,7 @@ def main():
     catalogs = generate(translations)
     outputs = {}
     for name, content in catalogs.items():
-        for folder in [CATALOGS, ROOT / "src/main/resources/catalogs", ROOT / "docs/public/catalogs"]:
+        for folder in [CATALOGS, ROOT / "core/src/main/resources/catalogs", ROOT / "docs/public/catalogs"]:
             outputs[folder / name] = encoded(content)
         if args.studio:
             if not (args.studio / "core/pom.xml").is_file():
@@ -207,7 +207,7 @@ def main():
             outputs[args.online_ide / "src/compiler/java/runtime/graphics/scratch/catalogs" / name] = encoded(content)
             outputs[args.online_ide / "public/catalogs" / name] = encoded(content)
     checks = (ROOT / "compatibility/checks/PortableBehaviorChecks.java").read_text()
-    outputs[ROOT / "src/test/java/portable/PortableBehaviorChecks.java"] = "package portable;\n\n" + checks
+    outputs[ROOT / "examples/src/test/java/portable/PortableBehaviorChecks.java"] = "package portable;\n\n" + checks
     if args.online_ide:
         outputs[args.online_ide / "src/test/browser/PortableBehaviorChecks.java"] = checks
         # Keep the runnable browser demo derived from the desktop sources, via
@@ -219,7 +219,7 @@ def main():
         outputs[args.online_ide / "public/examples/save-slots.java"] = demo[1].strip() + "\n"
     binary_outputs = {}
     for sheet in sheets():
-        source = ROOT / "src/main/resources/images" / (sheet + ".png")
+        source = ROOT / "core/src/main/resources/images" / (sheet + ".png")
         if args.online_ide:
             binary_outputs[args.online_ide / "assets/graphics/scratch" / source.name] = source.read_bytes()
         if args.studio:
@@ -248,9 +248,9 @@ def main():
         with zipfile.ZipFile(args.archive, "w", zipfile.ZIP_DEFLATED) as archive:
             for name, value in catalogs.items():
                 archive.writestr("catalogs/" + name, encoded(value))
-            for resource in sorted((ROOT / "src/main/resources/images").iterdir()):
+            for resource in sorted((ROOT / "core/src/main/resources/images").iterdir()):
                 if resource.suffix in {".png", ".xml", ".txt"}:
-                    archive.write(resource, resource.relative_to(ROOT / "src/main/resources").as_posix())
+                    archive.write(resource, resource.relative_to(ROOT / "core/src/main/resources").as_posix())
             for example in catalogs["examples.json"]["examples"]:
                 for entry in example["files"]:
                     file = ROOT / example["source"] / entry["path"]

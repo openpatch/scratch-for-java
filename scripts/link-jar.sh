@@ -2,7 +2,7 @@
 # Puts the locally built library into every project under docs/archives, so the
 # projects can be opened and run straight from a checkout.
 #
-#   mvn package -Pall -DskipTests   # build the jar first
+#   mvn package -pl all -am -DskipTests   # build the jar first
 #   ./scripts/link-jar.sh
 #
 # Nothing this creates is committed, and ./build.sh clears it again before the
@@ -10,11 +10,11 @@
 set -e
 
 ROOT=$(cd "$(dirname "$0")/.." && pwd)
-JAR=$(ls -1 "$ROOT"/target/scratch-*-all.jar 2>/dev/null | grep -v sources | grep -v javadoc | head -1)
+JAR=$(ls -1 "$ROOT"/all/target/scratch-*-all.jar 2>/dev/null | grep -v sources | grep -v javadoc | head -1)
 
 if [ -z "$JAR" ]; then
-  echo "No jar found in target/."
-  echo "Build one first:  mvn package -Pall -DskipTests"
+  echo "No jar found in all/target/."
+  echo "Build one first:  mvn package -pl all -am -DskipTests"
   exit 1
 fi
 
@@ -31,5 +31,5 @@ for libs in "$ROOT"/docs/archives/*/+libs; do
 done
 
 echo "Linked $(basename "$JAR") into $count archive projects."
-echo "Open any folder under docs/archives/ with BlueJ or VS Code, or run:"
+echo "Open any folder under docs/archives/ with Studio or VS Code, or run:"
 echo "    cd docs/archives/make-it-walk-100 && javac -cp '+libs/*' -d . *.java && java -cp '+libs/*:.' WalkStage"

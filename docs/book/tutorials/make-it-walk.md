@@ -46,12 +46,12 @@ next costume
 :::
 
 If you called it in `run()` it would swap sixty times a second, which is far too
-fast to see. So it needs a timer: `everyMillis(200)` is true once every fifth of
+fast to see. So it needs a timer: `every(0.2)` is true once every fifth of
 a second and false the rest of the time.
 
 ```java
   public void run() {
-    if (this.getTimer().everyMillis(200)) {
+    if (this.getTimer().every(0.2)) {
       this.nextCostume();
     }
   }
@@ -75,8 +75,8 @@ job: `run()` is called constantly and the timer decides when something happens.
 Two costumes and one timer is fine. Six costumes, plus a jump, plus a standing
 pose, and your `run()` fills up with counting.
 
-`AnimatedSprite` is a `Sprite` that already knows how to do this. You give the
-animation a name and tell it which costumes belong to it:
+Every sprite already knows how to do this. You give the animation a name and
+tell it which costumes belong to it:
 
 ```java
 this.addAnimation("walk", "alienGreen_walk%d", 2);
@@ -95,11 +95,11 @@ while it is actually going somewhere, and stand still otherwise.
 ```java
 import org.openpatch.scratch.*;
 
-public class Walker extends AnimatedSprite {
+public class Walker extends Sprite {
   public Walker() {
     this.addCostume("alienGreen_stand");
     this.addAnimation("walk", "alienGreen_walk%d", 2);
-    this.setAnimationInterval(150);
+    this.setAnimationInterval(0.15);
     this.setSize(60);
     this.setRotationStyle(RotationStyle.LEFT_RIGHT);
     this.setY(-50);
@@ -167,11 +167,11 @@ class WalkStage extends Stage {
   }
 }
 
-class Walker extends AnimatedSprite {
+class Walker extends Sprite {
   public Walker() {
     this.addCostume("alienGreen_stand");
     this.addAnimation("walk", "alienGreen_walk%d", 2);
-    this.setAnimationInterval(150);
+    this.setAnimationInterval(0.15);
     this.setSize(60);
     this.setRotationStyle(RotationStyle.LEFT_RIGHT);
     this.setY(-50);
@@ -204,15 +204,12 @@ class Walker extends AnimatedSprite {
 
 :::
 
-Three things are new here:
+Two things are new here:
 
-- **`extends AnimatedSprite`** instead of `extends Sprite`. It can still do
-  everything a sprite can — `move`, `setDirection`, `ifOnEdgeBounce` are all
-  there — it simply knows about animations as well.
 - **`boolean walking`** remembers whether either key was held this frame, so the
   decision about which costume to wear is made once, after both checks.
-- **`setAnimationInterval(150)`** is the same idea as the `200` in step 2: how
-  long each picture stays on screen.
+- **`setAnimationInterval(0.15)`** is the same idea as the `0.2` in step 2: how
+  many seconds each picture stays on screen.
 
 ## The finished project
 
@@ -240,14 +237,14 @@ back. When it is back on the ground (y: -50), it stops.
 ```java
 import org.openpatch.scratch.*;
 
-public class Walker extends AnimatedSprite {
+public class Walker extends Sprite {
   private double ySpeed = 0;
 
   public Walker() {
     this.addCostume("alienGreen_stand");
     this.addCostume("alienGreen_jump");
     this.addAnimation("walk", "alienGreen_walk%d", 2);
-    this.setAnimationInterval(150);
+    this.setAnimationInterval(0.15);
     this.setSize(60);
     this.setRotationStyle(RotationStyle.LEFT_RIGHT);
     this.setY(-50);
@@ -323,10 +320,10 @@ The start of `run()`:
 public void run() {
   boolean walking = false;
   int speed = 3;
-  this.setAnimationInterval(150);
+  this.setAnimationInterval(0.15);
   if (this.isKeyPressed(KeyCode.SHIFT)) {
     speed = 6;
-    this.setAnimationInterval(75);
+    this.setAnimationInterval(0.075);
   }
 
   if (this.isKeyPressed(KeyCode.RIGHT)) {

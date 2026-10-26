@@ -1,0 +1,35 @@
+package reference;
+import org.openpatch.scratch.*;
+
+public class PenUp {
+  public PenUp() {
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
+    Pen myPen = new Pen();
+    myStage.add(myPen);
+    myPen.setSize(6);
+
+    // With the pen down every move draws a line. Lifting it up moves the pen
+    // without leaving anything behind, which is how a drawing gets a gap.
+    while (true) {
+      myPen.setPosition(-200, 0);
+      myPen.down();
+      myPen.setPosition(-60, 0);
+      myPen.up();
+
+      myPen.setPosition(60, 0);
+      myPen.down();
+      myPen.setPosition(200, 0);
+      myPen.up();
+
+      myStage.waitSeconds(1.5);
+      myStage.eraseAll();
+      myStage.waitSeconds(0.5);
+    }
+  }
+
+  public static void main(String[] args) {
+    new PenUp();
+  }
+}

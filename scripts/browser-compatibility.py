@@ -38,6 +38,9 @@ def simple_type(value):
         elif not depth:
             out += char
     out = re.sub(r"\b(?:\w+\.)+(\w+)", r"\1", out)
+    # The browser inventory records type variables with internal IDs (T@132);
+    # the doclet records the plain identifier.
+    out = re.sub(r"@\d+", "", out)
     return out.replace(" ", "").replace("...", "[]").replace("string", "String")
 
 

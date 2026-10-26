@@ -33,7 +33,7 @@ class RobotStage extends Stage {
   // end stage designer
 
   public RobotStage() {
-    this.setDebug(true);
+    Window.getInstance().setDebug(true);
     // begin stage designer
     robotSprite = new RobotSprite();
     this.add(robotSprite);

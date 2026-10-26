@@ -1,7 +1,7 @@
 import org.openpatch.scratch.KeyCode;
-import org.openpatch.scratch.AnimatedSprite;
+import org.openpatch.scratch.Sprite;
 
-public class GhostSprite extends AnimatedSprite {
+public class GhostSprite extends Sprite {
 
   private int speed = 8;
 

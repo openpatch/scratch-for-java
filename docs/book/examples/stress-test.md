@@ -150,7 +150,7 @@ class StressTest extends Stage {
   }
 }
 
-class Figure extends AnimatedSprite {
+class Figure extends Sprite {
   public FigureState state;
   int tintColor;
   boolean hasTouchedEdge = false;
@@ -162,7 +162,7 @@ class Figure extends AnimatedSprite {
     this.addAnimation("run", pathBase + "Run (%d).png", runAnimations);
     this.addAnimation("walk", pathBase + "Walk (%d).png", walkAnimations);
 
-    this.tintColor = (int) this.pickRandom(0, 256);
+    this.tintColor = this.pickRandom(0, 200);
     this.setPosition(this.pickRandom(-200, 200), this.pickRandom(-200, 200));
     this.setDirection(this.pickRandom(0, 360));
 
@@ -172,7 +172,7 @@ class Figure extends AnimatedSprite {
 
   public void run() {
     this.ifOnEdgeBounce();
-    this.setTint(this.tintColor);
+    this.setColorEffect(this.tintColor);
 
     if (isTouchingMousePointer()) {
       state = FigureState.WALK;
@@ -188,16 +188,16 @@ class Figure extends AnimatedSprite {
 
     switch (state) {
       case IDLE:
-        this.setAnimationInterval(100);
+        this.setAnimationInterval(0.1);
         this.playAnimation("idle");
         break;
       case RUN:
-        this.setAnimationInterval(50);
+        this.setAnimationInterval(0.05);
         this.playAnimation("run");
         move(4);
         break;
       case WALK:
-        this.setAnimationInterval(100);
+        this.setAnimationInterval(0.1);
         this.playAnimation("walk");
         move(2);
         break;

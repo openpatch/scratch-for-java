@@ -24,7 +24,6 @@ resets the zoom.
 ```java Game.java
 
 void main() {
-  Text.useFontSizes(32, 48);
   // begin project settings
   // end project settings
   new Game();
@@ -82,7 +81,7 @@ class StartStage extends Stage {
   public void whenKeyPressed(KeyCode keyCode) {
     if (keyCode == KeyCode.SPACE) {
       Game.LEVEL = 0;
-      Window.getInstance().transitionToStage(new WorldStage(), 500);
+      Window.getInstance().transitionToStage(new WorldStage(), 0.5);
     }
   }
 }
@@ -122,7 +121,7 @@ class WorldStage extends Stage {
   }
 
   public void run() {
-    if (this.getTimer().everyMillis(1000)) {
+    if (this.getTimer().every(1)) {
       var food = new Donut();
       food.setStrength(Random.randomInt(2, 5));
       this.add(food);
@@ -138,12 +137,12 @@ class WorldStage extends Stage {
     }
 
     if (this.count(FollowDonut.class) == 0) {
-      Window.getInstance().transitionToStage(new WinStage(), 500);
+      Window.getInstance().transitionToStage(new WinStage(), 0.5);
       return;
     }
 
     if (this.count(PlayerDonut.class) == 0) {
-      Window.getInstance().transitionToStage(new GameOverStage(), 500);
+      Window.getInstance().transitionToStage(new GameOverStage(), 0.5);
       return;
     }
 
@@ -200,7 +199,7 @@ class WinStage extends Stage {
   public void whenKeyPressed(KeyCode keyCode) {
     if (keyCode == KeyCode.SPACE) {
       Game.LEVEL += 1;
-      Window.getInstance().transitionToStage(new WorldStage(), 500);
+      Window.getInstance().transitionToStage(new WorldStage(), 0.5);
     }
   }
 }
@@ -234,10 +233,9 @@ class GameOverStage extends Stage {
   }
 
   public void whenKeyPressed(KeyCode keyCode) {
-    System.out.println(keyCode);
     if (keyCode == KeyCode.SPACE) {
       Game.LEVEL = 0;
-      Window.getInstance().transitionToStage(new WorldStage(), 500);
+      Window.getInstance().transitionToStage(new WorldStage(), 0.5);
     }
   }
 }
@@ -248,10 +246,11 @@ class Background extends Sprite {
     // begin sprite editor
     this.addCostume("grid", "assets/grid.png");
     // end sprite editor
+    // scenery: the grid covers the stage, so it must not count as touching anything
+    this.disableHitbox();
   }
 
   public void run() {
-    this.getPen().eraseAll();
     this.setX(this.getStage().getCamera().getX() - this.getStage().getCamera().getX() % 40);
     this.setY(this.getStage().getCamera().getY() - this.getStage().getCamera().getY() % 40);
   }
@@ -290,7 +289,6 @@ class Donut extends Sprite {
 
   public void run() {
     var touchingDonut = this.getTouchingSprite(Donut.class);
-    debug("touchingDonut: " + getX());
     if (touchingDonut != null && this.strength >= touchingDonut.strength) {
       this.setStrength(this.strength + touchingDonut.strength);
       touchingDonut.remove();

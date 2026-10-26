@@ -1,0 +1,38 @@
+package reference;
+import org.openpatch.scratch.*;
+
+
+public class StageBroadcast {
+  public StageBroadcast() {
+    class MySprite extends Sprite {
+      public MySprite() {
+        this.addCostume("slime", "slimeGreen");
+      }
+
+      public void whenIReceive(String message) {
+        if (message.equals("up")) {
+          this.setY(50);
+        } else if (message.equals("down")) {
+          this.setY(-50);
+        }
+      }
+    }
+
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
+    myStage.add(new MySprite());
+
+    // Every sprite on the stage hears the message.
+    while (true) {
+      myStage.broadcast("up");
+      myStage.waitSeconds(0.6);
+      myStage.broadcast("down");
+      myStage.waitSeconds(0.6);
+    }
+  }
+
+  public static void main(String[] args) {
+    new StageBroadcast();
+  }
+}

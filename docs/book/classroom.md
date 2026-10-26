@@ -19,9 +19,9 @@ This page helps you plan a unit with it.
 | --- | --- | --- |
 | **Browser** | The first lessons, homework, computers you cannot install anything on | Nothing. The editor is built into every tutorial. |
 | **Studio** | A whole unit on school computers, working offline | Install [Studio](/download). Java and the library are included. |
-| **BlueJ / VS Code** | Courses that already use one of them | Add the library as described in [Setup](/setup). |
+| **VS Code** | Courses that already use it, or another Java editor | Add the library as described in [Setup](/setup). |
 
-Starting in the browser and moving to Studio or BlueJ later works well. The
+Starting in the browser and moving to Studio later works well. The
 code stays the same. Only the `void main()` at the top becomes a class of its own.
 
 :::alert{warn}
@@ -39,7 +39,7 @@ last chapter take longer.
 | | Tutorial | Builds on (Scratch) | New in Java | Typical stumbling blocks |
 | --- | --- | --- | --- | --- |
 | 1 | [Your first program](/tutorials/getting-started) | Sprites, costumes, `forever` | A class for the stage, `new`, `run()` | Forgetting `this.add(...)`; typos in costume names |
-| 2 | [Make it Walk](/tutorials/make-it-walk) | `next costume`, `wait` | Timers instead of `wait`, `AnimatedSprite`, a `boolean` | Wanting a `wait` inside `run()` |
+| 2 | [Make it Walk](/tutorials/make-it-walk) | `next costume`, `wait` | Timers instead of `wait`, animations, a `boolean` | Wanting a `wait` inside `run()` |
 | 3 | [Catch the Coins](/tutorials/catch-the-coins) | Variables, `pick random`, `touching?` | Fields, a `for` loop, one class for many coins | Where the score lives, and how a coin reaches it |
 | 4 | [Red Light, Green Light](/tutorials/red-light-green-light) | `broadcast`, `when I receive` | Constructor parameters, `String.equals` | Comparing strings with `==` |
 | 5 | [Guess the Number](/tutorials/guess-the-number) | `ask and wait`, `answer` | `if`/`else if`, turning text into a number | `ask` does not wait: the answer arrives in a later frame |

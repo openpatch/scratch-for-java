@@ -1,0 +1,137 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.openpatch</groupId>
+        <artifactId>scratch-parent</artifactId>
+        <version>6.5.0</version>
+    </parent>
+
+    <!--
+        The demos and reference examples of the documentation, against the 7.0 API with every
+        first-party extension. Built with the rest so an API change shows which example it breaks;
+        never published. Run one with ./scripts/run.sh or:
+            java -cp "examples/target/classes:$(cat examples/target/cp.txt)" demos.cat.CatSketch
+    -->
+    <artifactId>scratch-examples</artifactId>
+    <packaging>jar</packaging>
+    <name>Scratch for Java (examples)</name>
+
+    <properties>
+        <maven.deploy.skip>true</maven.deploy.skip>
+        <maven.install.skip>true</maven.install.skip>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.openpatch</groupId>
+            <artifactId>scratch</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.openpatch</groupId>
+            <artifactId>scratch-tiled</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openpatch</groupId>
+            <artifactId>scratch-save</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openpatch</groupId>
+            <artifactId>scratch-recorder</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openpatch</groupId>
+            <artifactId>scratch-drawing</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openpatch</groupId>
+            <artifactId>scratch-gamepad</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <!-- scripts/visual-parity.sh compares frames with it (test scope: tools only) -->
+        <dependency>
+            <groupId>com.github.romankh3</groupId>
+            <artifactId>image-comparison</artifactId>
+            <version>4.4.0</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <profiles>
+        <!-- the examples are written against the standard jar: nothing to build for NRW -->
+        <profile>
+            <id>nrw</id>
+            <properties>
+                <maven.main.skip>true</maven.main.skip>
+                <maven.test.skip>true</maven.test.skip>
+                <maven.resources.skip>true</maven.resources.skip>
+            </properties>
+        </profile>
+    </profiles>
+
+    <build>
+        <plugins>
+            <!-- the extension starter (templates/extension-starter) compiles and passes its tests
+                 with every build, so it cannot rot; its services file is left out on purpose -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>3.6.0</version>
+                <executions>
+                    <execution>
+                        <id>extension-starter-sources</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${project.basedir}/../templates/extension-starter/src/main/java</source>
+                                <!-- the documentation tools: doclet, demo and asset page generators -->
+                                <source>${project.basedir}/src/tools/java</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>extension-starter-tests</id>
+                        <phase>generate-test-sources</phase>
+                        <goals>
+                            <goal>add-test-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${project.basedir}/../templates/extension-starter/src/test/java</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <!-- every broken example at once, not the first hundred -->
+                    <compilerArgs>
+                        <arg>-Xmaxerrs</arg>
+                        <arg>10000</arg>
+                    </compilerArgs>
+                </configuration>
+            </plugin>
+        </plugins>
+        <!-- assets sit next to the code, as in 6.x: they are on the classpath under the same paths -->
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
+            </resource>
+        </resources>
+    </build>
+</project>

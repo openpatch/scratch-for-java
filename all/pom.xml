@@ -1,0 +1,143 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.openpatch</groupId>
+        <artifactId>scratch-parent</artifactId>
+        <version>6.5.0</version>
+    </parent>
+
+    <!--
+        The fat jar: the core, every first-party extension and all their
+        dependencies with natives for six platforms, for Studio, the starter
+        projects and `java -jar`. Built on every `mvn package`:
+            all/target/scratch-<version>-all.jar
+        `verify` then runs src/build/BuildChecks.java over the modules and this jar.
+    -->
+    <artifactId>scratch-all</artifactId>
+    <packaging>jar</packaging>
+    <name>Scratch for Java (fat jar)</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.openpatch</groupId>
+            <artifactId>scratch</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.openpatch</groupId>
+            <artifactId>scratch-tiled</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openpatch</groupId>
+            <artifactId>scratch-save</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openpatch</groupId>
+            <artifactId>scratch-recorder</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openpatch</groupId>
+            <artifactId>scratch-drawing</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openpatch</groupId>
+            <artifactId>scratch-gamepad</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+
+    <properties>
+        <scratch.fatJar>scratch-${project.version}-all.jar</scratch.fatJar>
+    </properties>
+
+    <profiles>
+        <profile>
+            <id>nrw</id>
+            <properties>
+                <scratch.fatJar>scratch-${project.version}-nrw-all.jar</scratch.fatJar>
+            </properties>
+        </profile>
+    </profiles>
+
+    <build>
+        <finalName>scratch-all-${project.version}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <!-- the name 6.x used, which Studio and the release workflow look for -->
+                            <outputFile>${project.build.directory}/${scratch.fatJar}</outputFile>
+                            <filters>
+                                <filter>
+                                    <artifact>*:*</artifact>
+                                    <excludes>
+                                        <!-- With Multi-Release on, a shaded module-info under
+                                             META-INF/versions would make the jar claim to be
+                                             that module. -->
+                                        <exclude>**/module-info.class</exclude>
+                                        <exclude>META-INF/INDEX.LIST</exclude>
+                                        <exclude>META-INF/*.SF</exclude>
+                                        <exclude>META-INF/*.DSA</exclude>
+                                        <exclude>META-INF/*.RSA</exclude>
+                                        <exclude>META-INF/maven/**</exclude>
+                                        <!-- their texts are in THIRD-PARTY-NOTICES.txt -->
+                                        <exclude>META-INF/LICENSE*</exclude>
+                                        <exclude>META-INF/NOTICE*</exclude>
+                                    </excludes>
+                                </filter>
+                            </filters>
+                            <transformers>
+                                <!-- every first-party extension registers itself here -->
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <manifestEntries>
+                                        <!-- LWJGL's FFM memory backend lives in META-INF/versions/25 -->
+                                        <Multi-Release>true</Multi-Release>
+                                        <Enable-Native-Access>ALL-UNNAMED</Enable-Native-Access>
+                                        <Implementation-Title>Scratch for Java</Implementation-Title>
+                                        <Implementation-Version>${project.version}</Implementation-Version>
+                                    </manifestEntries>
+                                </transformer>
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>build-checks</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>${java.home}/bin/java</executable>
+                            <arguments>
+                                <argument>${project.basedir}/src/build/BuildChecks.java</argument>
+                                <argument>${maven.multiModuleProjectDirectory}</argument>
+                                <argument>${project.build.directory}/${scratch.fatJar}</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

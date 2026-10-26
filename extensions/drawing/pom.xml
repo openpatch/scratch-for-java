@@ -1,0 +1,54 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.openpatch</groupId>
+        <artifactId>scratch-parent</artifactId>
+        <version>6.5.0</version>
+        <relativePath>../../pom.xml</relativePath>
+    </parent>
+
+    <!-- Drawing by hand (Drawing, DrawingSprite) and bitmap texts, on the public Canvas API.
+         Uses only the core's public API (checked by all/src/build/BuildChecks.java). -->
+    <artifactId>scratch-drawing</artifactId>
+    <packaging>jar</packaging>
+    <name>Scratch for Java: Drawing</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.openpatch</groupId>
+            <artifactId>scratch</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>default-testCompile</id>
+                        <configuration>
+                            <!-- the tests (not the extension) run a headless game and read its
+                                 draw list, which the core does not export; BitmapTextTest writes
+                                 its glyph images with ImageIO -->
+                            <compilerArgs>
+                                <arg>--add-modules</arg>
+                                <arg>java.desktop</arg>
+                                <arg>--add-reads</arg>
+                                <arg>org.openpatch.scratch.drawing=java.desktop</arg>
+                                <arg>--add-exports</arg>
+                                <arg>org.openpatch.scratch/org.openpatch.scratch.internal=org.openpatch.scratch.drawing</arg>
+                                <arg>--add-exports</arg>
+                                <arg>org.openpatch.scratch/org.openpatch.scratch.internal.draw=org.openpatch.scratch.drawing</arg>
+                            </compilerArgs>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

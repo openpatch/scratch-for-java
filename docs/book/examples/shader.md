@@ -14,7 +14,7 @@ The stage has four shaders and the bouncing cat three, each in a `.frag` file
 of its own. They are added with a name, and some get values to work with:
 
 ```java
-var shader = this.getShaders().add("pixelate", "pixelate.frag", "default.vert");
+var shader = this.getShaders().add("pixelate", "pixelate.frag");
 shader.set("pixels", 20.0, 10.0);
 ```
 
@@ -34,7 +34,6 @@ the keys.
 
 @file dest="blobby.frag" src="/examples/shader/blobby.frag"
 @file dest="cat.png" src="/examples/shader/cat.png"
-@file dest="default.vert" src="/examples/shader/default.vert"
 @file dest="glitch.frag" src="/examples/shader/glitch.frag"
 @file dest="halftone.frag" src="/examples/shader/halftone.frag"
 @file dest="light.frag" src="/examples/shader/light.frag"
@@ -70,13 +69,13 @@ class MyStage extends Stage {
   // end stage designer
 
   public MyStage() {
-    var shader = this.getShaders().add("blobby", "blobby.frag", "default.vert");
+    var shader = this.getShaders().add("blobby", "blobby.frag");
     shader.set("depth", 1.5);
     shader.set("rate", 1.5);
-    shader = this.getShaders().add("glitch", "glitch.frag", "default.vert");
+    shader = this.getShaders().add("glitch", "glitch.frag");
     shader.set("rate", 0.0001);
-    shader = this.getShaders().add("light", "light.frag", "default.vert");
-    shader = this.getShaders().add("pixel", "pixel.frag", "default.vert");
+    shader = this.getShaders().add("light", "light.frag");
+    shader = this.getShaders().add("pixel", "pixel.frag");
     this.getShaders().switchTo("pixel");
     // begin stage designer
     mySprite = new MySprite();
@@ -108,8 +107,6 @@ class MyStage extends Stage {
             + " next sprite shader. Press M to remove the sprite shader.");
     var shader = this.getShaders().getCurrent();
     if (shader != null) {
-      shader.set("time", Timer.millis() / 1000.0);
-      shader.set("resolution", (float) this.getWidth(), (float) this.getHeight());
       if ("light".equals(shader.getName())) {
         var lights = this.find(LightSprite.class);
         var lightPos = new double[lights.size() * 3 + 3];
@@ -137,10 +134,10 @@ class MySprite extends Sprite {
     // begin sprite editor
     this.addCostume("cat", "cat.png");
     // end sprite editor
-    var shader = this.getShaders().add("halftone", "halftone.frag", "default.vert");
-    shader = this.getShaders().add("pixelate", "pixelate.frag", "default.vert");
+    var shader = this.getShaders().add("halftone", "halftone.frag");
+    shader = this.getShaders().add("pixelate", "pixelate.frag");
     shader.set("pixels", 20.0, 10.0);
-    shader = this.getShaders().add("neon", "neon.frag", "default.vert");
+    shader = this.getShaders().add("neon", "neon.frag");
     shader.set("brt", 0.4);
     shader.set("rad", 1);
     this.getShaders().switchTo("halftone");

@@ -1,0 +1,50 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!--
+        A starter for a Scratch for Java extension. Rename the group, the artifact and the package
+        com.example.countdown, keep the services file under src/main/resources in step with the
+        class name, and build with `mvn package`: the jar goes into a project's +libs folder
+        (Studio) or onto its classpath, and the library finds the extension by itself.
+    -->
+    <groupId>com.example</groupId>
+    <artifactId>scratch-countdown</artifactId>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
+    <name>Countdown (a Scratch for Java extension)</name>
+
+    <properties>
+        <!-- the Scratch for Java version the extension is built against (7.0 or later) -->
+        <scratch.version>7.0.0</scratch.version>
+        <maven.compiler.release>17</maven.compiler.release>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <!-- provided: every project that uses the extension has the library already -->
+        <dependency>
+            <groupId>org.openpatch</groupId>
+            <artifactId>scratch</artifactId>
+            <version>${scratch.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.11.4</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.5.2</version>
+            </plugin>
+        </plugins>
+    </build>
+</project>

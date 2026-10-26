@@ -1,0 +1,53 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.openpatch</groupId>
+        <artifactId>scratch-parent</artifactId>
+        <version>6.5.0</version>
+        <relativePath>../../pom.xml</relativePath>
+    </parent>
+
+    <!-- Controller support (Gamepad, GamepadListener): polls GLFW's gamepad API in onInputPoll,
+         never a GLFW callback. Uses the core's public API only; lwjgl-glfw is provided because
+         the core ships it (checked by all/src/build/BuildChecks.java). -->
+    <artifactId>scratch-gamepad</artifactId>
+    <packaging>jar</packaging>
+    <name>Scratch for Java: Gamepad</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.openpatch</groupId>
+            <artifactId>scratch</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.lwjgl</groupId>
+            <artifactId>lwjgl-glfw</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>default-testCompile</id>
+                        <configuration>
+                            <!-- the tests (not the extension) run a headless game and drive the
+                                 input snapshot, which the core does not export -->
+                            <compilerArgs>
+                                <arg>--add-exports</arg>
+                                <arg>org.openpatch.scratch/org.openpatch.scratch.internal=org.openpatch.scratch.gamepad</arg>
+                            </compilerArgs>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

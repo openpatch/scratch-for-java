@@ -1,0 +1,82 @@
+name: macOS spike (gate G1)
+
+# The LWJGL spike on macOS: do the two macOS launch routes open a window, keep main
+# free and run the game loop? Started by hand; its captures and logs are the
+# evidence. A runner without OpenGL makes the run inconclusive, not a failure
+# of the routes: then a real Mac decides.
+on:
+  workflow_dispatch:
+
+jobs:
+  spike:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, macos-15-intel]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: spikes/lwjgl
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 25
+          cache: maven
+
+      - name: Build the spike
+        run: mvn -q compile dependency:build-classpath -Dmdep.outputFile=target/cp.txt
+
+      - name: System
+        run: |
+          sw_vers
+          uname -m
+          system_profiler SPDisplaysDataType || true
+
+      # macOS has no timeout(1); perl's alarm ends a run that hangs
+      - name: Route 1 - plain java, glfw_async, no -XstartOnFirstThread
+        run: |
+          perl -e 'alarm 60; exec @ARGV' java --enable-native-access=ALL-UNNAMED -cp "target/classes:$(cat target/cp.txt)" \
+            -Dspike.exitAfter=5 -Dspike.capture=target/route1.png spike.GameLoopCheck 2>&1 | tee target/route1.log
+          grep -q "main: returns" target/route1.log
+          grep -q "window: closed" target/route1.log
+
+      - name: Route 2 - Launcher with -XstartOnFirstThread (gate G1)
+        if: always()
+        run: |
+          perl -e 'alarm 60; exec @ARGV' java -XstartOnFirstThread --enable-native-access=ALL-UNNAMED -cp "target/classes:$(cat target/cp.txt)" \
+            -Dspike.exitAfter=5 -Dspike.capture=target/route2.png spike.Launcher spike.GameLoopCheck 2>&1 | tee target/route2.log
+          grep -q "window: runs on thread 'main'" target/route2.log
+          grep -q "window: closed" target/route2.log
+
+      - name: Route 2 with learner code that never returns (watchdog, close)
+        if: always()
+        run: |
+          perl -e 'alarm 60; exec @ARGV' java -XstartOnFirstThread --enable-native-access=ALL-UNNAMED -cp "target/classes:$(cat target/cp.txt)" \
+            -Dspike.exitAfter=5 -Dspike.hangAt=60 spike.Launcher spike.GameLoopCheck 2>&1 | tee target/route2-hang.log
+          grep -q "has not returned for 2 seconds" target/route2-hang.log
+          grep -q "did not answer, skipped" target/route2-hang.log
+
+      - name: Original spike window through glfw_async
+        if: always()
+        run: |
+          perl -e 'alarm 60; exec @ARGV' java --enable-native-access=ALL-UNNAMED -cp "target/classes:$(cat target/cp.txt)" \
+            -Dspike.exitAfter=4 -Dspike.capture=target/spike.png spike.Main 2>&1 | tee target/spike.log
+
+      - name: Audio (a runner usually has no output device; then exactly one warning)
+        if: always()
+        run: |
+          perl -e 'alarm 60; exec @ARGV' java --enable-native-access=ALL-UNNAMED -cp "target/classes:$(cat target/cp.txt)" \
+            spike.AudioCheck 2>&1 | tee target/audio.log
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: macos-spike-${{ matrix.os }}
+          path: |
+            spikes/lwjgl/target/*.png
+            spikes/lwjgl/target/*.log

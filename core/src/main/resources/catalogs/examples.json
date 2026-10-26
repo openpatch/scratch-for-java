@@ -1,0 +1,1544 @@
+{
+  "schemaVersion": 1,
+  "libraryVersion": "6.5.0",
+  "browserVersion": "6.5.0-browser.1",
+  "examples": [
+    {
+      "id": "demo/cat",
+      "kind": "demo",
+      "source": "examples/src/main/java/demos/cat",
+      "libraryVersion": "6.5.0",
+      "flavour": "standard",
+      "requiredSheets": [],
+      "files": [
+        {
+          "path": "CatSketch.java",
+          "sha256": "e54d85ba904f818a463a08d1eebeeed56cab8a87360aaef9eb2d3abf988c209a"
+        },
+        {
+          "path": "sprites/cat.png",
+          "sha256": "0423f61671a086906d972b266241d557934f86bdb8ec5ad6f50b08f3474efa0f"
+        }
+      ]
+    },
+    {
+      "id": "demo/catPlatformer",
+      "kind": "demo",
+      "source": "examples/src/main/java/demos/catPlatformer",
+      "libraryVersion": "6.5.0",
+      "flavour": "standard",
+      "requiredSheets": [
+        "cat",
+        "platformer",
+        "tappy_plane"
+      ],
+      "files": [
+        {
+          "path": "Bean.java",
+          "sha256": "2a29b5b353cf5408a9b0926e4a834733e45d06504eca0f778b49e475fcb27d8c"
+        },
+        {
+          "path": "Bug.java",
+          "sha256": "a3e060ff2c19606f94e26161d37e500acc67ace1708d5de059bd01189407789b"
+        },
+        {
+          "path": "Cat.java",
+          "sha256": "fb1e51731c37b0db917ec274a9fb9a5b9964ad132eae73ffbf462e71a629eebb"
+        },
+        {
+          "path": "CatPlatformer.java",
+          "sha256": "2ebe08c710db91cfd5c3544cb502cff7aab96c513a457b93f7db77c47c79fc1b"
+        },
+        {
+          "path": "Goal.java",
+          "sha256": "c828b86c1b09f039f3b46bcf9d7424244df474a2b08aa7ac42d0316f6ca49ab6"
+        },
+        {
+          "path": "Ground.java",
+          "sha256": "9515a80cf4c830e9646a64b61c2d3f9eca9fad899438f83fec8566c439643032"
+        },
+        {
+          "path": "Heart.java",
+          "sha256": "bd423d745bd2b5ccbc0e765a6b838946411e044e4f51972e325f4cfe21e2d31c"
+        },
+        {
+          "path": "Ladder.java",
+          "sha256": "d133f3365cc26cccb4c1c29bdce907bc28b41f2de158cb8b59d869a5e1367d1e"
+        },
+        {
+          "path": "Platform.java",
+          "sha256": "7b42871f874fb59bb1849760af9fcd2963540c7b541326a5d2e9631fb21eb1fd"
+        }
+      ]
+    },
+    {
+      "id": "demo/clock",
+      "kind": "demo",
+      "source": "examples/src/main/java/demos/clock",
+      "libraryVersion": "6.5.0",
+      "flavour": "standard",
+      "requiredSheets": [],
+      "files": [
+        {
+          "path": "ClockSprite.java",
+          "sha256": "683cb2d2f9dbe3009170a129ef78035ae6afa2a62ec4b1fb52b534bd0b0b26f2"
+        },
+        {
+          "path": "ClockStage.java",
+          "sha256": "099ac9d9c1e463273b322f1dc71ad4b9dd9c83e6613b331811ec6ec9b58c2a6e"
+        },
+        {
+          "path": "HourHandSprite.java",
+          "sha256": "7320884d0e2748e012eb7130f088f2fe72a52d5b3fb22b8c552455a0390cd574"
+        },
+        {
+          "path": "MinuteHandSprite.java",
+          "sha256": "6cdaf9c9ed329cc44f206151261cba171a8b4225fedd3943306dfd5230de6c5c"
+        },
+        {
+          "path": "SecondHandSprite.java",
+          "sha256": "2df622e1b9e4dbe78fc9567f2adc79077d3c4a976f55311fcbd027cbd200bfb2"
+        },
+        {
+          "path": "sprites/clock.png",
+          "sha256": "4aa62eaede42134ec9cbc0d22290a82d3c2b6deb9c064f56c34be7af124c41b7"
+        },
+        {
+          "path": "sprites/clock.svg",
+          "sha256": "3566b50f76e74e035e68f89df03302fb4887f13ce67d873a497224091e4501d2"
+        },
+        {
+          "path": "sprites/hour.png",
+          "sha256": "86dc71146074f166e783459b2c5252bfccc37d54a384d90e604adb4ed0e048ac"
+        },
+        {
+          "path": "sprites/minute.png",
+          "sha256": "9023359e8e1273e72dae86678f4f0d1b860e32277b09d8e24977107c60021ad7"
+        },
+        {
+          "path": "sprites/second.png",
+          "sha256": "0fa19932a82e616e71b6af073b360cf2dd8939ba73da037ed94bc815b5843241"
+        }
+      ]
+    },
+    {
+      "id": "demo/coinCollector",
+      "kind": "demo",
+      "source": "examples/src/main/java/demos/coinCollector",
+      "libraryVersion": "6.5.0",
+      "flavour": "standard",
+      "requiredSheets": [
+        "platformer",
+        "tappy_plane"
+      ],
+      "files": [
+        {
+          "path": "Coin.java",
+          "sha256": "8e613d3e815a0f388ade38cb9e2fdf115162edfbfd5714751000103333d9b284"
+        },
+        {
+          "path": "CoinCollector.java",
+          "sha256": "82d0f645d9adbec7f06ff4b4eb7db38dafc5e0643c94d26b61a6de4030ad447e"
+        },
+        {
+          "path": "Ground.java",
+          "sha256": "5fcea438f03a6d53d766b4dd43bac32dee1d5d1538c7ece78bb7326671fad372"
+        },
+        {
+          "path": "Player.java",
+          "sha256": "0143c301cd7395ba82be98af8b56ed283b122411846e7b0dde203eaaa6eb5d8b"
+        }
+      ]
+    },
+    {
+      "id": "demo/donutIO",
+      "kind": "demo",
+      "source": "examples/src/main/java/demos/donutIO",
+      "libraryVersion": "6.5.0",
+      "flavour": "standard",
+      "requiredSheets": [],
+      "files": [
+        {
+          "path": "Background.java",
+          "sha256": "240686fd74eac29bea2de07abb9fdf7eb2d68f07b25e936eb151d00e2093b717"
+        },
+        {
+          "path": "Donut.java",
+          "sha256": "12909d89ff89c8ab093150d102cd355ffd7c96644d741e2978a9ff35a29dfcbb"
+        },
+        {
+          "path": "FollowDonut.java",
+          "sha256": "0f825e184a975a8caf9131392d3927a7bf87206d0a697418ef41f2dee4b8179a"
+        },
+        {
+          "path": "Game.java",
+          "sha256": "01645a6b03f037958b4037f78ebdbe0174c7690314f77b2e7e292893cd9f75af"
+        },
+        {
+          "path": "GameOverStage.java",
+          "sha256": "7dec2067ba6e4edf4642670f838ee983a639307117b10a309ff36f94c9ee5557"
+        },
+        {
+          "path": "PlayerDonut.java",
+          "sha256": "4db83c6274a49fdb3e506ec7e7a90cba0699410fc7a71c4909dcde55d6ba1ab0"
+        },
+        {
+          "path": "StartStage.java",
+          "sha256": "d511595cb10651f75e3a895550b041db4a1a2d7867d309e55ff6e47723095b6e"
+        },
+        {
+          "path": "WinStage.java",
+          "sha256": "699a0026ff67d1079df2cb811283f0743ffb1cb0ccd849852169e05c1a9c0ca5"
+        },
+        {
+          "path": "WorldStage.java",
+          "sha256": "d520f4b57fb2f7d2161ea407881cde464a7078dabd2cc7d7a8932d64ee21d3c8"
+        },
+        {
+          "path": "assets/donut.png",
+          "sha256": "1a3106071f180d9f484eaf82c8567d759fa94689f9ee9ba7b122c6daf99bf6db"
+        },
+        {
+          "path": "assets/donut.svg",
+          "sha256": "1fb30404f57873f363b2e47711831e7d460df57575946bcb9e626e1f0a71c58c"
+        },
+        {
+          "path": "assets/grid.png",
+          "sha256": "4b91fff890e34ddb540e1be514eee580dc138fcaaa9ca41ef2b633344c22467b"
+        }
+      ]
+    },
+    {
+      "id": "demo/glide",
+      "kind": "demo",
+      "source": "examples/src/main/java/demos/glide",
+      "libraryVersion": "6.5.0",
+      "flavour": "standard",
+      "requiredSheets": [
+        "platformer",
+        "tappy_plane"
+      ],
+      "files": [
+        {
+          "path": "Glide.java",
+          "sha256": "7744aa30d518a67129773324e1f08d57b3144cdebfcb9b9b6ab3441d0ebb2f86"
+        }
+      ]
+    },
+    {
+      "id": "demo/pipes",
+      "kind": "demo",
+      "source": "examples/src/main/java/demos/pipes",
+      "libraryVersion": "6.5.0",
+      "flavour": "standard",
+      "requiredSheets": [],
+      "files": [
+        {
+          "path": "PenSprite.java",
+          "sha256": "9cc2544d691f9d771b868f0a644b8ea5eb74e89534a42aeeb7f88b87f064acf3"
+        },
+        {
+          "path": "Pipes.java",
+          "sha256": "72540a41ffe2102900cf21da2a2430e95bcac6a93c61644e0b919343f0cc7ba5"
+        },
+        {
+          "path": "backdrops/chalk_board.jpg",
+          "sha256": "72e78e95fd5a3225b6beb7f681cbc78dcc49e1c3b51ec2d1d140105cadd33389"
+        },
+        {
+          "path": "sounds/bensound-enigmatic.ogg",
+          "sha256": "a41a57516dfea5f0a8e0c857bef66ce698197c923d6468992f23d7e94fa34a19"
+        },
+        {
+          "path": "sprites/pen.png",
+          "sha256": "dc1c56c00f27c97ba4059f98e7fd3d7f9db8f4b33f2779c461568e09aac9b1dc"
+        }
+      ]
+    },
+    {
+      "id": "demo/quiz",
+      "kind": "demo",
+      "source": "examples/src/main/java/demos/quiz",
+      "libraryVersion": "6.5.0",
+      "flavour": "standard",
+      "requiredSheets": [
+        "platformer",
+        "tappy_plane"
+      ],
+      "files": [
+        {
+          "path": "Quiz.java",
+          "sha256": "533d9f98ffbc07a09bc90843147baa0d156f09e79b1efa441f7c2597f4745bdf"
+        }
+      ]
+    },
+    {
+      "id": "demo/rainbowVine",
+      "kind": "demo",
+      "source": "examples/src/main/java/demos/rainbowVine",
+      "libraryVersion": "6.5.0",
+      "flavour": "standard",
+      "requiredSheets": [],
+      "files": [
+        {
+          "path": "RainbowVine.java",
+          "sha256": "138c92e3ec360946511bdaa3fbfcbf7680d7e0794bd0afd88940463328ba70ef"
+        }
+      ]
+    },
+    {
+      "id": "demo/randomDot",
+      "kind": "demo",
+      "source": "examples/src/main/java/demos/randomDot",
+      "libraryVersion": "6.5.0",
+      "flavour": "standard",
+      "requiredSheets": [],
+      "files": [
+        {
+          "path": "RandomDot.java",
+          "sha256": "85fca39a0f737838886790b33e3a78c0bf761fa22038f16d1647d49573b0f641"
+        }
+      ]
+    },
+    {
+      "id": "demo/robot",
+      "kind": "demo",
+      "source": "examples/src/main/java/demos/robot",
+      "libraryVersion": "6.5.0",
+      "flavour": "standard",
+      "requiredSheets": [],
+      "files": [
+        {
+          "path": "RobotSprite.java",
+          "sha256": "0a1e46dbae1a7aa82d85480cb94728027a100f2ef4151b676aa4c2c127f5752d"
+        },
+        {
+          "path": "RobotStage.java",
+          "sha256": "f4a13c806280372dd994a2b5c7c378622a7c56ab2cdcbca40a524da3dbcfe33e"
+        },
+        {
+          "path": "sprites/robot.png",
+          "sha256": "e3426e0f0fbcd9f472326a39f45089ce074797d85c6ce8a42ca6fbf21a1b92a0"
+        }
+      ]
+    },
+    {
+      "id": "demo/saveSlots",
+      "kind": "demo",
+      "source": "examples/src/main/java/demos/saveSlots",
+      "libraryVersion": "6.5.0",
+      "flavour": "standard",
+      "requiredSheets": [
+        "platformer",
+        "tappy_plane"
+      ],
+      "files": [
+        {
+          "path": "README.md",
+          "sha256": "562b9edbf75e7441e19a47670df7368a1803f17244fca27628057263f73b8570"
+        },
+        {
+          "path": "SaveSlotGame.java",
+          "sha256": "aca09c8911db0ad8409f1bb657b548685c403dbaf1b4757336321408efd37496"
+        },
+        {
+          "path": "SaveSlotProgress.java",
+          "sha256": "47ff5551efd218670ab59b5b2d1deebdb6aa169220ad65b82e2e61e6a5b0ea07"
+        },
+        {
+          "path": "SaveSlotStage.java",
+          "sha256": "952710f6d48438e6d4b504bd24d9d68da4164eeab8a98446d724e1de21d75c9e"
+        }
+      ]
+    },
+    {
+      "id": "demo/saving",
+      "kind": "demo",
+      "source": "examples/src/main/java/demos/saving",
+      "libraryVersion": "6.5.0",
+      "flavour": "standard",
+      "requiredSheets": [],
+      "files": [
+        {
+          "path": "ExampleSettings.java",
+          "sha256": "45cefc5bb42d659e1d077f6cb08d5a61b64b05d80fc65e8d71b8e4aad740b75d"
+        },
+        {
+          "path": "Saving.java",
+          "sha256": "07c5a1fa8f1205e86ad5770579f31f84c81583b72f43eaf7c38c1992b4a06479"
+        }
+      ]
+    },
+    {
+      "id": "demo/sensing",
+      "kind": "demo",
+      "source": "examples/src/main/java/demos/sensing",
+      "libraryVersion": "6.5.0",
+      "flavour": "standard",
+      "requiredSheets": [],
+      "files": [
+        {
+          "path": "Sensing.java",
+          "sha256": "2ff78751e708d51ffb8b0afdcfab91c1fdd4f2a7de6c04beaf18a1b39dcba8bc"
+        },
+        {
+          "path": "sprites/hero.png",
+          "sha256": "c2c48af7fae8913bbe5b175296e07e1b2c05d7b0e557a403c7c7055f0eaafbc7"
+        },
+        {
+          "path": "sprites/hero2.png",
+          "sha256": "fc49e2ed1f0e7546c2f5fb7250447b7ca1ca8be70ed74469ab4d97a12e7b8a88"
+        }
+      ]
+    },
+    {
+      "id": "demo/shader",
+      "kind": "demo",
+      "source": "examples/src/main/java/demos/shader",
+      "libraryVersion": "6.5.0",
+      "flavour": "standard",
+      "requiredSheets": [],
+      "files": [
+        {
+          "path": "LightSprite.java",
+          "sha256": "03efc12b15fd94093a3c87345929613d5393eaffbe7c52aae4072a6fb2a135a4"
+        },
+        {
+          "path": "MySprite.java",
+          "sha256": "0c1d54d65528f25b9b27c80e4e9aa8de6fd406b719ab27c0bc4aeb29cb01b311"
+        },
+        {
+          "path": "MyStage.java",
+          "sha256": "09ba7034c03535decd6f48b0db410d244fa41dad548e60cf5a31ab7007ea0680"
+        },
+        {
+          "path": "NormalSprite.java",
+          "sha256": "403c235c438107502ff6bfecd71c263041180c1d1020aae9e367198952a5320a"
+        },
+        {
+          "path": "ShaderExample.java",
+          "sha256": "f01ff09ba8f2a1560714f387d1705e801b76003debf5ba6eca1c3c6489cbea9e"
+        },
+        {
+          "path": "blobby.frag",
+          "sha256": "b4ee43f9290e7181eaf73cfa0d61951916655f284a390a74417bcded8572df6a"
+        },
+        {
+          "path": "cat.png",
+          "sha256": "0423f61671a086906d972b266241d557934f86bdb8ec5ad6f50b08f3474efa0f"
+        },
+        {
+          "path": "glitch.frag",
+          "sha256": "c087dead430cf77c6b126a699533711597f0531a84b7ea599828e5157590bd62"
+        },
+        {
+          "path": "halftone.frag",
+          "sha256": "feeeac1d83e851624d0bd1edfb83a037d42a2c72766bff67d3c73cf702d47c9e"
+        },
+        {
+          "path": "light.frag",
+          "sha256": "406c07398ade3a3bec38b7fe124bf900520d1372fcafff3ca43dbd272ac29578"
+        },
+        {
+          "path": "light.png",
+          "sha256": "8e64a24aedd5860c5573d818d708d8ba8ba2772d33ec86175eca26acb8ecb631"
+        },
+        {
+          "path": "neon.frag",
+          "sha256": "03e834af81c80587b7c1de2ee89fd9c0facd15aab9e2a38dfdbafe7045bb22ac"
+        },
+        {
+          "path": "pixel.frag",
+          "sha256": "2642359211f3008c8e57b47ef97463a6727de042ccc6822cc67def9cdd0f41e2"
+        },
+        {
+          "path": "pixelate.frag",
+          "sha256": "b97cea96d4fe2ce65b00354f7096c69b1027e8cfd0685fb4c22e3c3636b4947c"
+        }
+      ]
+    },
+    {
+      "id": "demo/shakespeare",
+      "kind": "demo",
+      "source": "examples/src/main/java/demos/shakespeare",
+      "libraryVersion": "6.5.0",
+      "flavour": "standard",
+      "requiredSheets": [],
+      "files": [
+        {
+          "path": "DNA.java",
+          "sha256": "d7fb514623ec03739084107481332ee1e68f24f288ac10cf278266100ba52e1a"
+        },
+        {
+          "path": "Population.java",
+          "sha256": "1225987f167ca4db84acb4be8b3f1e57f089c122617409b09dcf13e0fd851eb8"
+        },
+        {
+          "path": "Shakespeare.java",
+          "sha256": "28dd04fd2825a2ee6e3770dde8699881d9b1e6b7c13f7de2202b4bf0c4c6dd55"
+        },
+        {
+          "path": "assets/Singkong.ttf",
+          "sha256": "0e4ccf7a12fe3282f2f8622ff1612206675d283f2881582f81ebba4702c4e0c2"
+        }
+      ]
+    },
+    {
+      "id": "demo/smartRocket",
+      "kind": "demo",
+      "source": "examples/src/main/java/demos/smartRocket",
+      "libraryVersion": "6.5.0",
+      "flavour": "standard",
+      "requiredSheets": [],
+      "files": [
+        {
+          "path": "DNA.java",
+          "sha256": "a032039dcd704fd3d7cabc8899cd3f94938aa74e767f0211560124612b38f59b"
+        },
+        {
+          "path": "Level.java",
+          "sha256": "0b7ea9b05155ca2e9693b01cee9d9e7b64f5512eed800e441035059f9d3c140b"
+        },
+        {
+          "path": "Population.java",
+          "sha256": "eb21b9da4d7c03a1e6b8b5042a7d48ec5d16c80417915d80710d9ef011df7203"
+        },
+        {
+          "path": "Rocket.java",
+          "sha256": "dc981311b03f78c6b88fbcb9f09f204e99253bb8a39c261f6654d8c9b107d407"
+        },
+        {
+          "path": "SmartRocket.java",
+          "sha256": "a1ebc9bdfdab1240870c389bd7f1d8dcca504752528be9dd7ba791a0df0aae3b"
+        },
+        {
+          "path": "Ziel.java",
+          "sha256": "61fafe0d70651623b85039e3f4f68544e5a39fdb2ededd52b4476d540bfa24c0"
+        },
+        {
+          "path": "assets/rocket.png",
+          "sha256": "e459d96e8fb8c399efe9205796da70d2b652e584c82ecff5a2bb8a1963bdc428"
+        },
+        {
+          "path": "assets/target.png",
+          "sha256": "d56b2aa9d5a9dac9bec50487138341ec3d16d703ab83eda47fbb2d6203d4c57d"
+        }
+      ]
+    },
+    {
+      "id": "demo/stressTest",
+      "kind": "demo",
+      "source": "examples/src/main/java/demos/stressTest",
+      "libraryVersion": "6.5.0",
+      "flavour": "standard",
+      "requiredSheets": [],
+      "files": [
+        {
+          "path": "Dino.java",
+          "sha256": "baf7ea1e6e4901a97da175dd9d980fb3ca1877ae69176498d43bed445e01564d"
+        },
+        {
+          "path": "Figure.java",
+          "sha256": "40d78a80d3528fc9ab97aa6f621d66fdbd18c6de8865d7863885c6199f6665d2"
+        },
+        {
+          "path": "FigureState.java",
+          "sha256": "5dcedf8f434d2d16809700a117377e7a527feecc48c4267d61206c2c0cf72a69"
+        },
+        {
+          "path": "Knight.java",
+          "sha256": "8fae2d482ba56b0fa186362b8747ca4240784a24b421cd59dcf95f0356350ec6"
+        },
+        {
+          "path": "Ninja.java",
+          "sha256": "64bec2444b2e1a5948d328a87dc171aa56baad32f4861aba11ce2b56c4c211de"
+        },
+        {
+          "path": "StressTest.java",
+          "sha256": "1200595f216c6dcffbc49251d5705b5e8f40889bdb63b854678ec38cdf77f891"
+        },
+        {
+          "path": "assets/dino/Idle (1).png",
+          "sha256": "5a5507544b8bd548d21107ae9cfaa9adedf1d8ca893e67e0c5598fd2b5c154d6"
+        },
+        {
+          "path": "assets/dino/Idle (10).png",
+          "sha256": "da4d5bbb19dcf39d249e498ca96e11bddada2a84af48a5f1ca2089a490573c77"
+        },
+        {
+          "path": "assets/dino/Idle (2).png",
+          "sha256": "983cee1459218c3840f025ff11dd9471bbe0f236486ebae1d8c282628ddd6539"
+        },
+        {
+          "path": "assets/dino/Idle (3).png",
+          "sha256": "5a57aa76e9a3ed48cc4c98842c2c11f286001fa5de44abe3763b7b353b76d18f"
+        },
+        {
+          "path": "assets/dino/Idle (4).png",
+          "sha256": "745e0448bbeb086dcf534a1c7c1e1e3430c195f5da6455a194e0699c18cdd0d3"
+        },
+        {
+          "path": "assets/dino/Idle (5).png",
+          "sha256": "3cfd09a9fe8e3bb57cb6e7ebff89335dd77082a7c4e541659c65f99094dc3647"
+        },
+        {
+          "path": "assets/dino/Idle (6).png",
+          "sha256": "114b32b8ac4a3298a3fa904371140476fb642224905932e2d3f8b1888b209a11"
+        },
+        {
+          "path": "assets/dino/Idle (7).png",
+          "sha256": "562ef3c99b1272535b25929c70bb1e85fc73f7d57d99f5cb2a87eaf9f29b90f3"
+        },
+        {
+          "path": "assets/dino/Idle (8).png",
+          "sha256": "5e065cc1c4011cbbd94b0de89ad0cca66c8d6daf8a9cb499c45993508e3f2f75"
+        },
+        {
+          "path": "assets/dino/Idle (9).png",
+          "sha256": "b9749fe9651f851dc668ab6799282bc840f921681e41632428bc5a2196df141b"
+        },
+        {
+          "path": "assets/dino/LICENSE",
+          "sha256": "41ddb588901b4a011ec2c39dc469619fc39dbf24cd9d3d3e705a8d6d9c057a48"
+        },
+        {
+          "path": "assets/dino/Run (1).png",
+          "sha256": "7c9413292b23282208285ce71572f15530f1b8006169f4d5c71945bd5f33c348"
+        },
+        {
+          "path": "assets/dino/Run (2).png",
+          "sha256": "ed19846de2252f3acbe08f0db10b24830d0293c3abf11c94124da7a177cd7099"
+        },
+        {
+          "path": "assets/dino/Run (3).png",
+          "sha256": "4defb15ffe20561b77d3a3120d6d822fea184907f651be13bd78de20907bbdd8"
+        },
+        {
+          "path": "assets/dino/Run (4).png",
+          "sha256": "379025216e878055da8a488a0e90979a563425c8e85ad5886caea37bdd9d9ec4"
+        },
+        {
+          "path": "assets/dino/Run (5).png",
+          "sha256": "6f68b216e7528402ab1f0328760af4afdd2689d47b561dde067df38303ba1561"
+        },
+        {
+          "path": "assets/dino/Run (6).png",
+          "sha256": "7765bae61c2c89866f0ac5f77bed070e3768a557654072c38d9b2d2326f8665e"
+        },
+        {
+          "path": "assets/dino/Run (7).png",
+          "sha256": "bfbdd6350d890a0a95183f2d92319328caa36dd4c5bca0436b2448d3907fe009"
+        },
+        {
+          "path": "assets/dino/Run (8).png",
+          "sha256": "c877c9363595e93597b303d776b966c5dc4a08ecb4ec6fce2b618ac2d8fd09b8"
+        },
+        {
+          "path": "assets/dino/Walk (1).png",
+          "sha256": "03eaac74a29a8275e08813a04274a55d6d048952d52afa21bfa9c1885a53288b"
+        },
+        {
+          "path": "assets/dino/Walk (10).png",
+          "sha256": "c4d281e972230304095ef3739d5fe3b6432666cc715e5fa17e768cf6bea0e6aa"
+        },
+        {
+          "path": "assets/dino/Walk (2).png",
+          "sha256": "1c3388e5a87aa73e76ed423c007f412146e6e5ccd8f3d02411e3616ce273d59e"
+        },
+        {
+          "path": "assets/dino/Walk (3).png",
+          "sha256": "b5df437fea73b909af59869828ad11dd5c4e41f5f7f2e138bcf489d40ebeffc7"
+        },
+        {
+          "path": "assets/dino/Walk (4).png",
+          "sha256": "536aba6c1b2e8629c5c252c9bd9dfe4db24865a69ff9a8e3f0c895bb4f68b6f4"
+        },
+        {
+          "path": "assets/dino/Walk (5).png",
+          "sha256": "8aaca1f70101d07c303f6a9a585d6c8cd982af151269fcf7e9819d83d700337e"
+        },
+        {
+          "path": "assets/dino/Walk (6).png",
+          "sha256": "cc549f0864920a1a91d0871ff0d4d183d1cf17d83a27ba173b8a0f92e72ffc7f"
+        },
+        {
+          "path": "assets/dino/Walk (7).png",
+          "sha256": "59a842c2ec44dfe826e2f21b3fd1dfc2963835add460085b275619eb04f83adb"
+        },
+        {
+          "path": "assets/dino/Walk (8).png",
+          "sha256": "3ae05a7c2aaccd4619d55743f07f8ec1fd5c070bba90fedfc7583467f5ccd372"
+        },
+        {
+          "path": "assets/dino/Walk (9).png",
+          "sha256": "7346764788de8d010edc91fb22c569ec68305f5238278621115ccf060b31ab0b"
+        },
+        {
+          "path": "assets/knight/Idle (1).png",
+          "sha256": "4b6d4d9dbf5e776ec29182e49f10a502706005f4ff16906f9e946c4f58df9a00"
+        },
+        {
+          "path": "assets/knight/Idle (10).png",
+          "sha256": "7b9820b9548b1fd8295dc41d1dfdc80f640b3265394828916e8abb9583237303"
+        },
+        {
+          "path": "assets/knight/Idle (2).png",
+          "sha256": "8383c766cece063cddad8ff222c75ee2c281a73f4b2ef19f050c5f4a4eef87b0"
+        },
+        {
+          "path": "assets/knight/Idle (3).png",
+          "sha256": "2398b3f7adb8dbbdc842905875554d7534544b0b8a5ed5f43365d39fab3dd9a9"
+        },
+        {
+          "path": "assets/knight/Idle (4).png",
+          "sha256": "1dba5fc199c72e4b64a46335de38564cb31e3040473acdcfee15d80d5240cfb3"
+        },
+        {
+          "path": "assets/knight/Idle (5).png",
+          "sha256": "880d23363c9f98439be163902d33bb22b8e7badb74417c2b4c3e33b2aa43abc9"
+        },
+        {
+          "path": "assets/knight/Idle (6).png",
+          "sha256": "98f0596f2e217b30954f387e87158f5f84ba240a8dd7cbbb4317eff0f5cd226a"
+        },
+        {
+          "path": "assets/knight/Idle (7).png",
+          "sha256": "9fef5f0f6979017e9ec57c76e2ae5bfb113ec1e94058b1045725144fd1cbb2a9"
+        },
+        {
+          "path": "assets/knight/Idle (8).png",
+          "sha256": "ff3607f8ec62a73f2a50701f3bfa0eaf23ccd54b51895f88dbc7faa933e8b539"
+        },
+        {
+          "path": "assets/knight/Idle (9).png",
+          "sha256": "87290c26d989986ad165714e66b96f91b13a9e186457703e1c31b4dae5f16daa"
+        },
+        {
+          "path": "assets/knight/LICENSE",
+          "sha256": "41ddb588901b4a011ec2c39dc469619fc39dbf24cd9d3d3e705a8d6d9c057a48"
+        },
+        {
+          "path": "assets/knight/Run (1).png",
+          "sha256": "583cb89513c8751b93aebb5fb90f1361a6289b38bc7e4edba9daff5211084359"
+        },
+        {
+          "path": "assets/knight/Run (10).png",
+          "sha256": "f5a0f7a74f3488e0a653f3755b4c31dde6f271cf38223a78023cadc0b1f6c256"
+        },
+        {
+          "path": "assets/knight/Run (2).png",
+          "sha256": "8f28f129a99478b4047680cfd610d1639b02b080a5cbc6e4e43899944af4f807"
+        },
+        {
+          "path": "assets/knight/Run (3).png",
+          "sha256": "d15180f29cf929491321fd2cb8dcd4e9070d907e433be3189b3f4126c9d70764"
+        },
+        {
+          "path": "assets/knight/Run (4).png",
+          "sha256": "301411a800855e958327dbad85fc03a61b9a8d48c6b498cf5e04edf9a4f2c4cd"
+        },
+        {
+          "path": "assets/knight/Run (5).png",
+          "sha256": "ad4364d8efbdf3ebe1f39027db941f132c07f503e2e135a6e0e7e1f425d609bd"
+        },
+        {
+          "path": "assets/knight/Run (6).png",
+          "sha256": "277bdd09098e59e931e4cae2725960e2ff043ff4e18723b6a90c164bfb7d77d9"
+        },
+        {
+          "path": "assets/knight/Run (7).png",
+          "sha256": "1a29dcc0e4af930e79aa323b6ba6c3389285b385007be1b73b6d155e6fe4128a"
+        },
+        {
+          "path": "assets/knight/Run (8).png",
+          "sha256": "12135dad389f2c3e960fcebe8c93a1b63fdd5e31336b0d785ea494e22cb4a2ee"
+        },
+        {
+          "path": "assets/knight/Run (9).png",
+          "sha256": "e343327bcf5b00affa1aa3a106a0226d3583fdd189e44c3b80a387572091efc4"
+        },
+        {
+          "path": "assets/knight/Walk (1).png",
+          "sha256": "955c15b659e10ed4cebc643c54103b6a44f6416a6939dc5b6d5cc557cb75f9ad"
+        },
+        {
+          "path": "assets/knight/Walk (10).png",
+          "sha256": "59ffbc390b816191c77ed43a0413fc787b1f7b8351bf23d4417f999765790392"
+        },
+        {
+          "path": "assets/knight/Walk (2).png",
+          "sha256": "5de5cccce717a475601ad3ea15c1be72521c9440510d1b282185c3e1c129e13b"
+        },
+        {
+          "path": "assets/knight/Walk (3).png",
+          "sha256": "cf19653994521807a80130ffe57040bc64a5a25389497b6ae959d9e94e8f7d7c"
+        },
+        {
+          "path": "assets/knight/Walk (4).png",
+          "sha256": "d7369d0871f658488c771df762559848068677aebe61580e48360e2966eedfac"
+        },
+        {
+          "path": "assets/knight/Walk (5).png",
+          "sha256": "4d61315a5b709747e87ef1579e08511a8646b63d19006de627def0685359fcab"
+        },
+        {
+          "path": "assets/knight/Walk (6).png",
+          "sha256": "c2085e09e60c936c025c16fb0ff77a2cd5eb652c40d7a057ef57b2abb210f901"
+        },
+        {
+          "path": "assets/knight/Walk (7).png",
+          "sha256": "1d142843fc0ac6db840a0914cfdfb5baaf2633af36f11329a28a9d98e5b1a174"
+        },
+        {
+          "path": "assets/knight/Walk (8).png",
+          "sha256": "f22d91ce3e47ff33897063f7e968f685233c34718baf0cc567867d43ea6a6798"
+        },
+        {
+          "path": "assets/knight/Walk (9).png",
+          "sha256": "ee09f04c688e818aaeac1f1981d492120f92c94a823d3ca0d77f90e5a5721cfe"
+        },
+        {
+          "path": "assets/ninja/Idle (1).png",
+          "sha256": "0e8d98d16b056815c84f15bd095d47087c4dceac5880218b0466d37c573b8435"
+        },
+        {
+          "path": "assets/ninja/Idle (10).png",
+          "sha256": "d402a6f4ad672e9f010764a426f90ab3ddfe04f924eed09c6eeded42ed98ca82"
+        },
+        {
+          "path": "assets/ninja/Idle (2).png",
+          "sha256": "e7089bff695efef7bb2a62e0ead0d2f3334adca21a9adfc61e273010605c1142"
+        },
+        {
+          "path": "assets/ninja/Idle (3).png",
+          "sha256": "8573a41086a0b6db1cc4f8f26ff4f525361d1e5a1483159996d7a3f385a6d83c"
+        },
+        {
+          "path": "assets/ninja/Idle (4).png",
+          "sha256": "ae706a981eaa808fa29459e73a2f5b783de316f089284295a5857fce0f0c28ba"
+        },
+        {
+          "path": "assets/ninja/Idle (5).png",
+          "sha256": "2952a1475585b3577f0643b01c3f713b36416354d5f6dbfb2d3f699fe6df4671"
+        },
+        {
+          "path": "assets/ninja/Idle (6).png",
+          "sha256": "45d5e685296a7e1369bd107f0a474efcfca66a86eb0702f58c768b32056b847d"
+        },
+        {
+          "path": "assets/ninja/Idle (7).png",
+          "sha256": "ef22c61ee05024cb3eee41a9844f04104f90d650c99038d6463107a5623ae125"
+        },
+        {
+          "path": "assets/ninja/Idle (8).png",
+          "sha256": "4b337b7fe5364464b6cc28159609d0931d7d58004c45a59a2051326b4c753aa1"
+        },
+        {
+          "path": "assets/ninja/Idle (9).png",
+          "sha256": "8c5805a5174380fc5aba30907c0d3170c91dc014879610cb5e9e6b2c0331983d"
+        },
+        {
+          "path": "assets/ninja/Run (1).png",
+          "sha256": "166c069c125c24647cf1ddf8125be7596ff0e343bd672931f4260f4a8adc87ad"
+        },
+        {
+          "path": "assets/ninja/Run (10).png",
+          "sha256": "c675b3bb8d58abd12cdc14dbd17f850024938ee747b225d0c8b3f7d4306e18a9"
+        },
+        {
+          "path": "assets/ninja/Run (2).png",
+          "sha256": "199ed64724fec0582fa23290f54d6bb81b6f470078cf9d714cf84e75426b530e"
+        },
+        {
+          "path": "assets/ninja/Run (3).png",
+          "sha256": "d92601cbae9825843712a2bac073424523910fa50d598f3b989a179d7c4b44a6"
+        },
+        {
+          "path": "assets/ninja/Run (4).png",
+          "sha256": "c98bb0e654454674d4a73dda2f0255136a7ddd21424294a3a4ebe69dbb8c3f19"
+        },
+        {
+          "path": "assets/ninja/Run (5).png",
+          "sha256": "f4491b94c618545aed63cf6571ddd9cd3b376ae0517653cd5b2a7761e89d0daa"
+        },
+        {
+          "path": "assets/ninja/Run (6).png",
+          "sha256": "9003fa5099305f05b5fb269ffdf2f4b961d72353fedad946b05594f5e4c7a939"
+        },
+        {
+          "path": "assets/ninja/Run (7).png",
+          "sha256": "fe2bd878b84d0db115dae64656904cf7ac70afdbe1ef70b3acbeb4da797085a9"
+        },
+        {
+          "path": "assets/ninja/Run (8).png",
+          "sha256": "b4ab32fd8497c1d9938a97a02705a49da439239261da56d024c9e2eb4a5c994d"
+        },
+        {
+          "path": "assets/ninja/Run (9).png",
+          "sha256": "9cec762184ecc45d6f6280dd2fd902d7a3717b77e4f06155ea3923756b8fe31a"
+        },
+        {
+          "path": "assets/ninja/Walk (1).png",
+          "sha256": "cdef02a5555f3cd4ef85ad76a6efbf7c91f7b9b1ec78ef65c662db684e7529a0"
+        },
+        {
+          "path": "assets/ninja/Walk (10).png",
+          "sha256": "4355a26cad8e9aebe6577d81a387daf0802a7da520e655db93343f568d7a3ebb"
+        },
+        {
+          "path": "assets/ninja/Walk (2).png",
+          "sha256": "8013fddefb284075164858edb2ceee216347e265fcff69b374ce4a4264b30897"
+        },
+        {
+          "path": "assets/ninja/Walk (3).png",
+          "sha256": "707ddc7fb87b4ddc18c81352cc653b89c3b942ebcb4d9256dea6ba5d2685f00e"
+        },
+        {
+          "path": "assets/ninja/Walk (4).png",
+          "sha256": "03d8cd607dc37de0aef1883919bc0313bffee85b445658b18411f52e47ad81e8"
+        },
+        {
+          "path": "assets/ninja/Walk (5).png",
+          "sha256": "c5ec5152a19b8fc1ce23ea55dbaa5e293538f09b5b8238ce2717bfdd199c7e85"
+        },
+        {
+          "path": "assets/ninja/Walk (6).png",
+          "sha256": "0350f8d5c31c235b79337152908446853245b6b2b2e384b21cb212837794065d"
+        },
+        {
+          "path": "assets/ninja/Walk (7).png",
+          "sha256": "1eed321418b4c20c3be3be89ed033d4e02e7fff9c4c637b51bfbdfda9d700a92"
+        },
+        {
+          "path": "assets/ninja/Walk (8).png",
+          "sha256": "964d5a8e793750dc800650612a9480e2da91c3d223e7cdcab25f3169469bde40"
+        },
+        {
+          "path": "assets/ninja/Walk (9).png",
+          "sha256": "ff8863152a575ef1e1a890006c217585458046cf7f4091c0cf5186c2a74be879"
+        },
+        {
+          "path": "assets/outback.png",
+          "sha256": "b4d02cf557f6bdfbd59fd384160a5d583d4adf8b1610d25d1ceeafcb98f26766"
+        }
+      ]
+    },
+    {
+      "id": "demo/tiled",
+      "kind": "demo",
+      "source": "examples/src/main/java/demos/tiled",
+      "libraryVersion": "6.5.0",
+      "flavour": "standard",
+      "requiredSheets": [],
+      "files": [
+        {
+          "path": "Bamboo.java",
+          "sha256": "e34a0f3974c9fd718b5dc64e18de87f4678c7d094419f99e9fde16784c5775b0"
+        },
+        {
+          "path": "Enemy.java",
+          "sha256": "290723fdc9747e0288e113a83f612f1a114528e38d0141c4e7cdbffdb21ce2ed"
+        },
+        {
+          "path": "Fireball.java",
+          "sha256": "d4ad9b4da3834994033969c1fd3003e06313d384054a58b2906122c35b15e58b"
+        },
+        {
+          "path": "GameState.java",
+          "sha256": "92bb156764a03a3a6109ff4514e5d7f71a1556662b9d8a6e5def64f26f7ac1ad"
+        },
+        {
+          "path": "I18n.java",
+          "sha256": "ab50fdeecfe539ae53a63b44079d390d579cf81730983ccf8ca50d074541bdb3"
+        },
+        {
+          "path": "Item.java",
+          "sha256": "5e09c2f6a37de88ac4938e3cf5d99b6c5975d120395810624bf9558289be5323"
+        },
+        {
+          "path": "Level.java",
+          "sha256": "cc23dac470d5f1c6368546d84281a5d28cef6727c90ed2041879fbc516fcd0bf"
+        },
+        {
+          "path": "Level1.tmx",
+          "sha256": "334bccc84e506defd4c0930e139ea67a28941d35fa8328ad6935efdb2f0fca14"
+        },
+        {
+          "path": "Level2.tmx",
+          "sha256": "aa27200038c129021218d07ee9f77000692dac6a5a701465290e2dfe1b4df17e"
+        },
+        {
+          "path": "Player.java",
+          "sha256": "ea4b1ae4977cec0863375b8513c79bff66b7f0c47992fe06496f54ff245f4aff"
+        },
+        {
+          "path": "Tiled.java",
+          "sha256": "5d36d108981a89c7623489946d592bd11f910e023a8103eef1fca67b290bcec6"
+        },
+        {
+          "path": "UIItem.java",
+          "sha256": "a6910a0d8669272a46e6734062bef5baa6cee95c583d426e9aa2a9c468be1c7c"
+        },
+        {
+          "path": "Wall.java",
+          "sha256": "963ce9699a316643dc34378e90d3c151c23fef711fe70e96465fd88866d4e889"
+        },
+        {
+          "path": "Warp.java",
+          "sha256": "4e2f9addd0b0fc37f214e986e1331d479b6f4365b9e4e09040d9ed41185e02e6"
+        },
+        {
+          "path": "Water.java",
+          "sha256": "7ce93aaf4dcaf755a57ccefe7ad6ca115bf7d6e2ecade68386aaa634f70c6442"
+        },
+        {
+          "path": "assets/Bamboo.png",
+          "sha256": "767a9fe9f5a386fb095471c2e934be15c6725be114a00c731500746ba98247fd"
+        },
+        {
+          "path": "assets/Fireball.png",
+          "sha256": "366f2d49d9456c32c0eec2ce96e5487011af35da8007a0ef7cf82788e93a7b75"
+        },
+        {
+          "path": "assets/Retro Gaming.ttf",
+          "sha256": "dfd827142124c0fab4b916a4c72dbf4c91a9069a150aa8be71d0566f6d612066"
+        },
+        {
+          "path": "assets/ScrollFire.png",
+          "sha256": "899b4bc72a4a95e7c93ba481bfda2c2fd9990159db86523eb33a6dbcc260b69b"
+        },
+        {
+          "path": "assets/ScrollWater.png",
+          "sha256": "274a12dd4ec4ccf2a4a4884d647c3880f7a3d7cb499aa573e7ad8d58fa5a3e0e"
+        },
+        {
+          "path": "assets/Skeleton.png",
+          "sha256": "81fc368cb542892934400f7e3350433ff506ed966f5b9c95543e2745899ce2fe"
+        },
+        {
+          "path": "assets/TilesetField.png",
+          "sha256": "b482b0b257baf09648db4d507ca255231fc4bff2dff89e59a9f70ba66b9e1845"
+        },
+        {
+          "path": "assets/TilesetFloor.png",
+          "sha256": "5a4b0208e732a48f16fbe50ced54910cf0cb7ccc5552f426e5fb586829819681"
+        },
+        {
+          "path": "assets/TilesetWater.png",
+          "sha256": "3d37d9581179c746fb55bc5e9eb83ed7f2ca6e0ee892cb9c0627250833b02277"
+        }
+      ]
+    },
+    {
+      "id": "demo/timedDot",
+      "kind": "demo",
+      "source": "examples/src/main/java/demos/timedDot",
+      "libraryVersion": "6.5.0",
+      "flavour": "standard",
+      "requiredSheets": [],
+      "files": [
+        {
+          "path": "TimedDot.java",
+          "sha256": "4ffd93113ccce1ebe8461c3178a5155b6b6ce94e8f4067d34dd1e0bad081617d"
+        }
+      ]
+    },
+    {
+      "id": "demo/timer",
+      "kind": "demo",
+      "source": "examples/src/main/java/demos/timer",
+      "libraryVersion": "6.5.0",
+      "flavour": "standard",
+      "requiredSheets": [],
+      "files": [
+        {
+          "path": "TimerStage.java",
+          "sha256": "a9e9bf9cb594f18cf50898f1755bacd08708f2ac29b5d2286047eb9648e36626"
+        }
+      ]
+    },
+    {
+      "id": "demo/ui",
+      "kind": "demo",
+      "source": "examples/src/main/java/demos/ui",
+      "libraryVersion": "6.5.0",
+      "flavour": "standard",
+      "requiredSheets": [],
+      "files": [
+        {
+          "path": "UI.java",
+          "sha256": "70abb18e4bb6b1ddf58b8b87407723871abe00b69c3e0066fa0d65818f8edb93"
+        },
+        {
+          "path": "bar_round_gloss_large.png",
+          "sha256": "44fea9186b56afe4c1cfc676b0dcf64fdee42c18ef4843389acc294b5666cbf0"
+        },
+        {
+          "path": "bar_round_gloss_large_gray.png",
+          "sha256": "4f5c4d98f462cb38b7e81ad1f45a529a63f224fb032e430eec0df53da1f8fb46"
+        },
+        {
+          "path": "crosshair_color_c.png",
+          "sha256": "53ad72c48a8fdb550b1e4cf2b6cf97e2de7a892cdbcb098e73263d804b530127"
+        },
+        {
+          "path": "metalPanel_greenCorner.png",
+          "sha256": "8f8b0f856a0da0abb1aad33497331eb1f892bf7ea9f97e945882c8dd83164c70"
+        }
+      ]
+    },
+    {
+      "id": "demo/volume",
+      "kind": "demo",
+      "source": "examples/src/main/java/demos/volume",
+      "libraryVersion": "6.5.0",
+      "flavour": "standard",
+      "requiredSheets": [
+        "platformer",
+        "tappy_plane"
+      ],
+      "files": [
+        {
+          "path": "Volume.java",
+          "sha256": "0cc43883cd844833e4e69b7a069a995feae6e0ad01dbe60a4da4f2f146fdc959"
+        }
+      ]
+    },
+    {
+      "id": "tutorial/Halloween",
+      "kind": "tutorial",
+      "source": "docs/archives/Halloween",
+      "libraryVersion": "6.5.0",
+      "flavour": "standard",
+      "requiredSheets": [],
+      "files": [
+        {
+          "path": "GhostSprite.java",
+          "sha256": "cfd42ab8644f073f4a43ba8ee81c2b5138847cac785a4a6e54e71956d3bba6c8"
+        },
+        {
+          "path": "HalloweenStage.java",
+          "sha256": "d5a3528a091191268c21d58784cb83edb8a8007be30f02b12c12cae088bb9956"
+        },
+        {
+          "path": "HouseSprite.java",
+          "sha256": "58e61a14d64b70fb3e4b98337a5ce347ee8441af6a39bb0496156c2813e21812"
+        },
+        {
+          "path": "PumpkinSprite.java",
+          "sha256": "867d2776e5bfedd90195ff524d1c948863cdedc25174fac4564a06b8c64438d9"
+        },
+        {
+          "path": "sounds/background.wav",
+          "sha256": "36fa67c1a4c199dccfe608b1ff64170551949c73003fb26b9da708cc2e2114b7"
+        },
+        {
+          "path": "sounds/door.wav",
+          "sha256": "ee087d54d051f29102b3ea941b37761970780ece13dc11d7aa8a23d68e6d5b0f"
+        },
+        {
+          "path": "sounds/ghost.wav",
+          "sha256": "edc570c66f778ea33affa5ab73ea96f059943bcfe412b266295a769ace824e6d"
+        },
+        {
+          "path": "sprites/background.jpg",
+          "sha256": "4fe64d2bcdbdbccaeb385e609517fc403a0376f4edce2278000e54c9028b8988"
+        },
+        {
+          "path": "sprites/castle_off.png",
+          "sha256": "d269553f298a33879f87523e012ad02d28deead9bf243b55b5df3de4bce49cc6"
+        },
+        {
+          "path": "sprites/castle_on.png",
+          "sha256": "24085f67d62563a9aef4c6f0fb2f8a39d17cf2cd1ebecb4320cce0196e30e781"
+        },
+        {
+          "path": "sprites/ghost/ghost_01.png",
+          "sha256": "c5347db7381e24b302ec5645672ee51246fa385849f5cc2ff26601eb87fa40dd"
+        },
+        {
+          "path": "sprites/ghost/ghost_02.png",
+          "sha256": "cabbc13b4ae8d8c7af666393a780d86b00591bc52022cee4d435c739a388dff0"
+        },
+        {
+          "path": "sprites/ghost/ghost_03.png",
+          "sha256": "f2b7f233412b4b71b4cb2917233ff811f75108dbf8efe5adc17e044063b319c6"
+        },
+        {
+          "path": "sprites/ghost/ghost_04.png",
+          "sha256": "5640a6c6f320c86ace35f3715ae673580160d6423fc8d109d970180ee936aaa0"
+        },
+        {
+          "path": "sprites/ghost/ghost_05.png",
+          "sha256": "d7a7243abf5d99728511d80123d1126f4383f558f1f908c697101417c50ff618"
+        },
+        {
+          "path": "sprites/ghost/ghost_06.png",
+          "sha256": "ec2e02c3d1bedcf66f4c1c780f053d9cef17b89e14dcb1a1a5b754597398e90a"
+        },
+        {
+          "path": "sprites/ghost/ghost_07.png",
+          "sha256": "042d23019bc143786c00ba551153ab5eb36be365a1252a93467d5922706a81cb"
+        },
+        {
+          "path": "sprites/ghost/ghost_08.png",
+          "sha256": "785e28befc1dba98421e4c45e19870b903700963a915a07b7d4c547565373ecd"
+        },
+        {
+          "path": "sprites/ghost/ghost_09.png",
+          "sha256": "f83b5c359c13dfcacddd4bc6987bf073fba96f06e080e4f4b2d690e8cd57807c"
+        },
+        {
+          "path": "sprites/ghost/ghost_10.png",
+          "sha256": "e155c4ed62aed589a1378613e850ff05ba86e57e82a1e33944efd28b661efc10"
+        },
+        {
+          "path": "sprites/pumpkin/pumpkin_01.png",
+          "sha256": "0b2df0a538510e7f6dc941db10e83dafe3ebde7eb23fb0ff3334bd0b427ca3a9"
+        },
+        {
+          "path": "sprites/pumpkin/pumpkin_02.png",
+          "sha256": "5db69c37a0bcffbbd81690d1fe0d2e75aea9773bfdec6f64fcfb9c109f9b6a3c"
+        }
+      ]
+    },
+    {
+      "id": "tutorial/bouncy-hedgehog",
+      "kind": "tutorial",
+      "source": "docs/archives/bouncy-hedgehog",
+      "libraryVersion": "6.5.0",
+      "flavour": "standard",
+      "requiredSheets": [],
+      "files": [
+        {
+          "path": ".vscode/extensions.json",
+          "sha256": "5d6b599db5e395f6c21b38697c7d9d8768f67dbd0eebc36a6e610cc0a3786ef0"
+        },
+        {
+          "path": ".vscode/settings.json",
+          "sha256": "516b1cf9e9ebc68be9b9e4df0b89c6c43beaa6b8f75be6ed7f1fadae2d5c8ce9"
+        },
+        {
+          "path": "BouncyHedgehogStage.java",
+          "sha256": "111f8154937b02f859884f01497e75c44d075810186566398bdd4162c921c696"
+        },
+        {
+          "path": "HedgehogSprite.java",
+          "sha256": "8e14206fda7f43637aff1e8b7a43e6c42de2ae14de97af2b86dd6f4ad5d50d7b"
+        },
+        {
+          "path": "README.md",
+          "sha256": "a52e43821ba57c053e89735bb8f0fab2cd9f1e039e1f16380405ab14f8654e78"
+        },
+        {
+          "path": "TrampolineSprite.java",
+          "sha256": "a7fdb464a46167825abcefb161b93d3560b0bc8a09c0204879791ddb4e8b988f"
+        },
+        {
+          "path": "hedgehog.png",
+          "sha256": "731e677d38912bf339a16cda8c61035db1db52489c462181e9be4874bd310db7"
+        },
+        {
+          "path": "playground.jpg",
+          "sha256": "c68f76ab3c5ac54be427706d571cd5b268141c4448b88e7277ebae45c347f0dd"
+        },
+        {
+          "path": "trampoline.png",
+          "sha256": "ca11b0fbb8ec2f002f30659bda64a3d979d65f8d0f465629cd19b57c81e18df8"
+        }
+      ]
+    },
+    {
+      "id": "tutorial/bouncy-hedgehog-100",
+      "kind": "tutorial",
+      "source": "docs/archives/bouncy-hedgehog-100",
+      "libraryVersion": "6.5.0",
+      "flavour": "standard",
+      "requiredSheets": [],
+      "files": [
+        {
+          "path": ".vscode/extensions.json",
+          "sha256": "5d6b599db5e395f6c21b38697c7d9d8768f67dbd0eebc36a6e610cc0a3786ef0"
+        },
+        {
+          "path": ".vscode/settings.json",
+          "sha256": "516b1cf9e9ebc68be9b9e4df0b89c6c43beaa6b8f75be6ed7f1fadae2d5c8ce9"
+        },
+        {
+          "path": "BouncyHedgehogStage.java",
+          "sha256": "0356aba1f79f5a23d2d2ed13ce7157670d30cb8a24730218c84cb43392ba047d"
+        },
+        {
+          "path": "HedgehogSprite.java",
+          "sha256": "d61607987dd294df1cbb047f80237bb532c997bc7eedb79f3add193b6414fa14"
+        },
+        {
+          "path": "README.md",
+          "sha256": "a52e43821ba57c053e89735bb8f0fab2cd9f1e039e1f16380405ab14f8654e78"
+        },
+        {
+          "path": "TrampolineSprite.java",
+          "sha256": "772f0a558c510ede2a18b1a7ecce84f6040bc0227e5bf9073ee70142b4631619"
+        },
+        {
+          "path": "hedgehog.png",
+          "sha256": "731e677d38912bf339a16cda8c61035db1db52489c462181e9be4874bd310db7"
+        },
+        {
+          "path": "playground.jpg",
+          "sha256": "c68f76ab3c5ac54be427706d571cd5b268141c4448b88e7277ebae45c347f0dd"
+        },
+        {
+          "path": "trampoline.png",
+          "sha256": "ca11b0fbb8ec2f002f30659bda64a3d979d65f8d0f465629cd19b57c81e18df8"
+        }
+      ]
+    },
+    {
+      "id": "tutorial/cat",
+      "kind": "tutorial",
+      "source": "docs/archives/cat",
+      "libraryVersion": "6.5.0",
+      "flavour": "standard",
+      "requiredSheets": [],
+      "files": [
+        {
+          "path": "CatSprite.java",
+          "sha256": "f21ff0ec0c7ffa8c269d91fbac2ac0dbce1154ac6ac41cefe9e2cae198c20d3f"
+        },
+        {
+          "path": "CatStage.java",
+          "sha256": "8fe655126ec3bedcf3024c5842ad826125e2a80d06dd4a24111440ce2df4f013"
+        },
+        {
+          "path": "cat.png",
+          "sha256": "0423f61671a086906d972b266241d557934f86bdb8ec5ad6f50b08f3474efa0f"
+        }
+      ]
+    },
+    {
+      "id": "tutorial/catch-the-coins-100",
+      "kind": "tutorial",
+      "source": "docs/archives/catch-the-coins-100",
+      "libraryVersion": "6.5.0",
+      "flavour": "standard",
+      "requiredSheets": [
+        "platformer",
+        "tappy_plane"
+      ],
+      "files": [
+        {
+          "path": ".vscode/settings.json",
+          "sha256": "76219b6f95a73b8052dd10130e5ebb34aa319e8ab534890c0a2240651c307e7a"
+        },
+        {
+          "path": "Basket.java",
+          "sha256": "aba71aa13ef8a5532339dee94935fb97a1f76228fd6a11268ae8f4e3551a1b1c"
+        },
+        {
+          "path": "CatchStage.java",
+          "sha256": "b405f3db0a0a1669a85bf9fedaa30921080efd28505beacb48b99a8e73f90bdb"
+        },
+        {
+          "path": "Coin.java",
+          "sha256": "50a49df21afb550d3f8baf6968c34a5554069e85446f220ef573eb2e0b45aa8d"
+        },
+        {
+          "path": "README.md",
+          "sha256": "7867d20f01bf95412d4b307e34210e9a62e0850b2db0eb7453a82c011deab634"
+        }
+      ]
+    },
+    {
+      "id": "tutorial/dodge-the-rocks-100",
+      "kind": "tutorial",
+      "source": "docs/archives/dodge-the-rocks-100",
+      "libraryVersion": "6.5.0",
+      "flavour": "standard",
+      "requiredSheets": [
+        "platformer",
+        "tappy_plane"
+      ],
+      "files": [
+        {
+          "path": ".vscode/settings.json",
+          "sha256": "76219b6f95a73b8052dd10130e5ebb34aa319e8ab534890c0a2240651c307e7a"
+        },
+        {
+          "path": "Alien.java",
+          "sha256": "e603e05427f46b8f19be76c0c10094864f91a8db63718218714ab03e4e0f306a"
+        },
+        {
+          "path": "DodgeWindow.java",
+          "sha256": "588a126d4429c06cedc1a79029fdcc96972463b230151403b6e6bf0dac658f18"
+        },
+        {
+          "path": "GameStage.java",
+          "sha256": "a708cd3654b72e2e0db5742b9935ac5d6b81e126193ec32f91dbe0dc9d584ba4"
+        },
+        {
+          "path": "README.md",
+          "sha256": "2222d201aea0e8f6b0531e5344e0ac69a424a45c969f2ad1e29c869d6d7de3bd"
+        },
+        {
+          "path": "Rock.java",
+          "sha256": "ec634e3f3356fe0181e533cbdc04e803c69cee95ba10396b0d82053546498276"
+        },
+        {
+          "path": "TitleStage.java",
+          "sha256": "ed6dc9b799881aab876e0ee5a9413c02fade47cfd003ccd3935b68b8e6c04a69"
+        }
+      ]
+    },
+    {
+      "id": "tutorial/getting-started-100",
+      "kind": "tutorial",
+      "source": "docs/archives/getting-started-100",
+      "libraryVersion": "6.5.0",
+      "flavour": "standard",
+      "requiredSheets": [
+        "jumper",
+        "tappy_plane"
+      ],
+      "files": [
+        {
+          "path": ".vscode/settings.json",
+          "sha256": "76219b6f95a73b8052dd10130e5ebb34aa319e8ab534890c0a2240651c307e7a"
+        },
+        {
+          "path": "Bunny.java",
+          "sha256": "143516e78f5a724c4787e357342f55009209dcdbf1133083cf8cf0bc8a46bcd8"
+        },
+        {
+          "path": "MyStage.java",
+          "sha256": "6741940805a7748caa1b7b02f512ce92734befe68b04f564d7dfff7d4dd08bee"
+        },
+        {
+          "path": "README.md",
+          "sha256": "1cf7971612162c7486cd95894fa740ec9f3e8f8268e01790ef5cb48ed37a0507"
+        }
+      ]
+    },
+    {
+      "id": "tutorial/guess-the-number-100",
+      "kind": "tutorial",
+      "source": "docs/archives/guess-the-number-100",
+      "libraryVersion": "6.5.0",
+      "flavour": "standard",
+      "requiredSheets": [
+        "platformer",
+        "tappy_plane"
+      ],
+      "files": [
+        {
+          "path": ".vscode/settings.json",
+          "sha256": "76219b6f95a73b8052dd10130e5ebb34aa319e8ab534890c0a2240651c307e7a"
+        },
+        {
+          "path": "GuessStage.java",
+          "sha256": "ceebfad72149ac6cf2dcac141117f51b6c5cdfb9b8d2b4f7f7df7dc3357fc8d1"
+        },
+        {
+          "path": "README.md",
+          "sha256": "2e83410662b1d66e3b506bc668ecb59ee2651b9fe5344a1b16e0c43b6e0c6d27"
+        }
+      ]
+    },
+    {
+      "id": "tutorial/make-it-walk-100",
+      "kind": "tutorial",
+      "source": "docs/archives/make-it-walk-100",
+      "libraryVersion": "6.5.0",
+      "flavour": "standard",
+      "requiredSheets": [
+        "platformer",
+        "tappy_plane"
+      ],
+      "files": [
+        {
+          "path": ".vscode/settings.json",
+          "sha256": "76219b6f95a73b8052dd10130e5ebb34aa319e8ab534890c0a2240651c307e7a"
+        },
+        {
+          "path": "README.md",
+          "sha256": "fabacace7e210742909cd107a230f3e4c47ca68197963b619c1e932fa1464cc0"
+        },
+        {
+          "path": "WalkStage.java",
+          "sha256": "7b4e98f5ae46bbbcc8ff1d35a0a0dcc1d72f2019610612634659982b56688b80"
+        },
+        {
+          "path": "Walker.java",
+          "sha256": "8d9480e92d0c6e39ef1e63cf88d7c37b0e22881c667193758d9608e972694917"
+        }
+      ]
+    },
+    {
+      "id": "tutorial/red-light-green-light-100",
+      "kind": "tutorial",
+      "source": "docs/archives/red-light-green-light-100",
+      "libraryVersion": "6.5.0",
+      "flavour": "standard",
+      "requiredSheets": [
+        "platformer",
+        "tappy_plane"
+      ],
+      "files": [
+        {
+          "path": ".vscode/settings.json",
+          "sha256": "76219b6f95a73b8052dd10130e5ebb34aa319e8ab534890c0a2240651c307e7a"
+        },
+        {
+          "path": "README.md",
+          "sha256": "343be5278ad1ba4f7f23205363319e90239a1b4a4c5f85340d7af3430e5943d3"
+        },
+        {
+          "path": "RaceStage.java",
+          "sha256": "26ea1728fa6905c22c661a53396aed117211b4cc04a5c198e3644e6f8aacf2d7"
+        },
+        {
+          "path": "Racer.java",
+          "sha256": "9e704919283ba0ae1dbe01a37b110e610f00fe030dca6d7d43722834942516fc"
+        },
+        {
+          "path": "Referee.java",
+          "sha256": "1d979941352ba316da7065711957d988424821569e512e6e131f4cadcac2d992"
+        }
+      ]
+    },
+    {
+      "id": "tutorial/vs-code-starter",
+      "kind": "tutorial",
+      "source": "docs/archives/vs-code-starter",
+      "libraryVersion": "6.5.0",
+      "flavour": "standard",
+      "requiredSheets": [],
+      "files": [
+        {
+          "path": ".vscode/extensions.json",
+          "sha256": "c31c30ca102830cd851010c0cd32527c8b943e248a3f73512ee4da7586021183"
+        },
+        {
+          "path": ".vscode/settings.json",
+          "sha256": "5ab65d6d595d057a9124aa7fe85e76a3f5bb128f1c7b04a7f49aebd0631a4b0a"
+        },
+        {
+          "path": "Cat.java",
+          "sha256": "237a182186dc30651ce89a9c50f1a1e957119e69d4c7292405f06028d60ed35c"
+        },
+        {
+          "path": "MyStage.java",
+          "sha256": "08e71423d91cb006266462d83d15142b9f9c695e0d7e8b259499aeb327c8b005"
+        },
+        {
+          "path": "assets/.gitkeep",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "assets/cat.png",
+          "sha256": "0423f61671a086906d972b266241d557934f86bdb8ec5ad6f50b08f3474efa0f"
+        }
+      ]
+    }
+  ]
+}

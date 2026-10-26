@@ -1,0 +1,24 @@
+package reference;
+import org.openpatch.scratch.Sprite;
+import org.openpatch.scratch.Stage;
+import org.openpatch.scratch.Window;
+
+public class SpriteSetTransparency {
+  public SpriteSetTransparency() {
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
+    Sprite mySprite = new Sprite("slime", "slimeBlue");
+    myStage.add(mySprite);
+    myStage.waitSeconds(2);
+    // The ghost effect: 0 is the solid sprite you start with, 100 is invisible.
+    mySprite.setTransparency(50);
+    myStage.waitSeconds(2);
+    mySprite.setTransparency(90);
+    myStage.waitSeconds(2);
+  }
+
+  public static void main(String[] args) {
+    new SpriteSetTransparency();
+  }
+}

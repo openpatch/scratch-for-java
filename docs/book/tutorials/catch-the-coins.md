@@ -400,7 +400,7 @@ public class CatchStage extends Stage {
 Stop the game after 30 seconds.
 
 :::collapsible{title="Hint"}
-The stage has a `run()` too, and a timer: `this.getTimer().afterMillis(30000)` is
+The stage has a `run()` too, and a timer: `this.getTimer().after(30)` is
 true once 30 seconds have passed. `Window.getInstance().pause()` stops the game
 and leaves the last picture on the screen.
 :::
@@ -410,7 +410,7 @@ Add this method to `CatchStage`:
 
 ```java
 public void run() {
-  if (this.getTimer().afterMillis(30000)) {
+  if (this.getTimer().after(30)) {
     this.scoreText.showText("Time's up! Coins: " + this.score);
     Window.getInstance().pause();
   }

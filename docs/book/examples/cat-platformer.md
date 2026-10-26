@@ -314,7 +314,7 @@ class Ladder extends Sprite {
 }
 
 /** A bug walking to and fro. Jump on it or punch it - but do not walk into it. */
-class Bug extends AnimatedSprite {
+class Bug extends Sprite {
 
   /** The costume is 32 pixels high, the legs end 3 pixels above its bottom. */
   private static final double FEET = 13;
@@ -327,7 +327,7 @@ class Bug extends AnimatedSprite {
   public Bug(double minX, double maxX, double floor) {
     this.addAnimation("walk", "bug_walk_%d", 4);
     this.addAnimation("squished", "bug_squished_%d", 2);
-    this.setAnimationInterval(120);
+    this.setAnimationInterval(0.12);
     this.setRotationStyle(RotationStyle.LEFT_RIGHT);
     this.minX = minX;
     this.maxX = maxX;
@@ -364,11 +364,11 @@ class Bug extends AnimatedSprite {
 }
 
 /** The steaming mug at the end of the level. */
-class Goal extends AnimatedSprite {
+class Goal extends Sprite {
 
   public Goal(double x, double floor) {
     this.addAnimation("steam", "goal_mug_%d", 4);
-    this.setAnimationInterval(150);
+    this.setAnimationInterval(0.15);
     this.setX(x);
     // the mug stands on the bottom two rows of its 32 pixel costume
     this.setY(floor + 14);
@@ -380,7 +380,7 @@ class Goal extends AnimatedSprite {
 }
 
 /** The Scratch for Java cat. Every one of its animations is on the built-in cat sheet. */
-class Cat extends AnimatedSprite {
+class Cat extends Sprite {
 
   /** The costumes are 64 pixels high with the feet on the bottom row. */
   private static final double FEET = 32;
@@ -415,7 +415,7 @@ class Cat extends AnimatedSprite {
     this.addAnimation("ko", "cat_ko_%d", 5);
     this.addAnimation("cheer", "cat_cheer_%d", 4);
     this.addAnimation("climb", "cat_climb_%d", 4);
-    this.setAnimationInterval(100);
+    this.setAnimationInterval(0.1);
     this.addSound("footstep_grass_000");
     this.addSound("impactPunch_medium_004");
     this.addSound("impactSoft_heavy_000");
@@ -632,11 +632,11 @@ class Cat extends AnimatedSprite {
 }
 
 /** A spinning coffee bean to collect. */
-class Bean extends AnimatedSprite {
+class Bean extends Sprite {
 
   public Bean(double x, double y) {
     this.addAnimation("spin", "coffee_bean_%d", 4);
-    this.setAnimationInterval(120);
+    this.setAnimationInterval(0.12);
     this.setX(x);
     this.setY(y);
   }

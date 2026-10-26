@@ -15,7 +15,7 @@ do not have to download a single picture.
 
 :::alert{info}
 You can do this whole page in the browser: every code box with a **▶** is a
-real editor. Working in Studio, BlueJ or VS Code instead? Get it ready with
+real editor. Working in Studio or VS Code instead? Get it ready with
 [Setup](/setup) first, then come back.
 :::
 

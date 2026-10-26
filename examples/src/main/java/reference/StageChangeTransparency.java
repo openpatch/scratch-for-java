@@ -1,0 +1,24 @@
+package reference;
+import org.openpatch.scratch.*;
+
+public class StageChangeTransparency {
+  public StageChangeTransparency() {
+    Window myWindow = new Window(600, 240);
+    Stage myStage = new Stage();
+    myWindow.setStage(myStage);
+    myStage.addBackdrop("forest", "background");
+    // A backdrop starts at 0, fully solid. Stepping up fades it out.
+    while (true) {
+      for (int i = 0; i < 10; i++) {
+        myStage.changeTransparency(10);
+        myStage.waitSeconds(0.1);
+      }
+      myStage.setTransparency(0);
+      myStage.waitSeconds(0.5);
+    }
+  }
+
+  public static void main(String[] args) {
+    new StageChangeTransparency();
+  }
+}

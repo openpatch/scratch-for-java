@@ -1,0 +1,51 @@
+package demos.smartRocket;
+
+import org.openpatch.scratch.*;
+import org.openpatch.scratch.*;
+
+public class Rocket extends Sprite {
+  private Vector2 geschwindigkeit;
+  private Vector2 beschleunigung;
+
+  private double fit;
+  private DNA dna;
+  private int geneZaehler = 0;
+  private Ziel ziel;
+
+  public Rocket(Vector2 pPosition, DNA pDna, Ziel pZiel) {
+    // begin sprite editor
+    this.addCostume("rocket", "demos/smartRocket/assets/rocket.png");
+    this.setHitbox(new Polygon(new double[] {68, 68, 76, 76}, new double[] {27, 20, 21, 26}));
+    // end sprite editor
+    this.setPosition(pPosition);
+    this.beschleunigung = new Vector2();
+    this.geschwindigkeit = new Vector2();
+    this.dna = pDna;
+    this.ziel = pZiel;
+  }
+
+  public void berechneFit() {
+    double d = this.distanceToSprite(ziel);
+    fit = 1 / d * 1 / d;
+  }
+
+  public double gibFit() {
+    return fit;
+  }
+
+  public DNA gibDNA() {
+    return dna;
+  }
+
+  public void run() {
+    if (!this.isTouchingSprite(ziel)) {
+      beschleunigung = beschleunigung.add(dna.gibGene()[geneZaehler]);
+      geneZaehler = (geneZaehler + 1) % dna.gibGene().length;
+      geschwindigkeit = geschwindigkeit.add(beschleunigung);
+      changePosition(geschwindigkeit);
+      beschleunigung = beschleunigung.multiply(0);
+    } else {
+      this.setColorEffect(100);
+    }
+  }
+}
