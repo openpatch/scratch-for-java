@@ -17,7 +17,7 @@ Public constructors and method groups documented by the Javadoc doclet. Overload
 
 - Availability describes documented member groups and browser declarations. Compilation tests do not prove rendering, timing or complete behavioral parity.
 - Shaders are fragment shaders; the browser runs them with WebGL.
-- File access, pixel-buffer, and recorder APIs are desktop-only. Tiled reads finite orthogonal TMX/TSX maps from workspace files or URLs. SaveData instead persists plain game data in IndexedDB, scoped to the hosting origin and browser profile.
+- File access and recorder APIs are desktop-only; Pixels reads the stage on the graphics card. Tiled reads finite orthogonal TMX/TSX maps from workspace files or URLs. SaveData instead persists plain game data in IndexedDB, scoped to the hosting origin and browser profile.
 - Reference examples are compiled with the standard flavor. Existing NRW runtime fixtures and a separate declaration inventory cover the NRW flavor.
 - Java compiler dialect differences also apply, including Java package access and unsupported standard-library methods.
 
@@ -197,7 +197,7 @@ An implemented entry has its documented overloads declared in the browser. The r
 | [Sprite/distanceToMousePointer](/reference/Sprite/distanceToMousePointer) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/distanceToSprite](/reference/Sprite/distanceToSprite) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/enableHitbox](/reference/Sprite/enableHitbox) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Sprite/extension](/reference/Sprite/extension) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [Sprite/extension](/reference/Sprite/extension) | desktop-only | For extensions, which run against the desktop's window and render threads. The browser ships its extensions natively and loads no others. |
 | [Sprite/getAnimationFrame](/reference/Sprite/getAnimationFrame) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/getAnimationInterval](/reference/Sprite/getAnimationInterval) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Sprite/getAnswer](/reference/Sprite/getAnswer) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
@@ -315,7 +315,7 @@ An implemented entry has its documented overloads declared in the browser. The r
 | [Stage/debug](/reference/Stage/debug) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/display](/reference/Stage/display) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/eraseAll](/reference/Stage/eraseAll) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [Stage/extension](/reference/Stage/extension) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [Stage/extension](/reference/Stage/extension) | desktop-only | For extensions, which run against the desktop's window and render threads. The browser ships its extensions natively and loads no others. |
 | [Stage/find](/reference/Stage/find) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/getAll](/reference/Stage/getAll) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [Stage/getAnswer](/reference/Stage/getAnswer) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
@@ -496,12 +496,12 @@ An implemented entry has its documented overloads declared in the browser. The r
 | [drawing/Drawing/noClip](/reference/drawing/Drawing/noClip) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [drawing/Drawing/polygon](/reference/drawing/Drawing/polygon) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [drawing/Drawing/rectangle](/reference/drawing/Drawing/rectangle) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [drawing/DrawingExtension/constructor](/reference/drawing/DrawingExtension/constructor) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [drawing/DrawingExtension/id](/reference/drawing/DrawingExtension/id) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [drawing/DrawingExtension/install](/reference/drawing/DrawingExtension/install) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [drawing/DrawingExtension/name](/reference/drawing/DrawingExtension/name) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [drawing/DrawingExtension/requires](/reference/drawing/DrawingExtension/requires) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [drawing/DrawingExtension/version](/reference/drawing/DrawingExtension/version) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [drawing/DrawingExtension/constructor](/reference/drawing/DrawingExtension/constructor) | desktop-only | The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively. |
+| [drawing/DrawingExtension/id](/reference/drawing/DrawingExtension/id) | desktop-only | The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively. |
+| [drawing/DrawingExtension/install](/reference/drawing/DrawingExtension/install) | desktop-only | The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively. |
+| [drawing/DrawingExtension/name](/reference/drawing/DrawingExtension/name) | desktop-only | The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively. |
+| [drawing/DrawingExtension/requires](/reference/drawing/DrawingExtension/requires) | desktop-only | The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively. |
+| [drawing/DrawingExtension/version](/reference/drawing/DrawingExtension/version) | desktop-only | The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively. |
 | [drawing/DrawingSprite/constructor](/reference/drawing/DrawingSprite/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [drawing/DrawingSprite/draw](/reference/drawing/DrawingSprite/draw) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [extension/Canvas/clip](/reference/extension/Canvas/clip) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
@@ -567,26 +567,26 @@ An implemented entry has its documented overloads declared in the browser. The r
 | [gamepad/GamepadListener/whenGamepadButtonPressed](/reference/gamepad/GamepadListener/whenGamepadButtonPressed) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [gamepad/GamepadListener/whenGamepadButtonReleased](/reference/gamepad/GamepadListener/whenGamepadButtonReleased) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [gamepad/GamepadListener/whenGamepadConnected](/reference/gamepad/GamepadListener/whenGamepadConnected) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [recorder/GifEncoder/addFrame](/reference/recorder/GifEncoder/addFrame) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [recorder/GifEncoder/constructor](/reference/recorder/GifEncoder/constructor) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [recorder/GifEncoder/finish](/reference/recorder/GifEncoder/finish) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [recorder/GifEncoder/setDelay](/reference/recorder/GifEncoder/setDelay) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [recorder/GifEncoder/setDispose](/reference/recorder/GifEncoder/setDispose) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [recorder/GifEncoder/setFrameRate](/reference/recorder/GifEncoder/setFrameRate) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [recorder/GifEncoder/setQuality](/reference/recorder/GifEncoder/setQuality) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [recorder/GifEncoder/setRepeat](/reference/recorder/GifEncoder/setRepeat) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [recorder/GifEncoder/setTransparent](/reference/recorder/GifEncoder/setTransparent) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [recorder/GifEncoder/start](/reference/recorder/GifEncoder/start) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [recorder/GifEncoder/addFrame](/reference/recorder/GifEncoder/addFrame) | desktop-only | The encoder behind the desktop's GifRecorder; recording is desktop-only. |
+| [recorder/GifEncoder/constructor](/reference/recorder/GifEncoder/constructor) | desktop-only | The encoder behind the desktop's GifRecorder; recording is desktop-only. |
+| [recorder/GifEncoder/finish](/reference/recorder/GifEncoder/finish) | desktop-only | The encoder behind the desktop's GifRecorder; recording is desktop-only. |
+| [recorder/GifEncoder/setDelay](/reference/recorder/GifEncoder/setDelay) | desktop-only | The encoder behind the desktop's GifRecorder; recording is desktop-only. |
+| [recorder/GifEncoder/setDispose](/reference/recorder/GifEncoder/setDispose) | desktop-only | The encoder behind the desktop's GifRecorder; recording is desktop-only. |
+| [recorder/GifEncoder/setFrameRate](/reference/recorder/GifEncoder/setFrameRate) | desktop-only | The encoder behind the desktop's GifRecorder; recording is desktop-only. |
+| [recorder/GifEncoder/setQuality](/reference/recorder/GifEncoder/setQuality) | desktop-only | The encoder behind the desktop's GifRecorder; recording is desktop-only. |
+| [recorder/GifEncoder/setRepeat](/reference/recorder/GifEncoder/setRepeat) | desktop-only | The encoder behind the desktop's GifRecorder; recording is desktop-only. |
+| [recorder/GifEncoder/setTransparent](/reference/recorder/GifEncoder/setTransparent) | desktop-only | The encoder behind the desktop's GifRecorder; recording is desktop-only. |
+| [recorder/GifEncoder/start](/reference/recorder/GifEncoder/start) | desktop-only | The encoder behind the desktop's GifRecorder; recording is desktop-only. |
 | [recorder/GifRecorder/constructor](/reference/recorder/GifRecorder/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [recorder/GifRecorder/snapshot](/reference/recorder/GifRecorder/snapshot) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [recorder/GifRecorder/start](/reference/recorder/GifRecorder/start) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [recorder/GifRecorder/stop](/reference/recorder/GifRecorder/stop) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [recorder/RecorderExtension/constructor](/reference/recorder/RecorderExtension/constructor) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [recorder/RecorderExtension/id](/reference/recorder/RecorderExtension/id) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [recorder/RecorderExtension/install](/reference/recorder/RecorderExtension/install) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [recorder/RecorderExtension/name](/reference/recorder/RecorderExtension/name) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [recorder/RecorderExtension/requires](/reference/recorder/RecorderExtension/requires) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [recorder/RecorderExtension/version](/reference/recorder/RecorderExtension/version) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [recorder/RecorderExtension/constructor](/reference/recorder/RecorderExtension/constructor) | desktop-only | The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively. |
+| [recorder/RecorderExtension/id](/reference/recorder/RecorderExtension/id) | desktop-only | The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively. |
+| [recorder/RecorderExtension/install](/reference/recorder/RecorderExtension/install) | desktop-only | The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively. |
+| [recorder/RecorderExtension/name](/reference/recorder/RecorderExtension/name) | desktop-only | The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively. |
+| [recorder/RecorderExtension/requires](/reference/recorder/RecorderExtension/requires) | desktop-only | The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively. |
+| [recorder/RecorderExtension/version](/reference/recorder/RecorderExtension/version) | desktop-only | The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively. |
 | [save/File/constructor](/reference/save/File/constructor) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
 | [save/File/load](/reference/save/File/load) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
 | [save/File/loadOrCreate](/reference/save/File/loadOrCreate) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
@@ -599,26 +599,26 @@ An implemented entry has its documented overloads declared in the browser. The r
 | [save/SaveData/loadOrDefault](/reference/save/SaveData/loadOrDefault) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [save/SaveData/path](/reference/save/SaveData/path) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
 | [save/SaveData/save](/reference/save/SaveData/save) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [save/SaveExtension/constructor](/reference/save/SaveExtension/constructor) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [save/SaveExtension/id](/reference/save/SaveExtension/id) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [save/SaveExtension/name](/reference/save/SaveExtension/name) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [save/SaveExtension/requires](/reference/save/SaveExtension/requires) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [save/SaveExtension/version](/reference/save/SaveExtension/version) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [tiled/MapObject/constructor](/reference/tiled/MapObject/constructor) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [save/SaveExtension/constructor](/reference/save/SaveExtension/constructor) | desktop-only | The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively. |
+| [save/SaveExtension/id](/reference/save/SaveExtension/id) | desktop-only | The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively. |
+| [save/SaveExtension/name](/reference/save/SaveExtension/name) | desktop-only | The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively. |
+| [save/SaveExtension/requires](/reference/save/SaveExtension/requires) | desktop-only | The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively. |
+| [save/SaveExtension/version](/reference/save/SaveExtension/version) | desktop-only | The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively. |
+| [tiled/MapObject/constructor](/reference/tiled/MapObject/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [tiled/MapObject/getProperty](/reference/tiled/MapObject/getProperty) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [tiled/MapObject/getPropertyBoolean](/reference/tiled/MapObject/getPropertyBoolean) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [tiled/MapObject/getPropertyFloat](/reference/tiled/MapObject/getPropertyFloat) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [tiled/MapObject/getPropertyInt](/reference/tiled/MapObject/getPropertyInt) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [tiled/MapObject/getShape](/reference/tiled/MapObject/getShape) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [tiled/MapObject/setClassName](/reference/tiled/MapObject/setClassName) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [tiled/Property/constructor](/reference/tiled/Property/constructor) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [tiled/Property/constructor](/reference/tiled/Property/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [tiled/Property/setText](/reference/tiled/Property/setText) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [tiled/TiledExtension/constructor](/reference/tiled/TiledExtension/constructor) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [tiled/TiledExtension/id](/reference/tiled/TiledExtension/id) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [tiled/TiledExtension/install](/reference/tiled/TiledExtension/install) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [tiled/TiledExtension/name](/reference/tiled/TiledExtension/name) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [tiled/TiledExtension/requires](/reference/tiled/TiledExtension/requires) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [tiled/TiledExtension/version](/reference/tiled/TiledExtension/version) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [tiled/TiledExtension/constructor](/reference/tiled/TiledExtension/constructor) | desktop-only | The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively. |
+| [tiled/TiledExtension/id](/reference/tiled/TiledExtension/id) | desktop-only | The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively. |
+| [tiled/TiledExtension/install](/reference/tiled/TiledExtension/install) | desktop-only | The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively. |
+| [tiled/TiledExtension/name](/reference/tiled/TiledExtension/name) | desktop-only | The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively. |
+| [tiled/TiledExtension/requires](/reference/tiled/TiledExtension/requires) | desktop-only | The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively. |
+| [tiled/TiledExtension/version](/reference/tiled/TiledExtension/version) | desktop-only | The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively. |
 | [tiled/TiledMap/constructor](/reference/tiled/TiledMap/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [tiled/TiledMap/getHeight](/reference/tiled/TiledMap/getHeight) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [tiled/TiledMap/getObjectsFromLayer](/reference/tiled/TiledMap/getObjectsFromLayer) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
@@ -634,5 +634,5 @@ An implemented entry has its documented overloads declared in the browser. The r
 | [tiled/TiledMap/hideLayer](/reference/tiled/TiledMap/hideLayer) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [tiled/TiledMap/showLayer](/reference/tiled/TiledMap/showLayer) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [tiled/TiledMap/spawn](/reference/tiled/TiledMap/spawn) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
-| [tiled/TiledMap/toString](/reference/tiled/TiledMap/toString) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
-| [tiled/TilesetImage/constructor](/reference/tiled/TilesetImage/constructor) | awaiting-browser-support | Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract. |
+| [tiled/TiledMap/toString](/reference/tiled/TiledMap/toString) | desktop-only | Prints the desktop's parsed TMX tree as JSON; the browser reads maps without it. |
+| [tiled/TilesetImage/constructor](/reference/tiled/TilesetImage/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |

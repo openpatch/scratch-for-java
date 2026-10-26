@@ -7850,6 +7850,13 @@
     ],
     "org.openpatch.scratch.tiled.MapObject": [
       {
+        "name": "MapObject",
+        "constructor": true,
+        "static": false,
+        "parameters": [],
+        "returns": "org.openpatch.scratch.tiled.MapObject"
+      },
+      {
         "name": "getProperty",
         "constructor": false,
         "static": false,
@@ -7903,6 +7910,13 @@
       }
     ],
     "org.openpatch.scratch.tiled.Property": [
+      {
+        "name": "Property",
+        "constructor": true,
+        "static": false,
+        "parameters": [],
+        "returns": "org.openpatch.scratch.tiled.Property"
+      },
       {
         "name": "setText",
         "constructor": false,
@@ -8076,7 +8090,15 @@
         "returns": "List<org.openpatch.scratch.Sprite>"
       }
     ],
-    "org.openpatch.scratch.tiled.TilesetImage": []
+    "org.openpatch.scratch.tiled.TilesetImage": [
+      {
+        "name": "TilesetImage",
+        "constructor": true,
+        "static": false,
+        "parameters": [],
+        "returns": "org.openpatch.scratch.tiled.TilesetImage"
+      }
+    ]
   },
   "nrw": {
     "org.openpatch.scratch.Bounds": [
@@ -15929,6 +15951,13 @@
     ],
     "org.openpatch.scratch.tiled.MapObject": [
       {
+        "name": "MapObject",
+        "constructor": true,
+        "static": false,
+        "parameters": [],
+        "returns": "org.openpatch.scratch.tiled.MapObject"
+      },
+      {
         "name": "getProperty",
         "constructor": false,
         "static": false,
@@ -15982,6 +16011,13 @@
       }
     ],
     "org.openpatch.scratch.tiled.Property": [
+      {
+        "name": "Property",
+        "constructor": true,
+        "static": false,
+        "parameters": [],
+        "returns": "org.openpatch.scratch.tiled.Property"
+      },
       {
         "name": "setText",
         "constructor": false,
@@ -16155,6 +16191,14 @@
         "returns": "List<org.openpatch.scratch.Sprite>"
       }
     ],
-    "org.openpatch.scratch.tiled.TilesetImage": []
+    "org.openpatch.scratch.tiled.TilesetImage": [
+      {
+        "name": "TilesetImage",
+        "constructor": true,
+        "static": false,
+        "parameters": [],
+        "returns": "org.openpatch.scratch.tiled.TilesetImage"
+      }
+    ]
   }
 }

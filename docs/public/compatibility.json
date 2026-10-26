@@ -23,7 +23,7 @@
   "limitations": [
     "Availability describes documented member groups and browser declarations. Compilation tests do not prove rendering, timing or complete behavioral parity.",
     "Shaders are fragment shaders; the browser runs them with WebGL.",
-    "File access, pixel-buffer, and recorder APIs are desktop-only. Tiled reads finite orthogonal TMX/TSX maps from workspace files or URLs. SaveData instead persists plain game data in IndexedDB, scoped to the hosting origin and browser profile.",
+    "File access and recorder APIs are desktop-only; Pixels reads the stage on the graphics card. Tiled reads finite orthogonal TMX/TSX maps from workspace files or URLs. SaveData instead persists plain game data in IndexedDB, scoped to the hosting origin and browser profile.",
     "Reference examples are compiled with the standard flavor. Existing NRW runtime fixtures and a separate declaration inventory cover the NRW flavor.",
     "Java compiler dialect differences also apply, including Java package access and unsupported standard-library methods."
   ],
@@ -5111,8 +5111,8 @@
           "since": ""
         }
       ],
-      "status": "awaiting-browser-support",
-      "reason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "status": "desktop-only",
+      "reason": "For extensions, which run against the desktop's window and render threads. The browser ships its extensions natively and loads no others.",
       "missingBrowserSignatures": [
         {
           "name": "extension",
@@ -8475,8 +8475,8 @@
           "since": ""
         }
       ],
-      "status": "awaiting-browser-support",
-      "reason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "status": "desktop-only",
+      "reason": "For extensions, which run against the desktop's window and render threads. The browser ships its extensions natively and loads no others.",
       "missingBrowserSignatures": [
         {
           "name": "extension",
@@ -13553,8 +13553,8 @@
           "since": ""
         }
       ],
-      "status": "awaiting-browser-support",
-      "reason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "status": "desktop-only",
+      "reason": "The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively.",
       "missingBrowserSignatures": [
         {
           "name": "DrawingExtension",
@@ -13589,8 +13589,8 @@
           "since": ""
         }
       ],
-      "status": "awaiting-browser-support",
-      "reason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "status": "desktop-only",
+      "reason": "The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively.",
       "missingBrowserSignatures": [
         {
           "name": "id",
@@ -13631,8 +13631,8 @@
           "since": ""
         }
       ],
-      "status": "awaiting-browser-support",
-      "reason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "status": "desktop-only",
+      "reason": "The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively.",
       "missingBrowserSignatures": [
         {
           "name": "install",
@@ -13673,8 +13673,8 @@
           "since": ""
         }
       ],
-      "status": "awaiting-browser-support",
-      "reason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "status": "desktop-only",
+      "reason": "The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively.",
       "missingBrowserSignatures": [
         {
           "name": "name",
@@ -13709,8 +13709,8 @@
           "since": ""
         }
       ],
-      "status": "awaiting-browser-support",
-      "reason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "status": "desktop-only",
+      "reason": "The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively.",
       "missingBrowserSignatures": [
         {
           "name": "requires",
@@ -13745,8 +13745,8 @@
           "since": ""
         }
       ],
-      "status": "awaiting-browser-support",
-      "reason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "status": "desktop-only",
+      "reason": "The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively.",
       "missingBrowserSignatures": [
         {
           "name": "version",
@@ -16496,8 +16496,8 @@
           "since": ""
         }
       ],
-      "status": "awaiting-browser-support",
-      "reason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "status": "desktop-only",
+      "reason": "The encoder behind the desktop's GifRecorder; recording is desktop-only.",
       "missingBrowserSignatures": [
         {
           "name": "addFrame",
@@ -16544,8 +16544,8 @@
           "since": ""
         }
       ],
-      "status": "awaiting-browser-support",
-      "reason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "status": "desktop-only",
+      "reason": "The encoder behind the desktop's GifRecorder; recording is desktop-only.",
       "missingBrowserSignatures": [
         {
           "name": "GifEncoder",
@@ -16580,8 +16580,8 @@
           "since": ""
         }
       ],
-      "status": "awaiting-browser-support",
-      "reason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "status": "desktop-only",
+      "reason": "The encoder behind the desktop's GifRecorder; recording is desktop-only.",
       "missingBrowserSignatures": [
         {
           "name": "finish",
@@ -16622,8 +16622,8 @@
           "since": ""
         }
       ],
-      "status": "awaiting-browser-support",
-      "reason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "status": "desktop-only",
+      "reason": "The encoder behind the desktop's GifRecorder; recording is desktop-only.",
       "missingBrowserSignatures": [
         {
           "name": "setDelay",
@@ -16670,8 +16670,8 @@
           "since": ""
         }
       ],
-      "status": "awaiting-browser-support",
-      "reason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "status": "desktop-only",
+      "reason": "The encoder behind the desktop's GifRecorder; recording is desktop-only.",
       "missingBrowserSignatures": [
         {
           "name": "setDispose",
@@ -16718,8 +16718,8 @@
           "since": ""
         }
       ],
-      "status": "awaiting-browser-support",
-      "reason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "status": "desktop-only",
+      "reason": "The encoder behind the desktop's GifRecorder; recording is desktop-only.",
       "missingBrowserSignatures": [
         {
           "name": "setFrameRate",
@@ -16766,8 +16766,8 @@
           "since": ""
         }
       ],
-      "status": "awaiting-browser-support",
-      "reason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "status": "desktop-only",
+      "reason": "The encoder behind the desktop's GifRecorder; recording is desktop-only.",
       "missingBrowserSignatures": [
         {
           "name": "setQuality",
@@ -16814,8 +16814,8 @@
           "since": ""
         }
       ],
-      "status": "awaiting-browser-support",
-      "reason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "status": "desktop-only",
+      "reason": "The encoder behind the desktop's GifRecorder; recording is desktop-only.",
       "missingBrowserSignatures": [
         {
           "name": "setRepeat",
@@ -16862,8 +16862,8 @@
           "since": ""
         }
       ],
-      "status": "awaiting-browser-support",
-      "reason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "status": "desktop-only",
+      "reason": "The encoder behind the desktop's GifRecorder; recording is desktop-only.",
       "missingBrowserSignatures": [
         {
           "name": "setTransparent",
@@ -16929,8 +16929,8 @@
           "since": ""
         }
       ],
-      "status": "awaiting-browser-support",
-      "reason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "status": "desktop-only",
+      "reason": "The encoder behind the desktop's GifRecorder; recording is desktop-only.",
       "missingBrowserSignatures": [
         {
           "name": "start",
@@ -17084,8 +17084,8 @@
           "since": ""
         }
       ],
-      "status": "awaiting-browser-support",
-      "reason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "status": "desktop-only",
+      "reason": "The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively.",
       "missingBrowserSignatures": [
         {
           "name": "RecorderExtension",
@@ -17120,8 +17120,8 @@
           "since": ""
         }
       ],
-      "status": "awaiting-browser-support",
-      "reason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "status": "desktop-only",
+      "reason": "The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively.",
       "missingBrowserSignatures": [
         {
           "name": "id",
@@ -17162,8 +17162,8 @@
           "since": ""
         }
       ],
-      "status": "awaiting-browser-support",
-      "reason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "status": "desktop-only",
+      "reason": "The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively.",
       "missingBrowserSignatures": [
         {
           "name": "install",
@@ -17204,8 +17204,8 @@
           "since": ""
         }
       ],
-      "status": "awaiting-browser-support",
-      "reason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "status": "desktop-only",
+      "reason": "The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively.",
       "missingBrowserSignatures": [
         {
           "name": "name",
@@ -17240,8 +17240,8 @@
           "since": ""
         }
       ],
-      "status": "awaiting-browser-support",
-      "reason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "status": "desktop-only",
+      "reason": "The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively.",
       "missingBrowserSignatures": [
         {
           "name": "requires",
@@ -17276,8 +17276,8 @@
           "since": ""
         }
       ],
-      "status": "awaiting-browser-support",
-      "reason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "status": "desktop-only",
+      "reason": "The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively.",
       "missingBrowserSignatures": [
         {
           "name": "version",
@@ -17714,8 +17714,8 @@
           "since": ""
         }
       ],
-      "status": "awaiting-browser-support",
-      "reason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "status": "desktop-only",
+      "reason": "The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively.",
       "missingBrowserSignatures": [
         {
           "name": "SaveExtension",
@@ -17750,8 +17750,8 @@
           "since": ""
         }
       ],
-      "status": "awaiting-browser-support",
-      "reason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "status": "desktop-only",
+      "reason": "The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively.",
       "missingBrowserSignatures": [
         {
           "name": "id",
@@ -17786,8 +17786,8 @@
           "since": ""
         }
       ],
-      "status": "awaiting-browser-support",
-      "reason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "status": "desktop-only",
+      "reason": "The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively.",
       "missingBrowserSignatures": [
         {
           "name": "name",
@@ -17822,8 +17822,8 @@
           "since": ""
         }
       ],
-      "status": "awaiting-browser-support",
-      "reason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "status": "desktop-only",
+      "reason": "The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively.",
       "missingBrowserSignatures": [
         {
           "name": "requires",
@@ -17858,8 +17858,8 @@
           "since": ""
         }
       ],
-      "status": "awaiting-browser-support",
-      "reason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "status": "desktop-only",
+      "reason": "The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively.",
       "missingBrowserSignatures": [
         {
           "name": "version",
@@ -17894,23 +17894,9 @@
           "since": ""
         }
       ],
-      "status": "awaiting-browser-support",
-      "reason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
-      "missingBrowserSignatures": [
-        {
-          "name": "MapObject",
-          "constructor": true,
-          "static": false,
-          "parameters": [],
-          "returns": "org.openpatch.scratch.tiled.MapObject",
-          "parameterNames": [],
-          "parameterDescriptions": [],
-          "description": "",
-          "returnDescription": "",
-          "scratchblock": "",
-          "since": ""
-        }
-      ]
+      "status": "implemented",
+      "reason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "missingBrowserSignatures": []
     },
     {
       "id": "tiled/MapObject/getProperty",
@@ -18092,23 +18078,9 @@
           "since": ""
         }
       ],
-      "status": "awaiting-browser-support",
-      "reason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
-      "missingBrowserSignatures": [
-        {
-          "name": "Property",
-          "constructor": true,
-          "static": false,
-          "parameters": [],
-          "returns": "org.openpatch.scratch.tiled.Property",
-          "parameterNames": [],
-          "parameterDescriptions": [],
-          "description": "",
-          "returnDescription": "",
-          "scratchblock": "",
-          "since": ""
-        }
-      ]
+      "status": "implemented",
+      "reason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "missingBrowserSignatures": []
     },
     {
       "id": "tiled/Property/setText",
@@ -18156,8 +18128,8 @@
           "since": ""
         }
       ],
-      "status": "awaiting-browser-support",
-      "reason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "status": "desktop-only",
+      "reason": "The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively.",
       "missingBrowserSignatures": [
         {
           "name": "TiledExtension",
@@ -18192,8 +18164,8 @@
           "since": ""
         }
       ],
-      "status": "awaiting-browser-support",
-      "reason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "status": "desktop-only",
+      "reason": "The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively.",
       "missingBrowserSignatures": [
         {
           "name": "id",
@@ -18234,8 +18206,8 @@
           "since": ""
         }
       ],
-      "status": "awaiting-browser-support",
-      "reason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "status": "desktop-only",
+      "reason": "The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively.",
       "missingBrowserSignatures": [
         {
           "name": "install",
@@ -18276,8 +18248,8 @@
           "since": ""
         }
       ],
-      "status": "awaiting-browser-support",
-      "reason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "status": "desktop-only",
+      "reason": "The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively.",
       "missingBrowserSignatures": [
         {
           "name": "name",
@@ -18312,8 +18284,8 @@
           "since": ""
         }
       ],
-      "status": "awaiting-browser-support",
-      "reason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "status": "desktop-only",
+      "reason": "The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively.",
       "missingBrowserSignatures": [
         {
           "name": "requires",
@@ -18348,8 +18320,8 @@
           "since": ""
         }
       ],
-      "status": "awaiting-browser-support",
-      "reason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "status": "desktop-only",
+      "reason": "The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively.",
       "missingBrowserSignatures": [
         {
           "name": "version",
@@ -18858,8 +18830,8 @@
           "since": ""
         }
       ],
-      "status": "awaiting-browser-support",
-      "reason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "status": "desktop-only",
+      "reason": "Prints the desktop's parsed TMX tree as JSON; the browser reads maps without it.",
       "missingBrowserSignatures": [
         {
           "name": "toString",
@@ -18894,23 +18866,9 @@
           "since": ""
         }
       ],
-      "status": "awaiting-browser-support",
-      "reason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
-      "missingBrowserSignatures": [
-        {
-          "name": "TilesetImage",
-          "constructor": true,
-          "static": false,
-          "parameters": [],
-          "returns": "org.openpatch.scratch.tiled.TilesetImage",
-          "parameterNames": [],
-          "parameterDescriptions": [],
-          "description": "",
-          "returnDescription": "",
-          "scratchblock": "",
-          "since": ""
-        }
-      ]
+      "status": "implemented",
+      "reason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
+      "missingBrowserSignatures": []
     }
   ]
 }

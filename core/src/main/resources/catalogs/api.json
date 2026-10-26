@@ -6061,8 +6061,8 @@
       "returns": "the sprite's one instance",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Sprite/extension",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "desktop-only",
+      "availabilityReason": "For extensions, which run against the desktop's window and render threads. The browser ships its extensions natively and loads no others.",
       "translations": {}
     },
     {
@@ -10145,8 +10145,8 @@
       "returns": "the stage's one instance",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/Stage/extension",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "desktop-only",
+      "availabilityReason": "For extensions, which run against the desktop's window and render threads. The browser ships its extensions natively and loads no others.",
       "translations": {}
     },
     {
@@ -16139,8 +16139,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/drawing/DrawingExtension/constructor",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "desktop-only",
+      "availabilityReason": "The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively.",
       "translations": {}
     },
     {
@@ -16161,8 +16161,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/drawing/DrawingExtension/id",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "desktop-only",
+      "availabilityReason": "The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively.",
       "translations": {}
     },
     {
@@ -16191,8 +16191,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/drawing/DrawingExtension/install",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "desktop-only",
+      "availabilityReason": "The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively.",
       "translations": {}
     },
     {
@@ -16213,8 +16213,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/drawing/DrawingExtension/name",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "desktop-only",
+      "availabilityReason": "The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively.",
       "translations": {}
     },
     {
@@ -16235,8 +16235,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/drawing/DrawingExtension/requires",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "desktop-only",
+      "availabilityReason": "The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively.",
       "translations": {}
     },
     {
@@ -16257,8 +16257,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/drawing/DrawingExtension/version",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "desktop-only",
+      "availabilityReason": "The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively.",
       "translations": {}
     },
     {
@@ -18121,8 +18121,8 @@
       "returns": "true if successful.",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/recorder/GifEncoder/addFrame",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "desktop-only",
+      "availabilityReason": "The encoder behind the desktop's GifRecorder; recording is desktop-only.",
       "translations": {}
     },
     {
@@ -18143,8 +18143,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/recorder/GifEncoder/constructor",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "desktop-only",
+      "availabilityReason": "The encoder behind the desktop's GifRecorder; recording is desktop-only.",
       "translations": {}
     },
     {
@@ -18165,8 +18165,8 @@
       "returns": "true if finished",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/recorder/GifEncoder/finish",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "desktop-only",
+      "availabilityReason": "The encoder behind the desktop's GifRecorder; recording is desktop-only.",
       "translations": {}
     },
     {
@@ -18195,8 +18195,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/recorder/GifEncoder/setDelay",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "desktop-only",
+      "availabilityReason": "The encoder behind the desktop's GifRecorder; recording is desktop-only.",
       "translations": {}
     },
     {
@@ -18225,8 +18225,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/recorder/GifEncoder/setDispose",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "desktop-only",
+      "availabilityReason": "The encoder behind the desktop's GifRecorder; recording is desktop-only.",
       "translations": {}
     },
     {
@@ -18255,8 +18255,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/recorder/GifEncoder/setFrameRate",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "desktop-only",
+      "availabilityReason": "The encoder behind the desktop's GifRecorder; recording is desktop-only.",
       "translations": {}
     },
     {
@@ -18285,8 +18285,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/recorder/GifEncoder/setQuality",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "desktop-only",
+      "availabilityReason": "The encoder behind the desktop's GifRecorder; recording is desktop-only.",
       "translations": {}
     },
     {
@@ -18315,8 +18315,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/recorder/GifEncoder/setRepeat",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "desktop-only",
+      "availabilityReason": "The encoder behind the desktop's GifRecorder; recording is desktop-only.",
       "translations": {}
     },
     {
@@ -18345,8 +18345,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/recorder/GifEncoder/setTransparent",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "desktop-only",
+      "availabilityReason": "The encoder behind the desktop's GifRecorder; recording is desktop-only.",
       "translations": {}
     },
     {
@@ -18375,8 +18375,8 @@
       "returns": "false if initial write failed.",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/recorder/GifEncoder/start",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "desktop-only",
+      "availabilityReason": "The encoder behind the desktop's GifRecorder; recording is desktop-only.",
       "translations": {}
     },
     {
@@ -18405,8 +18405,8 @@
       "returns": "false if open or initial write failed.",
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/recorder/GifEncoder/start",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "desktop-only",
+      "availabilityReason": "The encoder behind the desktop's GifRecorder; recording is desktop-only.",
       "translations": {}
     },
     {
@@ -18523,8 +18523,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/recorder/RecorderExtension/constructor",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "desktop-only",
+      "availabilityReason": "The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively.",
       "translations": {}
     },
     {
@@ -18545,8 +18545,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/recorder/RecorderExtension/id",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "desktop-only",
+      "availabilityReason": "The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively.",
       "translations": {}
     },
     {
@@ -18575,8 +18575,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/recorder/RecorderExtension/install",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "desktop-only",
+      "availabilityReason": "The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively.",
       "translations": {}
     },
     {
@@ -18597,8 +18597,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/recorder/RecorderExtension/name",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "desktop-only",
+      "availabilityReason": "The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively.",
       "translations": {}
     },
     {
@@ -18619,8 +18619,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/recorder/RecorderExtension/requires",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "desktop-only",
+      "availabilityReason": "The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively.",
       "translations": {}
     },
     {
@@ -18641,8 +18641,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/recorder/RecorderExtension/version",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "desktop-only",
+      "availabilityReason": "The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively.",
       "translations": {}
     },
     {
@@ -19031,8 +19031,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/save/SaveExtension/constructor",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "desktop-only",
+      "availabilityReason": "The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively.",
       "translations": {}
     },
     {
@@ -19053,8 +19053,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/save/SaveExtension/id",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "desktop-only",
+      "availabilityReason": "The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively.",
       "translations": {}
     },
     {
@@ -19075,8 +19075,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/save/SaveExtension/name",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "desktop-only",
+      "availabilityReason": "The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively.",
       "translations": {}
     },
     {
@@ -19097,8 +19097,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/save/SaveExtension/requires",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "desktop-only",
+      "availabilityReason": "The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively.",
       "translations": {}
     },
     {
@@ -19119,8 +19119,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/save/SaveExtension/version",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "desktop-only",
+      "availabilityReason": "The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively.",
       "translations": {}
     },
     {
@@ -19141,8 +19141,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/tiled/MapObject/constructor",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -19335,8 +19335,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/tiled/Property/constructor",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     },
     {
@@ -19387,8 +19387,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/tiled/TiledExtension/constructor",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "desktop-only",
+      "availabilityReason": "The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively.",
       "translations": {}
     },
     {
@@ -19409,8 +19409,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/tiled/TiledExtension/id",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "desktop-only",
+      "availabilityReason": "The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively.",
       "translations": {}
     },
     {
@@ -19439,8 +19439,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/tiled/TiledExtension/install",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "desktop-only",
+      "availabilityReason": "The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively.",
       "translations": {}
     },
     {
@@ -19461,8 +19461,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/tiled/TiledExtension/name",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "desktop-only",
+      "availabilityReason": "The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively.",
       "translations": {}
     },
     {
@@ -19483,8 +19483,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/tiled/TiledExtension/requires",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "desktop-only",
+      "availabilityReason": "The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively.",
       "translations": {}
     },
     {
@@ -19505,8 +19505,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/tiled/TiledExtension/version",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "desktop-only",
+      "availabilityReason": "The extension's entry point for the desktop's ServiceLoader. The browser ships this extension natively.",
       "translations": {}
     },
     {
@@ -20063,8 +20063,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/tiled/TiledMap/toString",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "desktop-only",
+      "availabilityReason": "Prints the desktop's parsed TMX tree as JSON; the browser reads maps without it.",
       "translations": {}
     },
     {
@@ -20085,8 +20085,8 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/tiled/TilesetImage/constructor",
-      "availability": "awaiting-browser-support",
-      "availabilityReason": "Some desktop overloads are not declared by the browser. See the missing signatures in the compatibility contract.",
+      "availability": "implemented",
+      "availabilityReason": "Declared by the browser; behavioral limitations and compiler dialect differences still apply.",
       "translations": {}
     }
   ]
