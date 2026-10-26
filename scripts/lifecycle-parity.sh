@@ -28,7 +28,8 @@ public class DesktopLifecycleLauncher {
 JAVA
 probe_cp="core/target/classes:$(cat "$probe_dir/classpath")"
 javac -cp "$probe_cp" -d "$probe_dir" compatibility/probes/LifecycleProbe.java "$probe_dir/DesktopLifecycleLauncher.java"
-timeout --foreground 60s xvfb-run -a java --enable-native-access=ALL-UNNAMED -Dscratch4j.platform=x11 \
+# the null audio backend: the same output with or without a sound card (CI has none)
+ALSOFT_DRIVERS=null timeout --foreground 60s xvfb-run -a java --enable-native-access=ALL-UNNAMED -Dscratch4j.platform=x11 \
   -cp "$probe_dir:$probe_cp" DesktopLifecycleLauncher > "$probe_dir/output" 2> "$probe_dir/stderr"
 diff -u compatibility/probes/lifecycle-expected.txt "$probe_dir/output"
 echo 'Desktop clone lifecycle, removal, broadcasts and geometry: passed'
