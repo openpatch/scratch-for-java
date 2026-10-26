@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.openpatch</groupId>
         <artifactId>scratch-parent</artifactId>
-        <version>6.5.0</version>
+        <version>7.0.0</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
