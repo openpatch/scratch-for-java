@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 #
 # Writes the reference pages (docs/book/reference) from the Javadoc of the core and the
-# first-party extensions, with the doclet in examples/src/tools/java/doclets.
+# first-party extensions, with the doclet in examples/src/tools/java/doclets, and the HTML
+# Javadoc of the same packages into target/apidocs (the documentation workflow copies that
+# into the built site as /javadocs).
 #
 #   ./scripts/reference-docs.sh
 #
@@ -29,12 +31,27 @@ for dir in core/src/main/java extensions/*/src/main/java; do
 done
 
 OUT="$WORK/reference"
+# the packages of the public API, shared by both runs below
+PACKAGES="org.openpatch.scratch org.openpatch.scratch.extension \
+  org.openpatch.scratch.tiled org.openpatch.scratch.save org.openpatch.scratch.recorder \
+  org.openpatch.scratch.drawing org.openpatch.scratch.gamepad"
+
 echo "reference-docs: writing the pages"
 javadoc -quiet -public \
   -doclet doclets.Scratch4JDoclet -docletpath examples/target/classes \
   -d "$OUT" -sourcepath "$WORK/src" -classpath "$(cat "$WORK/classpath")" \
-  org.openpatch.scratch org.openpatch.scratch.extension \
-  org.openpatch.scratch.tiled org.openpatch.scratch.save org.openpatch.scratch.recorder org.openpatch.scratch.drawing org.openpatch.scratch.gamepad
+  $PACKAGES
+
+# the same packages with the standard doclet, as the browsable Javadoc of the site; the
+# markers the reference pipeline uses are known tags so they stay out of the output
+echo "reference-docs: writing the HTML Javadoc"
+rm -rf target/apidocs
+javadoc -quiet -public -encoding UTF-8 -charset UTF-8 \
+  -tag 'scratchblock:a:Scratch Block:' \
+  -tag 'index-in-docs:X' -tag 'name-in-docs:X' -tag 'ignore-in-docs:X' \
+  -tag 'example.files:X' -tag 'example.folder:X' -tag 'desktop-only:X' \
+  -d target/apidocs -sourcepath "$WORK/src" -classpath "$(cat "$WORK/classpath")" \
+  $PACKAGES
 
 pages=$(find "$OUT" -name '*.md.json' | wc -l)
 if [ "$pages" -eq 0 ]; then

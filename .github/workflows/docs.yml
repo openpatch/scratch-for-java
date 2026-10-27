@@ -45,6 +45,8 @@ jobs:
       - name: Build Docs
         run:  bash ./build.sh
 
+      # written by reference-docs.sh, which build.sh runs; on 7.0 no Maven build
+      # step produces it any more (the javadoc jar lives in the central profile)
       - name: Copy Javadocs into docs
         run: cp -r target/apidocs ./docs/.hyperbook/out/javadocs
 

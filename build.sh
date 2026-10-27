@@ -34,8 +34,9 @@ for page in $VERSIONED_PAGES; do
 done
 
 # Regenerates everything the docs are built from: the reference pages written by
-# the doclet, the built-in sprite and sound pages, and the demo pages with the
-# assets they load.
+# the doclet, the HTML Javadoc under target/apidocs (the docs workflow copies it
+# into the site as /javadocs), the built-in sprite and sound pages, and the demo
+# pages with the assets they load.
 # in the reactor, never `install` (AGENTS.md); the reference pages come from the Javadoc of the
 # core and the extensions, the demo pages and their assets from examples/src/main/java/demos
 ./scripts/reference-docs.sh

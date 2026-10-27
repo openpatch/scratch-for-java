@@ -131,7 +131,8 @@ use it. Jackson (`tools.jackson.*`) is used by tiled and save.
 The public API's Javadoc is the source of truth for the reference documentation on
 https://scratch4j.openpatch.org. `./scripts/reference-docs.sh` runs the doclet
 (`examples/src/tools/java/doclets`) over core and the extensions and writes
-`docs/book/reference`:
+`docs/book/reference`, and the HTML Javadoc of the same packages into `target/apidocs`
+(the docs workflow copies it into the site as `/javadocs`):
 
 - `@example.files a.java;b.java` — files from `examples/src/main/java/reference` shown as source
   (`@example.folder <Name>` for a folder of them).
