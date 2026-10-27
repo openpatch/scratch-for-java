@@ -212,11 +212,16 @@ def main():
         outputs[args.online_ide / "src/test/browser/PortableBehaviorChecks.java"] = checks
         # Keep the runnable browser demo derived from the desktop sources, via
         # GenerateDemoPages, instead of maintaining a second copy of the game.
+        # The page shows one block per file; the browser copy is one file to
+        # paste, so the blocks are joined and their top-level types lose public.
         demo_page = (ROOT / "docs/book/examples/save-slots.md").read_text()
-        demo = re.search(r"```java SaveSlotGame\.java\n(.*?)\n```", demo_page, re.S)
-        if not demo:
+        directive = re.search(r"<!-- demo: saveSlots -->\n:::onlineide\b.*?\n(.*?)\n:::", demo_page, re.S)
+        files = re.findall(r"```java \S+\.java\n(.*?)\n```", directive[1], re.S) if directive else []
+        if not files:
             raise ValueError("Save-slots demo page is missing; regenerate demo pages first")
-        outputs[args.online_ide / "public/examples/save-slots.java"] = demo[1].strip() + "\n"
+        demo = "\n\n".join(re.sub(r"^public (?=(?:abstract |final )*(?:class|interface|enum|record) )", "",
+                                  block.strip(), flags=re.M) for block in files)
+        outputs[args.online_ide / "public/examples/save-slots.java"] = demo + "\n"
     binary_outputs = {}
     for sheet in sheets():
         source = ROOT / "core/src/main/resources/images" / (sheet + ".png")

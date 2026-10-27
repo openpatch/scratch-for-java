@@ -43,11 +43,11 @@
         },
         {
           "path": "Cat.java",
-          "sha256": "fb1e51731c37b0db917ec274a9fb9a5b9964ad132eae73ffbf462e71a629eebb"
+          "sha256": "ef41c54d4b408bec90db9df16edcd9b7df867259344ea2b25a9418b4b53c2d3d"
         },
         {
           "path": "CatPlatformer.java",
-          "sha256": "2ebe08c710db91cfd5c3544cb502cff7aab96c513a457b93f7db77c47c79fc1b"
+          "sha256": "ac89cafe7beb8c4cf9de99fefeed3b693ac76a60d505d8376c11341f1911a76e"
         },
         {
           "path": "Goal.java",
