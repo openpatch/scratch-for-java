@@ -35,11 +35,6 @@ Type an answer into the box at the bottom of the stage and press Enter.
 
 ```java Quiz.java
 
-void main() {
-  Window myWindow = new Window(600, 360);
-  myWindow.setStage(new Quiz());
-}
-
 /**
  * Asks a question and answers back, using ask() and getAnswer().
  *
@@ -47,7 +42,7 @@ void main() {
  * The question box appears at the bottom of the stage. Type an answer and press
  * Enter. Nothing here needs an image or sound file.
  */
-class Quiz extends Stage {
+public class Quiz extends Stage {
 
   // begin stage designer
   private Sprite host;
@@ -114,6 +109,11 @@ class Quiz extends Stage {
     if (this.current >= this.questions.length) {
       this.score.showText("Done. " + this.right + " of 2 correct.");
     }
+  }
+
+  public static void main(String[] args) {
+    Window myWindow = new Window(600, 360);
+    myWindow.setStage(new Quiz());
   }
 }
 ```

@@ -17,12 +17,7 @@ Move the mouse across the stage.
 
 ```java RainbowVine.java
 
-void main() {
-  Window myWindow = new Window(600, 400);
-  myWindow.setStage(new RainbowVine());
-}
-
-class RainbowVine extends Stage {
+public class RainbowVine extends Stage {
 
   // begin stage designer
   private VineSprite vineSprite;
@@ -34,6 +29,11 @@ class RainbowVine extends Stage {
     vineSprite = new VineSprite();
     this.add(vineSprite);
     // end stage designer
+  }
+
+  public static void main(String[] args) {
+    Window myWindow = new Window(600, 400);
+    myWindow.setStage(new RainbowVine());
   }
 }
 

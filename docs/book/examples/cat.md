@@ -20,12 +20,7 @@ itself behind.
 
 ```java CatSketch.java
 
-void main() {
-  Window myWindow = new Window(800, 600);
-  myWindow.setStage(new CatSketch());
-}
-
-class CatSketch extends Stage {
+public class CatSketch extends Stage {
 
   // begin stage designer
   private CatSprite myCat;
@@ -36,6 +31,11 @@ class CatSketch extends Stage {
     myCat = new CatSprite();
     this.add(myCat);
     // end stage designer
+  }
+
+  public static void main(String[] args) {
+    Window myWindow = new Window(800, 600);
+    myWindow.setStage(new CatSketch());
   }
 }
 

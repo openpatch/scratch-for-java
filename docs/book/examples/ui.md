@@ -22,12 +22,7 @@ right arrow key to shrink or grow the green bar.
 
 ```java UI.java
 
-void main() {
-  Window myWindow = new Window(800, 600);
-  myWindow.setStage(new UI());
-}
-
-class UI extends Stage {
+public class UI extends Stage {
 
   // begin stage designer
   private Panel panel;
@@ -65,6 +60,11 @@ class UI extends Stage {
     } else if (this.isKeyPressed(KeyCode.RIGHT)) {
       bar.changeWidth(+1);
     }
+  }
+
+  public static void main(String[] args) {
+    Window myWindow = new Window(800, 600);
+    myWindow.setStage(new UI());
   }
 }
 

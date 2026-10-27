@@ -30,11 +30,6 @@ the up and down arrows to change how loud it is.
 
 ```java Volume.java
 
-void main() {
-  Window myWindow = new Window(480, 260);
-  myWindow.setStage(new Volume());
-}
-
 /**
  * Turning sounds up and down with setVolume() and changeVolume().
  *
@@ -43,7 +38,7 @@ void main() {
  * The sound is one of the ones built into Scratch for Java, so there is no file
  * to find.
  */
-class Volume extends Stage {
+public class Volume extends Stage {
 
   // begin stage designer
   private Sprite speaker;
@@ -89,6 +84,11 @@ class Volume extends Stage {
       this.changeVolume(-10);
       this.showVolume();
     }
+  }
+
+  public static void main(String[] args) {
+    Window myWindow = new Window(480, 260);
+    myWindow.setStage(new Volume());
   }
 }
 ```

@@ -21,12 +21,7 @@ font loaded from a file.
 
 ```java Shakespeare.java
 
-void main() {
-  Window myWindow = new Window(800, 600);
-  myWindow.setStage(new Shakespeare());
-}
-
-class Shakespeare extends Stage {
+public class Shakespeare extends Stage {
 
   // begin stage designer
   // end stage designer
@@ -93,9 +88,17 @@ class Shakespeare extends Stage {
       this.allPhrases.showText("All Phrases:\n" + this.population.getAllPhrases(25));
     }
   }
-}
 
-class Population {
+  public static void main(String[] args) {
+    Window myWindow = new Window(800, 600);
+    myWindow.setStage(new Shakespeare());
+  }
+}
+```
+
+```java Population.java
+
+public class Population {
 
   private int generations;
   private boolean finished;
@@ -209,8 +212,11 @@ class Population {
     return all;
   }
 }
+```
 
-class DNA {
+```java DNA.java
+
+public class DNA {
   private char[] genes;
   private float fit;
 

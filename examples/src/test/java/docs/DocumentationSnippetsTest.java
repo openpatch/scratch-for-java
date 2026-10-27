@@ -132,8 +132,10 @@ class DocumentationSnippetsTest {
   }
 
   /**
-   * Compiles one whole program, in one file, as the page shows it - which for an
-   * interactive example means a compact source file.
+   * Compiles one whole program as the page shows it, each file under its own
+   * name, the way a reader who copies the files into a folder compiles them.
+   * A file with a {@code void main()} beside its classes is a compact source
+   * file.
    *
    * <p>
    * A compact source file nests the classes beside the {@code void main()} in
@@ -143,24 +145,34 @@ class DocumentationSnippetsTest {
    * compact form fails, the program is compiled that second way too, and only
    * a program that fails both ways is reported.
    */
-  private String compileProgram(String name, String source) throws IOException {
+  private String compileProgram(Map<String, String> files) throws IOException {
     if (ToolProvider.getSystemJavaCompiler() == null) {
       return null; // no compiler on this JVM, nothing to say
     }
-    String problem = compileUnit(name, source);
+    String problem = compileFiles(files);
     if (problem == null) {
       return null;
     }
-    String laidOut = asMainClass(name, source);
-    return laidOut == null ? problem
-        : (compileUnit(name, laidOut) == null ? null : problem);
+    var laidOut = new LinkedHashMap<String, String>();
+    boolean moved = false;
+    for (Map.Entry<String, String> file : files.entrySet()) {
+      String name = file.getKey().replaceFirst("\\.java$", "");
+      String asClass = asMainClass(name, file.getValue());
+      moved |= asClass != null;
+      laidOut.put(file.getKey(), asClass == null ? file.getValue() : asClass);
+    }
+    return !moved ? problem : (compileFiles(laidOut) == null ? null : problem);
   }
 
-  private String compileUnit(String name, String source) throws IOException {
+  private String compileFiles(Map<String, String> sources) throws IOException {
     Path dir = Files.createTempDirectory("scratch-docs-");
-    Path file = dir.resolve(name + ".java");
-    Files.writeString(file, source);
-    return compile(dir, List.of(file.toFile()));
+    var files = new ArrayList<File>();
+    for (Map.Entry<String, String> source : sources.entrySet()) {
+      Path file = dir.resolve(source.getKey());
+      Files.writeString(file, source.getValue());
+      files.add(file.toFile());
+    }
+    return compile(dir, files);
   }
 
   /**
@@ -246,7 +258,7 @@ class DocumentationSnippetsTest {
 
   /** A ```java block carrying a file name, which is what a :::onlineide block holds. */
   private static final Pattern ONLINE_BLOCK =
-      Pattern.compile("```java +\\S+\\n(.*?)```", Pattern.DOTALL);
+      Pattern.compile("```java +(\\S+)\\n(.*?)```", Pattern.DOTALL);
   private static final Pattern ONLINE_DIRECTIVE =
       Pattern.compile(":::onlineide\\b.*?\\n(.*?)\\n:::", Pattern.DOTALL);
 
@@ -256,11 +268,13 @@ class DocumentationSnippetsTest {
    *
    * <p>
    * They are written for the Online IDE, which has no packages and no imports,
-   * so the imports are put back. Everything else is compiled as it is shown: a
-   * {@code void main()} beside the classes is a compact source file, a whole
-   * Java program, so a reader can paste the example into a file of their own and
-   * run it. That is the thing worth checking - an interactive example that only
-   * works in the browser would teach the wrong Java.
+   * so the imports are put back. A directive holds one code block per file of
+   * the program, named in the block's opening line, and the files are compiled
+   * together, each under its name. Everything else is compiled as it is shown:
+   * a {@code void main()} beside the classes is a compact source file, a whole
+   * Java program, so a reader can copy the files into a folder of their own and
+   * run them. That is the thing worth checking - an interactive example that
+   * only works in the browser would teach the wrong Java.
    */
   @Test
   void everyInteractiveExampleCompiles() throws IOException {
@@ -290,14 +304,20 @@ class DocumentationSnippetsTest {
       Matcher directives = ONLINE_DIRECTIVE.matcher(text);
       int index = 0;
       while (directives.find()) {
+        var program = new LinkedHashMap<String, String>();
         Matcher blocks = ONLINE_BLOCK.matcher(directives.group(1));
         while (blocks.find()) {
-          index++;
-          checked++;
-          String problem = compileProgram("Block" + index, asCompilationUnit(blocks.group(1)));
-          if (problem != null) {
-            failures.add(page + " (interactive example " + index + ")\n" + problem);
-          }
+          // one directive, one program: its blocks are the program's files
+          program.put(blocks.group(1), asCompilationUnit(blocks.group(2)));
+        }
+        if (program.isEmpty()) {
+          continue;
+        }
+        index++;
+        checked++;
+        String problem = compileProgram(program);
+        if (problem != null) {
+          failures.add(page + " (interactive example " + index + ")\n" + problem);
         }
       }
     }

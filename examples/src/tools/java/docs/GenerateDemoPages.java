@@ -32,18 +32,20 @@ import java.util.stream.Stream;
  *
  * The opening line of the block is the page's own - its height and speed are a
  * matter of taste - and everything between it and the closing {@code :::} is
- * generated: one {@code @file} line per asset of the demo, then the demo as a
- * single program.
+ * generated: one {@code @file} line per asset of the demo, then one code
+ * block per source file of the demo.
  *
  * <p>
- * The Online IDE has no packages and no imports, and the program is a
- * {@code void main()} beside the classes, the Java 25 form a reader can also copy
- * into a file and run. So the demo loses its package and imports, the
- * {@code public static void main} of its entry class moves out to become that
- * {@code void main()}, and the {@code demos/<folder>/} in front of its asset paths
- * goes, because the browser puts the assets next to the program. Nothing here
- * parses Java; the demos share one shape, and {@code DocumentationSnippetsTest}
- * compiles what comes out.
+ * Each code block inside the directive is one file in the Online IDE's file
+ * list, and the files are the demo's own, under their own names: the project
+ * in the browser is the project a reader opens offline. The entry file, the
+ * one with the {@code public static void main}, comes first, then the other
+ * sources in the order someone reading through the program meets them. The
+ * Online IDE has no packages and no imports, so each file loses its package
+ * and imports, and the {@code demos/<folder>/} in front of its asset paths
+ * goes, because the browser puts the assets next to the program. Nothing else
+ * changes. Nothing here parses Java; the demos share one shape, and
+ * {@code DocumentationSnippetsTest} compiles what comes out, file by file.
  *
  * <p>
  * The assets are copied to {@code docs/public/examples/<page>}, where the
@@ -157,19 +159,14 @@ public final class GenerateDemoPages {
         sources.add(Source.of(file, demo));
       }
     }
-    Source entry = sources.stream().filter(s -> s.main != null).findFirst()
+    Source entry = sources.stream().filter(s -> s.hasMain).findFirst()
         .orElseThrow(() -> new IOException(folder + " has no main method"));
 
-    out.append("```java ").append(entry.file).append("\n\n");
-    out.append("void main() {\n");
-    for (String line : entry.main) {
-      out.append(line.isBlank() ? "" : "  " + line).append("\n");
-    }
-    out.append("}\n");
     for (Source source : inReadingOrder(entry, sources)) {
-      out.append("\n").append(source.types).append("\n");
+      out.append("```java ").append(source.file).append("\n\n");
+      out.append(source.types).append("\n");
+      out.append("```\n\n");
     }
-    out.append("```\n\n");
     return out.toString();
   }
 
@@ -253,13 +250,13 @@ public final class GenerateDemoPages {
     }
   }
 
-  /** One demo file, taken apart into its classes and, for the entry file, its main. */
+  /** One demo file without its package and imports, and the classes it declares. */
   private static final class Source {
     final String file;
     final List<String> typeNames = new ArrayList<>();
     final List<String> bases = new ArrayList<>();
     String types;
-    List<String> main;
+    boolean hasMain;
 
     private Source(String file) {
       this.file = file;
@@ -268,43 +265,18 @@ public final class GenerateDemoPages {
     static Source of(Path path, String demo) throws IOException {
       var source = new Source(path.getFileName().toString());
       var kept = new ArrayList<String>();
-      List<String> main = null;
-      int mainDepth = -1;
       int depth = 0;
-      boolean mainWasFirst = false;
 
       for (String raw : Files.readString(path).split("\n", -1)) {
         String line = raw.stripTrailing().replace("\"demos/" + demo + "/", "\"");
         int before = depth;
         depth += count(line, '{') - count(line, '}');
 
-        if (mainDepth >= 0) {
-          if (depth <= mainDepth) {
-            mainDepth = -1;
-            mainWasFirst = !kept.isEmpty() && kept.get(kept.size() - 1).endsWith("{");
-          } else {
-            main.add(dedent(line, 2));
-          }
-          continue;
-        }
-        if (mainWasFirst) {
-          // main opened the class; the blank line after it would now open it instead
-          mainWasFirst = false;
-          if (line.isBlank()) {
-            continue;
-          }
-        }
         if (before == 0 && (line.startsWith("package ") || line.startsWith("import "))) {
           continue;
         }
         if (before == 1 && MAIN_METHOD.matcher(line).matches()) {
-          main = new ArrayList<>();
-          mainDepth = before;
-          // the blank line that separated main from what came before goes with it
-          if (!kept.isEmpty() && kept.get(kept.size() - 1).isBlank()) {
-            kept.remove(kept.size() - 1);
-          }
-          continue;
+          source.hasMain = true;
         }
         if (before == 0) {
           Matcher type = TYPE_DECLARATION.matcher(line);
@@ -313,13 +285,11 @@ public final class GenerateDemoPages {
             if (type.group(2) != null) {
               source.bases.add(type.group(2));
             }
-            line = line.replaceFirst("^public\\s+", "");
           }
         }
         kept.add(line);
       }
 
-      source.main = main;
       source.types = String.join("\n", kept).strip();
       return source;
     }
@@ -349,11 +319,6 @@ public final class GenerateDemoPages {
       }
       return first;
     }
-  }
-
-  private static String dedent(String line, int levels) {
-    String indent = "  ".repeat(levels);
-    return line.startsWith(indent) ? line.substring(indent.length()) : line.strip();
   }
 
   private static int count(String line, char c) {

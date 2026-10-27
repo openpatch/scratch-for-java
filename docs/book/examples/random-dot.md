@@ -18,12 +18,7 @@ happened to land.
 
 ```java RandomDot.java
 
-void main() {
-  Window myWindow = new Window(800, 600);
-  myWindow.setStage(new RandomDot());
-}
-
-class RandomDot extends Stage {
+public class RandomDot extends Stage {
 
   // begin stage designer
   private RandomDotSprite randomDotSprite;
@@ -34,6 +29,11 @@ class RandomDot extends Stage {
     randomDotSprite = new RandomDotSprite();
     this.add(randomDotSprite);
     // end stage designer
+  }
+
+  public static void main(String[] args) {
+    Window myWindow = new Window(800, 600);
+    myWindow.setStage(new RandomDot());
   }
 }
 

@@ -33,11 +33,6 @@ coin needs nobody: it patrols between the two corners on its own.
 
 ```java Glide.java
 
-void main() {
-  Window myWindow = new Window(600, 400);
-  myWindow.setStage(new Glide());
-}
-
 /**
  * Sprites sliding to a new place with glide(), instead of jumping there.
  *
@@ -45,7 +40,7 @@ void main() {
  * Click anywhere and the alien glides to the mouse over one second. The coin
  * glides between two corners for as long as the program runs.
  */
-class Glide extends Stage {
+public class Glide extends Stage {
 
   // begin stage designer
   private Walker walker;
@@ -60,6 +55,11 @@ class Glide extends Stage {
     patroller = new Patroller();
     this.add(patroller);
     // end stage designer
+  }
+
+  public static void main(String[] args) {
+    Window myWindow = new Window(600, 400);
+    myWindow.setStage(new Glide());
   }
 }
 

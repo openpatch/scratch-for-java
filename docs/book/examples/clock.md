@@ -23,12 +23,7 @@ smoothly instead of ticking.
 
 ```java ClockStage.java
 
-void main() {
-  Window myWindow = new Window(800, 800);
-  myWindow.setStage(new ClockStage());
-}
-
-class ClockStage extends Stage {
+public class ClockStage extends Stage {
 
   // begin stage designer
   private ClockSprite clockSprite;
@@ -49,17 +44,28 @@ class ClockStage extends Stage {
     this.add(hourHandSprite);
     // end stage designer
   }
-}
 
-class ClockSprite extends Sprite {
+  public static void main(String[] args) {
+    Window myWindow = new Window(800, 800);
+    myWindow.setStage(new ClockStage());
+  }
+}
+```
+
+```java ClockSprite.java
+
+public class ClockSprite extends Sprite {
   public ClockSprite() {
     // begin sprite editor
     this.addCostume("clock", "sprites/clock.png");
     // end sprite editor
   }
 }
+```
 
-class SecondHandSprite extends Sprite {
+```java SecondHandSprite.java
+
+public class SecondHandSprite extends Sprite {
 
   public SecondHandSprite() {
     // begin sprite editor
@@ -77,8 +83,11 @@ class SecondHandSprite extends Sprite {
     }
   }
 }
+```
 
-class MinuteHandSprite extends Sprite {
+```java MinuteHandSprite.java
+
+public class MinuteHandSprite extends Sprite {
   public MinuteHandSprite() {
     // begin sprite editor
     this.addCostume("hand", "sprites/minute.png");
@@ -90,8 +99,11 @@ class MinuteHandSprite extends Sprite {
     this.setDirection(90 + minute / 60.0 * 360);
   }
 }
+```
 
-class HourHandSprite extends Sprite {
+```java HourHandSprite.java
+
+public class HourHandSprite extends Sprite {
   public HourHandSprite() {
     // begin sprite editor
     this.addCostume("hand", "sprites/hour.png");

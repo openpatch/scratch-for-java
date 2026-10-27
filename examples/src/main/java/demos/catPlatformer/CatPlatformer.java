@@ -25,6 +25,9 @@ public class CatPlatformer extends Stage {
   /** Where the ladder ends: the top of the platform with the mug. */
   public static final double LADDER_TOP = 112;
 
+  /** What landingHeight answers while there is nothing to land on, far below the stage. */
+  public static final double FALLING = -100000;
+
   private final List<Platform> platforms = new ArrayList<>();
   private final Heart[] hearts = new Heart[3];
 
@@ -79,7 +82,7 @@ public class CatPlatformer extends Stage {
 
   private void addPlatform(double left, double top, int tiles) {
     for (int i = 0; i < tiles; i++) {
-      String costume = i == 0 ? "grassHalf_left" : i == tiles - 1 ? "grassHalf_right" : "grassHalf_mid";
+      String costume = i == 0 ? "grassHalf_left" : (i == tiles - 1 ? "grassHalf_right" : "grassHalf_mid");
       Platform tile = new Platform(costume, left + 32 + i * 64, top);
       this.platforms.add(tile);
       this.add(tile);
@@ -100,18 +103,18 @@ public class CatPlatformer extends Stage {
    * from feetBefore down to feetAfter; if a platform top (or the ground) lies
    * in between, below x, that is where it stands.
    *
-   * @return the height of what it lands on, or NaN while it is still falling
+   * @return the height of what it lands on, or FALLING while it is still falling
    */
   public double landingHeight(double x, double feetBefore, double feetAfter) {
-    double best = Double.NaN;
+    double best = FALLING;
     for (Platform platform : this.platforms) {
       boolean above = x > platform.getLeft() && x < platform.getRight();
       double top = platform.getTop();
-      if (above && feetBefore >= top && feetAfter <= top && !(best >= top)) {
+      if (above && feetBefore >= top && feetAfter <= top && top > best) {
         best = top;
       }
     }
-    if (Double.isNaN(best) && feetAfter <= GROUND_TOP) {
+    if (best == FALLING && feetAfter <= GROUND_TOP) {
       best = GROUND_TOP;
     }
     return best;

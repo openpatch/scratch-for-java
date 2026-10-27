@@ -21,12 +21,7 @@ its position while it moves.
 
 ```java RobotStage.java
 
-void main() {
-  Window myWindow = new Window(800, 600);
-  myWindow.setStage(new RobotStage());
-}
-
-class RobotStage extends Stage {
+public class RobotStage extends Stage {
 
   // begin stage designer
   private RobotSprite robotSprite;
@@ -39,9 +34,17 @@ class RobotStage extends Stage {
     this.add(robotSprite);
     // end stage designer
   }
-}
 
-class RobotSprite extends Sprite {
+  public static void main(String[] args) {
+    Window myWindow = new Window(800, 600);
+    myWindow.setStage(new RobotStage());
+  }
+}
+```
+
+```java RobotSprite.java
+
+public class RobotSprite extends Sprite {
 
   public RobotSprite() {
     // begin sprite editor

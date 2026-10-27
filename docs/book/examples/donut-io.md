@@ -23,13 +23,7 @@ resets the zoom.
 
 ```java Game.java
 
-void main() {
-  // begin project settings
-  // end project settings
-  new Game();
-}
-
-class Game extends Window {
+public class Game extends Window {
 
   public static int LEVEL = 0;
 
@@ -40,9 +34,18 @@ class Game extends Window {
     this.setStage(new StartStage());
     // end project settings
   }
-}
 
-class StartStage extends Stage {
+  public static void main(String[] args) {
+    // begin project settings
+    // end project settings
+    new Game();
+  }
+}
+```
+
+```java StartStage.java
+
+public class StartStage extends Stage {
 
   // begin stage designer
   // end stage designer
@@ -85,8 +88,11 @@ class StartStage extends Stage {
     }
   }
 }
+```
 
-class WorldStage extends Stage {
+```java WorldStage.java
+
+public class WorldStage extends Stage {
 
   // begin stage designer
   private Background background;
@@ -167,8 +173,11 @@ class WorldStage extends Stage {
     this.getCamera().setPosition(player.getPosition());
   }
 }
+```
 
-class WinStage extends Stage {
+```java WinStage.java
+
+public class WinStage extends Stage {
 
   // begin stage designer
   // end stage designer
@@ -203,8 +212,11 @@ class WinStage extends Stage {
     }
   }
 }
+```
 
-class GameOverStage extends Stage {
+```java GameOverStage.java
+
+public class GameOverStage extends Stage {
 
   // begin stage designer
   // end stage designer
@@ -239,8 +251,11 @@ class GameOverStage extends Stage {
     }
   }
 }
+```
 
-class Background extends Sprite {
+```java Background.java
+
+public class Background extends Sprite {
 
   public Background() {
     // begin sprite editor
@@ -255,8 +270,11 @@ class Background extends Sprite {
     this.setY(this.getStage().getCamera().getY() - this.getStage().getCamera().getY() % 40);
   }
 }
+```
 
-class Donut extends Sprite {
+```java Donut.java
+
+public class Donut extends Sprite {
 
   private int strength;
   protected double speed = 1;
@@ -295,8 +313,11 @@ class Donut extends Sprite {
     }
   }
 }
+```
 
-class PlayerDonut extends Donut {
+```java PlayerDonut.java
+
+public class PlayerDonut extends Donut {
 
   public PlayerDonut() {
     super(0, 0, 10);
@@ -313,8 +334,11 @@ class PlayerDonut extends Donut {
     super.run();
   }
 }
+```
 
-class FollowDonut extends Donut {
+```java FollowDonut.java
+
+public class FollowDonut extends Donut {
 
   private PlayerDonut player;
 

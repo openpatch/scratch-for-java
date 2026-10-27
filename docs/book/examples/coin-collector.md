@@ -44,11 +44,6 @@ arrow keys, jump with space, and collect all six coins.
 
 ```java CoinCollector.java
 
-void main() {
-  Window myWindow = new Window(800, 480);
-  myWindow.setStage(new CoinCollector());
-}
-
 /**
  * A small game that only uses assets built into Scratch for Java.
  *
@@ -59,7 +54,7 @@ void main() {
  * https://scratch4j.openpatch.org/sprites and
  * https://scratch4j.openpatch.org/sounds
  */
-class CoinCollector extends Stage {
+public class CoinCollector extends Stage {
 
   // begin stage designer
   private Player player;
@@ -118,10 +113,18 @@ class CoinCollector extends Stage {
       this.add(won);
     }
   }
+
+  public static void main(String[] args) {
+    Window myWindow = new Window(800, 480);
+    myWindow.setStage(new CoinCollector());
+  }
 }
+```
+
+```java Player.java
 
 /** The alien you steer with the arrow keys. */
-class Player extends Sprite {
+public class Player extends Sprite {
 
   private static final int SIZE = 45;
 
@@ -208,9 +211,12 @@ class Player extends Sprite {
     }
   }
 }
+```
+
+```java Ground.java
 
 /** One grass tile of the ground. */
-class Ground extends Sprite {
+public class Ground extends Sprite {
 
   public Ground(double x) {
     // begin sprite editor
@@ -222,9 +228,12 @@ class Ground extends Sprite {
     this.setY(CoinCollector.GROUND_TOP - 32);
   }
 }
+```
+
+```java Coin.java
 
 /** A coin the player can pick up. It bobs up and down a little. */
-class Coin extends Sprite {
+public class Coin extends Sprite {
 
   private final double startY;
   private double angle = 0;

@@ -23,12 +23,7 @@ out and in.
 
 ```java Sensing.java
 
-void main() {
-  Window myWindow = new Window(800, 800);
-  myWindow.setStage(new Sensing());
-}
-
-class Sensing extends Stage {
+public class Sensing extends Stage {
 
   // begin stage designer
   private UIHero uiH;
@@ -59,6 +54,11 @@ class Sensing extends Stage {
     if (isKeyPressed(KeyCode.DIGIT_1)) {
       this.getCamera().changeZoom(1);
     }
+  }
+
+  public static void main(String[] args) {
+    Window myWindow = new Window(800, 800);
+    myWindow.setStage(new Sensing());
   }
 }
 

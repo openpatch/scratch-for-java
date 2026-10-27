@@ -18,12 +18,7 @@ everything every 2.4 seconds.
 
 ```java TimedDot.java
 
-void main() {
-  Window myWindow = new Window(400, 200);
-  myWindow.setStage(new TimedDot());
-}
-
-class TimedDot extends Stage {
+public class TimedDot extends Stage {
 
   // begin stage designer
   private DotSprite dotSprite;
@@ -40,6 +35,11 @@ class TimedDot extends Stage {
     if (this.getTimer().every(2.4)) {
       this.eraseAll();
     }
+  }
+
+  public static void main(String[] args) {
+    Window myWindow = new Window(400, 200);
+    myWindow.setStage(new TimedDot());
   }
 }
 

@@ -26,17 +26,19 @@ during saving and loading, and reports success after the write has committed.
 
 ```java SaveSlotGame.java
 
-void main() {
-  Window window = new Window(640, 480);
-  window.setStage(new SaveSlotStage());
-}
-
 /** An ordinary Java entry point; the same stage runs in the browser. */
-class SaveSlotGame {
+public class SaveSlotGame {
+  public static void main(String[] args) {
+    Window window = new Window(640, 480);
+    window.setStage(new SaveSlotStage());
+  }
 }
+```
+
+```java SaveSlotStage.java
 
 /** Collect coins, then save and restore the score and both sprite positions. */
-class SaveSlotStage extends Stage {
+public class SaveSlotStage extends Stage {
   private Sprite player = new Sprite("player", "alienGreen_stand");
   private Sprite coin = new Sprite("coin", "coinGold");
   private Text score = new Text();
@@ -181,9 +183,12 @@ class SaveSlotStage extends Stage {
         + (this.selectedSlot == 3 ? "[ Slot 3 ]" : "Slot 3"));
   }
 }
+```
+
+```java SaveSlotProgress.java
 
 /** Only game state belongs in a save: sprites, windows and sounds stay in the game. */
-class SaveSlotProgress {
+public class SaveSlotProgress {
   public int version = 1;
   public int coins = 0;
   public double playerX = -180;

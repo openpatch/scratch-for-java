@@ -28,19 +28,7 @@ This example show the handling of the tiled extension.
 
 ```java Tiled.java
 
-void main() {
-  // These global settings must be set before starting the game.
-  Text.useFont("assets/Retro Gaming.ttf");
-
-  // Start the Game
-  // begin project settings
-  Window.usePixelArt();
-  Window.useFullScreen();
-  // end project settings
-  new Tiled();
-}
-
-class Tiled extends Window {
+public class Tiled extends Window {
 
   public Tiled() {
     super(640, 360, "assets");
@@ -55,9 +43,24 @@ class Tiled extends Window {
     // begin project settings
     // end project settings
   }
-}
 
-class Level extends Stage {
+  public static void main(String[] args) {
+    // These global settings must be set before starting the game.
+    Text.useFont("assets/Retro Gaming.ttf");
+
+    // Start the Game
+    // begin project settings
+    Window.usePixelArt();
+    Window.useFullScreen();
+    // end project settings
+    new Tiled();
+  }
+}
+```
+
+```java Level.java
+
+public class Level extends Stage {
 
   // begin stage designer
   private UIItem inventory;
@@ -136,8 +139,11 @@ class Level extends Stage {
     return player;
   }
 }
+```
 
-class I18n {
+```java I18n.java
+
+public class I18n {
   private static String[] allowedLocales = { "en", "de" };
   private static String locale = allowedLocales[0];
   private static HashMap<String, HashMap<String, String>> messages;
@@ -190,8 +196,11 @@ class I18n {
     return message;
   }
 }
+```
 
-class GameState {
+```java GameState.java
+
+public class GameState {
   public String[] items = new String[0];
   public double playerX = Double.MAX_VALUE;
   public double playerY = Double.MAX_VALUE;
@@ -242,8 +251,11 @@ class GameState {
     return false;
   }
 }
+```
 
-class Item extends Sprite {
+```java Item.java
+
+public class Item extends Sprite {
   private String name;
 
   // Constructor for displaying the inventory
@@ -279,9 +291,12 @@ class Item extends Sprite {
     return name;
   }
 }
+```
+
+```java UIItem.java
 
 /** An Item pinned to the user interface layer, used for the inventory. */
-class UIItem extends Item {
+public class UIItem extends Item {
   public UIItem() {
     this.setLayer(Layer.UI);
 
@@ -289,8 +304,11 @@ class UIItem extends Item {
     // end sprite editor
   }
 }
+```
 
-class Player extends Sprite {
+```java Player.java
+
+public class Player extends Sprite {
 
   private String state = "idle";
   private double speed = 2;
@@ -385,24 +403,33 @@ class Player extends Sprite {
     this.tryMove(0, dy);
   }
 }
+```
 
-class Water extends Sprite {
+```java Water.java
+
+public class Water extends Sprite {
   // The map puts it where its object is, and makes the object's area its hitbox.
   public Water() {
     // begin sprite editor
     // end sprite editor
   }
 }
+```
 
-class Wall extends Sprite {
+```java Wall.java
+
+public class Wall extends Sprite {
   // The map puts it where its object is, and makes the object's area its hitbox.
   public Wall() {
     // begin sprite editor
     // end sprite editor
   }
 }
+```
 
-class Fireball extends Sprite {
+```java Fireball.java
+
+public class Fireball extends Sprite {
   private String dir;
   private double speed = 3;
 
@@ -438,8 +465,11 @@ class Fireball extends Sprite {
     this.playAnimation("default");
   }
 }
+```
 
-class Enemy extends Sprite {
+```java Enemy.java
+
+public class Enemy extends Sprite {
 
   protected String state = "idle";
   protected String dir = "down";
@@ -452,8 +482,11 @@ class Enemy extends Sprite {
     // end sprite editor
   }
 }
+```
 
-class Bamboo extends Enemy {
+```java Bamboo.java
+
+public class Bamboo extends Enemy {
 
   protected double speed = 2;
 
@@ -497,8 +530,11 @@ class Bamboo extends Enemy {
     this.playAnimation("walk-" + dir);
   }
 }
+```
 
-class Warp extends Sprite {
+```java Warp.java
+
+public class Warp extends Sprite {
   private String toMap;
   private double toX;
   private double toY;

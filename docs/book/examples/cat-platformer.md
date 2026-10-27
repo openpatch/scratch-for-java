@@ -90,11 +90,6 @@ Click the stage so it takes the keyboard.
 
 ```java CatPlatformer.java
 
-void main() {
-  Window myWindow = new Window(800, 480);
-  myWindow.setStage(new CatPlatformer());
-}
-
 /**
  * The Scratch for Java cat in a small platformer: collect the coffee beans,
  * jump on the bugs (or punch them) and climb up to the steaming mug.
@@ -105,13 +100,16 @@ void main() {
  * beans, the bugs, the mug and the hearts are on the built-in cat sheet, the
  * tiles and the sounds are Kenney's.
  */
-class CatPlatformer extends Stage {
+public class CatPlatformer extends Stage {
 
   /** The height the ground reaches up to. */
   public static final double GROUND_TOP = -176;
 
   /** Where the ladder ends: the top of the platform with the mug. */
   public static final double LADDER_TOP = 112;
+
+  /** What landingHeight answers while there is nothing to land on, far below the stage. */
+  public static final double FALLING = -100000;
 
   private final List<Platform> platforms = new ArrayList<>();
   private final Heart[] hearts = new Heart[3];
@@ -167,7 +165,7 @@ class CatPlatformer extends Stage {
 
   private void addPlatform(double left, double top, int tiles) {
     for (int i = 0; i < tiles; i++) {
-      String costume = i == 0 ? "grassHalf_left" : i == tiles - 1 ? "grassHalf_right" : "grassHalf_mid";
+      String costume = i == 0 ? "grassHalf_left" : (i == tiles - 1 ? "grassHalf_right" : "grassHalf_mid");
       Platform tile = new Platform(costume, left + 32 + i * 64, top);
       this.platforms.add(tile);
       this.add(tile);
@@ -188,18 +186,18 @@ class CatPlatformer extends Stage {
    * from feetBefore down to feetAfter; if a platform top (or the ground) lies
    * in between, below x, that is where it stands.
    *
-   * @return the height of what it lands on, or NaN while it is still falling
+   * @return the height of what it lands on, or FALLING while it is still falling
    */
   public double landingHeight(double x, double feetBefore, double feetAfter) {
-    double best = Double.NaN;
+    double best = FALLING;
     for (Platform platform : this.platforms) {
       boolean above = x > platform.getLeft() && x < platform.getRight();
       double top = platform.getTop();
-      if (above && feetBefore >= top && feetAfter <= top && !(best >= top)) {
+      if (above && feetBefore >= top && feetAfter <= top && top > best) {
         best = top;
       }
     }
-    if (Double.isNaN(best) && feetAfter <= GROUND_TOP) {
+    if (best == FALLING && feetAfter <= GROUND_TOP) {
       best = GROUND_TOP;
     }
     return best;
@@ -242,10 +240,18 @@ class CatPlatformer extends Stage {
     text.showText(message);
     this.add(text);
   }
+
+  public static void main(String[] args) {
+    Window myWindow = new Window(800, 480);
+    myWindow.setStage(new CatPlatformer());
+  }
 }
+```
+
+```java Platform.java
 
 /** One tile of a platform the cat can stand on. */
-class Platform extends Sprite {
+public class Platform extends Sprite {
 
   private final double top;
 
@@ -270,9 +276,12 @@ class Platform extends Sprite {
     return this.getX() + 32;
   }
 }
+```
+
+```java Heart.java
 
 /** One of the cat's lives, shown in the top left corner. */
-class Heart extends Sprite {
+public class Heart extends Sprite {
 
   public Heart(double x, double y) {
     this.addCostume("heart_full");
@@ -289,9 +298,12 @@ class Heart extends Sprite {
     this.switchCostume("heart_empty");
   }
 }
+```
+
+```java Ground.java
 
 /** One grass tile of the ground. */
-class Ground extends Sprite {
+public class Ground extends Sprite {
 
   public Ground(double x) {
     this.addCostume("grassMid");
@@ -301,9 +313,12 @@ class Ground extends Sprite {
     this.setY(CatPlatformer.GROUND_TOP - 32);
   }
 }
+```
+
+```java Ladder.java
 
 /** One piece of the ladder. Touching it, the cat can climb with the up and down keys. */
-class Ladder extends Sprite {
+public class Ladder extends Sprite {
 
   public Ladder(double x, double y, boolean top) {
     this.addCostume(top ? "ladderTop" : "ladderMid");
@@ -312,9 +327,12 @@ class Ladder extends Sprite {
     this.setY(y);
   }
 }
+```
+
+```java Bug.java
 
 /** A bug walking to and fro. Jump on it or punch it - but do not walk into it. */
-class Bug extends Sprite {
+public class Bug extends Sprite {
 
   /** The costume is 32 pixels high, the legs end 3 pixels above its bottom. */
   private static final double FEET = 13;
@@ -362,9 +380,12 @@ class Bug extends Sprite {
     }
   }
 }
+```
+
+```java Goal.java
 
 /** The steaming mug at the end of the level. */
-class Goal extends Sprite {
+public class Goal extends Sprite {
 
   public Goal(double x, double floor) {
     this.addAnimation("steam", "goal_mug_%d", 4);
@@ -378,9 +399,12 @@ class Goal extends Sprite {
     this.playAnimation("steam");
   }
 }
+```
+
+```java Cat.java
 
 /** The Scratch for Java cat. Every one of its animations is on the built-in cat sheet. */
-class Cat extends Sprite {
+public class Cat extends Sprite {
 
   /** The costumes are 64 pixels high with the feet on the bottom row. */
   private static final double FEET = 32;
@@ -551,7 +575,7 @@ class Cat extends Sprite {
     this.fallSpeed -= GRAVITY;
     this.changeY(this.fallSpeed);
     double landing = this.level().landingHeight(this.getX(), before, this.feet());
-    if (!Double.isNaN(landing) && this.fallSpeed <= 0) {
+    if (landing != CatPlatformer.FALLING && this.fallSpeed <= 0) {
       if (!this.onGround && this.fallSpeed < -4) {
         this.landFrames = 8;
       }
@@ -630,9 +654,12 @@ class Cat extends Sprite {
     }
   }
 }
+```
+
+```java Bean.java
 
 /** A spinning coffee bean to collect. */
-class Bean extends Sprite {
+public class Bean extends Sprite {
 
   public Bean(double x, double y) {
     this.addAnimation("spin", "coffee_bean_%d", 4);

@@ -22,13 +22,7 @@ find it. Hold the mouse down to move the target.
 
 ```java SmartRocket.java
 
-void main() {
-  // begin project settings
-  // end project settings
-  new SmartRocket();
-}
-
-class SmartRocket extends Window {
+public class SmartRocket extends Window {
   public SmartRocket() {
     super(800, 600, "assets");
 
@@ -36,9 +30,18 @@ class SmartRocket extends Window {
     this.setStage(new Level());
     // end project settings
   }
-}
 
-class Level extends Stage {
+  public static void main(String[] args) {
+    // begin project settings
+    // end project settings
+    new SmartRocket();
+  }
+}
+```
+
+```java Level.java
+
+public class Level extends Stage {
 
   // begin stage designer
   // end stage designer
@@ -100,8 +103,11 @@ class Level extends Stage {
     }
   }
 }
+```
 
-class Ziel extends Sprite {
+```java Ziel.java
+
+public class Ziel extends Sprite {
 
   public Ziel() {
     // begin sprite editor
@@ -110,8 +116,11 @@ class Ziel extends Sprite {
     // end sprite editor
   }
 }
+```
 
-class Population {
+```java Population.java
+
+public class Population {
   private double mutationsrate;
   private Rocket[] population;
   private Rocket[] partnerpool;
@@ -208,8 +217,11 @@ class Population {
     return summe / this.population.length;
   }
 }
+```
 
-class Rocket extends Sprite {
+```java Rocket.java
+
+public class Rocket extends Sprite {
   private Vector2 geschwindigkeit;
   private Vector2 beschleunigung;
 
@@ -255,8 +267,11 @@ class Rocket extends Sprite {
     }
   }
 }
+```
 
-class DNA {
+```java DNA.java
+
+public class DNA {
   private Vector2[] gene;
   private double maximaleKraft = 0.5;
 

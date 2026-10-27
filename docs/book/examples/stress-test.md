@@ -110,12 +110,7 @@ all of them run. How fast does it still go in your browser?
 
 ```java StressTest.java
 
-void main() {
-  Window myWindow = new Window(1200, 800, "assets");
-  myWindow.setStage(new StressTest());
-}
-
-class StressTest extends Stage {
+public class StressTest extends Stage {
 
   // begin stage designer
   // end stage designer
@@ -148,9 +143,17 @@ class StressTest extends Stage {
       }
     }
   }
-}
 
-class Figure extends Sprite {
+  public static void main(String[] args) {
+    Window myWindow = new Window(1200, 800, "assets");
+    myWindow.setStage(new StressTest());
+  }
+}
+```
+
+```java Figure.java
+
+public class Figure extends Sprite {
   public FigureState state;
   int tintColor;
   boolean hasTouchedEdge = false;
@@ -204,8 +207,11 @@ class Figure extends Sprite {
     }
   }
 }
+```
 
-class Dino extends Figure {
+```java Dino.java
+
+public class Dino extends Figure {
   public Dino() {
     super("assets/dino/", 10, 8, 10);
 
@@ -213,8 +219,11 @@ class Dino extends Figure {
     // end sprite editor
   }
 }
+```
 
-class Knight extends Figure {
+```java Knight.java
+
+public class Knight extends Figure {
   public Knight() {
     super("assets/knight/", 10, 10, 10);
 
@@ -222,8 +231,11 @@ class Knight extends Figure {
     // end sprite editor
   }
 }
+```
 
-class Ninja extends Figure {
+```java Ninja.java
+
+public class Ninja extends Figure {
 
   public Ninja() {
     super("assets/ninja/", 10, 10, 10);
@@ -232,8 +244,11 @@ class Ninja extends Figure {
     // end sprite editor
   }
 }
+```
 
-enum FigureState {
+```java FigureState.java
+
+public enum FigureState {
   IDLE,
   RUN,
   WALK

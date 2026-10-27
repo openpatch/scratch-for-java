@@ -23,12 +23,7 @@ browser only plays the music after that first click.
 
 ```java Pipes.java
 
-void main() {
-  Window myWindow = new Window(1280, 800);
-  myWindow.setStage(new Pipes());
-}
-
-class Pipes extends Stage {
+public class Pipes extends Stage {
 
   // begin stage designer
   private PenSprite penSprite;
@@ -62,9 +57,17 @@ class Pipes extends Stage {
       }
     }
   }
-}
 
-class PenSprite extends Sprite {
+  public static void main(String[] args) {
+    Window myWindow = new Window(1280, 800);
+    myWindow.setStage(new Pipes());
+  }
+}
+```
+
+```java PenSprite.java
+
+public class PenSprite extends Sprite {
 
   private boolean finished = false;
   private static double color;

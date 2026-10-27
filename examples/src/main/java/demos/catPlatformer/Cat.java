@@ -176,7 +176,7 @@ public class Cat extends Sprite {
     this.fallSpeed -= GRAVITY;
     this.changeY(this.fallSpeed);
     double landing = this.level().landingHeight(this.getX(), before, this.feet());
-    if (!Double.isNaN(landing) && this.fallSpeed <= 0) {
+    if (landing != CatPlatformer.FALLING && this.fallSpeed <= 0) {
       if (!this.onGround && this.fallSpeed < -4) {
         this.landFrames = 8;
       }

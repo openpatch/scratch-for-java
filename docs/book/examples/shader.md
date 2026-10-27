@@ -44,14 +44,7 @@ the keys.
 
 ```java ShaderExample.java
 
-void main() {
-  // begin project settings
-  Window.useFullScreen();
-  // end project settings
-  new ShaderExample();
-}
-
-class ShaderExample extends Window {
+public class ShaderExample extends Window {
   public ShaderExample() {
     super(800, 400);
 
@@ -59,9 +52,19 @@ class ShaderExample extends Window {
     this.setStage(new MyStage());
     // end project settings
   }
-}
 
-class MyStage extends Stage {
+  public static void main(String[] args) {
+    // begin project settings
+    Window.useFullScreen();
+    // end project settings
+    new ShaderExample();
+  }
+}
+```
+
+```java MyStage.java
+
+public class MyStage extends Stage {
 
   // begin stage designer
   private MySprite mySprite;
@@ -128,8 +131,11 @@ class MyStage extends Stage {
     }
   }
 }
+```
 
-class MySprite extends Sprite {
+```java MySprite.java
+
+public class MySprite extends Sprite {
   public MySprite() {
     // begin sprite editor
     this.addCostume("cat", "cat.png");
@@ -165,8 +171,11 @@ class MySprite extends Sprite {
     this.say("Shaders are cool!");
   }
 }
+```
 
-class NormalSprite extends Sprite {
+```java NormalSprite.java
+
+public class NormalSprite extends Sprite {
   public NormalSprite() {
     // begin sprite editor
     this.addCostume("cat", "cat.png");
@@ -178,8 +187,11 @@ class NormalSprite extends Sprite {
     this.move(5);
   }
 }
+```
 
-class LightSprite extends Sprite {
+```java LightSprite.java
+
+public class LightSprite extends Sprite {
   public LightSprite() {
     // begin sprite editor
     this.addCostume("light", "light.png");

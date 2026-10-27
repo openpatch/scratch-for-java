@@ -19,12 +19,7 @@ own. The stage is 1800 pixels wide, so it is scaled down to fit.
 
 ```java TimerStage.java
 
-void main() {
-  Window myWindow = new Window(1800, 360);
-  myWindow.setStage(new TimerStage());
-}
-
-class TimerStage extends Stage {
+public class TimerStage extends Stage {
 
   // begin stage designer
   private TimerSprite timerSprite;
@@ -35,6 +30,11 @@ class TimerStage extends Stage {
     timerSprite = new TimerSprite();
     this.add(timerSprite);
     // end stage designer
+  }
+
+  public static void main(String[] args) {
+    Window myWindow = new Window(1800, 360);
+    myWindow.setStage(new TimerStage());
   }
 }
 
