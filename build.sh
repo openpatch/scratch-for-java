@@ -3,7 +3,10 @@ set -e
 
 ROOT=$(cd "$(dirname "$0")" && pwd)
 
-VERSION=$(grep -m1 '<version>' ./pom.xml | sed -E 's/.*<version>([^<]+)<\/version>.*/\1/')
+# Only a real `<version>x</version>` element matches; the usage comment above
+# the coordinates mentions `<version>` too, and grabbing that line would put
+# slashes into the sed below ("unknown option to `s'").
+VERSION=$(grep -m1 -oE '<version>[^<]+</version>' ./pom.xml | sed -E 's/<\/?version>//g')
 
 cp ./CHANGELOG.md ./docs/book/changelog.md
 
