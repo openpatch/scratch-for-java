@@ -22,6 +22,10 @@
     <properties>
         <maven.deploy.skip>true</maven.deploy.skip>
         <maven.install.skip>true</maven.install.skip>
+        <!-- never published: no sources, Javadoc or signature in the central profile either -->
+        <maven.source.skip>true</maven.source.skip>
+        <maven.javadoc.skip>true</maven.javadoc.skip>
+        <gpg.skip>true</gpg.skip>
     </properties>
 
     <dependencies>
