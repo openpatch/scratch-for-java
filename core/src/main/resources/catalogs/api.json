@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "libraryVersion": "7.0.0",
-  "browserVersion": "7.0.0-browser.1",
+  "libraryVersion": "7.1.0",
+  "browserVersion": "7.1.0-browser.1",
   "methods": [
     {
       "id": "Camera/changeX(double)",
