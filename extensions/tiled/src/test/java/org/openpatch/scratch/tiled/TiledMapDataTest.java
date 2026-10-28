@@ -203,7 +203,7 @@ class TiledMapDataTest {
     assertEquals(-20, made.get(0).getY());
     assertEquals(30, ((Rock) made.get(1)).madeAtX, "(double x, double y) gets the object's position");
     assertEquals(4, made.get(2).getHitbox().getBounds().height(), 0.00001, "an area becomes the hitbox");
-    assertEquals(3, stage.getAll().size());
+    assertEquals(3, stage.count(org.openpatch.scratch.Sprite.class));
 
     var signs = map.spawn("Objects", Sign.class);
     assertEquals(1, signs.size());
