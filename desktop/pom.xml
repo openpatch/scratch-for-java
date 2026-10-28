@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.openpatch</groupId>
         <artifactId>scratch-parent</artifactId>
-        <version>7.0.0</version>
+        <version>7.1.0</version>
     </parent>
 
     <!-- The core on the desktop: window, OpenGL, sound and decoders through LWJGL
