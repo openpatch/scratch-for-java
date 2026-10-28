@@ -1,7 +1,5 @@
 package org.openpatch.scratch.tiled;
 
-import tools.jackson.core.JacksonException;
-import tools.jackson.databind.ObjectMapper;
 import java.nio.file.Paths;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -282,27 +280,37 @@ public class TiledMap {
   }
 
   /**
-   * Reads a .tmx or .tsx file. Unlike File.loadXML this does not swallow the
+   * Reads a .tmx or .tsx file. This does not swallow the
    * reason: "this map is infinite" reaches the student as the error message.
    */
   static <T> T read(String path, Class<T> type) {
-    var file = new java.io.File(resolve(path));
-    if (!file.isFile()) {
-      throw new IllegalArgumentException("The Tiled file " + path + " does not exist.");
-    }
-    var mapper = tools.jackson.dataformat.xml.XmlMapper.builder()
-        .disable(tools.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
-        .build();
+    String xml = load(path);
     try {
-      return mapper.readValue(file, type);
+      return type.cast(type == Tileset.class ? TmxReader.tileset(xml) : TmxReader.map(xml));
     } catch (RuntimeException e) {
-      Throwable cause = e;
-      while (cause.getCause() != null && cause.getCause() != cause) {
-        cause = cause.getCause();
-      }
-      throw new IllegalArgumentException("Cannot read the Tiled file " + path + ": "
-          + cause.getMessage(), e);
+      throw new IllegalArgumentException("Cannot read the Tiled file " + path + ": " + e.getMessage(), e);
     }
+  }
+
+  /** The file's text: a file relative to the working directory, else a class-path resource. */
+  private static String load(String path) {
+    try {
+      java.nio.file.Path file = java.nio.file.Path.of(resolve(path));
+      if (java.nio.file.Files.isRegularFile(file)) {
+        // bytes, not Files.readString: the browser build's class library lacks what that needs
+        return new String(java.nio.file.Files.readAllBytes(file), java.nio.charset.StandardCharsets.UTF_8);
+      }
+      String resource = path.replace('\\', '/');
+      ClassLoader loader = Thread.currentThread().getContextClassLoader();
+      try (var in = loader == null ? null : loader.getResourceAsStream(resource.startsWith("/") ? resource.substring(1) : resource)) {
+        if (in != null) {
+          return new String(in.readAllBytes(), java.nio.charset.StandardCharsets.UTF_8);
+        }
+      }
+    } catch (java.io.IOException e) {
+      throw new IllegalArgumentException("Cannot read the Tiled file " + path + ": " + e.getMessage(), e);
+    }
+    throw new IllegalArgumentException("The Tiled file " + path + " does not exist.");
   }
 
   /** Clear all four Tiled flags, including a retained hexagonal rotation flag. */
@@ -387,10 +395,11 @@ public class TiledMap {
   }
 
   /**
-   * Creates a sprite for each object of a layer whose type names a sprite class,
-   * and adds it to the stage. In Tiled, give an object the type (called
-   * "class" in newer versions of Tiled) {@code Player}, and the map makes a
-   * {@code new Player()} where the object is.
+   * Creates a sprite for each object of a layer whose type is one of the given
+   * sprite classes, and adds it to the stage. In Tiled, give an object the type
+   * (called "class" in newer versions of Tiled) {@code Player}, and
+   * {@code map.spawn("Objects", Player.class)} makes a {@code new Player()}
+   * where the object is.
    *
    * <p>
    * The sprite's class needs one of these constructors, tried in this order:
@@ -401,28 +410,38 @@ public class TiledMap {
    * its hitbox, which is how walls and water work without a costume.
    *
    * <p>
-   * Objects whose type is not a sprite class, or that have no type, are left
-   * alone, so a layer can hold markers the program reads itself.
+   * Objects whose type is none of the classes, or that have no type, are left
+   * alone, so a layer can hold markers the program reads itself. The classes
+   * are named in the program, not looked up by the names in the map: a game
+   * exported as a web page only contains the classes its code names.
    *
    * <pre>{@code
    * TiledMap map = new TiledMap("level.tmx", this);
-   * map.spawn("Objects");
+   * map.spawn("Objects", Player.class, Wall.class);
    * }</pre>
    *
    * @param layerName the object layer
+   * @param types the sprite classes to make, matched to the objects' types by
+   *     their names
    * @return the sprites that were made, in the order of the layer
    * @example.files TiledSpawn.java
-   * @throws IllegalArgumentException if the map has no such object layer
+   * @throws IllegalArgumentException if no class is given, or the map has no
+   *     such object layer
    */
-  public java.util.List<Sprite> spawn(String layerName) {
+  @SafeVarargs
+  public final java.util.List<Sprite> spawn(String layerName, Class<? extends Sprite>... types) {
     this.requireStage();
+    if (types.length == 0) {
+      throw new IllegalArgumentException("Name the sprite classes to make, for example map.spawn(\""
+          + layerName + "\", Player.class, Wall.class).");
+    }
     var objects = this.getObjectsFromLayer(layerName);
     if (objects == null) {
       throw new IllegalArgumentException("The map has no object layer " + layerName);
     }
     var made = new java.util.ArrayList<Sprite>();
     for (var object : objects) {
-      Class<? extends Sprite> type = spriteClass(object.type);
+      Class<? extends Sprite> type = spriteClass(object.type, types);
       if (type == null) {
         continue;
       }
@@ -438,23 +457,14 @@ public class TiledMap {
     return made;
   }
 
-  /** The sprite class a type names, looked for beside the stage's class first. */
-  private Class<? extends Sprite> spriteClass(String type) {
-    if (type == null || type.isBlank()) {
+  /** The one of {@code types} an object's type names, by its simple or its full name. */
+  private static Class<? extends Sprite> spriteClass(String name, Class<? extends Sprite>[] types) {
+    if (name == null || name.isBlank()) {
       return null;
     }
-    var loader = this.stage.getClass().getClassLoader();
-    String pkg = this.stage.getClass().getPackageName();
-    for (String name : pkg.isEmpty() ? new String[] {type}
-        : new String[] {pkg + "." + type, type}) {
-      try {
-        Class<?> found = Class.forName(name, false, loader);
-        if (Sprite.class.isAssignableFrom(found)) {
-          return found.asSubclass(Sprite.class);
-        }
-        return null;
-      } catch (ClassNotFoundException | LinkageError e) {
-        // try the next name
+    for (var type : types) {
+      if (name.equals(type.getSimpleName()) || name.equals(type.getName())) {
+        return type;
       }
     }
     return null;
@@ -596,30 +606,15 @@ public class TiledMap {
     if (path.startsWith("~")) {
       path = System.getProperty("user.home") + path.substring(1);
     }
-    java.nio.file.Path fsPath = java.nio.file.Path.of(path);
-    if (fsPath.isAbsolute() || java.nio.file.Files.exists(fsPath)) {
-      return fsPath.toString();
-    }
-    var resource = Thread.currentThread().getContextClassLoader().getResource(path);
-    if (resource != null && "file".equals(resource.getProtocol())) {
-      try {
-        return java.nio.file.Path.of(resource.toURI()).toString();
-      } catch (java.net.URISyntaxException e) {
-        throw new IllegalArgumentException("Invalid resource URI: " + resource, e);
-      }
-    }
-    return fsPath.toString();
+    return path;
   }
+
 
   @Override
   public String toString() {
-    try {
-      ObjectMapper mapper = new ObjectMapper();
-      String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(this.map);
-      return json;
-    } catch (JacksonException e) {
-      System.out.println(e);
-      return "";
-    }
+    int layers = this.map.layers == null ? 0 : this.map.layers.length;
+    int groups = this.map.objectGroups == null ? 0 : this.map.objectGroups.length;
+    return "TiledMap[" + this.map.width + "x" + this.map.height + " tiles of " + this.map.tilewidth + "x"
+        + this.map.tileheight + ", " + layers + " tile layers, " + groups + " object layers]";
   }
 }

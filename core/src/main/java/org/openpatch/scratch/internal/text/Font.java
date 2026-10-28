@@ -1,16 +1,8 @@
 package org.openpatch.scratch.internal.text;
 
 import java.io.IOException;
-import java.nio.ByteBuffer;
-import java.nio.IntBuffer;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import org.lwjgl.stb.STBTTFontinfo;
-import org.lwjgl.stb.STBTTVertex;
-import org.lwjgl.stb.STBTruetype;
-import org.lwjgl.system.MemoryStack;
-import org.lwjgl.system.MemoryUtil;
-import org.openpatch.scratch.internal.Natives;
 import org.openpatch.scratch.internal.image.Images;
 
 /**
@@ -22,10 +14,6 @@ import org.openpatch.scratch.internal.image.Images;
  */
 public final class Font {
 
-  static {
-    Natives.init();
-  }
-
   /** The default font in normal mode. */
   public static final String DEFAULT = "UbuntuMono-Regular.ttf";
   /** The default font in pixel-art mode. */
@@ -34,8 +22,7 @@ public final class Font {
   private static final Map<String, Font> CACHE = new ConcurrentHashMap<>();
 
   private final String name;
-  private final ByteBuffer data;
-  final STBTTFontinfo info;
+  final TrueType info;
   private final int unitsPerEm, ascent, descent, lineGap;
   private final int pixelGrid;
   private final Font base; // the font this one is a view of (other grid), or null
@@ -45,15 +32,13 @@ public final class Font {
   private Font(String name, byte[] bytes) throws IOException {
     this.name = name;
     this.base = null;
-    this.data = MemoryUtil.memAlloc(bytes.length).put(bytes).flip();
-    this.info = STBTTFontinfo.malloc();
-    if (!STBTruetype.stbtt_InitFont(this.info, this.data, STBTruetype.stbtt_GetFontOffsetForIndex(this.data, 0))) {
-      this.info.free();
-      MemoryUtil.memFree(this.data);
+    int offset = TrueType.fontOffset(bytes, 0);
+    if (offset < 0) {
       throw new IOException(name + " is not a TrueType or OpenType font.");
     }
+    this.info = new TrueType(bytes, offset, name);
     // one em mapped to 1 px: its inverse is the units per em
-    this.unitsPerEm = Math.round(1f / STBTruetype.stbtt_ScaleForMappingEmToPixels(this.info, 1));
+    this.unitsPerEm = Math.round(1f / this.info.scaleForMappingEmToPixels(1));
     int[] m = this.verticalMetrics();
     this.ascent = m[0];
     this.descent = m[1];
@@ -66,7 +51,6 @@ public final class Font {
   private Font(Font base, int pixelGrid) {
     this.name = base.name;
     this.base = base;
-    this.data = base.data;
     this.info = base.info;
     this.unitsPerEm = base.unitsPerEm;
     this.ascent = base.ascent;
@@ -100,7 +84,6 @@ public final class Font {
     }
     Font raced = CACHE.putIfAbsent(path, font);
     if (raced != null) {
-      font.close();
       return raced;
     }
     org.openpatch.scratch.internal.Assets.noteLoadedLate("font", path);
@@ -172,25 +155,18 @@ public final class Font {
   }
 
   int glyph(int codepoint) {
-    return this.glyphs.computeIfAbsent(codepoint, cp -> STBTruetype.stbtt_FindGlyphIndex(this.info, cp));
+    return this.glyphs.computeIfAbsent(codepoint, cp -> this.info.findGlyphIndex(cp));
   }
 
   /** The advance of a codepoint at a size, in stage units. */
   public double advance(int codepoint, double size) {
-    int units = this.advances.computeIfAbsent(codepoint, cp -> {
-      try (MemoryStack stack = MemoryStack.stackPush()) {
-        IntBuffer advance = stack.mallocInt(1);
-        STBTruetype.stbtt_GetGlyphHMetrics(this.info, this.glyph(cp), advance, null);
-        return advance.get(0);
-      }
-    });
+    int units = this.advances.computeIfAbsent(codepoint, cp -> this.info.advanceWidth(this.glyph(cp)));
     return units * this.scaleFor(size);
   }
 
   /** The kerning between two codepoints at a size, in stage units ({@code kern} and GPOS pairs). */
   public double kerning(int left, int right, double size) {
-    return STBTruetype.stbtt_GetGlyphKernAdvance(this.info, this.glyph(left), this.glyph(right))
-        * this.scaleFor(size);
+    return this.info.kernAdvance(this.glyph(left), this.glyph(right)) * this.scaleFor(size);
   }
 
   /** Distance between baselines at a size: ascent − descent + line gap. */
@@ -219,45 +195,27 @@ public final class Font {
     return Math.max(1, Math.round(size / pixel)) * pixel;
   }
 
-  /** Frees the native memory; only for fonts made with {@link #fromBytes}. */
-  public void close() {
-    if (this.base == null) {
-      this.info.free();
-      MemoryUtil.memFree(this.data);
-    }
-  }
-
   /** hhea's metrics, or OS/2's typographic ones when the font asks for them (USE_TYPO_METRICS). */
   private int[] verticalMetrics() {
-    try (MemoryStack stack = MemoryStack.stackPush()) {
-      IntBuffer a = stack.mallocInt(1), d = stack.mallocInt(1), g = stack.mallocInt(1);
-      int os2 = this.table("OS/2");
-      boolean useTypo = os2 >= 0 && this.data.limit() > os2 + 64 && (u16(this.data, os2 + 62) & (1 << 7)) != 0;
-      if (useTypo && STBTruetype.stbtt_GetFontVMetricsOS2(this.info, a, d, g)) {
-        return new int[] {a.get(0), d.get(0), g.get(0)};
-      }
-      STBTruetype.stbtt_GetFontVMetrics(this.info, a, d, g);
-      return new int[] {a.get(0), d.get(0), g.get(0)};
-    }
+    byte[] data = this.info.data();
+    int os2 = this.info.table("OS/2");
+    boolean useTypo = os2 >= 0 && data.length > os2 + 64 && (u16(data, os2 + 62) & (1 << 7)) != 0;
+    int[] typo = useTypo ? this.info.typoMetrics() : null;
+    return typo != null ? typo : this.info.verticalMetrics();
   }
 
   /** The gcd of every outline coordinate of every glyph (Jersey 10: 75 of 1400 units). */
   private int outlineGrid() {
-    int maxp = this.table("maxp");
-    int glyphCount = maxp < 0 ? 0 : u16(this.data, maxp + 4);
+    int maxp = this.info.table("maxp");
+    int glyphCount = maxp < 0 ? 0 : u16(this.info.data(), maxp + 4);
     int grid = 0;
     for (int g = 0; g < glyphCount; g++) {
-      STBTTVertex.Buffer shape = STBTruetype.stbtt_GetGlyphShape(this.info, g);
-      if (shape == null) {
-        continue;
-      }
-      for (STBTTVertex v : shape) {
+      for (TrueType.Vertex v : this.info.shape(g)) {
         grid = gcd(grid, Math.abs(v.x()));
         grid = gcd(grid, Math.abs(v.y()));
         grid = gcd(grid, Math.abs(v.cx()));
         grid = gcd(grid, Math.abs(v.cy()));
       }
-      STBTruetype.stbtt_FreeShape(this.info, shape);
       if (grid == 1) {
         break; // cannot get any finer
       }
@@ -274,22 +232,8 @@ public final class Font {
     return a;
   }
 
-  /** Offset of a table, from the directory at the start of the file; -1 if absent. */
-  private int table(String tag) {
-    int offset = STBTruetype.stbtt_GetFontOffsetForIndex(this.data, 0);
-    int tables = u16(this.data, offset + 4);
-    for (int i = 0; i < tables; i++) {
-      int record = offset + 12 + i * 16;
-      if (this.data.get(record) == tag.charAt(0) && this.data.get(record + 1) == tag.charAt(1)
-          && this.data.get(record + 2) == tag.charAt(2) && this.data.get(record + 3) == tag.charAt(3)) {
-        return u16(this.data, record + 8) << 16 | u16(this.data, record + 10);
-      }
-    }
-    return -1;
-  }
-
-  private static int u16(ByteBuffer b, int offset) {
-    return (b.get(offset) & 0xff) << 8 | b.get(offset + 1) & 0xff;
+  private static int u16(byte[] b, int offset) {
+    return (b[offset] & 0xff) << 8 | b[offset + 1] & 0xff;
   }
 
   @Override

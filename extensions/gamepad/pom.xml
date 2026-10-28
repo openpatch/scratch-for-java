@@ -12,7 +12,8 @@
 
     <!-- Controller support (Gamepad, GamepadListener): polls GLFW's gamepad API in onInputPoll,
          never a GLFW callback. Uses the core's public API only; lwjgl-glfw is provided because
-         the core ships it (checked by all/src/build/BuildChecks.java). -->
+         scratch-desktop ships it (checked by all/src/build/BuildChecks.java). Desktop only: in a
+         web page there is no GLFW. -->
     <artifactId>scratch-gamepad</artifactId>
     <packaging>jar</packaging>
     <name>Scratch for Java: Gamepad</name>
@@ -21,6 +22,12 @@
         <dependency>
             <groupId>org.openpatch</groupId>
             <artifactId>scratch</artifactId>
+        </dependency>
+        <!-- tests decode images and open sound through the desktop platform -->
+        <dependency>
+            <groupId>org.openpatch</groupId>
+            <artifactId>scratch-desktop</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.lwjgl</groupId>

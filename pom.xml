@@ -45,6 +45,8 @@
 
     <modules>
         <module>core</module>
+        <module>desktop</module>
+        <module>web</module>
         <module>extensions/tiled</module>
         <module>extensions/save</module>
         <module>extensions/recorder</module>
@@ -74,6 +76,16 @@
             <dependency>
                 <groupId>org.openpatch</groupId>
                 <artifactId>scratch</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openpatch</groupId>
+                <artifactId>scratch-desktop</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openpatch</groupId>
+                <artifactId>scratch-web</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

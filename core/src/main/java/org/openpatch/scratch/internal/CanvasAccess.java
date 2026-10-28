@@ -24,11 +24,9 @@ public final class CanvasAccess {
 
   private static Access access() {
     if (access == null) {
-      try {
-        Class.forName(Canvas.class.getName(), true, Canvas.class.getClassLoader());
-      } catch (ClassNotFoundException e) {
-        throw new IllegalStateException(e);
-      }
+      // loads the extension package's CoreVersion, which registers the canvas access; no
+      // Class.forName: the browser build does not run static initializers through it
+      org.openpatch.scratch.extension.Extension.coreVersion();
     }
     return access;
   }

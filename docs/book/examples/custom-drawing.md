@@ -57,6 +57,6 @@ stamping. Use `new TiledMap(path)` to read data without opening a window.
 
 These APIs are available in the desktop library and the browser. In the browser,
 put image glyphs and TMX/TSX maps into the workspace as assets or load them by URL.
-`map.spawn("Objects")` also works in the browser: object types name sprite
-classes, with constructors taking `MapObject`, `(double x, double y)`, or no
-arguments. Construction finishes before the sprite is added to the stage.
+`map.spawn("Objects", Player.class, Wall.class)` also works in the browser: it
+makes the given sprite classes where an object's type names them, with
+constructors taking `MapObject`, `(double x, double y)`, or no arguments. Construction finishes before the sprite is added to the stage.

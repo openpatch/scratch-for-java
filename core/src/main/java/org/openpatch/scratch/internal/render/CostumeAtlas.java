@@ -1,8 +1,7 @@
 package org.openpatch.scratch.internal.render;
 
-import static org.lwjgl.opengl.GL33C.*;
+import static org.openpatch.scratch.internal.platform.GL.*;
 
-import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.IdentityHashMap;
 import java.util.List;
@@ -117,7 +116,7 @@ final class CostumeAtlas {
   private int newTexture() {
     int id = glGenTextures();
     glBindTexture(GL_TEXTURE_2D, id);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, PAGE, PAGE, 0, GL_BGRA, GL_UNSIGNED_INT_8_8_8_8_REV, (IntBuffer) null);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, PAGE, PAGE, 0, GL_BGRA, GL_UNSIGNED_INT_8_8_8_8_REV, (int[]) null);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, this.smooth ? LEVELS : 0);

@@ -1,6 +1,5 @@
 package org.openpatch.scratch.tiled;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 class MapLayer {
   /** Tile ids without Tiled's flip bits (0 = no tile). */
@@ -18,14 +17,12 @@ class MapLayer {
   public int y;
 
   /** Tiled 1.9+ calls a layer's type its class. */
-  @JsonProperty("class")
   public void setClassName(String className) {
     if (this.type == null || this.type.isEmpty()) {
       this.type = className;
     }
   }
 
-  @JsonProperty("data")
   public void setData(LayerData layerData) {
     long[] gids = layerData.gids();
     this.data = new int[gids.length];

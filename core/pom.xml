@@ -9,57 +9,29 @@
         <version>7.0.0</version>
     </parent>
 
-    <!-- The core library: window, stage, sprites, text, sound, shaders. -->
+    <!-- The core library: stage, sprites, text, sound, shaders; platform-neutral. -->
     <artifactId>scratch</artifactId>
     <packaging>jar</packaging>
     <name>Scratch for Java</name>
 
+    <!-- No dependencies: the window, OpenGL, sound and decoders come from a platform module
+         (scratch-desktop: LWJGL; scratch-web: the browser), see internal/platform/Platform. -->
     <dependencies>
-        <!-- LWJGL: GLFW windows, OpenGL 3.3 core, OpenAL Soft, stb (images, fonts, OGG, PNG
-             writing), tinyfd (the crash dialog). -->
-        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl</artifactId></dependency>
-        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-glfw</artifactId></dependency>
-        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-opengl</artifactId></dependency>
-        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-openal</artifactId></dependency>
-        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-stb</artifactId></dependency>
-        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-tinyfd</artifactId></dependency>
-        <!-- natives for every platform a game may be exported to; about 6 MB in all -->
-        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl</artifactId><classifier>natives-linux</classifier><scope>runtime</scope></dependency>
-        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-glfw</artifactId><classifier>natives-linux</classifier><scope>runtime</scope></dependency>
-        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-opengl</artifactId><classifier>natives-linux</classifier><scope>runtime</scope></dependency>
-        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-openal</artifactId><classifier>natives-linux</classifier><scope>runtime</scope></dependency>
-        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-stb</artifactId><classifier>natives-linux</classifier><scope>runtime</scope></dependency>
-        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-tinyfd</artifactId><classifier>natives-linux</classifier><scope>runtime</scope></dependency>
-        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl</artifactId><classifier>natives-linux-arm64</classifier><scope>runtime</scope></dependency>
-        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-glfw</artifactId><classifier>natives-linux-arm64</classifier><scope>runtime</scope></dependency>
-        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-opengl</artifactId><classifier>natives-linux-arm64</classifier><scope>runtime</scope></dependency>
-        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-openal</artifactId><classifier>natives-linux-arm64</classifier><scope>runtime</scope></dependency>
-        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-stb</artifactId><classifier>natives-linux-arm64</classifier><scope>runtime</scope></dependency>
-        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-tinyfd</artifactId><classifier>natives-linux-arm64</classifier><scope>runtime</scope></dependency>
-        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl</artifactId><classifier>natives-macos</classifier><scope>runtime</scope></dependency>
-        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-glfw</artifactId><classifier>natives-macos</classifier><scope>runtime</scope></dependency>
-        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-opengl</artifactId><classifier>natives-macos</classifier><scope>runtime</scope></dependency>
-        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-openal</artifactId><classifier>natives-macos</classifier><scope>runtime</scope></dependency>
-        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-stb</artifactId><classifier>natives-macos</classifier><scope>runtime</scope></dependency>
-        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-tinyfd</artifactId><classifier>natives-macos</classifier><scope>runtime</scope></dependency>
-        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl</artifactId><classifier>natives-macos-arm64</classifier><scope>runtime</scope></dependency>
-        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-glfw</artifactId><classifier>natives-macos-arm64</classifier><scope>runtime</scope></dependency>
-        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-opengl</artifactId><classifier>natives-macos-arm64</classifier><scope>runtime</scope></dependency>
-        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-openal</artifactId><classifier>natives-macos-arm64</classifier><scope>runtime</scope></dependency>
-        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-stb</artifactId><classifier>natives-macos-arm64</classifier><scope>runtime</scope></dependency>
-        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-tinyfd</artifactId><classifier>natives-macos-arm64</classifier><scope>runtime</scope></dependency>
-        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl</artifactId><classifier>natives-windows</classifier><scope>runtime</scope></dependency>
-        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-glfw</artifactId><classifier>natives-windows</classifier><scope>runtime</scope></dependency>
-        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-opengl</artifactId><classifier>natives-windows</classifier><scope>runtime</scope></dependency>
-        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-openal</artifactId><classifier>natives-windows</classifier><scope>runtime</scope></dependency>
-        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-stb</artifactId><classifier>natives-windows</classifier><scope>runtime</scope></dependency>
-        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-tinyfd</artifactId><classifier>natives-windows</classifier><scope>runtime</scope></dependency>
-        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl</artifactId><classifier>natives-windows-arm64</classifier><scope>runtime</scope></dependency>
-        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-glfw</artifactId><classifier>natives-windows-arm64</classifier><scope>runtime</scope></dependency>
-        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-opengl</artifactId><classifier>natives-windows-arm64</classifier><scope>runtime</scope></dependency>
-        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-openal</artifactId><classifier>natives-windows-arm64</classifier><scope>runtime</scope></dependency>
-        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-stb</artifactId><classifier>natives-windows-arm64</classifier><scope>runtime</scope></dependency>
-        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-tinyfd</artifactId><classifier>natives-windows-arm64</classifier><scope>runtime</scope></dependency>
+        <!-- tests only: the test platform decodes images and Ogg files with stb, as the desktop does -->
+        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl</artifactId><scope>test</scope></dependency>
+        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-stb</artifactId><scope>test</scope></dependency>
+        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl</artifactId><classifier>natives-linux</classifier><scope>test</scope></dependency>
+        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl</artifactId><classifier>natives-linux-arm64</classifier><scope>test</scope></dependency>
+        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl</artifactId><classifier>natives-macos</classifier><scope>test</scope></dependency>
+        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl</artifactId><classifier>natives-macos-arm64</classifier><scope>test</scope></dependency>
+        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl</artifactId><classifier>natives-windows</classifier><scope>test</scope></dependency>
+        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl</artifactId><classifier>natives-windows-arm64</classifier><scope>test</scope></dependency>
+        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-stb</artifactId><classifier>natives-linux</classifier><scope>test</scope></dependency>
+        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-stb</artifactId><classifier>natives-linux-arm64</classifier><scope>test</scope></dependency>
+        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-stb</artifactId><classifier>natives-macos</classifier><scope>test</scope></dependency>
+        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-stb</artifactId><classifier>natives-macos-arm64</classifier><scope>test</scope></dependency>
+        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-stb</artifactId><classifier>natives-windows</classifier><scope>test</scope></dependency>
+        <dependency><groupId>org.lwjgl</groupId><artifactId>lwjgl-stb</artifactId><classifier>natives-windows-arm64</classifier><scope>test</scope></dependency>
     </dependencies>
 
     <properties>

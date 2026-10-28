@@ -1,9 +1,6 @@
 package org.openpatch.scratch.tiled;
 
 import java.util.List;
-import tools.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
-import tools.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-import tools.jackson.dataformat.xml.annotation.JacksonXmlText;
 
 /**
  * The Property class represents a property of a Tiled object. It includes fields for the property
@@ -29,8 +26,6 @@ public class Property {
   public String value;
 
   /** A class-typed property (Tiled 1.8+) holds its members as nested properties. */
-  @JacksonXmlElementWrapper(localName = "properties")
-  @JacksonXmlProperty(localName = "property")
   public List<Property> properties;
 
   /**
@@ -39,7 +34,6 @@ public class Property {
    *
    * @param text the element text
    */
-  @JacksonXmlText
   public void setText(String text) {
     if (this.value == null && text != null && !text.isBlank()) {
       this.value = text;

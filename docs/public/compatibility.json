@@ -17379,68 +17379,6 @@
       "missingBrowserSignatures": []
     },
     {
-      "id": "save/File/loadXML",
-      "owner": "org.openpatch.scratch.save.File",
-      "signatures": [
-        {
-          "name": "loadXML",
-          "constructor": false,
-          "static": true,
-          "parameters": [
-            "java.lang.String",
-            "java.lang.Class<T>"
-          ],
-          "returns": "T",
-          "parameterNames": [
-            "path",
-            "cls"
-          ],
-          "parameterDescriptions": [
-            "the path to the XML file",
-            "the class of the object to be loaded"
-          ],
-          "description": "Loads an object of the specified class from an XML file at the given path.",
-          "returnDescription": "the object loaded from the XML file",
-          "scratchblock": "",
-          "since": ""
-        }
-      ],
-      "status": "desktop-only",
-      "reason": "This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation.",
-      "missingBrowserSignatures": []
-    },
-    {
-      "id": "save/File/loadXMLOrCreate",
-      "owner": "org.openpatch.scratch.save.File",
-      "signatures": [
-        {
-          "name": "loadXMLOrCreate",
-          "constructor": false,
-          "static": true,
-          "parameters": [
-            "java.lang.String",
-            "java.lang.Class<T>"
-          ],
-          "returns": "T",
-          "parameterNames": [
-            "path",
-            "cls"
-          ],
-          "parameterDescriptions": [
-            "the path to the XML file",
-            "the class of the object to be loaded"
-          ],
-          "description": "Loads an object of the specified class from an XML file at the given path,\nor creates a new one if the file does not exist.",
-          "returnDescription": "the object loaded from the XML file, or a new instance if the file\n        does not exist",
-          "scratchblock": "",
-          "since": ""
-        }
-      ],
-      "status": "desktop-only",
-      "reason": "This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation.",
-      "missingBrowserSignatures": []
-    },
-    {
       "id": "save/File/save",
       "owner": "org.openpatch.scratch.save.File",
       "signatures": [
@@ -17461,7 +17399,7 @@
             "the path where the object should be saved",
             "the object to be saved"
           ],
-          "description": "Saves the given object to the specified path in the default file type (JSON).",
+          "description": "Saves the given object as a JSON file at the specified path.",
           "returnDescription": "",
           "scratchblock": "",
           "since": ""
@@ -17487,61 +17425,7 @@
             "the path where the object should be saved",
             "the object to be saved"
           ],
-          "description": "Saves the given object to the specified path in the default file type (JSON).",
-          "returnDescription": "",
-          "scratchblock": "",
-          "since": ""
-        }
-      ]
-    },
-    {
-      "id": "save/File/saveXML",
-      "owner": "org.openpatch.scratch.save.File",
-      "signatures": [
-        {
-          "name": "saveXML",
-          "constructor": false,
-          "static": true,
-          "parameters": [
-            "java.lang.String",
-            "T"
-          ],
-          "returns": "void",
-          "parameterNames": [
-            "path",
-            "obj"
-          ],
-          "parameterDescriptions": [
-            "the path where the XML file will be saved",
-            "the object to be saved as XML"
-          ],
-          "description": "Saves the given object as an XML file at the specified path.",
-          "returnDescription": "",
-          "scratchblock": "",
-          "since": ""
-        }
-      ],
-      "status": "desktop-only",
-      "reason": "This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation.",
-      "missingBrowserSignatures": [
-        {
-          "name": "saveXML",
-          "constructor": false,
-          "static": true,
-          "parameters": [
-            "java.lang.String",
-            "T"
-          ],
-          "returns": "void",
-          "parameterNames": [
-            "path",
-            "obj"
-          ],
-          "parameterDescriptions": [
-            "the path where the XML file will be saved",
-            "the object to be saved as XML"
-          ],
-          "description": "Saves the given object as an XML file at the specified path.",
+          "description": "Saves the given object as a JSON file at the specified path.",
           "returnDescription": "",
           "scratchblock": "",
           "since": ""
@@ -18793,16 +18677,19 @@
           "constructor": false,
           "static": false,
           "parameters": [
-            "java.lang.String"
+            "java.lang.String",
+            "java.lang.Class<? extends org.openpatch.scratch.Sprite>[]"
           ],
           "returns": "java.util.List<org.openpatch.scratch.Sprite>",
           "parameterNames": [
-            "layerName"
+            "layerName",
+            "types"
           ],
           "parameterDescriptions": [
-            "the object layer"
+            "the object layer",
+            "the sprite classes to make, matched to the objects' types by\n    their names"
           ],
-          "description": "Creates a sprite for each object of a layer whose type names a sprite class,\nand adds it to the stage. In Tiled, give an object the type (called\n\"class\" in newer versions of Tiled) `Player`, and the map makes a\n`new Player()` where the object is.\n\nThe sprite's class needs one of these constructors, tried in this order:\none that takes the [MapObject](../MapObject/index) (to read its name and properties), one\nthat takes `(double x, double y)`, or one without parameters. Either\nway the sprite is put where the object is. An object drawn as an area\n(a rectangle, an ellipse or a polygon) also gives the sprite that area as\nits hitbox, which is how walls and water work without a costume.\n\nObjects whose type is not a sprite class, or that have no type, are left\nalone, so a layer can hold markers the program reads itself.\n\n```java\nTiledMap map = new TiledMap(\"level.tmx\", this);\nmap.spawn(\"Objects\");\n```",
+          "description": "Creates a sprite for each object of a layer whose type is one of the given\nsprite classes, and adds it to the stage. In Tiled, give an object the type\n(called \"class\" in newer versions of Tiled) `Player`, and\n`map.spawn(\"Objects\", Player.class)` makes a `new Player()`\nwhere the object is.\n\nThe sprite's class needs one of these constructors, tried in this order:\none that takes the [MapObject](../MapObject/index) (to read its name and properties), one\nthat takes `(double x, double y)`, or one without parameters. Either\nway the sprite is put where the object is. An object drawn as an area\n(a rectangle, an ellipse or a polygon) also gives the sprite that area as\nits hitbox, which is how walls and water work without a costume.\n\nObjects whose type is none of the classes, or that have no type, are left\nalone, so a layer can hold markers the program reads itself. The classes\nare named in the program, not looked up by the names in the map: a game\nexported as a web page only contains the classes its code names.\n\n```java\nTiledMap map = new TiledMap(\"level.tmx\", this);\nmap.spawn(\"Objects\", Player.class, Wall.class);\n```",
           "returnDescription": "the sprites that were made, in the order of the layer",
           "scratchblock": "",
           "since": ""

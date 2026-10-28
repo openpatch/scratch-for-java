@@ -1,6 +1,6 @@
 package org.openpatch.scratch.internal.render;
 
-import static org.lwjgl.opengl.GL33C.*;
+import static org.openpatch.scratch.internal.platform.GL.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;

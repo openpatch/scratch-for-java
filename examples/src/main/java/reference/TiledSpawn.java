@@ -14,7 +14,7 @@ public class TiledSpawn {
 class TiledSpawnStage extends Stage {
   TiledSpawnStage() {
     TiledMap map = new TiledMap("src/examples/java/reference/assets/tiled-data.tmx", this);
-    map.spawn("Objects");
+    map.spawn("Objects", TiledSpawnPlayer.class, TiledSpawnWall.class);
   }
 }
 

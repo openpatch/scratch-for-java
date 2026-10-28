@@ -590,10 +590,7 @@ An implemented entry has its documented overloads declared in the browser. The r
 | [save/File/constructor](/reference/save/File/constructor) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
 | [save/File/load](/reference/save/File/load) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
 | [save/File/loadOrCreate](/reference/save/File/loadOrCreate) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
-| [save/File/loadXML](/reference/save/File/loadXML) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
-| [save/File/loadXMLOrCreate](/reference/save/File/loadXMLOrCreate) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
 | [save/File/save](/reference/save/File/save) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
-| [save/File/saveXML](/reference/save/File/saveXML) | desktop-only | This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation. |
 | [save/SaveData/constructor](/reference/save/SaveData/constructor) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [save/SaveData/getLocation](/reference/save/SaveData/getLocation) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |
 | [save/SaveData/loadOrDefault](/reference/save/SaveData/loadOrDefault) | implemented | Declared by the browser; behavioral limitations and compiler dialect differences still apply. |

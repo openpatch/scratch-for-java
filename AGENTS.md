@@ -78,17 +78,24 @@ and the tests that compile them skip on anything older. CI runs 25.
 
 ```
 pom.xml                  parent (scratch-parent); modules in lockstep, one version
-core/                    artifact `scratch`
+core/                    artifact `scratch`, platform-neutral (no LWJGL)
   src/main/java/org/openpatch/scratch/
     Window, Stage, Sprite, Text, Pen, Camera, Layer, Shader(s), Transition, Pixels, Timer,
     Color, Vector2, shapes, Operators, KeyCode, ...    the learner API, one flat package
     Launcher             macOS: window on the first thread (-XstartOnFirstThread)
     extension/           public extension API (Extension, ExtensionContext, Canvas)
     internal/            not exported: Game, loop/ (game thread, tick clock), draw/ (draw list),
-                         render/ (OpenGL), window/ (GLFW), canvas/ + compose/ (CPU pen canvases,
-                         compositor for colour sensing), text/ (stb_truetype engine), audio/
-                         (OpenAL), image/ (stb_image), geom/, input/, Assets, Preview, Release
+                         render/ (OpenGL through platform.GL), window/ (window loop, input),
+                         canvas/ + compose/ (CPU pen canvases, compositor for colour sensing),
+                         text/ (layout; TrueType, a Java port of stb_truetype), audio/, image/,
+                         platform/ (Platform: GL, Display, AudioDevice, decoders), geom/, input/,
+                         Assets, Preview, Release
   src/build/NrwVariant.java
+desktop/                 artifact `scratch-desktop`: the Platform on LWJGL (GLFW, OpenGL 3.3,
+                         OpenAL, stb_image/stb_vorbis, tinyfd), found through ServiceLoader
+web/                     artifact `scratch-web`: the Platform in a browser (WebGL2, canvas, Web
+                         Audio; s4j.js), and export/WebExport, which compiles a game with TeaVM
+                         (Wasm GC, strict) into a web page
 extensions/{tiled,save,recorder,drawing}/   `scratch-<name>`, package org.openpatch.scratch.<name>,
                          public API only, registered through ServiceLoader
 all/                     fat jar + src/build/BuildChecks.java
@@ -110,7 +117,15 @@ Three concepts mirror Scratch directly and almost every feature hangs off one of
 - **Sprite** — costumes, animations, movement, collision/sensing, sound, and a `run()` method
   called every tick (a Scratch script attached to a sprite).
 
-Threads: a **window thread** owns GLFW and OpenGL, a **game thread** runs
+Platforms: the core reaches the machine only through `internal/platform/Platform` (the renderer
+through the static `GL` facade, which keeps LWJGL's names). `scratch-desktop` and `scratch-web`
+implement it; the fat jar bundles the desktop one. Core tests use `TestPlatform` (stb through
+test-scoped LWJGL, no window); other modules' tests use `scratch-desktop`. Code the browser
+build reaches must avoid JDK methods TeaVM lacks (class-path scanning, `System.exit`, …): put
+them behind the Platform (`JvmResources` holds the desktop JVM's). `WebExportTest` compiles a game
+to WebAssembly and fails with what TeaVM could not compile.
+
+Threads: a **window thread** owns the window and OpenGL, a **game thread** runs
 every tick and all learner callbacks, the learner's `main` runs on its own thread. They work in
 lockstep: a tick is exactly 1/60 s of game time; at the end of a batch of ticks the game thread
 builds a **draw list**, and that is all the renderer sees — the scene never draws itself.
@@ -124,7 +139,12 @@ attachments via `stage.extension(...)`), never on `internal`, and register thems
 a dependency (Jackson); things that need the renderer or the game loop stay in the core.
 
 No `java.awt`/`java.desktop` in shipped code (BuildChecks enforces it); tests and build tools may
-use it. Jackson (`tools.jackson.*`) is used by tiled and save.
+use it. No extension uses Jackson: save reads and writes JSON with its own `Json` (reflection on the
+game's public fields, which the web build allows through `GameReflection`), tiled reads .tmx/.tsx with its own `TmxReader`
+(no reflection, no javax.xml), so it also works in a web page. Code the browser build reaches must
+not rely on `Class.forName` running static initializers (TeaVM ignores that flag), nor find a game's
+class by a name from a file: the page only contains the classes the game's code names, so take
+`Class` arguments instead (`TiledMap.spawn("Objects", Player.class)`).
 
 ## Javadoc → documentation pipeline
 

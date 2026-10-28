@@ -1,7 +1,5 @@
 package org.openpatch.scratch.tiled;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import tools.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 
 class ObjectGroup {
   public double height;
@@ -11,10 +9,9 @@ class ObjectGroup {
   public String type;
 
   /** Whether the objects' y already points up (see TiledMap.getObjectsFromLayer). */
-  @com.fasterxml.jackson.annotation.JsonIgnore boolean stageCoordinates;
+  boolean stageCoordinates;
 
   /** Tiled 1.9+ calls a layer's type its class. */
-  @com.fasterxml.jackson.annotation.JsonProperty("class")
   public void setClassName(String className) {
     if (this.type == null || this.type.isEmpty()) {
       this.type = className;
@@ -25,7 +22,5 @@ class ObjectGroup {
   public double x;
   public double y;
 
-  @JacksonXmlElementWrapper(useWrapping = false)
-  @JsonProperty("object")
   public MapObject[] objects;
 }

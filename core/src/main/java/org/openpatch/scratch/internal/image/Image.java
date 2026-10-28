@@ -1,14 +1,8 @@
 package org.openpatch.scratch.internal.image;
 
 import java.io.IOException;
-import java.nio.ByteBuffer;
-import java.nio.IntBuffer;
 import java.nio.file.Path;
-import org.lwjgl.stb.STBImage;
-import org.lwjgl.stb.STBImageWrite;
-import org.lwjgl.system.MemoryStack;
-import org.lwjgl.system.MemoryUtil;
-import org.openpatch.scratch.internal.Natives;
+import org.openpatch.scratch.internal.platform.Platform;
 
 /**
  * An image on the CPU: ARGB pixels (straight alpha, {@code 0xAARRGGBB}), row by row, top row
@@ -16,10 +10,6 @@ import org.openpatch.scratch.internal.Natives;
  * image identity.
  */
 public final class Image {
-
-  static {
-    Natives.init();
-  }
 
   private final int width, height;
   private final int[] argb;
@@ -94,56 +84,20 @@ public final class Image {
     return new Image(this.width, this.height, out);
   }
 
-  /** Writes a PNG with stb_image_write. */
+  /** Writes a PNG, creating its folder. */
   public void writePng(Path file) throws IOException {
-    ByteBuffer rgba = MemoryUtil.memAlloc(Math.max(1, this.argb.length * 4));
-    try {
-      for (int p : this.argb) {
-        rgba.put((byte) (p >> 16)).put((byte) (p >> 8)).put((byte) p).put((byte) (p >>> 24));
-      }
-      rgba.flip();
-      Path absolute = file.toAbsolutePath();
-      if (absolute.getParent() != null) {
-        java.nio.file.Files.createDirectories(absolute.getParent());
-      }
-      if (!STBImageWrite.stbi_write_png(absolute.toString(), this.width, this.height, 4, rgba, this.width * 4)) {
-        throw new IOException("Could not write " + file);
-      }
-    } finally {
-      MemoryUtil.memFree(rgba);
-    }
+    Platform.get().writePng(file, new Platform.Pixmap(this.width, this.height, this.argb));
   }
 
   /**
-   * Decodes PNG, JPEG, GIF (first frame), BMP or TGA from memory, the same way for files, the
-   * classpath and jars. No global stb flags: loading runs on several threads at once.
+   * Decodes PNG, JPEG or GIF (first frame) from memory, the same way for files, the classpath and
+   * jars, with the platform's decoder (stb_image on the desktop, the browser's in a page).
    *
    * @param encoded the file's bytes
    * @param name for error messages
    */
   public static Image decode(byte[] encoded, String name) throws IOException {
-    ByteBuffer in = MemoryUtil.memAlloc(Math.max(1, encoded.length));
-    try (MemoryStack stack = MemoryStack.stackPush()) {
-      in.put(encoded).flip();
-      IntBuffer w = stack.mallocInt(1), h = stack.mallocInt(1), channels = stack.mallocInt(1);
-      ByteBuffer rgba = STBImage.stbi_load_from_memory(in, w, h, channels, 4);
-      if (rgba == null) {
-        throw new IOException("Could not decode " + name + ": " + STBImage.stbi_failure_reason());
-      }
-      try {
-        int width = w.get(0), height = h.get(0);
-        int[] argb = new int[width * height];
-        for (int i = 0; i < argb.length; i++) {
-          int r = rgba.get(4 * i) & 0xff, g = rgba.get(4 * i + 1) & 0xff, b = rgba.get(4 * i + 2) & 0xff;
-          int a = rgba.get(4 * i + 3) & 0xff;
-          argb[i] = a << 24 | r << 16 | g << 8 | b;
-        }
-        return new Image(width, height, argb);
-      } finally {
-        STBImage.stbi_image_free(rgba);
-      }
-    } finally {
-      MemoryUtil.memFree(in);
-    }
+    Platform.Pixmap pixels = Platform.get().decodeImage(encoded, name);
+    return new Image(pixels.width(), pixels.height(), pixels.argb());
   }
 }

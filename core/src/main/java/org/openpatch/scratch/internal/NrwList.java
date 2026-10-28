@@ -23,6 +23,24 @@ public final class NrwList {
 
   private static final String CLASS_NAME = "List";
 
+  /** How the NRW List is made and filled without reflection. */
+  public interface Factory {
+    Object create();
+
+    void append(Object list, Object item);
+  }
+
+  private static volatile Factory factory;
+
+  /**
+   * Makes Lists with {@code factory} instead of finding the class by reflection: for a launcher
+   * that knows the project's List class at compile time (a web page, where reflection cannot find
+   * classes by name).
+   */
+  public static void use(Factory factory) {
+    NrwList.factory = factory;
+  }
+
   private NrwList() {}
 
   /**
@@ -41,6 +59,14 @@ public final class NrwList {
 
   @SuppressWarnings("unchecked")
   static <L> L of(Iterable<?> items, String className, Class<?>... hints) {
+    Factory known = factory;
+    if (known != null && CLASS_NAME.equals(className)) {
+      Object list = known.create();
+      for (Object item : items) {
+        known.append(list, item);
+      }
+      return (L) list;
+    }
     Class<?> listClass = find(className, hints);
     try {
       Constructor<?> constructor = listClass.getDeclaredConstructor();

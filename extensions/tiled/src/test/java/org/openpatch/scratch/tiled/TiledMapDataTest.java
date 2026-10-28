@@ -153,4 +153,64 @@ class TiledMapDataTest {
     map.hideLayer("ground");
     assertTrue(game.drawList().layers().get(org.openpatch.scratch.Layer.BACKGROUND.ordinal()).items().isEmpty());
   }
+
+  public static class Coin extends org.openpatch.scratch.Sprite {}
+
+  public static class Rock extends org.openpatch.scratch.Sprite {
+    final double madeAtX;
+
+    public Rock(double x, double y) {
+      this.madeAtX = x;
+    }
+  }
+
+  public static class Sign extends org.openpatch.scratch.Sprite {
+    final String text;
+
+    public Sign(MapObject object) {
+      this.text = object.getProperty("text");
+    }
+  }
+
+  @Test
+  void spawnMakesTheGivenClassesWhereTheObjectsTypesNameThem() throws Exception {
+    var game = org.openpatch.scratch.internal.Game.headless(480, 360);
+    game.getExtensions().install(java.util.List.of(new TiledExtension()));
+    var stage = new org.openpatch.scratch.Stage();
+    game.setStage(stage);
+    map("0,0,0,0,0,0,0,0"); // writes the tileset
+    Files.writeString(directory.resolve("objects.tmx"), """
+        <map orientation="orthogonal" width="8" height="1" tilewidth="16" tileheight="16">
+          <tileset firstgid="1" source="tiles.tsx"/>
+          <objectgroup name="Objects">
+            <object id="1" type="Coin" x="10" y="20"><point/></object>
+            <object id="2" type="Rock" x="30" y="40"><point/></object>
+            <object id="3" type="Sign" x="50" y="60">
+              <properties><property name="text" value="hello"/></properties><point/>
+            </object>
+            <object id="4" type="Coin" x="70" y="80" width="8" height="4"/>
+            <object id="5" type="marker" x="0" y="0"><point/></object>
+            <object id="6" x="0" y="0"><point/></object>
+          </objectgroup>
+        </map>
+        """);
+    TiledMap map = new TiledMap(directory.resolve("objects.tmx").toString(), stage);
+
+    var made = map.spawn("Objects", Coin.class, Rock.class);
+    assertEquals(3, made.size(), "only the given classes: Sign is a sprite class, but not one of them");
+    assertInstanceOf(Coin.class, made.get(0));
+    assertEquals(10, made.get(0).getX());
+    assertEquals(-20, made.get(0).getY());
+    assertEquals(30, ((Rock) made.get(1)).madeAtX, "(double x, double y) gets the object's position");
+    assertEquals(4, made.get(2).getHitbox().getBounds().height(), 0.00001, "an area becomes the hitbox");
+    assertEquals(3, stage.getAll().size());
+
+    var signs = map.spawn("Objects", Sign.class);
+    assertEquals(1, signs.size());
+    assertEquals("hello", ((Sign) signs.get(0)).text);
+
+    var thrown = assertThrows(IllegalArgumentException.class, () -> map.spawn("Objects"));
+    assertTrue(thrown.getMessage().contains("map.spawn(\"Objects\", Player.class, Wall.class)"));
+    assertThrows(IllegalArgumentException.class, () -> map.spawn("Missing", Coin.class));
+  }
 }

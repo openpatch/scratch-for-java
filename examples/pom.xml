@@ -35,6 +35,10 @@
         </dependency>
         <dependency>
             <groupId>org.openpatch</groupId>
+            <artifactId>scratch-desktop</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.openpatch</groupId>
             <artifactId>scratch-tiled</artifactId>
             <version>${project.version}</version>
         </dependency>

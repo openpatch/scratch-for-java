@@ -1,22 +1,14 @@
 package org.openpatch.scratch.save;
 
 import java.io.IOException;
-import java.nio.ByteBuffer;
-import java.nio.channels.FileChannel;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
-import java.nio.file.StandardOpenOption;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.function.Supplier;
-import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
-import tools.jackson.core.JacksonException;
-import tools.jackson.databind.DeserializationFeature;
-import tools.jackson.databind.MapperFeature;
-import tools.jackson.databind.json.JsonMapper;
 
 /**
  * Saves a game's progress as JSON independently of its installation directory.
@@ -49,16 +41,6 @@ import tools.jackson.databind.json.JsonMapper;
  * @example.files SaveDataExample.java
  */
 public final class SaveData<T> {
-  private static final JsonMapper JSON = JsonMapper.builder()
-      .enable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
-      .enable(DeserializationFeature.FAIL_ON_TRAILING_TOKENS)
-      .enable(DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES)
-      .disable(DeserializationFeature.ACCEPT_FLOAT_AS_INT)
-      .disable(MapperFeature.ALLOW_COERCION_OF_SCALARS)
-      .changeDefaultVisibility(visibility -> visibility.withFieldVisibility(Visibility.PUBLIC_ONLY)
-          .withGetterVisibility(Visibility.NONE).withIsGetterVisibility(Visibility.NONE)
-          .withSetterVisibility(Visibility.NONE))
-      .build();
 
   private final Path path;
   private final Class<T> type;
@@ -125,18 +107,19 @@ public final class SaveData<T> {
     Objects.requireNonNull(defaults, "defaults");
     String contents;
     try {
-      contents = Files.readString(path, StandardCharsets.UTF_8);
+      // bytes, not Files.readString: a web page's class library lacks what that needs
+      contents = new String(Files.readAllBytes(path), StandardCharsets.UTF_8);
     } catch (NoSuchFileException missing) {
       return Objects.requireNonNull(defaults.get(), "defaults returned null");
     }
     try {
-      T data = JSON.readValue(contents, type);
+      T data = Json.read(contents, type, true, false);
       if (data == null) {
         throw new IOException("Save data contains null: " + path);
       }
       return data;
-    } catch (JacksonException invalid) {
-      throw new IOException("Cannot read save data: " + path, invalid);
+    } catch (Json.JsonException invalid) {
+      throw new IOException("Cannot read save data: " + path + ": " + invalid.getMessage(), invalid);
     }
   }
 
@@ -156,22 +139,17 @@ public final class SaveData<T> {
     Objects.requireNonNull(data, "data");
     byte[] contents;
     try {
-      contents = JSON.writerWithDefaultPrettyPrinter().writeValueAsBytes(data);
-    } catch (JacksonException invalid) {
+      contents = Json.write(data, false).getBytes(StandardCharsets.UTF_8);
+    } catch (Json.JsonException invalid) {
       throw new IOException("Cannot serialize save data: " + path, invalid);
     }
     Files.createDirectories(path.getParent());
     Path temporary = Files.createTempFile(path.getParent(), ".save-", ".tmp");
     Throwable failure = null;
     try {
-      try (FileChannel file = FileChannel.open(temporary,
-          StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING)) {
-        ByteBuffer buffer = ByteBuffer.wrap(contents);
-        while (buffer.hasRemaining()) {
-          file.write(buffer);
-        }
-        file.force(true);
-      }
+      // SYNC: on the disk before it replaces the save
+      Files.write(temporary, contents, java.nio.file.StandardOpenOption.WRITE,
+          java.nio.file.StandardOpenOption.TRUNCATE_EXISTING, java.nio.file.StandardOpenOption.SYNC);
       Files.move(temporary, path, StandardCopyOption.ATOMIC_MOVE,
           StandardCopyOption.REPLACE_EXISTING);
     } catch (IOException | RuntimeException | Error error) {

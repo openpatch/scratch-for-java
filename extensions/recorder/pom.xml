@@ -21,6 +21,12 @@
             <groupId>org.openpatch</groupId>
             <artifactId>scratch</artifactId>
         </dependency>
+        <!-- tests decode images and open sound through the desktop platform -->
+        <dependency>
+            <groupId>org.openpatch</groupId>
+            <artifactId>scratch-desktop</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>

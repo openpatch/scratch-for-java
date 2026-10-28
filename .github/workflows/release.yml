@@ -84,6 +84,7 @@ jobs:
           mvn -B clean package -Pnrw -DskipTests
           mkdir -p dist
           cp all/target/*-nrw-all.jar dist/
+          cp web/target/*-nrw-web.jar dist/
 
       - name: Build fat jar, sources and Javadoc
         # Tests already ran as part of the deploy step above. The central
@@ -136,6 +137,7 @@ jobs:
           body_path: ${{ runner.temp }}/release-notes.md
           files: |
             all/target/scratch-*-all.jar
+            web/target/scratch-*[0-9]-web.jar
             core/target/scratch-*.jar
             dist/*.jar
             dist/*.zip

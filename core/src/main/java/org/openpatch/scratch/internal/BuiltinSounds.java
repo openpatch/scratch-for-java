@@ -1,17 +1,11 @@
 package org.openpatch.scratch.internal;
 
-import java.net.URI;
-import java.net.URL;
-import java.nio.file.FileSystem;
-import java.nio.file.FileSystems;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Stream;
+import org.openpatch.scratch.internal.platform.Platform;
 
 /**
  * Registry for the sound effects that ship inside the Scratch for Java jar.
@@ -45,19 +39,16 @@ public final class BuiltinSounds {
 
     Map<String, String> loaded = new LinkedHashMap<>();
     try {
-      URL root = resourceRoot();
-      if (root != null) {
-        URI uri = root.toURI();
-        if ("jar".equals(uri.getScheme())) {
-          // Inside a jar the resources are entries in a zip file system.
-          try (FileSystem fs = FileSystems.newFileSystem(uri, Map.of())) {
-            collect(fs.getPath("/" + BASE), loaded);
-          }
-        } else {
-          collect(Path.of(uri), loaded);
-        }
+      List<String> files = new ArrayList<>(Platform.get().listResources(BASE));
+      files.removeIf(file -> !isSound(file));
+      // listing order differs between a directory, a jar and a page: sort for a stable registry
+      Collections.sort(files);
+      for (String relative : files) {
+        String name = Suggestions.stripExtension(relative.substring(relative.lastIndexOf('/') + 1));
+        // the classloader-style path, which the sound loader reads
+        loaded.putIfAbsent(Suggestions.normalise(name), BASE + "/" + relative);
       }
-    } catch (Exception e) {
+    } catch (RuntimeException e) {
       // Missing or unreadable bundled sounds must never stop a student's
       // program from starting - it only means they are unavailable.
     }
@@ -66,38 +57,8 @@ public final class BuiltinSounds {
     return sounds;
   }
 
-  private static URL resourceRoot() {
-    ClassLoader contextLoader = Thread.currentThread().getContextClassLoader();
-    if (contextLoader != null) {
-      URL url = contextLoader.getResource(BASE);
-      if (url != null) {
-        return url;
-      }
-    }
-    URL url = BuiltinSounds.class.getClassLoader().getResource(BASE);
-    // on the module path the folder is a package of the module: only its classes can see it
-    return url != null ? url : BuiltinSounds.class.getResource("/" + BASE);
-  }
-
-  private static void collect(Path root, Map<String, String> into) throws java.io.IOException {
-    List<Path> files = new ArrayList<>();
-    try (Stream<Path> walk = Files.walk(root)) {
-      walk.filter(Files::isRegularFile).filter(BuiltinSounds::isSound).forEach(files::add);
-    }
-    // Walk order differs between a directory and a jar, so sort for a stable
-    // registry.
-    Collections.sort(files, (a, b) -> a.toString().compareTo(b.toString()));
-
-    for (Path file : files) {
-      String name = Suggestions.stripExtension(file.getFileName().toString());
-      // Store the classloader-style path, which is what Applet.getPath expects.
-      String relative = root.relativize(file).toString().replace('\\', '/');
-      into.putIfAbsent(Suggestions.normalise(name), BASE + "/" + relative);
-    }
-  }
-
-  private static boolean isSound(Path path) {
-    String name = Suggestions.normalise(path.getFileName().toString());
+  private static boolean isSound(String path) {
+    String name = Suggestions.normalise(path);
     return name.endsWith(".ogg") || name.endsWith(".wav")
         || name.endsWith(".aiff") || name.endsWith(".au");
   }

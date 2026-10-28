@@ -9,7 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.Locale;
-import org.lwjgl.util.tinyfd.TinyFileDialogs;
+import org.openpatch.scratch.internal.platform.Platform;
 
 /**
  * A released game: started with
@@ -48,7 +48,7 @@ public final class Release {
       System.setOut(new PrintStream(new Both(System.out, file), true, StandardCharsets.UTF_8));
       System.setErr(new PrintStream(new Both(System.err, file), true, StandardCharsets.UTF_8));
       log = latest;
-      System.out.println(NAME + " (Scratch for Java " + Release.class.getPackage().getImplementationVersion()
+      System.out.println(NAME + " (Scratch for Java " + org.openpatch.scratch.extension.Extension.coreVersion()
           + ", Java " + System.getProperty("java.version") + ", " + System.getProperty("os.name") + " "
           + System.getProperty("os.arch") + ")");
     } catch (IOException | RuntimeException e) {
@@ -69,7 +69,7 @@ public final class Release {
     String message = what + "\n\n" + (log != null ? "The log is at\n" + log : "There is no log file.");
     System.err.println(message);
     try {
-      TinyFileDialogs.tinyfd_messageBox(boxText(NAME), wrap(boxText(message), 70), "ok", "error", 1);
+      Platform.get().showError(boxText(NAME), wrap(boxText(message), 70));
     } catch (Throwable t) {
       System.err.println("Scratch for Java: could not show the error box: " + t);
     }

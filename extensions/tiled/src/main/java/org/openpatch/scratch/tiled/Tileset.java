@@ -1,7 +1,5 @@
 package org.openpatch.scratch.tiled;
 
-import tools.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
-import tools.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
 class Tileset {
   public int columns;
@@ -15,9 +13,7 @@ class Tileset {
   public int tilewidth;
 
   /** An external tileset (.tsx), relative to the map; loaded by TiledMap. */
-  @JacksonXmlProperty(isAttribute = true)
   public String source;
 
-  @JacksonXmlElementWrapper(useWrapping = false)
   public Tile[] tile;
 }

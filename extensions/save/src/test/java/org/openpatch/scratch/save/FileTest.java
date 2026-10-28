@@ -38,16 +38,6 @@ class FileTest {
     assertEquals(42, loaded.score);
   }
 
-  @Test
-  void saveXmlAndLoadXmlRoundTrip() {
-    String path = tempDir.resolve("save.xml").toString();
-    File.saveXML(path, new SaveData("Bob", 7));
-
-    SaveData loaded = File.loadXML(path, SaveData.class);
-
-    assertEquals("Bob", loaded.name);
-    assertEquals(7, loaded.score);
-  }
 
   @Test
   void saveCreatesMissingParentDirectories() {

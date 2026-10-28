@@ -62,4 +62,26 @@ class NrwListTest {
 
     assertEquals("Your class " + name + " is not the List from the NRW Abitur.", e.getMessage());
   }
+
+  @Test
+  void aFactoryMakesTheListWithoutReflection() {
+    NrwList.use(new NrwList.Factory() {
+      @Override
+      public Object create() {
+        return new AbiturList<Object>();
+      }
+
+      @Override
+      @SuppressWarnings("unchecked")
+      public void append(Object list, Object item) {
+        ((AbiturList<Object>) list).append(item);
+      }
+    });
+    try {
+      AbiturList<String> list = NrwList.of(Arrays.asList("x", "y"));
+      assertEquals(Arrays.asList("x", "y"), list.appended);
+    } finally {
+      NrwList.use(null);
+    }
+  }
 }

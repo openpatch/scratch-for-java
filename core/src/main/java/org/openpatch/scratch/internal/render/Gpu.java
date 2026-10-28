@@ -1,11 +1,7 @@
 package org.openpatch.scratch.internal.render;
 
-import static org.lwjgl.opengl.GL33C.*;
+import static org.openpatch.scratch.internal.platform.GL.*;
 
-import java.nio.ByteBuffer;
-import java.nio.FloatBuffer;
-import java.nio.IntBuffer;
-import org.lwjgl.system.MemoryUtil;
 
 /** Textures, render targets and a vertex batch: the renderer's GPU objects. Window thread only. */
 final class Gpu {
@@ -40,13 +36,8 @@ final class Gpu {
       glBindTexture(GL_TEXTURE_2D, this.id);
       glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
       glPixelStorei(GL_UNPACK_ROW_LENGTH, 0);
-      if (argbPremultiplied == null) {
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, width, height, 0, GL_BGRA, GL_UNSIGNED_INT_8_8_8_8_REV,
-            (IntBuffer) null);
-      } else {
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, width, height, 0, GL_BGRA, GL_UNSIGNED_INT_8_8_8_8_REV,
-            argbPremultiplied);
-      }
+      glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, width, height, 0, GL_BGRA, GL_UNSIGNED_INT_8_8_8_8_REV,
+          argbPremultiplied);
       glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
       glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
       this.setSmooth(smooth, mipmaps);
@@ -170,7 +161,8 @@ final class Gpu {
     // position 2, texture coordinates 2, colour 4, effect tint 4, colour effect + ghost 2
     static final int FLOATS = 14;
     private final int vao, vbo;
-    private FloatBuffer data = MemoryUtil.memAllocFloat(FLOATS * 6 * 1024);
+    private float[] data = new float[FLOATS * 6 * 1024];
+    private int size; // floats in data
     private int vertices;
 
     Batch() {
@@ -204,16 +196,26 @@ final class Gpu {
     }
 
     void vertex(double x, double y, double u, double v, float r, float g, float b, float a) {
-      if (this.data.remaining() < FLOATS) {
-        FloatBuffer bigger = MemoryUtil.memAllocFloat(this.data.capacity() * 2);
-        this.data.flip();
-        bigger.put(this.data);
-        MemoryUtil.memFree(this.data);
-        this.data = bigger;
+      if (this.data.length - this.size < FLOATS) {
+        this.data = java.util.Arrays.copyOf(this.data, this.data.length * 2);
       }
-      this.data.put((float) x).put((float) y).put((float) u).put((float) v).put(r).put(g).put(b).put(a)
-          .put(this.effectR).put(this.effectG).put(this.effectB).put(this.effectA).put(this.effectTurns)
-          .put(this.effectGhost);
+      float[] d = this.data;
+      int i = this.size;
+      d[i] = (float) x;
+      d[i + 1] = (float) y;
+      d[i + 2] = (float) u;
+      d[i + 3] = (float) v;
+      d[i + 4] = r;
+      d[i + 5] = g;
+      d[i + 6] = b;
+      d[i + 7] = a;
+      d[i + 8] = this.effectR;
+      d[i + 9] = this.effectG;
+      d[i + 10] = this.effectB;
+      d[i + 11] = this.effectA;
+      d[i + 12] = this.effectTurns;
+      d[i + 13] = this.effectGhost;
+      this.size += FLOATS;
       this.vertices++;
     }
 
@@ -236,12 +238,11 @@ final class Gpu {
       if (this.vertices == 0) {
         return;
       }
-      this.data.flip();
       glBindVertexArray(this.vao);
       glBindBuffer(GL_ARRAY_BUFFER, this.vbo);
-      glBufferData(GL_ARRAY_BUFFER, this.data, GL_STREAM_DRAW);
+      glBufferData(GL_ARRAY_BUFFER, this.data, this.size, GL_STREAM_DRAW);
       glDrawArrays(GL_TRIANGLES, 0, this.vertices);
-      this.data.clear();
+      this.size = 0;
       this.vertices = 0;
     }
   }
@@ -250,7 +251,7 @@ final class Gpu {
   static int coverageTexture(int width, int height) {
     int id = glGenTextures();
     glBindTexture(GL_TEXTURE_2D, id);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_R8, width, height, 0, GL_RED, GL_UNSIGNED_BYTE, (ByteBuffer) null);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_R8, width, height, 0, GL_RED, GL_UNSIGNED_BYTE, (byte[]) null);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);

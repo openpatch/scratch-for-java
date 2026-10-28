@@ -19,9 +19,10 @@ public class Level extends Stage {
   private Player player;
   public Level(String mapFile, Player player) {
     map = new TiledMap("demos/tiled/" + mapFile + ".tmx", this);
-    // Every object whose type is a sprite class becomes that sprite:
+    // Every object whose type is one of these classes becomes that sprite:
     // walls, water, warps, items and enemies.
-    for (Sprite sprite : map.spawn("Objects")) {
+    for (Sprite sprite : map.spawn("Objects", Wall.class, Water.class, Warp.class, Item.class,
+        Bamboo.class)) {
       // an item that was picked up stays picked up
       if (sprite instanceof Item item && GameState.hasItem(item.getName())) {
         this.remove(item);

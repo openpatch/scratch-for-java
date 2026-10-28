@@ -1,23 +1,14 @@
 package org.openpatch.scratch.internal.audio;
 
-import static org.lwjgl.openal.AL10.*;
-import static org.lwjgl.openal.ALC10.*;
-
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.IntBuffer;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.IdentityHashMap;
 import java.util.Map;
-import org.lwjgl.openal.AL;
-import org.lwjgl.openal.ALC;
-import org.lwjgl.openal.ALCCapabilities;
-import org.lwjgl.system.MemoryUtil;
-import org.openpatch.scratch.internal.Natives;
+import org.openpatch.scratch.internal.platform.AudioDevice;
+import org.openpatch.scratch.internal.platform.Platform;
 
 /**
- * The one OpenAL connection of the process: every sound uploads once into a buffer and plays on a
+ * The one sound output of the process (the platform's {@link AudioDevice}): every sound uploads once into a buffer and plays on a
  * pool of sources, so the same sound can ring out many times at once.
  */
 public final class AudioEngine {
@@ -27,8 +18,7 @@ public final class AudioEngine {
   private static AudioEngine instance;
 
   private final boolean silent;
-  private long device;
-  private long context;
+  private final AudioDevice device;
   private final int[] sources = new int[POOL];
   private final long[] started = new long[POOL]; // when each source last started
   private final double[] volumes = new double[POOL]; // the per-sound gain, master volume on top
@@ -51,33 +41,16 @@ public final class AudioEngine {
   }
 
   private AudioEngine() {
-    long device = 0;
-    boolean silent = true;
+    AudioDevice device = null;
     try {
-      Natives.init(); // LWJGL's memory backend must be chosen before its first call
-      device = alcOpenDevice((ByteBuffer) null);
-      if (device != 0) {
-        ALCCapabilities alc = ALC.createCapabilities(device);
-        this.context = alcCreateContext(device, (IntBuffer) null);
-        alcMakeContextCurrent(this.context);
-        AL.createCapabilities(alc);
-        silent = false;
-      }
+      device = Platform.get().openAudio();
     } catch (Throwable t) {
       // a machine that cannot open a device must not take the library down: go silent instead
-      this.destroyContext();
-      if (device != 0) {
-        try {
-          alcCloseDevice(device);
-        } catch (Throwable ignored) {
-          // teardown is best effort
-        }
-        device = 0;
-      }
+      device = null;
     }
     this.device = device;
-    this.silent = silent;
-    if (silent) {
+    this.silent = device == null;
+    if (this.silent) {
       // the one and only reaction to a machine without audio: stay silent, never throw
       System.err.println("Scratch for Java: no audio device, sounds stay silent.");
     }
@@ -95,20 +68,8 @@ public final class AudioEngine {
     if (cached != null) {
       return cached;
     }
-    int format = data.channels() == 1
-        ? (data.bits() == 8 ? AL_FORMAT_MONO8 : AL_FORMAT_MONO16)
-        : (data.bits() == 8 ? AL_FORMAT_STEREO8 : AL_FORMAT_STEREO16);
-    byte[] pcm = data.pcm();
-    // alBufferData copies on upload, so a scratch direct buffer is enough and ours to free
-    ByteBuffer direct = MemoryUtil.memAlloc(pcm.length).put(pcm).flip();
-    int buffer = alGenBuffers();
-    if (data.bits() == 8) {
-      // 8-bit is unsigned in both WAV and OpenAL, 16-bit signed LE likewise: copy as is
-      alBufferData(buffer, format, direct, data.sampleRate());
-    } else {
-      alBufferData(buffer, format, direct.order(ByteOrder.LITTLE_ENDIAN).asShortBuffer(), data.sampleRate());
-    }
-    MemoryUtil.memFree(direct);
+    // 8-bit is unsigned and 16-bit signed little-endian in WAV and on every device: as is
+    int buffer = this.device.createBuffer(data.pcm(), data.channels(), data.bits(), data.sampleRate());
     this.buffers.put(data, buffer);
     return buffer;
   }
@@ -124,7 +85,7 @@ public final class AudioEngine {
     this.createPool();
     int pick = 0;
     for (int i = 0; i < POOL; i++) {
-      if (this.state(this.sources[i]) != AL_PLAYING) {
+      if (!this.device.isPlaying(this.sources[i])) {
         pick = i; // a free source is always better than stealing one
         break;
       }
@@ -140,10 +101,8 @@ public final class AudioEngine {
     this.slots.put(handle, pick);
     this.volumes[pick] = clamp(volume);
     int source = this.sources[pick];
-    alSourcei(source, AL_BUFFER, buffer);
-    alSourcef(source, AL_GAIN, (float) (this.volumes[pick] * this.masterVolume));
-    alSourcei(source, AL_LOOPING, loop ? AL_TRUE : AL_FALSE); // a reused source keeps no settings
-    alSourcePlay(source);
+    // a reused source keeps no settings
+    this.device.play(source, buffer, (float) (this.volumes[pick] * this.masterVolume), loop);
     this.started[pick] = System.nanoTime();
     return handle;
   }
@@ -154,7 +113,7 @@ public final class AudioEngine {
     if (slot == null || this.silent || this.closed) {
       return;
     }
-    alSourceStop(this.sources[slot]);
+    this.device.stop(this.sources[slot]);
     this.handles[slot] = 0;
   }
 
@@ -164,7 +123,7 @@ public final class AudioEngine {
     if (slot == null || this.silent || this.closed) {
       return false;
     }
-    return this.state(this.sources[slot]) == AL_PLAYING;
+    return this.device.isPlaying(this.sources[slot]);
   }
 
   /** Sets the gain of the sound behind {@code handle}, 0..1, master volume on top. */
@@ -174,7 +133,7 @@ public final class AudioEngine {
       return;
     }
     this.volumes[slot] = clamp(volume);
-    alSourcef(this.sources[slot], AL_GAIN, (float) (this.volumes[slot] * this.masterVolume));
+    this.device.setGain(this.sources[slot], (float) (this.volumes[slot] * this.masterVolume));
   }
 
   /** Stops every sound, handles included. */
@@ -184,7 +143,7 @@ public final class AudioEngine {
     }
     for (int i = 0; i < POOL; i++) {
       if (this.sources[i] != 0) {
-        alSourceStop(this.sources[i]);
+        this.device.stop(this.sources[i]);
       }
     }
     this.slots.clear();
@@ -199,7 +158,7 @@ public final class AudioEngine {
     }
     for (int i = 0; i < POOL; i++) {
       if (this.sources[i] != 0) {
-        alSourcef(this.sources[i], AL_GAIN, (float) (this.volumes[i] * this.masterVolume));
+        this.device.setGain(this.sources[i], (float) (this.volumes[i] * this.masterVolume));
       }
     }
   }
@@ -227,18 +186,14 @@ public final class AudioEngine {
     }
     for (int source : this.sources) {
       if (source != 0) {
-        alSourceStop(source);
-        alDeleteSources(source);
+        this.device.stop(source);
+        this.device.deleteSource(source);
       }
     }
     for (int buffer : this.buffers.values()) {
-      alDeleteBuffers(buffer);
+      this.device.deleteBuffer(buffer);
     }
-    this.destroyContext();
-    if (this.device != 0) {
-      alcCloseDevice(this.device);
-      this.device = 0;
-    }
+    this.device.close();
   }
 
   private void createPool() {
@@ -246,27 +201,8 @@ public final class AudioEngine {
       return;
     }
     for (int i = 0; i < POOL; i++) {
-      this.sources[i] = alGenSources();
+      this.sources[i] = this.device.createSource();
     }
-  }
-
-  private int state(int source) {
-    int[] state = new int[1];
-    alGetSourcei(source, AL_SOURCE_STATE, state);
-    return state[0];
-  }
-
-  private void destroyContext() {
-    if (this.context == 0) {
-      return;
-    }
-    try {
-      alcMakeContextCurrent(0L);
-      alcDestroyContext(this.context);
-    } catch (Throwable ignored) {
-      // teardown is best effort
-    }
-    this.context = 0;
   }
 
   private static double clamp(double volume) {

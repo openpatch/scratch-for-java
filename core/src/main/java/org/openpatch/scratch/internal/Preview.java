@@ -16,6 +16,7 @@ import java.util.Set;
 import org.openpatch.scratch.Layer;
 import org.openpatch.scratch.Sprite;
 import org.openpatch.scratch.Stage;
+import org.openpatch.scratch.internal.platform.Platform;
 
 /**
  * What Studio's stage designer needs from a running program: {@code frame.png} (the stage at stage
@@ -97,7 +98,7 @@ public final class Preview {
         && !stage.getClass().getName().equals(STAGE)) {
       if (!requested) {
         requested = true;
-        game.setStage(make(stage.getClass().getClassLoader(), stage.getClass().getPackageName()));
+        game.setStage(make(stage.getClass().getClassLoader(), packageOf(stage.getClass())));
       }
       return;
     }
@@ -248,7 +249,7 @@ public final class Preview {
     } catch (IOException e) {
       System.err.println("scratch4j preview: " + reason);
     }
-    Runtime.getRuntime().halt(2);
+    Platform.get().halt(2);
   }
 
   private static Set<String> names(String list) {
@@ -303,5 +304,11 @@ public final class Preview {
       }
     }
     return out.append('"').toString();
+  }
+
+  private static String packageOf(Class<?> type) {
+    String name = type.getName();
+    int dot = name.lastIndexOf('.');
+    return dot < 0 ? "" : name.substring(0, dot);
   }
 }

@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>${title}</title>
+  <style>
+    html, body { margin: 0; height: 100%; background: #000; overflow: hidden; }
+    #stage { display: block; width: 100vw; height: 100vh; touch-action: none; outline: none; }
+    #message { position: fixed; inset: auto 16px 16px 16px; padding: 12px 16px; background: #fff;
+      color: #000; font: 14px/1.4 system-ui, sans-serif; white-space: pre-wrap; border-radius: 6px; }
+    #fullscreen { position: fixed; right: 12px; top: 12px; padding: 6px 10px; border: 0; border-radius: 6px;
+      background: rgba(0, 0, 0, .45); color: #fff; font: 13px system-ui, sans-serif; cursor: pointer; opacity: .6; }
+    #fullscreen:hover { opacity: 1; }
+  </style>
+</head>
+<body>
+  <canvas id="stage" tabindex="0"></canvas>
+  <button id="fullscreen" type="button" title="Fullscreen">⛶</button>
+  <div id="message" hidden></div>
+  <script src="s4j.js"></script>
+  <script src="wasm-gc-runtime.min.js"></script>
+  <script>
+    document.getElementById("fullscreen").addEventListener("click", () => {
+      if (document.fullscreenElement) document.exitFullscreen(); else document.documentElement.requestFullscreen();
+      document.getElementById("stage").focus();
+    });
+    document.getElementById("stage").focus();
+    TeaVM.wasmGC.load("game.wasm", ${loadOptions}).then((teavm) => teavm.exports.main([]))
+      .catch((e) => S4J.glfw.message("${title}", "This browser cannot run the game: " + e));
+  </script>
+</body>
+</html>

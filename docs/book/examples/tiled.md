@@ -70,9 +70,10 @@ public class Level extends Stage {
   private Player player;
   public Level(String mapFile, Player player) {
     map = new TiledMap("" + mapFile + ".tmx", this);
-    // Every object whose type is a sprite class becomes that sprite:
+    // Every object whose type is one of these classes becomes that sprite:
     // walls, water, warps, items and enemies.
-    for (Sprite sprite : map.spawn("Objects")) {
+    for (Sprite sprite : map.spawn("Objects", Wall.class, Water.class, Warp.class, Item.class,
+        Bamboo.class)) {
       // an item that was picked up stays picked up
       if (sprite instanceof Item item && GameState.hasItem(item.getName())) {
         this.remove(item);
@@ -405,17 +406,6 @@ public class Player extends Sprite {
 }
 ```
 
-```java Water.java
-
-public class Water extends Sprite {
-  // The map puts it where its object is, and makes the object's area its hitbox.
-  public Water() {
-    // begin sprite editor
-    // end sprite editor
-  }
-}
-```
-
 ```java Wall.java
 
 public class Wall extends Sprite {
@@ -427,42 +417,47 @@ public class Wall extends Sprite {
 }
 ```
 
-```java Fireball.java
+```java Water.java
 
-public class Fireball extends Sprite {
-  private String dir;
-  private double speed = 3;
+public class Water extends Sprite {
+  // The map puts it where its object is, and makes the object's area its hitbox.
+  public Water() {
+    // begin sprite editor
+    // end sprite editor
+  }
+}
+```
 
-  public Fireball(double x, double y, String dir) {
-    this.setX(x);
-    this.setY(y);
-    this.dir = dir;
+```java Warp.java
+
+public class Warp extends Sprite {
+  private String toMap;
+  private double toX;
+  private double toY;
+
+  // The map makes a warp for each Warp object; the object says where it leads.
+  public Warp(MapObject object) {
+    this.toMap = object.getProperty("to_map");
+    this.toX = object.getPropertyInt("to_x");
+    // Tiled counts y downwards, the stage upwards
+    this.toY = -object.getPropertyInt("to_y");
 
     // begin sprite editor
-    this.addAnimation("default", "assets/Fireball.png", 32, 32, 0, 1, 2, 3);
     // end sprite editor
   }
 
   public void run() {
-    if (this.getTimer().after(1)) {
-      this.remove();
+    var level = (Level) this.getStage();
+    var player = level.getPlayer();
+    if (this.isTouchingSprite(player)) {
+      // Move the player and build the room only when the screen is black.
+      // A request during another transition leaves this supplier untouched.
+      Window.getInstance().transitionToStage(() -> {
+        player.setX(toX);
+        player.setY(toY);
+        return new Level(toMap, player);
+      }, 0.5);
     }
-
-    if (dir == "left") {
-      this.changeX(-speed);
-      this.setDirection(0);
-    } else if (dir == "right") {
-      this.changeX(speed);
-      this.setDirection(180);
-    } else if (dir == "up") {
-      this.setDirection(90);
-      this.changeY(speed);
-    } else if (dir == "down") {
-      this.setDirection(270);
-      this.changeY(-speed);
-    }
-
-    this.playAnimation("default");
   }
 }
 ```
@@ -532,36 +527,42 @@ public class Bamboo extends Enemy {
 }
 ```
 
-```java Warp.java
+```java Fireball.java
 
-public class Warp extends Sprite {
-  private String toMap;
-  private double toX;
-  private double toY;
+public class Fireball extends Sprite {
+  private String dir;
+  private double speed = 3;
 
-  // The map makes a warp for each Warp object; the object says where it leads.
-  public Warp(MapObject object) {
-    this.toMap = object.getProperty("to_map");
-    this.toX = object.getPropertyInt("to_x");
-    // Tiled counts y downwards, the stage upwards
-    this.toY = -object.getPropertyInt("to_y");
+  public Fireball(double x, double y, String dir) {
+    this.setX(x);
+    this.setY(y);
+    this.dir = dir;
 
     // begin sprite editor
+    this.addAnimation("default", "assets/Fireball.png", 32, 32, 0, 1, 2, 3);
     // end sprite editor
   }
 
   public void run() {
-    var level = (Level) this.getStage();
-    var player = level.getPlayer();
-    if (this.isTouchingSprite(player)) {
-      // Move the player and build the room only when the screen is black.
-      // A request during another transition leaves this supplier untouched.
-      Window.getInstance().transitionToStage(() -> {
-        player.setX(toX);
-        player.setY(toY);
-        return new Level(toMap, player);
-      }, 0.5);
+    if (this.getTimer().after(1)) {
+      this.remove();
     }
+
+    if (dir == "left") {
+      this.changeX(-speed);
+      this.setDirection(0);
+    } else if (dir == "right") {
+      this.changeX(speed);
+      this.setDirection(180);
+    } else if (dir == "up") {
+      this.setDirection(90);
+      this.changeY(speed);
+    } else if (dir == "down") {
+      this.setDirection(270);
+      this.changeY(-speed);
+    }
+
+    this.playAnimation("default");
   }
 }
 ```

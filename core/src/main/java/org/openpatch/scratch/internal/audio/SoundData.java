@@ -3,16 +3,11 @@ package org.openpatch.scratch.internal.audio;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import java.nio.IntBuffer;
-import java.nio.ShortBuffer;
-import org.lwjgl.BufferUtils;
-import org.lwjgl.stb.STBVorbis;
-import org.lwjgl.system.MemoryUtil;
-import org.openpatch.scratch.internal.Natives;
 import org.openpatch.scratch.internal.image.Images;
+import org.openpatch.scratch.internal.platform.Platform;
 
 /**
- * A sound decoded to raw PCM, ready for OpenAL: 8- or 16-bit, mono or stereo, little-endian as
+ * A sound decoded to raw PCM, ready for the audio device: 8- or 16-bit, mono or stereo, little-endian as
  * WAV stores it (8-bit unsigned, 16-bit signed).
  */
 public final class SoundData {
@@ -151,28 +146,10 @@ public final class SoundData {
   }
 
   private static SoundData decodeOgg(byte[] file, String name) throws IOException {
-    Natives.init(); // loads the native libraries before the first LWJGL call
-    ByteBuffer encoded = MemoryUtil.memAlloc(file.length).put(file).flip();
-    IntBuffer channels = BufferUtils.createIntBuffer(1);
-    IntBuffer rate = BufferUtils.createIntBuffer(1);
-    ShortBuffer pcm = STBVorbis.stb_vorbis_decode_memory(encoded, channels, rate);
-    MemoryUtil.memFree(encoded); // the decode buffer is ours
-    if (pcm == null) {
-      throw new IOException("stb_vorbis could not decode " + name);
-    }
-    int count = pcm.remaining();
-    byte[] bytes = new byte[count * 2];
-    for (int i = 0; i < count; i++) {
-      short sample = pcm.get();
-      // OpenAL and WAV agree on little-endian: the low byte comes first
-      bytes[2 * i] = (byte) sample;
-      bytes[2 * i + 1] = (byte) (sample >> 8);
-    }
-    MemoryUtil.memFree(pcm); // the decode buffer is ours
-    int decodedChannels = channels.get(0);
-    if (decodedChannels != 1 && decodedChannels != 2) {
+    Platform.Pcm pcm = Platform.get().decodeVorbis(file, name);
+    if (pcm.channels() != 1 && pcm.channels() != 2) {
       throw new IOException(name + ": only mono and stereo sounds are supported");
     }
-    return new SoundData(decodedChannels, rate.get(0), 16, bytes);
+    return new SoundData(pcm.channels(), pcm.sampleRate(), 16, pcm.samples());
   }
 }

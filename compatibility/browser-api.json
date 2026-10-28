@@ -7770,37 +7770,7 @@
         "returns": "Object"
       },
       {
-        "name": "loadXML",
-        "constructor": false,
-        "static": true,
-        "parameters": [
-          "String",
-          "Class<T@100>"
-        ],
-        "returns": "Object"
-      },
-      {
-        "name": "loadXMLOrCreate",
-        "constructor": false,
-        "static": true,
-        "parameters": [
-          "String",
-          "Class<T@100>"
-        ],
-        "returns": "Object"
-      },
-      {
         "name": "save",
-        "constructor": false,
-        "static": true,
-        "parameters": [
-          "String",
-          "Object"
-        ],
-        "returns": "void"
-      },
-      {
-        "name": "saveXML",
         "constructor": false,
         "static": true,
         "parameters": [
@@ -8085,7 +8055,8 @@
         "constructor": false,
         "static": false,
         "parameters": [
-          "String"
+          "String",
+          "Class<?@202 extends org.openpatch.scratch.Sprite>[]"
         ],
         "returns": "List<org.openpatch.scratch.Sprite>"
       }
@@ -10214,7 +10185,7 @@
         "constructor": false,
         "static": false,
         "parameters": [],
-        "returns": "T@414 extends org.openpatch.scratch.Sprite"
+        "returns": "T@415 extends org.openpatch.scratch.Sprite"
       },
       {
         "name": "debug",
@@ -10428,18 +10399,18 @@
         "constructor": false,
         "static": false,
         "parameters": [
-          "Class<T@412 extends org.openpatch.scratch.Sprite>"
+          "Class<T@413 extends org.openpatch.scratch.Sprite>"
         ],
-        "returns": "T@412 extends org.openpatch.scratch.Sprite"
+        "returns": "T@413 extends org.openpatch.scratch.Sprite"
       },
       {
         "name": "getTouchingSprites",
         "constructor": false,
         "static": false,
         "parameters": [
-          "Class<T@413 extends org.openpatch.scratch.Sprite>"
+          "Class<T@414 extends org.openpatch.scratch.Sprite>"
         ],
-        "returns": "nrw.List<T@413 extends org.openpatch.scratch.Sprite>"
+        "returns": "nrw.List<T@414 extends org.openpatch.scratch.Sprite>"
       },
       {
         "name": "getTransparency",
@@ -10667,7 +10638,7 @@
         "constructor": false,
         "static": false,
         "parameters": [
-          "Class<?@411 extends org.openpatch.scratch.Sprite>"
+          "Class<?@412 extends org.openpatch.scratch.Sprite>"
         ],
         "returns": "boolean"
       },
@@ -11339,7 +11310,7 @@
         "constructor": false,
         "static": false,
         "parameters": [
-          "Class<T@409 extends org.openpatch.scratch.Sprite>"
+          "Class<T@410 extends org.openpatch.scratch.Sprite>"
         ],
         "returns": "int"
       },
@@ -11383,9 +11354,9 @@
         "constructor": false,
         "static": false,
         "parameters": [
-          "Class<T@408 extends org.openpatch.scratch.Sprite>"
+          "Class<T@409 extends org.openpatch.scratch.Sprite>"
         ],
-        "returns": "nrw.List<T@408 extends org.openpatch.scratch.Sprite>"
+        "returns": "nrw.List<T@409 extends org.openpatch.scratch.Sprite>"
       },
       {
         "name": "getAll",
@@ -11595,7 +11566,7 @@
         "constructor": false,
         "static": false,
         "parameters": [
-          "Class<?@407 extends org.openpatch.scratch.Sprite>"
+          "Class<?@408 extends org.openpatch.scratch.Sprite>"
         ],
         "returns": "void"
       },
@@ -11731,7 +11702,7 @@
         "constructor": false,
         "static": false,
         "parameters": [
-          "Comparator<?@410 super org.openpatch.scratch.Sprite>"
+          "Comparator<?@411 super org.openpatch.scratch.Sprite>"
         ],
         "returns": "void"
       },
@@ -12902,7 +12873,7 @@
         "constructor": false,
         "static": false,
         "parameters": [
-          "java.util.function.Supplier<?@405 extends org.openpatch.scratch.Stage>",
+          "java.util.function.Supplier<?@406 extends org.openpatch.scratch.Stage>",
           "double"
         ],
         "returns": "void"
@@ -12912,7 +12883,7 @@
         "constructor": false,
         "static": false,
         "parameters": [
-          "java.util.function.Supplier<?@406 extends org.openpatch.scratch.Stage>",
+          "java.util.function.Supplier<?@407 extends org.openpatch.scratch.Stage>",
           "org.openpatch.scratch.Transition",
           "double"
         ],
@@ -13218,7 +13189,7 @@
         "constructor": false,
         "static": false,
         "parameters": [],
-        "returns": "T@414 extends org.openpatch.scratch.Sprite"
+        "returns": "T@415 extends org.openpatch.scratch.Sprite"
       },
       {
         "name": "debug",
@@ -13464,18 +13435,18 @@
         "constructor": false,
         "static": false,
         "parameters": [
-          "Class<T@412 extends org.openpatch.scratch.Sprite>"
+          "Class<T@413 extends org.openpatch.scratch.Sprite>"
         ],
-        "returns": "T@412 extends org.openpatch.scratch.Sprite"
+        "returns": "T@413 extends org.openpatch.scratch.Sprite"
       },
       {
         "name": "getTouchingSprites",
         "constructor": false,
         "static": false,
         "parameters": [
-          "Class<T@413 extends org.openpatch.scratch.Sprite>"
+          "Class<T@414 extends org.openpatch.scratch.Sprite>"
         ],
-        "returns": "nrw.List<T@413 extends org.openpatch.scratch.Sprite>"
+        "returns": "nrw.List<T@414 extends org.openpatch.scratch.Sprite>"
       },
       {
         "name": "getTransparency",
@@ -13717,7 +13688,7 @@
         "constructor": false,
         "static": false,
         "parameters": [
-          "Class<?@411 extends org.openpatch.scratch.Sprite>"
+          "Class<?@412 extends org.openpatch.scratch.Sprite>"
         ],
         "returns": "boolean"
       },
@@ -14636,7 +14607,7 @@
         "constructor": false,
         "static": false,
         "parameters": [],
-        "returns": "T@414 extends org.openpatch.scratch.Sprite"
+        "returns": "T@415 extends org.openpatch.scratch.Sprite"
       },
       {
         "name": "debug",
@@ -14859,18 +14830,18 @@
         "constructor": false,
         "static": false,
         "parameters": [
-          "Class<T@412 extends org.openpatch.scratch.Sprite>"
+          "Class<T@413 extends org.openpatch.scratch.Sprite>"
         ],
-        "returns": "T@412 extends org.openpatch.scratch.Sprite"
+        "returns": "T@413 extends org.openpatch.scratch.Sprite"
       },
       {
         "name": "getTouchingSprites",
         "constructor": false,
         "static": false,
         "parameters": [
-          "Class<T@413 extends org.openpatch.scratch.Sprite>"
+          "Class<T@414 extends org.openpatch.scratch.Sprite>"
         ],
-        "returns": "nrw.List<T@413 extends org.openpatch.scratch.Sprite>"
+        "returns": "nrw.List<T@414 extends org.openpatch.scratch.Sprite>"
       },
       {
         "name": "getTransparency",
@@ -15105,7 +15076,7 @@
         "constructor": false,
         "static": false,
         "parameters": [
-          "Class<?@411 extends org.openpatch.scratch.Sprite>"
+          "Class<?@412 extends org.openpatch.scratch.Sprite>"
         ],
         "returns": "boolean"
       },
@@ -15856,7 +15827,7 @@
         "static": true,
         "parameters": [
           "String",
-          "Class<T@307>"
+          "Class<T@308>"
         ],
         "returns": "Object"
       },
@@ -15866,42 +15837,12 @@
         "static": true,
         "parameters": [
           "String",
-          "Class<T@307>"
-        ],
-        "returns": "Object"
-      },
-      {
-        "name": "loadXML",
-        "constructor": false,
-        "static": true,
-        "parameters": [
-          "String",
-          "Class<T@307>"
-        ],
-        "returns": "Object"
-      },
-      {
-        "name": "loadXMLOrCreate",
-        "constructor": false,
-        "static": true,
-        "parameters": [
-          "String",
-          "Class<T@307>"
+          "Class<T@308>"
         ],
         "returns": "Object"
       },
       {
         "name": "save",
-        "constructor": false,
-        "static": true,
-        "parameters": [
-          "String",
-          "Object"
-        ],
-        "returns": "void"
-      },
-      {
-        "name": "saveXML",
         "constructor": false,
         "static": true,
         "parameters": [
@@ -15919,9 +15860,9 @@
         "parameters": [
           "String",
           "String",
-          "Class<T@339>"
+          "Class<T@340>"
         ],
-        "returns": "org.openpatch.scratch.save.SaveData<T@339>"
+        "returns": "org.openpatch.scratch.save.SaveData<T@340>"
       },
       {
         "name": "getLocation",
@@ -15935,16 +15876,16 @@
         "constructor": false,
         "static": false,
         "parameters": [
-          "java.util.function.Supplier<?@404 extends T@339>"
+          "java.util.function.Supplier<?@405 extends T@340>"
         ],
-        "returns": "T@339"
+        "returns": "T@340"
       },
       {
         "name": "save",
         "constructor": false,
         "static": false,
         "parameters": [
-          "T@339"
+          "T@340"
         ],
         "returns": "void"
       }
@@ -16186,7 +16127,8 @@
         "constructor": false,
         "static": false,
         "parameters": [
-          "String"
+          "String",
+          "Class<?@416 extends org.openpatch.scratch.Sprite>[]"
         ],
         "returns": "List<org.openpatch.scratch.Sprite>"
       }

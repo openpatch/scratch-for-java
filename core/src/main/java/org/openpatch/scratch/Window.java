@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.function.Supplier;
 import org.openpatch.scratch.extension.Extension;
 import org.openpatch.scratch.internal.Game;
-import org.openpatch.scratch.internal.Natives;
+import org.openpatch.scratch.internal.platform.Platform;
 import org.openpatch.scratch.internal.window.WindowHost;
 
 /**
@@ -71,7 +71,7 @@ public class Window {
    */
   public Window(int width, int height, String assets) {
     org.openpatch.scratch.internal.Release.start();
-    Natives.init();
+    Platform.get(); // no window and sound code on the class path: say so here, not on the window thread
     synchronized (Window.class) {
       if (instance != null) {
         throw new IllegalStateException("There can only be one window. Use setStage to show another stage.");

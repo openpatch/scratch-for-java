@@ -1,0 +1,146 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.openpatch</groupId>
+        <artifactId>scratch-parent</artifactId>
+        <version>7.0.0</version>
+    </parent>
+
+    <!-- The core in a web page: a game and the library compiled to WebAssembly with TeaVM.
+         org.openpatch.scratch.web is the browser platform (WebGL2, the page's canvas, Web Audio,
+         the browser's decoders), compiled into the game; org.openpatch.scratch.web.export runs
+         TeaVM on a desktop JVM and writes the page (Studio's "web page" export). -->
+    <artifactId>scratch-web</artifactId>
+    <packaging>jar</packaging>
+    <name>Scratch for Java: Web</name>
+
+    <properties>
+        <teavm.version>0.16.0</teavm.version>
+        <scratch.webJar>scratch-${project.version}-web.jar</scratch.webJar>
+    </properties>
+
+    <profiles>
+        <!-- mvn package -Pnrw: the web jar with the NRW core (find, getAll, getTouchingSprites
+             return the Abitur's List) -->
+        <profile>
+            <id>nrw</id>
+            <properties>
+                <scratch.webJar>scratch-${project.version}-nrw-web.jar</scratch.webJar>
+                <maven.test.skip>true</maven.test.skip>
+            </properties>
+        </profile>
+    </profiles>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.openpatch</groupId>
+            <artifactId>scratch</artifactId>
+        </dependency>
+        <!-- the extensions that work in a page, bundled in the web jar like the core -->
+        <dependency>
+            <groupId>org.openpatch</groupId>
+            <artifactId>scratch-tiled</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openpatch</groupId>
+            <artifactId>scratch-save</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openpatch</groupId>
+            <artifactId>scratch-drawing</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openpatch</groupId>
+            <artifactId>scratch-recorder</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <!-- the browser platform's JavaScript interop, and TeaVM's class library the game is
+             compiled against; the exporter hands these jars to TeaVM -->
+        <dependency>
+            <groupId>org.teavm</groupId>
+            <artifactId>teavm-classlib</artifactId>
+            <version>${teavm.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.teavm</groupId>
+            <artifactId>teavm-jso-apis</artifactId>
+            <version>${teavm.version}</version>
+        </dependency>
+        <!-- the reflection policy (GameReflection) -->
+        <dependency>
+            <groupId>org.teavm</groupId>
+            <artifactId>teavm-extension-spi</artifactId>
+            <version>${teavm.version}</version>
+        </dependency>
+        <!-- names in stack traces of a debug export (-Dscratch4j.webDebug=true) -->
+        <dependency>
+            <groupId>org.teavm</groupId>
+            <artifactId>teavm-wasm-gc-deobfuscator</artifactId>
+            <version>${teavm.version}</version>
+        </dependency>
+        <!-- the compiler -->
+        <dependency>
+            <groupId>org.teavm</groupId>
+            <artifactId>teavm-tooling</artifactId>
+            <version>${teavm.version}</version>
+        </dependency>
+        <!-- on the test class path as it is on Studio's: the export must not see it -->
+        <dependency>
+            <groupId>org.openpatch</groupId>
+            <artifactId>scratch-desktop</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- scratch-<version>-web.jar: the exporter with the core and TeaVM, one file for
+                 `java -jar` (Studio downloads it from the release, as it does the -all jar) -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <shadedArtifactAttached>false</shadedArtifactAttached>
+                            <outputFile>${project.build.directory}/${scratch.webJar}</outputFile>
+                            <filters>
+                                <filter>
+                                    <artifact>*:*</artifact>
+                                    <excludes>
+                                        <exclude>**/module-info.class</exclude>
+                                        <exclude>META-INF/*.SF</exclude>
+                                        <exclude>META-INF/*.DSA</exclude>
+                                        <exclude>META-INF/*.RSA</exclude>
+                                        <exclude>META-INF/maven/**</exclude>
+                                    </excludes>
+                                </filter>
+                            </filters>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>org.openpatch.scratch.web.export.WebExport</mainClass>
+                                    <manifestEntries>
+                                        <Implementation-Title>Scratch for Java: web export</Implementation-Title>
+                                        <Implementation-Version>${project.version}</Implementation-Version>
+                                    </manifestEntries>
+                                </transformer>
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

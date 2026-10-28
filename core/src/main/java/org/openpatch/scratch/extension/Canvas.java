@@ -21,19 +21,22 @@ import org.openpatch.scratch.internal.text.TextLayout;
  */
 public final class Canvas {
 
-  static {
-    org.openpatch.scratch.internal.CanvasAccess.register(new org.openpatch.scratch.internal.CanvasAccess.Access() {
-      @Override
-      public Canvas create() {
-        return new Canvas();
-      }
+  /**
+   * How the core makes canvases and takes their items. Registered by {@link CoreVersion}, which
+   * the core always loads: a static initializer here would rely on Class.forName running it, which
+   * the browser build does not.
+   */
+  static final class Hook implements org.openpatch.scratch.internal.CanvasAccess.Access {
+    @Override
+    public Canvas create() {
+      return new Canvas();
+    }
 
-      @Override
-      public List<Item> finish(Canvas canvas) {
-        canvas.closed = true;
-        return canvas.items;
-      }
-    });
+    @Override
+    public List<Item> finish(Canvas canvas) {
+      canvas.closed = true;
+      return canvas.items;
+    }
   }
 
   private final List<Item> items = new ArrayList<>();

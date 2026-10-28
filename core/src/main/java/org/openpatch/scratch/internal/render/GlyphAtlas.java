@@ -1,11 +1,9 @@
 package org.openpatch.scratch.internal.render;
 
-import static org.lwjgl.opengl.GL33C.*;
+import static org.openpatch.scratch.internal.platform.GL.*;
 
-import java.nio.ByteBuffer;
 import java.util.HashMap;
 import java.util.Map;
-import org.lwjgl.system.MemoryUtil;
 import org.openpatch.scratch.internal.text.Font;
 import org.openpatch.scratch.internal.text.GlyphRasterizer;
 import org.openpatch.scratch.internal.text.GlyphRasterizer.GlyphBitmap;
@@ -67,16 +65,11 @@ final class GlyphAtlas {
       this.shelfHeight = 0;
     }
     int page = this.pages.size() - 1;
-    ByteBuffer pixels = MemoryUtil.memAlloc(w * h).put(bitmap.coverage()).flip();
-    try {
-      glBindTexture(GL_TEXTURE_2D, this.pages.get(page));
-      glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-      glPixelStorei(GL_UNPACK_ROW_LENGTH, 0);
-      glTexSubImage2D(GL_TEXTURE_2D, 0, this.shelfX, this.shelfY, w, h, GL_RED, GL_UNSIGNED_BYTE, pixels);
-      glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
-    } finally {
-      MemoryUtil.memFree(pixels);
-    }
+    glBindTexture(GL_TEXTURE_2D, this.pages.get(page));
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+    glPixelStorei(GL_UNPACK_ROW_LENGTH, 0);
+    glTexSubImage2D(GL_TEXTURE_2D, 0, this.shelfX, this.shelfY, w, h, GL_RED, GL_UNSIGNED_BYTE, bitmap.coverage());
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
     Slot slot = new Slot(page, this.shelfX, this.shelfY, w, h, bitmap.offsetX(), bitmap.offsetY());
     this.shelfX += w + 1;
     this.shelfHeight = Math.max(this.shelfHeight, h);

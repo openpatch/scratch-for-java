@@ -52,6 +52,12 @@ final class CoreVersion {
   static final int API_MAJOR = 7;
   static final String VALUE = effective(read());
 
+  static {
+    // here, not in Canvas: Extension.coreVersion() is the extension package's door the core
+    // always opens (and CanvasAccess opens it when it needs canvases first)
+    org.openpatch.scratch.internal.CanvasAccess.register(new Canvas.Hook());
+  }
+
   static String effective(String version) {
     try {
       int major = Integer.parseInt(version.split("[.-]")[0]);

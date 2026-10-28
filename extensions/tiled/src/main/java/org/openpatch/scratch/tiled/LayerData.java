@@ -9,8 +9,6 @@ import java.util.Arrays;
 import java.util.Base64;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.InflaterInputStream;
-import tools.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-import tools.jackson.dataformat.xml.annotation.JacksonXmlText;
 
 /**
  * The {@code <data>} of a tile layer in every encoding Tiled writes: CSV, or
@@ -19,17 +17,13 @@ import tools.jackson.dataformat.xml.annotation.JacksonXmlText;
  */
 class LayerData {
 
-  @JacksonXmlProperty(isAttribute = true)
   public String encoding;
 
-  @JacksonXmlProperty(isAttribute = true)
   public String compression;
 
-  @JacksonXmlText
   public String text;
 
   /** An infinite map stores its tiles in chunks, which are not supported. */
-  @JacksonXmlProperty(localName = "chunk")
   public Object chunk;
 
   /** The raw tile ids, flip bits included (unsigned 32 bit). */
@@ -53,7 +47,8 @@ class LayerData {
     if (!encoding.equals("base64")) {
       throw new IllegalStateException("Unknown tile layer encoding '" + encoding + "'.");
     }
-    byte[] bytes = Base64.getMimeDecoder().decode(content);
+    // Tiled breaks long data into lines; the plain decoder takes it without them
+    byte[] bytes = Base64.getDecoder().decode(content.replaceAll("\\s+", ""));
     try {
       if ("zlib".equals(compression)) {
         bytes = readAll(new InflaterInputStream(new ByteArrayInputStream(bytes)));

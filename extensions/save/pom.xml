@@ -21,17 +21,11 @@
             <groupId>org.openpatch</groupId>
             <artifactId>scratch</artifactId>
         </dependency>
+        <!-- tests decode images and open sound through the desktop platform -->
         <dependency>
-            <groupId>tools.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>tools.jackson.dataformat</groupId>
-            <artifactId>jackson-dataformat-xml</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
+            <groupId>org.openpatch</groupId>
+            <artifactId>scratch-desktop</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>

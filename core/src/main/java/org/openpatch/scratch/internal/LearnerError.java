@@ -3,6 +3,7 @@ package org.openpatch.scratch.internal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import org.openpatch.scratch.internal.platform.Platform;
 
 /**
  * An exception from learner code, with the learner's frame found: the first stack frame outside
@@ -56,8 +57,7 @@ public record LearnerError(Throwable error, StackTraceElement learnerFrame) {
   }
 
   private static Object location(Class<?> type) {
-    var domain = type.getProtectionDomain();
-    return domain == null || domain.getCodeSource() == null ? null : domain.getCodeSource().getLocation();
+    return Platform.get().codeLocation(type);
   }
 
   /** {@code MySprite.run (MySprite.java:12)}, or the exception's own first frame. */

@@ -10,7 +10,7 @@
     </parent>
 
     <!--
-        The fat jar: the core, every first-party extension and all their
+        The fat jar: the core, its desktop platform, every first-party extension and all their
         dependencies with natives for six platforms, for Studio, the starter
         projects and `java -jar`. Built on every `mvn package`:
             all/target/scratch-<version>-all.jar
@@ -24,6 +24,10 @@
         <dependency>
             <groupId>org.openpatch</groupId>
             <artifactId>scratch</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.openpatch</groupId>
+            <artifactId>scratch-desktop</artifactId>
         </dependency>
         <dependency>
             <groupId>org.openpatch</groupId>

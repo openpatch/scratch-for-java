@@ -18656,8 +18656,8 @@
       "parameterTypes": [],
       "parameterNames": [],
       "params": [],
-      "summary": "The File class provides methods to save and load objects to and from files in\nJSON or XML format.\nIt supports saving and loading objects with automatic detection of file type\nbased on the method\nused. The class uses Jackson ObjectMapper for JSON and XmlMapper for XML\nserialization and\ndeserialization.",
-      "description": "The File class provides methods to save and load objects to and from files in\nJSON or XML format.\nIt supports saving and loading objects with automatic detection of file type\nbased on the method\nused. The class uses Jackson ObjectMapper for JSON and XmlMapper for XML\nserialization and\ndeserialization.\n\nUsage examples:\n\n```java\n// Save an object as JSON\nFile.save(\"/path/to/file.json\", myObject);\n\n// Save an object as XML\nFile.saveXML(\"/path/to/file.xml\", myObject);\n\n// Load an object from JSON\nMyClass obj = File.load(\"/path/to/file.json\", MyClass.class);\n\n// Load an object from XML\nMyClass obj = File.loadXML(\"/path/to/file.xml\", MyClass.class);\n```\n\nNote: The file paths can be absolute or relative. If a relative path is\nprovided, the class\nwill attempt to load the file from the classpath.\n\nSupported file types:\n\n<ul>\n<li>JSON\n<li>XML\n</ul>",
+      "summary": "Saves objects as JSON files and loads them again: their public fields and bean properties\n(getters and setters), with lists, maps, arrays, enums and nested objects.",
+      "description": "Saves objects as JSON files and loads them again: their public fields and bean properties\n(getters and setters), with lists, maps, arrays, enums and nested objects.\n\nUsage examples:\n\n```java\n// Save an object as JSON\nFile.save(\"/path/to/file.json\", myObject);\n\n// Load an object from JSON\nMyClass obj = File.load(\"/path/to/file.json\", MyClass.class);\n```\n\nNote: The file paths can be absolute or relative. A relative path is relative to the working\ndirectory; a file that is only on the classpath (inside a jar) is read from there.\n\nFor save games, [SaveData](../SaveData/index) is safer: it keeps the last save when writing fails and\nstores in the player's own folder.",
       "scratchblock": null,
       "paramDocs": [],
       "returns": null,
@@ -18736,74 +18736,6 @@
       "translations": {}
     },
     {
-      "id": "save/File/loadXML(String,Class)",
-      "memberId": "save/File/loadXML",
-      "owner": "org.openpatch.scratch.save.File",
-      "className": "File",
-      "methodName": "loadXML",
-      "static": true,
-      "returnType": "T",
-      "parameterTypes": [
-        "java.lang.String",
-        "java.lang.Class<T>"
-      ],
-      "parameterNames": [
-        "path",
-        "cls"
-      ],
-      "params": [
-        "String path",
-        "Class<T> cls"
-      ],
-      "summary": "Loads an object of the specified class from an XML file at the given path.",
-      "description": "Loads an object of the specified class from an XML file at the given path.",
-      "scratchblock": null,
-      "paramDocs": [
-        "path: the path to the XML file",
-        "cls: the class of the object to be loaded"
-      ],
-      "returns": "the object loaded from the XML file",
-      "since": "",
-      "docsUrl": "https://scratch4j.openpatch.org/reference/save/File/loadXML",
-      "availability": "desktop-only",
-      "availabilityReason": "This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation.",
-      "translations": {}
-    },
-    {
-      "id": "save/File/loadXMLOrCreate(String,Class)",
-      "memberId": "save/File/loadXMLOrCreate",
-      "owner": "org.openpatch.scratch.save.File",
-      "className": "File",
-      "methodName": "loadXMLOrCreate",
-      "static": true,
-      "returnType": "T",
-      "parameterTypes": [
-        "java.lang.String",
-        "java.lang.Class<T>"
-      ],
-      "parameterNames": [
-        "path",
-        "cls"
-      ],
-      "params": [
-        "String path",
-        "Class<T> cls"
-      ],
-      "summary": "Loads an object of the specified class from an XML file at the given path,\nor creates a new one if the file does not exist.",
-      "description": "Loads an object of the specified class from an XML file at the given path,\nor creates a new one if the file does not exist.",
-      "scratchblock": null,
-      "paramDocs": [
-        "path: the path to the XML file",
-        "cls: the class of the object to be loaded"
-      ],
-      "returns": "the object loaded from the XML file, or a new instance if the file\n        does not exist",
-      "since": "",
-      "docsUrl": "https://scratch4j.openpatch.org/reference/save/File/loadXMLOrCreate",
-      "availability": "desktop-only",
-      "availabilityReason": "This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation.",
-      "translations": {}
-    },
-    {
       "id": "save/File/save(String,T)",
       "memberId": "save/File/save",
       "owner": "org.openpatch.scratch.save.File",
@@ -18823,8 +18755,8 @@
         "String path",
         "T obj"
       ],
-      "summary": "Saves the given object to the specified path in the default file type (JSON).",
-      "description": "Saves the given object to the specified path in the default file type (JSON).",
+      "summary": "Saves the given object as a JSON file at the specified path.",
+      "description": "Saves the given object as a JSON file at the specified path.",
       "scratchblock": null,
       "paramDocs": [
         "path: the path where the object should be saved",
@@ -18833,40 +18765,6 @@
       "returns": null,
       "since": "",
       "docsUrl": "https://scratch4j.openpatch.org/reference/save/File/save",
-      "availability": "desktop-only",
-      "availabilityReason": "This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation.",
-      "translations": {}
-    },
-    {
-      "id": "save/File/saveXML(String,T)",
-      "memberId": "save/File/saveXML",
-      "owner": "org.openpatch.scratch.save.File",
-      "className": "File",
-      "methodName": "saveXML",
-      "static": true,
-      "returnType": "void",
-      "parameterTypes": [
-        "java.lang.String",
-        "T"
-      ],
-      "parameterNames": [
-        "path",
-        "obj"
-      ],
-      "params": [
-        "String path",
-        "T obj"
-      ],
-      "summary": "Saves the given object as an XML file at the specified path.",
-      "description": "Saves the given object as an XML file at the specified path.",
-      "scratchblock": null,
-      "paramDocs": [
-        "path: the path where the XML file will be saved",
-        "obj: the object to be saved as XML"
-      ],
-      "returns": null,
-      "since": "",
-      "docsUrl": "https://scratch4j.openpatch.org/reference/save/File/saveXML",
       "availability": "desktop-only",
       "availabilityReason": "This API requires the desktop runtime. Browser declarations may report the limitation without performing the operation.",
       "translations": {}
@@ -20016,7 +19914,7 @@
       "translations": {}
     },
     {
-      "id": "tiled/TiledMap/spawn(String)",
+      "id": "tiled/TiledMap/spawn(String,Class[])",
       "memberId": "tiled/TiledMap/spawn",
       "owner": "org.openpatch.scratch.tiled.TiledMap",
       "className": "TiledMap",
@@ -20024,19 +19922,23 @@
       "static": false,
       "returnType": "List<Sprite>",
       "parameterTypes": [
-        "java.lang.String"
+        "java.lang.String",
+        "java.lang.Class<? extends org.openpatch.scratch.Sprite>[]"
       ],
       "parameterNames": [
-        "layerName"
+        "layerName",
+        "types"
       ],
       "params": [
-        "String layerName"
+        "String layerName",
+        "Class<? extends Sprite>[] types"
       ],
-      "summary": "Creates a sprite for each object of a layer whose type names a sprite class,\nand adds it to the stage. In Tiled, give an object the type (called\n\"class\" in newer versions of Tiled) `Player`, and the map makes a\n`new Player()` where the object is.",
-      "description": "Creates a sprite for each object of a layer whose type names a sprite class,\nand adds it to the stage. In Tiled, give an object the type (called\n\"class\" in newer versions of Tiled) `Player`, and the map makes a\n`new Player()` where the object is.\n\nThe sprite's class needs one of these constructors, tried in this order:\none that takes the [MapObject](../MapObject/index) (to read its name and properties), one\nthat takes `(double x, double y)`, or one without parameters. Either\nway the sprite is put where the object is. An object drawn as an area\n(a rectangle, an ellipse or a polygon) also gives the sprite that area as\nits hitbox, which is how walls and water work without a costume.\n\nObjects whose type is not a sprite class, or that have no type, are left\nalone, so a layer can hold markers the program reads itself.\n\n```java\nTiledMap map = new TiledMap(\"level.tmx\", this);\nmap.spawn(\"Objects\");\n```",
+      "summary": "Creates a sprite for each object of a layer whose type is one of the given\nsprite classes, and adds it to the stage. In Tiled, give an object the type\n(called \"class\" in newer versions of Tiled) `Player`, and\n`map.spawn(\"Objects\", Player.class)` makes a `new Player()`\nwhere the object is.",
+      "description": "Creates a sprite for each object of a layer whose type is one of the given\nsprite classes, and adds it to the stage. In Tiled, give an object the type\n(called \"class\" in newer versions of Tiled) `Player`, and\n`map.spawn(\"Objects\", Player.class)` makes a `new Player()`\nwhere the object is.\n\nThe sprite's class needs one of these constructors, tried in this order:\none that takes the [MapObject](../MapObject/index) (to read its name and properties), one\nthat takes `(double x, double y)`, or one without parameters. Either\nway the sprite is put where the object is. An object drawn as an area\n(a rectangle, an ellipse or a polygon) also gives the sprite that area as\nits hitbox, which is how walls and water work without a costume.\n\nObjects whose type is none of the classes, or that have no type, are left\nalone, so a layer can hold markers the program reads itself. The classes\nare named in the program, not looked up by the names in the map: a game\nexported as a web page only contains the classes its code names.\n\n```java\nTiledMap map = new TiledMap(\"level.tmx\", this);\nmap.spawn(\"Objects\", Player.class, Wall.class);\n```",
       "scratchblock": null,
       "paramDocs": [
-        "layerName: the object layer"
+        "layerName: the object layer",
+        "types: the sprite classes to make, matched to the objects' types by\n    their names"
       ],
       "returns": "the sprites that were made, in the order of the layer",
       "since": "",
