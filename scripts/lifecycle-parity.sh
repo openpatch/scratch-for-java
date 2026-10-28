@@ -4,8 +4,9 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 probe_dir="$(mktemp -d)"
 trap 'rm -rf "$probe_dir"' EXIT
-# in the reactor, never `install` (AGENTS.md); the probe needs only the core
-mvn -q -DskipTests compile dependency:build-classpath -pl core -am \
+# in the reactor, never `install` (AGENTS.md); the probe needs the core and the
+# desktop platform (the core alone has no window)
+mvn -q -DskipTests compile dependency:build-classpath -pl desktop -am \
     -Dmdep.includeScope=runtime "-Dmdep.outputFile=$probe_dir/classpath"
 cat > "$probe_dir/DesktopLifecycleLauncher.java" <<'JAVA'
 public class DesktopLifecycleLauncher {
@@ -26,7 +27,7 @@ public class DesktopLifecycleLauncher {
   }
 }
 JAVA
-probe_cp="core/target/classes:$(cat "$probe_dir/classpath")"
+probe_cp="core/target/classes:desktop/target/classes:$(cat "$probe_dir/classpath")"
 javac -cp "$probe_cp" -d "$probe_dir" compatibility/probes/LifecycleProbe.java "$probe_dir/DesktopLifecycleLauncher.java"
 # the null audio backend, without OpenAL's log: the same output with or without a sound
 # card (CI has none)
