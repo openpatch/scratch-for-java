@@ -108,15 +108,25 @@ final class WebFiles implements VirtualFileSystem {
     return out;
   }
 
-  private static String key(String path) {
+  static String key(String path) {
     String p = path.replace('\\', '/');
-    while (p.startsWith("/")) {
-      p = p.substring(1);
+    // resolve ., .. and empty segments as a real file system does when it opens a file: a
+    // tileset's image path can reach out of the map's folder (maps/../../assets/…), and
+    // files.txt lists the files from the page's root
+    List<String> resolved = new ArrayList<>();
+    for (String segment : p.split("/")) {
+      if (segment.isEmpty() || segment.equals(".")) {
+        continue;
+      }
+      if (segment.equals("..")) {
+        if (!resolved.isEmpty()) {
+          resolved.remove(resolved.size() - 1);
+        }
+        continue;
+      }
+      resolved.add(segment);
     }
-    while (p.endsWith("/")) {
-      p = p.substring(0, p.length() - 1);
-    }
-    return p;
+    return String.join("/", resolved);
   }
 
   private static String child(String folder, String name) {
